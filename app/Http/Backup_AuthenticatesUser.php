@@ -55,7 +55,7 @@ trait AuthenticatesUsers
                 if (!empty($users)){
                     $this->diff_data($response,$users,$request);
                 }else{
-                    $this->insertuser($request,$response);
+                    $this->newuser($request,$response);
                 }
             }
         }
@@ -214,7 +214,7 @@ trait AuthenticatesUsers
         return Auth::guard();
     }
 
-    protected function insertuser($request,$response)
+    protected function newuser($request,$response)
     {
         $time = Carbon::now();
 
@@ -255,8 +255,8 @@ trait AuthenticatesUsers
 
         $UpdateUser = User::find($users->id);
 
-        if (!empty($result['aliasname'])){
-            $UpdateUser->name = $result['aliasname'];
+        if (!empty($result['name'])){
+            $UpdateUser->name = $result['name'];
         }
         if (!empty($result['email'])) {
             //$InUser->email = $response['email']['value'];
@@ -318,7 +318,6 @@ trait AuthenticatesUsers
         );
 
         $result=array_diff($originData,$users->toArray());
-
         $this->updateuser($result,$users,$request);
     }
 }

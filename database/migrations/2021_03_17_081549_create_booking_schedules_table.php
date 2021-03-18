@@ -17,6 +17,7 @@ class CreateBookingSchedulesTable extends Migration
             $table->id();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
+            $table->string('application_type')->nullable()->comment('new or replacement or renewal');
             $table->string('application_id')->nullable()->comment('get table application');
             $table->string('detail_application_id')->nullable()->comment('get table detail application');
             $table->string('user_id');
