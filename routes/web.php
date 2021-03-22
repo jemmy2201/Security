@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/personal/particular/{value_application}/{value_request}/','HomeController@personaldata')->name('personal.particular');
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
