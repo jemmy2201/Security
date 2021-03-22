@@ -55,11 +55,11 @@
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    <img src="img/logo.png" style="width: 80%;">
+                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+{{--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">--}}
+{{--                    <span class="navbar-toggler-icon"></span>--}}
+{{--                </button>--}}
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -72,7 +72,7 @@
 {{--                        <!-- Authentication Links -->--}}
 {{--                        @guest--}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}"><p style="color: #E31E1A;">home</p></a>
+                                <a class="nav-link" href="{{ url('/home') }}"><h3 style="color: #E31E1A;">home</h3></a>
                             </li>
 {{--                        @else--}}
 {{--                            <li class="nav-item dropdown">--}}

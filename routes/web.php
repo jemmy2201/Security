@@ -21,7 +21,10 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/personal/particular/{value_application}/{value_request}/','HomeController@personaldata')->name('personal.particular');
+//Route::get('/personal/particular/{value_application}/{value_request}/','HomeController@personaldata')->name('personal.particular');
+Route::get('/personal/particular', function () {
+    return view('personal_particular');
+});
 
 Auth::routes();
 

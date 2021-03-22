@@ -53,7 +53,7 @@
         <nav class="navbar navbar-expand-md navbar-light" style="background: #E5E5E5;">
             <div>
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="img/logo.png">
+                    <img src="{{URL::asset('/img/logo.png')}}">
                 </a>
             </div>
         </nav>
