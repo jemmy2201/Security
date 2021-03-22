@@ -1,105 +1,98 @@
 @extends('layouts.app')
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    .HeaderdataPersonal{
+        color:#808080;
+        font-size: 24px;
+    }
+    .ColoumndataPersonal{
+        font-weight: bold;
+        font-size: 24px;
+    }
+</style>
 @section('content')
 <div class="container">
-<h3 style="color: #E31E1A;">ID Card Portal</h3>
-<p style="color: #808080;">My Application Type</p>
-    <div class="container">
+    <h3 style="color: #E31E1A;">Personal Particular</h3>
+    <br>
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-secondary btn-lg btn-block" id="news" value="@php echo news @endphp">New</button>
+                <div class="row">
+                    <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    <div class="col-6 ColoumndataPersonal">Rio</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                    <div class="col-6 ColoumndataPersonal">S9812381D</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 HeaderdataPersonal">Pass ID No &nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">S9812381D</div>
+                </div>
             </div>
             <div class="col-sm">
-                <button type="button" class="btn btn-secondary btn-lg btn-block" id="replacement" value="@php echo replacement @endphp">Replacement</button>
             </div>
+            <br class="visible-xs hidden-md">
             <div class="col-sm">
-                <button type="button" class="btn btn-secondary btn-lg btn-block" id="renewal" value="@php echo renewal @endphp">Renewal</button>
+                <img src="{{URL::asset('/img/profile.png')}}" style="width: 30%;border-style: groove;">
             </div>
-            <input type="hidden" id="value_application" name="value_application">
         </div>
-    </div>
-<br>
-<p style="color: #808080;">My Request</p>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>
-            </div>
-            <div class="col-sm">
-                <button type="button" id="avso_app" class="btn btn-secondary btn-lg btn-block" value="@php echo avso_app @endphp" disabled>AVSO Aplication</button>
-            </div>
-            <div class="col-sm">
-                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Aplication</button>
-            </div>
-            <input type="hidden" id="value_request" name="value_request">
+    <br><br>
 
+    <h3 style="color: black;font-weight: bold;">Update Contact Details</h3>
+    <br>
+    <div class="row">
+        <div class="col HeaderdataPersonal email">
+            Email
+        </div>
+        <div class="col">
+        </div>
+        <div class="col-6 HeaderdataPersonal phone">
+            Phone Number
         </div>
     </div>
-<br>
-<p style="color: #808080;">History Applications</p>
-    <div style="border-style: groove;padding: 10px;">
-        <center>
-        This portion will display the member’s applications details and their status
-        </center>
+    <div class="row">
+        <div class="col-4 HeaderdataPersonal">
+            <input type="email" class="form-control" id="email" name="email"  placeholder="XXXXXX@gmail.com">
+        </div>
+        <div class="col-2">
+        </div>
+        <div class="col-4 HeaderdataPersonal">
+            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000">
+        </div>
+    </div>
+    <br ><br class="hidden-xs"><br class="hidden-xs">
+    <div class="row">
+        <div class="col-2 back">
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; color: #E31D1A"> <- Back </button>
+        </div>
+        <div class="col-6 medium">
+        </div>
+        <div class="col-2 next">
+            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next -></button>
+        </div>
     </div>
 </div>
 <script type="application/javascript">
-    $(document).ready(function() {
-        // Application type
-        $("#news").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
-            $("#value_application").val(document.getElementById("news").value);
-        });
-        $("#replacement").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#news").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
-            $("#value_application").val(document.getElementById("replacement").value);
-        });
-        $("#renewal").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#news").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
-            $("#value_application").val(document.getElementById("renewal").value);
-        });
-        // End Application type
-
-        // Request
-        $("#so_app").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#value_request").val(document.getElementById("so_app").value);
-            {{--var url = "{{route('personal.particular')}}"+"/"+$("#value_application").val()+"/"+$("#value_request").val();--}}
-            // window.location.href = url;
-        });
-        $("#avso_app").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
-
-            $("#value_request").val(document.getElementById("avso_app").value);
-        });
-        $("#pi_app").click(function() {
-            $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#value_request").val(document.getElementById("pi_app").value);
-        });
-        // End Request
+    //refresh page on browser resize
+    $(window).bind('resize', function(e)
+    {
+        this.location.reload(false); /* false to get page from cache */
+        /* true to fetch page from server */
     });
+    if($(window).width() < 767)
+    {
+        RemoveColNextBack();
+        $(".back").addClass("col-4");
+        $(".medium").addClass("col-4");
+        $(".next").addClass("col-4");
 
-    function RemoveDissableRequest() {
-        //remove disable request
-        $("#avso_app").prop("disabled", false);
-        $("#pi_app").prop("disabled", false);
-        $("#so_app").prop("disabled", false);
-        //end remove disable request
+        $(".email").css("font-size", "20px");
+        $(".phone").css("font-size", "20px");
+    }
+    function RemoveColNextBack() {
+        $(".back").removeClass("col-2");
+        $(".medium").removeClass("col-6");
+        $(".next").removeClass("col-2");
     }
 </script>
 @endsection
