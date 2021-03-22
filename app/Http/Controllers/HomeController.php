@@ -31,7 +31,7 @@ class HomeController extends Controller
 
         return view('home')->with(["schedule"=>$schedule]);
     }
-    public function personaldata(Request $request)
+    public function personaldata($value_application,$value_request)
     {
         $personal = User::where(['user_Id'=>Auth::id()])->first();
         return view('personaldata')->with(['personal'=>$personal,"request"=>$request]);
