@@ -48,13 +48,15 @@
     {{-- for $(document).ready --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     {{-- End for $(document).ready --}}
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a  href="{{ url('/home') }}">
                     <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
                 </a>
 {{--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">--}}
@@ -68,11 +70,11 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto pull-right">
 {{--                        <!-- Authentication Links -->--}}
 {{--                        @guest--}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}"><h3 style="color: #E31E1A;">home</h3></a>
+                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>
                             </li>
 {{--                        @else--}}
 {{--                            <li class="nav-item dropdown">--}}

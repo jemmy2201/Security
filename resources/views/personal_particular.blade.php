@@ -1,7 +1,5 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style>
     .HeaderdataPersonal{
         color:#808080;
@@ -19,7 +17,7 @@
         <div class="row">
             <div class="col-sm">
                 <div class="row">
-                    <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">Rio</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
@@ -63,7 +61,7 @@
     <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; color: #E31D1A"> <- Back </button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <- Back </button>
         </div>
         <div class="col-6 medium">
         </div>

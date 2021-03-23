@@ -12,7 +12,7 @@
 </style>
 @section('content')
 <div class="container">
-    <h3 style="color: #E31E1A;">Submission</h3>
+    <h3 style="color: #E31E1A;">Book Appointment</h3>
     <br>
         {{-- Desktop --}}
             <div class="row hidden-xs">
