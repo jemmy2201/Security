@@ -25,7 +25,9 @@ Route::get('/home', function () {
 Route::get('/personal/particular', function () {
     return view('personal_particular');
 });
-
+Route::get('/submission', function () {
+    return view('submission');
+});
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
