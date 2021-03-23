@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,13 +170,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\training_application_schedule\public\js" />
       <recent name="C:\laragon\www\training_application_schedule\resources\views" />
+      <recent name="C:\laragon\www\training_application_schedule\public\js" />
       <recent name="C:\laragon\www\training_application_schedule\resources\views\layouts" />
     </key>
   </component>
@@ -227,7 +227,7 @@
       <workItem from="1616390612293" duration="8274000" />
       <workItem from="1616400682924" duration="30692000" />
       <workItem from="1616475166713" duration="5210000" />
-      <workItem from="1616481062473" duration="1712000" />
+      <workItem from="1616481062473" duration="8512000" />
     </task>
     <servers />
   </component>
@@ -247,22 +247,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1616480869850" />
-    <state width="1181" height="179" key="GridCell.Tab.0.bottom" timestamp="1616478536651">
+    <state width="1181" height="179" key="GridCell.Tab.0.bottom" timestamp="1616485300131">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616478536651" />
-    <state width="1181" height="179" key="GridCell.Tab.0.center" timestamp="1616478536651">
+    <state width="1181" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
+    <state width="1181" height="179" key="GridCell.Tab.0.center" timestamp="1616485300131">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616478536651" />
-    <state width="1181" height="179" key="GridCell.Tab.0.left" timestamp="1616478536651">
+    <state width="1181" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
+    <state width="1181" height="179" key="GridCell.Tab.0.left" timestamp="1616485300130">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616478536651" />
-    <state width="1181" height="179" key="GridCell.Tab.0.right" timestamp="1616478536651">
+    <state width="1181" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616485300130" />
+    <state width="1181" height="179" key="GridCell.Tab.0.right" timestamp="1616485300131">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616478536651" />
+    <state width="1181" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -291,5 +291,16 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616475484074" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/payment_detail.blade.php</url>
+          <line>82</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

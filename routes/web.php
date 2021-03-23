@@ -31,6 +31,9 @@ Route::get('/submission', function () {
 Route::get('/book/appointment', function () {
     return view('book_appointment');
 });
+Route::get('/payment/detail', function () {
+    return view('payment_detail');
+});
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
