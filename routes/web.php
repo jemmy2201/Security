@@ -39,7 +39,7 @@ Route::get('/payment/detail', function () {
 
 //admin
 Route::get('/admin/login', function () {
-    return view('admin/login');
+    return view('auth/login');
 });
 Route::get('/admin/home', function () {
     return view('admin/home');
