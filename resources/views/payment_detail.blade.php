@@ -191,6 +191,7 @@
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#payment").addClass('btn-secondary').removeClass('btn-danger ');
             $("#visa").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#master").addClass('btn-secondary').removeClass('btn-danger ');
             $("#payment_method").val(document.getElementById("enets").value);
         });
         $("#visa").click(function() {

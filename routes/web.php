@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// user
 Route::get('/', function () {
     return view('login');
 });
@@ -34,6 +35,14 @@ Route::get('/book/appointment', function () {
 Route::get('/payment/detail', function () {
     return view('payment_detail');
 });
+// end user
+
+//admin
+Route::get('/admin/home', function () {
+    return view('admin/home');
+});
+//end admin
+
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
