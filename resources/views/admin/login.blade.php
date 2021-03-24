@@ -1,66 +1,96 @@
-@extends('layouts.app_login')
+@extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 hidden-xs" style="margin-top: 150px;margin-left: 150px;">
-                        <h1><b>Welcome to Union of </b></h1>
-                        <h1><b>Security Employees</b></h1>
-                    </div>
-                    <div class="col-sm-6 visible-xs hidden-md">
-                        <h1><b>Welcome to Union of </b></h1>
-                        <h1><b>Security Employees</b></h1>
-                    </div>
-                    <div class="col-sm-4" style="border-style: groove; background: white">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
-                            <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
-                        </ul>
+@section('adminlte_css_pre')
+    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+@stop
 
-                        <div class="tab-content">
-                            <div id="scan" class="tab-pane fade in active">
-                                <center>
-                                    <h3><b>Scan with Singpass app</b></h3>
-                                <h4>to log in</h4>
-                                </center>
-                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
-                                <center>
-                                <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
-                                </center>
-                            </div>
-                            <div id="passlogin" class="tab-pane fade">
-                                <h3>Log in</h3>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="SingPass ID">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                                    </div>
-                                    <button type="submit" class=" btn btn-danger btn-lg btn-block ">Log in</button>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col">
-                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>
-                                        </div>
-                                        <div class="col" style="margin-left: 74px;">
-                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <center>
-                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>
-                                    </center>
-                                    <br>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
+@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
+@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
 
+@if (config('adminlte.use_route_url', false))
+    @php( $login_url = $login_url ? route($login_url) : '' )
+    @php( $register_url = $register_url ? route($register_url) : '' )
+    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
+@else
+    @php( $login_url = $login_url ? url($login_url) : '' )
+    @php( $register_url = $register_url ? url($register_url) : '' )
+    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
+@endif
+
+@section('auth_header', __('adminlte::adminlte.Login'))
+
+@section('auth_body')
+    <form action="{{ $login_url }}" method="post">
+        {{ csrf_field() }}
+
+        {{-- Email field --}}
+        <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
+            @if($errors->has('email'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </div>
+            @endif
         </div>
-    </div>
-@endsection
+
+        {{-- Password field --}}
+        <div class="input-group mb-3">
+            <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                   placeholder="{{ __('adminlte::adminlte.password') }}">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+            @if($errors->has('password'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </div>
+            @endif
+        </div>
+
+        {{-- Login field --}}
+        <div class="row">
+            <div class="col-7">
+                <div class="icheck-primary">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
+                </div>
+            </div>
+            <div class="col-5">
+                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                    <span class="fas fa-sign-in-alt"></span>
+                    {{ __('adminlte::adminlte.sign_in') }}
+                </button>
+            </div>
+        </div>
+
+    </form>
+@stop
+
+@section('auth_footer')
+    {{-- Password reset link --}}
+    @if($password_reset_url)
+        <p class="my-0">
+            <a href="{{ $password_reset_url }}">
+                {{ __('adminlte::adminlte.i_forgot_my_password') }}
+            </a>
+        </p>
+    @endif
+
+{{--    --}}{{-- Register link --}}
+{{--    @if($register_url)--}}
+{{--        <p class="my-0">--}}
+{{--            <a href="{{ $register_url }}">--}}
+{{--                {{ __('adminlte::adminlte.register_a_new_membership') }}--}}
+{{--            </a>--}}
+{{--        </p>--}}
+{{--    @endif--}}
+@stop

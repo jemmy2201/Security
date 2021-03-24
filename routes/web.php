@@ -38,6 +38,9 @@ Route::get('/payment/detail', function () {
 // end user
 
 //admin
+Route::get('/admin/login', function () {
+    return view('admin/login');
+});
 Route::get('/admin/home', function () {
     return view('admin/home');
 });
