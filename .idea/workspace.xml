@@ -2,10 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/home.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/app_admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/application_schedule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/application_schedule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constant.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/constant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/confirm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/confirm.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +168,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte" />
+      <path value="$PROJECT_DIR$/vendor/jeroennoten/laravel-adminlte" />
     </include_path>
   </component>
   <component name="ProjectId" id="1psL0Al2sNvoUPM48sq7JR9eRjz" />
@@ -171,14 +186,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\training_application_schedule\resources\views\admin" />
+      <recent name="C:\laragon\www\training_application_schedule\resources\views\layouts" />
       <recent name="C:\laragon\www\training_application_schedule\resources\views" />
       <recent name="C:\laragon\www\training_application_schedule\public\js" />
-      <recent name="C:\laragon\www\training_application_schedule\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -228,7 +244,7 @@
       <workItem from="1616390612293" duration="8274000" />
       <workItem from="1616400682924" duration="30692000" />
       <workItem from="1616475166713" duration="5210000" />
-      <workItem from="1616481062473" duration="10092000" />
+      <workItem from="1616481062473" duration="13573000" />
     </task>
     <servers />
   </component>
@@ -272,10 +288,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1616046196044" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616402425302">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616550182366">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616402425302" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616550182366" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1616475167203">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -288,10 +304,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1616048061267" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616546695681">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616550072878">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616546695681" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616550072878" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

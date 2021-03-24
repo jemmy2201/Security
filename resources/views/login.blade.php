@@ -25,7 +25,7 @@
                                     <h3><b>Scan with Singpass app</b></h3>
                                 <h4>to log in</h4>
                                 </center>
-                                <img src="{{URL::asset('/img/barcode_singpass.png')}}">
+                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
                                 <center>
                                 <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
                                 </center>
