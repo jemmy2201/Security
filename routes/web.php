@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
-
 //Route::get('/personal/particular/{value_application}/{value_request}/','HomeController@personaldata')->name('personal.particular');
 Route::get('/personal/particular', function () {
     return view('personal_particular');
@@ -54,4 +50,4 @@ Route::get('/admin/payment', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

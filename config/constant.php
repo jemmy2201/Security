@@ -17,3 +17,8 @@ define('enets', 1);
 define('visa', 2);
 define('mastercard', 3);
 // End payment method
+
+// type login
+define('barcode', 0);
+define('non_barcode', 1);
+// end type login
