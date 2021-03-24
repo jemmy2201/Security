@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/adminlte/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/adminlte/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/adminlte.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adminlte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historylogin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/vendor/adminlte/partials/common/brand-logo-xs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/adminlte/partials/common/brand-logo-xs.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +175,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/event-calendar-local-storage" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -230,7 +233,7 @@
       <workItem from="1616390612293" duration="8274000" />
       <workItem from="1616400682924" duration="30692000" />
       <workItem from="1616475166713" duration="5210000" />
-      <workItem from="1616481062473" duration="17316000" />
+      <workItem from="1616481062473" duration="25125000" />
     </task>
     <servers />
   </component>
@@ -246,26 +249,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1616051225494" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1616480869850">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1616568208246">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1616480869850" />
-    <state width="1181" height="179" key="GridCell.Tab.0.bottom" timestamp="1616485300131">
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1616568208246" />
+    <state width="1181" height="179" key="GridCell.Tab.0.bottom" timestamp="1616568160538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
-    <state width="1181" height="179" key="GridCell.Tab.0.center" timestamp="1616485300131">
+    <state width="1181" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616568160538" />
+    <state width="1181" height="179" key="GridCell.Tab.0.center" timestamp="1616568160538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
-    <state width="1181" height="179" key="GridCell.Tab.0.left" timestamp="1616485300130">
+    <state width="1181" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616568160538" />
+    <state width="1181" height="179" key="GridCell.Tab.0.left" timestamp="1616568160537">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616485300130" />
-    <state width="1181" height="179" key="GridCell.Tab.0.right" timestamp="1616485300131">
+    <state width="1181" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616568160537" />
+    <state width="1181" height="179" key="GridCell.Tab.0.right" timestamp="1616568160538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616485300131" />
+    <state width="1181" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616568160538" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -274,26 +277,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1616046196044" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616553779319">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616565772531">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616553779319" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616565772531" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1616475167203">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1616475167203" />
-    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1616553365729">
+    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616564208256">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1616553365729" />
+    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1616564208256" />
+    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1616566146804">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1616566146804" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1616048061267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1616048061267" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616554526622">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616567846737">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616554526622" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616567846737" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
