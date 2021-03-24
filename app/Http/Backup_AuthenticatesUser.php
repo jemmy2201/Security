@@ -10,6 +10,8 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use function GuzzleHttp\Promise\all;
+
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -34,7 +36,7 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+//        $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -45,24 +47,28 @@ trait AuthenticatesUsers
 
             return $this->sendLockoutResponse($request);
         }
-
-
-        if (true){ // check login singpass
-            $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
-            if ($response->status() == "200"){
-                $response = $response->json();
-                $users= User::where('nric',$response['sponsoredchildrenrecords'][0]['nric'])->orWhere('fin',$response['uinfin']['value'])->first();
-                if (!empty($users)){
-                    $this->diff_data($response,$users,$request);
-                }else{
-                    $this->newuser($request,$response);
+        if ($request->type_login == non_barcode) {
+            // api cek sinpass
+            if (true) { // check login singpass
+                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
+                if ($response->status() == "200") {
+                    $response = $response->json();
+                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('fin', $response['uinfin']['value'])->first();
+                    if (!empty($users)) {
+                        $data = $this->diff_data($response, $users, $request);
+                    } else {
+                        $data = $this->newuser($request, $response);
+                    }
                 }
             }
         }
 
-//        if ($this->attemptLogin($request)) {
-//            return $this->sendLoginResponse($request);
-//        }
+        $email = array("email" => $data->email);
+        $request->merge($email);
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -244,9 +250,7 @@ trait AuthenticatesUsers
 
         $InUser->save();
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
+        return $InUser;
     }
 
     protected function updateuser($result,$users,$request)
@@ -296,9 +300,7 @@ trait AuthenticatesUsers
 
         $UpdateUser->save();
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
+        return $UpdateUser;
     }
 
     protected function diff_data($response,$users,$request)
@@ -318,6 +320,9 @@ trait AuthenticatesUsers
         );
 
         $result=array_diff($originData,$users->toArray());
-        $this->updateuser($result,$users,$request);
+
+        $data = $this->updateuser($result,$users,$request);
+
+        return $data;
     }
 }

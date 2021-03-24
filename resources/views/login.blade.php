@@ -32,12 +32,14 @@
                             </div>
                             <div id="passlogin" class="tab-pane fade">
                                 <h3>Log in</h3>
-                                <form>
+                                <form  method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <input type="hidden" id="type_login" name="type_login" value="@php echo non_barcode @endphp">
                                     <div class="form-group">
                                         <input type="email" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="SingPass ID">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                        <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
                                     </div>
                                     <button type="submit" class=" btn btn-danger btn-lg btn-block ">Log in</button>
                                     <br>
