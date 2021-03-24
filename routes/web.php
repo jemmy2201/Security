@@ -41,8 +41,11 @@ Route::get('/payment/detail', function () {
 Route::get('/admin/login', function () {
     return view('auth/login');
 });
-Route::get('/admin/home', function () {
-    return view('admin/home');
+Route::get('/admin/history/login', function () {
+    return view('admin/historylogin');
+});
+Route::get('/admin/appointment', function () {
+    return view('admin/appointment');
 });
 //end admin
 
