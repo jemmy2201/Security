@@ -21,7 +21,6 @@
 @section('content')
 <div class="container">
     <div class="row navbar-light navbar-white" id="apps">
-s
     </div>
 </div>
 <script type="application/javascript">

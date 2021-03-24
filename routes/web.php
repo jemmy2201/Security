@@ -47,6 +47,9 @@ Route::get('/admin/history/login', function () {
 Route::get('/admin/appointment', function () {
     return view('admin/appointment');
 });
+Route::get('/admin/payment', function () {
+    return view('admin/payment');
+});
 //end admin
 
 Auth::routes();

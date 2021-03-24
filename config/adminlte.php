@@ -236,8 +236,13 @@ return [
         ],
         [
             'text' => 'Payment',
-            'url'  => 'admin/Payment',
+            'url'  => 'admin/payment',
             'icon' => 'fa fa-credit-card',
+        ],
+        [
+            'text' => 'Logout',
+            'url'  => 'admin/logout',
+            'icon' => 'fas fa-sign-out-alt',
         ],
 //        [
 //            'text' => 'search',
