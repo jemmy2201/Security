@@ -48,7 +48,7 @@ class HomeController extends Controller
             $this->UpdateUsers($diff_data);
         }
 
-        if ($request->application_type== application_so){
+        if ($request->application_type== so_app){
             $detail_app = detail_application::where(['application_id'=>$request->application_id]);
         }
 

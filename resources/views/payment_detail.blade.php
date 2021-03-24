@@ -14,17 +14,18 @@
             <h3><b>Payment Method</b></h3>
             <div class="row" >
                 <div class="col-3 VPpaynow Listpaymentmenthod">
-                    <button type="button" class="btn btn-secondary btn-lg" id="payment" style="border-style: groove;">PayNow</button>
+                    <button type="button" class="btn btn-secondary btn-lg" id="payment" style="border-style: groove;" value="@php echo paynow;@endphp">PayNow</button>
                 </div>
                 <div class="col-3 VPenets Listpaymentmenthod">
-                    <button type="button" class="btn btn-secondary btn-lg" id="enets" style="border-style: groove;">eNets</button>
+                    <button type="button" class="btn btn-secondary btn-lg" id="enets" style="border-style: groove;" value="@php echo enets;@endphp">eNets</button>
                 </div>
                 <div class="col-3 VPvisa Listpaymentmenthod">
-                    <button type="button" class="btn btn-secondary btn-lg" id="visa" style="border-style: groove;">Visa</button>
+                    <button type="button" class="btn btn-secondary btn-lg" id="visa" style="border-style: groove;" value="@php echo visa;@endphp">Visa</button>
                 </div>
                 <div class="col-3 VPmaster Listpaymentmenthod" >
-                    <button type="button" class="btn btn-secondary btn-lg" id="master" style="border-style: groove;">Mastercard</button>
+                    <button type="button" class="btn btn-secondary btn-lg" id="master" style="border-style: groove;" value="@php echo mastercard;@endphp">Mastercard</button>
                 </div>
+                <input type="hidden" id="payment_method" name="payment_method">
             </div><br>
             <div class="row">
                 <div class="col-6">
@@ -177,5 +178,36 @@
         $("#master").removeClass("btn-lg");
         $("#payment").removeClass("btn-lg");
     }
+    $(document).ready(function() {
+
+        $("#payment").click(function() {
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#enets").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#visa").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#master").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#payment_method").val(document.getElementById("payment").value);
+        });
+        $("#enets").click(function() {
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#payment").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#visa").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#payment_method").val(document.getElementById("enets").value);
+        });
+        $("#visa").click(function() {
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#payment").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#enets").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#master").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#payment_method").val(document.getElementById("visa").value);
+        });
+        $("#master").click(function() {
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#payment").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#enets").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#visa").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#payment_method").val(document.getElementById("master").value);
+        });
+    });
+
 </script>
 @endsection
