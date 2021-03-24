@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/payment.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/adminlte.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adminlte.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historylogin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/adminlte/partials/common/brand-logo-xs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/adminlte/partials/common/brand-logo-xs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,7 +174,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/event-calendar-local-storage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -233,7 +232,7 @@
       <workItem from="1616390612293" duration="8274000" />
       <workItem from="1616400682924" duration="30692000" />
       <workItem from="1616475166713" duration="5210000" />
-      <workItem from="1616481062473" duration="25125000" />
+      <workItem from="1616481062473" duration="26116000" />
     </task>
     <servers />
   </component>
@@ -289,10 +288,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1616564208256" />
-    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1616566146804">
+    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1616572252637">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1616566146804" />
+    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1616572252637" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1616048061267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
