@@ -15,6 +15,8 @@
 - php artisan adminlte:install --only=main_views
 - php artisan adminlte:install --only=auth_views
 
+- copy http/backup_AuthenticatesUser to vendor/laravel/ui/auth-backend/AuthenticatesUser
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
