@@ -19,12 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('nric')->nullable()->comment('National Registration Identity Card');
-            $table->string('fin')->nullable()->comment('Foreign Identification Number');
+            $table->string('nric')->nullable()->comment('National Registration Identity Card or Foreign Identification Number');
+            $table->string('passid')->nullable();
             $table->string('passportexpirydate')->nullable();
             $table->string('passexpirydate')->nullable();
             $table->string('passportnumber')->nullable();
             $table->string('mobileno')->nullable();
+            $table->string('homeno')->nullable();
             $table->string('photo')->nullable();
             $table->date('time_login_at')->nullable()->comment('time login');
             $table->rememberToken();
