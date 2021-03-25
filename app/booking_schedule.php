@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class booking_schedule extends Model
 {
     protected $fillable = [
-        'start_at', 'end_at', 'application_type','application_id','detail_application_id','user_id'
+        'app_type', 'card_id', 'grade_id','declaration_date','trans_date','expired_date','appointment_date','gst_id','transaction_amount_id','paymentby','status_payment','user_id'
     ];
 }

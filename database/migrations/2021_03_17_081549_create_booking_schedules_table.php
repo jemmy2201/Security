@@ -15,11 +15,18 @@ class CreateBookingSchedulesTable extends Migration
     {
         Schema::create('booking_schedules', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
-            $table->string('application_type')->nullable()->comment('new or replacement or renewal');
-            $table->string('application_id')->nullable()->comment('get table application');
-            $table->string('detail_application_id')->nullable()->comment('get table detail application');
+            $table->string('app_type')->nullable()->comment('new or replacement or renewal');
+            $table->string('card_id')->nullable()->comment('get table application');
+            $table->string('grade_id')->nullable()->comment('get table detail application');
+            $table->timestamp('declaration_date')->nullable();
+            $table->timestamp('trans_date')->nullable();
+            $table->timestamp('expired_date')->nullable();
+            $table->timestamp('appointment_date')->nullable();
+            $table->string('gst_id')->nullable();
+            $table->string('transaction_amount_id')->nullable();
+            $table->string('Status_app')->nullable();
+            $table->string('paymentby')->nullable();
+            $table->string('status_payment')->nullable();
             $table->string('user_id');
             $table->timestamps();
         });
