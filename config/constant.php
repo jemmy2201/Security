@@ -5,11 +5,11 @@ define('replacement', 1);
 define('renewal', 2);
 //End application type
 
-//Request
+//card
 define('so_app', 0);
 define('avso_app', 1);
 define('pi_app', 2);
-//End Request
+//End card
 
 // payment method
 define('paynow', 0);
@@ -22,3 +22,9 @@ define('mastercard', 3);
 define('barcode', 0);
 define('non_barcode', 1);
 // end type login
+
+// status app
+define('submission', 0);
+define('book_appointment', 1);
+define('payment', 2);
+// end status app

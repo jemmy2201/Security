@@ -19,15 +19,8 @@ Route::get('/', function () {
 });
 
 //Route::get('/personal/particular/{value_application}/{value_request}/','HomeController@personaldata')->name('personal.particular');
-Route::get('/personal/particular', function () {
-    return view('personal_particular');
-});
-Route::get('/submission', function () {
-    return view('submission');
-});
-Route::get('/book/appointment', function () {
-    return view('book_appointment');
-});
+
+
 Route::get('/payment/detail', function () {
     return view('payment_detail');
 });
@@ -51,3 +44,10 @@ Route::get('/admin/payment', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
+Route::post('/submission', 'HomeController@submission')->name('submission');
+Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
+
+Route::prefix('ajax')->group(function () {
+    Route::get('/cek/data/from', 'AjaxController@cek_data_from');
+});

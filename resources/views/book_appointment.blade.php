@@ -29,7 +29,7 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <- Back </button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"><a href="javascript:history.go(-1)" style="text-decoration:none;"> <- Back </a></button>
         </div>
         <div class="col-6 medium">
         </div>

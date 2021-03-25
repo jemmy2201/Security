@@ -20,13 +20,19 @@
                     <h4><b>Submitted Details</b></h4>
                     <div class="row">
                         <div class="col-4 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                        <div class="col-4 ColoumndataPersonal">S9812381D</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
                         <div class="w-100"></div>
                         <div class="col-4 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">Rio</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
                         <div class="w-100"></div>
                         <div class="col-4 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">SO / SSO / SSS</div>
+                            @if ($request->card == so_app)
+                                <div class="col-4 ColoumndataPersonal">SO / SSO / SSS</div>
+                            @elseif($request->card == avso_app)
+                                <div class="col-4 ColoumndataPersonal">AVSO</div>
+                            @else
+                                <div class="col-4 ColoumndataPersonal">PI</div>
+                            @endif
                     </div>
                 </div>
                 <div class="col-sm-0">
@@ -36,10 +42,10 @@
                     <br><br>
                     <div class="row">
                         <div class="col-4 HeaderdataPersonal">Pass ID No &ensp;:</div>
-                        <div class="col-4 ColoumndataPersonal">XXXXXXXXX</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
                         <div class="w-100"></div>
                         <div class="col-4 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">Rio</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                     </div>
                 </div>
             </div>
@@ -51,13 +57,19 @@
                 <h4><b>Submitted Details</b></h4>
                 <div class="row">
                     <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                    <div class="col-6 ColoumndataPersonal">S9812381D</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">Rio</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">SO / SSO / SSS</div>
+                    @if ($request->card == so_app)
+                        <div class="col-6 ColoumndataPersonal">SO / SSO / SSS</div>
+                    @elseif($request->card == avso_app)
+                        <div class="col-6 ColoumndataPersonal">AVSO</div>
+                    @else
+                        <div class="col-6 ColoumndataPersonal">PI</div>
+                    @endif
                 </div>
             </div>
             <div class="col-sm">
@@ -67,29 +79,32 @@
                 <br><br>
                 <div class="row">
                     <div class="col-6 HeaderdataPersonal">Pass ID No &ensp;:</div>
-                    <div class="col-6 ColoumndataPersonal">XXXXXXXXX</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">Rio</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                 </div>
             </div>
         </div>
         {{-- End Phone --}}
 
     <br><br>
-    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
-    <br>
-    <div class="row">
-        <div class="col-10 HeaderdataPersonal email">
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+    <form method="post" id="book_appointment" action="{{ route('book.appointment') }}" >
+        @csrf
+    @if(!empty($grade))
+        <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+        <br>
+        <div class="row">
+            <div class="col-10 HeaderdataPersonal">
+                <select class="form-control" id="grade" name="grade">
+                    <option value="0" selected>please choose</option>
+                    @foreach ($grade as $f)
+                        <option value="{{$f->id}}">{{$f->name}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
+    @endif
     <br>
     <h3 style="color: black;font-weight: bold;">Add Photo</h3>
     <div class="row">
@@ -109,7 +124,7 @@
     <br>
     <div class="row" style="margin-left: 1px;">
         <div class="col-0">
-            <input type="checkbox" id="approval_user" name="approval_user">
+            <input type="checkbox" id="declare" name="declare">
         </div>
         <div class="col-8">
             <b>I declare that I have been assessed and certified in the following training modules</b>
@@ -118,16 +133,56 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <- Back </button>
+            <button class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"><a href="javascript:history.go(-1)" style="text-decoration:none;"> <- Back </a></button>
         </div>
         <div class="col-6 medium">
         </div>
         <div class="col-2 next">
-            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next -></button>
+            <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next -></button>
         </div>
     </div>
+        <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
+        <input type="hidden" id="card" name="card" value="{{$request->card}}">
+    </form>
 </div>
 <script type="application/javascript">
+    $( document ).ready(function() {
+        $( "#submit_book_appointment" ).click(function() {
+            var declare = document.getElementById("declare");
+            if (declare.checked == true){
+                if({!! json_encode($grade) !!}){
+                    if($("#grade").val()==false){
+                        swal("Please!", " select training ", "error")
+                    }else{
+                        $( "#book_appointment" ).submit();
+                    }
+                }else{
+                    $( "#book_appointment" ).submit();
+                }
+            }else{
+                swal("Please!", " tick declare", "error")
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    console.log('jrg',e.target.result)
+                    $('.file_upload_profile').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#upload_profile").change(function() {
+            console.log('jrg 2')
+            readURL(this);
+        });
+    });
+
     $('.file_upload_profile').click(function(){ $('#upload_profile').trigger('click'); });
     //refresh page on browser resize
     $(window).bind('resize', function(e)
