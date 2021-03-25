@@ -53,7 +53,7 @@ trait AuthenticatesUsers
                 $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
                 if ($response->status() == "200") {
                     $response = $response->json();
-                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('fin', $response['uinfin']['value'])->first();
+                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
                     if (!empty($users)) {
                         $data = $this->diff_data($response, $users, $request);
                     } else {
@@ -234,7 +234,7 @@ trait AuthenticatesUsers
 
         $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
 
-        $InUser->fin =$response['uinfin']['value'];
+        $InUser->passid =$response['uinfin']['value'];
 
         $InUser->passportexpirydate =$response['passportexpirydate']['value'];
 
@@ -243,6 +243,8 @@ trait AuthenticatesUsers
         $InUser->passportnumber =$response['passportnumber']['value'];
 
         $InUser->mobileno =$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'];
+
+        $InUser->homeno =$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'];
 
         $InUser->photo =$response['drivinglicence']['photocardserialno']['value'];
 
@@ -274,7 +276,7 @@ trait AuthenticatesUsers
         }
 
         if (!empty($result['uinfin'])) {
-            $UpdateUser->fin = $result['uinfin']['value'];
+            $UpdateUser->passid = $result['uinfin']['value'];
         }
         if (!empty($result['passportexpirydate'])) {
             $UpdateUser->passportexpirydate = $result['passportexpirydate'];
@@ -288,6 +290,10 @@ trait AuthenticatesUsers
 
         if (!empty($result['mobileno'])) {
             $UpdateUser->mobileno = $result['mobileno'];
+        }
+
+        if (!empty($result['homeno'])) {
+            $UpdateUser->homeno = $result['homeno'];
         }
 
         if (!empty($result['photo'])) {
@@ -310,10 +316,11 @@ trait AuthenticatesUsers
             "email"=>$response['email']['value'],
             "password"=>Hash::make($request->password),
             "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
-            "fin"=>$response['uinfin']['value'],
+            "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
             "passexpirydate"=>$response['passexpirydate']['value'],
             "passportnumber"=>$response['passportnumber']['value'],
+            "homeno"=>$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'],
             "mobileno"=>$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'],
             "photo"=>$response['drivinglicence']['photocardserialno']['value'],
             "time_login_at"=>$time->toDateTimeString()

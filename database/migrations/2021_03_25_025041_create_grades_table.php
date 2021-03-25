@@ -15,7 +15,7 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->string('application_id')->nullable()->comment('get table application');
+            $table->string('card_id')->nullable()->comment('get table application');
             $table->string('name');
             $table->string('bsoc');
             $table->string('ssoc');

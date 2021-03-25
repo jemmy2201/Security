@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\grade;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\booking_schedule;
@@ -25,21 +27,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
 
         return view('home')->with(["schedule"=>$schedule]);
     }
-    public function personaldata($value_application,$value_request)
+    public function personaldata(Request $request)
     {
-        $personal = User::where(['user_Id'=>Auth::id()])->first();
-        return view('personaldata')->with(['personal'=>$personal,"request"=>$request]);
+        $personal = User::where(['id'=>Auth::id()])->first();
+        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
     }
 
-    public function courses(Request $request)
+    public function submission(Request $request)
     {
-        $detail_app = null;
+        $grade = null;
 
         $diff_data = $this->diff_data($request);
 
@@ -47,19 +50,51 @@ class HomeController extends Controller
             // Update
             $this->UpdateUsers($diff_data);
         }
-
-        if ($request->application_type== so_app){
-            $detail_app = detail_application::where(['application_id'=>$request->application_id]);
+        if ($request->card== so_app){
+            $grade = grade::where(['card_id'=>$request->card])->get();
         }
+        $personal = User::where(['id'=>Auth::id()])->first();
 
-        $personal = User::where(['user_Id'=>Auth::id()])->first();
-
-        return view('courses')->with(['personal'=>$personal,"detail_app"=>$detail_app]);
+        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request]);
     }
 
-    public function choosedate(Request $request)
+    public function book_appointment(Request $request)
     {
-        return view('choosedate')->with(["request"=>$request]);
+        $grade = false;
+        if (!empty($request->grade)){
+            $grade = $request->grade;
+        }
+
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        if (empty($booking_schedule)){
+
+            $booking_schedule = new booking_schedule;
+
+            $booking_schedule->app_type = $request->app_type;
+
+            $booking_schedule->card_id = $request->card;
+
+            $booking_schedule->grade_id = $grade;
+
+            $booking_schedule->declaration_date = Carbon::today()->toDateString();
+
+            $booking_schedule->status_app = submission;
+
+            $booking_schedule->user_id = Auth::id();
+
+            $booking_schedule->save();
+        }else{
+            $booking_schedule = $booking_schedule::where(['user_id'=>Auth::id()])
+                                ->update([
+                                    'app_type' => $request->app_type,
+                                    'card_id' => $request->card,
+                                    'grade_id' => $grade,
+                                    'declaration_date' => Carbon::today()->toDateString(),
+                                    'status_app' => submission,
+                                    'user_id' => Auth::id(),
+                                ]);
+        }
+        return view('book_appointment')->with(["request"=>$request]);
     }
 
     public function View_payment(Request $request)
@@ -114,12 +149,11 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-
         $UpdateUser = User::find(Auth::id());
 
-        $UpdateUser->email = $request->email;
+        $UpdateUser->email = $request['email'];
 
-        $UpdateUser->mobileno = $request->mobileno;
+        $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->save();
 
@@ -132,7 +166,7 @@ class HomeController extends Controller
             "mobileno"=>$request->mobileno
         );
 
-        $personal = User::where(['user_Id'=>Auth::id()])->get();
+        $personal = User::where(['id'=>Auth::id()])->first();
 
         $result=array_diff($originData,$personal->toArray());
 

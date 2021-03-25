@@ -18,13 +18,13 @@
             <div class="col-sm">
                 <div class="row">
                     <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">Rio</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                    <div class="col-6 ColoumndataPersonal">S9812381D</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
                     <div class="w-100"></div>
                     <div class="col-6 HeaderdataPersonal">Pass ID No &nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">S9812381D</div>
+                    <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
                 </div>
             </div>
             <div class="col-sm">
@@ -48,20 +48,22 @@
             Phone Number
         </div>
     </div>
+    <form method="post" id="submission" action="{{ route('submission') }}" >
+        @csrf
     <div class="row">
         <div class="col-4 HeaderdataPersonal">
-            <input type="email" class="form-control" id="email" name="email"  placeholder="XXXXXX@gmail.com">
+            <input type="email" class="form-control" id="email" name="email"  placeholder="XXXXXX@gmail.com" value="{{$personal->email}}">
         </div>
         <div class="col-2">
         </div>
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000">
+            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}">
         </div>
     </div>
     <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <- Back </button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="javascript:history.go(-1)" style="text-decoration:none;"><- Back</a> </button>
         </div>
         <div class="col-6 medium">
         </div>
@@ -69,7 +71,12 @@
             <button type="submit" class=" btn btn-danger btn-lg btn-block">Next -></button>
         </div>
     </div>
+        <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
+        <input type="hidden" id="card" name="card" value="{{$request->card}}">
+    </form>
+
 </div>
+
 <script type="application/javascript">
     //refresh page on browser resize
     $(window).bind('resize', function(e)
