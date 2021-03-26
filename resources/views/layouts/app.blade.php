@@ -55,6 +55,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     {{--End Popup Alert--}}
+
 </head>
 <body >
     <meta name="csrf-token" content="{{ csrf_token() }}" />
