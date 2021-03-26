@@ -9,6 +9,8 @@
 <div class="container">
     <h3 style="color: #E31E1A;">Payment Details</h3>
     <br>
+    <form method="post" id="save_payment" action="{{ route('save.payment') }}" >
+        @csrf
     <div class="row">
         <div class="col payment_method" style="border-style: groove;">
             <h3><b>Payment Method</b></h3>
@@ -34,7 +36,7 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <input type="text" class="form-control" id="card_holder_name" name="card_holder_name"  placeholder="XXXXXX">
+                    <input type="text" class="form-control" id="card_holder_name" name="card_holder_name"  placeholder="XXXXXX" required>
                 </div>
             </div>
             <br>
@@ -45,7 +47,7 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <input type="text" class="form-control" id="card_number" name="card_number"  placeholder="000000">
+                    <input type="text" class="form-control" id="card_number" name="card_number"  placeholder="000000" required>
                 </div>
             </div><br>
             <div class="row">
@@ -54,7 +56,7 @@
                 <div class="col">CCV</div>
                 <div class="w-100"></div>
                 <div class="col">
-                    <select class="form-control" aria-label="Default select example">
+                    <select class="form-control" name="month" id="month" required>
                         <option selected></option>
                         <option value="1">01</option>
                         <option value="2">02</option>
@@ -71,13 +73,13 @@
                     </select>
                 </div>
                 <div class="col">
-                    <select class="form-control" aria-label="Default select example">
+                    <select class="form-control" id="year" name="year" required>
                         <option selected></option>
                         <option value="12">21</option>
                     </select>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" id="ccv_number" name="ccv_number"  placeholder="000000">
+                    <input type="text" class="form-control" id="ccv_number" name="ccv_number"  placeholder="000000" required>
                 </div>
             </div><br><br>
         </div>
@@ -112,7 +114,7 @@
             </div><br>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
+                    <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
                 </div>
             </div>
         </div>
@@ -147,13 +149,22 @@
     </div><br class="visible-xs hidden-md">
     <div class="row visible-xs hidden-md">
         <div class="col">
-            <button type="button" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
+            <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
         </div>
     </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
-
+    </form>
 </div>
 <script type="application/javascript">
+    $( document ).ready(function() {
+        $( "#create_payment" ).click(function() {
+            if ($('#payment_method').val()){
+                $( "#save_payment" ).submit();
+            }else{
+                swal("Please!", "Select a payment method", "error")
+            }
+        });
+    });
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
