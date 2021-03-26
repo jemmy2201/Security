@@ -34,6 +34,9 @@ class HomeController extends Controller
     {
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
 
+        if (Auth::user()->role == admin){
+            return view('admin/historylogin');
+        }
         return view('home')->with(["schedule"=>$schedule]);
     }
     public function personaldata(Request $request)

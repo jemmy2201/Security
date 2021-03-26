@@ -36,7 +36,14 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
-//        $this->validateLogin($request);
+        if ($request->type_akses !=null && $request->type_akses == admin){
+            $this->validateLogin($request);
+            if ($this->attemptLogin($request)) {
+                return $this->sendLoginResponse($request);
+            }
+            $this->incrementLoginAttempts($request);
+            return $this->sendFailedLoginResponse($request);
+        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
