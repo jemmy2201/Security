@@ -10,6 +10,8 @@ use App\booking_schedule;
 use App\User;
 use App\detail_application;
 use App\payment;
+use App\transaction_amount;
+use App\gst;
 class HomeController extends Controller
 {
     /**
@@ -77,19 +79,59 @@ class HomeController extends Controller
     {
         $this->UpdateBookingScheduleAppointment($request);
 
-        return view('payment_detail');
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $transaction_amount = transaction_amount::get();
+        $gst = gst::first();
+        return view('payment_detail')->with(["booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount]);
     }
 
     public function Createpayment(Request $request)
     {
-        die(print_r($request->all()));
-        $this->NewPayment($request);
+        $payment_method = $this->payment_method($request);
 
-        $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
+        if ($payment_method){
+            $this->NewPayment($request);
+        }
 
-        return view('payment')->with(["schedule"=>$schedule,"request"=>$request]);
+        $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->first();
+        return redirect()->route('home');
     }
 
+    protected  function NewPayment($request){
+        if ($request->payment_method == paynow){
+            $payment_method = 'paynow';
+        }elseif ($request->payment_method == enets){
+            $payment_method = 'enets';
+        }elseif ($request->payment_method == visa){
+            $payment_method = 'visa';
+        }elseif ($request->payment_method == mastercard){
+            $payment_method = 'mastercard';
+        }
+        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
+            ->update([
+                'gst_id' => $request->gst,
+                'trans_date' => Carbon::today()->toDateString(),
+                'expired_date' => date('Y-m-d', strtotime('+1 years')),
+                'paymentby' => $payment_method,
+                'status_payment' => true,
+                'grand_total' => $request->grand_total,
+                'status_app' => payment,
+            ]);
+        return $BookingScheduleAppointment;
+    }
+
+    protected function payment_method($request){
+        if ($request->payment_method == paynow){
+
+        }elseif ($request->payment_method == enets){
+
+        }elseif ($request->payment_method == visa){
+
+        }elseif ($request->payment_method == mastercard){
+
+        }
+        return true;
+    }
     protected function UpdateBookingScheduleAppointment($request)
     {
         $date = Carbon::parse($request->view_date)->toDateString().' '.$request->time_schedule.':00';

@@ -3,13 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constant.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/constant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_17_081549_create_booking_schedules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_17_081549_create_booking_schedules_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +234,7 @@
       <workItem from="1616475166713" duration="5210000" />
       <workItem from="1616481062473" duration="26116000" />
       <workItem from="1616595218992" duration="3749000" />
-      <workItem from="1616646599600" duration="33509000" />
+      <workItem from="1616646599600" duration="40440000" />
     </task>
     <servers />
   </component>
@@ -261,30 +258,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1616655949349" />
-    <state width="1181" height="244" key="GridCell.Tab.0.bottom" timestamp="1616744772010">
+    <state width="1181" height="257" key="GridCell.Tab.0.bottom" timestamp="1616759968267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="244" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616744772010" />
-    <state width="1181" height="244" key="GridCell.Tab.0.center" timestamp="1616744772009">
+    <state width="1181" height="257" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1616759968267" />
+    <state width="1181" height="257" key="GridCell.Tab.0.center" timestamp="1616759968267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="244" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616744772009" />
-    <state width="1181" height="244" key="GridCell.Tab.0.left" timestamp="1616744772009">
+    <state width="1181" height="257" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1616759968267" />
+    <state width="1181" height="257" key="GridCell.Tab.0.left" timestamp="1616759968266">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="244" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616744772009" />
-    <state width="1181" height="244" key="GridCell.Tab.0.right" timestamp="1616744772010">
+    <state width="1181" height="257" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1616759968266" />
+    <state width="1181" height="257" key="GridCell.Tab.0.right" timestamp="1616759968267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="244" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616744772010" />
+    <state width="1181" height="257" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1616759968267" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1616048001408" />
-    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1616665181643">
+    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1616759456499">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1616665181643" />
+    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1616759456499" />
     <state x="392" y="5" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1616647287171">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -313,9 +310,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1616689406918" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616744291291">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616745989059">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616744291291" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616745989059" />
   </component>
 </project>

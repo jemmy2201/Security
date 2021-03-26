@@ -24,6 +24,7 @@ class CreateBookingSchedulesTable extends Migration
             $table->timestamp('appointment_date')->nullable()->comment('date appointment');
             $table->string('gst_id')->nullable();
             $table->string('transaction_amount_id')->nullable();
+            $table->string('grand_total')->nullable();
             $table->string('Status_app')->nullable();
             $table->string('paymentby')->nullable();
             $table->string('status_payment')->nullable();

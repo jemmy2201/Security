@@ -57,7 +57,7 @@
                 <div class="w-100"></div>
                 <div class="col">
                     <select class="form-control" name="month" id="month" required>
-                        <option selected></option>
+                        <option value="0" selected>please choose</option>
                         <option value="1">01</option>
                         <option value="2">02</option>
                         <option value="3">03</option>
@@ -73,9 +73,16 @@
                     </select>
                 </div>
                 <div class="col">
+                    @php
+                        $end = date('Y', strtotime('+5 years'));
+                    @endphp
                     <select class="form-control" id="year" name="year" required>
-                        <option selected></option>
-                        <option value="12">21</option>
+                        <option value="0" selected>please choose</option>
+                        <option value="1">@php echo date('Y', strtotime('+1 years')) @endphp</option>
+                        <option value="2">@php echo date('Y', strtotime('+2 years')) @endphp</option>
+                        <option value="3">@php echo date('Y', strtotime('+3 years')) @endphp</option>
+                        <option value="4">@php echo date('Y', strtotime('+4 years')) @endphp</option>
+                        <option value="5">@php echo date('Y', strtotime('+5 years')) @endphp</option>
                     </select>
                 </div>
                 <div class="col">
@@ -89,10 +96,22 @@
                     <h3><b>Summarry</b></h3>
                     <div class="row">
                         <div class="col-4">Aplication :</div>
-                        <div class="col">New</div>
+                        @if($booking_schedule->app_type == news)
+                            <div class="col">New</div>
+                        @elseif($booking_schedule->app_type == replacement)
+                            <div class="col">Replacement</div>
+                        @else
+                            <div class="col">Renewal</div>
+                        @endif
                         <div class="w-100"></div>
                         <div class="col-4">Type :</div>
-                        <div class="col">So ID Card</div>
+                        @if($booking_schedule->card_id == so_app)
+                            <div class="col">SO/SSO/SSS</div>
+                        @elseif($booking_schedule->card_id == avso_app)
+                            <div class="col">Replacement</div>
+                        @else
+                            <div class="col">Renewal</div>
+                        @endif
                         <div class="w-100"></div>
                         <div class="col-4">Fee :</div>
                         <div class="col">$12</div>
@@ -124,10 +143,22 @@
             <h3><b>Summarry</b></h3>
             <div class="row">
                 <div class="col-4">Aplication :</div>
-                <div class="col">New</div>
+                @if($booking_schedule->app_type == news)
+                    <div class="col">New</div>
+                @elseif($booking_schedule->app_type == replacement)
+                    <div class="col">Replacement</div>
+                @else
+                    <div class="col">Renewal</div>
+                @endif
                 <div class="w-100"></div>
                 <div class="col-4">Type :</div>
-                <div class="col">So ID Card</div>
+                @if($booking_schedule->card_id == so_app)
+                    <div class="col">SO/SSO/SSS</div>
+                @elseif($booking_schedule->card_id == avso_app)
+                    <div class="col">Replacement</div>
+                @else
+                    <div class="col">Renewal</div>
+                @endif
                 <div class="w-100"></div>
                 <div class="col-4">Fee :</div>
                 <div class="col">$12</div>
@@ -149,7 +180,7 @@
     </div><br class="visible-xs hidden-md">
     <div class="row visible-xs hidden-md">
         <div class="col">
-            <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
+            <button type="button"  class="btn btn-danger btn-lg btn-block create_payment" >Confirm -></button>
         </div>
     </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
@@ -157,14 +188,22 @@
 </div>
 <script type="application/javascript">
     $( document ).ready(function() {
-        $( "#create_payment" ).click(function() {
-            if ($('#payment_method').val()){
+        $("#create_payment").click(function() {
+            if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
+                $( "#save_payment" ).submit();
+            }else{
+                swal("Please!", "Complete the data", "error")
+            }
+        });
+        $(".create_payment").click(function() {
+            if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
                 $( "#save_payment" ).submit();
             }else{
                 swal("Please!", "Select a payment method", "error")
             }
         });
     });
+
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
