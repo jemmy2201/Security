@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('homeno')->nullable();
             $table->string('photo')->nullable();
             $table->date('time_login_at')->nullable()->comment('time login');
+            $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

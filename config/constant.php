@@ -37,3 +37,5 @@ define('time13', "13:00");
 define('time14', "14:00");
 define('time15', "15:00");
 define('time16', "16:00");
+
+define('admin', 1);
