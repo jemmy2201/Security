@@ -64,88 +64,74 @@ class HomeController extends Controller
         if (!empty($request->grade)){
             $grade = $request->grade;
         }
-
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (empty($booking_schedule)){
-
-            $booking_schedule = new booking_schedule;
-
-            $booking_schedule->app_type = $request->app_type;
-
-            $booking_schedule->card_id = $request->card;
-
-            $booking_schedule->grade_id = $grade;
-
-            $booking_schedule->declaration_date = Carbon::today()->toDateString();
-
-            $booking_schedule->status_app = submission;
-
-            $booking_schedule->user_id = Auth::id();
-
-            $booking_schedule->save();
+            $this->NewBookingSchedule($request,$grade);
         }else{
-            $booking_schedule = $booking_schedule::where(['user_id'=>Auth::id()])
-                                ->update([
-                                    'app_type' => $request->app_type,
-                                    'card_id' => $request->card,
-                                    'grade_id' => $grade,
-                                    'declaration_date' => Carbon::today()->toDateString(),
-                                    'status_app' => submission,
-                                    'user_id' => Auth::id(),
-                                ]);
+            $this->UpdateBookingSchedule($request,$grade);
         }
         return view('book_appointment')->with(["request"=>$request]);
     }
 
     public function View_payment(Request $request)
     {
-        $this->NewBookingSchedule($request);
+        $this->UpdateBookingScheduleAppointment($request);
 
-        $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
-
-        return view('payment')->with(["schedule"=>$schedule,"request"=>$request]);
+        return view('payment_detail');
     }
 
     public function Createpayment(Request $request)
     {
-        $this->NewBookingSchedule($request);
+        die(print_r($request->all()));
+        $this->NewPayment($request);
 
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
 
         return view('payment')->with(["schedule"=>$schedule,"request"=>$request]);
     }
 
-    protected function NewPayment($request)
+    protected function UpdateBookingScheduleAppointment($request)
     {
-        $InPayment = new payment();
-
-        $InPayment->booking_id = $request->booking_id;
-
-        $InPayment->cardz = $request->cardz;
-
-        $InPayment->status = $request->status;
-
-        $InPayment->user_id = Auth::id();
-
-        $InPayment->save();
+        $date = Carbon::parse($request->view_date)->toDateString().' '.$request->time_schedule.':00';
+        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
+                                        ->update([
+                                            'appointment_date' => $date,
+                                            'status_app' => book_appointment,
+                                        ]);
+        return $BookingScheduleAppointment;
     }
-    protected function NewBookingSchedule($request)
+    protected function UpdateBookingSchedule($request,$grade)
     {
-        $InSchedule = new booking_schedule;
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+            ->update([
+                'app_type' => $request->app_type,
+                'card_id' => $request->card,
+                'grade_id' => $grade,
+                'declaration_date' => Carbon::today()->toDateString(),
+                'status_app' => submission,
+                'user_id' => Auth::id(),
+            ]);
+        return $booking_schedule;
+    }
+    protected function NewBookingSchedule($request,$grade)
+    {
+        $booking_schedule = new booking_schedule;
 
-        $InSchedule->start_at = $request->start_at;
+        $booking_schedule->app_type = $request->app_type;
 
-        $InSchedule->end_at = $request->end_at;
+        $booking_schedule->card_id = $request->card;
 
-        $InSchedule->application_type = $request->application_type;
+        $booking_schedule->grade_id = $grade;
 
-        $InSchedule->application_id = $request->application_id;
+        $booking_schedule->declaration_date = Carbon::today()->toDateString();
 
-        $InSchedule->detail_application = $request->detail_application;
+        $booking_schedule->status_app = submission;
 
-        $InSchedule->user_id = Auth::id();
+        $booking_schedule->user_id = Auth::id();
 
-        $InSchedule->save();
+        $booking_schedule->save();
+
+        return $booking_schedule;
     }
 
     protected function UpdateUsers($request){

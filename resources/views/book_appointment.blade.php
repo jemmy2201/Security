@@ -13,6 +13,8 @@
 @section('content')
 <div class="container">
     <h3 style="color: #E31E1A;">Book Appointment</h3>
+    <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
+        @csrf
     <div class="row">
         <div class="col-2 HeaderdataPersonal view_date_text">
             <h4>Select Date :</h4>
@@ -34,15 +36,28 @@
         <div class="col-6 medium">
         </div>
         <div class="col-2 next">
-            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next -></button>
+            <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Next -></button>
         </div>
     </div>
+    </form>
 </div>
 
 <script type="application/javascript">
+    $( document ).ready(function() {
+        $( "#save_book_appointment" ).click(function() {
+            if ($('#time_schedule').val()){
+                $( "#save_appointment" ).submit();
+            }else{
+                swal("Please!", " select a date and time", "error")
+            }
+        });
+    });
+
+    // $( "#payment" ).submit(function( event ) {
+    //     event.preventDefault();
+    // });
     $("#time_schedule").change(function(){
         var selValue = $("input[type='radio']:checked").val();
-        console.log(selValue);
     });
 
     $('.file_upload_profile').click(function(){ $('#upload_profile').trigger('click'); });
@@ -123,47 +138,8 @@
                                         <th>Max Available</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;09:00 AM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;10:00 AM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;11:00 AM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;12:00 AM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;01:00 PM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;02:00 PM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;03:00 PM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="option1">&ensp;&ensp;&ensp;04:00 PM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
+                                <tbody id="veiw_time_schedule">
+
                                 </tbody>
                             </table>
                         </div>
@@ -293,9 +269,22 @@
             let eventDate = $(this).text() + month + year;
             // $('.event-date').html(todaysDate).data('eventdate', eventDate);
             // $('.event-day').html(eventDay);
+            validate_limit_schedule(todaysDate);
             $('#view_date').val(todaysDate);
             showEvent(eventDate);
         })
+
+        function validate_limit_schedule(eventDate) {
+            $.ajax({
+                url: '/ajax/cek/data/limit/schedule',
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
+                success: function (data) {
+                    $('#veiw_time_schedule').html(data);
+                }
+            });
+        }
         $(document).on('click', '.hide', function(){
             $('#event').addClass('d-none');
         })
