@@ -17,7 +17,7 @@ class CreateTransactionAmountsTable extends Migration
             $table->id();
             $table->string('app_type')->nullable();
             $table->string('card_type')->nullable();
-            $table->string('grade')->nullable();
+            $table->string('grade_id')->nullable();
             $table->string('transaction_amount')->nullable();
 
             $table->timestamps();

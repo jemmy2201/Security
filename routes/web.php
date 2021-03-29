@@ -46,8 +46,12 @@ Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment
 Route::get('/admin/history/login', function () {
     return view('admin/historylogin');
 });
+Route::get('/admin/price', 'AdminController@price');
 // End Admin
 Route::prefix('ajax')->group(function () {
     Route::get('/cek/data/from', 'AjaxController@cek_data_from');
     Route::post('/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
+    Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
+    Route::post('/insert/price', 'AjaxController@insert_price')->name('admin.insert.price');
+    Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
 });

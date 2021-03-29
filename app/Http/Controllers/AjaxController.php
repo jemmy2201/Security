@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 
 use App\booking_schedule;
 use App\schedule_limit;
+use App\transaction_amount;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use DataTables;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -39,6 +40,61 @@ class AjaxController extends Controller
         return $data;
     }
 
+    public function data_price()
+    {
+        $transaction_amount = transaction_amount::select('transaction_amounts.id as transaction_amounts_id',"transaction_amounts.*","grades.*")->leftjoin('grades', 'transaction_amounts.grade_id', '=', 'grades.id')->get();
+        return Datatables::of($transaction_amount)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
+
+            return $btn;
+
+        })->make(true);
+
+    }
+
+    public function insert_price(Request $request)
+    {
+        $grade_id = null;
+        $transaction_amount = data_already_exists;
+        if ($request->grade_id != "Please choose"){
+            $grade_id =$request->grade_id;
+        }
+
+        if (empty($grade_id)){
+            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
+        }else{
+            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$grade_id])->first();
+        }
+
+        if (empty($val_transaction_amount)) {
+            $transaction_amount = new transaction_amount;
+
+            $transaction_amount->app_type = $request->app_type;
+
+            $transaction_amount->card_type = $request->card_id;
+
+            $transaction_amount->grade_id = $grade_id;
+
+            $transaction_amount->transaction_amount = $request->transaction_amount;
+
+            $transaction_amount->save();
+        }
+        return $transaction_amount;
+
+    }
+
+    public function update_price(Request $request)
+    {
+        $transaction_amount = transaction_amount::find($request->transaction_amounts_id);
+
+        $transaction_amount->transaction_amount = $request->transaction_amount;
+
+        $transaction_amount->save();
+
+        return $transaction_amount;
+
+    }
     public function cek_limit_schedule(Request $request)
     {
         return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule());
