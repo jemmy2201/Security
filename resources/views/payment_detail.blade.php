@@ -108,16 +108,22 @@
                         @if($booking_schedule->card_id == so_app)
                             <div class="col">SO/SSO/SSS</div>
                         @elseif($booking_schedule->card_id == avso_app)
-                            <div class="col">Replacement</div>
+                            <div class="col">AVSO</div>
                         @else
-                            <div class="col">Renewal</div>
+                            <div class="col">PI</div>
                         @endif
                         <div class="w-100"></div>
                         <div class="col-4">Fee :</div>
-                        <div class="col">$12</div>
+                        <div class="col">${{$transaction_amount->transaction_amount}}</div>
                         <div class="w-100"></div>
-                        <div class="col-4">GST (7%) :</div>
-                        <div class="col">$0.8</div>
+                        <div class="col-4">GST ({{$gst->amount_gst}}%) :</div>
+                        <input type="hidden" name="grade_id" id="grade_id" value="{{$gst->id}}">
+                        <input type="hidden" name="transaction_amount_id" id="transaction_amount_id" value="{{$transaction_amount->id}}">
+                        @php
+                            $gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
+                        @endphp
+                        <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst}}">
+                        <div class="col">${{$gst}}</div>
                     </div>
                     <hr>
                     <div class="row">
@@ -126,7 +132,11 @@
                             <p style="color: #808080">(incl.GSTI)</p>
                         </div>
                         <div class="col">
-                            <h4>$128</h4>
+                            @php
+                                $grand_total = $transaction_amount->transaction_amount + $gst;
+                            @endphp
+                            <input type="hidden" name="grand_total" id="grand_total" value="{{$grand_total}}">
+                            <h4>{{$grand_total}}</h4>
                         </div>
                     </div>
                 </div>

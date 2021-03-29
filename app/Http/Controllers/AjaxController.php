@@ -97,6 +97,7 @@ class AjaxController extends Controller
     }
     public function cek_limit_schedule(Request $request)
     {
+
         return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule());
     }
     protected  function view_time_schedule($time_schedule,$limit_schedule){
@@ -184,12 +185,12 @@ class AjaxController extends Controller
                 $data .='</tr>';
             }
         }
+
         return $data;
     }
     protected function limit_schedule()
     {
         $schedule_limit = schedule_limit::get();
-
         return $schedule_limit;
     }
 

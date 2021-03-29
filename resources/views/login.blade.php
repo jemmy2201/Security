@@ -36,7 +36,7 @@
                                     @csrf
                                     <input type="hidden" id="type_login" name="type_login" value="@php echo non_barcode @endphp">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="SingPass ID">
+                                        <input type="text" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="SingPass ID">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
