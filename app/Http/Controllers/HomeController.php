@@ -12,6 +12,7 @@ use App\detail_application;
 use App\payment;
 use App\transaction_amount;
 use App\gst;
+use App\sertifikat;
 class HomeController extends Controller
 {
     /**
@@ -81,11 +82,14 @@ class HomeController extends Controller
     public function View_payment(Request $request)
     {
         $this->UpdateBookingScheduleAppointment($request);
-
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
-        $transaction_amount = transaction_amount::get();
+        if (!empty($booking_schedule->grade_id)){
+            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+        }else{
+            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
+        }
         $gst = gst::first();
-        return view('payment_detail')->with(["booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount]);
+        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount]);
     }
 
     public function Createpayment(Request $request)
@@ -93,7 +97,7 @@ class HomeController extends Controller
         $payment_method = $this->payment_method($request);
 
         if ($payment_method){
-            $this->NewPayment($request);
+            $this->NewPayment($request->all());
         }
 
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->first();
@@ -101,26 +105,76 @@ class HomeController extends Controller
     }
 
     protected  function NewPayment($request){
-        if ($request->payment_method == paynow){
+        if ($request['payment_method'] == paynow){
             $payment_method = 'paynow';
-        }elseif ($request->payment_method == enets){
+        }elseif ($request['payment_method'] == enets){
             $payment_method = 'enets';
-        }elseif ($request->payment_method == visa){
+        }elseif ($request['payment_method'] == visa){
             $payment_method = 'visa';
-        }elseif ($request->payment_method == mastercard){
+        }elseif ($request['payment_method'] == mastercard){
             $payment_method = 'mastercard';
         }
         $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
             ->update([
-                'gst_id' => $request->gst,
+                'gst_id' => $request['grade_id'],
                 'trans_date' => Carbon::today()->toDateString(),
                 'expired_date' => date('Y-m-d', strtotime('+1 years')),
                 'paymentby' => $payment_method,
                 'status_payment' => true,
-                'grand_total' => $request->grand_total,
+                'grand_total' => $request['grand_total'],
                 'status_app' => payment,
+                'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
+
+        $this->create_setifikat($request);
         return $BookingScheduleAppointment;
+    }
+    protected function create_setifikat($request)
+    {
+        $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
+
+        $gst = gst::where(['id'=>$data->gst_id])->first();
+
+        $transaction_amount = transaction_amount::where(['id'=>$data->transaction_amount_id])->first();
+
+        $sertifikat = new sertifikat();
+
+        $sertifikat->app_type           = $data->app_type;
+
+        $sertifikat->card_id            = $data->card_id;
+
+        $sertifikat->grade_id           = $data->grade_id;
+
+        $sertifikat->declaration_date   = $data->declaration_date;
+
+        $sertifikat->gst                = $gst->amount_gst;
+
+        $sertifikat->grand_gst          = $request['grand_gst'];
+
+        $sertifikat->trans_date         = $data->trans_date;
+
+        $sertifikat->expired_date       = $data->expired_date;
+
+        $sertifikat->appointment_date   = $data->appointment_date;
+
+        $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
+
+        $sertifikat->paymentby          = $data->paymentby;
+
+        $sertifikat->status_payment     = $data->status_payment;
+
+        $sertifikat->grand_total        = $data->grand_total;
+
+        $sertifikat->status_app         = $data->Status_app;
+
+        $sertifikat->status_payment     = $data->status_payment;
+
+        $sertifikat->user_id            = $data->user_id;
+
+        $sertifikat->save();
+
+        return $sertifikat;
+
     }
 
     protected function payment_method($request){
@@ -154,6 +208,14 @@ class HomeController extends Controller
                 'grade_id' => $grade,
                 'declaration_date' => Carbon::today()->toDateString(),
                 'status_app' => submission,
+                'trans_date' => null,
+                'expired_date' => null,
+                'appointment_date' => null,
+                'gst_id' => null,
+                'transaction_amount_id' => null,
+                'grand_total' => null,
+                'paymentby' => null,
+                'status_payment' => null,
                 'user_id' => Auth::id(),
             ]);
         return $booking_schedule;
