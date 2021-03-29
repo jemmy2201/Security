@@ -178,7 +178,6 @@
         }
 
         $("#upload_profile").change(function() {
-            console.log('jrg 2')
             readURL(this);
         });
     });

@@ -240,6 +240,11 @@ return [
             'icon' => 'fa fa-credit-card',
         ],
         [
+            'text' => 'Price',
+            'url'  => 'admin/price',
+            'icon' => 'fa fa-credit-card',
+        ],
+        [
             'text' => 'Logout',
             'url'  => 'admin/logout',
             'icon' => 'fas fa-sign-out-alt',

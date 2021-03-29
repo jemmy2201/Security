@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class transaction_amount extends Model
 {
     protected $fillable = [
-        'app_type', 'card_type', 'grade', 'transaction_amount'
+        'app_type', 'card_type', 'grade_id', 'transaction_amount'
     ];
 }

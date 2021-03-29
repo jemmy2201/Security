@@ -39,3 +39,12 @@ define('time15', "15:00");
 define('time16', "16:00");
 
 define('admin', 1);
+
+// type login
+define('update', 0);
+define('save', 1);
+// end type login
+
+// reponse ajax
+define('data_already_exists', "208");
+// end reponse ajax
