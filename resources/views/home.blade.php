@@ -1,5 +1,11 @@
 @extends('layouts.app')
-
+<style>
+    .table{
+        max-height: 50%;
+        overflow: auto;
+        display:inline-block;
+    }
+</style>
 @section('content')
 <div class="container">
 <img src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
@@ -46,7 +52,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">No</th>
                 <th scope="col">Application Type</th>
                 <th scope="col">Request Application</th>
                 <th scope="col">Grade</th>
@@ -55,9 +61,9 @@
             </thead>
             <tbody>
             @if(!empty($sertifikat))
-                @foreach($sertifikat as $f)
+                @foreach($sertifikat as $index => $f)
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{$index +1}}</th>
                     @if($f->app_type == news)
                         <td>New</td>
                     @elseif($f->app_type == replacement)

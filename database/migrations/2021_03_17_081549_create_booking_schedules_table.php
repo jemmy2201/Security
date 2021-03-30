@@ -18,10 +18,12 @@ class CreateBookingSchedulesTable extends Migration
             $table->string('app_type')->nullable()->comment('new or replacement or renewal');
             $table->string('card_id')->nullable()->comment('get table application');
             $table->string('grade_id')->nullable()->comment('get table detail application');
-            $table->timestamp('declaration_date')->nullable()->comment('date select declaration');
+            $table->string('declaration_date')->nullable()->comment('date select declaration');
             $table->timestamp('trans_date')->nullable()->comment('date transaction amount');
             $table->timestamp('expired_date')->nullable()->comment('date after transaction amount');
             $table->timestamp('appointment_date')->nullable()->comment('date appointment');
+            $table->string('time_start_appointment')->nullable()->comment('time start declaration');
+            $table->string('time_end_appointment')->nullable()->comment('time end declaration');
             $table->string('gst_id')->nullable();
             $table->string('transaction_amount_id')->nullable();
             $table->string('grand_total')->nullable();

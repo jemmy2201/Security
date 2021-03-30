@@ -15,9 +15,11 @@ class CreateScheduleLimitsTable extends Migration
     {
         Schema::create('schedule_limits', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('date_schedule_limit')->nullable();
             $table->string('start_at')->nullable();
             $table->string('end_at')->nullable();
             $table->string('amount')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

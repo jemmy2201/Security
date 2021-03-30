@@ -9,11 +9,21 @@
         font-weight: bold;
         font-size: 24px;
     }
+    .dissable{
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    .active{
+        background-color:red;
+    }
+    .now{
+        background-color:blue;
+    }
 </style>
 @section('content')
 <div class="container">
     <img src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;">
-    <h3 style="color: #E31E1A;">Book Appointment</h3>
+    <h2 style="color: #E31E1A;">Book Appointment</h2><br>
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
     <div class="row">
@@ -46,7 +56,7 @@
 <script type="application/javascript">
     $( document ).ready(function() {
         $( "#save_book_appointment" ).click(function() {
-            if ($("input[name='time_schedule']:checked").val()){
+            if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
                 swal("Please!", " select a date and time", "error")
@@ -201,8 +211,12 @@
                     let span = document.createElement('span');
                     let cellText = document.createTextNode(date);
                     span.classList.add('showEvent');
+                    console.log('1',c_date.getMonth())
+                    console.log('2',m)
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        // span.classList.add('bg-primary');
+                        // span.classList.add('now');
+                    }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        span.classList.add('dissable');
                     }
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);

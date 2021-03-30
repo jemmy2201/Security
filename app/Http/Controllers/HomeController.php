@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\grade;
+use App\schedule_limit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -195,10 +196,13 @@ class HomeController extends Controller
     }
     protected function UpdateBookingScheduleAppointment($request)
     {
-        $date = Carbon::parse($request->view_date)->toDateString().' '.$request->time_schedule.':00';
+        $date = Carbon::parse($request->view_date)->toDateString();
+        $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
         $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
                                         ->update([
                                             'appointment_date' => $date,
+                                            'time_start_appointment' => $data->start_at,
+                                            'time_end_appointment' => $data->end_at,
                                             'status_app' => book_appointment,
                                         ]);
         return $BookingScheduleAppointment;
@@ -229,6 +233,8 @@ class HomeController extends Controller
                 'trans_date' => null,
                 'expired_date' => null,
                 'appointment_date' => null,
+                'time_start_appointment' => null,
+                'time_end_appointment' => null,
                 'gst_id' => null,
                 'transaction_amount_id' => null,
                 'grand_total' => null,
