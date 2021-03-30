@@ -31,7 +31,7 @@ class AjaxController extends Controller
         if (!empty($data)){
             $replacement = true;
             $new = false;
-            if (Carbon::today()->toDateString() > Carbon::parse($data->expired_date)->toDateString()){
+            if (Carbon::today()->toDateString() >= Carbon::parse($data->expired_date)->toDateString()){
                 $renewal = true;
             }
         }

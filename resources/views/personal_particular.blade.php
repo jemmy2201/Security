@@ -31,7 +31,7 @@
             <div class="col-sm">
             </div>
             <br class="visible-xs hidden-md">
-            <div class="col-sm">
+            <div class="col-sm" hidden>
                 <img src="{{URL::asset('/img/profile.png')}}" style="width: 30%;border-style: groove;">
             </div>
         </div>
