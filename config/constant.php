@@ -29,6 +29,7 @@ define('book_appointment', 1);
 define('payment', 2);
 // end status app
 
+define('time08', "08:00");
 define('time09', "09:00");
 define('time10', "10:00");
 define('time11', "11:00");
@@ -37,6 +38,7 @@ define('time13', "13:00");
 define('time14', "14:00");
 define('time15', "15:00");
 define('time16', "16:00");
+define('time17', "17:00");
 
 define('admin', 1);
 
@@ -48,3 +50,8 @@ define('save', 1);
 // reponse ajax
 define('data_already_exists', "208");
 // end reponse ajax
+
+// status limit schedule
+define('not_aktif', 0);
+define('aktif', 1);
+// end status limit schedule

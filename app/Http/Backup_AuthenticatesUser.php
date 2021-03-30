@@ -332,7 +332,7 @@ trait AuthenticatesUsers
             "passportnumber"=>$response['passportnumber']['value'],
             "homeno"=>$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'],
             "mobileno"=>$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'],
-            "photo"=>$response['drivinglicence']['photocardserialno']['value'],
+//            "photo"=>$response['drivinglicence']['photocardserialno']['value'],
             "time_login_at"=>$time->toDateTimeString()
         );
 
