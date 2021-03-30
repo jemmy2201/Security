@@ -12,6 +12,7 @@
 </style>
 @section('content')
 <div class="container">
+    <img src="{{URL::asset('/img/img_step_proses/2.png')}}" style="width: 100%;">
     <h3 style="color: #E31E1A;">Personal Particular</h3>
     <br>
         <div class="row">
@@ -63,12 +64,12 @@
     <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="javascript:history.go(-1)" style="text-decoration:none;"><- Back</a> </button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="javascript:history.go(-1)" style="text-decoration:none;"><img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back</a> </button>
         </div>
         <div class="col-6 medium">
         </div>
         <div class="col-2 next">
-            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next -></button>
+            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
         </div>
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">

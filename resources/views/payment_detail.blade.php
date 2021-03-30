@@ -7,6 +7,7 @@
 </style>
 @section('content')
 <div class="container">
+    <img src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;">
     <h3 style="color: #E31E1A;">Payment Details</h3>
     <br>
     <form method="post" id="save_payment" action="{{ route('save.payment') }}" >
@@ -143,7 +144,7 @@
             </div><br>
             <div class="row">
                 <div class="col">
-                    <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm -></button>
+                    <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm <img src="{{URL::asset('/img/next.png')}}" style="width: 5%;"></button>
                 </div>
             </div>
         </div>
@@ -190,7 +191,7 @@
     </div><br class="visible-xs hidden-md">
     <div class="row visible-xs hidden-md">
         <div class="col">
-            <button type="button"  class="btn btn-danger btn-lg btn-block create_payment" >Confirm -></button>
+            <button type="button"  class="btn btn-danger btn-lg btn-block create_payment" >Confirm <img src="{{URL::asset('/img/next.png')}}" style="width: 5%;"></button>
         </div>
     </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
