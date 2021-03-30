@@ -56,8 +56,11 @@ trait AuthenticatesUsers
         }
         if ($request->type_login == non_barcode) {
             // api cek sinpass
-            if (true) { // check login singpass
-                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
+            // dummy api
+            $dummy_api = User::where('nric', $request->singpass_id)->orWhere('passid', $request->singpass_id)->first();
+            // end dummy api
+            if ($dummy_api) { // check login singpass
+                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
                 if ($response->status() == "200") {
                     $response = $response->json();
                     $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
@@ -271,10 +274,10 @@ trait AuthenticatesUsers
         if (!empty($result['name'])){
             $UpdateUser->name = $result['name'];
         }
-        if (!empty($result['email'])) {
-            //$InUser->email = $response['email']['value'];
-            $UpdateUser->email = $result['email'];
-        }
+//        if (!empty($result['email'])) {
+//            //$InUser->email = $response['email']['value'];
+//            $UpdateUser->email = $result['email'];
+//        }
         if (!empty($result['password'])) {
             $UpdateUser->password = $result['password'];
         }
@@ -295,9 +298,9 @@ trait AuthenticatesUsers
             $UpdateUser->passportnumber = $result['passportnumber'];
         }
 
-        if (!empty($result['mobileno'])) {
-            $UpdateUser->mobileno = $result['mobileno'];
-        }
+//        if (!empty($result['mobileno'])) {
+//            $UpdateUser->mobileno = $result['mobileno'];
+//        }
 
         if (!empty($result['homeno'])) {
             $UpdateUser->homeno = $result['homeno'];

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+<img src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
 <h3 style="color: #E31E1A;">ID Card Portal</h3>
 <p style="color: #808080;">My Application Type</p>
     <div class="container">
