@@ -35,10 +35,14 @@ class HomeController extends Controller
     {
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->get();
 
+        $sertifikat = sertifikat::where(['user_Id'=>Auth::id()])->get();
+
+        $grade = grade::get();
+
         if (Auth::user()->role == admin){
             return view('admin/historylogin');
         }
-        return view('home')->with(["schedule"=>$schedule]);
+        return view('home')->with(["schedule"=>$schedule,"sertifikat"=>$sertifikat,"grade"=>$grade]);
     }
     public function personaldata(Request $request)
     {
@@ -201,6 +205,20 @@ class HomeController extends Controller
     }
     protected function UpdateBookingSchedule($request,$grade)
     {
+        $request->validate([
+            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->upload_profile->extension();
+
+        $request->upload_profile->move(public_path('img/img_users'), $imageName);
+
+        $UpdateUser = User::find(Auth::id());
+
+        $UpdateUser->photo = $imageName;
+
+        $UpdateUser->save();
+
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
             ->update([
                 'app_type' => $request->app_type,
@@ -222,6 +240,20 @@ class HomeController extends Controller
     }
     protected function NewBookingSchedule($request,$grade)
     {
+        $request->validate([
+            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->upload_profile->extension();
+
+        $request->upload_profile->move(public_path('img/img_users'), $imageName);
+
+        $UpdateUser = User::find(Auth::id());
+
+        $UpdateUser->photo = $imageName;
+
+        $UpdateUser->save();
+
         $booking_schedule = new booking_schedule;
 
         $booking_schedule->app_type = $request->app_type;
