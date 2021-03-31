@@ -56,6 +56,11 @@ define('not_aktif', 0);
 define('aktif', 1);
 // end status limit schedule
 
+// status payment
+define('unpaid', 0);
+define('paid', 1);
+// end payment
+
 // response limit schedule
 define('start_empty', 101);
 define('end_empty', 102);

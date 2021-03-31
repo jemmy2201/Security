@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\sertifikat;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\booking_schedule;
@@ -163,6 +165,43 @@ class AjaxController extends Controller
         return $transaction_amount;
 
     }
+    public function cek_data_schedule(Request $request)
+    {
+        $data = '';
+        $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
+            ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
+//        $cek_setifikat_schedule = sertifikat::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
+//            ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
+//        $result = array_merge($cek_booking_schedule,$cek_setifikat_schedule);
+
+        foreach ($cek_booking_schedule as $index1 => $f){
+            $booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->get();
+            $data .= '<tr>';
+            $data .= '<td>'.$f['time_start_appointment'].'-'.$f['time_end_appointment'].'</td>';
+            $data .= '<td>';
+            foreach ($booking_schedule as $index2 => $g) {
+                if ($f['time_start_appointment'] == $g->time_start_appointment ){
+                    $user = User::where(['id'=>$g->user_id])->first();
+                    $data .= '<pre>'.$user->name.'</pre>';
+                }
+            }
+            $data .= '</td>';
+
+            $data .= '<td>';
+            foreach ($booking_schedule as $index3 => $g) {
+                if ($f['time_start_appointment'] == $g->time_start_appointment ){
+                    if ($g->status_payment == paid){
+                        $data .= '<pre>Paid</pre>';
+                    }else{
+                        $data .= '<pre>UnPaid</pre>';
+                    }
+                }
+            }
+            $data .= '</td>';
+            $data .= '</tr>';
+        }
+            return $data;
+    }
     public function cek_limit_schedule(Request $request)
     {
         return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule());
@@ -199,120 +238,6 @@ class AjaxController extends Controller
 
             }
         }
-//        foreach ($limit_schedule as $f){
-//            if ($f->start_at == time08){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time09']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time08'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time09){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time09']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time09'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time10){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time10']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time10'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time11){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time11']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time11'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time12){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time12']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time12'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time13){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time13']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time13'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time14){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time14']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time14'].'</td>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time15){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time15']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time15'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time16){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time16']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time16'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }else if ($f->start_at == time17){
-//                $time = $f->start_at.' - '.$f->end_at;
-//                $data .=' <tr>';
-//                if ($f->amount == $time_schedule['time17']) {
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }else{
-//                    $data .= '<td> <input class="form-check-input" type="radio" name="time_schedule" id="time_schedule" value="'.$f->start_at.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                }
-//                $data .='<td>'.$time_schedule['time17'].'</td>>';
-//                $data .='<td>'.$f->amount.'</td>>';
-//                $data .='</tr>';
-//            }
-//        }
-
         return $data;
     }
     protected function limit_schedule()
@@ -322,48 +247,6 @@ class AjaxController extends Controller
     }
 
     protected function time_schedule($eventDate){
-//        $time08 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','08:00:00')
-//            ->count();
-//        $time09 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','09:00:00')
-//            ->count();
-//        $time10 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','10:00:00')
-//            ->count();
-//        $time11 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','11:00:00')
-//            ->count();
-//        $time12 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','12:00:00')
-//            ->count();
-//        $time13 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','13:00:00')
-//            ->count();
-//        $time14 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','14:00:00')
-//            ->count();
-//        $time15 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','15:00:00')
-//            ->count();
-//        $time16 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','16:00:00')
-//            ->count();
-//        $time17 = booking_schedule::where(['status_app'=>book_appointment])
-//            ->whereDate('appointment_date','=',$eventDate)
-//            ->whereTime('appointment_date','=','17:00:00')
-//            ->count();
-//
-//        $data = array('time08'=>$time08,'time09'=>$time09,'time10'=>$time10,'time11'=>$time11,'time12'=>$time12,'time13'=>$time13,'time14'=>$time14,'time15'=>$time15,'time16'=>$time16,'time17'=>$time17);
         $data = booking_schedule::where(['status_app'=>book_appointment])
             ->whereDate('appointment_date','=',$eventDate)
             ->get();

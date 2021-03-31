@@ -52,6 +52,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('ajax')->group(function () {
     Route::get('/cek/data/from', 'AjaxController@cek_data_from');
     Route::post('/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
+    Route::post('/cek/data/schedule', 'AjaxController@cek_data_schedule');
     Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
     Route::post('/data/limit/schedule', 'AjaxController@data_limit_shedule')->name('admin.data_limit_shedule');
     Route::post('/insert/limit_schedule', 'AjaxController@insert_limit_schedule')->name('admin.insert.limit_schedule');

@@ -22,6 +22,8 @@ class CreateSertifikatsTable extends Migration
             $table->timestamp('trans_date')->nullable()->comment('date transaction amount');
             $table->timestamp('expired_date')->nullable()->comment('date after transaction amount');
             $table->timestamp('appointment_date')->nullable()->comment('date appointment');
+            $table->string('time_start_appointment')->nullable()->comment('time start declaration');
+            $table->string('time_end_appointment')->nullable()->comment('time end declaration');
             $table->string('gst')->nullable();
             $table->string('grand_gst')->nullable();
             $table->string('transaction_amount')->nullable();
