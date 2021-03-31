@@ -24,9 +24,7 @@ Route::get('/admin/login', function () {
     return view('auth/login');
 });
 
-Route::get('/admin/appointment', function () {
-    return view('admin/appointment');
-});
+
 Route::get('/admin/payment', function () {
     return view('admin/payment');
 });
@@ -43,15 +41,21 @@ Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment
 // End User
 
 // Admin
-Route::get('/admin/history/login', function () {
-    return view('admin/historylogin');
+Route::prefix('admin')->group(function () {
+    Route::get('/history/login', 'AdminController@historylogin');
+    Route::get('appointment', 'AdminController@appointment');
+    Route::get('limit/schedule', 'AdminController@limit_schedule');
+    Route::get('/price', 'AdminController@price');
+
 });
-Route::get('/admin/price', 'AdminController@price');
 // End Admin
 Route::prefix('ajax')->group(function () {
     Route::get('/cek/data/from', 'AjaxController@cek_data_from');
     Route::post('/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
     Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
+    Route::post('/data/limit/schedule', 'AjaxController@data_limit_shedule')->name('admin.data_limit_shedule');
+    Route::post('/insert/limit_schedule', 'AjaxController@insert_limit_schedule')->name('admin.insert.limit_schedule');
+    Route::post('/update/amount/limit_schedule', 'AjaxController@update_limit_schedule')->name('admin.update.limit_schedule');
     Route::post('/insert/price', 'AjaxController@insert_price')->name('admin.insert.price');
     Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
 });

@@ -219,7 +219,7 @@
                         {
                             console.log('jrg',data)
                             if (xhr.status == "201" || xhr.status == "200") {
-                                location.reload()
+                                table_price.ajax.reload();
                                 $('#FormPrice').modal('hide');
                             }else if(data == @php echo data_already_exists @endphp){
                                 swal("Error!", " the data already exists", "error");
@@ -236,7 +236,7 @@
                         success: function(data,textStatus, xhr)
                         {
                             if (xhr.status == "201" || xhr.status == "200") {
-                                location.reload()
+                                table_price.ajax.reload();
                                 $('#FormPrice').modal('hide');
                             }else if(data == @php echo data_already_exists @endphp){
                                 swal("Error!", " the data already exists", "error");

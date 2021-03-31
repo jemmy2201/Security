@@ -235,9 +235,9 @@ return [
             'icon' => 'fa fa-calendar',
         ],
         [
-            'text' => 'Payment',
-            'url'  => 'admin/payment',
-            'icon' => 'fa fa-credit-card',
+            'text' => 'Limit Schedule',
+            'url'  => 'admin/limit/schedule',
+            'icon' => 'fa fa-calendar',
         ],
         [
             'text' => 'Price',
