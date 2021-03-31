@@ -55,3 +55,9 @@ define('data_already_exists', "208");
 define('not_aktif', 0);
 define('aktif', 1);
 // end status limit schedule
+
+// response limit schedule
+define('start_empty', 101);
+define('end_empty', 102);
+define('data_has_been_used_in_the_booking_schedule', 103);
+// end response limit schedule

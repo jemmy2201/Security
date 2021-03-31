@@ -21,6 +21,19 @@ class AdminController extends Controller
         return view('admin/price')->with(['grade'=>$grade]);
     }
 
+    public function limit_schedule()
+    {
+        return view('admin/limit_schedule');
+    }
+    public function historylogin()
+    {
+        return view('admin/historylogin');
+    }
+    public function appointment()
+    {
+        return view('admin/appointment');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -10,6 +10,7 @@ use App\transaction_amount;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DataTables;
+use DB;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -31,7 +32,7 @@ class AjaxController extends Controller
         if (!empty($data)){
             $replacement = true;
             $new = false;
-            if (Carbon::today()->toDateString() >= Carbon::parse($data->expired_date)->toDateString()){
+            if (!empty($data->expired_date) && Carbon::today()->toDateString() >= Carbon::parse($data->expired_date)->toDateString()){
                 $renewal = true;
             }
         }
@@ -40,6 +41,74 @@ class AjaxController extends Controller
         return $data;
     }
 
+    public function data_limit_shedule()
+    {
+        $limit_schedule = schedule_limit::where(['status'=>aktif])->get();
+        return Datatables::of($limit_schedule)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
+
+            return $btn;
+
+        })->make(true);
+
+    }
+    public function update_limit_schedule(Request $request)
+    {
+        $update_schedule_limit  = schedule_limit::find($request->update_id);
+
+        $update_schedule_limit  ->amount = $request->amount_update;
+
+        $update_schedule_limit  ->save();
+
+        return $update_schedule_limit;
+    }
+    public function insert_limit_schedule(Request $request)
+    {
+        $cek_booking_schedule = booking_schedule::where(['status_app'=>book_appointment])
+            ->whereDate('appointment_date','=',Carbon::today()->toDateString())
+            ->count();
+        if ($cek_booking_schedule == 0) {
+            $Update_schedule_limit = DB::table('schedule_limits')
+                ->update(['status' => not_aktif]);
+            foreach ($request->start_at as $index_start =>$start) {
+                if ($start == "Please choose") {
+                    $data = start_empty;
+                } else {
+                    foreach ($request->end_at as $index_end => $end) {
+                        if ($end == "Please choose") {
+                            $data = end_empty;
+                        } else {
+                            foreach ($request->amount as $index_amount => $amount) {
+//                                $data = array('start_at' => $start, 'end_at' => $end, 'amount' => $amount,'status' => aktif);
+                                    if ($index_start == $index_end && $index_start == $index_amount && $index_end == $index_amount){
+
+                                        $data = new schedule_limit();
+
+                                        $data->date_schedule_limit = Carbon::today()->toDateString();
+
+                                        $data->start_at = $start;
+
+                                        $data->end_at = $end;
+
+                                        $data->amount = $amount;
+
+                                        $data->status = aktif;
+
+                                        $data->save();
+                                    }
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        }else{
+            $data = data_has_been_used_in_the_booking_schedule;
+        }
+        return $data;
+    }
     public function data_price()
     {
         $transaction_amount = transaction_amount::select('transaction_amounts.id as transaction_amounts_id',"transaction_amounts.*","grades.*")->leftjoin('grades', 'transaction_amounts.grade_id', '=', 'grades.id')->get();
@@ -52,7 +121,6 @@ class AjaxController extends Controller
         })->make(true);
 
     }
-
     public function insert_price(Request $request)
     {
         $grade_id = null;
