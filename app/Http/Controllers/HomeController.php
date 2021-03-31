@@ -125,7 +125,7 @@ class HomeController extends Controller
                 'trans_date' => Carbon::today()->toDateString(),
                 'expired_date' => date('Y-m-d', strtotime('+1 years')),
                 'paymentby' => $payment_method,
-                'status_payment' => true,
+                'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
                 'status_app' => payment,
                 'transaction_amount_id' => $request['transaction_amount_id'],
@@ -161,6 +161,10 @@ class HomeController extends Controller
         $sertifikat->expired_date       = $data->expired_date;
 
         $sertifikat->appointment_date   = $data->appointment_date;
+
+        $sertifikat->time_start_appointment   = $data->time_start_appointment;
+
+        $sertifikat->time_end_appointment   = $data->time_end_appointment;
 
         $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
 

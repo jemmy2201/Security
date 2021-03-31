@@ -17,6 +17,16 @@
     td pre{
         padding: 0px;
     }
+    .dissable{
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    .active{
+        background-color:red;
+    }
+    .now{
+        background-color:blue;
+    }
 </style>
 @section('content')
 <div class="container">
@@ -65,171 +75,23 @@
                 </div>
                 <div class="col-sm-6 col-12 d-flex pa-sm">
                     <div class="card border-0 mt-5 flex-fill d-none" id="event">
-                    <div class="card-body px-1 py-3">
+                    <div class="">
                             <div class="text-center">
                                 <span class="event-date">06 June 2020</span><br>
                                 <span class="event-day">Monday</span>
                             </div>
                         </div>
-                        <div class="card-header py-3 text-center">
-                            <table id="limit_scheduler" class="table table-striped table-bordered" style="width:100%">
+                            <table class="table table-striped table-bordered" >
                                 <thead>
                                     <tr>
                                         <th>Time</th>
                                         <th>Booking Names</th>
                                         <th>Payment Status</th>
-                                        <th>Max Available</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>09:00 AM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </pre>
-                                    <tr>
-                                        <td>10:00 AM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11:00 AM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12:00 AM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>01:00 PM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>02:00 PM</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>03:00 PM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>04:00 PM</td>
-                                        <td>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                            <pre>Jemmy (SO)</pre>
-                                            <pre>rio (SO)</pre>
-                                        </td>
-                                        <td>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                            <pre>Unpaid</pre>
-                                            <pre>Paid</pre>
-                                        </td>
-                                        <td>20</td>
-                                    </tr>
+                                <tbody id="view_data_schedule">
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -289,6 +151,8 @@
                     span.classList.add('showEvent');
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         // span.classList.add('bg-primary');
+                    }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        // span.classList.add('dissable');
                     }
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
@@ -302,6 +166,18 @@
 
 
     $(function(){
+        function DataSchedule(eventDate){
+            $.ajax({
+                url: '/ajax/cek/data/schedule',
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
+                success: function (data) {
+                    console.log('jrg',data)
+                    $('#view_data_schedule').html(data);
+                }
+            });
+        }
         function showEvent(eventDate){
             let storedEvents = JSON.parse(localStorage.getItem('events'));
             if (storedEvents == null){
@@ -357,6 +233,7 @@
             $('.event-date').html(todaysDate).data('eventdate', eventDate);
             $('.event-day').html(eventDay);
             $('#view_date').val(todaysDate);
+            DataSchedule(todaysDate);
             showEvent(eventDate);
         })
         $(document).on('click', '.hide', function(){
