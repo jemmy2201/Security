@@ -230,6 +230,11 @@ return [
             'icon' => 'fa fa-history',
         ],
         [
+            'text' => 'Security Employees',
+            'url'  => 'admin/security/employees',
+            'icon' => 'fa fa-user',
+        ],
+        [
             'text' => 'Appointment',
             'url'  => 'admin/appointment',
             'icon' => 'fa fa-calendar',

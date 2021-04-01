@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class=" navbar-light navbar-white">
-        <table id="table_price" class="table table-striped table-bordered dt-responsive nowrap"  >
+        <table id="table_price" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
             <tr>
                 <th scope="col">#</th>

@@ -111,6 +111,18 @@ class AjaxController extends Controller
         }
         return $data;
     }
+    public function history_login()
+    {
+        $history_login = User::whereNull('role')->get();
+
+        return Datatables::of($history_login)->make(true);
+    }
+    public function security_employees()
+    {
+        $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','grades.name as name_grade','sertifikats.expired_date')
+                             ->leftjoin('users', 'sertifikats.user_id', '=', 'users.id')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
+        return Datatables::of($security_employees)->make(true);
+    }
     public function data_price()
     {
         $transaction_amount = transaction_amount::select('transaction_amounts.id as transaction_amounts_id',"transaction_amounts.*","grades.*")->leftjoin('grades', 'transaction_amounts.grade_id', '=', 'grades.id')->get();

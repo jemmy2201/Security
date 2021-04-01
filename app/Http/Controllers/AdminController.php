@@ -29,6 +29,10 @@ class AdminController extends Controller
     {
         return view('admin/historylogin');
     }
+    public function security_employees()
+    {
+        return view('admin/security_employees');
+    }
     public function appointment()
     {
         return view('admin/appointment');
