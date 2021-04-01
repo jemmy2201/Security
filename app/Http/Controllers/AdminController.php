@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\grade;
+use App\gst;
 class AdminController extends Controller
 {
     public function __construct()
@@ -19,6 +20,12 @@ class AdminController extends Controller
     {
         $grade = grade::get();
         return view('admin/price')->with(['grade'=>$grade]);
+    }
+
+    public function gst()
+    {
+        $gst = gst::first();
+        return view('admin/gst')->with(['gst'=>$gst]);
     }
 
     public function limit_schedule()

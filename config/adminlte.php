@@ -240,20 +240,28 @@ return [
             'icon' => 'fa fa-calendar',
         ],
         [
-            'text' => 'Limit Schedule',
-            'url'  => 'admin/limit/schedule',
-            'icon' => 'fa fa-calendar',
+            'text'    => 'Setting',
+            'icon'    => 'fa fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'Limit Schedule',
+                    'url'  => 'admin/limit/schedule',
+                ],
+                [
+                    'text' => 'Price',
+                    'url'  => 'admin/price',
+                ],
+                [
+                    'text' => 'GST',
+                    'url'  => 'admin/gst',
+                ],
+            ],
         ],
-        [
-            'text' => 'Price',
-            'url'  => 'admin/price',
-            'icon' => 'fa fa-credit-card',
-        ],
-        [
-            'text' => 'Logout',
-            'url'  => 'admin/logout',
-            'icon' => 'fas fa-sign-out-alt',
-        ],
+//        [
+//            'text' => 'Logout',
+//            'url'  => 'logout',
+//            'icon' => 'fas fa-sign-out-alt',
+//        ],
 //        [
 //            'text' => 'search',
 //            'search' => true,

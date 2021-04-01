@@ -15,6 +15,7 @@ class CreateGstsTable extends Migration
     {
         Schema::create('gsts', function (Blueprint $table) {
             $table->id();
+            $table->string('create_date');
             $table->string('amount_gst');
             $table->timestamps();
         });

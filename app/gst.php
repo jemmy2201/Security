@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class gst extends Model
 {
     protected $fillable = [
-        'amount_gst'
+        'amount_gst','create_date'
     ];
 }

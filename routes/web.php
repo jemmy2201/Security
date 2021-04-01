@@ -47,6 +47,7 @@ Route::prefix('admin')->group(function () {
     Route::get('appointment', 'AdminController@appointment');
     Route::get('limit/schedule', 'AdminController@limit_schedule');
     Route::get('/price', 'AdminController@price');
+    Route::get('/gst', 'AdminController@gst');
 
 });
 // End Admin
@@ -57,6 +58,8 @@ Route::prefix('ajax')->group(function () {
     Route::post('/data/history/login', 'AjaxController@history_login')->name('admin.history.login');
     Route::post('/data/security/employees', 'AjaxController@security_employees')->name('admin.security.employees');
     Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
+    Route::post('/data/gst', 'AjaxController@data_gst')->name('admin.data.gst');
+    Route::post('/create/gst', 'AjaxController@create_gst')->name('admin.create.gst');
     Route::post('/data/limit/schedule', 'AjaxController@data_limit_shedule')->name('admin.data_limit_shedule');
     Route::post('/insert/limit_schedule', 'AjaxController@insert_limit_schedule')->name('admin.insert.limit_schedule');
     Route::post('/update/amount/limit_schedule', 'AjaxController@update_limit_schedule')->name('admin.update.limit_schedule');
