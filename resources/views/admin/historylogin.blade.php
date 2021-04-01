@@ -1,19 +1,9 @@
 @extends('layouts.app_admin')
 
-<style>
-    .HeaderdataPersonal{
-        color:#808080;
-        font-size: 24px;
-    }
-    .ColoumndataPersonal{
-        font-weight: bold;
-        font-size: 24px;
-    }
-</style>
 @section('content')
 <div class="container">
-    <div class="row navbar-light navbar-white">
-        <table class="table">
+    <div class="navbar-light navbar-white">
+        <table class="table table-striped table-bordered dt-responsive nowrap" id="table_history_login">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -24,17 +14,41 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>TRICIA TAN XIAO HUI</td>
-                <td>myinfotesting@gmail.com</td>
-                <td>T1872646D</td>
-                <td>2021-03-24</td>
-            </tr>
+
             </tbody>
         </table>
     </div>
 </div>
-<script type="application/javascript">
-</script>
+
+@endsection
+@section('js')
+    <script type="application/javascript">
+        $(window).bind('resize', function(e)
+        {
+            this.location.reload(false); /* false to get page from cache */
+            /* true to fetch page from server */
+        });
+        $(document).ready(function(){
+            table_history_login = $('#table_history_login').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: true,
+                // dom: 'Bfrtip',
+                "ajax": {
+                    "url": "{{route('admin.history.login')}}",
+                    "global": false,
+                    "type": "POST",
+                    "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'nric', name: 'nric'},
+                    {data: 'time_login_at', name: 'time_login_at'},
+                ]
+            });
+        });
+
+    </script>
 @endsection
