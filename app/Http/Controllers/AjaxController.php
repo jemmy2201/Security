@@ -170,10 +170,6 @@ class AjaxController extends Controller
         $data = '';
         $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
             ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
-//        $cek_setifikat_schedule = sertifikat::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
-//            ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
-//        $result = array_merge($cek_booking_schedule,$cek_setifikat_schedule);
-
         foreach ($cek_booking_schedule as $index1 => $f){
             $booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->get();
             $data .= '<tr>';
