@@ -6,7 +6,6 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" id="table_history_login">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">NRIC / FIN</th>
@@ -41,7 +40,6 @@
                     "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                     {data: 'nric', name: 'nric'},
