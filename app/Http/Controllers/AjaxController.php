@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\gst;
 use App\sertifikat;
 use App\User;
 use Illuminate\Http\Request;
@@ -133,6 +134,27 @@ class AjaxController extends Controller
             return $btn;
 
         })->make(true);
+
+    }
+    public function data_gst()
+    {
+        $gst = gst::get();
+
+        return Datatables::of($gst)->make(true);
+
+    }
+
+    public function create_gst(Request $request)
+    {
+        $create_gst = new gst();
+
+        $create_gst->amount_gst = $request->amount_gst;
+
+        $create_gst->create_date = Carbon::today()->toDateString();
+
+        $create_gst->save();
+
+        return $create_gst;
 
     }
     public function insert_price(Request $request)
