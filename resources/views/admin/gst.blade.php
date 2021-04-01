@@ -10,7 +10,6 @@
             <table id="table_gst" class="table table-striped table-bordered dt-responsive nowrap">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Create Time</th>
                     <th scope="col">Amount GST</th>
                 </tr>
@@ -78,7 +77,6 @@
                     "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
                     {data: 'create_date', name: 'create_date'},
                     {data: 'amount_gst', name: 'amount_gst'},
                 ]

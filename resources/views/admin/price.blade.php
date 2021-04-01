@@ -10,7 +10,6 @@
         <table id="table_price" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Application</th>
                 <th scope="col">Request</th>
                 <th scope="col">Grade</th>
@@ -127,7 +126,6 @@
                         "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                     },
                     columns: [
-                        {data: 'transaction_amounts_id', name: 'transaction_amounts_id'},
                         {
                             data: 'app_type', name: 'app_type',
                             render: function (data, type, row) {

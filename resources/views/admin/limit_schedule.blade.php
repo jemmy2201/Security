@@ -10,7 +10,6 @@
         <table id="table_limit_schedule" class="table table-striped table-bordered dt-responsive nowrap"  >
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Start at</th>
                 <th scope="col">End at</th>
                 <th scope="col">Amount</th>
@@ -205,7 +204,6 @@
                         "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                     },
                     columns: [
-                        {data: 'id', name: 'id'},
                         {data: 'start_at', name: 'start_at'},
                         {data: 'end_at', name: 'end_at'},
                         {data: 'amount', name: 'amount'},
