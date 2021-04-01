@@ -4,11 +4,8 @@
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constant.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/constant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_29_082320_create_sertifikats_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_29_082320_create_sertifikats_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/appointment.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +240,7 @@
       <workItem from="1616983082491" duration="548000" />
       <workItem from="1616983656040" duration="23022000" />
       <workItem from="1617008664565" duration="47213000" />
-      <workItem from="1617200827709" duration="10268000" />
+      <workItem from="1617200827709" duration="13104000" />
     </task>
     <servers />
   </component>
@@ -267,22 +264,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1617180473857" />
-    <state width="1181" height="180" key="GridCell.Tab.0.bottom" timestamp="1617210729631">
+    <state width="1181" height="180" key="GridCell.Tab.0.bottom" timestamp="1617243907897">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="180" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1617210729631" />
-    <state width="1181" height="180" key="GridCell.Tab.0.center" timestamp="1617210729631">
+    <state width="1181" height="180" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1617243907897" />
+    <state width="1181" height="180" key="GridCell.Tab.0.center" timestamp="1617243907897">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="180" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1617210729631" />
-    <state width="1181" height="180" key="GridCell.Tab.0.left" timestamp="1617210729631">
+    <state width="1181" height="180" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1617243907897" />
+    <state width="1181" height="180" key="GridCell.Tab.0.left" timestamp="1617243907897">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="180" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1617210729631" />
-    <state width="1181" height="180" key="GridCell.Tab.0.right" timestamp="1617210729631">
+    <state width="1181" height="180" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1617243907897" />
+    <state width="1181" height="180" key="GridCell.Tab.0.right" timestamp="1617243907897">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="180" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1617210729631" />
+    <state width="1181" height="180" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1617243907897" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -307,10 +304,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1617200887070" />
-    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617167764795">
+    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617244149344">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1617167764795" />
+    <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1617244149344" />
     <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1617094860105">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

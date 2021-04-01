@@ -120,10 +120,11 @@
             let row = document.createElement('tr');
             for (let j = 0; j < 7; j++) {
                 if (i === 0 && j < firstDay) {
+
                     let cell = document.createElement('td');
                     let span = document.createElement('span');
                     let cellText = document.createTextNode(r_pm);
-                    span.classList.add('prevMonth');
+                    // span.classList.add('prevMonth');
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
                     r_pm++;
@@ -151,8 +152,13 @@
                     span.classList.add('showEvent');
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         // span.classList.add('bg-primary');
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        // span.classList.add('dissable');
+                        span.classList.add('dissable');
+                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
@@ -173,7 +179,6 @@
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
                 success: function (data) {
-                    console.log('jrg',data)
                     $('#view_data_schedule').html(data);
                 }
             });
