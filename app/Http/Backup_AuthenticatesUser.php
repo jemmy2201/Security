@@ -54,7 +54,9 @@ trait AuthenticatesUsers
 
             return $this->sendLockoutResponse($request);
         }
+
         if ($request->type_login == non_barcode) {
+
             // api cek sinpass
             // dummy api
             $dummy_api = User::where('nric', $request->singpass_id)->orWhere('passid', $request->singpass_id)->first();
@@ -73,13 +75,13 @@ trait AuthenticatesUsers
             }
         }
 
-        $email = array("email" => $data->email);
-        $request->merge($email);
-
+        if (!empty($data->email)){
+            $email = array("email" => $data->email);
+            $request->merge($email);
+        }
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
-
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
