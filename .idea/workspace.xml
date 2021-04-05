@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/gst.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/gst.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historylogin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historylogin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/limit_schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/limit_schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/payment.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/price.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/price.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Backup_AuthenticatesUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Backup_AuthenticatesUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +205,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:security_employees@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@4c8ca1f" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@496583aa" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -242,7 +240,11 @@
       <workItem from="1616983082491" duration="548000" />
       <workItem from="1616983656040" duration="23022000" />
       <workItem from="1617008664565" duration="47213000" />
-      <workItem from="1617200827709" duration="25010000" />
+      <workItem from="1617200827709" duration="25488000" />
+      <workItem from="1617262828371" duration="55000" />
+      <workItem from="1617262912554" duration="631000" />
+      <workItem from="1617622580345" duration="56000" />
+      <workItem from="1617626033783" duration="2729000" />
     </task>
     <servers />
   </component>
@@ -302,10 +304,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1616644453136" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1617200887070">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1617626053049">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1617200887070" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1617626053049" />
     <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617244149344">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -318,9 +320,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1616689406918" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1617256082999">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1617626300623">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1617256082999" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1617626300623" />
   </component>
 </project>

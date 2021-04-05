@@ -1,11 +1,5 @@
 @extends('layouts.app')
-<style>
-    .table{
-        max-height: 50%;
-        overflow: auto;
-        display:inline-block;
-    }
-</style>
+
 @section('content')
 <div class="container">
 <img src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
@@ -49,14 +43,14 @@
 <br>
 <p style="color: #808080;">History Applications</p>
     <div style="border-style: groove;padding: 10px;">
-        <table class="table">
+        <table class="table" >
             <thead>
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Application Type</th>
-                <th scope="col">Request Application</th>
+                <th scope="col" >Request Application</th>
                 <th scope="col">Grade</th>
-                <th scope="col">Expired Date</th>
+                <th scope="col" >Expired Date</th>
             </tr>
             </thead>
             <tbody>
@@ -97,6 +91,16 @@
     </div>
 </div>
 <script type="application/javascript">
+    $(window).bind('resize', function(e)
+    {
+        this.location.reload(false); /* false to get page from cache */
+        /* true to fetch page from server */
+    });
+    if ((screen.width>=1024) && (screen.height>=768)) {
+        $(".table").css({"display": "", "max-height": "50%","overflow":"auto"});
+    } else {
+        $(".table").css({"display": "inline-block", "max-height": "50%","overflow":"auto"});
+    }
     $.ajax({
         type:'get',
         url:'/ajax/cek/data/from',

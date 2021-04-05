@@ -20,7 +20,7 @@
                         </ul>
 
                         <div class="tab-content">
-                            <div id="scan" class="tab-pane fade in active">
+                            <div id="scan" class="tab-pane fade">
                                 <center>
                                     <h3><b>Scan with Singpass app</b></h3>
                                 <h4>to log in</h4>
@@ -30,7 +30,7 @@
                                 <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
                                 </center>
                             </div>
-                            <div id="passlogin" class="tab-pane fade">
+                            <div id="passlogin" class="tab-pane fade in active">
                                 <h3>Log in</h3>
                                 <form  method="POST" action="{{ route('login') }}">
                                     @csrf
