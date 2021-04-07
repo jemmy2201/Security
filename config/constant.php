@@ -66,3 +66,7 @@ define('start_empty', 101);
 define('end_empty', 102);
 define('data_has_been_used_in_the_booking_schedule', 103);
 // end response limit schedule
+
+// response update password
+define('not_find_pass', 101);
+// end response update password

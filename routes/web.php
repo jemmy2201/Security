@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function () {
     Route::get('limit/schedule', 'AdminController@limit_schedule');
     Route::get('/price', 'AdminController@price');
     Route::get('/gst', 'AdminController@gst');
-
+    Route::get('/change/password', 'AdminController@change_pass');
 });
 // End Admin
 Route::prefix('ajax')->group(function () {
@@ -65,4 +65,5 @@ Route::prefix('ajax')->group(function () {
     Route::post('/update/amount/limit_schedule', 'AjaxController@update_limit_schedule')->name('admin.update.limit_schedule');
     Route::post('/insert/price', 'AjaxController@insert_price')->name('admin.insert.price');
     Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
+    Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
 });

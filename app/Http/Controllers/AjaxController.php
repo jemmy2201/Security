@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DataTables;
 use DB;
+use Illuminate\Support\Facades\Hash;
+
 class AjaxController extends Controller
 {
     public function __construct()
@@ -231,6 +233,23 @@ class AjaxController extends Controller
             $data .= '</tr>';
         }
             return $data;
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $cek_pass = User::where(['id'=>Auth::id()])->first();
+        if(Hash::check($request->pass_old, Auth::user()->password))
+        {
+            $user  = User::find($cek_pass->id);
+
+            $user  ->password = Hash::make($request->pass_new);
+
+            $user  ->save();
+        }else{
+            $user = not_find_pass;
+        }
+
+        return $user;
     }
     public function cek_limit_schedule(Request $request)
     {
