@@ -105,20 +105,28 @@
         </div>
         <br>
         <div class="row" id="view_declare">
-{{--            <div class="col">--}}
-{{--            </div>--}}
             <div class="col-10" >
                 <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                 <a id="text_declare"></a>
                 <input type="hidden" name="grade" id="grade">
-{{--                <select class="form-control" id="grade" name="grade">--}}
-{{--                    <option value="0" selected>please choose</option>--}}
-{{--                    @foreach ($grade as $f)--}}
-{{--                        <option value="{{$f->id}}">{{$f->name}}</option>--}}
-{{--                    @endforeach--}}
-{{--                </select>--}}
             </div>
         </div>
+    @elseif(!empty($replacement))
+            <div class="row">
+                <div class="col-4 col_declare1">
+                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                </div>
+                <div class="col-4 col_declare2">
+                </div>
+            </div>
+            <br>
+            <div class="row" >
+                <div class="col-10" >
+                    <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                    <a>{{$replacement->name}}</a>
+                    <input type="hidden" name="grade" id="grade">
+                </div>
+            </div>
     @endif
     <br>
     <h3 style="color: black;font-weight: bold;">Add Photo</h3>
