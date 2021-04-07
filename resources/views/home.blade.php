@@ -135,15 +135,17 @@
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
+            // RemoveDissableRequest();
             $("#app_type").val(document.getElementById("replacement").value);
+            $( "#personal_particular" ).submit();
         });
         $("#renewal").click(function() {
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
+            // RemoveDissableRequest();
             $("#app_type").val(document.getElementById("renewal").value);
+            $( "#personal_particular" ).submit();
         });
         // End Application type
 

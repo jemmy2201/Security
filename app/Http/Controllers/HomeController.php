@@ -54,7 +54,7 @@ class HomeController extends Controller
     public function submission(Request $request)
     {
         $grade = null;
-
+        $replacement = null;
         $diff_data = $this->diff_data($request);
 
         if ($diff_data){
@@ -62,11 +62,17 @@ class HomeController extends Controller
             $this->UpdateUsers($diff_data);
         }
         if ($request->card== so_app){
-            $grade = grade::where(['card_id'=>$request->card])->get();
+            if ($request->app_type== renewal){
+                $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                $grade = grade::where(['card_id'=>$renewal->card_id])->get();
+            }elseif ($request->app_type== replacement){
+                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+            }else{
+                $grade = grade::where(['card_id'=>$request->card])->get();
+            }
         }
         $personal = User::where(['id'=>Auth::id()])->first();
-
-        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request]);
+        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement]);
     }
 
     public function book_appointment(Request $request)
@@ -75,6 +81,7 @@ class HomeController extends Controller
         if (!empty($request->grade)){
             $grade = $request->grade;
         }
+
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (empty($booking_schedule)){
             $this->NewBookingSchedule($request,$grade);
@@ -226,26 +233,68 @@ class HomeController extends Controller
         $UpdateUser->photo = $imageName;
 
         $UpdateUser->save();
+        if ($request->app_type == renewal){
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+                ->update([
+                    'app_type' => $request->app_type,
+//                    'card_id' => $request->card,
+                    'grade_id' => $grade,
+                    'declaration_date' => Carbon::today()->toDateString(),
+                    'status_app' => submission,
+                    'trans_date' => null,
+                    'expired_date' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
+                    'gst_id' => null,
+                    'transaction_amount_id' => null,
+                    'grand_total' => null,
+                    'paymentby' => null,
+                    'status_payment' => null,
+                    'user_id' => Auth::id(),
+                ]);
+        }elseif ($request->app_type == replacement){
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+                ->update([
+                    'app_type' => $request->app_type,
+//                    'card_id' => $request->card,
+//                    'grade_id' => $grade,
+                    'declaration_date' => Carbon::today()->toDateString(),
+                    'status_app' => submission,
+                    'trans_date' => null,
+                    'expired_date' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
+                    'gst_id' => null,
+                    'transaction_amount_id' => null,
+                    'grand_total' => null,
+                    'paymentby' => null,
+                    'status_payment' => null,
+                    'user_id' => Auth::id(),
+                ]);
+        }else{
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+                ->update([
+                    'app_type' => $request->app_type,
+                    'card_id' => $request->card,
+                    'grade_id' => $grade,
+                    'declaration_date' => Carbon::today()->toDateString(),
+                    'status_app' => submission,
+                    'trans_date' => null,
+                    'expired_date' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
+                    'gst_id' => null,
+                    'transaction_amount_id' => null,
+                    'grand_total' => null,
+                    'paymentby' => null,
+                    'status_payment' => null,
+                    'user_id' => Auth::id(),
+                ]);
+        }
 
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
-            ->update([
-                'app_type' => $request->app_type,
-                'card_id' => $request->card,
-                'grade_id' => $grade,
-                'declaration_date' => Carbon::today()->toDateString(),
-                'status_app' => submission,
-                'trans_date' => null,
-                'expired_date' => null,
-                'appointment_date' => null,
-                'time_start_appointment' => null,
-                'time_end_appointment' => null,
-                'gst_id' => null,
-                'transaction_amount_id' => null,
-                'grand_total' => null,
-                'paymentby' => null,
-                'status_payment' => null,
-                'user_id' => Auth::id(),
-            ]);
         return $booking_schedule;
     }
     protected function NewBookingSchedule($request,$grade)

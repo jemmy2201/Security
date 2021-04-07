@@ -32,8 +32,7 @@ class AjaxController extends Controller
         $new = true;
         $replacement = false;
         $renewal = false;
-        $data = booking_schedule::where(['user_Id'=>Auth::id()])->first();
-
+        $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (!empty($data)){
             $replacement = true;
             $new = false;
