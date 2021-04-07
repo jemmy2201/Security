@@ -27,6 +27,10 @@ class AdminController extends Controller
         $gst = gst::first();
         return view('admin/gst')->with(['gst'=>$gst]);
     }
+    public function change_pass()
+    {
+    return view('admin/change_pass');
+    }
 
     public function limit_schedule()
     {

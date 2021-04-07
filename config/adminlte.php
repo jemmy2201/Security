@@ -255,6 +255,10 @@ return [
                     'text' => 'GST',
                     'url'  => 'admin/gst',
                 ],
+                [
+                    'text' => 'Change Password',
+                    'url'  => 'admin/change/password',
+                ],
             ],
         ],
 //        [
