@@ -111,7 +111,7 @@
                 <input type="hidden" name="grade" id="grade">
             </div>
         </div>
-    @elseif(!empty($replacement))
+    @elseif(!empty($replacement) && $request->card == so_app)
             <div class="row">
                 <div class="col-4 col_declare1">
                     <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>

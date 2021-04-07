@@ -46,44 +46,90 @@
         <table class="table" >
             <thead>
             <tr>
-                <th scope="col">No</th>
                 <th scope="col">Application Type</th>
                 <th scope="col" >Request Application</th>
                 <th scope="col">Grade</th>
+                <th scope="col" >Status Proses</th>
                 <th scope="col" >Expired Date</th>
             </tr>
             </thead>
             <tbody>
-            @if(!empty($sertifikat))
-                @foreach($sertifikat as $index => $f)
-                <tr>
-                    <th scope="row">{{$index +1}}</th>
-                    @if($f->app_type == news)
-                        <td>New</td>
-                    @elseif($f->app_type == replacement)
-                        <td>Replacement</td>
-                    @elseif($f->app_type == renewal)
-                        <td>Renewal</td>
+            @if(!empty($schedule))
+                @foreach($schedule as $index => $f)
+                    @if($f->Status_app == submission)
+                        @php $url="/history/book/appointment"; @endphp
+                    @elseif($f->Status_app == book_appointment)
+                        @php $url="/history/book/payment"; @endphp
                     @endif
+                    <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
+                        @if($f->app_type == news)
+                            <td>New</td>
+                        @elseif($f->app_type == replacement)
+                            <td>Replacement</td>
+                        @elseif($f->app_type == renewal)
+                            <td>Renewal</td>
+                        @endif
 
-                    @if($f->card_id == so_app)
-                        <td>SO Application</td>
-                    @elseif($f->card_id == avso_app)
-                        <td>AVSO Application</td>
-                    @elseif($f->card_id == pi_app)
-                        <td>PI Application</td>
-                    @endif
-                    @if($f->card_id == so_app)
-                        @foreach($grade as $g)
-                            @if($g->id == $f->grade_id)
-                                <td>{{$g->name}}</td>
+                        @if($f->card_id == so_app)
+                            <td>SO Application</td>
+                        @elseif($f->card_id == avso_app)
+                            <td>AVSO Application</td>
+                        @elseif($f->card_id == pi_app)
+                            <td>PI Application</td>
+                        @endif
+                        @if($f->card_id == so_app)
+                            @foreach($grade as $g)
+                                @if($g->id == $f->grade_id)
+                                    <td>{{$g->name}}</td>
+                                @endif
+                            @endforeach
+                        @else
+                            <td>NA</td>
+                        @endif
+                        @if($f->Status_app == submission)
+                            <td>Book Appointment</td>
+                        @elseif($f->Status_app == book_appointment)
+                            <td>Payment</td>
+                        @endif
+                        @if($f->Status_app == payment)
+                            <td>{{$f->expired_date}}</td>
+                        @else
+                            <td></td>
+                        @endif
+
+                    </tr>
+                @endforeach
+            @endif
+            @if(!empty($sertifikat))
+                    @foreach($sertifikat as $index => $f)
+                        <tr>
+                            @if($f->app_type == news)
+                                <td>New</td>
+                            @elseif($f->app_type == replacement)
+                                <td>Replacement</td>
+                            @elseif($f->app_type == renewal)
+                                <td>Renewal</td>
                             @endif
-                        @endforeach
-                    @else
-                        <td>NA</td>
-                    @endif
-                    <td>{{$f->expired_date}}</td>
-                </tr>
+
+                            @if($f->card_id == so_app)
+                                <td>SO Application</td>
+                            @elseif($f->card_id == avso_app)
+                                <td>AVSO Application</td>
+                            @elseif($f->card_id == pi_app)
+                                <td>PI Application</td>
+                            @endif
+                            @if($f->card_id == so_app)
+                                @foreach($grade as $g)
+                                    @if($g->id == $f->grade_id)
+                                        <td>{{$g->name}}</td>
+                                    @endif
+                                @endforeach
+                            @else
+                                <td>NA</td>
+                            @endif
+                            <td>Completed</td>
+                            <td>{{$f->expired_date}}</td>
+                        </tr>
                 @endforeach
             @endif
             </tbody>
@@ -95,6 +141,11 @@
     {
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
+    });
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
     });
     if ((screen.width>=1024) && (screen.height>=768)) {
         $(".table").css({"display": "", "max-height": "50%","overflow":"auto"});

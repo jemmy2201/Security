@@ -36,7 +36,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
+Route::get('/history/book/appointment', 'HomeController@HistoryBookAppointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
+Route::get('/history/book/payment', 'HomeController@HistoryViewPayment');
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
 // End User
 
