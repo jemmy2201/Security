@@ -34,8 +34,11 @@ class AjaxController extends Controller
         $renewal = false;
         $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (!empty($data)){
-            $replacement = true;
             $new = false;
+            $Datareplacement = booking_schedule::where(['user_id'=>Auth::id(),'status_app'=>payment])->first();
+            if (!empty($Datareplacement)){
+                $replacement = true;
+            }
             if (!empty($data->expired_date) && Carbon::today()->toDateString() >= Carbon::parse($data->expired_date)->toDateString()){
                 $renewal = true;
             }

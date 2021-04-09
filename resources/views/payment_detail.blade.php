@@ -7,14 +7,14 @@
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;">
-    <h3 style="color: #E31E1A;">Payment Details</h3>
+    <img src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;margin-bottom: 20px;">
+    <h2 style="color: #E31E1A;">Payment Details</h2>
     <br>
     <form method="post" id="save_payment" action="{{ route('save.payment') }}" >
         @csrf
     <div class="row">
         <div class="col payment_method" style="border-style: groove;">
-            <h3><b>Payment Method</b></h3>
+            <h3><b>Payment Method</b></h3><br>
             <div class="row" >
                 <div class="col-3 VPpaynow Listpaymentmenthod">
                     <button type="button" class="btn btn-secondary btn-lg" id="payment" style="border-style: groove;" value="@php echo paynow;@endphp">PayNow</button>
@@ -94,7 +94,7 @@
         <div class="col-4 hidden-xs">
             <div class="row" style="border-style: groove;">
                 <div class="col">
-                    <h3><b>Summarry</b></h3>
+                    <h3><b>Summary</b></h3>
                     <div class="row">
                         <div class="col-4">Aplication :</div>
                         @if($booking_schedule->app_type == news)

@@ -171,6 +171,11 @@
                 $("#replacement").prop('disabled', true);
                 $("#renewal").prop('disabled', false);
             }
+            if(data['new'] == false && data['replacement'] == false && data['renewal'] == false){
+                $("#news").prop('disabled', true);
+                $("#replacement").prop('disabled', true);
+                $("#renewal").prop('disabled', true);
+            }
         }
     });
     $(document).ready(function() {

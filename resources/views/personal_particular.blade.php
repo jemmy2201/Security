@@ -3,28 +3,28 @@
 <style>
     .HeaderdataPersonal{
         color:#808080;
-        font-size: 24px;
+        font-size: 20px;
     }
     .ColoumndataPersonal{
         font-weight: bold;
-        font-size: 24px;
+        font-size: 20px;
     }
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/2.png')}}" style="width: 100%;">
-    <h3 style="color: #E31E1A;">Personal Particular</h3>
+    <img src="{{URL::asset('/img/img_step_proses/2.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <h2 style="color: #E31E1A;">Personal Particular</h2>
     <br>
-        <div class="row">
+{{--        <div class="row">--}}
             <div class="col-sm">
                 <div class="row">
-                    <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     <div class="w-100"></div>
-                    <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                    <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
                     <div class="w-100"></div>
-                    <div class="col-6 HeaderdataPersonal">Pass ID No &nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Pass ID No &nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="col-sm" hidden>
                 <img src="{{URL::asset('/img/profile.png')}}" style="width: 30%;border-style: groove;">
             </div>
-        </div>
+{{--        </div>--}}
     <br><br>
 
     <h3 style="color: black;font-weight: bold;">Update Contact Details</h3>
