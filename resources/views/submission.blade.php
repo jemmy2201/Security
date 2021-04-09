@@ -3,30 +3,32 @@
 <style>
     .HeaderdataPersonal{
         color:#808080;
-        font-size: 24px;
+        font-size: 20px;
     }
     .ColoumndataPersonal{
         font-weight: bold;
-        font-size: 24px;
+        font-size: 20px;
     }
 </style>
 @section('content')
 <div class="container submission">
-    <img src="{{URL::asset('/img/img_step_proses/3.png')}}" style="width: 100%;">
-    <h3 style="color: #E31E1A;">Submission</h3>
+    <img src="{{URL::asset('/img/img_step_proses/3.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <h2 style="color: #E31E1A;">Submission</h2>
     <br>
         {{-- Desktop --}}
+    <h4><b>Submitted Details</b></h4>
+
+    <div class="container">
             <div class="row hidden-xs">
                 <div class="col-sm">
-                    <h4><b>Submitted Details</b></h4>
                     <div class="row">
-                        <div class="col-4 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-4 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
                         <div class="w-100"></div>
-                        <div class="col-4 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
                             @if ($request->card == so_app)
                                 <div class="col-4 ColoumndataPersonal">SO / SSO / SSS</div>
                             @elseif($request->card == avso_app)
@@ -40,30 +42,30 @@
                 </div>
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
-                    <br><br>
                     <div class="row">
-                        <div class="col-4 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-4 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                     </div>
                 </div>
             </div>
+    </div>
         {{-- End Desktop --}}
 
         {{-- Phone --}}
             <div class="row visible-xs hidden-md">
             <div class="col-sm">
-                <h4><b>Submitted Details</b></h4>
-                <div class="row">
-                    <div class="col-6 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                <div class="container">
+                    <div class="row">
+                    <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
                     <div class="w-100"></div>
-                    <div class="col-6 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     <div class="w-100"></div>
-                    <div class="col-6 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
                     @if ($request->card == so_app)
                         <div class="col-6 ColoumndataPersonal">SO / SSO / SSS</div>
                     @elseif($request->card == avso_app)
@@ -71,19 +73,21 @@
                     @else
                         <div class="col-6 ColoumndataPersonal">NA</div>
                     @endif
+                    </div>
                 </div>
             </div>
             <div class="col-sm">
             </div>
             <br class="visible-xs hidden-md">
             <div class="col-sm">
-                <br><br>
-                <div class="row">
-                    <div class="col-6 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                <div class="container">
+                    <div class="row">
+                    <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
                     <div class="w-100"></div>
-                    <div class="col-6 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,14 +149,14 @@
         </div>
     </div>
     <br>
-    <div class="row" style="margin-left: 1px;">
-        <div class="col-0">
-            <input type="checkbox" id="declare" name="declare">
-        </div>
-        <div class="col-8">
-            <b>I declare that I have been assessed and certified in the following training modules</b>
-        </div>
-    </div>
+{{--    <div class="row" style="margin-left: 1px;">--}}
+{{--        <div class="col-0">--}}
+{{--            <input type="checkbox" id="declare" name="declare">--}}
+{{--        </div>--}}
+{{--        <div class="col-8">--}}
+{{--            <b>I declare that I have been assessed and certified in the following training modules</b>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -230,7 +234,8 @@
                         if($("input[name='declare']:checked").val() != undefined){
                             $( "#book_appointment" ).submit();
                         }else{
-                            swal("Please!", " tick declare", "error");
+                            $( "#book_appointment" ).submit();
+                            // swal("Please!", " tick declare", "error");
                         }
                     }else{
                         swal("Please!", "Upload Photo", "error")

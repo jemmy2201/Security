@@ -22,7 +22,7 @@
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;">
+    <img src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;margin-bottom: 20px;">
     <h2 style="color: #E31E1A;">Book Appointment</h2><br>
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
@@ -47,7 +47,7 @@
         <div class="col-6 medium">
         </div>
         <div class="col-2 next">
-            <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Payment <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
         </div>
     </div>
     </form>
