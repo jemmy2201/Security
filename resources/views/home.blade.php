@@ -78,11 +78,20 @@
                             <td>PI Application</td>
                         @endif
                         @if($f->card_id == so_app)
-                            @foreach($grade as $g)
-                                @if($g->id == $f->grade_id)
-                                    <td>{{$g->name}}</td>
-                                @endif
-                            @endforeach
+                            <td>
+                                @foreach($grade as $g)
+                                    @foreach (json_decode($f->grade_id) as $i)
+                                        @if($g->id == $i)
+                                            <pre>{{$g->name}}</pre>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </td>
+{{--                            @foreach($grade as $g)--}}
+{{--                                @if($g->id == $f->grade_id)--}}
+{{--                                    <td>{{$g->name}}</td>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
                         @else
                             <td>NA</td>
                         @endif
@@ -119,11 +128,18 @@
                                 <td>PI Application</td>
                             @endif
                             @if($f->card_id == so_app)
+                                <td>
                                 @foreach($grade as $g)
-                                    @if($g->id == $f->grade_id)
-                                        <td>{{$g->name}}</td>
-                                    @endif
+                                        @foreach (json_decode($f->grade_id) as $i)
+                                            @if($g->id == $i)
+                                                    <pre>{{$g->name}}</pre>
+                                            @endif
+                                        @endforeach
+{{--                                    @if($g->id == $f->grade_id)--}}
+{{--                                        <td>{{$g->name}}</td>--}}
+{{--                                    @endif--}}
                                 @endforeach
+                                </td>
                             @else
                                 <td>NA</td>
                             @endif

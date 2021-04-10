@@ -55,33 +55,59 @@ class HomeController extends Controller
     {
         $grade = null;
         $replacement = null;
+        $view_declare = null;
         $diff_data = $this->diff_data($request);
 
         if ($diff_data){
             // Update
             $this->UpdateUsers($diff_data);
         }
+        // view_declare
+        if (!empty($request->Cgrade)){
+            $view_declare = $request->Cgrade;
+        }
+        // End view_declare
         if ($request->app_type== renewal || $request->app_type== replacement) {
             $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
             $request->merge(['card' => $data->card_id]);
         }
         if ($request->card == so_app){
             if ($request->app_type== renewal){
-                $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
-                $grade = grade::where(['card_id'=>$renewal->card_id])->get();
+                if (!empty($request->Cgrade)){
+                    // view declare more than 1
+                    $grade = null;
+                    // end view declare more than 1
+                }else{
+                    $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                    $grade = grade::where(['card_id'=>$renewal->card_id])->get();
+                }
             }elseif ($request->app_type== replacement){
-                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+//                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                $replacement = booking_schedule::first();
             }else{
-                $grade = grade::where(['card_id'=>$request->card])->get();
+                if (!empty($request->Cgrade)){
+                    // view declare more than 1
+                    $grade = null;
+                    // end view declare more than 1
+                }else{
+                    $grade = grade::where(['card_id'=>$request->card])->get();
+                }
             }
         }else{
            if ($request->app_type== replacement || $request->app_type== renewal){
                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->first();
                 $request->merge(['card' => $replacement->card_id]);
-            }
+           }
         }
         $personal = User::where(['id'=>Auth::id()])->first();
-        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement]);
+        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
+    }
+    public function declare_submission(Request $request)
+    {
+        $grade = grade::where(['card_id'=>$request->card])->get();
+
+        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
+
     }
     public function book_appointment(Request $request)
     {
@@ -109,7 +135,10 @@ class HomeController extends Controller
         $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (!empty($booking_schedule->grade_id)){
-            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+            foreach (json_decode($booking_schedule->grade_id) as $f){
+                $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+            }
+//            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
@@ -122,7 +151,10 @@ class HomeController extends Controller
 //        $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (!empty($booking_schedule->grade_id)){
-            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+//            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+            foreach (json_decode($booking_schedule->grade_id) as $f){
+                $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+            }
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
@@ -250,6 +282,12 @@ class HomeController extends Controller
             'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        if (!empty($grade)){
+            $grade = json_encode($grade);
+        }else{
+            $grade = $grade;
+        }
+
         $imageName = time().'.'.$request->upload_profile->extension();
 
         $request->upload_profile->move(public_path('img/img_users'), $imageName);
@@ -328,7 +366,11 @@ class HomeController extends Controller
         $request->validate([
             'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        if (!empty($grade)){
+            $grade = json_encode($grade);
+        }else{
+            $grade = $grade;
+        }
         $imageName = time().'.'.$request->upload_profile->extension();
 
         $request->upload_profile->move(public_path('img/img_users'), $imageName);

@@ -17,6 +17,7 @@ class CreateGradesTable extends Migration
             $table->id();
             $table->string('card_id')->nullable()->comment('get table application');
             $table->string('name');
+            $table->string('type')->nullable();
             $table->string('bsoc');
             $table->string('ssoc');
             $table->string('sssc');

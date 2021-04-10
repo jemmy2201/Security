@@ -35,6 +35,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
+Route::post('/declare/submission', 'HomeController@declare_submission')->name('declare.submission');
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
 Route::get('/history/book/appointment', 'HomeController@HistoryBookAppointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
