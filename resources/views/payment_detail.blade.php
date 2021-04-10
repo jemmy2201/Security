@@ -107,7 +107,14 @@
                         <div class="w-100"></div>
                         <div class="col-4">Type :</div>
                         @if($booking_schedule->card_id == so_app)
-                            <div class="col">SO/SSO/SSS</div>
+                            <div class="col">
+                                @foreach (json_decode($booking_schedule->grade_id) as $f)
+                                    @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp
+                                    @if($f == $grades->id)
+                                        {{$grades->type}}/
+                                    @endif
+                                 @endforeach
+                            </div>
                         @elseif($booking_schedule->card_id == avso_app)
                             <div class="col">AVSO</div>
                         @else

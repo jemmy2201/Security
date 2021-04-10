@@ -108,13 +108,16 @@
             </div>
         </div>
         <br>
-        <div class="row" id="view_declare">
-            <div class="col-10" >
-                <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                <a id="text_declare"></a>
-                <input type="hidden" name="grade" id="grade">
-            </div>
-        </div>
+        {{-- just view one delcare--}}
+{{--                <div class="row" id="view_declare">--}}
+{{--                    <div class="col-10" >--}}
+{{--                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                        <a id="text_declare"></a>--}}
+{{--                        <input type="hidden" name="grade" id="grade">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+        {{-- end just view one delcare--}}
+
     @elseif(!empty($replacement) && $request->card == so_app)
             <div class="row">
                 <div class="col-4 col_declare1">
@@ -125,13 +128,41 @@
             </div>
             <br>
             <div class="row" >
-                <div class="col-10" >
-                    <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                    <a>{{$replacement->name}}</a>
-                    <input type="hidden" name="grade" id="grade">
+{{--                <div class="col-10" >--}}
+{{--                    <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                    <a>{{$replacement->name}}</a>--}}
+{{--                    <input type="hidden" name="grade" id="grade">--}}
+{{--                </div>--}}
+                @foreach (json_decode($replacement->grade_id) as $f)
+                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                    <div class="col-10">
+                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                        <a>{{$data[0]->name}}</a><br>
+                        <input type="hidden" name="grade[]" id="grade" value="{{$data[0]->id}}">
+                    </div>
+                @endforeach
+            </div>
+    @elseif(!empty($view_declare))
+            <div class="row">
+                <div class="col-4 col_declare1">
+                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                </div>
+                <div class="col-4 col_declare2">
                 </div>
             </div>
-    @endif
+            <br>
+            <div class="row">
+                @foreach ($view_declare as $f)
+                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                    <div class="col-10">
+                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                        <a>{{$data[0]->name}}</a><br>
+                        <input type="hidden" name="grade[]" id="grade" value="{{$data[0]->id}}">
+                    </div>
+                @endforeach
+            </div>
+
+        @endif
     <br>
     <h3 style="color: black;font-weight: bold;">Add Photo</h3>
     <div class="row">
@@ -149,14 +180,14 @@
         </div>
     </div>
     <br>
-{{--    <div class="row" style="margin-left: 1px;">--}}
-{{--        <div class="col-0">--}}
-{{--            <input type="checkbox" id="declare" name="declare">--}}
-{{--        </div>--}}
-{{--        <div class="col-8">--}}
-{{--            <b>I declare that I have been assessed and certified in the following training modules</b>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="row" style="margin-left: 1px;">
+        <div class="col-0">
+            <input type="checkbox" id="declare" name="declare">
+        </div>
+        <div class="col-8">
+            <b>I declare that I have been assessed and certified in the following training modules</b>
+        </div>
+    </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -192,9 +223,14 @@
         </div>
         <div class="col-6 medium">
         </div>
+        <form method="post" id="delcare_submission" action="{{ route('declare.submission') }}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
+            <input type="hidden" id="card" name="card" value="{{$request->card}}">
         <div class="col-2 next">
             <button type="button" id="submit_declare_trainig" class=" btn btn-danger btn-lg btn-block">Confirm</button>
         </div>
+        </form>
     </div>
 </div>
 @endif
@@ -204,11 +240,13 @@
         $("#view_declare").hide();
 
         $("#button_declare" ).click(function() {
-            $(".submission").hide();
-            $(".declare").show();
+            // $(".submission").hide();
+            // $(".declare").show();
+            $( "#delcare_submission" ).submit();
         });
 
         $("#submit_declare_trainig" ).click(function() {
+
             if ($("input[name='Cgrade']:checked").val() != undefined) {
                 if ($("input[name='declare_trainig']:checked").val()){
                     $(".submission").show();
@@ -216,6 +254,15 @@
                     $(".declare").hide();
                     $("#grade").val($("input[name='Cgrade']:checked").val());
                     $("#text_declare" ).text($('input[name="Cgrade"]:checked').parent().text());
+                    {{--var grade = @json($grade);--}}
+                    {{--$('#Cgrade:checked').each(function(){--}}
+                    {{--    var Cgrade = $(this).val();--}}
+                    {{--    $.each(grade, function(i, item) {--}}
+                    {{--        if (Cgrade == grade[i].id){--}}
+                    {{--            $("#text_declare" ).html('<a>'+grade[i].name+'</a><br><br>');--}}
+                    {{--        }--}}
+                    {{--    });--}}
+                    {{--});--}}
                 }else{
                     swal("Please!", " tick declare", "error")
                 }
