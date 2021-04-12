@@ -122,16 +122,20 @@
                         @endif
                         <div class="w-100"></div>
                         <div class="col-4">Fee :</div>
-                        <div class="col">${{$transaction_amount->transaction_amount}}</div>
+                        @if(!empty($addition_transaction_amount))
+                            <div class="col">${{$addition_transaction_amount}}</div>
+                        @else
+                            <div class="col">${{$transaction_amount->transaction_amount}}</div>
+                        @endif
                         <div class="w-100"></div>
                         <div class="col-4">GST ({{$gst->amount_gst}}%) :</div>
                         <input type="hidden" name="grade_id" id="grade_id" value="{{$gst->id}}">
                         <input type="hidden" name="transaction_amount_id" id="transaction_amount_id" value="{{$transaction_amount->id}}">
                         @php
-                            $gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
+                            $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
                         @endphp
                         <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst}}">
-                        <div class="col">${{$gst}}</div>
+                        <div class="col">${{$value_gst}}</div>
                     </div>
                     <hr>
                     <div class="row">
@@ -141,7 +145,7 @@
                         </div>
                         <div class="col">
                             @php
-                                $grand_total = $transaction_amount->transaction_amount + $gst;
+                                $grand_total = $transaction_amount->transaction_amount + $value_gst;
                             @endphp
                             <input type="hidden" name="grand_total" id="grand_total" value="{{$grand_total}}">
                             <h4>{{$grand_total}}</h4>
@@ -171,18 +175,33 @@
                 <div class="w-100"></div>
                 <div class="col-4">Type :</div>
                 @if($booking_schedule->card_id == so_app)
-                    <div class="col">SO/SSO/SSS</div>
+                    <div class="col">
+                        @foreach (json_decode($booking_schedule->grade_id) as $f)
+                            @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp
+                            @if($f == $grades->id)
+                                {{$grades->type}}/
+                            @endif
+                        @endforeach
+                    </div>
                 @elseif($booking_schedule->card_id == avso_app)
-                    <div class="col">Replacement</div>
+                    <div class="col">AVSO</div>
                 @else
-                    <div class="col">Renewal</div>
+                    <div class="col">PI</div>
                 @endif
                 <div class="w-100"></div>
                 <div class="col-4">Fee :</div>
-                <div class="col">$12</div>
+                @if(!empty($addition_transaction_amount))
+                    <div class="col">${{$addition_transaction_amount}}</div>
+                @else
+                    <div class="col">${{$transaction_amount->transaction_amount}}</div>
+                @endif
                 <div class="w-100"></div>
-                <div class="col-4">GST (7%) :</div>
-                <div class="col">$0.8</div>
+                <div class="col-4">GST ({{$gst->amount_gst}}%) :</div>
+                @php
+                    $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
+                @endphp
+                <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst}}">
+                <div class="col">${{$value_gst}}</div>
             </div>
             <hr>
             <div class="row">
@@ -191,7 +210,10 @@
                     <p style="color: #808080">(incl.GSTI)</p>
                 </div>
                 <div class="col">
-                    <h4>$128</h4>
+                    @php
+                        $grand_total = $transaction_amount->transaction_amount + $value_gst;
+                    @endphp
+                    <h4>{{$grand_total}}</h4>
                 </div>
             </div>
         </div>
