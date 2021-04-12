@@ -69,4 +69,6 @@ Route::prefix('ajax')->group(function () {
     Route::post('/insert/price', 'AjaxController@insert_price')->name('admin.insert.price');
     Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
     Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
+    Route::get('/download/excel/schedule', 'AjaxController@schedule');
+
 });

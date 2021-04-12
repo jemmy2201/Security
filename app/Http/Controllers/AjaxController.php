@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookingScheduleExport;
 use App\grade;
 use App\gst;
 use App\sertifikat;
 use App\User;
 use Illuminate\Http\Request;
-
 use App\booking_schedule;
 use App\schedule_limit;
 use App\transaction_amount;
@@ -16,7 +16,7 @@ use Carbon\Carbon;
 use DataTables;
 use DB;
 use Illuminate\Support\Facades\Hash;
-
+use Maatwebsite\Excel\Facades\Excel;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -278,6 +278,11 @@ class AjaxController extends Controller
             $data .= '</tr>';
         }
             return $data;
+    }
+    public function schedule(){
+
+        return Excel::download(new BookingScheduleExport, 'appointment.xlsx');
+        
     }
 
     public function updatePassword(Request $request)

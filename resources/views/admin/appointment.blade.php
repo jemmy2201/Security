@@ -46,12 +46,24 @@
     let month = c_date.getMonth();
     let year = c_date.getFullYear();
 
+    function DataSchedule(eventDate){
+        $.ajax({
+            url: '/ajax/cek/data/schedule',
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
+            success: function (data) {
+                $('#view_data_schedule').html(data);
+            }
+        });
+    }
     (function App() {
 
         const calendar = `<div class="container">
             <div class="row">
                 <div class="col-sm-6 col-12 d-flex">
                     <div class="card border-0 mt-5 flex-fill">
+                    <a href="{{ url('ajax/download/excel/schedule') }}"><button type="button" id="export_excel" class="btn btn-secondary">Export Excel</button></a>
                         <div class="card-header py-3 d-flex justify-content-between">
                             <span class="prevMonth">&#10096;</span>
                             <span><strong id="s_m"></strong></span>
@@ -152,7 +164,22 @@
                     span.classList.add('showEvent');
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         // span.classList.add('bg-primary');
+
+                        var month = c_date.getMonth() + 1;
+                        var tgl = c_date.getFullYear()+"/"+ month +"/"+c_date.getDate();
+                        DataSchedule(tgl);
+                        $('#event').removeClass('d-none');
+
+                        let todaysDate = c_date.getDate() +' '+ (months[c_date.getMonth()]) +' '+ year;
+
+                        let eventDay = days[new Date(year, month, $(this).text()).getDay()];
+                        let eventDate = $(this).text() + month + year;
+                        $('.event-date').html(todaysDate).data('eventdate', eventDate);
+
+                        // Hide prev month
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                        // End Hide prev month
+
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
                         span.classList.add('dissable');
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
@@ -172,17 +199,6 @@
 
 
     $(function(){
-        function DataSchedule(eventDate){
-            $.ajax({
-                url: '/ajax/cek/data/schedule',
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
-                success: function (data) {
-                    $('#view_data_schedule').html(data);
-                }
-            });
-        }
         function showEvent(eventDate){
             let storedEvents = JSON.parse(localStorage.getItem('events'));
             if (storedEvents == null){
@@ -227,6 +243,15 @@
             month = (month + 1) % 12;
             renderCalendar(month, year);
         })
+        // $(document).on('click', '#export_excel', function(){
+        //     $.ajax({
+        //         url: '/ajax/download/excel/schedule',
+        //         type: 'GET',
+        //         /* send the csrf-token and the input to the controller */
+        //         success: function (data) {
+        //         }
+        //     });
+        // })
 
         $(document).on('click', '.showEvent', function(){
             $('.showEvent').removeClass('active');
