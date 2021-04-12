@@ -11,6 +11,12 @@ define('avso_app', 1);
 define('pi_app', 2);
 //End card
 
+//SO APP
+define('so', 1);
+define('sso', 2);
+define('sss', 3);
+//End SO APP
+
 // payment method
 define('paynow', 0);
 define('enets', 1);

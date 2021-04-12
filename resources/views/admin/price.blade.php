@@ -53,9 +53,13 @@
                                 <label for="status" class="col-form-label">Grade</label>
                                 <select class="form-control" id="grade_id" name="grade_id">
                                     <option selected>Please choose</option>
-                                    @foreach ($grade as $f)
-                                        <option value="{{$f->id}}">{{$f->name}}</option>
-                                    @endforeach
+{{--                                    @foreach ($grade as $f)--}}
+{{--                                        <option value="{{$f->id}}">{{$f->name}}</option>--}}
+{{--                                    @endforeach--}}
+                                    <option value="@php echo so @endphp">SO</option>
+                                    <option value="@php echo sso @endphp">SSO</option>
+                                    <option value="@php echo sss @endphp">SSS</option>
+
                                 </select>
                             </div>
                             <div class="mb-3 " >

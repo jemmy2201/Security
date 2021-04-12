@@ -135,10 +135,12 @@ class HomeController extends Controller
         $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         if (!empty($booking_schedule->grade_id)){
-            foreach (json_decode($booking_schedule->grade_id) as $f){
-                $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
-            }
 //            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+                foreach (json_decode($booking_schedule->grade_id) as $f){
+                    $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+                    $Array_transaction_amount[] = $transaction_amount->transaction_amount;
+                }
+                    $addition_transaction_amount = array_sum($Array_transaction_amount);
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
@@ -153,13 +155,15 @@ class HomeController extends Controller
         if (!empty($booking_schedule->grade_id)){
 //            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
             foreach (json_decode($booking_schedule->grade_id) as $f){
-                $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+                $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+                $Array_transaction_amount[] = $transaction_amount->transaction_amount;
             }
+                $addition_transaction_amount = array_sum($Array_transaction_amount);
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
         $gst = gst::first();
-        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount]);
+        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'addition_transaction_amount'=>$addition_transaction_amount]);
     }
 
     public function Createpayment(Request $request)

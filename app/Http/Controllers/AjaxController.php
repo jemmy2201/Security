@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\grade;
 use App\gst;
 use App\sertifikat;
 use App\User;
@@ -169,24 +170,66 @@ class AjaxController extends Controller
             $grade_id =$request->grade_id;
         }
 
-        if (empty($grade_id)){
-            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
-        }else{
-            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$grade_id])->first();
-        }
+//        if (empty($grade_id)){
+//            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
+//        }else{
+//            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$grade_id])->first();
+//        }
 
         if (empty($val_transaction_amount)) {
-            $transaction_amount = new transaction_amount;
+            if (!empty($grade_id)) {
+                if ($grade_id == so){
+                    $grade_id = "SO";
+                }elseif ($grade_id == sso){
+                    $grade_id = "SSO";
+                }else{
+                    $grade_id = "SSS";
+                }
 
-            $transaction_amount->app_type = $request->app_type;
+                $grades = grade::where(['type'=>$grade_id])->get();
+                foreach ($grades as $index => $f){
+                   $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$f->id])->first();
+                    if (empty($val_transaction_amount)){
+                        $transaction_amount = new transaction_amount;
 
-            $transaction_amount->card_type = $request->card_id;
+                        $transaction_amount->app_type = $request->app_type;
 
-            $transaction_amount->grade_id = $grade_id;
+                        $transaction_amount->card_type = $request->card_id;
 
-            $transaction_amount->transaction_amount = $request->transaction_amount;
+                        $transaction_amount->grade_id = $f->id;
 
-            $transaction_amount->save();
+                        $transaction_amount->transaction_amount = $request->transaction_amount;
+
+                        $transaction_amount->save();
+                    }
+                }
+            }else {
+                $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
+                if (empty($val_transaction_amount)) {
+                    $transaction_amount = new transaction_amount;
+
+                    $transaction_amount->app_type = $request->app_type;
+
+                    $transaction_amount->card_type = $request->card_id;
+
+                    $transaction_amount->grade_id = $grade_id;
+
+                    $transaction_amount->transaction_amount = $request->transaction_amount;
+
+                    $transaction_amount->save();
+                }
+            }
+//            $transaction_amount = new transaction_amount;
+//
+//            $transaction_amount->app_type = $request->app_type;
+//
+//            $transaction_amount->card_type = $request->card_id;
+//
+//            $transaction_amount->grade_id = $grade_id;
+//
+//            $transaction_amount->transaction_amount = $request->transaction_amount;
+//
+//            $transaction_amount->save();
         }
         return $transaction_amount;
 
