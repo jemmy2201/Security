@@ -77,12 +77,17 @@
                         }
                         }
                     },
-                    {data: 'grade_id', name: 'grade_id',
+                    {data: 'name_grade', name: 'name_grade',
                         render: function (data, type, row) {
-                            if(data != null ){
-                                return row.name_grade;
+                        console.log('jrg',row.count_grade)
+                            if(row.count_grade == '1'){
+                                return data[0];
+                            }else if(row.count_grade == '2'){
+                                return data[0]+'/'+data[1];
+                            }else if(row.count_grade == '3'){
+                                return data[0]+'/'+data[1]+'/'+data[2];
                             }else{
-                                return '-';
+                                return data[0]+'/'+data[1]+'/'+data[2];
                             }
                         }
                     },
