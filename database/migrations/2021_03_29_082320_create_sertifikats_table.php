@@ -31,6 +31,7 @@ class CreateSertifikatsTable extends Migration
             $table->string('Status_app')->nullable();
             $table->string('paymentby')->nullable();
             $table->string('status_payment')->nullable();
+            $table->string('receiptNo')->nullable();
             $table->string('user_id');
             $table->timestamps();
         });

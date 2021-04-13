@@ -12,7 +12,10 @@
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/2.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/2.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <center class="visible-xs hidden-md">
+        <img  src="{{URL::asset('/img/img_step_proses/design_phone/2.png')}}" style="width: 80%;">
+    </center>
     <h2 style="color: #E31E1A;">Personal Particular</h2>
     <br>
 {{--        <div class="row">--}}

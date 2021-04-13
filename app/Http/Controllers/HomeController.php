@@ -56,7 +56,9 @@ class HomeController extends Controller
         $grade = null;
         $replacement = null;
         $view_declare = null;
+        $cek_grade = null;
         $diff_data = $this->diff_data($request);
+
 
         if ($diff_data){
             // Update
@@ -90,7 +92,11 @@ class HomeController extends Controller
                     $grade = null;
                     // end view declare more than 1
                 }else{
-                    $grade = grade::where(['card_id'=>$request->card])->get();
+//                    $grade = grade::where(['card_id'=>$request->card])->get();
+                    // user cannot belong to declare
+                    $grade = null;
+                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id()])->first();
+                    // End user cannot belong to declare
                 }
             }
         }else{
@@ -100,7 +106,7 @@ class HomeController extends Controller
            }
         }
         $personal = User::where(['id'=>Auth::id()])->first();
-        return view('submission')->with(['personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
+        return view('submission')->with(['cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
     public function declare_submission(Request $request)
     {
@@ -115,8 +121,8 @@ class HomeController extends Controller
         if (!empty($request->grade)){
             $grade = $request->grade;
         }
-
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+//        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
         if (empty($booking_schedule)){
             $this->NewBookingSchedule($request,$grade);
         }else{
@@ -152,13 +158,14 @@ class HomeController extends Controller
     {
 //        $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $addition_transaction_amount='';
         if (!empty($booking_schedule->grade_id)){
-//            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
-            foreach (json_decode($booking_schedule->grade_id) as $f){
-                $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
-                $Array_transaction_amount[] = $transaction_amount->transaction_amount;
-            }
-                $addition_transaction_amount = array_sum($Array_transaction_amount);
+            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+//            foreach (json_decode($booking_schedule->grade_id) as $f){
+//                $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+//                $Array_transaction_amount[] = $transaction_amount->transaction_amount;
+//            }
+//                $addition_transaction_amount = array_sum($Array_transaction_amount);
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
@@ -196,6 +203,7 @@ class HomeController extends Controller
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
+                'receiptNo' => $this->receiptNo(),
                 'status_app' => payment,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
@@ -203,9 +211,16 @@ class HomeController extends Controller
         $this->create_setifikat($request);
         return $BookingScheduleAppointment;
     }
+
+    protected function receiptNo(){
+        $booking_schedule = booking_schedule::orderByDesc('id')->get();
+        $booking_schedule = $booking_schedule[0]->id+1;
+        $data = "".Carbon::today()->format('d')."/".Carbon::today()->format('m')."/".Carbon::today()->format('y')."/".$booking_schedule;
+        return $data;
+    }
     protected function create_setifikat($request)
     {
-        $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $data = booking_schedule::where(['user_id'=>Auth::id()])->orderBy('id', 'DESC')->first();
 
         $gst = gst::where(['id'=>$data->gst_id])->first();
 
@@ -243,6 +258,8 @@ class HomeController extends Controller
 
         $sertifikat->grand_total        = $data->grand_total;
 
+        $sertifikat->receiptNo          = $data->receiptNo;
+
         $sertifikat->status_app         = $data->Status_app;
 
         $sertifikat->status_payment     = $data->status_payment;
@@ -271,7 +288,7 @@ class HomeController extends Controller
     {
         $date = Carbon::parse($request->view_date)->toDateString();
         $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
-        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
+        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                                         ->update([
                                             'appointment_date' => $date,
                                             'time_start_appointment' => $data->start_at,
@@ -302,7 +319,7 @@ class HomeController extends Controller
 
         $UpdateUser->save();
         if ($request->app_type == renewal){
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
@@ -322,7 +339,7 @@ class HomeController extends Controller
                     'user_id' => Auth::id(),
                 ]);
         }elseif ($request->app_type == replacement){
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
@@ -342,7 +359,7 @@ class HomeController extends Controller
                     'user_id' => Auth::id(),
                 ]);
         }else{
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
                     'card_id' => $request->card,
