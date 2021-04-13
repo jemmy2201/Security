@@ -121,13 +121,23 @@ class AjaxController extends Controller
     {
         $history_login = User::whereNull('role')->get();
 
-        return Datatables::of($history_login)->make(true);
+        return Datatables::of($history_login)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="photo btn btn-primary btn-sm"><i class="fas fa-image"  style="cursor: pointer;"></i></a>';
+
+            return $btn;
+        })->make(true);
     }
     public function security_employees()
     {
-        $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','grades.name as name_grade','sertifikats.expired_date')
+        $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','grades.name as name_grade','sertifikats.expired_date','users.photo')
                              ->leftjoin('users', 'sertifikats.user_id', '=', 'users.id')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
-        return Datatables::of($security_employees)->make(true);
+        return Datatables::of($security_employees)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="photo btn btn-primary btn-sm"><i class="fas fa-image"  style="cursor: pointer;"></i></a>';
+
+            return $btn;
+        })->make(true);
     }
     public function data_price()
     {
@@ -282,7 +292,7 @@ class AjaxController extends Controller
     public function schedule(){
 
         return Excel::download(new BookingScheduleExport, 'appointment.xlsx');
-        
+
     }
 
     public function updatePassword(Request $request)
