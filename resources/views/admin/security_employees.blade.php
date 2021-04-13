@@ -44,7 +44,7 @@
                     "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
+                    {data: 'action', name: 'action',orderable: false, searchable: false},
                     {data: 'nric', name: 'nric'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
@@ -89,7 +89,19 @@
                     {data: 'expired_date', name: 'expired_date'},
                 ]
             });
-        });
 
+            $('#table_security_employees').on('click', 'a.photo', function (e) {
+                e.preventDefault();
+                let rowData = table_security_employees.row($(event.target).parents('tr')).data();
+                $(this).magnificPopup({
+                    items: {
+                        src: '{{asset('img/img_users')}}/'+rowData.photo
+                    },
+                    type: 'image' // this is default type
+                });
+
+
+            });
+        });
     </script>
 @endsection

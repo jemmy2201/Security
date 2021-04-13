@@ -43,6 +43,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
     {{-- end datatable css --}}
 
+    <!-- Pop Up magnific -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css">
+    <!-- End Pop Up magnific -->
+
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
@@ -81,6 +86,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     {{--End Popup Alert--}}
+    <style>
+        .mfp-close{
+            position: absolute;
+            margin-top: 94px;
+            margin-left: 1060px;
+            z-index: 1000;
+        }
+        .mfp-iframe{
+            width:754px;
+            height:380px;
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 310px;
+            z-index: 1000;
+        }
+        .mfp-preloader{
+            display:none;
+        }
+        .mfp-img{
+            width:754px;
+            height:380px;
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 310px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -136,4 +168,8 @@
 
 {{-- end jquery datatable--}}
 
+<!-- Pop Up magnific -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.js"></script>
+<!-- End Pop Up magnific -->
 </html>
