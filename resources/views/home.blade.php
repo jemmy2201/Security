@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
-<img src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
+    <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
+    <center class="visible-xs hidden-md">
+    <img  src="{{URL::asset('/img/img_step_proses/design_phone/1.png')}}" style="width: 80%;">
+    </center>
 <h3 style="color: #E31E1A;">ID Card Portal</h3>
 <p style="color: #808080;">My Application Type</p>
     <div class="container">
@@ -78,15 +81,24 @@
                             <td>PI Application</td>
                         @endif
                         @if($f->card_id == so_app)
-                            <td>
-                                @foreach($grade as $g)
-                                    @foreach (json_decode($f->grade_id) as $i)
-                                        @if($g->id == $i)
-                                            <pre>{{$g->name}}</pre>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            </td>
+                                @if(!empty($f->grade_id) && $f->grade_id== so)
+                                    <td>SO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                    <td>SSO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                    <td>SSS</td>
+                                @else
+                                    <td >SO</td>
+                                @endif
+{{--                            <td>--}}
+{{--                                @foreach($grade as $g)--}}
+{{--                                    @foreach (json_decode($f->grade_id) as $i)--}}
+{{--                                        @if($g->id == $i)--}}
+{{--                                            <pre>{{$g->name}}</pre>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+{{--                                @endforeach--}}
+{{--                            </td>--}}
 {{--                            @foreach($grade as $g)--}}
 {{--                                @if($g->id == $f->grade_id)--}}
 {{--                                    <td>{{$g->name}}</td>--}}
@@ -128,18 +140,27 @@
                                 <td>PI Application</td>
                             @endif
                             @if($f->card_id == so_app)
-                                <td>
-                                @foreach($grade as $g)
-                                        @foreach (json_decode($f->grade_id) as $i)
-                                            @if($g->id == $i)
-                                                    <pre>{{$g->name}}</pre>
-                                            @endif
-                                        @endforeach
+                                @if(!empty($f->grade_id) && $f->grade_id== so)
+                                    <td>SO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                    <td>SSO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                    <td>SSS</td>
+                                @else
+                                    <td >SO</td>
+                                @endif
+{{--                                <td>--}}
+{{--                                @foreach($grade as $g)--}}
+{{--                                        @foreach (json_decode($f->grade_id) as $i)--}}
+{{--                                            @if($g->id == $i)--}}
+{{--                                                    <pre>{{$g->name}}</pre>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
 {{--                                    @if($g->id == $f->grade_id)--}}
 {{--                                        <td>{{$g->name}}</td>--}}
 {{--                                    @endif--}}
-                                @endforeach
-                                </td>
+{{--                                @endforeach--}}
+{{--                                </td>--}}
                             @else
                                 <td>NA</td>
                             @endif
@@ -168,32 +189,32 @@
     } else {
         $(".table").css({"display": "inline-block", "max-height": "50%","overflow":"auto"});
     }
-    $.ajax({
-        type:'get',
-        url:'/ajax/cek/data/from',
-        success:function(data) {
-            if(data['new'] == true){
-                $("#news").prop('disabled', false);
-                $("#replacement").prop('disabled', true);
-                $("#renewal").prop('disabled', true);
-            }
-            if(data['replacement'] == true){
-                $("#news").prop('disabled', true);
-                $("#replacement").prop('disabled', false);
-                $("#renewal").prop('disabled', true);
-            }
-            if(data['renewal'] == true){
-                $("#news").prop('disabled', true);
-                $("#replacement").prop('disabled', true);
-                $("#renewal").prop('disabled', false);
-            }
-            if(data['new'] == false && data['replacement'] == false && data['renewal'] == false){
-                $("#news").prop('disabled', true);
-                $("#replacement").prop('disabled', true);
-                $("#renewal").prop('disabled', true);
-            }
-        }
-    });
+    // $.ajax({
+    //     type:'get',
+    //     url:'/ajax/cek/data/from',
+    //     success:function(data) {
+    //         if(data['new'] == true){
+    //             $("#news").prop('disabled', false);
+    //             $("#replacement").prop('disabled', true);
+    //             $("#renewal").prop('disabled', true);
+    //         }
+    //         if(data['replacement'] == true){
+    //             $("#news").prop('disabled', true);
+    //             $("#replacement").prop('disabled', false);
+    //             $("#renewal").prop('disabled', true);
+    //         }
+    //         if(data['renewal'] == true){
+    //             $("#news").prop('disabled', true);
+    //             $("#replacement").prop('disabled', true);
+    //             $("#renewal").prop('disabled', false);
+    //         }
+    //         if(data['new'] == false && data['replacement'] == false && data['renewal'] == false){
+    //             $("#news").prop('disabled', true);
+    //             $("#replacement").prop('disabled', true);
+    //             $("#renewal").prop('disabled', true);
+    //         }
+    //     }
+    // });
     $(document).ready(function() {
         // Application type
         $("#news").click(function() {
@@ -248,9 +269,41 @@
 
     function RemoveDissableRequest() {
         //remove disable request
-        $("#avso_app").prop("disabled", false);
-        $("#pi_app").prop("disabled", false);
-        $("#so_app").prop("disabled", false);
+        $.ajax({
+            type:'get',
+            url:'/ajax/cek/card/type',
+            success:function(data) {
+              if(data['so_app'] == true){
+                  if(data['so_app'] == true && data['avso_app'] == true && data['pi_app'] == true){
+
+                  }else if(data['so_app'] == true && data['avso_app'] == true){
+                      $("#pi_app").prop("disabled", false);
+                  }else if(data['so_app'] == true && data['pi_app'] == true){
+                      $("#avso_app").prop("disabled", false);
+                  }else{
+                     $("#avso_app").prop("disabled", false);
+                     $("#pi_app").prop("disabled", false);
+                  }
+              }else if(data['avso_app'] == true){
+                  $("#pi_app").prop("disabled", false);
+                  $("#so_app").prop("disabled", false);
+              }else if(data['pi_app'] == true){
+                  $("#avso_app").prop("disabled", false);
+                  $("#so_app").prop("disabled", false);
+              }else{
+                  $("#pi_app").prop("disabled", false);
+                  $("#avso_app").prop("disabled", false);
+                  $("#so_app").prop("disabled", false);
+              }
+
+            }
+        });
+        //end remove disable request
+
+        //remove disable request
+        // $("#avso_app").prop("disabled", false);
+        // $("#pi_app").prop("disabled", false);
+        // $("#so_app").prop("disabled", false);
         //end remove disable request
     }
 </script>

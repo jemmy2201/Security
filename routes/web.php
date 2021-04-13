@@ -56,6 +56,7 @@ Route::prefix('admin')->group(function () {
 // End Admin
 Route::prefix('ajax')->group(function () {
     Route::get('/cek/data/from', 'AjaxController@cek_data_from');
+    Route::get('/cek/card/type', 'AjaxController@cek_card_type');
     Route::post('/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
     Route::post('/cek/data/schedule', 'AjaxController@cek_data_schedule');
     Route::post('/data/history/login', 'AjaxController@history_login')->name('admin.history.login');

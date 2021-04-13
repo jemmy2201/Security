@@ -7,7 +7,10 @@
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;margin-bottom: 20px;">
+    <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;margin-bottom: 20px;">
+    <center class="visible-xs hidden-md">
+        <img  src="{{URL::asset('/img/img_step_proses/design_phone/5.png')}}" style="width: 80%;">
+    </center>
     <h2 style="color: #E31E1A;">Payment Details</h2>
     <br>
     <form method="post" id="save_payment" action="{{ route('save.payment') }}" >
@@ -107,14 +110,23 @@
                         <div class="w-100"></div>
                         <div class="col-4">Type :</div>
                         @if($booking_schedule->card_id == so_app)
-                            <div class="col">
-                                @foreach (json_decode($booking_schedule->grade_id) as $f)
-                                    @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp
-                                    @if($f == $grades->id)
-                                        {{$grades->type}}/
-                                    @endif
-                                 @endforeach
-                            </div>
+{{--                            <div class="col">--}}
+{{--                                @foreach (json_decode($booking_schedule->grade_id) as $f)--}}
+{{--                                    @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp--}}
+{{--                                    @if($f == $grades->id)--}}
+{{--                                        {{$grades->type}}/--}}
+{{--                                    @endif--}}
+{{--                                 @endforeach--}}
+{{--                            </div>--}}
+                            @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)
+                                <div class="col">SO</div>
+                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
+                                <div class="col">SSO</div>
+                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
+                                <div class="col">SSS</div>
+                            @else
+                                <div class="col">SO</div>
+                            @endif
                         @elseif($booking_schedule->card_id == avso_app)
                             <div class="col">AVSO</div>
                         @else
@@ -175,14 +187,23 @@
                 <div class="w-100"></div>
                 <div class="col-4">Type :</div>
                 @if($booking_schedule->card_id == so_app)
-                    <div class="col">
-                        @foreach (json_decode($booking_schedule->grade_id) as $f)
-                            @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp
-                            @if($f == $grades->id)
-                                {{$grades->type}}/
-                            @endif
-                        @endforeach
-                    </div>
+{{--                    <div class="col">--}}
+{{--                        @foreach (json_decode($booking_schedule->grade_id) as $f)--}}
+{{--                            @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp--}}
+{{--                            @if($f == $grades->id)--}}
+{{--                                {{$grades->type}}/--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)
+                            <div class="col">SO</div>
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
+                            <div class="col">SSO</div>
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
+                            <div class="col">SSS</div>
+                        @else
+                            <div class="col">SO</div>
+                        @endif
                 @elseif($booking_schedule->card_id == avso_app)
                     <div class="col">AVSO</div>
                 @else
@@ -200,7 +221,7 @@
                 @php
                     $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
                 @endphp
-                <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst}}">
+                <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst->amount_gst}}">
                 <div class="col">${{$value_gst}}</div>
             </div>
             <hr>

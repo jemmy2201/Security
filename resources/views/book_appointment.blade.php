@@ -22,10 +22,15 @@
 </style>
 @section('content')
 <div class="container">
-    <img src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;margin-bottom: 20px;">
+    <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;margin-bottom: 20px;">
+    <center class="visible-xs hidden-md">
+        <img  src="{{URL::asset('/img/img_step_proses/design_phone/4.png')}}" style="width: 80%;">
+    </center>
     <h2 style="color: #E31E1A;">Book Appointment</h2><br>
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
+        <input type="hidden"  class="form-control" name="card" id="card" value="{{$request->card}}" readonly>
+
     <div class="row">
         <div class="col-2 HeaderdataPersonal view_date_text">
             <h4>Select Date :</h4>

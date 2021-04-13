@@ -48,6 +48,26 @@ class AjaxController extends Controller
 
         return $data;
     }
+    public function cek_card_type()
+    {
+        $so_app     = false;
+        $avso_app   = false;
+        $pi_app     = false;
+
+        $data = booking_schedule::where(['user_id'=>Auth::id()])->get();
+        foreach ($data as $index => $f){
+            if ($f->card_id == so_app){
+                $so_app = true;
+            }elseif ($f->card_id == avso_app){
+                $avso_app = true;
+            }elseif ($f->card_id == pi_app){
+                $pi_app = true;
+            }
+        }
+        $data = array('so_app'=>$so_app,'avso_app'=>$avso_app,'pi_app'=>$pi_app);
+
+        return $data;
+    }
 
     public function data_limit_shedule()
     {
@@ -325,9 +345,9 @@ class AjaxController extends Controller
     }
     protected  function view_time_schedule($time_schedule,$limit_schedule){
         $data ='';
-        foreach ($limit_schedule as $ls) {
+        foreach ($limit_schedule as $index1 => $ls) {
             if ($time_schedule->count() > 0) {
-                foreach ($time_schedule as $ts) {
+                foreach ($time_schedule as $index2 => $ts) {
                     $data .= ' <tr>';
                     $time = $ls->start_at . '-' . $ls->end_at;
                     if ($ls->start_at == $ts->time_start_appointment) {
@@ -364,7 +384,7 @@ class AjaxController extends Controller
     }
 
     protected function time_schedule($eventDate){
-        $data = booking_schedule::where(['status_app'=>book_appointment])
+        $data = booking_schedule::whereIn('status_app', [book_appointment, payment])
             ->whereDate('appointment_date','=',$eventDate)
             ->get();
         return $data;

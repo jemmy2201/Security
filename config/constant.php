@@ -6,9 +6,9 @@ define('renewal', 2);
 //End application type
 
 //card
-define('so_app', 0);
-define('avso_app', 1);
-define('pi_app', 2);
+define('so_app', 1);
+define('avso_app', 2);
+define('pi_app', 3);
 //End card
 
 //SO APP
@@ -18,10 +18,10 @@ define('sss', 3);
 //End SO APP
 
 // payment method
-define('paynow', 0);
-define('enets', 1);
-define('visa', 2);
-define('mastercard', 3);
+define('paynow', 1);
+define('enets', 2);
+define('visa', 3);
+define('mastercard', 4);
 // End payment method
 
 // type login
@@ -30,9 +30,9 @@ define('non_barcode', 1);
 // end type login
 
 // status app
-define('submission', 0);
-define('book_appointment', 1);
-define('payment', 2);
+define('submission', 1);
+define('book_appointment', 2);
+define('payment', 3);
 // end status app
 
 define('time08', "08:00");

@@ -12,7 +12,10 @@
 </style>
 @section('content')
 <div class="container submission">
-    <img src="{{URL::asset('/img/img_step_proses/3.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/3.png')}}" style="width: 100%; margin-bottom: 20px;">
+    <center class="visible-xs hidden-md">
+        <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">
+    </center>
     <h2 style="color: #E31E1A;">Submission</h2>
     <br>
         {{-- Desktop --}}
@@ -30,7 +33,15 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
                             @if ($request->card == so_app)
-                                <div class="col-4 ColoumndataPersonal">SO / SSO / SSS</div>
+                                @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                                        <div class="col-4 ColoumndataPersonal">SO</div>
+                                @elseif(!empty($cek_grade) && $cek_grade->grade_id == sso)
+                                        <div class="col-4 ColoumndataPersonal">SSO</div>
+                                @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                                        <div class="col-4 ColoumndataPersonal">SSS</div>
+                                @else
+                                        <div class="col-4 ColoumndataPersonal">SO</div>
+                                @endif
                             @elseif($request->card == avso_app)
                                 <div class="col-4 ColoumndataPersonal">NA</div>
                             @else
@@ -67,7 +78,15 @@
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
                     @if ($request->card == so_app)
-                        <div class="col-6 ColoumndataPersonal">SO / SSO / SSS</div>
+                            @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                                <div class="col-4 ColoumndataPersonal">SO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== sso)
+                                <div class="col-4 ColoumndataPersonal">SSO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                                <div class="col-4 ColoumndataPersonal">SSS</div>
+                            @else
+                                <div class="col-4 ColoumndataPersonal">SO</div>
+                            @endif
                     @elseif($request->card == avso_app)
                         <div class="col-6 ColoumndataPersonal">NA</div>
                     @else
@@ -138,7 +157,10 @@
                     <div class="col-10">
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                         <a>{{$data[0]->name}}</a><br>
-                        <input type="hidden" name="grade[]" id="grade" value="{{$data[0]->id}}">
+                        @if(!empty($cek_grade))
+                            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+{{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+                        @endif
                     </div>
                 @endforeach
             </div>
@@ -157,7 +179,10 @@
                     <div class="col-10">
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                         <a>{{$data[0]->name}}</a><br>
-                        <input type="hidden" name="grade[]" id="grade" value="{{$data[0]->id}}">
+{{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+                        @if(!empty($cek_grade))
+                            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+                        @endif
                     </div>
                 @endforeach
             </div>
