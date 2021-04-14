@@ -172,6 +172,134 @@
             </tbody>
         </table>
     </div>
+    <div class="modal" tabindex="-1" role="dialog" id="Modalreplacement">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" >
+                        <thead>
+                        <tr>
+                            <th scope="col">Application Type</th>
+                            <th scope="col" >Request Application</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(!empty($replacement))
+                            @foreach($replacement as $index => $f)
+                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp
+                                <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
+                                    @if($f->app_type == news)
+                                        <td>New</td>
+                                    @elseif($f->app_type == replacement)
+                                        <td>Replacement</td>
+                                    @elseif($f->app_type == renewal)
+                                        <td>Renewal</td>
+                                    @endif
+
+                                    @if($f->card_id == so_app)
+                                        <td>SO Application</td>
+                                    @elseif($f->card_id == avso_app)
+                                        <td>AVSO Application</td>
+                                    @elseif($f->card_id == pi_app)
+                                        <td>PI Application</td>
+                                    @endif
+                                    @if($f->card_id == so_app)
+                                        @if(!empty($f->grade_id) && $f->grade_id== so)
+                                            <td>SO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                            <td>SSO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                            <td>SSS</td>
+                                        @else
+                                            <td >SO</td>
+                                        @endif
+                                    @else
+                                        <td>NA</td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Application Type</th>
+                            <th scope="col" >Request Application</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(!empty($renewal))
+                            @foreach($renewal as $index => $f)
+                                @if(!empty($f->expired_date) && Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString())
+                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp
+                                <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
+                                    @if($f->app_type == news)
+                                        <td>New</td>
+                                    @elseif($f->app_type == replacement)
+                                        <td>Replacement</td>
+                                    @elseif($f->app_type == renewal)
+                                        <td>Renewal</td>
+                                    @endif
+
+                                    @if($f->card_id == so_app)
+                                        <td>SO Application</td>
+                                    @elseif($f->card_id == avso_app)
+                                        <td>AVSO Application</td>
+                                    @elseif($f->card_id == pi_app)
+                                        <td>PI Application</td>
+                                    @endif
+                                    @if($f->card_id == so_app)
+                                        @if(!empty($f->grade_id) && $f->grade_id== so)
+                                            <td>SO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                            <td>SSO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                            <td>SSS</td>
+                                        @else
+                                            <td >SO</td>
+                                        @endif
+                                    @else
+                                        <td>NA</td>
+                                    @endif
+                                </tr>
+                                @endif
+                            @endforeach
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script type="application/javascript">
     $(window).bind('resize', function(e)
@@ -225,20 +353,22 @@
             $("#app_type").val(document.getElementById("news").value);
         });
         $("#replacement").click(function() {
+            $('#Modalreplacement').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
             // RemoveDissableRequest();
             $("#app_type").val(document.getElementById("replacement").value);
-            $( "#personal_particular" ).submit();
+            // $( "#personal_particular" ).submit();
         });
         $("#renewal").click(function() {
+            $('#Modalrenewal').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
             // RemoveDissableRequest();
             $("#app_type").val(document.getElementById("renewal").value);
-            $( "#personal_particular" ).submit();
+            // $( "#personal_particular" ).submit();
         });
         // End Application type
 

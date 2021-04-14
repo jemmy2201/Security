@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constant.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/constant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_17_081549_create_booking_schedules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_17_081549_create_booking_schedules_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_29_082320_create_sertifikats_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_29_082320_create_sertifikats_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/book_appointment.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/submission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/submission.blade.php" afterDir="false" />
@@ -190,7 +186,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Solucardz/local" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -221,7 +217,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:security_employees@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@57905ffb" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@60ebedb1" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -268,7 +264,11 @@
       <workItem from="1617856963997" duration="7194000" />
       <workItem from="1617962193081" duration="30839000" />
       <workItem from="1618193918484" duration="18760000" />
-      <workItem from="1618285163307" duration="25926000" />
+      <workItem from="1618285163307" duration="26534000" />
+      <workItem from="1618355784914" duration="29000" />
+      <workItem from="1618374322123" duration="6493000" />
+      <workItem from="1618385046613" duration="9000" />
+      <workItem from="1618386005519" duration="4508000" />
     </task>
     <servers />
   </component>
@@ -288,26 +288,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="427" y="0" key="Diagram.Print.Preview.Dialog/0.0.1366.728@0.0.1366.728" timestamp="1616655943010" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1618285758179">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1618385052625">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1618285758179" />
-    <state width="1181" height="184" key="GridCell.Tab.0.bottom" timestamp="1618304502708">
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1618385052625" />
+    <state width="1181" height="184" key="GridCell.Tab.0.bottom" timestamp="1618375822059">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618304502708" />
-    <state width="1181" height="184" key="GridCell.Tab.0.center" timestamp="1618304502708">
+    <state width="1181" height="184" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618375822059" />
+    <state width="1181" height="184" key="GridCell.Tab.0.center" timestamp="1618375822058">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618304502708" />
-    <state width="1181" height="184" key="GridCell.Tab.0.left" timestamp="1618304502708">
+    <state width="1181" height="184" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618375822058" />
+    <state width="1181" height="184" key="GridCell.Tab.0.left" timestamp="1618375822057">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618304502708" />
-    <state width="1181" height="184" key="GridCell.Tab.0.right" timestamp="1618304502708">
+    <state width="1181" height="184" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618375822057" />
+    <state width="1181" height="184" key="GridCell.Tab.0.right" timestamp="1618375822059">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618304502708" />
+    <state width="1181" height="184" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618375822059" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -328,10 +328,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618335725994" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1618193970074">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1618385046053">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1618193970074" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1618385046053" />
     <state x="324" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1618281775291">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -348,9 +348,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1618299364616" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618334294042">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618394408768">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618334294042" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618394408768" />
   </component>
 </project>

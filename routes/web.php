@@ -39,8 +39,12 @@ Route::post('/declare/submission', 'HomeController@declare_submission')->name('d
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
 Route::get('/history/book/appointment', 'HomeController@HistoryBookAppointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
-Route::get('/history/book/payment', 'HomeController@HistoryViewPayment');
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
+
+Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
+Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
+Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
+
 // End User
 
 // Admin

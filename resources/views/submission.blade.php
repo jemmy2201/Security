@@ -40,7 +40,7 @@
                                 @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                         <div class="col-4 ColoumndataPersonal">SSS</div>
                                 @else
-                                        <div class="col-4 ColoumndataPersonal">SO</div>
+                                        <div class="col-4 ColoumndataPersonal">NA</div>
                                 @endif
                             @elseif($request->card == avso_app)
                                 <div class="col-4 ColoumndataPersonal">NA</div>
@@ -85,7 +85,7 @@
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                 <div class="col-4 ColoumndataPersonal">SSS</div>
                             @else
-                                <div class="col-4 ColoumndataPersonal">SO</div>
+                                <div class="col-4 ColoumndataPersonal">NA</div>
                             @endif
                     @elseif($request->card == avso_app)
                         <div class="col-6 ColoumndataPersonal">NA</div>
@@ -116,16 +116,16 @@
     <form method="post" id="book_appointment" action="{{ route('book.appointment') }}" enctype="multipart/form-data">
         @csrf
     @if(!empty($grade))
-        <div class="row">
-            <div class="col-4 col_declare1">
-                <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
-            </div>
-            <div class="col-4 col_declare2">
-            </div>
-            <div class="col-2 col_declare3">
-                <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
-            </div>
-        </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-4 col_declare1">--}}
+{{--                <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>--}}
+{{--            </div>--}}
+{{--            <div class="col-4 col_declare2">--}}
+{{--            </div>--}}
+{{--            <div class="col-2 col_declare3">--}}
+{{--                <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <br>
         {{-- just view one delcare--}}
 {{--                <div class="row" id="view_declare">--}}
@@ -138,32 +138,33 @@
         {{-- end just view one delcare--}}
 
     @elseif(!empty($replacement) && $request->card == so_app)
-            <div class="row">
-                <div class="col-4 col_declare1">
-                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
-                </div>
-                <div class="col-4 col_declare2">
-                </div>
-            </div>
-            <br>
-            <div class="row" >
+{{--            <div class="row">--}}
+{{--                <div class="col-4 col_declare1">--}}
+{{--                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>--}}
+{{--                </div>--}}
+{{--                <div class="col-4 col_declare2">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <br>--}}
+{{--            <div class="row" >--}}
 {{--                <div class="col-10" >--}}
 {{--                    <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
 {{--                    <a>{{$replacement->name}}</a>--}}
 {{--                    <input type="hidden" name="grade" id="grade">--}}
 {{--                </div>--}}
-                @foreach (json_decode($replacement->grade_id) as $f)
-                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                    <div class="col-10">
-                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                        <a>{{$data[0]->name}}</a><br>
-                        @if(!empty($cek_grade))
-                            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+{{--                @foreach (json_decode($replacement->grade_id) as $f)--}}
+{{--                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp--}}
+{{--                    <div class="col-10">--}}
+{{--                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                        <a>{{$data[0]->name}}</a><br>--}}
+{{--                        @if(!empty($cek_grade))--}}
+{{--                            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">--}}
 {{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
-                        @endif
-                    </div>
-                @endforeach
-            </div>
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+
+{{--            </div>--}}
     @elseif(!empty($view_declare))
             <div class="row">
                 <div class="col-4 col_declare1">
@@ -301,7 +302,7 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
             if ({!! json_encode($grade) !!}){
-                if ($("#grade").val()){
+                // if ($("#grade").val()){
                     if ($('#upload_profile').val()) {
                         if($("input[name='declare']:checked").val() != undefined){
                             $( "#book_appointment" ).submit();
@@ -312,9 +313,9 @@
                     }else{
                         swal("Please!", "Upload Photo", "error")
                     }
-                }else{
-                    swal("Please!", "add Declare", "error")
-                }
+                // }else{
+                //     swal("Please!", "add Declare", "error")
+                // }
             }else{
                 if ($('#upload_profile').val()){
                     if($("input[name='declare']:checked").val() != undefined){
