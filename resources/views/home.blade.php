@@ -60,9 +60,9 @@
             @if(!empty($schedule))
                 @foreach($schedule as $index => $f)
                     @if($f->Status_app == submission)
-                        @php $url="/history/book/appointment"; @endphp
+                        @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp
                     @elseif($f->Status_app == book_appointment)
-                        @php $url="/history/book/payment"; @endphp
+                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp
                     @endif
                     <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                         @if($f->app_type == news)

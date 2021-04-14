@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payment_detail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/submission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/submission.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -268,7 +267,7 @@
       <workItem from="1618355784914" duration="29000" />
       <workItem from="1618374322123" duration="6493000" />
       <workItem from="1618385046613" duration="9000" />
-      <workItem from="1618386005519" duration="4508000" />
+      <workItem from="1618386005519" duration="9257000" />
     </task>
     <servers />
   </component>
@@ -348,9 +347,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1618299364616" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618394408768">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618398558987">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618394408768" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618398558987" />
   </component>
 </project>

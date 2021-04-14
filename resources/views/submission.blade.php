@@ -40,7 +40,7 @@
                                 @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                         <div class="col-4 ColoumndataPersonal">SSS</div>
                                 @else
-                                        <div class="col-4 ColoumndataPersonal">NA</div>
+                                        <div class="col-4 ColoumndataPersonal">SO</div>
                                 @endif
                             @elseif($request->card == avso_app)
                                 <div class="col-4 ColoumndataPersonal">NA</div>
@@ -85,7 +85,7 @@
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                 <div class="col-4 ColoumndataPersonal">SSS</div>
                             @else
-                                <div class="col-4 ColoumndataPersonal">NA</div>
+                                <div class="col-4 ColoumndataPersonal">SO</div>
                             @endif
                     @elseif($request->card == avso_app)
                         <div class="col-6 ColoumndataPersonal">NA</div>

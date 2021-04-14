@@ -37,13 +37,17 @@ Route::post('/personal/particular','HomeController@personaldata')->name('persona
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::post('/declare/submission', 'HomeController@declare_submission')->name('declare.submission');
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
-Route::get('/history/book/appointment', 'HomeController@HistoryBookAppointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
 
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
 Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
+
+// get history continous
+Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@HistoryBookAppointment');
+Route::get('/history/book/payment/{app_type}/{card}', 'HomeController@HistoryViewPayment');
+// end get history continous
 
 // End User
 
