@@ -38,15 +38,34 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['user_Id'=>Auth::id()])->get();
 
+        $replacement = booking_schedule::where(['user_Id'=>Auth::id(),'Status_app'=>payment])->get();
+
+        $renewal = booking_schedule::where(['user_Id'=>Auth::id(),'Status_app'=>payment])->get();
+
         $grade = grade::get();
 
         if (Auth::user()->role == admin){
             return view('admin/historylogin');
         }
-        return view('home')->with(["schedule"=>$schedule,"sertifikat"=>$sertifikat,"grade"=>$grade]);
+        return view('home')->with(["schedule"=>$schedule,"sertifikat"=>$sertifikat,"grade"=>$grade,"replacement"=>$replacement,"renewal"=>$renewal]);
     }
     public function personaldata(Request $request)
     {
+
+        $personal = User::where(['id'=>Auth::id()])->first();
+        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
+    }
+
+    public function replacement_personaldata(Request $request,$card)
+    {
+        $request->merge(['app_type' => replacement,'card' => $card]);
+        $personal = User::where(['id'=>Auth::id()])->first();
+        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
+    }
+
+    public function renewal_personaldata(Request $request,$card)
+    {
+        $request->merge(['app_type' => renewal,'card' => $card]);
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
     }
@@ -71,7 +90,7 @@ class HomeController extends Controller
         // End view_declare
         if ($request->app_type== renewal || $request->app_type== replacement) {
             $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
-            $request->merge(['card' => $data->card_id]);
+//            $request->merge(['card' => $data->card_id]);
         }
         if ($request->card == so_app){
             if ($request->app_type== renewal){
@@ -84,8 +103,9 @@ class HomeController extends Controller
                     $grade = grade::where(['card_id'=>$renewal->card_id])->get();
                 }
             }elseif ($request->app_type== replacement){
-//                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
-                $replacement = booking_schedule::first();
+//                $replacement = booking_schedule::first();
+                    $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+
             }else{
                 if (!empty($request->Cgrade)){
                     // view declare more than 1
@@ -102,9 +122,11 @@ class HomeController extends Controller
         }else{
            if ($request->app_type== replacement || $request->app_type== renewal){
                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->first();
-                $request->merge(['card' => $replacement->card_id]);
+//                $request->merge(['card' => $replacement->card_id]);
+
            }
         }
+
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('submission')->with(['cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
@@ -132,7 +154,7 @@ class HomeController extends Controller
     }
     public function HistoryBookAppointment(Request $request)
     {
-
+        die(print_r($request->all()));
         return view('book_appointment')->with(["request"=>$request]);
     }
 
@@ -151,7 +173,8 @@ class HomeController extends Controller
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
         $gst = gst::first();
-        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount]);
+
+        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
 
     public function HistoryViewPayment(Request $request)
@@ -195,7 +218,7 @@ class HomeController extends Controller
         }elseif ($request['payment_method'] == mastercard){
             $payment_method = 'mastercard';
         }
-        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id()])
+        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request['card']])
             ->update([
                 'gst_id' => $request['grade_id'],
                 'trans_date' => Carbon::today()->toDateString(),
@@ -220,7 +243,7 @@ class HomeController extends Controller
     }
     protected function create_setifikat($request)
     {
-        $data = booking_schedule::where(['user_id'=>Auth::id()])->orderBy('id', 'DESC')->first();
+        $data = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request['card']])->first();
 
         $gst = gst::where(['id'=>$data->gst_id])->first();
 

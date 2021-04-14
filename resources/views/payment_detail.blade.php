@@ -239,6 +239,7 @@
             </div>
         </div>
     </div><br class="visible-xs hidden-md">
+        <input type="hidden" name="card" id="card" value="{{$request->card}}">
     <div class="row visible-xs hidden-md">
         <div class="col">
             <button type="button"  class="btn btn-danger btn-lg btn-block create_payment" >Confirm <img src="{{URL::asset('/img/next.png')}}" style="width: 5%;"></button>
