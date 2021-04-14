@@ -115,7 +115,7 @@ class HomeController extends Controller
 //                    $grade = grade::where(['card_id'=>$request->card])->get();
                     // user cannot belong to declare
                     $grade = null;
-                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id()])->first();
+                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
                     // End user cannot belong to declare
                 }
             }
@@ -126,7 +126,6 @@ class HomeController extends Controller
 
            }
         }
-
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('submission')->with(['cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
@@ -152,16 +151,17 @@ class HomeController extends Controller
         }
         return view('book_appointment')->with(["request"=>$request]);
     }
-    public function HistoryBookAppointment(Request $request)
+    public function HistoryBookAppointment(Request $request,$app_type,$card)
     {
-        die(print_r($request->all()));
+        $request->merge(['app_type' => $app_type,'card' => $card]);
+
         return view('book_appointment')->with(["request"=>$request]);
     }
 
     public function View_payment(Request $request)
     {
         $this->UpdateBookingScheduleAppointment($request);
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
         if (!empty($booking_schedule->grade_id)){
 //            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
                 foreach (json_decode($booking_schedule->grade_id) as $f){
@@ -177,10 +177,12 @@ class HomeController extends Controller
         return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
 
-    public function HistoryViewPayment(Request $request)
+    public function HistoryViewPayment(Request $request,$app_type,$card)
     {
+        $request->merge(['app_type' => $app_type,'card' => $card]);
+
 //        $this->UpdateBookingScheduleAppointment($request);
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$card])->first();
         $addition_transaction_amount='';
         if (!empty($booking_schedule->grade_id)){
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
@@ -193,7 +195,7 @@ class HomeController extends Controller
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
         $gst = gst::first();
-        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'addition_transaction_amount'=>$addition_transaction_amount]);
+        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'addition_transaction_amount'=>$addition_transaction_amount,'request'=>$request]);
     }
 
     public function Createpayment(Request $request)
@@ -358,6 +360,7 @@ class HomeController extends Controller
                     'transaction_amount_id' => null,
                     'grand_total' => null,
                     'paymentby' => null,
+                    'receiptNo' => null,
                     'status_payment' => null,
                     'user_id' => Auth::id(),
                 ]);
@@ -379,6 +382,7 @@ class HomeController extends Controller
                     'grand_total' => null,
                     'paymentby' => null,
                     'status_payment' => null,
+                    'receiptNo' => null,
                     'user_id' => Auth::id(),
                 ]);
         }else{
@@ -399,6 +403,7 @@ class HomeController extends Controller
                     'grand_total' => null,
                     'paymentby' => null,
                     'status_payment' => null,
+                    'receiptNo' => null,
                     'user_id' => Auth::id(),
                 ]);
         }

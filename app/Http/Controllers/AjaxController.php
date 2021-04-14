@@ -341,30 +341,29 @@ class AjaxController extends Controller
     }
     public function cek_limit_schedule(Request $request)
     {
-        return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule());
+        return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule(),Carbon::parse($request->eventDate)->toDateString());
     }
-    protected  function view_time_schedule($time_schedule,$limit_schedule){
+    protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
-        foreach ($limit_schedule as $index1 => $ls) {
-            if ($time_schedule->count() > 0) {
-                foreach ($time_schedule as $index2 => $ts) {
-                    $data .= ' <tr>';
-                    $time = $ls->start_at . '-' . $ls->end_at;
-                    if ($ls->start_at == $ts->time_start_appointment) {
-                        if ($ls->amount == $ts->count()) {
-                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id"  disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                        }else{
-                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-                        }
-                        $data .= '<td>' . $ts->count() . '</td>';
-                        $data .= '<td>' . $ls->amount . '</td>';
-                    }else{
-                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-                        $data .= '<td>0</td>';
-                        $data .= '<td>' . $ls->amount . '</td>>';
-                    }
-                    $data .= '</tr>';
+        foreach ($limit_schedule as $key => $ls) {
+            $data_schedule = booking_schedule::whereIn('status_app', [book_appointment, payment])
+                ->whereDate('appointment_date','=',$eventDate)
+                ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
+                ->get();
+            $limit_schedule[$key]->number_schedule = $data_schedule->count();
+        }
+        foreach ($limit_schedule as $key => $ls ){
+            if (!empty($ls->number_schedule)){
+                $time = $ls->start_at . '-' . $ls->end_at;
+                $data .= ' <tr>';
+                if ($ls->amount == $ls->number_schedule){
+                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                }else{
+                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
                 }
+                $data .= '<td>'.$ls->number_schedule.'</td>';
+                $data .= '<td>' . $ls->amount . '</td>>';
+                $data .= '</tr>';
             }else{
                 $time = $ls->start_at . '-' . $ls->end_at;
                 $data .= ' <tr>';
@@ -372,7 +371,6 @@ class AjaxController extends Controller
                 $data .= '<td>0</td>';
                 $data .= '<td>' . $ls->amount . '</td>>';
                 $data .= '</tr>';
-
             }
         }
         return $data;
