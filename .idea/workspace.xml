@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32872c19-9f00-437d-96d5-b100d9b1b54b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/upgrade_grade.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/personal_particular.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/submission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/submission.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/adminlte.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adminlte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_25_022853_create_transaction_amounts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_25_022853_create_transaction_amounts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/price.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/price.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -185,13 +187,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\training_application_schedule\resources\views" />
       <recent name="C:\laragon\www\training_application_schedule\resources\views\admin" />
+      <recent name="C:\laragon\www\training_application_schedule\resources\views" />
       <recent name="C:\laragon\www\training_application_schedule\resources\views\layouts" />
       <recent name="C:\laragon\www\training_application_schedule\public\js" />
     </key>
@@ -267,7 +269,7 @@
       <workItem from="1618355784914" duration="29000" />
       <workItem from="1618374322123" duration="6493000" />
       <workItem from="1618385046613" duration="9000" />
-      <workItem from="1618386005519" duration="9257000" />
+      <workItem from="1618386005519" duration="25003000" />
     </task>
     <servers />
   </component>
@@ -291,30 +293,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1618385052625" />
-    <state width="1181" height="184" key="GridCell.Tab.0.bottom" timestamp="1618375822059">
+    <state width="1181" height="184" key="GridCell.Tab.0.bottom" timestamp="1618476678630">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618375822059" />
-    <state width="1181" height="184" key="GridCell.Tab.0.center" timestamp="1618375822058">
+    <state width="1181" height="184" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618476678630" />
+    <state width="1181" height="184" key="GridCell.Tab.0.center" timestamp="1618476678629">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618375822058" />
-    <state width="1181" height="184" key="GridCell.Tab.0.left" timestamp="1618375822057">
+    <state width="1181" height="184" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618476678629" />
+    <state width="1181" height="184" key="GridCell.Tab.0.left" timestamp="1618476678629">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618375822057" />
-    <state width="1181" height="184" key="GridCell.Tab.0.right" timestamp="1618375822059">
+    <state width="1181" height="184" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618476678629" />
+    <state width="1181" height="184" key="GridCell.Tab.0.right" timestamp="1618476678630">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1181" height="184" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618375822059" />
+    <state width="1181" height="184" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618476678630" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1616048001408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1616048001408" />
-    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1618303081072">
+    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1618476643089">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1618303081072" />
+    <state x="551" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1618476643089" />
     <state x="392" y="5" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1616647287171">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -323,10 +325,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1617070047157" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1618335725994">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1618470411410">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618335725994" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618470411410" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1618385046053">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -347,9 +349,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1618299364616" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618398558987">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618475826180">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618398558987" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618475826180" />
   </component>
 </project>

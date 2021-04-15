@@ -244,6 +244,10 @@ return [
             'icon'    => 'fa fa-cog',
             'submenu' => [
                 [
+                    'text' => 'Upgrade Grade',
+                    'url'  => 'admin/upgrade/grade',
+                ],
+                [
                     'text' => 'Limit Schedule',
                     'url'  => 'admin/limit/schedule',
                 ],

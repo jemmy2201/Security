@@ -179,6 +179,20 @@ class AjaxController extends Controller
         })->make(true);
 
     }
+    public function data_grade()
+    {
+        $data_grade = User::leftjoin('booking_schedules', 'users.id', '=', 'booking_schedules.user_id')
+            ->whereNull('role')
+            ->get();
+        return Datatables::of($data_grade)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
+
+            return $btn;
+
+        })->make(true);
+
+    }
     public function data_gst()
     {
         $gst = gst::get();
@@ -207,7 +221,6 @@ class AjaxController extends Controller
         if ($request->grade_id != "Please choose"){
             $grade_id =$request->grade_id;
         }
-
 //        if (empty($grade_id)){
 //            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
 //        }else{
@@ -228,6 +241,13 @@ class AjaxController extends Controller
                 foreach ($grades as $index => $f){
                    $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$f->id])->first();
                     if (empty($val_transaction_amount)){
+                        if ($f->type == "SO"){
+                            $grade_type = 1;
+                        }elseif ($f->type == "SSO"){
+                            $grade_type = 2;
+                        }elseif ($f->type == "SSS"){
+                            $grade_type = 3;
+                        }
                         $transaction_amount = new transaction_amount;
 
                         $transaction_amount->app_type = $request->app_type;
@@ -237,6 +257,8 @@ class AjaxController extends Controller
                         $transaction_amount->grade_id = $f->id;
 
                         $transaction_amount->transaction_amount = $request->transaction_amount;
+
+                        $transaction_amount->grade_type = $grade_type;
 
                         $transaction_amount->save();
                     }
