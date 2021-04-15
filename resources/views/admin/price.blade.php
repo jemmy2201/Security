@@ -219,12 +219,11 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(data,textStatus, xhr)
                         {
-                            console.log('jrg',data)
-                            if (xhr.status == "201" || xhr.status == "200") {
+                            if (data == @php echo data_already_exists @endphp) {
+                                swal("Error!", " the data already exists", "error");
+                            }else if(xhr.status == "201" || xhr.status == "200"){
                                 table_price.ajax.reload();
                                 $('#FormPrice').modal('hide');
-                            }else if(data == @php echo data_already_exists @endphp){
-                                swal("Error!", " the data already exists", "error");
                             }
                         }
                     });
@@ -237,11 +236,11 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(data,textStatus, xhr)
                         {
-                            if (xhr.status == "201" || xhr.status == "200") {
+                            if (data == @php echo data_already_exists @endphp) {
+                            swal("Error!", " the data already exists", "error");
+                            }else if(xhr.status == "201" || xhr.status == "200"){
                                 table_price.ajax.reload();
                                 $('#FormPrice').modal('hide');
-                            }else if(data == @php echo data_already_exists @endphp){
-                                swal("Error!", " the data already exists", "error");
                             }
                         }
                     });

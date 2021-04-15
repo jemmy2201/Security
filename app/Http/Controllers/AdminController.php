@@ -36,6 +36,10 @@ class AdminController extends Controller
     {
         return view('admin/limit_schedule');
     }
+    public function upgrade_grade()
+    {
+        return view('admin/upgrade_grade');
+    }
     public function historylogin()
     {
         return view('admin/historylogin');

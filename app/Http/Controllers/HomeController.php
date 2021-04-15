@@ -51,7 +51,6 @@ class HomeController extends Controller
     }
     public function personaldata(Request $request)
     {
-
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
     }
@@ -72,6 +71,7 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
+
         $grade = null;
         $replacement = null;
         $view_declare = null;
@@ -126,11 +126,13 @@ class HomeController extends Controller
 
            }
         }
+
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('submission')->with(['cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
     public function declare_submission(Request $request)
     {
+
         $grade = grade::where(['card_id'=>$request->card])->get();
 
         return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
@@ -163,12 +165,12 @@ class HomeController extends Controller
         $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
         if (!empty($booking_schedule->grade_id)){
-//            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
-                foreach (json_decode($booking_schedule->grade_id) as $f){
-                    $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
-                    $Array_transaction_amount[] = $transaction_amount->transaction_amount;
-                }
-                    $addition_transaction_amount = array_sum($Array_transaction_amount);
+                  $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
+//                foreach (json_decode($booking_schedule->grade_id) as $f){
+//                    $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
+//                    $Array_transaction_amount[] = $transaction_amount->transaction_amount;
+//                }
+//                    $addition_transaction_amount = array_sum($Array_transaction_amount);
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
@@ -415,10 +417,10 @@ class HomeController extends Controller
         $request->validate([
             'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        if (!empty($grade)){
-            $grade = json_encode($grade);
+        if ($request->card == so_app){
+            $grade = so;
         }else{
-            $grade = $grade;
+            $grade = null;
         }
         $imageName = time().'.'.$request->upload_profile->extension();
 
