@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BookingScheduleExport;
+use App\Exports\UpgradeGradeExport;
 use App\grade;
 use App\gst;
 use App\sertifikat;
@@ -17,6 +18,7 @@ use DataTables;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -359,6 +361,12 @@ class AjaxController extends Controller
 
     }
 
+    public function download_template_grade(){
+
+        return Excel::download(new UpgradeGradeExport, 'template_grade.xlsx');
+
+    }
+
     public function updatePassword(Request $request)
     {
         $cek_pass = User::where(['id'=>Auth::id()])->first();
@@ -374,6 +382,39 @@ class AjaxController extends Controller
         }
 
         return $user;
+    }
+    public function upload_excel_grade(Request $request)
+    {
+        $data = Excel::toArray(new BookingScheduleExport(), request()->file('upgrade_grade'));
+        foreach($data[0] as $row) {
+            $arr[] = [
+                'nric' => $row[0],
+                'name ' => $row[1],
+                'email' => $row[2],
+                'app_type' => $row[3],
+                'card_type' => $row[4],
+                'grade' => $row[5],
+            ];
+        }
+        foreach ($arr as $e){
+            if ($e['card_type'] == "SO Application"){
+                $data_update = booking_schedule::select('booking_schedules.id')->leftjoin('users', 'booking_schedules.user_id', '=', 'users.id')->where(['users.nric'=>$e['nric']])->first();
+
+                if ($e['grade'] == "SO"){
+                    $grade = so;
+                }elseif ($e['grade'] == "SSO"){
+                    $grade = sso;
+                }elseif ($e['grade'] == "SSS"){
+                    $grade = sss;
+                }
+                $data  = booking_schedule::find($data_update->id);
+
+                $data->grade_id = $grade;
+
+                $data->save();
+            }
+        }
+        return $data;
     }
     public function cek_limit_schedule(Request $request)
     {

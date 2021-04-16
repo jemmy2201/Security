@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class=" navbar-light navbar-white">
-        <table id="table_price" class="table table-striped table-bordered dt-responsive nowrap">
+        <table id="table_grade" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
             <tr>
                 <th scope="col">NRIC</th>
@@ -21,7 +21,7 @@
             </tbody>
         </table>
         {{-- Modal --}}
-        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
@@ -29,16 +29,15 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
-                        <form  style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormPriceCreate">
+                        <form style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormUploadExcelGrade" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="title" class="col-form-label">Application type</label>
-                               <input type="file" class="form-control form-control-lg">
+                                <label for="title" class="col-form-label">Upgrade grade</label>
+                               <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block"><b>Save</b></button>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -60,25 +59,24 @@
             /* true to fetch page from server */
         });
         $(document).ready(function(){
-                table_price = $('#table_price').DataTable({
+            table_grade = $('#table_grade').DataTable({
                     processing: true,
                     serverSide: true,
                     searching: false,
                     dom: 'Bfrtip',
                     buttons: [
                         {
-                            text: 'Add Price',
+                            text: 'Upload Excel',
                             className: 'buttontable btn btn-light datatableCeate',
                             action: function ( e, dt, node, config ) {
-                                $('#FormPrice').modal('show');
-                                $("#app_type").val("").attr("disabled", false);
-                                $("#card_id").val("").attr("disabled", false);
-                                $(".form_grade").css("display", "none");
-                                $("#grade_id").val("").attr("disabled", false);
-                                $("#transaction_amount").val("");
-                                $("#update").css("display", "none");
-                                $("#save").css("display", "block");
-                                $("#validasi_url").val(@php echo save @endphp);
+                                $('#FormUpload').modal('show');
+                            }
+                        },
+                        {
+                            text: 'Download Template',
+                            className: 'buttontable btn btn-light datatableCeate',
+                            action: function ( e, dt, node, config ) {
+                                window.location.href = '{{ url('ajax/download/excel/template/grade') }}';
                             }
                         }
                     ],
@@ -137,24 +135,38 @@
                 });
             });
 
-        $("#FormUpload").submit(function(e) {
-            e.preventDefault(); // avoid to execute the actual submit of the form.
-            var form = $(this);
 
-            var url = "{{route('admin.insert.price')}}";
+
+        $("#FormUploadExcelGrade").submit(function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var form_data = new FormData(document.getElementById("FormUploadExcelGrade"));
+            form_data.append("_token", "{{ csrf_token() }}");
 
             $.ajax({
                 type: "POST",
-                url: url,
-                data: form.serialize(), // serializes the form's elements.
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                url: "{{route('admin.upload.grade')}}",
+                data: form_data, // serializes the form's elements.
                 success: function(data,textStatus, xhr)
                 {
-                    if (data == @php echo data_already_exists @endphp) {
-                    swal("Error!", " the data already exists", "error");
-                    }else if(xhr.status == "201" || xhr.status == "200"){
-                        table_price.ajax.reload();
-                        $('#FormPrice').modal('hide');
+                    if(xhr.status == "201" || xhr.status == "200"){
+                        table_grade.ajax.reload();
+                        $('#FormUpload').modal('hide');
                     }
+                }, error: function(data,textStatus, xhr){
+                    // Error...
+                    var errors = $.parseJSON(data.responseText);
+                    $.each(errors, function(index, value) {
+                        if(value == "The given data was invalid."){
+                            swal("Error!", "Just only excel", "error");
+                        }
+                    });
+
                 }
             });
 
