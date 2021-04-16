@@ -169,7 +169,11 @@ class AjaxController extends Controller
     }
     public function data_price()
     {
-        $transaction_amount = transaction_amount::select('transaction_amounts.id as transaction_amounts_id',"transaction_amounts.*","grades.*")->leftjoin('grades', 'transaction_amounts.grade_id', '=', 'grades.id')->get();
+        $transaction_amount = DB::select('select DISTINCT grade_type,app_type,card_type,grade_type,transaction_amount from transaction_amounts ');
+        foreach ($transaction_amount as $index =>$f){
+            $data = transaction_amount::where(['app_type'=>$f->app_type,'card_type'=>$f->card_type,'grade_type'=>$f->grade_type])->first();
+            $transaction_amount[$index]->id = $data->id;
+        }
         return Datatables::of($transaction_amount)->addColumn('action', function($row){
 
             $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
@@ -297,12 +301,22 @@ class AjaxController extends Controller
 
     public function update_price(Request $request)
     {
-        $transaction_amount = transaction_amount::find($request->transaction_amounts_id);
+        if (!empty($request->grade_type)){
+//            $transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_type,'grade_type'=>$request->grade_type]);
+//
+//            $transaction_amount->transaction_amount = $request->transaction_amount;
+//
+//            $transaction_amount->save();
+            $transaction_amount = DB::table('transaction_amounts')
+                ->where(['app_type'=>$request->app_type,'card_type'=>$request->card_type,'grade_type'=>$request->grade_type])
+                ->update(['transaction_amount' => $request->transaction_amount]);
+        }else{
+            $transaction_amount = transaction_amount::find($request->transaction_amounts_id);
 
-        $transaction_amount->transaction_amount = $request->transaction_amount;
+            $transaction_amount->transaction_amount = $request->transaction_amount;
 
-        $transaction_amount->save();
-
+            $transaction_amount->save();
+        }
         return $transaction_amount;
 
     }

@@ -69,6 +69,9 @@
                             <div class="mb-3">
                                 <input type="hidden" name="validasi_url" id="validasi_url">
                                 <input type="hidden" name="transaction_amounts_id" id="transaction_amounts_id">
+                                <input type="hidden" name="grade_type" id="grade_type">
+                                <input type="hidden" name="card_type" id="card_type">
+                                <input type="hidden" name="app_types" id="app_types">
                                 <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block"><b>Save</b></button>
                                 <button type="submit" id="update" style="background-color: #E01E37;width:100%;font-size:16px" class="btn btn-secondary btn-lg"><b>update</b></button>
                             </div>
@@ -159,10 +162,14 @@
                                 }
                             }
                         },
-                        {data: 'grade_id', name: 'grade_id',
+                        {data: 'grade_type', name: 'grade_type',
                             render: function (data, type, row) {
-                                if(row.name != null ){
-                                    return row.name;
+                                if(data == @php echo so @endphp){
+                                    return "SO";
+                                }else if(data == @php echo sso @endphp){
+                                    return "SSO";
+                                }else if(data == @php echo sss @endphp){
+                                    return "SSS";
                                 }else{
                                     return '-';
                                 }
@@ -176,16 +183,21 @@
             $('#table_price').on('click', 'a.editor_edit', function (e) {
                 e.preventDefault();
                 let rowData = table_price.row($(event.target).parents('tr')).data();
-                $("#app_type").val(rowData.app_type).attr("disabled", true);
+                console.log('jrg',rowData)
+                $("#app_types").val(rowData.app_type).attr("disabled", true);
                 $("#card_id").val(rowData.card_type).attr("disabled", true);
                 if (rowData.card_type == @php  echo so_app @endphp){
                     $(".form_grade").css("display", "block");
                 }else{
                     $(".form_grade").css("display", "none");
                 }
-                $("#grade_id").val(rowData.grade_id).attr("disabled", true);
+
+                $("#grade_id").val(rowData.grade_type).attr("disabled", true);
                 $("#transaction_amount").val(rowData.transaction_amount);
-                $("#transaction_amounts_id").val(rowData.transaction_amounts_id);
+                $("#transaction_amounts_id").val(rowData.id);
+                $("#grade_type").val(rowData.grade_type);
+                $("#card_type").val(rowData.card_type);
+                $("#app_type").val(rowData.app_type);
                 $("#save").css("display", "none");
                 $("#update").css("display", "block");
                 $('#FormPrice').modal('show');
