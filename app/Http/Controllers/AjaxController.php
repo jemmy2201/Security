@@ -155,12 +155,21 @@ class AjaxController extends Controller
         $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','sertifikats.expired_date','users.photo')
                              ->leftjoin('users', 'sertifikats.user_id', '=', 'users.id')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
         foreach($security_employees as $key => $f){
-                foreach (json_decode($f->grade_id) as $g){
-                      $grade = grade::where(['id'=>$g])->first();
-                      $grade_name[] = $grade->type;
-                }
-            $security_employees[$key]->name_grade = $grade_name;
-            $security_employees[$key]->count_grade = count($grade_name);
+//                foreach (json_decode($f->grade_id) as $g){
+//                      $grade = grade::where(['id'=>$g])->first();
+//                      $grade_name[] = $grade->type;
+//                }
+            if ($f->grade_id == so){
+                $grade_id = "SO";
+            }elseif ($f->grade_id == sso){
+                $grade_id = "SSO";
+            }elseif ($f->grade_id == sso){
+                $grade_id = "SSS";
+            }else{
+                $grade_id = "-";
+            }
+            $security_employees[$key]->name_grade = $grade_id;
+//            $security_employees[$key]->count_grade = count($grade_name);
         }
         return Datatables::of($security_employees)->addColumn('action', function($row){
 

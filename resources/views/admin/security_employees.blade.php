@@ -6,7 +6,7 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" id="table_security_employees">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Picture</th>
                 <th scope="col">NRIC / FIN</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
@@ -79,16 +79,16 @@
                     },
                     {data: 'name_grade', name: 'name_grade',
                         render: function (data, type, row) {
-                        console.log('jrg',row.count_grade)
-                            if(row.count_grade == '1'){
-                                return data[0];
-                            }else if(row.count_grade == '2'){
-                                return data[0]+'/'+data[1];
-                            }else if(row.count_grade == '3'){
-                                return data[0]+'/'+data[1]+'/'+data[2];
-                            }else{
-                                return data[0]+'/'+data[1]+'/'+data[2];
-                            }
+                            return data;
+                            // if(row.count_grade == '1'){
+                            //     return data[0];
+                            // }else if(row.count_grade == '2'){
+                            //     return data[0]+'/'+data[1];
+                            // }else if(row.count_grade == '3'){
+                            //     return data[0]+'/'+data[1]+'/'+data[2];
+                            // }else{
+                            //     return data[0]+'/'+data[1]+'/'+data[2];
+                            // }
                         }
                     },
                     {data: 'expired_date', name: 'expired_date'},
