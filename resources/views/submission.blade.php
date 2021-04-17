@@ -115,6 +115,9 @@
     <br><br>
     <form method="post" id="book_appointment" action="{{ route('book.appointment') }}" enctype="multipart/form-data">
         @csrf
+        @if(!empty($cek_grade))
+            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+        @endif
     @if(!empty($grade))
 {{--        <div class="row">--}}
 {{--            <div class="col-4 col_declare1">--}}
@@ -181,9 +184,6 @@
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                         <a>{{$data[0]->name}}</a><br>
 {{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
-                        @if(!empty($cek_grade))
-                            <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
-                        @endif
                     </div>
                 @endforeach
             </div>
