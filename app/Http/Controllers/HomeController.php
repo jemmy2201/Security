@@ -101,11 +101,12 @@ class HomeController extends Controller
                 }else{
                     $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
                     $grade = grade::where(['card_id'=>$renewal->card_id])->get();
+                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
                 }
             }elseif ($request->app_type== replacement){
 //                $replacement = booking_schedule::first();
                     $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-
+                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
             }else{
                 if (!empty($request->Cgrade)){
                     // view declare more than 1
@@ -187,7 +188,7 @@ class HomeController extends Controller
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$card])->first();
         $addition_transaction_amount='';
         if (!empty($booking_schedule->grade_id)){
-            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$booking_schedule->grade_id])->first();
+            $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
 //            foreach (json_decode($booking_schedule->grade_id) as $f){
 //                $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
 //                $Array_transaction_amount[] = $transaction_amount->transaction_amount;
@@ -330,11 +331,11 @@ class HomeController extends Controller
             'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if (!empty($grade)){
-            $grade = json_encode($grade);
-        }else{
-            $grade = $grade;
-        }
+//        if (!empty($grade)){
+//            $grade = json_encode($grade);
+//        }else{
+//            $grade = $grade;
+//        }
 
         $imageName = time().'.'.$request->upload_profile->extension();
 

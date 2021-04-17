@@ -53,12 +53,14 @@
 @section('js')
     <!-- DataTables -->
     <script type="application/javascript">
+
         $(window).bind('resize', function(e)
         {
             this.location.reload(false); /* false to get page from cache */
             /* true to fetch page from server */
         });
         $(document).ready(function(){
+            $.fn.dataTable.ext.errMode = 'none';
             table_grade = $('#table_grade').DataTable({
                     processing: true,
                     serverSide: true,
