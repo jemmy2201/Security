@@ -280,9 +280,9 @@ trait AuthenticatesUsers
 //            //$InUser->email = $response['email']['value'];
 //            $UpdateUser->email = $result['email'];
 //        }
-        if (!empty($result['password'])) {
-            $UpdateUser->password = $result['password'];
-        }
+//        if (!empty($result['password'])) {
+//            $UpdateUser->password = $result['password'];
+//        }
         if (!empty($result['sponsoredchildrenrecords'])) {
             $UpdateUser->nric = $result['sponsoredchildrenrecords'];
         }
@@ -326,7 +326,7 @@ trait AuthenticatesUsers
         $time = Carbon::now();
         $originData=array("name"=>$response['aliasname']['value'],
             "email"=>$response['email']['value'],
-            "password"=>Hash::make($request->password),
+//            "password"=>Hash::make($request->password),
             "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
             "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
