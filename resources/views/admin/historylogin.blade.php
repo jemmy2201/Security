@@ -35,8 +35,7 @@
                 searching: true,
                 // dom: 'Bfrtip',
                 "ajax": {
-                    {{--"url": "{{route('admin.history.login')}}",--}}
-                    "url": "https://solusight.com/training_application_schedule/public/ajax/cek/card/type",
+                    "url": "{{route('admin.history.login')}}",
                     "global": false,
                     "type": "POST",
                     "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
