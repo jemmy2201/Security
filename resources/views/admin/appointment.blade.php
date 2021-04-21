@@ -48,7 +48,7 @@
 
     function DataSchedule(eventDate){
         $.ajax({
-            url: '/ajax/cek/data/schedule',
+            url: "{{ url('/ajax/cek/data/schedule') }}",
             type: 'POST',
             /* send the csrf-token and the input to the controller */
             data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
