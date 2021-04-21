@@ -81,7 +81,7 @@
 {{--                        @guest--}}
                             <li class="nav-item">
 {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
-                                <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointercolor: #E31E1A;">Logout</h5></a>
+                                <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
                             </li>
                         <form id="logout-form" action="logout" method="POST" style="display: none;">
                             <?php if(config('adminlte.logout_method')): ?>
