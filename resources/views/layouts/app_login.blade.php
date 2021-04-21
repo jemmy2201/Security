@@ -46,11 +46,28 @@
             background: #555;
         }
         {{--  End Scroll  --}}
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        #app {
+            /* The image used */
+            background-image: url("img/login_background.png");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     </style>
 </head>
-<body style="background:#E5E5E5;">
+<body >
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light" style="background: #E5E5E5;">
+        <nav class="navbar navbar-expand-md navbar-light" >
             <div>
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{URL::asset('/img/logo.png')}}">
@@ -61,13 +78,16 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <div style="border-style: groove; background: white;padding: 10px;">
-            <p>
-            <center>
-            Copyright © @php echo date("Y")@endphp Union of Security Employees. All rights reserved.
-            </center>
-            </p>
-        </div>
+        <!-- Footer -->
+        <footer class="bg-light text-center text-lg-start" style="border-style: groove; background: white; margin-top: 60px;">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: #FFFFFF">
+                Copyright © @php echo date("Y")@endphp
+                <a class="text-dark" href="https://mdbootstrap.com/">Union of Security Employees. All rights reserved.</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
 
     </div>
 </body>

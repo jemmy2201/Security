@@ -80,8 +80,17 @@
 {{--                        <!-- Authentication Links -->--}}
 {{--                        @guest--}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>
+{{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
+                                <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointercolor: #E31E1A;">Logout</h5></a>
                             </li>
+                        <form id="logout-form" action="logout" method="POST" style="display: none;">
+                            <?php if(config('adminlte.logout_method')): ?>
+                            <?php echo e(method_field(config('adminlte.logout_method'))); ?>
+
+                             <?php endif; ?>
+                             <?php echo e(csrf_field()); ?>
+
+                        </form>
 {{--                        @else--}}
 {{--                            <li class="nav-item dropdown">--}}
 {{--                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
