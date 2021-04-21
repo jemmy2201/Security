@@ -6,12 +6,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 hidden-xs" style="margin-top: 150px;margin-left: 150px;">
-                        <h1><b>Welcome to Union of </b></h1>
-                        <h1><b>Security Employees</b></h1>
+{{--                        <h1><b>Welcome to Union of </b></h1>--}}
+{{--                        <h1><b>Security Employees</b></h1>--}}
+                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">
+
                     </div>
                     <div class="col-sm-6 visible-xs hidden-md">
-                        <h1><b>Welcome to Union of </b></h1>
-                        <h1><b>Security Employees</b></h1>
+{{--                        <h1><b>Welcome to Union of </b></h1>--}}
+{{--                        <h1><b>Security Employees</b></h1>--}}
+                        <br>
+                        <center>
+                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">
+                        </center>
+                        <br>
                     </div>
                     <div class="col-sm-4" style="border-style: groove; background: white">
                         <ul class="nav nav-tabs">
