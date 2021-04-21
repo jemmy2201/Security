@@ -299,7 +299,7 @@
 
         function validate_limit_schedule(eventDate) {
             $.ajax({
-                url: '/ajax/cek/data/limit/schedule',
+                url: "{{ url('/ajax/cek/data/limit/schedule') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},

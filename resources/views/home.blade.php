@@ -401,8 +401,8 @@
         //remove disable request
         $.ajax({
             type:'get',
-            url:'/ajax/cek/card/type',
-            // url: "https://solusight.com/training_application_schedule/public/ajax/cek/card/type",
+            // url:'/ajax/cek/card/type',
+            url:"{{ url('/ajax/cek/card/type') }}",
             success:function(data) {
               if(data['so_app'] == true){
                   if(data['so_app'] == true && data['avso_app'] == true && data['pi_app'] == true){
@@ -430,6 +430,7 @@
             }
         });
         //end remove disable request
+
 
         //remove disable request
         // $("#avso_app").prop("disabled", false);
