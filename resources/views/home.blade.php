@@ -60,9 +60,11 @@
             @if(!empty($schedule))
                 @foreach($schedule as $index => $f)
                     @if($f->Status_app == submission)
-                        @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp
+{{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
+                        @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @elseif($f->Status_app == book_appointment)
-                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp
+{{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
+                        @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @endif
                     <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                         @if($f->app_type == news)
@@ -193,7 +195,9 @@
                         <tbody>
                         @if(!empty($replacement))
                             @foreach($replacement as $index => $f)
-                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp
+{{--                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp--}}
+                                    @php $url=url("/replacement/personal/particular/")."/".$f->card_id; @endphp
+
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
                                         <td>New</td>
@@ -257,7 +261,8 @@
                         @if(!empty($renewal))
                             @foreach($renewal as $index => $f)
                                 @if(!empty($f->expired_date) && Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString())
-                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp
+{{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
+                                @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
                                         <td>New</td>
