@@ -34,16 +34,15 @@ class HomeController extends Controller
 
     public function index()
     {
-        $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->whereIn('Status_app', [submission, book_appointment])->get();
+        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [submission, book_appointment])->get();
 
-        $sertifikat = sertifikat::where(['user_Id'=>Auth::id()])->get();
+        $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 
-        $replacement = booking_schedule::where(['user_Id'=>Auth::id(),'Status_app'=>payment])->get();
+        $replacement = booking_schedule::where(['user_id'=>Auth::id(),'Status_app'=>payment])->get();
 
-        $renewal = booking_schedule::where(['user_Id'=>Auth::id(),'Status_app'=>payment])->get();
+        $renewal = booking_schedule::where(['user_id'=>Auth::id(),'Status_app'=>payment])->get();
 
         $grade = grade::get();
-
         if (Auth::user()->role == admin){
             return view('admin/historylogin');
         }
