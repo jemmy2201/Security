@@ -76,3 +76,7 @@ define('data_has_been_used_in_the_booking_schedule', 103);
 // response update password
 define('not_find_pass', 101);
 // end response update password
+
+// Delete data if not payment and wait 3 month for delete data
+define('three_month', 3);
+// End Delete data if not payment and wait 3 month for delete data

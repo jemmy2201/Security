@@ -34,6 +34,17 @@ class HomeController extends Controller
 
     public function index()
     {
+        $cek_del_schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [ book_appointment])->get();
+
+        // Delete data if not payment 3 month
+        foreach ($cek_del_schedule as $f){
+            $cek_Month = $this->cek_month($f->appointment_date);
+            if ($cek_Month == three_month){
+                $del_schedule = booking_schedule::find($f->id);
+                $del_schedule->delete();
+            }
+        }
+        // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [submission, book_appointment])->get();
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
@@ -238,7 +249,23 @@ class HomeController extends Controller
         $this->create_setifikat($request);
         return $BookingScheduleAppointment;
     }
+    protected function cek_month($date){
+        $date1 = Carbon::parse($date)->toDateString();
+        $date2 = Carbon::today()->toDateString();
 
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+
+        $year1 = date('Y', $ts1);
+        $year2 = date('Y', $ts2);
+
+        $month1 = date('m', $ts1);
+        $month2 = date('m', $ts2);
+
+        $diff = (($year2 - $year1) * 12) + ($month2 - $month1);
+
+        return $diff;
+    }
     protected function receiptNo(){
         $booking_schedule = booking_schedule::orderByDesc('id')->get();
         $booking_schedule = $booking_schedule[0]->id+1;
