@@ -48,6 +48,9 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
                                     </div>
+                                    @if($errors->has('email'))
+                                        <strong>Singpass ID and Password do not match</strong>
+                                    @endif
                                     <button type="submit" class=" btn btn-danger btn-lg btn-block ">Log in</button>
                                     <br>
                                     <div class="row">
