@@ -301,32 +301,22 @@
 
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
-            if ({!! json_encode($grade) !!}){
-                // if ($("#grade").val()){
-                    if ($('#upload_profile').val()) {
-                        if($("input[name='declare']:checked").val() != undefined){
-                            $( "#book_appointment" ).submit();
-                        }else{
-                            $( "#book_appointment" ).submit();
-                            // swal("Please!", " tick declare", "error");
-                        }
-                    }else{
-                        swal("Please!", "Upload Photo", "error")
-                    }
-                // }else{
-                //     swal("Please!", "add Declare", "error")
-                // }
-            }else{
                 if ($('#upload_profile').val()){
                     if($("input[name='declare']:checked").val() != undefined){
-                        $( "#book_appointment" ).submit();
+                        var inputFile = document.getElementById('upload_profile');
+                        var pathFile = inputFile.value;
+                        var ekstensiOk = /(\.jpg|\.jpeg|\.png)$/i;
+                        if(!ekstensiOk.exec(pathFile)){
+                            swal("Please!", " upload file yang dengan ekstensi .jpeg/.jpg/.png", "error")
+                        }else {
+                            $("#book_appointment").submit();
+                        }
                     }else{
                         swal("Please!", " tick declare", "error");
                     }
                 }else{
                     swal("Please!", "Upload Photo", "error")
                 }
-            }
         });
 
         function readURL(input) {
