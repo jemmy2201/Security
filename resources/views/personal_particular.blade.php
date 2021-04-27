@@ -27,8 +27,8 @@
                     <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
                     <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">Pass ID No &nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
+                    <div class="col-0 HeaderdataPersonal" hidden>Pass ID No &nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal" hidden>{{$personal->passid}}</div>
                 </div>
             </div>
             <div class="col-sm">
@@ -44,7 +44,7 @@
     <br>
     <div class="row">
         <div class="col HeaderdataPersonal email">
-            Email
+            Mobile Number
         </div>
         <div class="col">
         </div>
@@ -56,12 +56,12 @@
         @csrf
     <div class="row">
         <div class="col-4 HeaderdataPersonal">
-            <input type="email" class="form-control" id="email" name="email"  placeholder="XXXXXX@gmail.com" value="{{$personal->email}}">
+            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}">
         </div>
         <div class="col-2">
         </div>
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}">
+            <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}">
         </div>
     </div>
     <br ><br class="hidden-xs"><br class="hidden-xs">

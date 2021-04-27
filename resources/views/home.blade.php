@@ -44,16 +44,18 @@
         <input type="submit">
     </form>
 <br>
-<p style="color: #808080;">History Applications</p>
+<p style="color: #808080;">My Applications</p>
     <div style="border-style: groove;padding: 10px;">
         <table class="table" >
             <thead>
             <tr>
                 <th scope="col">Application Type</th>
                 <th scope="col" >Request Application</th>
+                <th scope="col" >Date Of Application</th>
                 <th scope="col">Grade</th>
                 <th scope="col" >Status Proses</th>
                 <th scope="col" >Expired Date</th>
+                <th scope="col" >Action</th>
             </tr>
             </thead>
             <tbody>
@@ -82,6 +84,7 @@
                         @elseif($f->card_id == pi_app)
                             <td>PI Application</td>
                         @endif
+                            <td>{{$f->declaration_date}}</td>
                         @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -120,6 +123,16 @@
                             <td></td>
                         @endif
 
+                        @if($f->Status_app == submission)
+                            {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
+                            @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a></td>
+                        @elseif($f->Status_app == book_appointment)
+                            {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
+                            @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a></td>
+                        @endif
+
                     </tr>
                 @endforeach
             @endif
@@ -141,6 +154,7 @@
                             @elseif($f->card_id == pi_app)
                                 <td>PI Application</td>
                             @endif
+                                <td>{{$f->declaration_date}}</td>
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -168,6 +182,7 @@
                             @endif
                             <td>Completed</td>
                             <td>{{$f->expired_date}}</td>
+                            <td></td>
                         </tr>
                 @endforeach
             @endif
@@ -417,12 +432,16 @@
                   }else if(data['so_app'] == true && data['pi_app'] == true){
                       $("#avso_app").prop("disabled", false);
                   }else{
-                     $("#avso_app").prop("disabled", false);
+                      $("#avso_app").prop("disabled", false);
                      $("#pi_app").prop("disabled", false);
                   }
               }else if(data['avso_app'] == true){
-                  $("#pi_app").prop("disabled", false);
-                  $("#so_app").prop("disabled", false);
+                    if(data['avso_app'] == true && data['pi_app'] == true){
+                        $("#so_app").prop("disabled", false);
+                    }else{
+                        $("#pi_app").prop("disabled", false);
+                        $("#so_app").prop("disabled", false);
+                    }
               }else if(data['pi_app'] == true){
                   $("#avso_app").prop("disabled", false);
                   $("#so_app").prop("disabled", false);

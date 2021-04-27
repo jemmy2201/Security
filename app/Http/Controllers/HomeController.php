@@ -479,7 +479,7 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-    if(!empty($request['email']) && !empty($request['mobileno'])){
+    if(!empty($request['homeno']) && !empty($request['mobileno'])){
         $UpdateUser = User::find(Auth::id());
 
         $UpdateUser->email = $request['email'];
@@ -487,10 +487,10 @@ class HomeController extends Controller
         $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->save();
-    }elseif(!empty($request['email'])) {
+    }elseif(!empty($request['homeno'])) {
          $UpdateUser = User::find(Auth::id());
 
-         $UpdateUser->email = $request['email'];
+         $UpdateUser->homeno = $request['homeno'];
 
          $UpdateUser->save();
      }elseif (!empty($request['mobileno'])){
@@ -505,7 +505,7 @@ class HomeController extends Controller
     protected function diff_data($request)
     {
         $originData=array(
-            "email"=>$request->email,
+            "homeno"=>$request->homeno,
             "mobileno"=>$request->mobileno
         );
 
