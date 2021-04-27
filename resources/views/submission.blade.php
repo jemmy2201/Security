@@ -19,7 +19,7 @@
     <h2 style="color: #E31E1A;">Submission</h2>
     <br>
         {{-- Desktop --}}
-    <h4><b>Submitted Details</b></h4>
+    <h4><b>Details</b></h4>
 
     <div class="container">
             <div class="row hidden-xs">
@@ -190,7 +190,7 @@
 
         @endif
     <br>
-    <h3 style="color: black;font-weight: bold;">Add Photo</h3>
+    <h3 style="color: black;font-weight: bold;">Upload Photo</h3>
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 8px; border-style: groove; padding: 5px; margin-left: 10px;">
             <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 80%; margin-left: 20px; margin-top: 20px;">
@@ -201,7 +201,7 @@
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
-            <p>- Photo must be taken without spectacles in color</p>
+            <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
         </div>
     </div>
