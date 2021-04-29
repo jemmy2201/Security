@@ -58,12 +58,22 @@ class AjaxController extends Controller
 
         $data = booking_schedule::where(['user_id'=>Auth::id()])->get();
         foreach ($data as $index => $f){
-            if ($f->card_id == so_app){
-                $so_app = true;
-            }elseif ($f->card_id == avso_app){
-                $avso_app = true;
-            }elseif ($f->card_id == pi_app){
-                $pi_app = true;
+            if ($f->status_app != null){
+                if ($f->card_id == so_app ){
+                    $so_app = true;
+                }elseif ($f->card_id == avso_app){
+                    $avso_app = true;
+                }elseif ($f->card_id == pi_app){
+                    $pi_app = true;
+                }
+            }else{
+                if ($f->card_id == so_app  && $f->app_type == replacement || $f->app_type == renewal ){
+                    $so_app = true;
+                }elseif ($f->card_id == avso_app && $f->app_type == replacement || $f->app_type == renewal){
+                    $avso_app = true;
+                }elseif ($f->card_id == pi_app && $f->app_type == replacement || $f->app_type == renewal){
+                    $pi_app = true;
+                }
             }
         }
         $data = array('so_app'=>$so_app,'avso_app'=>$avso_app,'pi_app'=>$pi_app);
@@ -398,15 +408,69 @@ class AjaxController extends Controller
         foreach($data[0] as $row) {
             $arr[] = [
                 'nric' => $row[0],
-                'name ' => $row[1],
-                'email' => $row[2],
-                'app_type' => $row[3],
-                'card_type' => $row[4],
-                'grade' => $row[5],
+                'name' => $row[1],
+                'mobile' => $row[2],
+                'home' => $row[3],
+                'passid' => $row[4],
+                'app_type' => $row[5],
+                'card_type' => $row[6],
+                'grade' => $row[7],
+                'expiry_date' => $row[8],
             ];
         }
         foreach ($arr as $e){
-            if ($e['card_type'] == "SO Application"){
+
+            if ($e['nric'] != 'nric'){
+
+                $users = User::where(['nric'=>$e['nric']])->first();
+                $count_users = User::count();
+                if (empty($users)){
+
+                    $New_users = new User();
+
+                    $New_users->nric = $e['nric'];
+
+                    $New_users->name = $e['name'];
+
+                    $New_users->mobileno = $e['mobile'];
+
+                    $New_users->homeno = $e['home'];
+
+                    $New_users->passid = $e['passid'];
+
+                    $New_users->email = 'email '.$count_users;
+
+                    $New_users->password = Hash::make('123123');
+
+                    $New_users->save();
+
+                    $booking_schedule = new booking_schedule;
+
+                    $booking_schedule->app_type = $e['app_type'];
+
+                    $booking_schedule->card_id = $e['card_type'];
+
+                    if ($e['grade'] == "SO"){
+                        $grade = so;
+                    }elseif ($e['grade'] == "SSO"){
+                        $grade = sso;
+                    }elseif ($e['grade'] == "SSS"){
+                        $grade = sss;
+                    }else{
+                        $grade = null;
+                    }
+                    $booking_schedule->grade_id = $grade;
+
+                    $booking_schedule->expired_date = Carbon::parse($e['expiry_date']);
+
+                    $booking_schedule->user_id = $New_users->id;
+
+                    $booking_schedule->save();
+                }
+            }
+
+
+            if ($e['card_type'] == so_app){
                 $data_update = booking_schedule::select('booking_schedules.id')->leftjoin('users', 'booking_schedules.user_id', '=', 'users.id')->where(['users.nric'=>$e['nric']])->first();
 
                 if ($e['grade'] == "SO"){
