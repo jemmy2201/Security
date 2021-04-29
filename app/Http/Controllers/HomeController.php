@@ -49,9 +49,9 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 
-        $replacement = booking_schedule::where(['user_id'=>Auth::id(),'Status_app'=>payment])->get();
+        $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->get();
 
-        $renewal = booking_schedule::where(['user_id'=>Auth::id(),'Status_app'=>payment])->get();
+        $renewal = booking_schedule::where(['user_id'=>Auth::id(),'app_type'=>renewal])->get();
 
         $grade = grade::get();
         if (Auth::user()->role == admin){
