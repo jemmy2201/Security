@@ -58,7 +58,7 @@ class AjaxController extends Controller
 
         $data = booking_schedule::where(['user_id'=>Auth::id()])->get();
         foreach ($data as $index => $f){
-            if ($f->status_app != null){
+            if ($f->status_app == null){
                 if ($f->card_id == so_app ){
                     $so_app = true;
                 }elseif ($f->card_id == avso_app){
@@ -425,7 +425,6 @@ class AjaxController extends Controller
                 $users = User::where(['nric'=>$e['nric']])->first();
                 $count_users = User::count();
                 if (empty($users)){
-
                     $New_users = new User();
 
                     $New_users->nric = $e['nric'];
