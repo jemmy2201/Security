@@ -51,7 +51,7 @@ class HomeController extends Controller
 
         $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->get();
 
-        $renewal = booking_schedule::where(['user_id'=>Auth::id(),'app_type'=>renewal])->get();
+        $renewal = booking_schedule::where(['user_id'=>Auth::id()])->get();
 
         $grade = grade::get();
         if (Auth::user()->role == admin){

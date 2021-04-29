@@ -425,6 +425,7 @@ class AjaxController extends Controller
                 $users = User::where(['nric'=>$e['nric']])->first();
                 $count_users = User::count();
                 if (empty($users)){
+
                     $New_users = new User();
 
                     $New_users->nric = $e['nric'];
@@ -460,7 +461,7 @@ class AjaxController extends Controller
                     }
                     $booking_schedule->grade_id = $grade;
 
-                    $booking_schedule->expired_date = Carbon::parse($e['expiry_date']);
+                    $booking_schedule->expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
 
                     $booking_schedule->user_id = $New_users->id;
 
