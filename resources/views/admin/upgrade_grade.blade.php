@@ -46,6 +46,7 @@
         {{-- End Modal --}}
     </div>
 
+<div id="restoring_data" style="display: block;"></div>
 
 </div>
 
@@ -79,6 +80,14 @@
                             className: 'buttontable btn btn-light datatableCeate',
                             action: function ( e, dt, node, config ) {
                                 window.location.href = '{{ url('ajax/download/excel/template/grade') }}';
+                            }
+                        },
+                        {
+                            text: 'Restoring Data',
+                            className: 'buttontable btn btn-light datatableCeate',
+                            action: function ( e, dt, node, config ) {
+                                {{--window.location.href = '{{ url('ajax/restoring/table') }}';--}}
+                                $( "#restoring_data" ).trigger( "click" );
                             }
                         }
                     ],
@@ -135,9 +144,36 @@
                         },
                     ]
                 });
-            });
+        });
 
-
+        $(document).on('click', '#restoring_data', function (e) {
+            e.preventDefault();
+            console.log('sss')
+            swal({
+                title: 'Are you sure?',
+                text: 'Restoring Data!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        dataType: 'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        url: "{{route('admin.restoring.table')}}",
+                        success: function(data,textStatus, xhr)
+                        {
+                            table_grade.ajax.reload();
+                        }
+                    });
+                }
+                });
+        }); 
 
         $("#FormUploadExcelGrade").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
