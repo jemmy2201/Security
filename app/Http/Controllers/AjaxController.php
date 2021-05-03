@@ -730,6 +730,11 @@ class AjaxController extends Controller
                     // End insert table boooking
 
                 }else{
+                    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
+                        $expired_date = $e['expiry_date'];
+                    } else {
+                        $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
+                    }
                     // update table user
 
                     $Update_users = User::find($users->id);
@@ -770,7 +775,7 @@ class AjaxController extends Controller
 
                     $update_booking_schedule->grade_id = $grade;
 
-                    $update_booking_schedule->expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
+                    $update_booking_schedule->expired_date = $expired_date;
 
                     $update_booking_schedule->save();
 
