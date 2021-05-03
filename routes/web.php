@@ -83,5 +83,6 @@ Route::prefix('ajax')->group(function () {
     Route::post('/upload/excel/grade', 'AjaxController@upload_excel_grade')->name('admin.upload.grade');
     Route::get('/download/excel/schedule', 'AjaxController@schedule');
     Route::get('/download/excel/template/grade', 'AjaxController@download_template_grade');
+    Route::post('/restoring/table', 'AjaxController@restoring_table')->name('admin.restoring.table');
 
 });
