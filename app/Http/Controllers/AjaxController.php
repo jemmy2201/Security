@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DataTables;
 use DB;
+use Artisan;
+Use Storage;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
@@ -406,261 +408,12 @@ class AjaxController extends Controller
     }
     public function restoring_table(Request $request)
     {
-        // Restoring Data
-
-        // Restoring table User
-        $Backup_users = Backup_users::get();
-        foreach ($Backup_users as $index => $f){
-            $Restoring_user = User::find($f->id);
-            if (!empty($Restoring_user)){
-
-                $Restoring_users = $Restoring_user;
-
-                $Restoring_users->name = $f->name;
-
-                $Restoring_users->email = $f->email;
-
-                $Restoring_users->email_verified_at = $f->email_verified_at;
-
-                $Restoring_users->password = $f->password;
-
-                $Restoring_users->nric = $f->nric;
-
-                $Restoring_users->passid = $f->passid;
-
-                $Restoring_users->passportexpirydate = $f->passportexpirydate;
-
-                $Restoring_users->passexpirydate = $f->passexpirydate;
-
-                $Restoring_users->passportnumber = $f->passportnumber;
-
-                $Restoring_users->mobileno = $f->mobileno;
-
-                $Restoring_users->homeno = $f->homeno;
-
-                $Restoring_users->photo = $f->photo;
-
-                $Restoring_users->time_login_at = $f->time_login_at;
-
-                $Restoring_users->role = $f->role;
-
-                $Restoring_users->save();
-            }
-        }
-        // End Restoring table User
-
-        // Restoring Table Schedule
-        $Backup_booking_schedule = Backup_booking_schedule::get();
-        foreach ($Backup_booking_schedule as $index => $f){
-            $Restoring_booking = booking_schedule::find($f->id);
-            if (!empty($Restoring_booking)){
-
-                $Restoring_bookings = $Restoring_booking;
-
-                $Restoring_bookings->app_type = $f->app_type;
-
-                $Restoring_bookings->card_id = $f->card_id;
-
-                $Restoring_bookings->grade_id = $f->grade_id;
-
-                $Restoring_bookings->declaration_date = $f->declaration_date;
-
-                $Restoring_bookings->trans_date = $f->trans_date;
-
-                $Restoring_bookings->expired_date = $f->expired_date;
-
-                $Restoring_bookings->appointment_date = $f->appointment_date;
-
-                $Restoring_bookings->time_start_appointment = $f->time_start_appointment;
-
-                $Restoring_bookings->time_end_appointment = $f->time_end_appointment;
-
-                $Restoring_bookings->gst_id = $f->gst_id;
-
-                $Restoring_bookings->transaction_amount_id = $f->transaction_amount_id;
-
-                $Restoring_bookings->grand_total = $f->grand_total;
-
-                $Restoring_bookings->Status_app = $f->Status_app;
-
-                $Restoring_bookings->paymentby = $f->paymentby;
-
-                $Restoring_bookings->status_payment = $f->status_payment;
-
-                $Restoring_bookings->receiptNo = $f->receiptNo;
-
-                $Restoring_bookings->user_id = $f->user_id;
-
-                $Restoring_bookings->save();
-            }
-        }
-        // End Restoring Table Booking Schedule
-
-        // End Restoring Data
-        $data = array($Restoring_bookings,$Restoring_users);
-        return $data;
+        return Artisan::call("backup:restore");
     }
     public function upload_excel_grade(Request $request)
     {
         // Backup Data For restoring
-
-        // Backup User
-        $users = User::get();
-        foreach ($users as $index => $f){
-            $Backup_users = Backup_users::find($f->id);
-            if (empty($Backup_users)){
-                $Backup_New_users = new Backup_users();
-
-                $Backup_New_users->name = $f->name;
-
-                $Backup_New_users->email = $f->email;
-
-                $Backup_New_users->email_verified_at = $f->email_verified_at;
-
-                $Backup_New_users->password = $f->password;
-
-                $Backup_New_users->nric = $f->nric;
-
-                $Backup_New_users->passid = $f->passid;
-
-                $Backup_New_users->passportexpirydate = $f->passportexpirydate;
-
-                $Backup_New_users->passexpirydate = $f->passexpirydate;
-
-                $Backup_New_users->passportnumber = $f->passportnumber;
-
-                $Backup_New_users->mobileno = $f->mobileno;
-
-                $Backup_New_users->homeno = $f->homeno;
-
-                $Backup_New_users->photo = $f->photo;
-
-                $Backup_New_users->time_login_at = $f->time_login_at;
-
-                $Backup_New_users->role = $f->role;
-
-                $Backup_New_users->save();
-            }else{
-                $Backup_Update_users = $Backup_users;
-
-                $Backup_Update_users->name = $f->name;
-
-                $Backup_Update_users->email = $f->email;
-
-                $Backup_Update_users->email_verified_at = $f->email_verified_at;
-
-                $Backup_Update_users->password = $f->password;
-
-                $Backup_Update_users->nric = $f->nric;
-
-                $Backup_Update_users->passid = $f->passid;
-
-                $Backup_Update_users->passportexpirydate = $f->passportexpirydate;
-
-                $Backup_Update_users->passexpirydate = $f->passexpirydate;
-
-                $Backup_Update_users->passportnumber = $f->passportnumber;
-
-                $Backup_Update_users->mobileno = $f->mobileno;
-
-                $Backup_Update_users->homeno = $f->homeno;
-
-                $Backup_Update_users->photo = $f->photo;
-
-                $Backup_Update_users->time_login_at = $f->time_login_at;
-
-                $Backup_Update_users->role = $f->role;
-
-                $Backup_Update_users->save();
-            }
-        }
-        // End Backup User
-
-        // Backup Booking Schedule
-        $booking_schedule = booking_schedule::get();
-        foreach ($booking_schedule as $index => $f){
-            $Backup_schedule = Backup_booking_schedule::find($f->id);
-            if (empty($Backup_schedule)){
-                $Backup_New_schedule = new Backup_booking_schedule();
-
-                $Backup_New_schedule->app_type = $f->app_type;
-
-                $Backup_New_schedule->card_id = $f->card_id;
-
-                $Backup_New_schedule->grade_id = $f->grade_id;
-
-                $Backup_New_schedule->declaration_date = $f->declaration_date;
-
-                $Backup_New_schedule->trans_date = $f->trans_date;
-
-                $Backup_New_schedule->expired_date = $f->expired_date;
-
-                $Backup_New_schedule->appointment_date = $f->appointment_date;
-
-                $Backup_New_schedule->time_start_appointment = $f->time_start_appointment;
-
-                $Backup_New_schedule->time_end_appointment = $f->time_end_appointment;
-
-                $Backup_New_schedule->gst_id = $f->gst_id;
-
-                $Backup_New_schedule->transaction_amount_id = $f->transaction_amount_id;
-
-                $Backup_New_schedule->grand_total = $f->grand_total;
-
-                $Backup_New_schedule->Status_app = $f->Status_app;
-
-                $Backup_New_schedule->paymentby = $f->paymentby;
-
-                $Backup_New_schedule->status_payment = $f->status_payment;
-
-                $Backup_New_schedule->receiptNo = $f->receiptNo;
-
-                $Backup_New_schedule->user_id = $f->user_id;
-
-                $Backup_New_schedule->save();
-
-            }else{
-                $Backup_Update_schedule = $booking_schedule;
-
-                $Backup_Update_schedule->app_type = $f->app_type;
-
-                $Backup_Update_schedule->card_id = $f->card_id;
-
-                $Backup_Update_schedule->grade_id = $f->grade_id;
-
-                $Backup_Update_schedule->declaration_date = $f->declaration_date;
-
-                $Backup_Update_schedule->trans_date = $f->trans_date;
-
-                $Backup_Update_schedule->expired_date = $f->expired_date;
-
-                $Backup_Update_schedule->appointment_date = $f->appointment_date;
-
-                $Backup_Update_schedule->time_start_appointment = $f->time_start_appointment;
-
-                $Backup_Update_schedule->time_end_appointment = $f->time_end_appointment;
-
-                $Backup_Update_schedule->gst_id = $f->gst_id;
-
-                $Backup_Update_schedule->transaction_amount_id = $f->transaction_amount_id;
-
-                $Backup_Update_schedule->grand_total = $f->grand_total;
-
-                $Backup_Update_schedule->Status_app = $f->Status_app;
-
-                $Backup_Update_schedule->paymentby = $f->paymentby;
-
-                $Backup_Update_schedule->status_payment = $f->status_payment;
-
-                $Backup_Update_schedule->receiptNo = $f->receiptNo;
-
-                $Backup_Update_schedule->user_id = $f->user_id;
-
-                $Backup_Update_users->save();
-            }
-        }
-        // End Backup Booking Schedule
-
+        Artisan::call("backup:database");
         // End Backup Data For restoring
 
         $data = Excel::toArray(new BookingScheduleExport(), request()->file('upgrade_grade'));
@@ -683,6 +436,13 @@ class AjaxController extends Controller
 
                 $users = User::where(['nric'=>$e['nric']])->first();
                 $count_users = User::count();
+
+                if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
+                    $expired_date = $e['expiry_date'];
+                } else {
+                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
+                }
+
                 if (empty($users)){
                     // insert table users
                     $New_users = new User();
@@ -722,7 +482,7 @@ class AjaxController extends Controller
                     }
                     $booking_schedule->grade_id = $grade;
 
-                    $booking_schedule->expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
+                    $booking_schedule->expired_date = $expired_date;
 
                     $booking_schedule->user_id = $New_users->id;
 
@@ -730,11 +490,6 @@ class AjaxController extends Controller
                     // End insert table boooking
 
                 }else{
-                    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
-                        $expired_date = $e['expiry_date'];
-                    } else {
-                        $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
-                    }
                     // update table user
 
                     $Update_users = User::find($users->id);
@@ -764,21 +519,48 @@ class AjaxController extends Controller
                         $grade = null;
                     }
 
-                    $ID_booking = booking_schedule::where(["user_id"=>$users->id,"app_type"=>$e['app_type'],"card_id"=>$e['card_type'],"grade_id"=>$grade])
-                                  ->orwhere(["user_id"=>$users->id,"app_type"=>$e['app_type'],"card_id"=>$e['card_type']])->first();
 
-                    $update_booking_schedule = booking_schedule::find($ID_booking->id);
+                    $ID_booking = booking_schedule::where(["user_id"=>$users->id,"card_id"=>$e['card_type']])->first();
 
-                    $update_booking_schedule->app_type = $e['app_type'];
+                    if (!empty($ID_booking)) {
 
-                    $update_booking_schedule->card_id = $e['card_type'];
+                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
 
-                    $update_booking_schedule->grade_id = $grade;
+                        $update_booking_schedule->app_type = $e['app_type'];
 
-                    $update_booking_schedule->expired_date = $expired_date;
+                        $update_booking_schedule->card_id = $e['card_type'];
 
-                    $update_booking_schedule->save();
+                        $update_booking_schedule->grade_id = $grade;
 
+                        $update_booking_schedule->expired_date = $expired_date;
+
+                        $update_booking_schedule->save();
+                    }else{
+                        // insert table boooking
+                        $booking_schedule = new booking_schedule;
+
+                        $booking_schedule->app_type = $e['app_type'];
+
+                        $booking_schedule->card_id = $e['card_type'];
+
+                        if ($e['grade'] == "SO"){
+                            $grade = so;
+                        }elseif ($e['grade'] == "SSO"){
+                            $grade = sso;
+                        }elseif ($e['grade'] == "SSS"){
+                            $grade = sss;
+                        }else{
+                            $grade = null;
+                        }
+                        $booking_schedule->grade_id = $grade;
+
+                        $booking_schedule->expired_date = $expired_date;
+
+                        $booking_schedule->user_id = $users->id;
+
+                        $booking_schedule->save();
+                        // End insert table boooking
+                    }
                     // End update table booking
 
                 }
