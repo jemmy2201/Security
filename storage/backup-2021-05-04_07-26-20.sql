@@ -16,86 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `backup_booking_schedules`
---
-
-DROP TABLE IF EXISTS `backup_booking_schedules`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `backup_booking_schedules` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `app_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'new or replacement or renewal',
-  `card_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'get table application',
-  `grade_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'get table detail application',
-  `declaration_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'date select declaration',
-  `trans_date` timestamp NULL DEFAULT NULL COMMENT 'date transaction amount',
-  `expired_date` timestamp NULL DEFAULT NULL COMMENT 'date after transaction amount',
-  `appointment_date` timestamp NULL DEFAULT NULL COMMENT 'date appointment',
-  `time_start_appointment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'time start declaration',
-  `time_end_appointment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'time end declaration',
-  `gst_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `transaction_amount_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `grand_total` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Status_app` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `paymentby` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status_payment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `receiptNo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `backup_booking_schedules`
---
-
-LOCK TABLES `backup_booking_schedules` WRITE;
-/*!40000 ALTER TABLE `backup_booking_schedules` DISABLE KEYS */;
-/*!40000 ALTER TABLE `backup_booking_schedules` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `backup_users`
---
-
-DROP TABLE IF EXISTS `backup_users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `backup_users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nric` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'National Registration Identity Card or Foreign Identification Number',
-  `passid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `passportexpirydate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `passexpirydate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `passportnumber` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobileno` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homeno` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `time_login_at` date DEFAULT NULL COMMENT 'time login',
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `backup_users`
---
-
-LOCK TABLES `backup_users` WRITE;
-/*!40000 ALTER TABLE `backup_users` DISABLE KEYS */;
-INSERT INTO `backup_users` VALUES (1,'admin','admin@admin.com',NULL,'$2y$10$iaz4fTRs0T79EXanuiduieK5CRH3Ub6iECY0iI7H81HCbKFU5TRCu',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1','2021-05-03 21:38:06','2021-05-03 21:38:06');
-/*!40000 ALTER TABLE `backup_users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `booking_schedules`
 --
 
@@ -124,7 +44,7 @@ CREATE TABLE `booking_schedules` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +53,6 @@ CREATE TABLE `booking_schedules` (
 
 LOCK TABLES `booking_schedules` WRITE;
 /*!40000 ALTER TABLE `booking_schedules` DISABLE KEYS */;
-INSERT INTO `booking_schedules` VALUES (1,'1','1','2',NULL,NULL,'2022-05-02 17:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2','2021-05-03 21:38:06','2021-05-03 21:38:06'),(2,'2','2',NULL,NULL,NULL,'2022-03-29 17:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'3','2021-05-03 21:38:07','2021-05-03 21:38:07'),(3,'0','3',NULL,NULL,NULL,'2022-03-30 17:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'4','2021-05-03 21:38:07','2021-05-03 21:38:07');
 /*!40000 ALTER TABLE `booking_schedules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +322,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,7 +331,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin@admin.com',NULL,'$2y$10$iaz4fTRs0T79EXanuiduieK5CRH3Ub6iECY0iI7H81HCbKFU5TRCu',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL),(2,'TRICIA TAN XIAO HUI','email 1',NULL,'$2y$10$8Qd33aGUSYnFmGkn8puv2.HE3RYYqhvEKlR7j.jhUumcUTlUlW7ZK','T1872646D','S9812381D',NULL,NULL,NULL,'+65-973924512','-',NULL,NULL,NULL,NULL,'2021-05-03 21:38:06','2021-05-03 21:38:06'),(3,'SAMPLE NAME 1','email 2',NULL,'$2y$10$ZUmeZS6mfdK3kXT5W.6V.uhBIjrbTk89r3m4DJkn8XfCfq/7aVlLi','S1111111A','20007733A',NULL,NULL,NULL,'91111111','61111111',NULL,NULL,NULL,NULL,'2021-05-03 21:38:07','2021-05-03 21:38:07'),(4,'SAMPLE NAME 3','email 3',NULL,'$2y$10$cT5Fa4cyNbuCCR8P6b3ZkOgzA5vgI1mxpIsEDzjqNEAOOH29TA.Si','S1111112A','12300876Q3',NULL,NULL,NULL,'911111123','611111123',NULL,NULL,NULL,NULL,'2021-05-03 21:38:07','2021-05-03 21:38:07');
+INSERT INTO `users` VALUES (1,'admin','admin@admin.com',NULL,'$2y$10$iaz4fTRs0T79EXanuiduieK5CRH3Ub6iECY0iI7H81HCbKFU5TRCu',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -425,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-04 14:12:37
+-- Dump completed on 2021-05-04 14:26:20

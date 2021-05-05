@@ -21,7 +21,11 @@
         <div class="col-10 select_declare">
             <ul class="list-group">
             @foreach ($grade as $f)
-            <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}">&ensp;&ensp; {{$f->name}}</li>
+                    @if($f->take_grade)
+                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
+                    @else
+                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
+                    @endif
             @endforeach
             </ul>
         </div>

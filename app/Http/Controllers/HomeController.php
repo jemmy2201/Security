@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 
-        $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->get();
+        $replacement = booking_schedule::where(['user_id'=>Auth::id()])->get();
 
         $renewal = booking_schedule::where(['user_id'=>Auth::id()])->get();
 
@@ -125,7 +125,7 @@ class HomeController extends Controller
                 }else{
 //                    $grade = grade::where(['card_id'=>$request->card])->get();
                     // user cannot belong to declare
-                    $grade = null;
+                    $grade = grade::get();
                     $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
                     // End user cannot belong to declare
                 }
@@ -134,7 +134,6 @@ class HomeController extends Controller
            if ($request->app_type== replacement || $request->app_type== renewal){
                $replacement = booking_schedule::where(['user_id'=>Auth::id()])->first();
 //                $request->merge(['card' => $replacement->card_id]);
-
            }
         }
 
@@ -143,10 +142,17 @@ class HomeController extends Controller
     }
     public function declare_submission(Request $request)
     {
+        $grade = grade::where(['card_id'=>'0'])->get();
+        $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
+        foreach ($grade as $index => $f){
+            foreach (json_decode($take_grade->array_grade) as $index2 => $g){
+                if($f->id == $g){
+                    $grade[$index]->take_grade = true;
+                }
 
-        $grade = grade::where(['card_id'=>$request->card])->get();
-
-        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
+            }
+        }
+        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request,"take_grade"=>$take_grade]);
 
     }
     public function book_appointment(Request $request)
@@ -373,11 +379,16 @@ class HomeController extends Controller
 
         $UpdateUser->save();
         if ($request->app_type == renewal){
+            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+            $take_grade = json_decode($booking_schedule->array_grade);
+            $new_take_grade = json_decode($request->Cgrade[0]);
+            $merge_grade = array_merge($take_grade,$new_take_grade);
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
                     'grade_id' => $grade,
+                    'array_grade' => $merge_grade,
                     'declaration_date' => Carbon::today()->toDateString(),
                     'status_app' => submission,
                     'trans_date' => null,
@@ -420,6 +431,7 @@ class HomeController extends Controller
                     'app_type' => $request->app_type,
                     'card_id' => $request->card,
                     'grade_id' => $grade,
+                    'array_grade' => $request->Cgrade[0],
                     'declaration_date' => Carbon::today()->toDateString(),
                     'status_app' => submission,
                     'trans_date' => null,
@@ -466,6 +478,8 @@ class HomeController extends Controller
         $booking_schedule->card_id = $request->card;
 
         $booking_schedule->grade_id = $grade;
+
+        $booking_schedule->array_grade = $request->Cgrade[0];
 
         $booking_schedule->declaration_date = Carbon::today()->toDateString();
 
