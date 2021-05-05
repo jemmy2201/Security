@@ -307,6 +307,14 @@ class HomeController extends Controller
 
         $sertifikat->grade_id           = $data->grade_id;
 
+        $sertifikat->array_grade        = $data->array_grade;
+
+        $sertifikat->bsoc               = $data->bsoc;
+
+        $sertifikat->ssoc               = $data->ssoc;
+
+        $sertifikat->sssc               = $data->sssc;
+
         $sertifikat->declaration_date   = $data->declaration_date;
 
         $sertifikat->gst                = $gst->amount_gst;
