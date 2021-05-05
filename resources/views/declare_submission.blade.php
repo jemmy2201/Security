@@ -23,6 +23,8 @@
             @foreach ($grade as $f)
                     @if($f->take_grade)
                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
+                    @elseif($f->display)
+                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
                     @else
                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrade[]" id="Cgrade" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
                     @endif

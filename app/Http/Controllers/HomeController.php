@@ -144,15 +144,28 @@ class HomeController extends Controller
     {
         $grade = grade::where(['card_id'=>'0'])->get();
         $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
-        foreach ($grade as $index => $f){
-            foreach (json_decode($take_grade->array_grade) as $index2 => $g){
-                if($f->id == $g){
-                    $grade[$index]->take_grade = true;
+        if (!empty($take_grade)){
+            foreach ($grade as $index => $f) {
+                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                    if ($f->id == $g) {
+                        $grade[$index]->take_grade = true;
+                    }
                 }
-
+                if ($take_grade['grade_id'] == sso &&  $f->id == SSS1 || $f->id == SSS2 || $f->id == SSS3 ){
+                    $grade[$index]->display = true;
+                }
+                if ($take_grade['grade_id'] == sss){
+                    $grade[$index]->display = false;
+                }
+            }
+        }else {
+            foreach ($grade as $index => $f) {
+                if ($f->id == SS01 || $f->id == SS02 || $f->id == SSS1 || $f->id == SSS2 || $f->id == SSS3){
+                    $grade[$index]->display = true;
+                }
             }
         }
-        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request,"take_grade"=>$take_grade]);
+        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
 
     }
     public function book_appointment(Request $request)
@@ -368,7 +381,10 @@ class HomeController extends Controller
 //        }else{
 //            $grade = $grade;
 //        }
-
+        $bsoc = null;
+        $ssoc = null;
+        $sssc = null;
+        $merge_grade = null;
         $imageName = time().'.'.$request->upload_profile->extension();
 
         $request->upload_profile->move(public_path('img/img_users'), $imageName);
@@ -378,16 +394,38 @@ class HomeController extends Controller
         $UpdateUser->photo = $imageName;
 
         $UpdateUser->save();
+
         if ($request->app_type == renewal){
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-            $take_grade = json_decode($booking_schedule->array_grade);
-            $new_take_grade = json_decode($request->Cgrade[0]);
-            $merge_grade = array_merge($take_grade,$new_take_grade);
+            if ($booking_schedule->grade_id == so){
+                $array_dataDB = json_decode($booking_schedule->array_grade);
+                $new_array_data = json_decode($request->Cgrade[0]);
+                $array_grades = array_merge($array_dataDB,$new_array_data);
+                $bsoc = $this->take_grade(json_encode($array_grades));
+            }elseif ($booking_schedule->grade_id == sso){
+                $array_dataDB = json_decode($booking_schedule->array_grade);
+                $new_array_data = json_decode($request->Cgrade[0]);
+                $array_grades = array_merge($array_dataDB,$new_array_data);
+                $ssoc = $this->take_grade(json_encode($array_grades));
+            }elseif ($booking_schedule->grade_id == sss){
+                $array_dataDB = json_decode($booking_schedule->array_grade);
+                $new_array_data = json_decode($request->Cgrade[0]);
+                $array_grades = array_merge($array_dataDB,$new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
+            }
+            if ($booking_schedule->grade_id) {
+                $take_grade = json_decode($booking_schedule->array_grade);
+                $new_take_grade = json_decode($request->Cgrade[0]);
+                $merge_grade = array_merge($take_grade, $new_take_grade);
+            }
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
-                    'grade_id' => $grade,
+//                    'grade_id' => $grade,
+                    'bsoc' => $bsoc,
+                    'ssoc' => $ssoc,
+                    'sssc' => $sssc,
                     'array_grade' => $merge_grade,
                     'declaration_date' => Carbon::today()->toDateString(),
                     'status_app' => submission,
@@ -430,7 +468,7 @@ class HomeController extends Controller
                 ->update([
                     'app_type' => $request->app_type,
                     'card_id' => $request->card,
-                    'grade_id' => $grade,
+//                    'grade_id' => $grade,
                     'array_grade' => $request->Cgrade[0],
                     'declaration_date' => Carbon::today()->toDateString(),
                     'status_app' => submission,
@@ -451,16 +489,76 @@ class HomeController extends Controller
 
         return $booking_schedule;
     }
+
+    protected  function take_grade($array_grades)
+    {
+        // BSOC, SSOC, SSSC
+        $Cgrade = json_decode($array_grades);
+        if (!empty($Cgrade[0])){
+            $Cgrade0 = true;
+        }else{
+            $Cgrade0 = '0';
+        }
+        if (!empty($Cgrade[1])){
+            $Cgrade1 = true;
+        }else{
+            $Cgrade1 = '0';
+        }
+        if (!empty($Cgrade[2])){
+            $Cgrade2 = true;
+        }else{
+            $Cgrade2 = '0';
+        }
+        if (!empty($Cgrade[3])){
+            $Cgrade3 = true;
+        }else{
+            $Cgrade3 = '0';
+        }
+
+        if (!empty($Cgrade[4])){
+            $Cgrade4 = true;
+        }else{
+            $Cgrade4 = '0';
+        }
+
+        if (!empty($Cgrade[5])){
+            $Cgrade5 = true;
+        }else{
+            $Cgrade5 = '0';
+        }
+
+        if (!empty($Cgrade[6])){
+            $Cgrade6 = true;
+        }else{
+            $Cgrade6 = '0';
+        }
+        if (!empty($Cgrade[7])){
+            $Cgrade7 = true;
+        }else{
+            $Cgrade7 = '0';
+        }
+        $data_grade = $Cgrade0.''.$Cgrade1.''.$Cgrade2.''.$Cgrade3.''.$Cgrade4.''.$Cgrade5.''.$Cgrade6.''.$Cgrade7;
+        return $data_grade;
+        // End BSOC, SSOC, SSSC
+    }
     protected function NewBookingSchedule($request,$grade)
     {
         $request->validate([
             'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $bsoc = null;
+        $ssoc = null;
+        $sssc = null;
+
         if ($request->card == so_app){
             $grade = so;
+            // BSOC, SSOC, SSSC
+            $bsoc = $this->take_grade($request->Cgrade[0]);
+            // End BSOC, SSOC, SSSC
         }else{
             $grade = null;
         }
+
         $imageName = time().'.'.$request->upload_profile->extension();
 
         $request->upload_profile->move(public_path('img/img_users'), $imageName);
@@ -480,6 +578,12 @@ class HomeController extends Controller
         $booking_schedule->grade_id = $grade;
 
         $booking_schedule->array_grade = $request->Cgrade[0];
+
+        $booking_schedule->bsoc = $bsoc;
+
+        $booking_schedule->ssoc = $ssoc;
+
+        $booking_schedule->sssc = $sssc;
 
         $booking_schedule->declaration_date = Carbon::today()->toDateString();
 

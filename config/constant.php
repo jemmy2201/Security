@@ -80,3 +80,20 @@ define('not_find_pass', 101);
 // Delete data if not payment and wait 3 month for delete data
 define('three_month', 3);
 // End Delete data if not payment and wait 3 month for delete data
+
+// bsoc
+define('S01', 1);
+define('S02', 2);
+define('S03', 3);
+// end bsoc
+
+// ssoc
+define('SS01', 4);
+define('SS02', 5);
+// end ssoc
+
+// sssc
+define('SSS1', 6);
+define('SSS2', 7);
+define('SSS3', 8);
+// end sssc
