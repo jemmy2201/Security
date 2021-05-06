@@ -222,6 +222,20 @@ class AjaxController extends Controller
         })->make(true);
 
     }
+    public function data_course()
+    {
+        $data = grade::whereNull('delete_soft')->get();
+
+        return Datatables::of($data)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>
+                    <a href="#" class="delete btn btn-primary btn-sm">Delete</a>';
+
+            return $btn;
+
+        })->make(true);
+
+    }
     public function data_gst()
     {
         $gst = gst::get();
@@ -409,6 +423,74 @@ class AjaxController extends Controller
     public function restoring_table(Request $request)
     {
         return Artisan::call("backup:restore");
+    }
+    public function add_course(Request $request)
+    {
+        $cek_data = grade::where(['name'=>$request->name,'type'=>$request->type])->first();
+        $data =array(
+            'error' => true,
+            'data' => $cek_data
+        );
+        if (empty($cek_data)){
+            $data = new grade();
+
+            $data->card_id = so_app;
+
+            $data->name = $request->name;
+
+            $data->type = $request->type;
+
+            $data->bsoc = default_bsoc_ssoc_ssc;
+
+            $data->ssoc = default_bsoc_ssoc_ssc;
+
+            $data->sssc = default_bsoc_ssoc_ssc;
+
+            $data->created_by = Auth::user()->name;
+
+            $data->save();
+
+            $data =array(
+                'error' => false,
+                'data' => $data
+            );
+        }
+
+        return $data;
+    }
+    public function update_course(Request $request)
+    {
+        $data = grade::find($request->id);
+
+        $data->name = $request->name;
+
+        $data->type = $request->type;
+
+        $data->save();
+        if ($data){
+            $data = array(
+                "error" => false,
+                "data"  => $data
+            );
+        }
+        return $data;
+    }
+
+    public function delete_course(Request $request)
+    {
+        $data = grade::find($request->id);
+
+        $data->delete_soft = delete_soft;
+
+        $data->save();
+
+        if ($data){
+            $data = array(
+                "error" => false,
+                "data"  => $data
+            );
+        }
+        return $data;
     }
     public function upload_excel_grade(Request $request)
     {

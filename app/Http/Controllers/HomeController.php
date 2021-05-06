@@ -142,7 +142,7 @@ class HomeController extends Controller
     }
     public function declare_submission(Request $request)
     {
-        $grade = grade::where(['card_id'=>'0'])->get();
+        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
         $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
         if (!empty($take_grade)){
             foreach ($grade as $index => $f) {
@@ -151,16 +151,21 @@ class HomeController extends Controller
                         $grade[$index]->take_grade = true;
                     }
                 }
-                if ($take_grade['grade_id'] == sso &&  $f->id == SSS1 || $f->id == SSS2 || $f->id == SSS3 ){
+
+                if ($take_grade['grade_id'] == $f->type){
+                    $grade[$index]->display = false;
+                }else{
                     $grade[$index]->display = true;
                 }
-                if ($take_grade['grade_id'] == sss){
+                if ($take_grade['grade_id'] == $f->type){
                     $grade[$index]->display = false;
+                }else{
+                    $grade[$index]->display = true;
                 }
             }
         }else {
             foreach ($grade as $index => $f) {
-                if ($f->id == SS01 || $f->id == SS02 || $f->id == SSS1 || $f->id == SSS2 || $f->id == SSS3){
+                if ($f->type == sso || $f->type == sss){
                     $grade[$index]->display = true;
                 }
             }
@@ -502,51 +507,25 @@ class HomeController extends Controller
     {
         // BSOC, SSOC, SSSC
         $Cgrade = json_decode($array_grades);
-        if (!empty($Cgrade[0])){
-            $Cgrade0 = true;
-        }else{
-            $Cgrade0 = '0';
-        }
-        if (!empty($Cgrade[1])){
-            $Cgrade1 = true;
-        }else{
-            $Cgrade1 = '0';
-        }
-        if (!empty($Cgrade[2])){
-            $Cgrade2 = true;
-        }else{
-            $Cgrade2 = '0';
-        }
-        if (!empty($Cgrade[3])){
-            $Cgrade3 = true;
-        }else{
-            $Cgrade3 = '0';
+        $get_grade = grade::whereNull('delete_soft')->get();
+        foreach ($get_grade as $index => $f) {
+            foreach ($Cgrade as $index => $g) {
+                if ($f->id == $g){
+                    $get_grade[$index]->Cgrade = true ;
+                }
+            }
         }
 
-        if (!empty($Cgrade[4])){
-            $Cgrade4 = true;
-        }else{
-            $Cgrade4 = '0';
+        foreach ($get_grade as $index => $f) {
+            if($f->Cgrade == true){
+                $get_grade[$index] =1;
+            }else{
+                $get_grade[$index] =0;
+            }
         }
+        $result = str_replace( array(",", "[", "]"), '', json_encode($get_grade));;
 
-        if (!empty($Cgrade[5])){
-            $Cgrade5 = true;
-        }else{
-            $Cgrade5 = '0';
-        }
-
-        if (!empty($Cgrade[6])){
-            $Cgrade6 = true;
-        }else{
-            $Cgrade6 = '0';
-        }
-        if (!empty($Cgrade[7])){
-            $Cgrade7 = true;
-        }else{
-            $Cgrade7 = '0';
-        }
-        $data_grade = $Cgrade0.''.$Cgrade1.''.$Cgrade2.''.$Cgrade3.''.$Cgrade4.''.$Cgrade5.''.$Cgrade6.''.$Cgrade7;
-        return $data_grade;
+        return $result;
         // End BSOC, SSOC, SSSC
     }
     protected function NewBookingSchedule($request,$grade)

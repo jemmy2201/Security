@@ -256,6 +256,10 @@ return [
                     'url'  => 'admin/price',
                 ],
                 [
+                    'text' => 'Course',
+                    'url'  => 'admin/course',
+                ],
+                [
                     'text' => 'GST',
                     'url'  => 'admin/gst',
                 ],

@@ -59,7 +59,8 @@ Route::prefix('admin')->group(function () {
     Route::get('upgrade/grade', 'AdminController@upgrade_grade');
     Route::get('limit/schedule', 'AdminController@limit_schedule');
     Route::get('/price', 'AdminController@price');
-    Route::get('/gst', 'AdminController@gst');
+    Route::get('/price', 'AdminController@price');
+    Route::get('/course', 'AdminController@course');
     Route::get('/change/password', 'AdminController@change_pass');
 });
 // End Admin
@@ -72,6 +73,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/data/security/employees', 'AjaxController@security_employees')->name('admin.security.employees');
     Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
     Route::post('/data/grade/view', 'AjaxController@data_grade')->name('admin.data.upgrade');
+    Route::post('/data/course/view', 'AjaxController@data_course')->name('admin.data.course');
     Route::post('/data/gst', 'AjaxController@data_gst')->name('admin.data.gst');
     Route::post('/create/gst', 'AjaxController@create_gst')->name('admin.create.gst');
     Route::post('/data/limit/schedule', 'AjaxController@data_limit_shedule')->name('admin.data_limit_shedule');
@@ -81,6 +83,9 @@ Route::prefix('ajax')->group(function () {
     Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
     Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
     Route::post('/upload/excel/grade', 'AjaxController@upload_excel_grade')->name('admin.upload.grade');
+    Route::post('/insert/course', 'AjaxController@add_course')->name('admin.insert.course');
+    Route::post('/update/course', 'AjaxController@update_course')->name('admin.update.course');
+    Route::post('/delete/course', 'AjaxController@delete_course')->name('admin.delete.course');
     Route::get('/download/excel/schedule', 'AjaxController@schedule');
     Route::get('/download/excel/template/grade', 'AjaxController@download_template_grade');
     Route::post('/restoring/table', 'AjaxController@restoring_table')->name('admin.restoring.table');

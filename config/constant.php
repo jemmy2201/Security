@@ -97,3 +97,11 @@ define('SSS1', 6);
 define('SSS2', 7);
 define('SSS3', 8);
 // end sssc
+
+// default bsoc,ssoc,ssc
+define('default_bsoc_ssoc_ssc', '000000');
+// end default bsoc,ssoc,ssc
+
+// delete soft
+define('delete_soft', 1);
+// end delete soft
