@@ -183,7 +183,6 @@
             $('#table_price').on('click', 'a.editor_edit', function (e) {
                 e.preventDefault();
                 let rowData = table_price.row($(event.target).parents('tr')).data();
-                console.log('jrg',rowData)
                 $("#app_types").val(rowData.app_type).attr("disabled", true);
                 $("#card_id").val(rowData.card_type).attr("disabled", true);
                 if (rowData.card_type == @php  echo so_app @endphp){

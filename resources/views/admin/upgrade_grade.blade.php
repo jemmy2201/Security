@@ -148,7 +148,6 @@
 
         $(document).on('click', '#restoring_data', function (e) {
             e.preventDefault();
-            console.log('sss')
             swal({
                 title: 'Are you sure?',
                 text: 'Restoring Data!',
