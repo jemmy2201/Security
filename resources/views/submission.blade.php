@@ -307,7 +307,7 @@
                         var pathFile = inputFile.value;
                         var ekstensiOk = /(\.jpg|\.jpeg|\.png)$/i;
                         if(!ekstensiOk.exec(pathFile)){
-                            swal("Please!", " upload file yang dengan ekstensi .jpeg/.jpg/.png", "error")
+                            swal("Please!", "upload files with the extension .jpeg / .jpg / .png", "error")
                         }else {
                             $("#book_appointment").submit();
                         }
