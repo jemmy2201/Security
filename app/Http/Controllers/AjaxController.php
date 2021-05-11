@@ -670,10 +670,14 @@ class AjaxController extends Controller
             if (!empty($ls->number_schedule)){
                 $time = $ls->start_at . '-' . $ls->end_at;
                 $data .= ' <tr>';
-                if ($ls->amount == $ls->number_schedule){
+                if ($ls->amount == $ls->number_schedule ){
                     $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
                 }else{
-                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
+                    if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString() ){
+                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                    }else{
+                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
+                    }
                 }
                 $data .= '<td>'.$ls->number_schedule.'</td>';
                 $data .= '<td>' . $ls->amount . '</td>>';
@@ -681,7 +685,11 @@ class AjaxController extends Controller
             }else{
                 $time = $ls->start_at . '-' . $ls->end_at;
                 $data .= ' <tr>';
-                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
+                if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString() ){
+                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                }else{
+                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
+                }
                 $data .= '<td>0</td>';
                 $data .= '<td>' . $ls->amount . '</td>>';
                 $data .= '</tr>';
