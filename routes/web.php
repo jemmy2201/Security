@@ -58,7 +58,7 @@ Route::prefix('admin')->group(function () {
     Route::get('appointment', 'AdminController@appointment');
     Route::get('upgrade/grade', 'AdminController@upgrade_grade');
     Route::get('limit/schedule', 'AdminController@limit_schedule');
-    Route::get('/price', 'AdminController@price');
+    Route::get('/gst', 'AdminController@gst');
     Route::get('/price', 'AdminController@price');
     Route::get('/course', 'AdminController@course');
     Route::get('/change/password', 'AdminController@change_pass');
