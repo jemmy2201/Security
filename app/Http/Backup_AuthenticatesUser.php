@@ -41,8 +41,14 @@ trait AuthenticatesUsers
             if ($this->attemptLogin($request)) {
                 return $this->sendLoginResponse($request);
             }
+
             $this->incrementLoginAttempts($request);
             return $this->sendFailedLoginResponse($request);
+        }
+
+        if ($request->type_login == non_barcode && empty($request->singpass_id) && empty($request->password)){
+
+            $this->validateLogin($request);
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
