@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+{{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
+    <title>UNION OF SECURITY EMPLOYEES</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -78,17 +79,18 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <!-- Footer -->
-        <footer class="bg-light text-center text-lg-start" style="border-style: groove; background: white; margin-top: 60px;">
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: #FFFFFF">
-                Copyright © @php echo date("Y")@endphp
-                <a class="text-dark" href="https://mdbootstrap.com/">Union of Security Employees. All rights reserved.</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
+
 
     </div>
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start" style="border-style: groove; background: white; ">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: #FFFFFF">
+            Copyright © @php echo date("Y")@endphp
+            <a class="text-dark" href="https://mdbootstrap.com/">Union of Security Employees. All rights reserved.</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 </body>
 </html>
