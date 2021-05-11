@@ -553,11 +553,11 @@ class AjaxController extends Controller
 
                     $booking_schedule->card_id = $e['card_type'];
 
-                    if ($e['grade'] == "SO"){
+                    if (strtoupper($e['grade']) == "SO"){
                         $grade = so;
-                    }elseif ($e['grade'] == "SSO"){
+                    }elseif (strtoupper($e['grade']) == "SSO"){
                         $grade = sso;
-                    }elseif ($e['grade'] == "SSS"){
+                    }elseif (strtoupper($e['grade']) == "SSS"){
                         $grade = sss;
                     }else{
                         $grade = null;
@@ -590,12 +590,11 @@ class AjaxController extends Controller
                     // End update table user
 
                     // update table booking
-
-                    if ($e['grade'] == "SO"){
+                    if (strtoupper($e['grade']) == "SO"){
                         $grade = so;
-                    }elseif ($e['grade'] == "SSO"){
+                    }elseif (strtoupper($e['grade']) == "SSO"){
                         $grade = sso;
-                    }elseif ($e['grade'] == "SSS"){
+                    }elseif (strtoupper($e['grade']) == "SSS"){
                         $grade = sss;
                     }else{
                         $grade = null;
@@ -625,11 +624,11 @@ class AjaxController extends Controller
 
                         $booking_schedule->card_id = $e['card_type'];
 
-                        if ($e['grade'] == "SO"){
+                        if (strtoupper($e['grade']) == "SO"){
                             $grade = so;
-                        }elseif ($e['grade'] == "SSO"){
+                        }elseif (strtoupper($e['grade']) == "SSO"){
                             $grade = sso;
-                        }elseif ($e['grade'] == "SSS"){
+                        }elseif (strtoupper($e['grade']) == "SSS"){
                             $grade = sss;
                         }else{
                             $grade = null;
