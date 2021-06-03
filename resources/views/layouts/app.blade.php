@@ -65,7 +65,7 @@
                 <a  href="{{ url('/home') }}">
                     <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
                 </a>
-                <a  class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style=" margin-left: -60px;">
+                <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style=" margin-left: -60px;">
                     <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>
                 </a>
 {{--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">--}}
