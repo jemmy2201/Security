@@ -385,9 +385,9 @@ class HomeController extends Controller
     }
     protected function UpdateBookingSchedule($request,$grade)
     {
-        $request->validate([
-            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+//        $request->validate([
+//            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//        ]);
 
 //        if (!empty($grade)){
 //            $grade = json_encode($grade);

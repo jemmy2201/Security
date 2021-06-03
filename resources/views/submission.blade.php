@@ -305,9 +305,9 @@
                     if($("input[name='declare']:checked").val() != undefined){
                         var inputFile = document.getElementById('upload_profile');
                         var pathFile = inputFile.value;
-                        var ekstensiOk = /(\.jpg|\.jpeg|\.png)$/i;
+                        var ekstensiOk = /(\.jpg|\.jpeg)$/i;
                         if(!ekstensiOk.exec(pathFile)){
-                            swal("Please!", "upload files with the extension .jpeg / .jpg / .png", "error")
+                            swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
                         }else {
                             $("#book_appointment").submit();
                         }
