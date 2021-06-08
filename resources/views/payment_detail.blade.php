@@ -99,7 +99,7 @@
                 <div class="col">
                     <h3><b>Summary</b></h3>
                     <div class="row">
-                        <div class="col-4">Aplication :</div>
+                        <div class="col-4">Application :</div>
                         @if($booking_schedule->app_type == news)
                             <div class="col">New</div>
                         @elseif($booking_schedule->app_type == replacement)

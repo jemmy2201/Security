@@ -219,7 +219,9 @@
         <div class="col-2 back">
             <button class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"><a href="javascript:history.go(-1)" style="text-decoration:none;"> <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </a></button>
         </div>
-        <div class="col-6 medium">
+        <div class="col-8 medium hidden-xs">
+        </div>
+        <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
             <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>

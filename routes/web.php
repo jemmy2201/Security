@@ -20,9 +20,9 @@ Route::get('/', function () {
 // end user
 
 //admin
-Route::get('/admin/login', function () {
-    return view('auth/login');
-});
+//Route::get('/admin/login', function () {
+//    return view('auth/login');
+//});
 
 
 Route::get('/admin/payment', function () {

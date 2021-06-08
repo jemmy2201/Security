@@ -48,7 +48,7 @@
         </div>
         <div class="col">
         </div>
-        <div class="col-6 HeaderdataPersonal phone">
+        <div class="col-4 HeaderdataPersonal phone">
             Phone Number
         </div>
     </div>
@@ -58,7 +58,7 @@
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}">
         </div>
-        <div class="col-2">
+        <div class="col-4">
         </div>
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}">
@@ -69,7 +69,9 @@
         <div class="col-2 back">
             <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="javascript:history.go(-1)" style="text-decoration:none;"><img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back</a> </button>
         </div>
-        <div class="col-6 medium">
+        <div class="col-8 medium hidden-xs">
+        </div>
+        <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
             <button type="submit" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>

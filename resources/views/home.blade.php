@@ -29,10 +29,10 @@
                 <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>
             </div>
             <div class="col-sm">
-                <button type="button" id="avso_app" class="btn btn-secondary btn-lg btn-block" value="@php echo avso_app @endphp" disabled>AVSO Aplication</button>
+                <button type="button" id="avso_app" class="btn btn-secondary btn-lg btn-block" value="@php echo avso_app @endphp" disabled>AVSO Application</button>
             </div>
             <div class="col-sm">
-                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Aplication</button>
+                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>
             </div>
 
         </div>
@@ -45,7 +45,7 @@
     </form>
 <br>
 <p style="color: #808080;">My Applications</p>
-    <div style="border-style: groove;padding: 10px;">
+    <div style="border-style: ridge;padding: 10px;">
         <table class="table" >
             <thead>
             <tr>
@@ -53,7 +53,7 @@
                 <th scope="col" >Request Application</th>
                 <th scope="col" >Date Of Application</th>
                 <th scope="col">Grade</th>
-                <th scope="col" >Status Proses</th>
+                <th scope="col" >Status Process</th>
                 <th scope="col" >Expired Date</th>
                 <th scope="col" >Action</th>
             </tr>
