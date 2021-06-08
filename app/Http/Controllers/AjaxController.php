@@ -492,6 +492,48 @@ class AjaxController extends Controller
         }
         return $data;
     }
+    public function delete_process(Request $request)
+    {
+        $data = null;
+        if ($request->app_type == news) {
+            $delete_process = booking_schedule::where(['id'=>$request->id,'user_id'=>Auth::id()])->first();
+
+            if ($delete_process != null) {
+                $delete_process->delete();
+                $data = array(
+                    "error" => false,
+                    "data" => $delete_process
+                );
+            }
+        }else{
+            $data_old = sertifikat::where(['card_id'=>$request->card_id,'user_id'=>Auth::id()])->latest('created_at')->first();
+            if($data_old != null){
+                $booking_schedule = booking_schedule::where(['id'=>$request->id,])
+                    ->update([
+                        'app_type' => $data_old->app_type,
+                        'card_id' => $data_old->card_id,
+                        'grade_id' => $data_old->grade_id,
+                        'declaration_date' => $data_old->declaration_date,
+                        'trans_date' =>  $data_old->trans_date,
+                        'expired_date' => $data_old->expired_date,
+                        'appointment_date' => $data_old->appointment_date,
+                        'time_start_appointment' => $data_old->time_start_appointment,
+                        'time_end_appointment' => $data_old->time_end_appointment,
+                        'status_app' => payment,
+                        'paymentby' => $data_old->paymentby,
+                        'receiptNo' => $data_old->receiptNo,
+                        'status_payment' => $data_old->status_payment,
+                        'array_grade' => $data_old->array_grade,
+                        'bsoc' => $data_old->bsoc,
+                        'ssoc' => $data_old->ssoc,
+                        'sssc' => $data_old->sssc,
+                        'user_id' => Auth::id(),
+                    ]);
+            }
+        }
+
+        return $data;
+    }
     public function upload_excel_grade(Request $request)
     {
         // Backup Data For restoring

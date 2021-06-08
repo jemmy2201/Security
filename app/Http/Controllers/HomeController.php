@@ -144,32 +144,32 @@ class HomeController extends Controller
     {
         $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
         $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
-        if (!empty($take_grade)){
-            foreach ($grade as $index => $f) {
-                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
-                    if ($f->id == $g) {
-                        $grade[$index]->take_grade = true;
-                    }
-                }
-
-                if ($take_grade['grade_id'] == $f->type){
-                    $grade[$index]->display = false;
-                }else{
-                    $grade[$index]->display = true;
-                }
-                if ($take_grade['grade_id'] == $f->type){
-                    $grade[$index]->display = false;
-                }else{
-                    $grade[$index]->display = true;
-                }
-            }
-        }else {
-            foreach ($grade as $index => $f) {
-                if ($f->type == sso || $f->type == sss){
-                    $grade[$index]->display = true;
-                }
-            }
-        }
+//        if (!empty($take_grade)){
+//            foreach ($grade as $index => $f) {
+//                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+//                    if ($f->id == $g) {
+//                        $grade[$index]->take_grade = true;
+//                    }
+//                }
+//
+//                if ($take_grade['grade_id'] == $f->type){
+//                    $grade[$index]->display = false;
+//                }else{
+//                    $grade[$index]->display = true;
+//                }
+//                if ($take_grade['grade_id'] == $f->type){
+//                    $grade[$index]->display = false;
+//                }else{
+//                    $grade[$index]->display = true;
+//                }
+//            }
+//        }else {
+//            foreach ($grade as $index => $f) {
+//                if ($f->type == sso || $f->type == sss){
+//                    $grade[$index]->display = true;
+//                }
+//            }
+//        }
         return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
 
     }
@@ -407,7 +407,6 @@ class HomeController extends Controller
         $UpdateUser->photo = $imageName;
 
         $UpdateUser->save();
-
         if ($request->app_type == renewal){
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
             if ($booking_schedule->grade_id == so){
@@ -431,6 +430,7 @@ class HomeController extends Controller
                 $new_take_grade = json_decode($request->Cgrade[0]);
                 $merge_grade = array_merge($take_grade, $new_take_grade);
             }
+
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
@@ -447,9 +447,9 @@ class HomeController extends Controller
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
-                    'gst_id' => null,
-                    'transaction_amount_id' => null,
-                    'grand_total' => null,
+//                    'gst_id' => null,
+//                    'transaction_amount_id' => null,
+//                    'grand_total' => null,
                     'paymentby' => null,
                     'receiptNo' => null,
                     'status_payment' => null,
@@ -468,9 +468,9 @@ class HomeController extends Controller
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
-                    'gst_id' => null,
-                    'transaction_amount_id' => null,
-                    'grand_total' => null,
+//                    'gst_id' => null,
+//                    'transaction_amount_id' => null,
+//                    'grand_total' => null,
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,

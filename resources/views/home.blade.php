@@ -68,7 +68,7 @@
 {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
                         @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @endif
-                    <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
+                    <tr style="cursor: pointer;">
                         @if($f->app_type == news)
                             <td>New</td>
                         @elseif($f->app_type == replacement)
@@ -126,13 +126,12 @@
                         @if($f->Status_app == submission)
                             {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a></td>
+                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>
                         @elseif($f->Status_app == book_appointment)
                             {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a></td>
+                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>
                         @endif
-
                     </tr>
                 @endforeach
             @endif
@@ -327,6 +326,33 @@
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
     });
+
+    // delete process
+    function delete_process(id,app_type,card_id){
+        swal({
+            title: 'Are you sure?',
+            text: 'Delete!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+        }).then(function(value) {
+            if (value) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{route('users.delete.process')}}",
+                    data: {id: id,app_type:app_type,card_id:card_id},
+                    success: function(data,textStatus, xhr)
+                    {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    }
+    // end delete process
+
     jQuery(document).ready(function($) {
         $(".clickable-row").click(function() {
             window.location = $(this).data("href");
