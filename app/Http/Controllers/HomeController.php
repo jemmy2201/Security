@@ -142,8 +142,21 @@ class HomeController extends Controller
     }
     public function declare_submission(Request $request)
     {
-        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
         $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
+        $selected_grade = booking_schedule::where(['card_id'=>so_app,'user_id'=>Auth::id()])->first();
+        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        if (!empty($take_grade)) {
+            foreach ($grade as $index => $f) {
+                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                    if ($f->id == $g) {
+                        $grade[$index]->take_grade = true;
+                    }
+                }
+            }
+        }
+
+//        jika milih declare berurutan dan sesuai grade
+//        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
 //        if (!empty($take_grade)){
 //            foreach ($grade as $index => $f) {
 //                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
@@ -170,6 +183,8 @@ class HomeController extends Controller
 //                }
 //            }
 //        }
+//        End jika milih declare berurutan dan sesuai grade
+
         return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
 
     }

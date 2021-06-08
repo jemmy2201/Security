@@ -211,6 +211,10 @@
                             @foreach($replacement as $index => $f)
 {{--                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp--}}
                                     @php $url=url("/replacement/personal/particular/")."/".$f->card_id; @endphp
+                                    @php
+                                      $expried = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
+                                    @endphp
+                                @if($expried == false)
 
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
@@ -242,6 +246,7 @@
                                         <td>NA</td>
                                     @endif
                                 </tr>
+                                @endif
                             @endforeach
                         @endif
                         </tbody>
