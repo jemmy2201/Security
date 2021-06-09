@@ -84,7 +84,7 @@
                         @elseif($f->card_id == pi_app)
                             <td>PI Application</td>
                         @endif
-                            <td>{{$f->declaration_date}}</td>
+                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>
                         @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -118,7 +118,7 @@
                             <td>Payment</td>
                         @endif
                         @if($f->Status_app == payment)
-                            <td>{{$f->expired_date}}</td>
+                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>
                         @else
                             <td></td>
                         @endif
@@ -153,7 +153,8 @@
                             @elseif($f->card_id == pi_app)
                                 <td>PI Application</td>
                             @endif
-                                <td>{{$f->declaration_date}}</td>
+                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>
+
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -180,7 +181,7 @@
                                 <td>NA</td>
                             @endif
                             <td>Completed</td>
-                            <td>{{$f->expired_date}}</td>
+                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>
                             <td></td>
                         </tr>
                 @endforeach
