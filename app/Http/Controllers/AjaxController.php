@@ -156,6 +156,9 @@ class AjaxController extends Controller
     public function history_login()
     {
         $history_login = User::whereNull('role')->get();
+        foreach ($history_login as $index =>$f){
+            $history_login[$index]->time_login_at = Carbon::createFromFormat('Y-m-d', $f->time_login_at)->format('d-m-Y');
+        }
 
         return Datatables::of($history_login)->addColumn('action', function($row){
 
@@ -183,6 +186,7 @@ class AjaxController extends Controller
                 $grade_id = "-";
             }
             $security_employees[$key]->name_grade = $grade_id;
+            $security_employees[$key]->expired_date = Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y');
 //            $security_employees[$key]->count_grade = count($grade_name);
         }
         return Datatables::of($security_employees)->addColumn('action', function($row){
@@ -239,7 +243,9 @@ class AjaxController extends Controller
     public function data_gst()
     {
         $gst = gst::get();
-
+        foreach ($gst as $index =>$f){
+            $gst[$index]->create_date = Carbon::createFromFormat('Y-m-d h:i:s', $f->created_at)->format('d-m-Y');
+        }
         return Datatables::of($gst)->make(true);
 
     }
