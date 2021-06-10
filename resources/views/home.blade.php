@@ -161,7 +161,7 @@
                                 <td>PI Application</td>
                             @endif
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
-                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d ', $f->trans_date)->format('d-m-Y') @endphp</td>
+                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>

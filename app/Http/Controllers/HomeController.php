@@ -14,6 +14,7 @@ use App\payment;
 use App\transaction_amount;
 use App\gst;
 use App\sertifikat;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -120,7 +121,7 @@ class HomeController extends Controller
             }else{
                 if (!empty($request->Cgrade)){
                     // view declare more than 1
-                    $grade = null;
+                    $grade = grade::get();
                     // end view declare more than 1
                 }else{
 //                    $grade = grade::where(['card_id'=>$request->card])->get();
@@ -306,9 +307,18 @@ class HomeController extends Controller
         return $diff;
     }
     protected function receiptNo(){
-        $booking_schedule = booking_schedule::orderByDesc('id')->get();
-        $booking_schedule = $booking_schedule[0]->id+1;
-        $data = "".Carbon::today()->format('d')."/".Carbon::today()->format('m')."/".Carbon::today()->format('y')."/".$booking_schedule;
+        $booking_schedule = booking_schedule::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->get();
+
+        if ($booking_schedule->count() > 0){
+            $booking_schedule =$booking_schedule->count()+1;
+            $data_substr = strlen((string)$booking_schedule);
+            $nnnn = substr(nnnn, $data_substr);
+            $booking_schedule = $nnnn.''.$booking_schedule;
+        }else{
+            $booking_schedule = "0001";
+        }
+        $data = Carbon::today()->format('Ymd').''.$booking_schedule;
+//        $data = "".Carbon::today()->format('d')."/".Carbon::today()->format('m')."/".Carbon::today()->format('y')."/".$booking_schedule;
         return $data;
     }
     protected function create_setifikat($request)
@@ -415,13 +425,9 @@ class HomeController extends Controller
         $merge_grade = null;
         $imageName = time().'.'.$request->upload_profile->extension();
 
-        $request->upload_profile->move(public_path('img/img_users'), $imageName);
 
-        $UpdateUser = User::find(Auth::id());
+        $this->Upload_Image($request);
 
-        $UpdateUser->photo = $imageName;
-
-        $UpdateUser->save();
         if ($request->app_type == renewal){
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
             if ($booking_schedule->grade_id == so){
@@ -543,6 +549,20 @@ class HomeController extends Controller
         return $result;
         // End BSOC, SSOC, SSSC
     }
+    protected function Upload_Image($request)
+    {
+        $imageName = Auth::user()->passid.''.substr(Auth::user()->nric, -4);
+
+        $request->upload_profile->move(public_path('img/img_users'), $imageName);
+
+        $UpdateUser = User::find(Auth::id());
+
+        $UpdateUser->photo = $imageName;
+
+        $UpdateUser->save();
+
+        return $UpdateUser;
+    }
     protected function NewBookingSchedule($request,$grade)
     {
         $request->validate([
@@ -561,15 +581,7 @@ class HomeController extends Controller
             $grade = null;
         }
 
-        $imageName = time().'.'.$request->upload_profile->extension();
-
-        $request->upload_profile->move(public_path('img/img_users'), $imageName);
-
-        $UpdateUser = User::find(Auth::id());
-
-        $UpdateUser->photo = $imageName;
-
-        $UpdateUser->save();
+        $this->Upload_Image($request);
 
         $booking_schedule = new booking_schedule;
 

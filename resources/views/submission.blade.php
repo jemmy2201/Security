@@ -128,18 +128,38 @@
             <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{json_encode($request->Cgrade)}}">
         @endif
     @if(!empty($grade))
-        <div class="row">
-            <div class="col-4 col_declare1">
-                <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+        @if(!empty($view_declare))
+            <div class="row">
+                <div class="col-4 col_declare1">
+                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                </div>
+                <div class="col-4 col_declare2">
+                </div>
             </div>
-            <div class="col-4 col_declare2">
+            <br>
+            <div class="row">
+                @foreach ($view_declare as $f)
+                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                    <div class="col-10">
+                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                        <a>{{$data[0]->name}}</a><br>
+                        {{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+                    </div>
+                @endforeach
             </div>
-            <div class="col-2 col_declare3">
-                <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
-            </div>
-        </div>
-        <br>
-{{--         just view one delcare--}}
+        @else
+                <div class="row">
+                    <div class="col-4 col_declare1">
+                        <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                    </div>
+                    <div class="col-4 col_declare2">
+                    </div>
+                    <div class="col-2 col_declare3">
+                        <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+                    </div>
+                </div>
+                <br>
+                {{--         just view one delcare--}}
                 <div class="row" id="view_declare">
                     <div class="col-10" >
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
@@ -147,8 +167,8 @@
                         <input type="hidden" name="grade" id="grade">
                     </div>
                 </div>
-{{--         end just view one delcare--}}
-
+                {{--         end just view one delcare--}}
+        @endif
     @elseif(!empty($replacement) && $request->card == so_app)
             <div class="row">
                 <div class="col-4 col_declare1">
@@ -180,26 +200,6 @@
                 @endforeach
 
             </div>
-    @elseif(!empty($view_declare))
-            <div class="row">
-                <div class="col-4 col_declare1">
-                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
-                </div>
-                <div class="col-4 col_declare2">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                @foreach ($view_declare as $f)
-                    @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                    <div class="col-10">
-                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                        <a>{{$data[0]->name}}</a><br>
-{{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
-                    </div>
-                @endforeach
-            </div>
-
         @endif
     <br>
     <h3 style="color: black;font-weight: bold;">Upload Photo</h3>
@@ -219,6 +219,7 @@
         </div>
     </div>
     <br>
+    @if(!empty($grade))
     <div class="row" style="margin-left: 1px;">
         <div class="col-0">
             <input type="checkbox" id="declare" name="declare">
@@ -227,6 +228,7 @@
             <b>I declare that I have been assessed and certified in the following training modules</b>
         </div>
     </div>
+    @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -317,18 +319,23 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
                 if ($('#upload_profile').val()){
-                    if($("input[name='declare']:checked").val() != undefined){
-                        var inputFile = document.getElementById('upload_profile');
-                        var pathFile = inputFile.value;
-                        var ekstensiOk = /(\.jpg|\.jpeg)$/i;
-                        if(!ekstensiOk.exec(pathFile)){
-                            swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
-                        }else {
-                            $("#book_appointment").submit();
+                    if ($("#card").val() == {{json_encode(so_app)}}){
+                        if($("input[name='declare']:checked").val() != undefined){
+                            var inputFile = document.getElementById('upload_profile');
+                            var pathFile = inputFile.value;
+                            var ekstensiOk = /(\.jpg|\.jpeg)$/i;
+                            if(!ekstensiOk.exec(pathFile)){
+                                swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                            }else {
+                                $("#book_appointment").submit();
+                            }
+                        }else{
+                            swal("Please!", " tick declare", "error");
                         }
                     }else{
-                        swal("Please!", " tick declare", "error");
+                        $("#book_appointment").submit();
                     }
+
                 }else{
                     swal("Please!", "Upload Photo", "error")
                 }

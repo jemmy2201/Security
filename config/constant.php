@@ -105,3 +105,7 @@ define('default_bsoc_ssoc_ssc', '000000');
 // delete soft
 define('delete_soft', 1);
 // end delete soft
+
+// invoice
+define('nnnn', "0000");
+// end invoice
