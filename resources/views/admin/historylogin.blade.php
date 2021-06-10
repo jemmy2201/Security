@@ -44,7 +44,7 @@
                     {data: 'action', name: 'action',orderable: false, searchable: false},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
-                    {data: 'nric', name: 'nric'},
+                    {data: 'passid', name: 'passid'},
                     {data: 'time_login_at', name: 'time_login_at'},
                 ]
             });

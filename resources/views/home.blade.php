@@ -51,10 +51,11 @@
             <tr>
                 <th scope="col">Application Type</th>
                 <th scope="col" >Request Application</th>
-                <th scope="col" >Date Of Application</th>
+{{--                <th scope="col" >Date Of Application</th>--}}
+                <th scope="col">Date Of Transaction</th>
                 <th scope="col">Grade</th>
                 <th scope="col" >Status Process</th>
-                <th scope="col" >Expired Date</th>
+{{--                <th scope="col" >Expired Date</th>--}}
                 <th scope="col" >Action</th>
             </tr>
             </thead>
@@ -84,7 +85,13 @@
                         @elseif($f->card_id == pi_app)
                             <td>PI Application</td>
                         @endif
-                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>
+{{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
+                            @if(!empty($f->trans_date))
+                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>
+                            @else
+                            <td></td>
+                            @endif
+
                         @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -113,12 +120,12 @@
                             <td>NA</td>
                         @endif
                         @if($f->Status_app == submission)
-                            <td>Book Appointment</td>
+{{--                            <td>Book Appointment</td>--}}
                         @elseif($f->Status_app == book_appointment)
-                            <td>Payment</td>
+{{--                            <td>Payment</td>--}}
                         @endif
                         @if($f->Status_app == payment)
-                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>
+{{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                         @else
                             <td></td>
                         @endif
@@ -126,11 +133,11 @@
                         @if($f->Status_app == submission)
                             {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>
+{{--                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>--}}
                         @elseif($f->Status_app == book_appointment)
                             {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>
+{{--                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>--}}
                         @endif
                     </tr>
                 @endforeach
@@ -153,8 +160,8 @@
                             @elseif($f->card_id == pi_app)
                                 <td>PI Application</td>
                             @endif
-                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>
-
+{{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
+                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d ', $f->trans_date)->format('d-m-Y') @endphp</td>
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
@@ -180,8 +187,8 @@
                             @else
                                 <td>NA</td>
                             @endif
-                            <td>Completed</td>
-                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>
+                            <td>Submitted</td>
+{{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                             <td></td>
                         </tr>
                 @endforeach

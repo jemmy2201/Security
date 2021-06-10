@@ -244,11 +244,11 @@ return [
             'icon'    => 'fa fa-cog',
             'submenu' => [
                 [
-                    'text' => 'Upgrade Grade',
+                    'text' => 'List User',
                     'url'  => 'admin/upgrade/grade',
                 ],
                 [
-                    'text' => 'Limit Schedule',
+                    'text' => 'Time Table',
                     'url'  => 'admin/limit/schedule',
                 ],
                 [

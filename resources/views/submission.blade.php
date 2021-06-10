@@ -16,7 +16,15 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Submission</h2>
+    <h2 style="color: #E31E1A;">Submission -
+    @if($request->card == so_app)
+        SO
+    @elseif($request->card == avso_app)
+        AVSO
+    @elseif($request->card == pi_app)
+        PI
+    @endif
+    </h2>
     <br>
         {{-- Desktop --}}
     <h4><b>Details</b></h4>
@@ -30,23 +38,7 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
-                            @if ($request->card == so_app)
-                                @if(!empty($cek_grade) && $cek_grade->grade_id== so)
-                                        <div class="col-4 ColoumndataPersonal">SO</div>
-                                @elseif(!empty($cek_grade) && $cek_grade->grade_id == sso)
-                                        <div class="col-4 ColoumndataPersonal">SSO</div>
-                                @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
-                                        <div class="col-4 ColoumndataPersonal">SSS</div>
-                                @else
-                                        <div class="col-4 ColoumndataPersonal">SO</div>
-                                @endif
-                            @elseif($request->card == avso_app)
-                                <div class="col-4 ColoumndataPersonal">NA</div>
-                            @else
-                                <div class="col-4 ColoumndataPersonal">NA</div>
-                            @endif
+
                     </div>
                 </div>
                 <div class="col-sm-0">
@@ -56,6 +48,23 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
+                        @if ($request->card == so_app)
+                            @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                                <div class="col-4 ColoumndataPersonal">SO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id == sso)
+                                <div class="col-4 ColoumndataPersonal">SSO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                                <div class="col-4 ColoumndataPersonal">SSS</div>
+                            @else
+                                <div class="col-4 ColoumndataPersonal">SO</div>
+                            @endif
+                        @elseif($request->card == avso_app)
+                            <div class="col-4 ColoumndataPersonal">NA</div>
+                        @else
+                            <div class="col-4 ColoumndataPersonal">NA</div>
+                        @endif
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
@@ -147,6 +156,9 @@
                 </div>
                 <div class="col-4 col_declare2">
                 </div>
+                <div class="col-2 col_declare3">
+                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+                </div>
             </div>
             <br>
             <div class="row" >
@@ -203,6 +215,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
+            <p>- Photo uploaded must be in JPG format</p>
         </div>
     </div>
     <br>

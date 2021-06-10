@@ -23,13 +23,13 @@
                     <button type="button" class="btn btn-secondary btn-lg" id="payment" style="border-style: groove;" value="@php echo paynow;@endphp">PayNow</button>
                 </div>
                 <div class="col-3 VPenets Listpaymentmenthod">
-                    <button type="button" class="btn btn-secondary btn-lg" id="enets" style="border-style: groove;" value="@php echo enets;@endphp">eNets</button>
+{{--                    <button type="button" class="btn btn-secondary btn-lg" id="enets" style="border-style: groove;" value="@php echo enets;@endphp">eNets</button>--}}
                 </div>
                 <div class="col-3 VPvisa Listpaymentmenthod">
-                    <button type="button" class="btn btn-secondary btn-lg" id="visa" style="border-style: groove;" value="@php echo visa;@endphp">Visa</button>
+{{--                    <button type="button" class="btn btn-secondary btn-lg" id="visa" style="border-style: groove;" value="@php echo visa;@endphp">Visa</button>--}}
                 </div>
                 <div class="col-3 VPmaster Listpaymentmenthod" >
-                    <button type="button" class="btn btn-secondary btn-lg" id="master" style="border-style: groove;" value="@php echo mastercard;@endphp">Mastercard</button>
+{{--                    <button type="button" class="btn btn-secondary btn-lg" id="master" style="border-style: groove;" value="@php echo mastercard;@endphp">Mastercard</button>--}}
                 </div>
                 <input type="hidden" id="payment_method" name="payment_method">
             </div><br>
@@ -168,6 +168,11 @@
             <div class="row">
                 <div class="col">
                     <button type="button" id="create_payment" class="btn btn-danger btn-lg btn-block" >Confirm <img src="{{URL::asset('/img/next.png')}}" style="width: 5%;"></button>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col">
+                    <a href="{{ url('/home') }}" style="color: inherit; text-decoration: none;"><button type="button" class="btn btn-secondary btn-lg btn-block" > Cancel </button></a>
                 </div>
             </div>
         </div>
