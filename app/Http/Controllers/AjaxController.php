@@ -731,7 +731,7 @@ class AjaxController extends Controller
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {
-            $data_schedule = booking_schedule::whereIn('status_app', [book_appointment, payment])
+            $data_schedule = booking_schedule::whereIn('status_app', [draft, submitted])
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->get();
@@ -775,7 +775,7 @@ class AjaxController extends Controller
     }
 
     protected function time_schedule($eventDate){
-        $data = booking_schedule::whereIn('status_app', [book_appointment, payment])
+        $data = booking_schedule::whereIn('status_app', [draft, submitted])
             ->whereDate('appointment_date','=',$eventDate)
             ->get();
         return $data;

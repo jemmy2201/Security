@@ -67,7 +67,7 @@
                         @endif
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
+                        <div class="col-4 ColoumndataPersonal">@php echo Carbon\Carbon::createFromFormat('Y-m-d', $personal->passexpirydate)->format('d-m-Y') @endphp</div>
                     </div>
                 </div>
             </div>
@@ -182,11 +182,6 @@
             </div>
             <br>
             <div class="row" >
-{{--                <div class="col-10" >--}}
-{{--                    <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
-{{--                    <a>{{$replacement->name}}</a>--}}
-{{--                    <input type="hidden" name="grade" id="grade">--}}
-{{--                </div>--}}
                 @foreach (json_decode($replacement->array_grade) as $f)
                     @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
                     <div class="col-10">
@@ -198,7 +193,6 @@
                         @endif
                     </div>
                 @endforeach
-
             </div>
         @endif
     <br>
@@ -219,7 +213,7 @@
         </div>
     </div>
     <br>
-    @if(!empty($grade))
+    @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
     <div class="row" style="margin-left: 1px;">
         <div class="col-0">
             <input type="checkbox" id="declare" name="declare">
@@ -228,7 +222,7 @@
             <b>I declare that I have been assessed and certified in the following training modules</b>
         </div>
     </div>
-    @endif
+        @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -276,7 +270,14 @@
         </form>
     </div>
 </div>
+@elseif(!empty($replacement) && $request->card == so_app)
+        <form method="post" id="delcare_submission" action="{{ route('declare.submission') }}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
+            <input type="hidden" id="card" name="card" value="{{$request->card}}">
+        </form>
 @endif
+
 <script type="application/javascript">
     $( document ).ready(function() {
         $(".declare").hide();
@@ -289,7 +290,6 @@
         });
 
         $("#submit_declare_trainig" ).click(function() {
-
             if ($("input[name='Cgrade']:checked").val() != undefined) {
                 if ($("input[name='declare_trainig']:checked").val()){
                     $(".submission").show();

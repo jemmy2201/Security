@@ -30,9 +30,17 @@ define('non_barcode', 1);
 // end type login
 
 // status app
-define('submission', 1);
-define('book_appointment', 2);
-define('payment', 3);
+//define('submission', 1);
+//define('book_appointment', 2);
+//define('payment', 3);
+
+define('draft', 0);
+define('submitted', 1);
+define('processing', 2);
+define('id_card_ready_for_collection', 3);
+define('resubmission', 4);
+define('completed', 5);
+
 // end status app
 
 define('time08', "08:00");

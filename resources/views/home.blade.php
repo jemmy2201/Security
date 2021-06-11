@@ -62,10 +62,10 @@
             <tbody>
             @if(!empty($schedule))
                 @foreach($schedule as $index => $f)
-                    @if($f->Status_app == submission)
+                    @if($f->Status_app == submitted)
 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                         @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
-                    @elseif($f->Status_app == book_appointment)
+                    @elseif($f->Status_app == draft)
 {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
                         @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @endif
@@ -119,25 +119,32 @@
                         @else
                             <td>NA</td>
                         @endif
-                        @if($f->Status_app == submission)
-{{--                            <td>Book Appointment</td>--}}
-                        @elseif($f->Status_app == book_appointment)
-{{--                            <td>Payment</td>--}}
+                        @if($f->Status_app == draft)
+                            <td>Draft</td>
+                        @elseif($f->Status_app == submitted)
+                            <td>Submitted</td>
+                        @elseif($f->Status_app == processing)
+                            <td>Processing</td>
+                        @elseif($f->Status_app == id_card_ready_for_collection)
+                            <td>ID Card Ready for Collection</td>
+                        @elseif($f->Status_app == resubmission)
+                            <td>Resubmission</td>
+                        @elseif($f->Status_app == completed)
+                            <td>Completed</td>
                         @endif
-                        @if($f->Status_app == payment)
+                        @if($f->Status_app == submitted)
 {{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                         @else
-                            <td></td>
+{{--                            <td></td>--}}
                         @endif
 
-                        @if($f->Status_app == submission)
+                        @if($f->Status_app == draft)
                             {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
-                            @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
-{{--                                <td><a href="{{$url}}"><button class="btn btn-primary">To Book Appointment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>--}}
-                        @elseif($f->Status_app == book_appointment)
-                            {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
-{{--                                <td><a href="{{$url}}"><button class="btn btn-success">To Payment</button></a>&nbsp;<button onclick="delete_process({{$f->id}},{{$f->app_type}},{{$f->card_id}});" class="btn btn-danger">Delete Process</button></td>--}}
+                                <td><a href="{{$url}}"><button class="btn btn-primary">Draft</button></a></td>
+                        @elseif($f->Status_app == submitted)
+{{--                            @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp--}}
+{{--                                <td><a href="{{$url}}"><button class="btn btn-success">Submitted</button></a></td>--}}
                         @endif
                     </tr>
                 @endforeach

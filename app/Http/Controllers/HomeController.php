@@ -35,7 +35,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $cek_del_schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [ book_appointment])->get();
+        $cek_del_schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [ draft])->get();
 
         // Delete data if not payment 3 month
         foreach ($cek_del_schedule as $f){
@@ -46,7 +46,7 @@ class HomeController extends Controller
             }
         }
         // End Delete data if not payment 3 month
-        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [submission, book_appointment])->get();
+        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [draft])->get();
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 
@@ -105,18 +105,13 @@ class HomeController extends Controller
         }
         if ($request->card == so_app){
             if ($request->app_type== renewal){
-                if (!empty($request->Cgrade)){
-                    // view declare more than 1
-                    $grade = null;
-                    // end view declare more than 1
-                }else{
                     $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
                     $grade = grade::where(['card_id'=>$renewal->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-                }
             }elseif ($request->app_type== replacement){
 //                $replacement = booking_schedule::first();
                     $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                    $grade = grade::where(['card_id'=>$replacement->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
             }else{
                 if (!empty($request->Cgrade)){
@@ -277,12 +272,12 @@ class HomeController extends Controller
             ->update([
                 'gst_id' => $request['grade_id'],
                 'trans_date' => Carbon::today()->toDateString(),
-                'expired_date' => date('Y-m-d', strtotime('+1 years')),
+//                'expired_date' => date('Y-m-d', strtotime('+1 years')),
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
                 'receiptNo' => $this->receiptNo(),
-                'status_app' => payment,
+                'status_app' => submitted,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
 
@@ -307,7 +302,7 @@ class HomeController extends Controller
         return $diff;
     }
     protected function receiptNo(){
-        $booking_schedule = booking_schedule::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->get();
+        $booking_schedule = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->get();
 
         if ($booking_schedule->count() > 0){
             $booking_schedule =$booking_schedule->count()+1;
@@ -404,7 +399,7 @@ class HomeController extends Controller
                                             'appointment_date' => $date,
                                             'time_start_appointment' => $data->start_at,
                                             'time_end_appointment' => $data->end_at,
-                                            'status_app' => book_appointment,
+                                            'status_app' => draft,
                                         ]);
         return $BookingScheduleAppointment;
     }
@@ -462,9 +457,9 @@ class HomeController extends Controller
                     'sssc' => $sssc,
                     'array_grade' => $merge_grade,
                     'declaration_date' => Carbon::today()->toDateString(),
-                    'status_app' => submission,
+//                    'status_app' => submission,
                     'trans_date' => null,
-//                    'expired_date' => null,
+                    'expired_date' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
@@ -483,7 +478,7 @@ class HomeController extends Controller
 //                    'card_id' => $request->card,
 //                    'grade_id' => $grade,
                     'declaration_date' => Carbon::today()->toDateString(),
-                    'status_app' => submission,
+//                    'status_app' => submission,
                     'trans_date' => null,
                     'expired_date' => null,
                     'appointment_date' => null,
@@ -505,7 +500,7 @@ class HomeController extends Controller
 //                    'grade_id' => $grade,
                     'array_grade' => $request->Cgrade[0],
                     'declaration_date' => Carbon::today()->toDateString(),
-                    'status_app' => submission,
+//                    'status_app' => submission,
                     'trans_date' => null,
                     'expired_date' => null,
                     'appointment_date' => null,
@@ -601,7 +596,7 @@ class HomeController extends Controller
 
         $booking_schedule->declaration_date = Carbon::today()->toDateString();
 
-        $booking_schedule->status_app = submission;
+//        $booking_schedule->status_app = submission;
 
         $booking_schedule->user_id = Auth::id();
 
