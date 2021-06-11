@@ -10,6 +10,7 @@
         <table id="table_grade" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Grade Type</th>
                 <th scope="col">Action</th>
@@ -94,6 +95,7 @@
                         "headers": {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                     },
                     columns: [
+                        {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
                         {data: 'type', name: 'type',
                             render: function (data, type, row) {

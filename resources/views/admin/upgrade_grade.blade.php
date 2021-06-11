@@ -55,11 +55,11 @@
     <!-- DataTables -->
     <script type="application/javascript">
 
-        $(window).bind('resize', function(e)
-        {
-            this.location.reload(false); /* false to get page from cache */
-            /* true to fetch page from server */
-        });
+        // $(window).bind('resize', function(e)
+        // {
+        //     this.location.reload(false); /* false to get page from cache */
+        //     /* true to fetch page from server */
+        // });
         $(document).ready(function(){
             $.fn.dataTable.ext.errMode = 'none';
             table_grade = $('#table_grade').DataTable({
@@ -192,7 +192,8 @@
                 success: function(data,textStatus, xhr)
                 {
                     if(xhr.status == "201" || xhr.status == "200"){
-                        table_grade.ajax.reload();
+                        // table_grade.ajax.reload();
+                        location.reload();
                         $('#FormUpload').modal('hide');
                     }
                 }, error: function(data,textStatus, xhr){

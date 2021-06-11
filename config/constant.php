@@ -30,6 +30,7 @@ define('non_barcode', 1);
 // end type login
 
 // status app
+
 //define('submission', 1);
 //define('book_appointment', 2);
 //define('payment', 3);

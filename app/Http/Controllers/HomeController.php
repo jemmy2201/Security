@@ -46,7 +46,7 @@ class HomeController extends Controller
             }
         }
         // End Delete data if not payment 3 month
-        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->get();
+        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereNotIn('Status_app', [completed])->get();
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 

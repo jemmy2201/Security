@@ -580,17 +580,21 @@ class AjaxController extends Controller
                 'app_type' => $row[5],
                 'card_type' => $row[6],
                 'grade' => $row[7],
-                'expiry_date' => $row[8],
+                'array_grade' => $row[8],
+                'status_app' => $row[9],
+                'declaration_date' => $row[10],
+                'transfer_date' => $row[11],
+                'expiry_date' => $row[12],
             ];
         }
         foreach ($arr as $e){
-
             if ($e['nric'] != 'nric'){
 
                 $users = User::where(['nric'=>$e['nric']])->first();
                 $count_users = User::count();
-
-                if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
+                if (empty($e['expiry_date'])){
+                    $expired_date = null;
+                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
                     $expired_date = $e['expiry_date'];
                 } else {
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
@@ -624,16 +628,24 @@ class AjaxController extends Controller
 
                     $booking_schedule->card_id = $e['card_type'];
 
-                    if (strtoupper($e['grade']) == "SO"){
-                        $grade = so;
-                    }elseif (strtoupper($e['grade']) == "SSO"){
-                        $grade = sso;
-                    }elseif (strtoupper($e['grade']) == "SSS"){
-                        $grade = sss;
-                    }else{
-                        $grade = null;
-                    }
-                    $booking_schedule->grade_id = $grade;
+//                    if (strtoupper($e['grade']) == "SO"){
+//                        $grade = so;
+//                    }elseif (strtoupper($e['grade']) == "SSO"){
+//                        $grade = sso;
+//                    }elseif (strtoupper($e['grade']) == "SSS"){
+//                        $grade = sss;
+//                    }else{
+//                        $grade = null;
+//                    }
+                    $booking_schedule->grade_id = $e['grade'];
+
+                    $booking_schedule->array_grade = $e['array_grade'];
+
+                    $booking_schedule->Status_app = $e['status_app'];
+
+                    $booking_schedule->trans_date = $e['transfer_date'];
+
+                    $booking_schedule->declaration_date = $e['declaration_date'];
 
                     $booking_schedule->expired_date = $expired_date;
 
@@ -661,15 +673,15 @@ class AjaxController extends Controller
                     // End update table user
 
                     // update table booking
-                    if (strtoupper($e['grade']) == "SO"){
-                        $grade = so;
-                    }elseif (strtoupper($e['grade']) == "SSO"){
-                        $grade = sso;
-                    }elseif (strtoupper($e['grade']) == "SSS"){
-                        $grade = sss;
-                    }else{
-                        $grade = null;
-                    }
+//                    if (strtoupper($e['grade']) == "SO"){
+//                        $grade = so;
+//                    }elseif (strtoupper($e['grade']) == "SSO"){
+//                        $grade = sso;
+//                    }elseif (strtoupper($e['grade']) == "SSS"){
+//                        $grade = sss;
+//                    }else{
+//                        $grade = null;
+//                    }
 
 
                     $ID_booking = booking_schedule::where(["user_id"=>$users->id,"card_id"=>$e['card_type']])->first();
@@ -682,7 +694,15 @@ class AjaxController extends Controller
 
                         $update_booking_schedule->card_id = $e['card_type'];
 
-                        $update_booking_schedule->grade_id = $grade;
+                        $update_booking_schedule->grade_id = $e['grade'];
+
+                        $update_booking_schedule->array_grade = $e['array_grade'];
+
+                        $update_booking_schedule->Status_app = $e['status_app'];
+
+                        $update_booking_schedule->declaration_date = $e['declaration_date'];
+
+                        $update_booking_schedule->trans_date = $e['transfer_date'];
 
                         $update_booking_schedule->expired_date = $expired_date;
 
@@ -695,16 +715,24 @@ class AjaxController extends Controller
 
                         $booking_schedule->card_id = $e['card_type'];
 
-                        if (strtoupper($e['grade']) == "SO"){
-                            $grade = so;
-                        }elseif (strtoupper($e['grade']) == "SSO"){
-                            $grade = sso;
-                        }elseif (strtoupper($e['grade']) == "SSS"){
-                            $grade = sss;
-                        }else{
-                            $grade = null;
-                        }
-                        $booking_schedule->grade_id = $grade;
+//                        if (strtoupper($e['grade']) == "SO"){
+//                            $grade = so;
+//                        }elseif (strtoupper($e['grade']) == "SSO"){
+//                            $grade = sso;
+//                        }elseif (strtoupper($e['grade']) == "SSS"){
+//                            $grade = sss;
+//                        }else{
+//                            $grade = null;
+//                        }
+                        $booking_schedule->grade_id = $e['grade'];
+
+                        $booking_schedule->array_grade = $e['array_grade'];
+
+                        $booking_schedule->Status_app = $e['status_app'];
+
+                        $booking_schedule->declaration_date = $e['declaration_date'];
+
+                        $booking_schedule->trans_date = $e['transfer_date'];
 
                         $booking_schedule->expired_date = $expired_date;
 
@@ -715,6 +743,66 @@ class AjaxController extends Controller
                     }
                     // End update table booking
 
+                }
+
+                if ($e['status_app'] == completed){
+                    $data = booking_schedule::leftjoin('users', 'booking_schedules.user_id', '=', 'users.id')
+                        ->where(['users.nric'=>$e['nric'],'card_id'=>$e['card_type']])
+                        ->first();
+//                    $gst = gst::where(['id'=>$data->gst_id])->first();
+
+//                    $transaction_amount = transaction_amount::where(['id'=>$data->transaction_amount_id])->first();
+                    if (empty($data)) {
+                        $sertifikat = new sertifikat();
+
+                        $sertifikat->app_type = $data->app_type;
+
+                        $sertifikat->card_id = $data->card_id;
+
+                        $sertifikat->grade_id = $data->grade_id;
+
+                        $sertifikat->array_grade = $data->array_grade;
+
+                        $sertifikat->bsoc = $data->bsoc;
+
+                        $sertifikat->ssoc = $data->ssoc;
+
+                        $sertifikat->sssc = $data->sssc;
+
+                        $sertifikat->declaration_date = $data->declaration_date;
+
+//                    $sertifikat->gst                = $gst->amount_gst;
+
+//                    $sertifikat->grand_gst          = $request['grand_gst'];
+
+                        $sertifikat->trans_date = $data->trans_date;
+
+                        $sertifikat->expired_date = $data->expired_date;
+
+                        $sertifikat->appointment_date = $data->appointment_date;
+
+                        $sertifikat->time_start_appointment = $data->time_start_appointment;
+
+                        $sertifikat->time_end_appointment = $data->time_end_appointment;
+
+//                    $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
+
+                        $sertifikat->paymentby = $data->paymentby;
+
+                        $sertifikat->status_payment = $data->status_payment;
+
+                        $sertifikat->grand_total = $data->grand_total;
+
+                        $sertifikat->receiptNo = $data->receiptNo;
+
+                        $sertifikat->status_app = $data->Status_app;
+
+                        $sertifikat->status_payment = $data->status_payment;
+
+                        $sertifikat->user_id = $data->user_id;
+
+                        $sertifikat->save();
+                    }
                 }
 
             }

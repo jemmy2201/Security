@@ -194,7 +194,7 @@
                             @else
                                 <td>NA</td>
                             @endif
-                            <td>Submitted</td>
+                            <td>Completed</td>
 {{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                             <td></td>
                         </tr>
