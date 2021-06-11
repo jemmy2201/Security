@@ -31,7 +31,8 @@
                 <div class="col-3 VPmaster Listpaymentmenthod" >
 {{--                    <button type="button" class="btn btn-secondary btn-lg" id="master" style="border-style: groove;" value="@php echo mastercard;@endphp">Mastercard</button>--}}
                 </div>
-                <input type="hidden" id="payment_method" name="payment_method">
+{{--                <input type="hidden" id="payment_method" name="payment_method">--}}
+                <input type="hidden" id="payment_method" name="payment_method" value="@php echo paynow;@endphp">
             </div><br>
             <div class="row">
                 <div class="col-6">
@@ -256,7 +257,8 @@
 <script type="application/javascript">
     $( document ).ready(function() {
         $("#create_payment").click(function() {
-            if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
+            // if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
+            if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
                 $( "#save_payment" ).submit();
             }else{
                 swal("Please!", "Complete the data", "error")

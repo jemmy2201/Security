@@ -46,7 +46,7 @@ class HomeController extends Controller
             }
         }
         // End Delete data if not payment 3 month
-        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [draft])->get();
+        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->get();
 
         $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
 
@@ -65,7 +65,12 @@ class HomeController extends Controller
         $personal = User::where(['id'=>Auth::id()])->first();
         return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
     }
-
+    public function resubmission(Request $request,$app_type,$card)
+    {
+        $request->merge(['app_type' => $app_type,'card' => $card]);
+        $personal = User::where(['id'=>Auth::id()])->first();
+        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
+    }
     public function replacement_personaldata(Request $request,$card)
     {
         $request->merge(['app_type' => replacement,'card' => $card]);
@@ -87,6 +92,7 @@ class HomeController extends Controller
         $replacement = null;
         $view_declare = null;
         $cek_grade = null;
+        $new = null;
         $diff_data = $this->diff_data($request);
 
 
@@ -99,17 +105,15 @@ class HomeController extends Controller
             $view_declare = $request->Cgrade;
         }
         // End view_declare
-        if ($request->app_type== renewal || $request->app_type== replacement) {
-            $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
-//            $request->merge(['card' => $data->card_id]);
-        }
+
+        $resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card,'Status_app'=>resubmission])->first();
         if ($request->card == so_app){
             if ($request->app_type== renewal){
                     $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
                     $grade = grade::where(['card_id'=>$renewal->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
             }elseif ($request->app_type== replacement){
-//                $replacement = booking_schedule::first();
+//                  $replacement = booking_schedule::first();
                     $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
                     $grade = grade::where(['card_id'=>$replacement->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
@@ -119,11 +123,16 @@ class HomeController extends Controller
                     $grade = grade::get();
                     // end view declare more than 1
                 }else{
-//                    $grade = grade::where(['card_id'=>$request->card])->get();
-                    // user cannot belong to declare
-                    $grade = grade::get();
-                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-                    // End user cannot belong to declare
+                    if (!empty($resubmission)){
+                        $new = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                        $grade = grade::get();
+                        $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    }else {
+                        // user cannot belong to declare
+                        $grade = grade::get();
+                        $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                        // End user cannot belong to declare
+                    }
                 }
             }
         }else{
@@ -132,9 +141,8 @@ class HomeController extends Controller
 //                $request->merge(['card' => $replacement->card_id]);
            }
         }
-
         $personal = User::where(['id'=>Auth::id()])->first();
-        return view('submission')->with(['cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
+        return view('submission')->with(['new'=>$new,'resubmission'=>$resubmission,'cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
     public function declare_submission(Request $request)
     {
@@ -190,9 +198,11 @@ class HomeController extends Controller
         if (!empty($request->grade)){
             $grade = $request->grade;
         }
-//        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id()])->first();
         $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-        if (empty($booking_schedule)){
+        if (!empty($booking_schedule) && $booking_schedule->Status_app == resubmission){
+            $this->Saveresubmission($request,$grade);
+            return redirect('/home');
+        }elseif (empty($booking_schedule)){
             $this->NewBookingSchedule($request,$grade);
         }else{
             $this->UpdateBookingSchedule($request,$grade);
@@ -281,7 +291,7 @@ class HomeController extends Controller
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
 
-        $this->create_setifikat($request);
+//        $this->create_setifikat($request);
         return $BookingScheduleAppointment;
     }
     protected function cek_month($date){
@@ -546,7 +556,7 @@ class HomeController extends Controller
     }
     protected function Upload_Image($request)
     {
-        $imageName = Auth::user()->passid.''.substr(Auth::user()->nric, -4);
+        $imageName = Auth::user()->passid.''.substr(Auth::user()->nric, -4).'.'.$request->upload_profile->getClientOriginalExtension();
 
         $request->upload_profile->move(public_path('img/img_users'), $imageName);
 
@@ -557,6 +567,10 @@ class HomeController extends Controller
         $UpdateUser->save();
 
         return $UpdateUser;
+    }
+    protected function Saveresubmission($request,$grade)
+    {
+        return $this->Upload_Image($request);
     }
     protected function NewBookingSchedule($request,$grade)
     {

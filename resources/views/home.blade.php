@@ -142,9 +142,9 @@
                             {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                             @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-primary">Draft</button></a></td>
-                        @elseif($f->Status_app == submitted)
-{{--                            @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp--}}
-{{--                                <td><a href="{{$url}}"><button class="btn btn-success">Submitted</button></a></td>--}}
+                        @elseif($f->Status_app == resubmission)
+                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id; @endphp
+                                <td><a href="{{$url}}"><button class="btn btn-success">Resubmission</button></a></td>
                         @endif
                     </tr>
                 @endforeach
@@ -229,7 +229,8 @@
                                     @php
                                       $expried = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
                                     @endphp
-                                @if($expried == false)
+{{--                                @if($expried == false)--}}
+                                @if($f->Status_app == completed && $expried == false)
 
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
@@ -294,7 +295,7 @@
                         <tbody>
                         @if(!empty($renewal))
                             @foreach($renewal as $index => $f)
-                                @if(!empty($f->expired_date) && Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString())
+                                @if($f->Status_app == completed && !empty($f->expired_date) && Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString())
 {{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
                                 @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">

@@ -148,17 +148,44 @@
                 @endforeach
             </div>
         @else
-                <div class="row">
-                    <div class="col-4 col_declare1">
-                        <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                @if(empty($resubmission))
+                    <div class="row">
+                        <div class="col-4 col_declare1">
+                            <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                        </div>
+                        <div class="col-4 col_declare2">
+                        </div>
+                        <div class="col-2 col_declare3">
+                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+                        </div>
                     </div>
-                    <div class="col-4 col_declare2">
+                    <br>
+                @else
+                    <div class="row">
+                        <div class="col-4 col_declare1">
+                            <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                        </div>
+                        <div class="col-4 col_declare2">
+                        </div>
+                        <div class="col-2 col_declare3">
+{{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>--}}
+                        </div>
                     </div>
-                    <div class="col-2 col_declare3">
-                        <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+                    <div class="row" >
+                        @foreach (json_decode($new->array_grade) as $f)
+                            @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                            <div class="col-10">
+                                <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                                <a>{{$data[0]->name}}</a><br>
+                                @if(!empty($cek_grade))
+                                    <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+                                    <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                </div>
-                <br>
+                @endif
+
                 {{--         just view one delcare--}}
                 <div class="row" id="view_declare">
                     <div class="col-10" >
@@ -214,14 +241,16 @@
     </div>
     <br>
     @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
-    <div class="row" style="margin-left: 1px;">
-        <div class="col-0">
-            <input type="checkbox" id="declare" name="declare">
-        </div>
-        <div class="col-8">
-            <b>I declare that I have been assessed and certified in the following training modules</b>
-        </div>
-    </div>
+            @if(empty($resubmission))
+            <div class="row" style="margin-left: 1px;">
+                <div class="col-0">
+                    <input type="checkbox" id="declare" name="declare">
+                </div>
+                <div class="col-8">
+                    <b>I declare that I have been assessed and certified in the following training modules</b>
+                </div>
+            </div>
+            @endif
         @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
@@ -233,7 +262,11 @@
         <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
-            <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @if(empty($resubmission))
+                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @else
+                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmission <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @endif
         </div>
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
@@ -319,7 +352,7 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
                 if ($('#upload_profile').val()){
-                    if ($("#card").val() == {{json_encode(so_app)}}){
+                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}){
                         if($("input[name='declare']:checked").val() != undefined){
                             var inputFile = document.getElementById('upload_profile');
                             var pathFile = inputFile.value;
