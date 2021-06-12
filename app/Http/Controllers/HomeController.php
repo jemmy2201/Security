@@ -48,7 +48,7 @@ class HomeController extends Controller
         // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereNotIn('Status_app', [completed])->get();
 
-        $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->get();
+        $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->orderBy('id','desc')->get();
 
         $replacement = booking_schedule::where(['user_id'=>Auth::id()])->get();
 
@@ -92,7 +92,7 @@ class HomeController extends Controller
         $replacement = null;
         $view_declare = null;
         $cek_grade = null;
-        $new = null;
+        $data_resubmission = null;
         $diff_data = $this->diff_data($request);
 
 
@@ -109,14 +109,26 @@ class HomeController extends Controller
         $resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card,'Status_app'=>resubmission])->first();
         if ($request->card == so_app){
             if ($request->app_type== renewal){
-                    $renewal = booking_schedule::where(['user_id'=>Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
-                    $grade = grade::where(['card_id'=>$renewal->card_id])->get();
-                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                if (!empty($resubmission)){
+                    $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                    $grade = grade::get();
+                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                }else {
+                    $renewal = booking_schedule::where(['user_id' => Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                    $grade = grade::where(['card_id' => $renewal->card_id])->get();
+                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                }
             }elseif ($request->app_type== replacement){
+                if (!empty($resubmission)){
+                    $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                    $grade = grade::get();
+                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                }else {
 //                  $replacement = booking_schedule::first();
-                    $replacement = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-                    $grade = grade::where(['card_id'=>$replacement->card_id])->get();
-                    $cek_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                    $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $grade = grade::where(['card_id' => $replacement->card_id])->get();
+                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                }
             }else{
                 if (!empty($request->Cgrade)){
                     // view declare more than 1
@@ -124,7 +136,7 @@ class HomeController extends Controller
                     // end view declare more than 1
                 }else{
                     if (!empty($resubmission)){
-                        $new = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                        $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
                         $grade = grade::get();
                         $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                     }else {
@@ -142,7 +154,7 @@ class HomeController extends Controller
            }
         }
         $personal = User::where(['id'=>Auth::id()])->first();
-        return view('submission')->with(['new'=>$new,'resubmission'=>$resubmission,'cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
+        return view('submission')->with(['data_resubmission'=>$data_resubmission,'resubmission'=>$resubmission,'cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
     }
     public function declare_submission(Request $request)
     {
@@ -428,45 +440,51 @@ class HomeController extends Controller
         $ssoc = null;
         $sssc = null;
         $merge_grade = null;
-        $imageName = time().'.'.$request->upload_profile->extension();
-
 
         $this->Upload_Image($request);
+        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+        if ($booking_schedule->grade_id == so){
+            $array_dataDB = json_decode($booking_schedule->array_grade);
+            $new_array_data = json_decode($request->Cgrade[0]);
+            $array_grades = array_merge($array_dataDB,$new_array_data);
+            $bsoc = $this->take_grade(json_encode($array_grades));
+        }elseif ($booking_schedule->grade_id == sso){
+            $array_dataDB = json_decode($booking_schedule->array_grade);
+            $new_array_data = json_decode($request->Cgrade[0]);
+            $array_grades = array_merge($array_dataDB,$new_array_data);
+            $ssoc = $this->take_grade(json_encode($array_grades));
+        }elseif ($booking_schedule->grade_id == ss){
+            $array_dataDB = json_decode($booking_schedule->array_grade);
+            $new_array_data = json_decode($request->Cgrade[0]);
+            $array_grades = array_merge($array_dataDB,$new_array_data);
+            $sssc = $this->take_grade(json_encode($array_grades));
+        }elseif ($booking_schedule->grade_id == sss){
+            $array_dataDB = json_decode($booking_schedule->array_grade);
+            $new_array_data = json_decode($request->Cgrade[0]);
+            $array_grades = array_merge($array_dataDB,$new_array_data);
+            $sssc = $this->take_grade(json_encode($array_grades));
+        }elseif ($booking_schedule->grade_id == cso){
+            $array_dataDB = json_decode($booking_schedule->array_grade);
+            $new_array_data = json_decode($request->Cgrade[0]);
+            $array_grades = array_merge($array_dataDB,$new_array_data);
+            $sssc = $this->take_grade(json_encode($array_grades));
+        }
+        if ($booking_schedule->grade_id) {
+            $take_grade = json_decode($booking_schedule->array_grade);
+            $new_take_grade = json_decode($request->Cgrade[0]);
+            // untuk mengatasi jika di refresh chorem maka data array tidak double
+            foreach ($new_take_grade as $index => $f){
+                if (!in_array($f,$take_grade)) {
+                    array_push($take_grade, $f);
+                    $merge_grade = $take_grade;
+                }else{
+                    $merge_grade = $take_grade;
+                }
+            }
+            // End untuk mengatasi jika di refresh chorem maka data array tidak double
+        }
 
         if ($request->app_type == renewal){
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
-            if ($booking_schedule->grade_id == so){
-                $array_dataDB = json_decode($booking_schedule->array_grade);
-                $new_array_data = json_decode($request->Cgrade[0]);
-                $array_grades = array_merge($array_dataDB,$new_array_data);
-                $bsoc = $this->take_grade(json_encode($array_grades));
-            }elseif ($booking_schedule->grade_id == sso){
-                $array_dataDB = json_decode($booking_schedule->array_grade);
-                $new_array_data = json_decode($request->Cgrade[0]);
-                $array_grades = array_merge($array_dataDB,$new_array_data);
-                $ssoc = $this->take_grade(json_encode($array_grades));
-            }elseif ($booking_schedule->grade_id == ss){
-                $array_dataDB = json_decode($booking_schedule->array_grade);
-                $new_array_data = json_decode($request->Cgrade[0]);
-                $array_grades = array_merge($array_dataDB,$new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }elseif ($booking_schedule->grade_id == sss){
-                $array_dataDB = json_decode($booking_schedule->array_grade);
-                $new_array_data = json_decode($request->Cgrade[0]);
-                $array_grades = array_merge($array_dataDB,$new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }elseif ($booking_schedule->grade_id == cso){
-                $array_dataDB = json_decode($booking_schedule->array_grade);
-                $new_array_data = json_decode($request->Cgrade[0]);
-                $array_grades = array_merge($array_dataDB,$new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }
-            if ($booking_schedule->grade_id) {
-                $take_grade = json_decode($booking_schedule->array_grade);
-                $new_take_grade = json_decode($request->Cgrade[0]);
-                $merge_grade = array_merge($take_grade, $new_take_grade);
-            }
-
             $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
@@ -499,6 +517,7 @@ class HomeController extends Controller
 //                    'grade_id' => $grade,
                     'declaration_date' => Carbon::today()->toDateString(),
 //                    'status_app' => submission,
+                    'array_grade' => $merge_grade,
                     'trans_date' => null,
                     'expired_date' => null,
                     'appointment_date' => null,

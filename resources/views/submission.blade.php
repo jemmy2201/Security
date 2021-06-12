@@ -180,7 +180,7 @@
                         </div>
                     </div>
                     <div class="row" >
-                        @foreach (json_decode($new->array_grade) as $f)
+                        @foreach (json_decode($data_resubmission->array_grade) as $f)
                             @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
                             <div class="col-10">
                                 <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
