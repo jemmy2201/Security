@@ -14,7 +14,9 @@ define('pi_app', 3);
 //SO APP
 define('so', 1);
 define('sso', 2);
-define('sss', 3);
+define('ss', 3);
+define('sss', 4);
+define('cso', 5);
 //End SO APP
 
 // payment method

@@ -58,7 +58,9 @@
 {{--                                    @endforeach--}}
                                     <option value="@php echo so @endphp">SO</option>
                                     <option value="@php echo sso @endphp">SSO</option>
+                                    <option value="@php echo ss @endphp">SS</option>
                                     <option value="@php echo sss @endphp">SSS</option>
+                                    <option value="@php echo cso @endphp">CSO</option>
 
                                 </select>
                             </div>
@@ -168,8 +170,12 @@
                                     return "SO";
                                 }else if(data == @php echo sso @endphp){
                                     return "SSO";
+                                }else if(data == @php echo ss @endphp){
+                                    return "SS";
                                 }else if(data == @php echo sss @endphp){
                                     return "SSS";
+                                }else if(data == @php echo cso @endphp){
+                                    return "CSO";
                                 }else{
                                     return '-';
                                 }

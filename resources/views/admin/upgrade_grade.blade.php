@@ -135,10 +135,14 @@
                                     return 'SO';
                                 }else if(data == @php echo sso @endphp){
                                     return 'SSO';
+                                }else if(data == @php echo ss @endphp){
+                                    return 'SS';
                                 }else if(data == @php echo sss @endphp){
                                     return 'SSS';
+                                }else if(data == @php echo cso @endphp){
+                                        return 'CSO';
                                 }else{
-                                    return  '-';
+                                        return  '-';
                                 }
                             }
                         },

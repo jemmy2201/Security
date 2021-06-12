@@ -180,8 +180,12 @@ class AjaxController extends Controller
                 $grade_id = "SO";
             }elseif ($f->grade_id == sso){
                 $grade_id = "SSO";
-            }elseif ($f->grade_id == sso){
+            }elseif ($f->grade_id == ss){
+                $grade_id = "SS";
+            }elseif ($f->grade_id == sss){
                 $grade_id = "SSS";
+            }elseif ($f->grade_id == cso){
+                $grade_id = "CSO";
             }else{
                 $grade_id = "-";
             }
@@ -270,33 +274,42 @@ class AjaxController extends Controller
         if ($request->grade_id != "Please choose"){
             $grade_id =$request->grade_id;
         }
-//        if (empty($grade_id)){
-//            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
-//        }else{
-//            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$grade_id])->first();
-//        }
+
+        if (empty($grade_id)){
+            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id])->first();
+        }else{
+            $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_type'=>$grade_id])->first();
+        }
 
         if (empty($val_transaction_amount)) {
             if (!empty($grade_id)) {
-                if ($grade_id == so){
-                    $grade_id = "SO";
-                }elseif ($grade_id == sso){
-                    $grade_id = "SSO";
-                }else{
-                    $grade_id = "SSS";
-                }
+//                if ($grade_id == so){
+//                    $grade_id = "SO";
+//                }elseif ($grade_id == sso){
+//                    $grade_id = "SSO";
+//                }elseif ($grade_id == ss){
+//                    $grade_id = "SS";
+//                }elseif ($grade_id == sss){
+//                    $grade_id = "SSS";
+//                }elseif ($grade_id == cso){
+//                    $grade_id = "CSO";
+//                }
 
                 $grades = grade::where(['type'=>$grade_id])->get();
                 foreach ($grades as $index => $f){
-                   $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$f->id])->first();
+                    $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type,'card_type'=>$request->card_id,'grade_id'=>$f->id])->first();
                     if (empty($val_transaction_amount)){
-                        if ($f->type == "SO"){
-                            $grade_type = 1;
-                        }elseif ($f->type == "SSO"){
-                            $grade_type = 2;
-                        }elseif ($f->type == "SSS"){
-                            $grade_type = 3;
-                        }
+//                        if ($f->type == "SO"){
+//                            $grade_type = 1;
+//                        }elseif ($f->type == "SSO"){
+//                            $grade_type = 2;
+//                        }elseif ($f->type == "SS"){
+//                            $grade_type = 3;
+//                        }elseif ($f->type == "SSS"){
+//                            $grade_type = 4;
+//                        }elseif ($f->type == "CSO"){
+//                            $grade_type = 5;
+//                        }
                         $transaction_amount = new transaction_amount;
 
                         $transaction_amount->app_type = $request->app_type;
@@ -307,7 +320,7 @@ class AjaxController extends Controller
 
                         $transaction_amount->transaction_amount = $request->transaction_amount;
 
-                        $transaction_amount->grade_type = $grade_type;
+                        $transaction_amount->grade_type = $f->type;
 
                         $transaction_amount->save();
                     }
@@ -752,7 +765,7 @@ class AjaxController extends Controller
 //                    $gst = gst::where(['id'=>$data->gst_id])->first();
 
 //                    $transaction_amount = transaction_amount::where(['id'=>$data->transaction_amount_id])->first();
-                    if (empty($data)) {
+                    if (!empty($data)) {
                         $sertifikat = new sertifikat();
 
                         $sertifikat->app_type = $data->app_type;

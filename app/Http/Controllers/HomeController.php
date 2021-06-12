@@ -445,7 +445,17 @@ class HomeController extends Controller
                 $new_array_data = json_decode($request->Cgrade[0]);
                 $array_grades = array_merge($array_dataDB,$new_array_data);
                 $ssoc = $this->take_grade(json_encode($array_grades));
+            }elseif ($booking_schedule->grade_id == ss){
+                $array_dataDB = json_decode($booking_schedule->array_grade);
+                $new_array_data = json_decode($request->Cgrade[0]);
+                $array_grades = array_merge($array_dataDB,$new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
             }elseif ($booking_schedule->grade_id == sss){
+                $array_dataDB = json_decode($booking_schedule->array_grade);
+                $new_array_data = json_decode($request->Cgrade[0]);
+                $array_grades = array_merge($array_dataDB,$new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
+            }elseif ($booking_schedule->grade_id == cso){
                 $array_dataDB = json_decode($booking_schedule->array_grade);
                 $new_array_data = json_decode($request->Cgrade[0]);
                 $array_grades = array_merge($array_dataDB,$new_array_data);

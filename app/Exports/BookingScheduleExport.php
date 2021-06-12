@@ -46,8 +46,12 @@ class BookingScheduleExport implements FromCollection, WithHeadings
                $booking_schedule[$key]->grade_id = 'SO';
             }elseif ($f->grade_id == sso){
                 $booking_schedule[$key]->grade_id = 'SSO';
+            }elseif ($f->grade_id == ss){
+                $booking_schedule[$key]->grade_id = 'SS';
             }elseif ($f->grade_id == sss){
                 $booking_schedule[$key]->grade_id = 'SSS';
+            }elseif ($f->grade_id == cso){
+                $booking_schedule[$key]->grade_id = 'CSO';
             }
         }
         return $booking_schedule;

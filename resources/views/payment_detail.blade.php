@@ -123,8 +123,12 @@
                                 <div class="col">SO</div>
                             @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
                                 <div class="col">SSO</div>
+                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)
+                                <div class="col">SS</div>
                             @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
                                 <div class="col">SSS</div>
+                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)
+                                <div class="col">CSO</div>
                             @else
                                 <div class="col">SO</div>
                             @endif
@@ -205,8 +209,12 @@
                             <div class="col">SO</div>
                         @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
                             <div class="col">SSO</div>
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)
+                            <div class="col">SS</div>
                         @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
                             <div class="col">SSS</div>
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)
+                            <div class="col">CSO</div>
                         @else
                             <div class="col">SO</div>
                         @endif

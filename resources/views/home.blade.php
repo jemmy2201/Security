@@ -97,8 +97,12 @@
                                     <td>SO</td>
                                 @elseif(!empty($f->grade_id) && $f->grade_id== sso)
                                     <td>SSO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                    <td>SS</td>
                                 @elseif(!empty($f->grade_id) && $f->grade_id== sss)
                                     <td>SSS</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                    <td>CSO</td>
                                 @else
                                     <td >SO</td>
                                 @endif
@@ -174,8 +178,12 @@
                                     <td>SO</td>
                                 @elseif(!empty($f->grade_id) && $f->grade_id== sso)
                                     <td>SSO</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                    <td>SS</td>
                                 @elseif(!empty($f->grade_id) && $f->grade_id== sss)
                                     <td>SSS</td>
+                                @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                    <td>CSO</td>
                                 @else
                                     <td >SO</td>
                                 @endif
@@ -253,8 +261,12 @@
                                             <td>SO</td>
                                         @elseif(!empty($f->grade_id) && $f->grade_id== sso)
                                             <td>SSO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                            <td>SS</td>
                                         @elseif(!empty($f->grade_id) && $f->grade_id== sss)
                                             <td>SSS</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                            <td>CSO</td>
                                         @else
                                             <td >SO</td>
                                         @endif
@@ -319,8 +331,12 @@
                                             <td>SO</td>
                                         @elseif(!empty($f->grade_id) && $f->grade_id== sso)
                                             <td>SSO</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                            <td>SS</td>
                                         @elseif(!empty($f->grade_id) && $f->grade_id== sss)
                                             <td>SSS</td>
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                            <td>CSO</td>
                                         @else
                                             <td >SO</td>
                                         @endif

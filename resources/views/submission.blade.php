@@ -55,8 +55,12 @@
                                 <div class="col-4 ColoumndataPersonal">SO</div>
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id == sso)
                                 <div class="col-4 ColoumndataPersonal">SSO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
+                                <div class="col-4 ColoumndataPersonal">SS</div>
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                 <div class="col-4 ColoumndataPersonal">SSS</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
+                                <div class="col-4 ColoumndataPersonal">CSO</div>
                             @else
                                 <div class="col-4 ColoumndataPersonal">SO</div>
                             @endif
@@ -91,8 +95,12 @@
                                 <div class="col-4 ColoumndataPersonal">SO</div>
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id== sso)
                                 <div class="col-4 ColoumndataPersonal">SSO</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
+                                <div class="col-4 ColoumndataPersonal">SS</div>
                             @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
                                 <div class="col-4 ColoumndataPersonal">SSS</div>
+                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
+                                <div class="col-4 ColoumndataPersonal">CSO</div>
                             @else
                                 <div class="col-4 ColoumndataPersonal">SO</div>
                             @endif
