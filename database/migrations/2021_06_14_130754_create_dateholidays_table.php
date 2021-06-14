@@ -16,8 +16,8 @@ class CreateDateholidaysTable extends Migration
         Schema::create('dateholidays', function (Blueprint $table) {
             $table->id();
             $table->string('date')->nullable()->comment("date");
-            $table->string('holi_type')->nullable()->comment("holiday type example Pancasila Day,etc");
-            $table->string('half')->nullable()->comment("Half-day up to 13:00 ");
+            $table->string('name_holiday')->nullable()->comment("example Pancasila Day,etc");
+            $table->string('time_work')->nullable()->comment("Half-day up to 13:00 ");
             $table->timestamps();
         });
     }

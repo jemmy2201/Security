@@ -217,6 +217,18 @@ class AjaxController extends Controller
         })->make(true);
 
     }
+    public function data_holiday()
+    {
+        $Holiday = Dateholiday::get();
+        return Datatables::of($Holiday)->addColumn('action', function($row){
+
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
+
+            return $btn;
+
+        })->make(true);
+
+    }
     public function data_grade()
     {
         $data_grade = User::leftjoin('booking_schedules', 'users.id', '=', 'booking_schedules.user_id')
@@ -267,6 +279,49 @@ class AjaxController extends Controller
 
         return $create_gst;
 
+    }
+    public function insert_holiday(Request $request)
+    {
+        $holiday = data_already_exists;
+
+        $cek_data = Dateholiday::whereDate('date','=',$request->date)->count();
+        if ($cek_data == 0){
+
+            $holiday = new Dateholiday();
+
+            $holiday->date = $request->date;
+
+            $holiday->name_holiday = $request->name_holiday;
+
+            $holiday->time_work = $request->time_work;
+
+            $holiday->save();
+
+        }
+
+        $holiday = array(
+            "error"=>$holiday,
+            "data"=>save,
+        );
+        return $holiday;
+    }
+    public function update_holiday(Request $request)
+    {
+        $holiday = data_already_exists;
+
+        $holiday = Dateholiday::find($request->id);
+
+        $holiday->name_holiday = $request->name_holiday;
+
+        $holiday->time_work = $request->time_work;
+
+        $holiday->save();
+
+        $holiday = array(
+            "error"=>$holiday,
+            "data"=>update,
+        );
+        return $holiday;
     }
     public function insert_price(Request $request)
     {

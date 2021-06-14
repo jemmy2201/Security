@@ -259,16 +259,17 @@
                         }
                     }
                     //  End Hidden 7 next day
+
                     // Date Holiday
                     {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {
-                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.half == @php echo full @endphp) {
+                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.time_work == @php echo full @endphp) {
                             span.classList.add('holidayfull');
-                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.half == @php echo half @endphp) {
+                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.time_work == @php echo half @endphp) {
                             span.classList.add('holidayhalf');
                         }
                     });
-
                     // End Date Holiday
+
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         // span.classList.add('bg-primary');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});

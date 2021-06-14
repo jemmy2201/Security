@@ -59,6 +59,7 @@ Route::prefix('admin')->group(function () {
     Route::get('appointment', 'AdminController@appointment');
     Route::get('upgrade/grade', 'AdminController@upgrade_grade');
     Route::get('limit/schedule', 'AdminController@limit_schedule');
+    Route::get('holiday/table', 'AdminController@holiday_table');
     Route::get('/gst', 'AdminController@gst');
     Route::get('/price', 'AdminController@price');
     Route::get('/course', 'AdminController@course');
@@ -73,6 +74,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/data/history/login', 'AjaxController@history_login')->name('admin.history.login');
     Route::post('/data/security/employees', 'AjaxController@security_employees')->name('admin.security.employees');
     Route::post('/data/price/view', 'AjaxController@data_price')->name('admin.data_price');
+    Route::post('/data/holiday/view', 'AjaxController@data_holiday')->name('admin.data.holiday');
     Route::post('/data/grade/view', 'AjaxController@data_grade')->name('admin.data.upgrade');
     Route::post('/data/course/view', 'AjaxController@data_course')->name('admin.data.course');
     Route::post('/data/gst', 'AjaxController@data_gst')->name('admin.data.gst');
@@ -82,6 +84,8 @@ Route::prefix('ajax')->group(function () {
     Route::post('/update/amount/limit_schedule', 'AjaxController@update_limit_schedule')->name('admin.update.limit_schedule');
     Route::post('/insert/price', 'AjaxController@insert_price')->name('admin.insert.price');
     Route::post('/update/price', 'AjaxController@update_price')->name('admin.update.price');
+    Route::post('/insert/holiday', 'AjaxController@insert_holiday')->name('admin.insert.holiday');
+    Route::post('/update/holiday', 'AjaxController@update_holiday')->name('admin.update.holiday');
     Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
     Route::post('/upload/excel/grade', 'AjaxController@upload_excel_grade')->name('admin.upload.grade');
     Route::post('/insert/course', 'AjaxController@add_course')->name('admin.insert.course');

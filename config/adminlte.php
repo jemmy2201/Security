@@ -252,6 +252,10 @@ return [
                     'url'  => 'admin/limit/schedule',
                 ],
                 [
+                    'text' => 'Holiday Table',
+                    'url'  => 'admin/holiday/table',
+                ],
+                [
                     'text' => 'Price',
                     'url'  => 'admin/price',
                 ],

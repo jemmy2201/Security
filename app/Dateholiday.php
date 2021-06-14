@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Dateholiday extends Model
 {
     protected $fillable = [
-        'date', 'holi_type', 'half'
+        'date', 'name_holiday', 'time_work'
     ];
 }
