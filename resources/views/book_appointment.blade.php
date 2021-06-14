@@ -13,8 +13,18 @@
         pointer-events: none;
         opacity: 0.6;
     }
-    .active{
+    .holidayfull{
+        pointer-events: none;
+        opacity: 0.6;
         background-color:red;
+    }
+    .holidayhalf{
+        /*pointer-events: none;*/
+        /*opacity: 0.6;*/
+        background-color:yellow;
+    }
+    .active{
+        background-color:blue;
     }
     .now{
         background-color:blue;
@@ -44,6 +54,16 @@
             <div id="apps"></div>
         </div>
     </div>
+        <div class="row">
+            <div class="col">
+                <ul style="font-weight: bold;">
+                    <li >
+                        yellow : half working day (13:00)
+                    </li>
+                    <li >Red : full day vacation</li>
+                </ul>
+            </div>
+        </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -185,7 +205,20 @@
         let date = 1;
         //remaing dates of last month
         let r_pm = (d_pm-firstDay) +1;
-        for (let i = 0; i < 6; i++) {
+
+        // Date Holiday
+{{--        {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {--}}
+{{--            console.log('year',entry.date.substring(0, 4));--}}
+{{--            console.log('month',entry.date.substring(5, 7));--}}
+{{--            console.log('day',entry.date.substring(8, 10));--}}
+{{--            console.log('day 2',c_date.getDate());--}}
+{{--            if ((entry.date.substring(8, 10) === c_date.getDate() && entry.date.substring(0, 4)) === c_date.getFullYear() && entry.date.substring(5, 7) === c_date.getMonth()) {--}}
+{{--                span.classList.add('holiday');--}}
+{{--            }--}}
+{{--        });--}}
+        // End Date Holiday
+
+            for (let i = 0; i < 6; i++) {
             let row = document.createElement('tr');
             for (let j = 0; j < 7; j++) {
                 if (i === 0 && j < firstDay) {
@@ -218,12 +251,34 @@
                     let span = document.createElement('span');
                     let cellText = document.createTextNode(date);
                     span.classList.add('showEvent');
+                    //  Hidden 7 next day
+                    if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        var sevenDayHidden = c_date.getDate() + 8;
+                        if (date < sevenDayHidden ){
+                            span.classList.add('dissable');
+                        }
+                    }
+                    //  End Hidden 7 next day
+                    // Date Holiday
+                    {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {
+                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.half == @php echo full @endphp) {
+                            span.classList.add('holidayfull');
+                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.half == @php echo half @endphp) {
+                            span.classList.add('holidayhalf');
+                        }
+                    });
+
+                    // End Date Holiday
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         // span.classList.add('bg-primary');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
                         span.classList.add('dissable');
-                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                    }
+                    // else if(date == "29"  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                    //     span.classList.add('holiday');
+                    // }
+                    else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
@@ -233,8 +288,12 @@
                     date++;
                 }
             }
-            table.appendChild(row);
+
+                table.appendChild(row);
         }
+
+
+
     }
     renderCalendar(month, year)
 

@@ -120,3 +120,12 @@ define('delete_soft', 1);
 // invoice
 define('nnnn', "0000");
 // end invoice
+
+
+define('full', 1);
+define('half', 2);
+
+define('half_1', "13:00");
+define('half_2', "14:00");
+define('half_3', "15:00");
+define('half_4', "18:00");

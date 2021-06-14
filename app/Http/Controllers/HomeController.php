@@ -15,6 +15,7 @@ use App\transaction_amount;
 use App\gst;
 use App\sertifikat;
 use DB;
+use App\Dateholiday;
 class HomeController extends Controller
 {
     /**
@@ -219,7 +220,9 @@ class HomeController extends Controller
         }else{
             $this->UpdateBookingSchedule($request,$grade);
         }
-        return view('book_appointment')->with(["request"=>$request]);
+        $dayHoliday = Dateholiday::get();
+
+        return view('book_appointment')->with(["request"=>$request,"dayHoliday"=>$dayHoliday]);
     }
     public function HistoryBookAppointment(Request $request,$app_type,$card)
     {

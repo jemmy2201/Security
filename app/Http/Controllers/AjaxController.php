@@ -14,6 +14,7 @@ use App\schedule_limit;
 use App\transaction_amount;
 use App\Backup_booking_schedule;
 use App\Backup_users;
+use App\Dateholiday;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DataTables;
@@ -109,7 +110,7 @@ class AjaxController extends Controller
     }
     public function insert_limit_schedule(Request $request)
     {
-        $cek_booking_schedule = booking_schedule::where(['status_app'=>book_appointment])
+        $cek_booking_schedule = booking_schedule::where(['status_app'=>draft])
             ->whereDate('appointment_date','=',Carbon::today()->toDateString())
             ->count();
         if ($cek_booking_schedule == 0) {
@@ -836,36 +837,57 @@ class AjaxController extends Controller
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->get();
+            $dateHoliday = Dateholiday::whereDate('date','=',$eventDate)->first();
             $limit_schedule[$key]->number_schedule = $data_schedule->count();
+            $limit_schedule[$key]->half = false;
+            if (!empty($dateHoliday) && $ls->start_at == half_1 ){
+                $limit_schedule[$key]->half = true;
+            }elseif(!empty($dateHoliday) &&  $ls->start_at == half_2 ){
+                $limit_schedule[$key]->half = true;
+            }elseif(!empty($dateHoliday) && $ls->start_at == half_3 ){
+                $limit_schedule[$key]->half = true;
+            }elseif(!empty($dateHoliday) && $ls->start_at == half_4){
+                $limit_schedule[$key]->half = true;
+            }
         }
-        foreach ($limit_schedule as $key => $ls ){
-            if (!empty($ls->number_schedule)){
-                $time = $ls->start_at . '-' . $ls->end_at;
-                $data .= ' <tr>';
-                if ($ls->amount == $ls->number_schedule ){
-                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                }else{
-                    if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString() ){
-                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                    }else{
-                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
+//        die(dd($limit_schedule));
+
+        foreach ($limit_schedule as $key => $ls ) {
+            $time = $ls->start_at . '-' . $ls->end_at;
+            if ($ls->half != true) {
+                if (!empty($ls->number_schedule)) {
+                    $data .= ' <tr>';
+                    if ($ls->amount == $ls->number_schedule) {
+                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                    } else {
+                        if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
+                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                        } else {
+                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '">&ensp;&ensp;&ensp;' . $time . '</td>';
+                        }
                     }
+                    $data .= '<td>' . $ls->number_schedule . '</td>';
+                    $data .= '<td>' . $ls->amount . '</td>>';
+                    $data .= '</tr>';
+                } else {
+                    $time = $ls->start_at . '-' . $ls->end_at;
+                    $data .= ' <tr>';
+                    if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
+                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                    } else {
+                        $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '">&ensp;&ensp;&ensp;' . $time . '</td>';
+                    }
+                    $data .= '<td>0</td>';
+                    $data .= '<td>' . $ls->amount . '</td>>';
+                    $data .= '</tr>';
                 }
-                $data .= '<td>'.$ls->number_schedule.'</td>';
-                $data .= '<td>' . $ls->amount . '</td>>';
-                $data .= '</tr>';
             }else{
-                $time = $ls->start_at . '-' . $ls->end_at;
-                $data .= ' <tr>';
-                if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString() ){
-                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                }else{
-                    $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'">&ensp;&ensp;&ensp;' . $time . '</td>';
-                }
+                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
                 $data .= '<td>0</td>';
                 $data .= '<td>' . $ls->amount . '</td>>';
                 $data .= '</tr>';
             }
+
         }
         return $data;
     }
