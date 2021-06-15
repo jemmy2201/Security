@@ -222,7 +222,8 @@ class AjaxController extends Controller
         $Holiday = Dateholiday::get();
         return Datatables::of($Holiday)->addColumn('action', function($row){
 
-            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>';
+            $btn = '<a href="#" class="editor_edit btn btn-primary btn-sm">Edit</a>
+                    <a href="#" class="delete btn btn-primary btn-sm">Delete</a>';
 
             return $btn;
 
@@ -558,6 +559,20 @@ class AjaxController extends Controller
         $data->delete_soft = delete_soft;
 
         $data->save();
+
+        if ($data){
+            $data = array(
+                "error" => false,
+                "data"  => $data
+            );
+        }
+        return $data;
+    }
+    public function delete_holiday(Request $request)
+    {
+        $data = Dateholiday::find($request->id);
+
+        $data->delete();
 
         if ($data){
             $data = array(

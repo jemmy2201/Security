@@ -205,19 +205,6 @@
         let date = 1;
         //remaing dates of last month
         let r_pm = (d_pm-firstDay) +1;
-
-        // Date Holiday
-{{--        {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {--}}
-{{--            console.log('year',entry.date.substring(0, 4));--}}
-{{--            console.log('month',entry.date.substring(5, 7));--}}
-{{--            console.log('day',entry.date.substring(8, 10));--}}
-{{--            console.log('day 2',c_date.getDate());--}}
-{{--            if ((entry.date.substring(8, 10) === c_date.getDate() && entry.date.substring(0, 4)) === c_date.getFullYear() && entry.date.substring(5, 7) === c_date.getMonth()) {--}}
-{{--                span.classList.add('holiday');--}}
-{{--            }--}}
-{{--        });--}}
-        // End Date Holiday
-
             for (let i = 0; i < 6; i++) {
             let row = document.createElement('tr');
             for (let j = 0; j < 7; j++) {
@@ -262,9 +249,17 @@
 
                     // Date Holiday
                     {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {
-                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.time_work == @php echo full @endphp) {
+                        // console.log('data',entry.date)
+                        // console.log('day',entry.date.substring(8, 10))
+                        // console.log('month',entry.date.substring(6, 7)-1)
+                        // console.log('year',entry.date.substring(0, 4))
+                        //
+                        // console.log('day 2',date)
+                        // console.log('month 2',m)
+                        // console.log('year 2',y)
+                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo full @endphp) {
                             span.classList.add('holidayfull');
-                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === c_date.getMonth() && entry.time_work == @php echo half @endphp) {
+                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo half @endphp) {
                             span.classList.add('holidayhalf');
                         }
                     });

@@ -15,7 +15,7 @@
                 <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Name Holiday</th>
-                    <th scope="col">Half</th>
+                    <th scope="col">Time work Holiday</th>
                     <th width="100px">Action</th>
                 </tr>
                 </thead>
@@ -120,6 +120,8 @@
                 ]
             });
         });
+
+        // edit
         $('#table_holiday').on('click', 'a.editor_edit', function (e) {
             e.preventDefault();
             let rowData = table_holiday.row($(event.target).parents('tr')).data();
@@ -133,7 +135,35 @@
             $('#FormHoliday').modal('show');
             $("#validasi_url").val(@php echo update @endphp);
         });
+        // end edit
 
+        // delete
+        $('#table_holiday').on('click', 'a.delete', function (e) {
+            e.preventDefault();
+            let rowData = table_holiday.row($(event.target).parents('tr')).data();
+            swal({
+                title: 'Are you sure?',
+                text: 'Delete Data!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                        $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        url: "{{route('admin.delete.holiday')}}",
+                        data: {id: rowData.id},
+                        success: function(data,textStatus, xhr)
+                        {
+                            table_holiday.ajax.reload();
+                        }
+                    });
+                }
+            });
+        });
+        // delete
         $("#FormHolidayCreate").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
