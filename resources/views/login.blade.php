@@ -22,22 +22,12 @@
                     </div>
                     <div class="col-sm-4" style="border-style: groove; background: white">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#passlogin">Password login</a></li>
-                            <li ><a data-toggle="tab" href="#scan">Singpass app</a></li>
+                            <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
+                            <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div id="scan" class="tab-pane fade">
-                                <center>
-                                    <h3><b>Scan with Singpass app</b></h3>
-                                <h4>to log in</h4>
-                                </center>
-                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
-                                <center>
-                                <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
-                                </center>
-                            </div>
-                            <div id="passlogin" class="tab-pane fade in active">
+                            <div id="passlogin" class="tab-pane fade ">
                                 <h3>Log in</h3>
                                 <form  method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -67,6 +57,16 @@
                                     </center>
                                     <br>
                                 </form>
+                            </div>
+                            <div id="scan" class="tab-pane fade in active">
+                                <center>
+                                    <h3><b>Scan with Singpass app</b></h3>
+                                    <h4>to log in</h4>
+                                </center>
+                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
+                                <center>
+                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
+                                </center>
                             </div>
                         </div>
                     </div>

@@ -56,11 +56,11 @@
     </div>
         <div class="row">
             <div class="col">
-                <ul style="font-weight: bold;">
-                    <li >
-                        yellow : half working day (13:00)
+                <ul style="font-weight: bold; list-style-type: none;margin-left: -25px;">
+                    <li>
+                        <img src="{{URL::asset('/img/yellow_box.jpg')}}" style="width: 2%;"> : half working day up to 13:00
                     </li>
-                    <li >Red : full day vacation</li>
+                    <li><img src="{{URL::asset('/img/red_box.jpeg')}}" style="width: 2%;"> : full day vacation</li>
                 </ul>
             </div>
         </div>

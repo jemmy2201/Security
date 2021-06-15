@@ -88,7 +88,6 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
-
         $grade = null;
         $replacement = null;
         $view_declare = null;
@@ -103,7 +102,13 @@ class HomeController extends Controller
         }
         // view_declare
         if (!empty($request->Cgrade)){
-            $view_declare = $request->Cgrade;
+            if ($request->app_type== replacement){
+                $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                $array_grade = array_merge(json_decode($replacement->array_grade),$request->Cgrade);
+                $view_declare = $array_grade;
+            }else{
+                $view_declare = $request->Cgrade;
+            }
         }
         // End view_declare
 
@@ -125,8 +130,8 @@ class HomeController extends Controller
                     $grade = grade::get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                 }else {
-//                  $replacement = booking_schedule::first();
                     $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+//                  $replacement = booking_schedule::first();
                     $grade = grade::where(['card_id' => $replacement->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                 }

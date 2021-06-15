@@ -134,6 +134,8 @@
         @csrf
         @if(!empty($request->Cgrade))
             <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{json_encode($request->Cgrade)}}">
+        @elseif(empty($request->Cgrade) && !empty($replacement) && $request->card == so_app)
+            <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{$replacement->array_grade}}">
         @endif
     @if(!empty($grade))
         @if(!empty($view_declare))
@@ -168,6 +170,17 @@
                         </div>
                     </div>
                     <br>
+                    @foreach (json_decode($replacement->array_grade) as $f)
+                        @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                        <div class="col-10">
+                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                            <a>{{$data[0]->name}}</a><br>
+                            @if(!empty($cek_grade))
+                                <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
+                            @endif
+                        </div>
+                    @endforeach
                 @else
                     <div class="row">
                         <div class="col-4 col_declare1">
@@ -395,9 +408,27 @@
         }
 
         $("#upload_profile").change(function() {
-            readURL(this);
+            var control = document.getElementById("upload_profile");
+            var files = control.files;
+            for (var i = 0; i < files.length; i++) {
+                if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
+                    readURL(this);
+                }else{
+                    swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                }
+            }
         });
+        // control.addEventListener("change", function(event) {
+        //     // When the control has changed, there are new files
+        //         for (var i = 0; i < files.length; i++) {
+        //         console.log("Filename: " + files[i].name);
+        //         console.log("Type: " + files[i].type);
+        //         console.log("Size: " + files[i].size + " bytes");
+        //     }
+        // }, false);
+
     });
+
 
     $('.file_upload_profile').click(function(){ $('#upload_profile').trigger('click'); });
     //refresh page on browser resize
