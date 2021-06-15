@@ -829,13 +829,11 @@ class AjaxController extends Controller
 
                 }
 
-                if ($e['status_app'] == completed){
+                if ($e['status_app'] == completed && !empty($expired_date)){
                     $data = booking_schedule::leftjoin('users', 'booking_schedules.user_id', '=', 'users.id')
                         ->where(['users.nric'=>$e['nric'],'card_id'=>$e['card_type']])
                         ->first();
-//                    $gst = gst::where(['id'=>$data->gst_id])->first();
 
-//                    $transaction_amount = transaction_amount::where(['id'=>$data->transaction_amount_id])->first();
                     if (!empty($data)) {
                         $sertifikat = new sertifikat();
 

@@ -240,7 +240,7 @@
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        var sevenDayHidden = c_date.getDate() + 8;
+                        var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden ){
                             span.classList.add('dissable');
                         }
@@ -266,14 +266,11 @@
                     // End Date Holiday
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        // span.classList.add('bg-primary');
+                        span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
                         span.classList.add('dissable');
                     }
-                    // else if(date == "29"  && y === c_date.getFullYear() && m === c_date.getMonth()){
-                    //     span.classList.add('holiday');
-                    // }
                     else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){

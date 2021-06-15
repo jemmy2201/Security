@@ -15,6 +15,7 @@
                 <th scope="col">Appication Type</th>
                 <th scope="col">Card Type</th>
                 <th scope="col">Grade Type</th>
+                <th scope="col">Status</th>
             </tr>
             </thead>
             <tbody>
@@ -143,6 +144,25 @@
                                         return 'CSO';
                                 }else{
                                         return  '-';
+                                }
+                            }
+                        },
+                        {data: 'Status_app', name: 'Status_app',
+                            render: function (data, type, row) {
+                                if(data == @php echo draft @endphp){
+                                    return 'Draft';
+                                }else if(data == @php echo submitted @endphp){
+                                    return 'Submitted';
+                                }else if (data == @php echo processing @endphp){
+                                    return 'Processing';
+                                }else if(data == @php echo id_card_ready_for_collection @endphp){
+                                    return 'ID Card Ready for Collection';
+                                }else if(data == @php echo resubmission @endphp){
+                                    return 'Resubmission';
+                                }else if(data == @php echo completed @endphp){
+                                    return 'Completed';
+                                }else{
+                                    return "";
                                 }
                             }
                         },
