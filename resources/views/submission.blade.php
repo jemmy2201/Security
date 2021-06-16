@@ -365,7 +365,6 @@
 
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
-
             if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
                 if ($('#Cgrade').val() != true){
                     save_submission();
@@ -423,6 +422,8 @@
                 if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
                     readURL(this);
                 }else{
+                    control.value = null;
+                    $('.file_upload_profile').attr('src','/img/upload.png' );
                     swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
                 }
             }
