@@ -129,3 +129,5 @@ define('half_1', "13:00");
 define('half_2', "14:00");
 define('half_3', "15:00");
 define('half_4', "18:00");
+
+define('cek_pathname', "/qrcode");

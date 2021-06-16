@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
+
+Route::get('/qrcode', function () {
+    return view('login');
+});
+
+Route::get('/afterlogin', 'SingpassController@login');
+
 // end user
 
 //admin

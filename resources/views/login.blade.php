@@ -75,4 +75,12 @@
             </div>
         </div>
     </div>
+    <script type="application/javascript">
+        $( document ).ready(function() {
+            if (!document.location.pathname.indexOf({!!  json_encode(cek_pathname) !!}) == 0) {
+                window.location.href = '/qrcode';
+            }
+        });
+    </script>
+
 @endsection
