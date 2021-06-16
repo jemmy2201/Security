@@ -170,17 +170,19 @@
                         </div>
                     </div>
                     <br>
-                    @foreach (json_decode($replacement->array_grade) as $f)
-                        @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                        <div class="col-10">
-                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                            <a>{{$data[0]->name}}</a><br>
-                            @if(!empty($cek_grade))
-                                <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
-                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
-                            @endif
-                        </div>
-                    @endforeach
+                    @if(!empty($replacement))
+                        @foreach (json_decode($replacement->array_grade) as $f)
+                            @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                            <div class="col-10">
+                                <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                                <a>{{$data[0]->name}}</a><br>
+                                @if(!empty($cek_grade))
+                                    <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+                                    <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
+                                @endif
+                            </div>
+                        @endforeach
+                    @endif
                 @else
                     <div class="row">
                         <div class="col-4 col_declare1">
@@ -351,15 +353,6 @@
                     $(".declare").hide();
                     $("#grade").val($("input[name='Cgrade']:checked").val());
                     $("#text_declare" ).text($('input[name="Cgrade"]:checked').parent().text());
-                    {{--var grade = @json($grade);--}}
-                    {{--$('#Cgrade:checked').each(function(){--}}
-                    {{--    var Cgrade = $(this).val();--}}
-                    {{--    $.each(grade, function(i, item) {--}}
-                    {{--        if (Cgrade == grade[i].id){--}}
-                    {{--            $("#text_declare" ).html('<a>'+grade[i].name+'</a><br><br>');--}}
-                    {{--        }--}}
-                    {{--    });--}}
-                    {{--});--}}
                 }else{
                     swal("Please!", " tick declare", "error")
                 }
@@ -372,29 +365,45 @@
 
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
-                if ($('#upload_profile').val()){
-                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}){
-                        if($("input[name='declare']:checked").val() != undefined){
-                            var inputFile = document.getElementById('upload_profile');
-                            var pathFile = inputFile.value;
-                            var ekstensiOk = /(\.jpg|\.jpeg)$/i;
-                            if(!ekstensiOk.exec(pathFile)){
-                                swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
-                            }else {
-                                $("#book_appointment").submit();
-                            }
-                        }else{
-                            swal("Please!", " tick declare", "error");
-                        }
-                    }else{
-                        $("#book_appointment").submit();
-                    }
 
+            if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
+                if ($('#Cgrade').val() != true){
+                    save_submission();
                 }else{
+                    swal("Please!", "select a course", "error")
+                }
+            }else{
+                if ($('#upload_profile').val()) {
+                    save_submission();
+                } else {
                     swal("Please!", "Upload Photo", "error")
                 }
+            }
         });
 
+        function save_submission() {
+            if ($('#upload_profile').val()) {
+                if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
+                    if ($("input[name='declare']:checked").val() != undefined) {
+                        var inputFile = document.getElementById('upload_profile');
+                        var pathFile = inputFile.value;
+                        var ekstensiOk = /(\.jpg|\.jpeg)$/i;
+                        if (!ekstensiOk.exec(pathFile)) {
+                            swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                        } else {
+                            $("#book_appointment").submit();
+                        }
+                    } else {
+                        swal("Please!", " tick declare", "error");
+                    }
+                } else {
+                    $("#book_appointment").submit();
+                }
+
+            } else {
+                swal("Please!", "Upload Photo", "error")
+            }
+        }
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -418,15 +427,6 @@
                 }
             }
         });
-        // control.addEventListener("change", function(event) {
-        //     // When the control has changed, there are new files
-        //         for (var i = 0; i < files.length; i++) {
-        //         console.log("Filename: " + files[i].name);
-        //         console.log("Type: " + files[i].type);
-        //         console.log("Size: " + files[i].size + " bytes");
-        //     }
-        // }, false);
-
     });
 
 

@@ -61,6 +61,17 @@
         //     this.location.reload(false); /* false to get page from cache */
         //     /* true to fetch page from server */
         // });
+        $("#upgrade_grade").change(function() {
+            var control = document.getElementById("upgrade_grade");
+            var files = control.files;
+            for (var i = 0; i < files.length; i++) {
+                if(files[i].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+                    control.value = '';
+                    swal("Please!", "upload files with the extension excel ", "error")
+                }
+            }
+        });
+
         $(document).ready(function(){
             $.fn.dataTable.ext.errMode = 'none';
             table_grade = $('#table_grade').DataTable({

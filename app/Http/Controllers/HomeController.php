@@ -572,7 +572,7 @@ class HomeController extends Controller
         $Cgrade = json_decode($array_grades);
         $get_grade = grade::whereNull('delete_soft')->get();
         foreach ($get_grade as $index => $f) {
-            foreach ($Cgrade as $index => $g) {
+            foreach ($Cgrade as $g) {
                 if ($f->id == $g){
                     $get_grade[$index]->Cgrade = true ;
                 }
