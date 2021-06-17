@@ -9,7 +9,7 @@ use Auth;
 
 class SingpassController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
         $existingUser = User::where('passid',"S9812381D")->first();
         if($existingUser){
@@ -17,5 +17,8 @@ class SingpassController extends Controller
             return redirect()->to('/home');
         }
         return redirect()->to('/');
+    }
+    public function jwks(){
+
     }
 }
