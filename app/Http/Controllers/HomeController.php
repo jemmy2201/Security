@@ -233,7 +233,9 @@ class HomeController extends Controller
     {
         $request->merge(['app_type' => $app_type,'card' => $card]);
 
-        return view('book_appointment')->with(["request"=>$request]);
+        $dayHoliday = Dateholiday::get();
+
+        return view('book_appointment')->with(["request"=>$request,"dayHoliday"=>$dayHoliday]);
     }
 
     public function View_payment(Request $request)
@@ -429,7 +431,8 @@ class HomeController extends Controller
                                             'appointment_date' => $date,
                                             'time_start_appointment' => $data->start_at,
                                             'time_end_appointment' => $data->end_at,
-                                            'status_app' => draft,
+                                            'Status_app' => draft,
+                                            'Status_draft' => draft_payment,
                                         ]);
         return $BookingScheduleAppointment;
     }
@@ -503,7 +506,8 @@ class HomeController extends Controller
                     'sssc' => $sssc,
                     'array_grade' => $merge_grade,
                     'declaration_date' => Carbon::today()->toDateString(),
-//                    'status_app' => submission,
+                    'Status_app' => draft,
+                    'Status_draft' => draft_book_appointment,
                     'trans_date' => null,
                     'expired_date' => null,
                     'appointment_date' => null,
@@ -524,7 +528,8 @@ class HomeController extends Controller
 //                    'card_id' => $request->card,
 //                    'grade_id' => $grade,
                     'declaration_date' => Carbon::today()->toDateString(),
-//                    'status_app' => submission,
+                    'Status_app' => draft,
+                    'Status_draft' => draft_book_appointment,
                     'array_grade' => $merge_grade,
                     'trans_date' => null,
                     'expired_date' => null,
@@ -647,7 +652,9 @@ class HomeController extends Controller
 
         $booking_schedule->declaration_date = Carbon::today()->toDateString();
 
-//        $booking_schedule->status_app = submission;
+        $booking_schedule->Status_app = draft;
+
+        $booking_schedule->Status_draft = draft_book_appointment;
 
         $booking_schedule->user_id = Auth::id();
 

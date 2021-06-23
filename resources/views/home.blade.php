@@ -143,8 +143,11 @@
                         @endif
 
                         @if($f->Status_app == draft)
-                            {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
-                            @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @if($f->Status_draft == draft_book_appointment)
+                                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp
+                                @elseif($f->Status_draft == draft_payment)
+                                    @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @endif
                                 <td><a href="{{$url}}"><button class="btn btn-primary">Draft</button></a></td>
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id; @endphp

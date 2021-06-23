@@ -28,6 +28,7 @@ class CreateBookingSchedulesTable extends Migration
             $table->string('transaction_amount_id')->nullable();
             $table->string('grand_total')->nullable();
             $table->string('Status_app')->nullable();
+            $table->string('Status_draft')->nullable();
             $table->string('paymentby')->nullable();
             $table->string('status_payment')->nullable();
             $table->string('receiptNo')->nullable();

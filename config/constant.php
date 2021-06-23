@@ -46,6 +46,11 @@ define('completed', 5);
 
 // end status app
 
+//Status Draft
+define('draft_book_appointment', 0);
+define('draft_payment', 1);
+//End Status Draft
+
 define('time08', "08:00");
 define('time09', "09:00");
 define('time10', "10:00");
