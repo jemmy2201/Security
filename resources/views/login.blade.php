@@ -38,6 +38,9 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
                                     </div>
+                                    @if(!empty($type_dummy))
+                                        <input type="hidden" class="form-control" name="dummy_login" id="dummy_login" value="@php echo dummy @endphp">
+                                    @endif
                                     @if($errors->has('email'))
                                         <strong>Singpass ID and Password do not match</strong>
                                     @endif
@@ -64,8 +67,10 @@
                                     <h4>to log in</h4>
                                 </center>
                                 <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
+{{--                                <div id="ndi-qr"></div>--}}
                                 <center>
                                     <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
+                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login Dummy</a></p>
                                 </center>
                             </div>
                         </div>
@@ -75,12 +80,46 @@
             </div>
         </div>
     </div>
+    <script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>
+    <script>
+        // Barcode
+        async function init() {
+            const authParamsSupplier = async () => {
+                // Replace the below with an `await`ed call to initiate an auth session on your backend
+                // which will generate state+nonce values, e.g
+                return { state: "dummySessionState", nonce: "dummySessionNonce" };
+            };
+
+            const onError = (errorId, message) => {
+                console.log(`onError. errorId:${errorId} message:${message}`);
+            };
+
+            const initAuthSessionResponse = window.NDI.initAuthSession(
+                'ndi-qr',
+                {
+                    clientId: 'T5sM5a53Yaw3URyDEv2y9129CbElCN2F', // Replace with your client ID
+                    redirectUri: 'https://www.idx-id2021.com/afterlogin',        // Replace with a registered redirect URI
+                    scope: 'openid',
+                    responseType: 'code'
+                },
+                authParamsSupplier,
+                onError
+            );
+
+            console.log('initAuthSession: ', initAuthSessionResponse);
+        }
+        // End Barcode
+    </script>
     <script type="application/javascript">
         $( document ).ready(function() {
-            if (!document.location.pathname.indexOf({!!  json_encode(cek_pathname) !!}) == 0) {
+            if (document.location.pathname.indexOf({!!  json_encode(login_dummy) !!}) == 0) {
+                var imageUrl ="/img/login_background.png";
+                $("#app").css("background-image", "url(" + imageUrl + ")");
+            }else if(!document.location.pathname.indexOf({!!  json_encode(cek_pathname) !!}) == 0 ){
                 window.location.href = '/qrcode';
             }
         });
+
     </script>
 
 @endsection

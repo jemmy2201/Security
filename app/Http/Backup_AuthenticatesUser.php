@@ -61,8 +61,7 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
-        if ($request->type_login == non_barcode) {
-
+        if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
             // api cek sinpass
             // dummy api
             $dummy_api = User::where('nric', $request->singpass_id)->orWhere('passid', $request->singpass_id)->first();
@@ -79,6 +78,10 @@ trait AuthenticatesUsers
                     }
                 }
             }
+        }elseif ($request->type_login == non_barcode ){
+            // api cek sinpass
+
+            // End api cek sinpass
         }
 
         if (!empty($data->email)){

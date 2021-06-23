@@ -56,7 +56,7 @@
             background-image: url("img/login_background.png");
 
             /* Full height */
-            height: 100%;
+            height: 110%;
 
             /* Center and scale the image nicely */
             background-position: center;
@@ -65,7 +65,7 @@
         }
     </style>
 </head>
-<body >
+<body onload="init()">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light" >
             <div>
