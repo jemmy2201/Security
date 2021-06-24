@@ -12,6 +12,13 @@
     .dissable{
         pointer-events: none;
         opacity: 0.6;
+        background-color:lightgrey;
+
+    }
+    .weekend{
+        pointer-events: none;
+        opacity: 0.6;
+        background-color:lightgrey;
     }
     .holidayfull{
         pointer-events: none;
@@ -276,11 +283,35 @@
                     // End hidden next 3 month
 
                     // holiday saturday,sunday
-                    var today = new Date();
-                    var isWeekend = (today.getDay() === 6) || (today.getDay()  === 0);
-                    if(isWeekend === true){
-                        span.classList.add('holidayfull');
+                    var d = new Date();
+                    var month = m;
+                    var getTot = daysInMonth(month,d.getFullYear());
+                    var sat = new Array();
+                    var sun = new Array();
+
+                    for(var s=1;s<=getTot;s++){
+                            var newDate = new Date(d.getFullYear(), month, s)
+                        if (newDate.getDay() == 6) {
+                                sat.push(s)
+                            }
+                            if (newDate.getDay() == 0) {
+                                sun.push(s)
+                            }
                     }
+                    function daysInMonth(month,year) {
+                        return new Date(year, month, 0).getDate();
+                    }
+
+                    sat.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                                span.classList.add('weekend');
+                        }
+                    });
+                    sun.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }
+                    });
                     // End holiday saturday,sunday
 
                     cell.appendChild(span).appendChild(cellText);
