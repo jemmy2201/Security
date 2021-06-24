@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $cek_del_schedule = booking_schedule::where(['user_id' => Auth::id()])->whereIn('Status_app', [draft])->get();
+        $cek_del_schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereIn('Status_app', [draft])->get();
 
         // Delete data if not payment 3 month
         foreach ($cek_del_schedule as $f) {
@@ -47,13 +47,13 @@ class HomeController extends Controller
             }
         }
         // End Delete data if not payment 3 month
-        $schedule = booking_schedule::where(['user_id' => Auth::id()])->whereNotIn('Status_app', [completed])->get();
+        $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereNotIn('Status_app', [completed])->get();
 
-        $sertifikat = sertifikat::where(['user_id' => Auth::id()])->orderBy('id', 'desc')->get();
+        $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
-        $replacement = booking_schedule::where(['user_id' => Auth::id()])->get();
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->get();
 
-        $renewal = booking_schedule::where(['user_id' => Auth::id()])->get();
+        $renewal = booking_schedule::where(['nric' => Auth::user()->nric])->get();
 
         $grade = grade::get();
         if (Auth::user()->role == admin) {
@@ -99,6 +99,7 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
+//        die(print_r($request->all()));
         $grade = null;
         $replacement = null;
         $view_declare = null;
@@ -106,6 +107,10 @@ class HomeController extends Controller
         $data_resubmission = null;
         $diff_data = $this->diff_data($request);
 
+        if (!empty(json_decode($request->array_grade))){
+            $join_grade = array_merge(json_decode($request->array_grade),$request->Cgrade);
+            $request->merge(['Cgrade' => $join_grade]);
+        }
 
         if ($diff_data) {
             // Update
@@ -114,7 +119,7 @@ class HomeController extends Controller
         // view_declare
         if (!empty($request->Cgrade)) {
             if ($request->app_type == replacement) {
-                $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                $replacement = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                 $array_grade = array_merge(json_decode($replacement->array_grade), $request->Cgrade);
                 $view_declare = $array_grade;
             } else {
@@ -123,28 +128,28 @@ class HomeController extends Controller
         }
         // End view_declare
 
-        $resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card, 'Status_app' => resubmission])->first();
+        $resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card, 'Status_app' => resubmission])->first();
         if ($request->card == so_app) {
             if ($request->app_type == renewal) {
                 if (!empty($resubmission)) {
-                    $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                     $grade = grade::get();
-                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                 } else {
-                    $renewal = booking_schedule::where(['user_id' => Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                    $renewal = booking_schedule::where(['nric' => Auth::user()->nric])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
                     $grade = grade::where(['card_id' => $renewal->card_id])->get();
-                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                 }
             } elseif ($request->app_type == replacement) {
                 if (!empty($resubmission)) {
-                    $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                     $grade = grade::get();
-                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                 } else {
-                    $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $replacement = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
 //                  $replacement = booking_schedule::first();
                     $grade = grade::where(['card_id' => $replacement->card_id])->get();
-                    $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                 }
             } else {
                 if (!empty($request->Cgrade)) {
@@ -153,20 +158,20 @@ class HomeController extends Controller
                     // end view declare more than 1
                 } else {
                     if (!empty($resubmission)) {
-                        $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                        $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                         $grade = grade::get();
-                        $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                        $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                     } else {
                         // user cannot belong to declare
                         $grade = grade::get();
-                        $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
+                        $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
                         // End user cannot belong to declare
                     }
                 }
             }
         } else {
             if ($request->app_type == replacement || $request->app_type == renewal) {
-                $replacement = booking_schedule::where(['user_id' => Auth::id()])->first();
+                $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->first();
 //                $request->merge(['card' => $replacement->card_id]);
             }
         }
@@ -176,9 +181,14 @@ class HomeController extends Controller
 
     public function declare_submission(Request $request)
     {
-        $take_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => so_app])->first();
-        $selected_grade = booking_schedule::where(['card_id' => so_app, 'user_id' => Auth::id()])->first();
+        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
         $grade = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        if (!empty(json_decode($request->array_grade))){
+            $take_grade = array('array_grade'=>$request->array_grade);
+            $take_grade = (object) $take_grade;
+        }
+
         if (!empty($take_grade)) {
             foreach ($grade as $index => $f) {
                 foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
@@ -188,7 +198,6 @@ class HomeController extends Controller
                 }
             }
         }
-
 //        jika milih declare berurutan dan sesuai grade
 //        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
 //        if (!empty($take_grade)){
@@ -234,7 +243,7 @@ class HomeController extends Controller
         if (!empty($request->grade)){
             $grade = $request->grade;
         }
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         if (!empty($booking_schedule) && $booking_schedule->Status_app == resubmission){
             $this->Saveresubmission($request,$grade);
             return redirect('/home');
@@ -259,7 +268,7 @@ class HomeController extends Controller
     public function View_payment(Request $request)
     {
         $this->UpdateBookingScheduleAppointment($request);
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         if (!empty($booking_schedule->grade_id)){
                   $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
 //                foreach (json_decode($booking_schedule->grade_id) as $f){
@@ -280,7 +289,7 @@ class HomeController extends Controller
         $request->merge(['app_type' => $app_type,'card' => $card]);
 
 //        $this->UpdateBookingScheduleAppointment($request);
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$card])->first();
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$card])->first();
         $addition_transaction_amount='';
         if (!empty($booking_schedule->grade_id)){
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
@@ -304,11 +313,11 @@ class HomeController extends Controller
             $this->NewPayment($request->all());
         }
 
-        $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->first();
+        $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
         return redirect()->route('home');
     }
     protected  function ClearDataDraft($request){
-        $clear_data = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->delete();
+        $clear_data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->delete();
 //            ->update([
 //                'app_type' => null,
 //                'card_id' => null,
@@ -334,7 +343,7 @@ class HomeController extends Controller
         }elseif ($request['payment_method'] == mastercard){
             $payment_method = 'mastercard';
         }
-        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request['card']])
+        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request['card']])
             ->update([
                 'gst_id' => $request['grade_id'],
                 'trans_date' => Carbon::today()->toDateString(),
@@ -384,7 +393,7 @@ class HomeController extends Controller
     }
     protected function create_setifikat($request)
     {
-        $data = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request['card']])->first();
+        $data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request['card']])->first();
 
         $gst = gst::where(['id'=>$data->gst_id])->first();
 
@@ -436,7 +445,7 @@ class HomeController extends Controller
 
         $sertifikat->status_payment     = $data->status_payment;
 
-        $sertifikat->user_id            = $data->user_id;
+        $sertifikat->nric            = $data->nric;
 
         $sertifikat->save();
 
@@ -460,7 +469,7 @@ class HomeController extends Controller
     {
         $date = Carbon::parse($request->view_date)->toDateString();
         $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
-        $BookingScheduleAppointment = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
+        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                                         ->update([
                                             'appointment_date' => $date,
                                             'time_start_appointment' => $data->start_at,
@@ -487,7 +496,7 @@ class HomeController extends Controller
         $merge_grade = null;
 
         $this->Upload_Image($request);
-        $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         if ($booking_schedule->grade_id == so){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
@@ -530,7 +539,7 @@ class HomeController extends Controller
         }
 
         if ($request->app_type == renewal){
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
+            $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
@@ -553,10 +562,10 @@ class HomeController extends Controller
                     'paymentby' => null,
                     'receiptNo' => null,
                     'status_payment' => null,
-                    'user_id' => Auth::id(),
+                    'nric' => Auth::user()->nric,
                 ]);
         }elseif ($request->app_type == replacement){
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
+            $booking_schedule = booking_schedule::where([ 'nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
@@ -576,10 +585,10 @@ class HomeController extends Controller
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,
-                    'user_id' => Auth::id(),
+                    'nric' => Auth::user()->nric,
                 ]);
         }else{
-            $booking_schedule = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])
+            $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
                     'app_type' => $request->app_type,
                     'card_id' => $request->card,
@@ -598,7 +607,7 @@ class HomeController extends Controller
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,
-                    'user_id' => Auth::id(),
+                    'nric' => Auth::user()->nric,
                 ]);
         }
 
@@ -690,7 +699,7 @@ class HomeController extends Controller
 
         $booking_schedule->Status_draft = draft_book_appointment;
 
-        $booking_schedule->user_id = Auth::id();
+        $booking_schedule->nric = Auth::user()->nric;
 
         $booking_schedule->save();
 

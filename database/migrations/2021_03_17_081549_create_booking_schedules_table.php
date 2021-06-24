@@ -32,7 +32,7 @@ class CreateBookingSchedulesTable extends Migration
             $table->string('paymentby')->nullable();
             $table->string('status_payment')->nullable();
             $table->string('receiptNo')->nullable();
-            $table->string('user_id');
+            $table->string('nric')->unique();
             $table->timestamps();
         });
     }

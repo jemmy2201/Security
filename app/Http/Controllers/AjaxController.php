@@ -40,10 +40,10 @@ class AjaxController extends Controller
         $new = true;
         $replacement = false;
         $renewal = false;
-        $data = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        $data = booking_schedule::where(['nric' => Auth::user()->nric])->first();
         if (!empty($data)){
             $new = false;
-            $Datareplacement = booking_schedule::where(['user_id'=>Auth::id(),'status_app'=>payment])->first();
+            $Datareplacement = booking_schedule::where(['nric' => Auth::user()->nric,'status_app'=>payment])->first();
             if (!empty($Datareplacement)){
                 $replacement = true;
             }
@@ -61,7 +61,7 @@ class AjaxController extends Controller
         $avso_app   = false;
         $pi_app     = false;
 
-        $data = booking_schedule::where(['user_id'=>Auth::id()])->get();
+        $data = booking_schedule::where(['nric' => Auth::user()->nric])->get();
         foreach ($data as $index => $f){
             if ($f->status_app == null){
                 if ($f->card_id == so_app ){
@@ -171,7 +171,7 @@ class AjaxController extends Controller
     public function security_employees()
     {
         $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','sertifikats.expired_date','users.photo')
-                             ->leftjoin('users', 'sertifikats.user_id', '=', 'users.id')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
+                             ->leftjoin('users', 'sertifikats.nric', '=', 'users.nric')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
         foreach($security_employees as $key => $f){
 //                foreach (json_decode($f->grade_id) as $g){
 //                      $grade = grade::where(['id'=>$g])->first();
@@ -232,7 +232,7 @@ class AjaxController extends Controller
     }
     public function data_grade()
     {
-        $data_grade = User::leftjoin('booking_schedules', 'users.id', '=', 'booking_schedules.user_id')
+        $data_grade = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->whereNull('role')
             ->get();
         return Datatables::of($data_grade)->addColumn('action', function($row){
@@ -585,9 +585,9 @@ class AjaxController extends Controller
     public function delete_process(Request $request)
     {
         $data = null;
-        $data_old = sertifikat::where(['card_id'=>$request->card_id,'user_id'=>Auth::id()])->latest('created_at')->first();
+        $data_old = sertifikat::where(['card_id'=>$request->card_id,'nric' => Auth::user()->nric])->latest('created_at')->first();
         if ($request->app_type == news) {
-            $delete_process = booking_schedule::where(['id'=>$request->id,'user_id'=>Auth::id()])->first();
+            $delete_process = booking_schedule::where(['id'=>$request->id,'nric' => Auth::user()->nric])->first();
             if ($delete_process != null) {
                 $delete_process->delete();
                 $data = array(
@@ -615,7 +615,7 @@ class AjaxController extends Controller
                         'bsoc' => $data_old->bsoc,
                         'ssoc' => $data_old->ssoc,
                         'sssc' => $data_old->sssc,
-                        'user_id' => Auth::id(),
+                        'nric' => Auth::user()->nric,
                     ]);
             }
 
@@ -640,7 +640,7 @@ class AjaxController extends Controller
                         'bsoc' => $data_old->bsoc,
                         'ssoc' => $data_old->ssoc,
                         'sssc' => $data_old->sssc,
-                        'user_id' => Auth::id(),
+                        'nric' => Auth::user()->nric,
                     ]);
             }
         }
@@ -733,7 +733,7 @@ class AjaxController extends Controller
 
                     $booking_schedule->expired_date = $expired_date;
 
-                    $booking_schedule->user_id = $New_users->id;
+                    $booking_schedule->nric = $New_users->nric;
 
                     $booking_schedule->save();
                     // End insert table boooking
@@ -768,7 +768,7 @@ class AjaxController extends Controller
 //                    }
 
 
-                    $ID_booking = booking_schedule::where(["user_id"=>$users->id,"card_id"=>$e['card_type']])->first();
+                    $ID_booking = booking_schedule::where(['nric' => Auth::user()->nric,"card_id"=>$e['card_type']])->first();
 
                     if (!empty($ID_booking)) {
 
@@ -820,7 +820,7 @@ class AjaxController extends Controller
 
                         $booking_schedule->expired_date = $expired_date;
 
-                        $booking_schedule->user_id = $users->id;
+                        $booking_schedule->nric = $users->nric;
 
                         $booking_schedule->save();
                         // End insert table boooking
@@ -830,7 +830,7 @@ class AjaxController extends Controller
                 }
 
                 if ($e['status_app'] == completed && !empty($expired_date)){
-                    $data = booking_schedule::leftjoin('users', 'booking_schedules.user_id', '=', 'users.id')
+                    $data = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')
                         ->where(['users.nric'=>$e['nric'],'card_id'=>$e['card_type']])
                         ->first();
 
@@ -881,7 +881,7 @@ class AjaxController extends Controller
 
                         $sertifikat->status_payment = $data->status_payment;
 
-                        $sertifikat->user_id = $data->user_id;
+                        $sertifikat->nric = $data->nric;
 
                         $sertifikat->save();
                     }

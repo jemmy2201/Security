@@ -145,6 +145,9 @@
                 </div>
                 <div class="col-4 col_declare2">
                 </div>
+                <div class="col-2 col_declare3">
+                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -320,6 +323,7 @@
             @csrf
             <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
             <input type="hidden" id="card" name="card" value="{{$request->card}}">
+            <input type="text" id="array_grade" name="array_grade" value="{{json_encode($view_declare)}}">
         <div class="col-2 next">
             <button type="button" id="submit_declare_trainig" class=" btn btn-danger btn-lg btn-block">Confirm</button>
         </div>
