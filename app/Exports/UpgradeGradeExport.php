@@ -16,9 +16,9 @@ class UpgradeGradeExport implements FromCollection,WithHeadings
     public function collection()
     {
         $booking_schedule = booking_schedule::select('users.nric','users.name','users.mobileno','users.homeno',
-            'users.passid','booking_schedules.app_type','booking_schedules.card_id',"grade_id",'booking_schedules.array_grade',
+            'booking_schedules.passid','booking_schedules.app_type','booking_schedules.card_id',"grade_id",'booking_schedules.array_grade',
             "booking_schedules.Status_app","booking_schedules.declaration_date","booking_schedules.trans_date","booking_schedules.expired_date")
-            ->leftJoin('users', 'booking_schedules.user_id', '=', 'users.id')->get();
+            ->leftJoin('users', 'booking_schedules.nric', '=', 'users.nric')->get();
         foreach($booking_schedule as $key => $f) {
 //            if ($f->grade_id == so){
 //                $booking_schedule[$key]->grade_id = 'SO';

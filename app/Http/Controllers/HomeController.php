@@ -697,6 +697,8 @@ class HomeController extends Controller
 
         $booking_schedule->Status_app = draft;
 
+        $booking_schedule->passid = "123";
+
         $booking_schedule->Status_draft = draft_book_appointment;
 
         $booking_schedule->nric = Auth::user()->nric;

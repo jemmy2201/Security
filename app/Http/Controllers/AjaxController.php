@@ -696,8 +696,6 @@ class AjaxController extends Controller
 
                     $New_users->homeno = $e['home'];
 
-                    $New_users->passid = $e['passid'];
-
                     $New_users->email = 'email '.$count_users;
 
                     $New_users->password = Hash::make('123123');
@@ -711,6 +709,8 @@ class AjaxController extends Controller
                     $booking_schedule->app_type = $e['app_type'];
 
                     $booking_schedule->card_id = $e['card_type'];
+
+                    $booking_schedule->passid = $e['passid'];
 
 //                    if (strtoupper($e['grade']) == "SO"){
 //                        $grade = so;
@@ -751,8 +751,6 @@ class AjaxController extends Controller
 
                     $Update_users->homeno = $e['home'];
 
-                    $Update_users->passid = $e['passid'];
-
                     $Update_users->save();
                     // End update table user
 
@@ -768,8 +766,7 @@ class AjaxController extends Controller
 //                    }
 
 
-                    $ID_booking = booking_schedule::where(['nric' => Auth::user()->nric,"card_id"=>$e['card_type']])->first();
-
+                    $ID_booking = booking_schedule::where(['nric' => $e['nric'],"card_id"=>$e['card_type']])->first();
                     if (!empty($ID_booking)) {
 
                         $update_booking_schedule = booking_schedule::find($ID_booking->id);
@@ -779,6 +776,8 @@ class AjaxController extends Controller
                         $update_booking_schedule->card_id = $e['card_type'];
 
                         $update_booking_schedule->grade_id = $e['grade'];
+
+                        $update_booking_schedule->passid = $e['passid'];
 
                         $update_booking_schedule->array_grade = $e['array_grade'];
 
@@ -798,6 +797,8 @@ class AjaxController extends Controller
                         $booking_schedule->app_type = $e['app_type'];
 
                         $booking_schedule->card_id = $e['card_type'];
+
+                        $booking_schedule->passid = $e['passid'];
 
 //                        if (strtoupper($e['grade']) == "SO"){
 //                            $grade = so;

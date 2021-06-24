@@ -64,13 +64,14 @@ trait AuthenticatesUsers
         if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
             // api cek sinpass
             // dummy api
-            $dummy_api = User::where('nric', $request->singpass_id)->orWhere('passid', $request->singpass_id)->first();
+            $dummy_api = User::where('nric', $request->singpass_id)->first();
             // end dummy api
             if ($dummy_api) { // check login singpass
-                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
+                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
                 if ($response->status() == "200") {
                     $response = $response->json();
-                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
+//                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
+                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->first();
                     if (!empty($users)) {
                         $data = $this->diff_data($response, $users, $request);
                     } else {
@@ -255,7 +256,7 @@ trait AuthenticatesUsers
 
         $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
 
-        $InUser->passid =$response['uinfin']['value'];
+//        $InUser->passid =$response['uinfin']['value'];
 
         $InUser->passportexpirydate =$response['passportexpirydate']['value'];
 
@@ -297,7 +298,7 @@ trait AuthenticatesUsers
         }
 
         if (!empty($result['uinfin'])) {
-            $UpdateUser->passid = $result['uinfin']['value'];
+//            $UpdateUser->passid = $result['uinfin']['value'];
         }
         if (!empty($result['passportexpirydate'])) {
             $UpdateUser->passportexpirydate = $result['passportexpirydate'];
@@ -337,7 +338,7 @@ trait AuthenticatesUsers
             "email"=>$response['email']['value'],
 //            "password"=>Hash::make($request->password),
             "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
-            "passid"=>$response['uinfin']['value'],
+//            "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
             "passexpirydate"=>$response['passexpirydate']['value'],
             "passportnumber"=>$response['passportnumber']['value'],
