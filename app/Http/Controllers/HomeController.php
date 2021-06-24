@@ -36,54 +36,65 @@ class HomeController extends Controller
 
     public function index()
     {
-        $cek_del_schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereIn('Status_app', [ draft])->get();
+        $cek_del_schedule = booking_schedule::where(['user_id' => Auth::id()])->whereIn('Status_app', [draft])->get();
 
         // Delete data if not payment 3 month
-        foreach ($cek_del_schedule as $f){
+        foreach ($cek_del_schedule as $f) {
             $cek_Month = $this->cek_month($f->appointment_date);
-            if ($cek_Month == three_month){
+            if ($cek_Month == three_month) {
                 $del_schedule = booking_schedule::find($f->id);
                 $del_schedule->delete();
             }
         }
         // End Delete data if not payment 3 month
-        $schedule = booking_schedule::where(['user_id'=>Auth::id()])->whereNotIn('Status_app', [completed])->get();
+        $schedule = booking_schedule::where(['user_id' => Auth::id()])->whereNotIn('Status_app', [completed])->get();
 
-        $sertifikat = sertifikat::where(['user_id'=>Auth::id()])->orderBy('id','desc')->get();
+        $sertifikat = sertifikat::where(['user_id' => Auth::id()])->orderBy('id', 'desc')->get();
 
-        $replacement = booking_schedule::where(['user_id'=>Auth::id()])->get();
+        $replacement = booking_schedule::where(['user_id' => Auth::id()])->get();
 
-        $renewal = booking_schedule::where(['user_id'=>Auth::id()])->get();
+        $renewal = booking_schedule::where(['user_id' => Auth::id()])->get();
 
         $grade = grade::get();
-        if (Auth::user()->role == admin){
+        if (Auth::user()->role == admin) {
             return view('admin/historylogin');
         }
-        return view('home')->with(["schedule"=>$schedule,"sertifikat"=>$sertifikat,"grade"=>$grade,"replacement"=>$replacement,"renewal"=>$renewal]);
-    }
-    public function personaldata(Request $request)
-    {
-        $personal = User::where(['id'=>Auth::id()])->first();
-        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
-    }
-    public function resubmission(Request $request,$app_type,$card)
-    {
-        $request->merge(['app_type' => $app_type,'card' => $card]);
-        $personal = User::where(['id'=>Auth::id()])->first();
-        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
-    }
-    public function replacement_personaldata(Request $request,$card)
-    {
-        $request->merge(['app_type' => replacement,'card' => $card]);
-        $personal = User::where(['id'=>Auth::id()])->first();
-        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
+        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade, "replacement" => $replacement, "renewal" => $renewal]);
     }
 
-    public function renewal_personaldata(Request $request,$card)
+    public function personaldata(Request $request)
     {
-        $request->merge(['app_type' => renewal,'card' => $card]);
-        $personal = User::where(['id'=>Auth::id()])->first();
-        return view('personal_particular')->with(['personal'=>$personal,"request"=>$request]);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+    }
+
+    public function resubmission(Request $request, $app_type, $card)
+    {
+        $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+    }
+
+    public function backDraft(Request $request, $app_type, $card)
+    {
+        $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $this->ClearDataDraft($request);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+    }
+
+    public function replacement_personaldata(Request $request, $card)
+    {
+        $request->merge(['app_type' => replacement, 'card' => $card]);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+    }
+
+    public function renewal_personaldata(Request $request, $card)
+    {
+        $request->merge(['app_type' => renewal, 'card' => $card]);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
     public function submission(Request $request)
@@ -96,56 +107,56 @@ class HomeController extends Controller
         $diff_data = $this->diff_data($request);
 
 
-        if ($diff_data){
+        if ($diff_data) {
             // Update
             $this->UpdateUsers($diff_data);
         }
         // view_declare
-        if (!empty($request->Cgrade)){
-            if ($request->app_type== replacement){
+        if (!empty($request->Cgrade)) {
+            if ($request->app_type == replacement) {
                 $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
-                $array_grade = array_merge(json_decode($replacement->array_grade),$request->Cgrade);
+                $array_grade = array_merge(json_decode($replacement->array_grade), $request->Cgrade);
                 $view_declare = $array_grade;
-            }else{
+            } else {
                 $view_declare = $request->Cgrade;
             }
         }
         // End view_declare
 
-        $resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card,'Status_app'=>resubmission])->first();
-        if ($request->card == so_app){
-            if ($request->app_type== renewal){
-                if (!empty($resubmission)){
-                    $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+        $resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card, 'Status_app' => resubmission])->first();
+        if ($request->card == so_app) {
+            if ($request->app_type == renewal) {
+                if (!empty($resubmission)) {
+                    $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                     $grade = grade::get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
-                }else {
+                } else {
                     $renewal = booking_schedule::where(['user_id' => Auth::id()])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
                     $grade = grade::where(['card_id' => $renewal->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                 }
-            }elseif ($request->app_type== replacement){
-                if (!empty($resubmission)){
-                    $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+            } elseif ($request->app_type == replacement) {
+                if (!empty($resubmission)) {
+                    $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                     $grade = grade::get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
-                }else {
+                } else {
                     $replacement = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
 //                  $replacement = booking_schedule::first();
                     $grade = grade::where(['card_id' => $replacement->card_id])->get();
                     $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                 }
-            }else{
-                if (!empty($request->Cgrade)){
+            } else {
+                if (!empty($request->Cgrade)) {
                     // view declare more than 1
                     $grade = grade::get();
                     // end view declare more than 1
-                }else{
-                    if (!empty($resubmission)){
-                        $data_resubmission = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->first();
+                } else {
+                    if (!empty($resubmission)) {
+                        $data_resubmission = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
                         $grade = grade::get();
                         $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
-                    }else {
+                    } else {
                         // user cannot belong to declare
                         $grade = grade::get();
                         $cek_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => $request->card])->first();
@@ -153,20 +164,21 @@ class HomeController extends Controller
                     }
                 }
             }
-        }else{
-           if ($request->app_type== replacement || $request->app_type== renewal){
-               $replacement = booking_schedule::where(['user_id'=>Auth::id()])->first();
+        } else {
+            if ($request->app_type == replacement || $request->app_type == renewal) {
+                $replacement = booking_schedule::where(['user_id' => Auth::id()])->first();
 //                $request->merge(['card' => $replacement->card_id]);
-           }
+            }
         }
-        $personal = User::where(['id'=>Auth::id()])->first();
-        return view('submission')->with(['data_resubmission'=>$data_resubmission,'resubmission'=>$resubmission,'cek_grade'=>$cek_grade,'personal'=>$personal,"grade"=>$grade,"request"=>$request,"replacement"=>$replacement,"view_declare"=>$view_declare]);
+        $personal = User::where(['id' => Auth::id()])->first();
+        return view('submission')->with(['data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
+
     public function declare_submission(Request $request)
     {
-        $take_grade = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>so_app])->first();
-        $selected_grade = booking_schedule::where(['card_id'=>so_app,'user_id'=>Auth::id()])->first();
-        $grade = grade::where(['card_id'=>so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        $take_grade = booking_schedule::where(['user_id' => Auth::id(), 'card_id' => so_app])->first();
+        $selected_grade = booking_schedule::where(['card_id' => so_app, 'user_id' => Auth::id()])->first();
+        $grade = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
         if (!empty($take_grade)) {
             foreach ($grade as $index => $f) {
                 foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
@@ -207,8 +219,14 @@ class HomeController extends Controller
 //        }
 //        End jika milih declare berurutan dan sesuai grade
 
-        return view('declare_submission')->with(["grade"=>$grade,"request"=>$request]);
+        return view('declare_submission')->with(["grade" => $grade, "request" => $request]);
 
+    }
+
+    public function cancel_payment(Request $request,$app_type,$card){
+        $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $this->ClearDataDraft($request);
+        return redirect()->route('home');
     }
     public function book_appointment(Request $request)
     {
@@ -289,7 +307,23 @@ class HomeController extends Controller
         $schedule = booking_schedule::where(['user_Id'=>Auth::id()])->first();
         return redirect()->route('home');
     }
-
+    protected  function ClearDataDraft($request){
+        $clear_data = booking_schedule::where(['user_id'=>Auth::id(),'card_id'=>$request->card])->delete();
+//            ->update([
+//                'app_type' => null,
+//                'card_id' => null,
+//                'grade_id' => null,
+//                'declaration_date' => null,
+//                'appointment_date' => null,
+//                'time_start_appointment' => null,
+//                'time_end_appointment' => null,
+//                'array_grade' => null,
+//                'bsoc' => null,
+//                'ssoc' => null,
+//                'sssc' => null,
+//            ]);
+        return $clear_data;
+    }
     protected  function NewPayment($request){
         if ($request['payment_method'] == paynow){
             $payment_method = 'paynow';

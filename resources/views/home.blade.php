@@ -54,7 +54,7 @@
 {{--                <th scope="col" >Date Of Application</th>--}}
                 <th scope="col">Date Of Transaction</th>
                 <th scope="col">Grade</th>
-                <th scope="col" >Status Process</th>
+                <th scope="col" >Status</th>
 {{--                <th scope="col" >Expired Date</th>--}}
                 <th scope="col" >Action</th>
             </tr>
@@ -126,7 +126,7 @@
                         @if($f->Status_app == draft)
                             <td>Draft</td>
                         @elseif($f->Status_app == submitted)
-                            <td>Submitted</td>
+                            <td>Submitted (Payment Done)</td>
                         @elseif($f->Status_app == processing)
                             <td>Processing</td>
                         @elseif($f->Status_app == id_card_ready_for_collection)
@@ -143,11 +143,12 @@
                         @endif
 
                         @if($f->Status_app == draft)
-                                @if($f->Status_draft == draft_book_appointment)
-                                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp
-                                @elseif($f->Status_draft == draft_payment)
-                                    @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
-                                @endif
+{{--                                @if($f->Status_draft == draft_book_appointment)--}}
+{{--                                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
+{{--                                @elseif($f->Status_draft == draft_payment)--}}
+{{--                                    @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp--}}
+{{--                                @endif--}}
+                                @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-primary">Draft</button></a></td>
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id; @endphp

@@ -57,7 +57,10 @@ Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personal
 Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@HistoryBookAppointment');
 Route::get('/history/book/payment/{app_type}/{card}', 'HomeController@HistoryViewPayment');
 Route::get('/personal/particular/{app_type}/{card}', 'HomeController@resubmission');
+Route::get('/draft/{app_type}/{card}', 'HomeController@backDraft');
 // end get history continous
+
+Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment');
 
 // End User
 

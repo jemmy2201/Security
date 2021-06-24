@@ -177,7 +177,8 @@
             </div><br>
             <div class="row">
                 <div class="col">
-                    <a href="{{ url('/home') }}" style="color: inherit; text-decoration: none;"><button type="button" class="btn btn-secondary btn-lg btn-block" > Cancel </button></a>
+                    @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
+                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;"><button type="button" class="btn btn-secondary btn-lg btn-block" > Cancel </button></a>
                 </div>
             </div>
         </div>

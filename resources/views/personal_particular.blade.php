@@ -16,7 +16,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/2.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Personal Particular</h2>
+    <h2 style="color: #E31E1A;">Personal Particulars</h2>
     <br>
 {{--        <div class="row">--}}
             <div class="col-sm">
