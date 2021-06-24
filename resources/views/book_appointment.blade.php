@@ -172,7 +172,7 @@
                                 <thead>
                                     <tr>
                                         <th>Time</th>
-                                        <th>Available Slots</th>
+                                        <th>Current Booking</th>
                                         <th>Max Available</th>
                                     </tr>
                                 </thead>
@@ -225,8 +225,8 @@
                             let cell = document.createElement('td');
                             let span = document.createElement('span');
                             let cellText = document.createTextNode(i);
-                            span.classList.add('ntMonth');
-                            span.classList.add('nextMonth');
+                            // span.classList.add('ntMonth');
+                            // span.classList.add('nextMonth');
                             cell.appendChild(span).appendChild(cellText);
                             row.appendChild(cell);
                         };
@@ -249,14 +249,6 @@
 
                     // Date Holiday
                     {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {
-                        // console.log('data',entry.date)
-                        // console.log('day',entry.date.substring(8, 10))
-                        // console.log('month',entry.date.substring(6, 7)-1)
-                        // console.log('year',entry.date.substring(0, 4))
-                        //
-                        // console.log('day 2',date)
-                        // console.log('month 2',m)
-                        // console.log('year 2',y)
                         if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo full @endphp) {
                             span.classList.add('holidayfull');
                         }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo half @endphp) {
@@ -270,12 +262,27 @@
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
                         span.classList.add('dissable');
-                    }
-                    else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }
+                    // hidden next 3 month
+                    var hidden_3month = c_date.getMonth() + 2;
+                    if (y === c_date.getFullYear() && m > hidden_3month) {
+                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }
+                    // End hidden next 3 month
+
+                    // holiday saturday,sunday
+                    var today = new Date();
+                    var isWeekend = (today.getDay() === 6) || (today.getDay()  === 0);
+                    if(isWeekend === true){
+                        span.classList.add('holidayfull');
+                    }
+                    // End holiday saturday,sunday
+
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
                     date++;
