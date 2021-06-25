@@ -136,6 +136,8 @@
             <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{json_encode($request->Cgrade)}}">
         @elseif(empty($request->Cgrade) && !empty($replacement) && $request->card == so_app)
             <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{$replacement->array_grade}}">
+        @elseif(empty($request->Cgrade) && $request->card == so_app)
+            <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{$cek_grade->array_grade}}">
         @endif
     @if(!empty($grade))
         @if(!empty($view_declare))
@@ -156,7 +158,7 @@
                     <div class="col-10">
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                         <a>{{$data[0]->name}}</a><br>
-                        {{--                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+                                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
                     </div>
                 @endforeach
             </div>
@@ -173,19 +175,31 @@
                         </div>
                     </div>
                     <br>
-                    @if(!empty($replacement))
-                        @foreach (json_decode($replacement->array_grade) as $f)
-                            @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                            <div class="col-10">
-                                <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                                <a>{{$data[0]->name}}</a><br>
-                                @if(!empty($cek_grade))
-                                    <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
-                                    <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
-                                @endif
-                            </div>
-                        @endforeach
-                    @endif
+                    @foreach (json_decode($cek_grade->array_grade) as $f)
+                        @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
+                        <div class="col-10">
+                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
+                            <a>{{$data[0]->name}}</a><br>
+                            @if(!empty($cek_grade))
+                                <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
+                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
+                            @endif
+                        </div>
+                    @endforeach
+
+{{--                    @if(!empty($replacement))--}}
+{{--                        @foreach (json_decode($replacement->array_grade) as $f)--}}
+{{--                            @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp--}}
+{{--                            <div class="col-10">--}}
+{{--                                <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                                <a>{{$data[0]->name}}</a><br>--}}
+{{--                                @if(!empty($cek_grade))--}}
+{{--                                    <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">--}}
+{{--                                    <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
                 @else
                     <div class="row">
                         <div class="col-4 col_declare1">
@@ -323,7 +337,7 @@
             @csrf
             <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
             <input type="hidden" id="card" name="card" value="{{$request->card}}">
-            <input type="text" id="array_grade" name="array_grade" value="{{json_encode($view_declare)}}">
+            <input type="hidden" id="array_grade" name="array_grade" value="{{$cek_grade->array_grade}}">
         <div class="col-2 next">
             <button type="button" id="submit_declare_trainig" class=" btn btn-danger btn-lg btn-block">Confirm</button>
         </div>
@@ -370,11 +384,11 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
             if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
-                if ($('#Cgrade').val() != true){
+                // if ($('#Cgrade').val() != true){
                     save_submission();
-                }else{
-                    swal("Please!", "select a course", "error")
-                }
+                // }else{
+                //     swal("Please!", "select a course", "error")
+                // }
             }else{
                 if ($('#upload_profile').val()) {
                     save_submission();
@@ -391,10 +405,25 @@
                         var inputFile = document.getElementById('upload_profile');
                         var pathFile = inputFile.value;
                         var ekstensiOk = /(\.jpg|\.jpeg)$/i;
-                        if (!ekstensiOk.exec(pathFile)) {
-                            swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
-                        } else {
-                            $("#book_appointment").submit();
+                        // if (!ekstensiOk.exec(pathFile)) {
+                        //     swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                        // } else {
+                        //     $("#book_appointment").submit();
+                        // }
+                        if ({!!  json_encode($request->array_grade) !!} == null )
+                        {
+                            swal({
+                                title: 'You have not selected any courses!',
+                                text: 'Do you want to continue?',
+                                icon: 'warning',
+                                buttons: ["Cancel", "Yes!"],
+                            }).then(function(value) {
+                                if (value) {
+                                    $("#book_appointment").submit();
+                                }
+                            });
+                        }else{
+                                $("#book_appointment").submit();
                         }
                     } else {
                         swal("Please!", " tick declare", "error");

@@ -49,6 +49,8 @@ class HomeController extends Controller
         // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereNotIn('Status_app', [completed])->get();
 
+        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->first();
+
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
         $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->get();
@@ -59,7 +61,8 @@ class HomeController extends Controller
         if (Auth::user()->role == admin) {
             return view('admin/historylogin');
         }
-        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade, "replacement" => $replacement, "renewal" => $renewal]);
+        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,
+            "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
     }
 
     public function personaldata(Request $request)
@@ -99,7 +102,6 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
-//        die(print_r($request->all()));
         $grade = null;
         $replacement = null;
         $view_declare = null;
@@ -112,6 +114,7 @@ class HomeController extends Controller
             $request->merge(['Cgrade' => $join_grade]);
         }
 
+
         if ($diff_data) {
             // Update
             $this->UpdateUsers($diff_data);
@@ -120,8 +123,8 @@ class HomeController extends Controller
         if (!empty($request->Cgrade)) {
             if ($request->app_type == replacement) {
                 $replacement = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
-                $array_grade = array_merge(json_decode($replacement->array_grade), $request->Cgrade);
-                $view_declare = $array_grade;
+//                $array_grade = array_merge(json_decode($replacement->array_grade), $request->Cgrade);
+                $view_declare = $request->Cgrade;
             } else {
                 $view_declare = $request->Cgrade;
             }
@@ -156,6 +159,8 @@ class HomeController extends Controller
                     // view declare more than 1
                     $grade = grade::get();
                     // end view declare more than 1
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+
                 } else {
                     if (!empty($resubmission)) {
                         $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
@@ -248,7 +253,7 @@ class HomeController extends Controller
             $this->Saveresubmission($request,$grade);
             return redirect('/home');
         }elseif (empty($booking_schedule)){
-            $this->NewBookingSchedule($request,$grade);
+//            $this->NewBookingSchedule($request,$grade);
         }else{
             $this->UpdateBookingSchedule($request,$grade);
         }

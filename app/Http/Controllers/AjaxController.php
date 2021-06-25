@@ -63,12 +63,50 @@ class AjaxController extends Controller
 
         $data = booking_schedule::where(['nric' => Auth::user()->nric])->get();
         foreach ($data as $index => $f){
-            if ($f->status_app == null){
-                if ($f->card_id == so_app ){
+            if($f->card_id == so_app){
+                if ($f->Status_app == null){
+                    $so_app = false;
+                }else{
                     $so_app = true;
-                }elseif ($f->card_id == avso_app){
+                }
+            }else{
+                $so_app = true;
+            }
+
+            if ($f->card_id == avso_app){
+                if ($f->Status_app == null){
+                    $avso_app = false;
+                }else{
                     $avso_app = true;
-                }elseif ($f->card_id == pi_app){
+                }
+            }else{
+                $avso_app = true;
+            }
+
+            if ($f->card_id == pi_app){
+                if ($f->Status_app == null){
+                    $pi_app = false;
+                }else{
+                    $pi_app = true;
+                }
+            }else{
+                $pi_app = true;
+            }
+
+            if ($f->Status_app == null){
+//                if ($f->card_id == so_app ){
+//                    $so_app = true;
+//                }elseif ($f->card_id == avso_app){
+//                    $avso_app = true;
+//                }elseif ($f->card_id == pi_app){
+//                    $pi_app = true;
+//                }
+            }elseif ($f->Status_app == draft || $f->Status_app == submitted){
+                if ($f->card_id == so_app && $f->Status_app == draft || $f->Status_app == submitted){
+                    $so_app = true;
+                }elseif ($f->card_id == avso_app && $f->Status_app == draft || $f->Status_app == submitted){
+                    $avso_app = true;
+                }elseif ($f->card_id == pi_app && $f->Status_app == draft || $f->Status_app == submitted){
                     $pi_app = true;
                 }
             }else{
@@ -80,6 +118,7 @@ class AjaxController extends Controller
                     $pi_app = true;
                 }
             }
+
         }
         $data = array('so_app'=>$so_app,'avso_app'=>$avso_app,'pi_app'=>$pi_app);
 
@@ -836,55 +875,60 @@ class AjaxController extends Controller
                         ->first();
 
                     if (!empty($data)) {
-                        $sertifikat = new sertifikat();
+                        $cek_setifikat = sertifikat::where(['nric'=>$e['nric'],'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
+                        if (empty($cek_setifikat)){
 
-                        $sertifikat->app_type = $data->app_type;
+                            $sertifikat = new sertifikat();
 
-                        $sertifikat->card_id = $data->card_id;
+                            $sertifikat->app_type = $data->app_type;
 
-                        $sertifikat->grade_id = $data->grade_id;
+                            $sertifikat->card_id = $data->card_id;
 
-                        $sertifikat->array_grade = $data->array_grade;
+                            $sertifikat->grade_id = $data->grade_id;
 
-                        $sertifikat->bsoc = $data->bsoc;
+                            $sertifikat->array_grade = $data->array_grade;
 
-                        $sertifikat->ssoc = $data->ssoc;
+                            $sertifikat->bsoc = $data->bsoc;
 
-                        $sertifikat->sssc = $data->sssc;
+                            $sertifikat->ssoc = $data->ssoc;
 
-                        $sertifikat->declaration_date = $data->declaration_date;
+                            $sertifikat->sssc = $data->sssc;
 
-//                    $sertifikat->gst                = $gst->amount_gst;
+                            $sertifikat->declaration_date = $data->declaration_date;
 
-//                    $sertifikat->grand_gst          = $request['grand_gst'];
+    //                    $sertifikat->gst                = $gst->amount_gst;
 
-                        $sertifikat->trans_date = $data->trans_date;
+    //                    $sertifikat->grand_gst          = $request['grand_gst'];
 
-                        $sertifikat->expired_date = $data->expired_date;
+                            $sertifikat->trans_date = $data->trans_date;
 
-                        $sertifikat->appointment_date = $data->appointment_date;
+                            $sertifikat->expired_date = $data->expired_date;
 
-                        $sertifikat->time_start_appointment = $data->time_start_appointment;
+                            $sertifikat->appointment_date = $data->appointment_date;
 
-                        $sertifikat->time_end_appointment = $data->time_end_appointment;
+                            $sertifikat->time_start_appointment = $data->time_start_appointment;
 
-//                    $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
+                            $sertifikat->time_end_appointment = $data->time_end_appointment;
 
-                        $sertifikat->paymentby = $data->paymentby;
+    //                    $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
 
-                        $sertifikat->status_payment = $data->status_payment;
+                            $sertifikat->paymentby = $data->paymentby;
 
-                        $sertifikat->grand_total = $data->grand_total;
+                            $sertifikat->status_payment = $data->status_payment;
 
-                        $sertifikat->receiptNo = $data->receiptNo;
+                            $sertifikat->grand_total = $data->grand_total;
 
-                        $sertifikat->status_app = $data->Status_app;
+                            $sertifikat->receiptNo = $data->receiptNo;
 
-                        $sertifikat->status_payment = $data->status_payment;
+                            $sertifikat->status_app = $data->Status_app;
 
-                        $sertifikat->nric = $data->nric;
+                            $sertifikat->status_payment = $data->status_payment;
 
-                        $sertifikat->save();
+                            $sertifikat->nric = $data->nric;
+
+                            $sertifikat->save();
+                        }
+
                     }
                 }
 

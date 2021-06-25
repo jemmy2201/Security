@@ -367,7 +367,11 @@
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
     });
-
+    if ({!!  json_encode($cekStatusUser) !!} == null ){
+        $("#news").prop('disabled', true);
+        $("#replacement").prop('disabled', true);
+        $("#renewal").prop('disabled', true);
+    }
     // delete process
     function delete_process(id,app_type,card_id){
         swal({
