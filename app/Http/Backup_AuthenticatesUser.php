@@ -81,7 +81,64 @@ trait AuthenticatesUsers
             }
         }elseif ($request->type_login == non_barcode ){
             // api cek sinpass
+//            $data = [
+//                'email' => 'jemmyrolish07@gmail.com',
+//                'password' => '220191',
+//            ];
+//
+//            $curl = curl_init();
+//
+//            curl_setopt_array($curl, array(
+//                CURLOPT_URL => "https://solucardz.com/api/v1/login",
+//                CURLOPT_RETURNTRANSFER => true,
+//                CURLOPT_ENCODING => "",
+//                CURLOPT_MAXREDIRS => 10,
+//                CURLOPT_TIMEOUT => 30000,
+//                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//                CURLOPT_CUSTOMREQUEST => "POST",
+//                CURLOPT_POSTFIELDS => json_encode($data),
+//                CURLOPT_HTTPHEADER => array(
+//                    // Set here requred headers
+//                    "accept: application/json",
+//                    "content-type: application/json",
+//                ),
+//            ));
+//
+//            $response = curl_exec($curl);
+//            $err = curl_error($curl);
+//
+//            curl_close($curl);
+            $data = [
+                'client_id' => 'jemmyrolish07@gmail.com',
+                'grant_type' => 'authorization_code',
+                'redirect_uri' => '220191',
+                'code' => '220191',
+            ];
 
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30000,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    // Set here requred headers
+                    "accept: application/json",
+                    "content-type: application/x-www-form-urlencoded",
+                    "charset: ISO-8859-1",
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+            die(print_r($response));
             // End api cek sinpass
         }
 
