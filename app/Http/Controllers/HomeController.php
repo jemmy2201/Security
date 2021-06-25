@@ -180,7 +180,9 @@ class HomeController extends Controller
 //                $request->merge(['card' => $replacement->card_id]);
             }
         }
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['users.id' => Auth::id(),'booking_schedules.card_id'=>$request->card])->first();
+
         return view('submission')->with(['data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
 
@@ -322,20 +324,37 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
     protected  function ClearDataDraft($request){
-        $clear_data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->delete();
-//            ->update([
-//                'app_type' => null,
-//                'card_id' => null,
-//                'grade_id' => null,
-//                'declaration_date' => null,
-//                'appointment_date' => null,
-//                'time_start_appointment' => null,
-//                'time_end_appointment' => null,
-//                'array_grade' => null,
-//                'bsoc' => null,
-//                'ssoc' => null,
-//                'sssc' => null,
-//            ]);
+        if ($request->app_type == news){
+//            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->delete();
+            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                ->update([
+                    'declaration_date' => null,
+                    'trans_date' => null,
+                    'expired_date' => null,
+                    'paymentby' => null,
+                    'status_payment' => null,
+                    'receiptNo' => null,
+                    'Status_app' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
+                ]);
+        }else {
+            $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at', 'desc')->first();
+            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                ->update([
+                    'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
+                    'trans_date' => $setifikat->trans_date,
+                    'expired_date' => $setifikat->expired_date,
+                    'paymentby' => $setifikat->paymentby,
+                    'status_payment' => $setifikat->status_payment,
+                    'receiptNo' => $setifikat->receiptNo,
+                    'Status_app' => $setifikat->Status_app,
+                    'appointment_date' => $setifikat->appointment_date,
+                    'time_start_appointment' => $setifikat->time_start_appointment,
+                    'time_end_appointment' => $setifikat->time_end_appointment,
+                ]);
+        }
         return $clear_data;
     }
     protected  function NewPayment($request){
