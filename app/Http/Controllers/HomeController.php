@@ -100,6 +100,15 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
+    public function view_course(Request $request,$card)
+    {
+        $request->merge(['app_type' => renewal, 'card' => $card]);
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+
+        return view('view_courses')->with(['courses' => $course, "request" => $request]);
+    }
+
     public function submission(Request $request)
     {
         $grade = null;

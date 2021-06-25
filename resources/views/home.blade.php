@@ -153,6 +153,9 @@
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmission</button></a></td>
+                        @elseif($f->Status_app >= submitted)
+                                @php $url=url("/view/course")."/".$f->card_id; @endphp
+                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif
                     </tr>
                 @endforeach

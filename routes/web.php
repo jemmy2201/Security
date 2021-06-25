@@ -58,6 +58,7 @@ Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@Histor
 Route::get('/history/book/payment/{app_type}/{card}', 'HomeController@HistoryViewPayment');
 Route::get('/personal/particular/{app_type}/{card}', 'HomeController@resubmission');
 Route::get('/draft/{app_type}/{card}', 'HomeController@backDraft');
+Route::get('/view/course/{id}', 'HomeController@view_course');
 // end get history continous
 
 Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment');
