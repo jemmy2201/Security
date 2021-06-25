@@ -105,7 +105,6 @@ class HomeController extends Controller
         $request->merge(['app_type' => renewal, 'card' => $card]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
-
         return view('view_courses')->with(['courses' => $course, "request" => $request]);
     }
 
@@ -352,6 +351,8 @@ class HomeController extends Controller
             $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at', 'desc')->first();
             $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                 ->update([
+                    'app_type' => $setifikat->app_type,
+                    'array_grade' => $setifikat->array_grade,
                     'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
                     'trans_date' => $setifikat->trans_date,
                     'expired_date' => $setifikat->expired_date,

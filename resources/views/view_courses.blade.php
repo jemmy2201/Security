@@ -201,6 +201,7 @@
                 </div>
             </div>
             <br class="visible-xs hidden-md">
+            @if ($request->card == so_app)
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
@@ -220,6 +221,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         {{-- End Phone --}}
 
