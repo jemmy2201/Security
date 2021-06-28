@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">NRIC</th>
                 <th scope="col">Name</th>
-                <th scope="col">Appication Type</th>
+                <th scope="col">Application Type</th>
                 <th scope="col">Card Type</th>
                 <th scope="col">Grade Type</th>
                 <th scope="col">Status</th>

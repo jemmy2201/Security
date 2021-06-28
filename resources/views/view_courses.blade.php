@@ -47,6 +47,17 @@
                         <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->passid}}</div>
                         <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;:</div>
+                        <div class="col-4 ColoumndataPersonal">
+                            @if($courses->card_id == so_app)
+                                SO
+                            @elseif($courses->card_id == avso_app)
+                                AVSO
+                            @elseif($courses->card_id == pi_app)
+                                PI
+                            @endif
+                        </div>
+                        <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)
                             @if(!empty($cek_grade) && $cek_grade->grade_id== so)
@@ -144,6 +155,16 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&nbsp;:</div>
+                        <div class="col-6 ColoumndataPersonal">
+                            @if($courses->card_id == so_app)
+                                SO
+                            @elseif($courses->card_id == avso_app)
+                                AVSO
+                            @elseif($courses->card_id == pi_app)
+                                PI
+                            @endif</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)

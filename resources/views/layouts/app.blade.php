@@ -64,9 +64,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
+                @if(Request::route()->getName() == default_alter_login)
                 <a  href="{{ url('/home') }}">
                     <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
                 </a>
+                @else
+                    <a  href="{{ url("/cancel/payment")."/".$request->app_type."/".$request->card }}">
+                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
+                    </a>
+                @endif
                 <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style=" margin-left: -60px;">
                     <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>
                 </a>
