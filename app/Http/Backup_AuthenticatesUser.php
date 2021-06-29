@@ -61,7 +61,8 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
-        if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
+//        if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
+        if ($request->type_login == non_barcode) {
             // api cek sinpass
             // dummy api
             $dummy_api = User::where('nric', $request->singpass_id)->first();

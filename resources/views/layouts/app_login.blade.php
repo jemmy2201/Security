@@ -56,7 +56,7 @@
             background-image: url("img/login_background.png");
 
             /* Full height */
-            height: 110%;
+            height: 100%;
 
             /* Center and scale the image nicely */
             background-position: center;

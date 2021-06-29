@@ -68,10 +68,10 @@
                                 </center>
                                 <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
 {{--                                <div id="ndi-qr"></div>--}}
-                                <center>
-                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>
-                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login Dummy</a></p>
-                                </center>
+{{--                                <center>--}}
+{{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
+{{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login Dummy</a></p>--}}
+{{--                                </center>--}}
                             </div>
                         </div>
                     </div>
