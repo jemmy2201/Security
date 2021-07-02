@@ -175,6 +175,7 @@
                         </div>
                     </div>
                     <br>
+                @if(!empty($cek_grade->array_grade))
                     @foreach (json_decode($cek_grade->array_grade) as $f)
                         @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
                         <div class="col-10">
@@ -186,6 +187,7 @@
                             @endif
                         </div>
                     @endforeach
+                    @endif
 
 {{--                    @if(!empty($replacement))--}}
 {{--                        @foreach (json_decode($replacement->array_grade) as $f)--}}
