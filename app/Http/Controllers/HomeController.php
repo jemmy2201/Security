@@ -120,6 +120,9 @@ class HomeController extends Controller
         if (!empty(json_decode($request->array_grade))){
             $join_grade = array_merge(json_decode($request->array_grade),$request->Cgrade);
             $request->merge(['Cgrade' => $join_grade]);
+        }else{
+            $request->merge(['Cgrade' => $request->Cgrade,'array_grade' => $request->Cgrade]);
+
         }
 
 
@@ -190,7 +193,6 @@ class HomeController extends Controller
         }
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.id' => Auth::id(),'booking_schedules.card_id'=>$request->card])->first();
-
         return view('submission')->with(['data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
 
@@ -206,9 +208,11 @@ class HomeController extends Controller
 
         if (!empty($take_grade)) {
             foreach ($grade as $index => $f) {
-                foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
-                    if ($f->id == $g) {
-                        $grade[$index]->take_grade = true;
+                if (!empty(json_decode($request->array_grade))) {
+                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                        if ($f->id == $g) {
+                            $grade[$index]->take_grade = true;
+                        }
                     }
                 }
             }
@@ -536,35 +540,61 @@ class HomeController extends Controller
         if ($booking_schedule->grade_id == so){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
-            $array_grades = array_merge($array_dataDB,$new_array_data);
-            $bsoc = $this->take_grade(json_encode($array_grades));
+            if (!empty($array_dataDB)) {
+                $array_grades = array_merge($array_dataDB, $new_array_data);
+                $bsoc = $this->take_grade(json_encode($array_grades));
+            }else{
+                $bsoc = $this->take_grade($request->Cgrade[0]);
+            }
         }elseif ($booking_schedule->grade_id == sso){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
-            $array_grades = array_merge($array_dataDB,$new_array_data);
-            $ssoc = $this->take_grade(json_encode($array_grades));
+            if (!empty($array_dataDB)) {
+                $array_grades = array_merge($array_dataDB, $new_array_data);
+                $ssoc = $this->take_grade(json_encode($array_grades));
+            }else{
+                $ssoc = $this->take_grade($request->Cgrade[0]);
+            }
         }elseif ($booking_schedule->grade_id == ss){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
-            $array_grades = array_merge($array_dataDB,$new_array_data);
-            $sssc = $this->take_grade(json_encode($array_grades));
+            if (!empty($array_dataDB)) {
+                $array_grades = array_merge($array_dataDB, $new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
+            }else{
+                $sssc = $this->take_grade($request->Cgrade[0]);
+            }
+//            $array_grades = array_merge($array_dataDB,$new_array_data);
+//            $sssc = $this->take_grade(json_encode($array_grades));
         }elseif ($booking_schedule->grade_id == sss){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
-            $array_grades = array_merge($array_dataDB,$new_array_data);
-            $sssc = $this->take_grade(json_encode($array_grades));
+            if (!empty($array_dataDB)) {
+                $array_grades = array_merge($array_dataDB, $new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
+            }else{
+                $sssc = $this->take_grade($request->Cgrade[0]);
+            }
+//            $array_grades = array_merge($array_dataDB,$new_array_data);
+//            $sssc = $this->take_grade(json_encode($array_grades));
         }elseif ($booking_schedule->grade_id == cso){
             $array_dataDB = json_decode($booking_schedule->array_grade);
             $new_array_data = json_decode($request->Cgrade[0]);
-            $array_grades = array_merge($array_dataDB,$new_array_data);
-            $sssc = $this->take_grade(json_encode($array_grades));
+            if (!empty($array_dataDB)) {
+                $array_grades = array_merge($array_dataDB, $new_array_data);
+                $sssc = $this->take_grade(json_encode($array_grades));
+            }else{
+                $sssc = $this->take_grade($request->Cgrade[0]);
+            }
+//            $array_grades = array_merge($array_dataDB,$new_array_data);
+//            $sssc = $this->take_grade(json_encode($array_grades));
         }
         if ($booking_schedule->grade_id) {
             $take_grade = json_decode($booking_schedule->array_grade);
             $new_take_grade = json_decode($request->Cgrade[0]);
             // untuk mengatasi jika di refresh chorem maka data array tidak double
             foreach ($new_take_grade as $index => $f){
-                if (!in_array($f,$take_grade)) {
+                if (!empty($take_grade) && !in_array($f,$take_grade)) {
                     array_push($take_grade, $f);
                     $merge_grade = $take_grade;
                 }else{
