@@ -285,12 +285,13 @@
                     // holiday saturday,sunday
                     var d = new Date();
                     var month = m;
-                    var getTot = daysInMonth(month,d.getFullYear());
+                    // var getTot = daysInMonth(month,d.getFullYear());
+                    var getTot = {!!  json_encode(date_last) !!};
                     var sat = new Array();
                     var sun = new Array();
 
                     for(var s=1;s<=getTot;s++){
-                            var newDate = new Date(d.getFullYear(), month, s)
+                        var newDate = new Date(d.getFullYear(), month, s)
                         if (newDate.getDay() == 6) {
                                 sat.push(s)
                             }
@@ -303,12 +304,22 @@
                     }
 
                     sat.forEach(function(saturday) {
-                        if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                        if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){
                                 span.classList.add('weekend');
+                        }
+                    });
+                    sat.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                            span.classList.add('weekend');
                         }
                     });
                     sun.forEach(function(saturday) {
                         if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }
+                    });
+                    sun.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){
                             span.classList.add('weekend');
                         }
                     });
