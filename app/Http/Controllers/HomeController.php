@@ -67,14 +67,16 @@ class HomeController extends Controller
 
     public function personaldata(Request $request)
     {
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
     public function resubmission(Request $request, $app_type, $card)
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
@@ -258,6 +260,7 @@ class HomeController extends Controller
     }
     public function book_appointment(Request $request)
     {
+        $request->merge(['passexpirydate' => Carbon::parse($request->passexpirydate)->format('d-m-Y')]);
         $grade = false;
         if (!empty($request->grade)){
             $grade = $request->grade;
@@ -521,6 +524,7 @@ class HomeController extends Controller
     }
     protected function UpdateBookingSchedule($request,$grade)
     {
+//        die(print_r($request->passexpirydate));
 //        $request->validate([
 //            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //        ]);
@@ -604,6 +608,11 @@ class HomeController extends Controller
             }
             // End untuk mengatasi jika di refresh chorem maka data array tidak double
         }
+        if (!empty($request->passexpirydate)){
+            $passexpirydate = $request->passexpirydate;
+        }else{
+            $passexpirydate = null;
+        }
 
         if ($request->app_type == renewal){
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
@@ -623,6 +632,7 @@ class HomeController extends Controller
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
+                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
 //                    'grand_total' => null,
@@ -646,6 +656,7 @@ class HomeController extends Controller
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
+                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
 //                    'grand_total' => null,
@@ -668,6 +679,7 @@ class HomeController extends Controller
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
+                    'passexpirydate' => $passexpirydate,
                     'gst_id' => null,
                     'transaction_amount_id' => null,
                     'grand_total' => null,

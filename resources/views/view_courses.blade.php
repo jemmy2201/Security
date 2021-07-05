@@ -90,8 +90,8 @@
                         @endif
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
-                        @if(!empty( $personal->passexpirydate))
-                        <div class="col-4 ColoumndataPersonal">@php echo Carbon\Carbon::createFromFormat('Y-m-d', $courses->passexpirydate)->format('d-m-Y') @endphp</div>
+                        @if(!empty( $courses->passexpirydate))
+                        <div class="col-4 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
                         @endif
                     </div>
                 </div>

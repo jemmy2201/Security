@@ -46,8 +46,13 @@
         <div class="col HeaderdataPersonal email">
             Mobile Number
         </div>
-        <div class="col">
+        @if($personal->web == true)
+        <div class="col-4 HeaderdataPersonal expriydate">
+            Pass Expiry Date
         </div>
+        @else
+            <div class="col"></div>
+        @endif
         <div class="col-4 HeaderdataPersonal phone">
             Phone Number
         </div>
@@ -58,8 +63,14 @@
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}">
         </div>
-        <div class="col-4">
+        @if($personal->web == true)
+        <div class="col-4 HeaderdataPersonal">
+            <input type="date" class="form-control" id="passexpirydate" name="passexpirydate"  placeholder="dd-mm-yyyy" value="{{$personal->passexpirydate}}">
         </div>
+        @else
+            <div class="col-4">
+            </div>
+        @endif
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}">
         </div>
