@@ -34,6 +34,9 @@ class CreateBookingSchedulesTable extends Migration
             $table->string('receiptNo')->nullable();
             $table->string('nric');
             $table->string('passid')->unique();
+            $table->string('web')->nullable()->comment('Field by default is 0 not entring expiry date, when field is 1, WP expiry date
+is mandatory.');
+            $table->string('passexpirydate')->nullable();
             $table->timestamps();
         });
     }

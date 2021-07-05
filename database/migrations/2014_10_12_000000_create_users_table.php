@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('nric')->nullable()->comment('National Registration Identity Card or Foreign Identification Number');
             $table->string('passportexpirydate')->nullable();
-            $table->string('passexpirydate')->nullable();
             $table->string('passportnumber')->nullable();
             $table->string('mobileno')->nullable();
             $table->string('homeno')->nullable();

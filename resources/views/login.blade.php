@@ -33,7 +33,7 @@
                                     @csrf
                                     <input type="hidden" id="type_login" name="type_login" value="@php echo non_barcode @endphp">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="SingPass ID">
+                                        <input type="text" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="Login">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
@@ -48,15 +48,15 @@
                                     <br>
                                     <div class="row">
                                         <div class="col">
-                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>
+{{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
                                         </div>
                                         <div class="col" style="margin-left: 74px;">
-                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>
+{{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
                                         </div>
                                     </div>
                                     <hr>
                                     <center>
-                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>
+{{--                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>--}}
                                     </center>
                                     <br>
                                 </form>

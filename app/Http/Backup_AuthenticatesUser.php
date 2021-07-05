@@ -68,11 +68,13 @@ trait AuthenticatesUsers
             $dummy_api = User::where('nric', $request->singpass_id)->first();
             // end dummy api
             if ($dummy_api) { // check login singpass
-                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/S9812381D');
+                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
+//                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
+
                 if ($response->status() == "200") {
                     $response = $response->json();
 //                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
-                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->first();
+                    $users = User::where('nric', $response['uinfin']['value'])->first();
                     if (!empty($users)) {
                         $data = $this->diff_data($response, $users, $request);
                     } else {
@@ -312,13 +314,14 @@ trait AuthenticatesUsers
 
         $InUser->password = Hash::make($request->password);
 
-        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
+//        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
+        $InUser->nric =$response['uinfin']['value'];
 
 //        $InUser->passid =$response['uinfin']['value'];
 
         $InUser->passportexpirydate =$response['passportexpirydate']['value'];
 
-        $InUser->passexpirydate =$response['passportexpirydate']['value'];
+//        $InUser->passexpirydate =$response['passportexpirydate']['value'];
 
         $InUser->passportnumber =$response['passportnumber']['value'];
 
@@ -338,7 +341,6 @@ trait AuthenticatesUsers
     protected function updateuser($result,$users,$request)
     {
         $time = Carbon::now();
-
         $UpdateUser = User::find($users->id);
 
         if (!empty($result['name'])){
@@ -355,15 +357,15 @@ trait AuthenticatesUsers
             $UpdateUser->nric = $result['sponsoredchildrenrecords'];
         }
 
-        if (!empty($result['uinfin'])) {
+//        if (!empty($result['uinfin'])) {
 //            $UpdateUser->passid = $result['uinfin']['value'];
-        }
+//        }
         if (!empty($result['passportexpirydate'])) {
             $UpdateUser->passportexpirydate = $result['passportexpirydate'];
         }
-        if (!empty($result['passportexpirydate'])) {
-            $UpdateUser->passexpirydate = $result['passportexpirydate'];
-        }
+//        if (!empty($result['passportexpirydate'])) {
+//            $UpdateUser->passexpirydate = $result['passportexpirydate'];
+//        }
         if (!empty($result['passportnumber'])) {
             $UpdateUser->passportnumber = $result['passportnumber'];
         }
@@ -392,13 +394,15 @@ trait AuthenticatesUsers
     protected function diff_data($response,$users,$request)
     {
         $time = Carbon::now();
-        $originData=array("name"=>$response['aliasname']['value'],
-            "email"=>$response['email']['value'],
+        $originData=array(
+            "name"=>$response['aliasname']['value'],
+//            "email"=>$response['email']['value'],
 //            "password"=>Hash::make($request->password),
-            "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
+//            "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
+            "nric"=>$response['uinfin']['value'],
 //            "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
-            "passexpirydate"=>$response['passexpirydate']['value'],
+//            "passexpirydate"=>$response['passexpirydate']['value'],
             "passportnumber"=>$response['passportnumber']['value'],
             "homeno"=>$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'],
             "mobileno"=>$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'],
