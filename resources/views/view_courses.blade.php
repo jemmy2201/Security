@@ -21,7 +21,7 @@
         </button>
         </a>
         {{--        </center>--}}
-        <h2 style="color: #E31E1A;">View Course
+        <h2 style="color: #E31E1A;">ID Card Application Details
         </h2>
         <br>
         {{-- Desktop --}}
@@ -32,10 +32,20 @@
                 <div class="col-sm">
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$courses->nric}}</div>
+                        @php
+                            $cutnric = substr($courses->nric, -4);
+                            $nric = "XXXXX$cutnric";
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal"> Mobile No &ensp;&ensp;:</div>
+                        <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal"> Home No &ensp;&ensp;&nbsp;:</div>
+                        <div class="col-4 ColoumndataPersonal">{{$courses->homeno}}</div>
 
                     </div>
                 </div>
@@ -80,7 +90,9 @@
                         @endif
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        @if(!empty( $personal->passexpirydate))
                         <div class="col-4 ColoumndataPersonal">@php echo Carbon\Carbon::createFromFormat('Y-m-d', $courses->passexpirydate)->format('d-m-Y') @endphp</div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,17 +120,17 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Invoice &ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Receipt No &nbsp:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">
-                            @if($courses->status_payment == paid)
-                                Paid
-                            @else
-                                UnPaid
-                            @endif
-                        </div>
+{{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
+{{--                        <div class="col-4 ColoumndataPersonal">--}}
+{{--                            @if($courses->status_payment == paid)--}}
+{{--                                Paid--}}
+{{--                            @else--}}
+{{--                                UnPaid--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
                         <div class="w-100"></div>
                         @if ($request->card == so_app)
                             <br>

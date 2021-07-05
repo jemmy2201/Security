@@ -592,6 +592,7 @@ class HomeController extends Controller
         if ($booking_schedule->grade_id) {
             $take_grade = json_decode($booking_schedule->array_grade);
             $new_take_grade = json_decode($request->Cgrade[0]);
+
             // untuk mengatasi jika di refresh chorem maka data array tidak double
             foreach ($new_take_grade as $index => $f){
                 if (!empty($take_grade) && !in_array($f,$take_grade)) {
@@ -685,14 +686,15 @@ class HomeController extends Controller
         // BSOC, SSOC, SSSC
         $Cgrade = json_decode($array_grades);
         $get_grade = grade::whereNull('delete_soft')->get();
-        foreach ($get_grade as $index => $f) {
-            foreach ($Cgrade as $g) {
-                if ($f->id == $g){
-                    $get_grade[$index]->Cgrade = true ;
+        if (!empty($Cgrade)){
+            foreach ($get_grade as $index => $f) {
+                foreach ($Cgrade as $g) {
+                    if ($f->id == $g){
+                        $get_grade[$index]->Cgrade = true ;
+                    }
                 }
             }
         }
-
         foreach ($get_grade as $index => $f) {
             if($f->Cgrade == true){
                 $get_grade[$index] =1;

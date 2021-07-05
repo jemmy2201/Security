@@ -71,7 +71,9 @@
                         @endif
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        @if(!empty( $personal->passexpirydate))
                         <div class="col-4 ColoumndataPersonal">@php echo Carbon\Carbon::createFromFormat('Y-m-d', $personal->passexpirydate)->format('d-m-Y') @endphp</div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -412,21 +414,27 @@
                         // } else {
                         //     $("#book_appointment").submit();
                         // }
-                        if ({!!  json_encode($request->array_grade) !!} == null )
-                        {
-                            swal({
-                                title: 'You have not selected any courses!',
-                                text: 'Do you want to continue?',
-                                icon: 'warning',
-                                buttons: ["Cancel", "Yes!"],
-                            }).then(function(value) {
-                                if (value) {
-                                    $("#book_appointment").submit();
-                                }
-                            });
+
+                        if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){
+                                swal("Please!", "select a course", "error")
                         }else{
+                            if ({!!  json_encode($request->array_grade) !!} == null )
+                            {
+                                swal({
+                                    title: 'You have not selected any courses!',
+                                    text: 'Do you want to continue?',
+                                    icon: 'warning',
+                                    buttons: ["Cancel", "Yes!"],
+                                }).then(function(value) {
+                                    if (value) {
+                                        $("#book_appointment").submit();
+                                    }
+                                });
+                            }else{
                                 $("#book_appointment").submit();
+                            }
                         }
+
                     } else {
                         swal("Please!", " tick declare", "error");
                     }

@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->date('time_login_at')->nullable()->comment('time login');
             $table->string('role')->nullable();
+            $table->string('web')->nullable()->comment('Field by default is 0 not entring expiry date, when field is 1, WP expiry date
+is mandatory.');
             $table->rememberToken();
             $table->timestamps();
         });
