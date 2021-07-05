@@ -51,19 +51,23 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)
-                            @if(!empty($cek_grade) && $cek_grade->grade_id== so)
-                                <div class="col-4 ColoumndataPersonal">SO</div>
-                            @elseif(!empty($cek_grade) && $cek_grade->grade_id == sso)
-                                <div class="col-4 ColoumndataPersonal">SSO</div>
-                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
-                                <div class="col-4 ColoumndataPersonal">SS</div>
-                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
-                                <div class="col-4 ColoumndataPersonal">SSS</div>
-                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
-                                <div class="col-4 ColoumndataPersonal">CSO</div>
-                            @else
-                                <div class="col-4 ColoumndataPersonal">SO</div>
+                            @foreach($t_grade as $index =>$f)
+                            @if(!empty($cek_grade) && $cek_grade->grade_id== $f->id)
+                                    <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
+{{--                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)--}}
+{{--                               <div class="col-4 ColoumndataPersonal">SO</div>--}}
+{{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id == $f->id)--}}
+{{--                                <div class="col-4 ColoumndataPersonal">SSO</div>--}}
+{{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+{{--                                <div class="col-4 ColoumndataPersonal">SS</div>--}}
+{{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+{{--                                <div class="col-4 ColoumndataPersonal">SSS</div>--}}
+{{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+{{--                                <div class="col-4 ColoumndataPersonal">CSO</div>--}}
+{{--                            @else--}}
+{{--                                <div class="col-4 ColoumndataPersonal">SO</div>--}}
                             @endif
+                            @endforeach
                         @elseif($request->card == avso_app)
                             <div class="col-4 ColoumndataPersonal">NA</div>
                         @else

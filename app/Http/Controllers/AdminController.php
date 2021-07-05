@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\t_grade;
 use Illuminate\Http\Request;
 use App\grade;
 use App\gst;
@@ -19,7 +20,8 @@ class AdminController extends Controller
     public function price()
     {
         $grade = grade::get();
-        return view('admin/price')->with(['grade'=>$grade]);
+        $t_grade = t_grade::get();
+        return view('admin/price')->with(['t_grade'=>$t_grade,'grade'=>$grade]);
     }
 
     public function gst()
@@ -58,7 +60,9 @@ class AdminController extends Controller
     }
     public function course()
     {
-        return view('admin/course');
+        $t_grade = t_grade::get();
+
+        return view('admin/course')->with(['t_grade'=>$t_grade]);
     }
 
 

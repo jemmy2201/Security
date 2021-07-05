@@ -11,6 +11,7 @@ use App\booking_schedule;
 use App\User;
 use App\detail_application;
 use App\payment;
+use App\t_grade;
 use App\transaction_amount;
 use App\gst;
 use App\sertifikat;
@@ -107,7 +108,8 @@ class HomeController extends Controller
         $request->merge(['app_type' => renewal, 'card' => $card]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
-        return view('view_courses')->with(['courses' => $course, "request" => $request]);
+        $t_grade = t_grade::get();
+        return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
     }
 
     public function submission(Request $request)
@@ -195,7 +197,9 @@ class HomeController extends Controller
         }
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.id' => Auth::id(),'booking_schedules.card_id'=>$request->card])->first();
-        return view('submission')->with(['data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
+        $t_grade = t_grade::get();
+
+        return view('submission')->with(['t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
 
     public function declare_submission(Request $request)
@@ -304,8 +308,8 @@ class HomeController extends Controller
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
         $gst = gst::first();
-
-        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
+        $t_grade = t_grade::get();
+        return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
 
     public function HistoryViewPayment(Request $request,$app_type,$card)
@@ -326,7 +330,8 @@ class HomeController extends Controller
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
         $gst = gst::first();
-        return view('payment_detail')->with(["gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'addition_transaction_amount'=>$addition_transaction_amount,'request'=>$request]);
+        $t_grade = t_grade::get();
+        return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'addition_transaction_amount'=>$addition_transaction_amount,'request'=>$request]);
     }
 
     public function Createpayment(Request $request)

@@ -111,6 +111,9 @@
                         <div class="w-100"></div>
                         <div class="col-4">Type :</div>
                         @if($booking_schedule->card_id == so_app)
+                            @foreach($t_grade as $index =>$f)
+                                @if(!empty($booking_schedule) && $booking_schedule->grade_id== $f->id)
+                                    <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
 {{--                            <div class="col">--}}
 {{--                                @foreach (json_decode($booking_schedule->grade_id) as $f)--}}
 {{--                                    @php $grades = DB::table('grades')->where(['id'=>$f])->first(); @endphp--}}
@@ -119,19 +122,20 @@
 {{--                                    @endif--}}
 {{--                                 @endforeach--}}
 {{--                            </div>--}}
-                            @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)
-                                <div class="col">SO</div>
-                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
-                                <div class="col">SSO</div>
-                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)
-                                <div class="col">SS</div>
-                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
-                                <div class="col">SSS</div>
-                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)
-                                <div class="col">CSO</div>
-                            @else
-                                <div class="col">SO</div>
-                            @endif
+{{--                            @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)--}}
+{{--                                <div class="col">SO</div>--}}
+{{--                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)--}}
+{{--                                <div class="col">SSO</div>--}}
+{{--                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)--}}
+{{--                                <div class="col">SS</div>--}}
+{{--                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)--}}
+{{--                                <div class="col">SSS</div>--}}
+{{--                            @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)--}}
+{{--                                <div class="col">CSO</div>--}}
+{{--                            @else--}}
+{{--                                <div class="col">SO</div>--}}
+                                @endif
+                            @endforeach
                         @elseif($booking_schedule->card_id == avso_app)
                             <div class="col">AVSO</div>
                         @else
@@ -206,19 +210,23 @@
 {{--                            @endif--}}
 {{--                        @endforeach--}}
 {{--                    </div>--}}
-                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)
-                            <div class="col">SO</div>
-                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
-                            <div class="col">SSO</div>
-                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)
-                            <div class="col">SS</div>
-                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
-                            <div class="col">SSS</div>
-                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)
-                            <div class="col">CSO</div>
-                        @else
-                            <div class="col">SO</div>
+                    @foreach($t_grade as $index =>$f)
+                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== $f->id)
+                            <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
+{{--                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)--}}
+{{--                           <div class="col">SO</div>--}}
+{{--                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)--}}
+{{--                            <div class="col">SSO</div>--}}
+{{--                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)--}}
+{{--                            <div class="col">SS</div>--}}
+{{--                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)--}}
+{{--                            <div class="col">SSS</div>--}}
+{{--                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)--}}
+{{--                            <div class="col">CSO</div>--}}
+{{--                        @else--}}
+{{--                            <div class="col">SO</div>--}}
                         @endif
+                    @endforeach
                 @elseif($booking_schedule->card_id == avso_app)
                     <div class="col">AVSO</div>
                 @else

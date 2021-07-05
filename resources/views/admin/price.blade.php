@@ -56,12 +56,14 @@
 {{--                                    @foreach ($grade as $f)--}}
 {{--                                        <option value="{{$f->id}}">{{$f->name}}</option>--}}
 {{--                                    @endforeach--}}
-                                    <option value="@php echo so @endphp">SO</option>
-                                    <option value="@php echo sso @endphp">SSO</option>
-                                    <option value="@php echo ss @endphp">SS</option>
-                                    <option value="@php echo sss @endphp">SSS</option>
-                                    <option value="@php echo cso @endphp">CSO</option>
-
+{{--                                    <option value="@php echo so @endphp">SO</option>--}}
+{{--                                    <option value="@php echo sso @endphp">SSO</option>--}}
+{{--                                    <option value="@php echo ss @endphp">SS</option>--}}
+{{--                                    <option value="@php echo sss @endphp">SSS</option>--}}
+{{--                                    <option value="@php echo cso @endphp">CSO</option>--}}
+                                    @foreach ($t_grade as $f)
+                                        <option value="{{$f->id}}">{{$f->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3 " >

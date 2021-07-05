@@ -38,11 +38,14 @@
                                 <label for="title" class="col-form-label">Grade Type</label>
                                 <select class="form-control" id="type" name="type">
                                     <option value="Please choose">Please choose</option>
-                                    <option value="@php echo so @endphp">SO</option>
-                                    <option value="@php echo sso @endphp">SSO</option>
-                                    <option value="@php echo ss @endphp">SS</option>
-                                    <option value="@php echo sss @endphp">SSS</option>
-                                    <option value="@php echo cso @endphp">CSO</option>
+                                    @foreach ($t_grade as $f)
+                                        <option value="{{$f->id}}">{{$f->name}}</option>
+                                    @endforeach
+{{--                                    <option value="@php echo so @endphp">SO</option>--}}
+{{--                                    <option value="@php echo sso @endphp">SSO</option>--}}
+{{--                                    <option value="@php echo ss @endphp">SS</option>--}}
+{{--                                    <option value="@php echo sss @endphp">SSS</option>--}}
+{{--                                    <option value="@php echo cso @endphp">CSO</option>--}}
                                 </select>
                             </div>
                             <input type="hidden" name="validasi_url" id="validasi_url">
