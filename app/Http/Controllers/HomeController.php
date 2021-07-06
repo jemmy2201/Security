@@ -85,14 +85,16 @@ class HomeController extends Controller
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $this->ClearDataDraft($request);
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
     public function replacement_personaldata(Request $request, $card)
     {
         $request->merge(['app_type' => replacement, 'card' => $card]);
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
