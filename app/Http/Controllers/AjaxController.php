@@ -197,7 +197,11 @@ class AjaxController extends Controller
     {
         $history_login = User::whereNull('role')->get();
         foreach ($history_login as $index =>$f){
-            $history_login[$index]->time_login_at = Carbon::createFromFormat('Y-m-d', $f->time_login_at)->format('d-m-Y');
+            if (!empty($f->time_login_at)){
+                $history_login[$index]->time_login_at = Carbon::createFromFormat('Y-m-d', $f->time_login_at)->format('d-m-Y');
+            }else{
+                $history_login[$index]->time_login_at = null;
+            }
         }
 
         return Datatables::of($history_login)->addColumn('action', function($row){
