@@ -143,5 +143,5 @@ define('default_alter_login', "home");
 
 define('date_last', "31");
 
-define('WHP', "WHP");
-define('RPass', "RPass");
+define('work_permit_pass', "G");
+define('employment_pass', "F");

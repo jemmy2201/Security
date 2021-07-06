@@ -57,7 +57,7 @@
             Phone Number
         </div>
     </div>
-    <form method="post" id="submission" action="{{ route('submission') }}" >
+    <form method="post" id="submit_personal_particular" action="{{ route('submission') }}" >
         @csrf
     <div class="row">
         <div class="col-4 HeaderdataPersonal">
@@ -65,7 +65,7 @@
         </div>
         @if($personal->web == true)
         <div class="col-4 HeaderdataPersonal">
-            <input type="date" class="form-control" id="passexpirydate" name="passexpirydate"  placeholder="dd-mm-yyyy" value="{{$personal->passexpirydate}}">
+            <input type="date" class="form-control" id="passexpirydate" name="passexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->passexpirydate)->format('Y-m-d')}}">
         </div>
         @else
             <div class="col-4">
@@ -85,7 +85,7 @@
         <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
-            <button type="submit" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            <button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
         </div>
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
@@ -101,6 +101,27 @@
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
     });
+    $( document ).ready(function() {
+        $( "#click_personal_particular" ).click(function() {
+{{--            console.log('ww',{!!  json_encode($personal->web) !!})--}}
+            console.log('passexpirydate',new Date($('#passexpirydate').val()))
+        if({!!  json_encode($personal->web) !!} == true ){
+            if (new Date($('#passexpirydate').val()) != "Invalid Date"){
+                if ( new Date() >= new Date($('#passexpirydate').val())){
+                        swal("Attention!", "Pass Expiration Date is up", "error")
+                }else{
+                    $("#submit_personal_particular").submit();
+                }
+            }else{
+                swal("Please!", "Input file Pass Expiry Date", "error")
+            }
+        }else{
+            $("#submit_personal_particular").submit();
+        }
+    });
+    });
+
+
     if($(window).width() < 767)
     {
         RemoveColNextBack();

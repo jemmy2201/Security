@@ -33,6 +33,8 @@ class CreateSertifikatsTable extends Migration
             $table->string('status_payment')->nullable();
             $table->string('receiptNo')->nullable();
             $table->string('nric');
+            $table->string('passid')->nullable();
+            $table->string('passexpirydate')->nullable();
             $table->timestamps();
         });
     }

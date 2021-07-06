@@ -306,6 +306,11 @@ trait AuthenticatesUsers
     {
         $time = Carbon::now();
 
+        $web = false;
+        if (substr($response['uinfin']['value'],0,1) == work_permit_pass || substr($response['uinfin']['value'],0,1) == employment_pass){
+            $web = true;
+        }
+
         $InUser = new User;
 
         $InUser->name = $response['aliasname']['value'];
@@ -331,6 +336,8 @@ trait AuthenticatesUsers
 
         $InUser->photo =$response['drivinglicence']['photocardserialno']['value'];
 
+        $InUser->web =$web;
+
         $InUser->time_login_at =$time->toDateTimeString();
 
         $InUser->save();
@@ -338,9 +345,15 @@ trait AuthenticatesUsers
         return $InUser;
     }
 
-    protected function updateuser($result,$users,$request)
+    protected function updateuser($result,$users,$request,$response)
     {
         $time = Carbon::now();
+
+        $web = false;
+        if (substr($response['uinfin']['value'],0,1) == work_permit_pass || substr($response['uinfin']['value'],0,1) == employment_pass){
+            $web = true;
+        }
+
         $UpdateUser = User::find($users->id);
 
         if (!empty($result['name'])){
@@ -369,6 +382,8 @@ trait AuthenticatesUsers
         if (!empty($result['passportnumber'])) {
             $UpdateUser->passportnumber = $result['passportnumber'];
         }
+
+        $UpdateUser->web = $web;
 
 //        if (!empty($result['mobileno'])) {
 //            $UpdateUser->mobileno = $result['mobileno'];
@@ -411,8 +426,7 @@ trait AuthenticatesUsers
         );
 
         $result=array_diff($originData,$users->toArray());
-
-        $data = $this->updateuser($result,$users,$request);
+        $data = $this->updateuser($result,$users,$request,$response);
 
         return $data;
     }

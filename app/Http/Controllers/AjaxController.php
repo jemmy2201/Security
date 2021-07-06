@@ -926,6 +926,10 @@ class AjaxController extends Controller
 
                             $sertifikat->nric = $data->nric;
 
+                            $sertifikat->passid = $data->passid;
+
+                            $sertifikat->passexpirydate = $data->passexpirydate;
+
                             $sertifikat->save();
                         }
 

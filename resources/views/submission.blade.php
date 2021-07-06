@@ -76,7 +76,7 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
                         @if(!empty( $personal->passexpirydate))
-                        <div class="col-4 ColoumndataPersonal">@php echo Carbon\Carbon::createFromFormat('Y-m-d', $personal->passexpirydate)->format('d-m-Y') @endphp</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                         @endif
                     </div>
                 </div>
