@@ -101,7 +101,8 @@ class HomeController extends Controller
     public function renewal_personaldata(Request $request, $card)
     {
         $request->merge(['app_type' => renewal, 'card' => $card]);
-        $personal = User::where(['id' => Auth::id()])->first();
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
