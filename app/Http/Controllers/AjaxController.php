@@ -275,8 +275,9 @@ class AjaxController extends Controller
     }
     public function data_grade()
     {
-        $data_grade = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+        $data_grade = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->whereNull('role')
+//            ->whereNull('booking_schedules.app_type')
             ->get();
         return Datatables::of($data_grade)->addColumn('action', function($row){
 
