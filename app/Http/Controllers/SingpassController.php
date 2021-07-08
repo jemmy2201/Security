@@ -40,6 +40,26 @@ class SingpassController extends Controller
         )];
         return $key;
     }
+    public function public_jwks(){
+        $key_public['keys'] =[array(
+            "kty"=> "EC",
+            "use"=> "sig",
+            "crv"=> "P-521",
+            "kid"=> "idx",
+            "x"=> "AQXQa4xh4OlMLuMC15eIA3IFyCMs8HU4o0I2vuQmpyT2yNoWGSFBIl8epClLE7sq4pnmHKAdYo6Cu0abVKwzJc0w",
+            "y"=> "AMvcLWwzFCHsuTT2tEv_oy-recW7R4F_IbKtJMfUZkPu5NLRvCpRx1HCczRVcXjWcWjM5kNl7bSWq2dPsvClJ0g9",
+            "alg"=> "ES512"
+        ),array(
+            "kty"=> "EC",
+            "use"=> "enc",
+            "crv"=> "P-521",
+            "kid"=> "idx-EC",
+            "x"=> "AWt1adYM5gdQBPd5muExnS2mDwsjCyU6z34R_02P51HOcYz7bHqdpmOVcbC_SYLuxF5i5x84mpN8epZixUMKnb4e",
+            "y"=> "Aa7A61zY0875VY19L2KP9bWlPz4IspLjz4d2CrN5k5yss9keqXA8s_5fKtFAKL5p2oyNNzUIxbsb_CdA-xfQfS4Y",
+            "alg"=> "ECDH-ES+A256KW"
+        )];
+        return $key_public;
+    }
     public function dummy_login($type)
     {
         return view('login')->with(["type_dummy"=>$type]);
