@@ -306,7 +306,7 @@ class AjaxController extends Controller
     {
         $gst = gst::get();
         foreach ($gst as $index =>$f){
-            $gst[$index]->create_date = Carbon::createFromFormat('Y-m-d h:i:s', $f->created_at)->format('d-m-Y');
+            $gst[$index]->create_date = Carbon::createFromFormat('Y-m-d H:i:s', $f->created_at)->format('d-m-Y');
         }
         return Datatables::of($gst)->make(true);
 
@@ -881,6 +881,9 @@ class AjaxController extends Controller
 
                     if (!empty($data)) {
                         $cek_setifikat = sertifikat::where(['nric'=>$e['nric'],'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
+
+                        $Transaction_amount = transaction_amount::find($data->transaction_amount_id);
+
                         if (empty($cek_setifikat)){
 
                             $sertifikat = new sertifikat();
@@ -901,7 +904,7 @@ class AjaxController extends Controller
 
                             $sertifikat->declaration_date = $data->declaration_date;
 
-    //                    $sertifikat->gst                = $gst->amount_gst;
+                            $sertifikat->gst                = $data->gst_id;
 
     //                    $sertifikat->grand_gst          = $request['grand_gst'];
 
@@ -915,7 +918,7 @@ class AjaxController extends Controller
 
                             $sertifikat->time_end_appointment = $data->time_end_appointment;
 
-    //                    $sertifikat->transaction_amount   = $transaction_amount->transaction_amount;
+                            $sertifikat->transaction_amount   = $Transaction_amount->transaction_amount;
 
                             $sertifikat->paymentby = $data->paymentby;
 

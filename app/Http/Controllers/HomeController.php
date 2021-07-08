@@ -310,7 +310,7 @@ class HomeController extends Controller
         }else{
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
         }
-        $gst = gst::first();
+        $gst = gst::orderBy('id', 'desc')->first();
         $t_grade = t_grade::get();
         return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
