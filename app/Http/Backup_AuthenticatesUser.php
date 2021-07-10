@@ -68,7 +68,7 @@ trait AuthenticatesUsers
             $dummy_api = User::where('nric', $request->singpass_id)->first();
             // end dummy api
             if ($dummy_api) { // check login singpass
-                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
+                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.strtoupper($request->singpass_id).'');
 //                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
 
                 if ($response->status() == "200") {

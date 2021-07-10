@@ -237,6 +237,8 @@
                     $.each(errors, function(index, value) {
                         if(value == "The given data was invalid."){
                             swal("Error!", "Just only excel", "error");
+                        }else if(index == "message" && value.search("1062") ){
+                            swal("Error!", "Duplicate entry passid", "error");
                         }
                     });
 
