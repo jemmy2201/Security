@@ -21,7 +21,7 @@ class SingpassController extends Controller
     public function jwks(){
         $key['keys'] =[array(
             "kty"=> "EC",
-            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
+//            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
             "use"=> "sig",
             "crv"=>"P-521",
             "kid"=> "idx",
@@ -30,7 +30,7 @@ class SingpassController extends Controller
             "alg"=> "ES512"
             ),array(
             "kty"=> "EC",
-            "d"=> "Af813aqlv539RquwDsaA86z9uHk1FvictvCc-NirMAeeT5pGq7Z121ErAjcOHlZCVOs-keiYcAumcG-dSulvwAJ0",
+//            "d"=> "Af813aqlv539RquwDsaA86z9uHk1FvictvCc-NirMAeeT5pGq7Z121ErAjcOHlZCVOs-keiYcAumcG-dSulvwAJ0",
             "use"=> "enc",
             "crv"=> "P-521",
             "kid"=> "idx2",
