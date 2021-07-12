@@ -45,7 +45,6 @@ trait AuthenticatesUsers
             $this->incrementLoginAttempts($request);
             return $this->sendFailedLoginResponse($request);
         }
-
         if ($request->type_login == non_barcode && empty($request->singpass_id) && empty($request->password)){
 
             $this->validateLogin($request);
@@ -61,29 +60,73 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
+        if ($request->dummy_login == dummy){
+            if ($request->type_login == non_barcode) {
+                // dummy api
+                $dummy_api = User::where('nric', $request->singpass_id)->first();
+                // end dummy api
+                if ($dummy_api) { // check login singpass
+                    $data = User::where('nric', $request->singpass_id)->first();
+                }
+            } elseif ($request->type_login == non_barcode) {
+                // api cek sinpass
+                $data = [
+                    'client_id' => 'jemmyrolish07@gmail.com',
+                    'grant_type' => 'authorization_code',
+                    'redirect_uri' => '220191',
+                    'code' => '220191',
+                ];
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30000,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_HTTPHEADER => array(
+                        // Set here requred headers
+                        "accept: application/json",
+                        "content-type: application/x-www-form-urlencoded",
+                        "charset: ISO-8859-1",
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+                die(print_r($response));
+                // End api cek sinpass
+            }
+        }else {
 //        if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
-        if ($request->type_login == non_barcode) {
-            // api cek sinpass
-            // dummy api
-            $dummy_api = User::where('nric', $request->singpass_id)->first();
-            // end dummy api
-            if ($dummy_api) { // check login singpass
-                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.strtoupper($request->singpass_id).'');
+            if ($request->type_login == non_barcode) {
+                // api cek sinpass
+                // dummy api
+                $dummy_api = User::where('nric', $request->singpass_id)->first();
+                // end dummy api
+                if ($dummy_api) { // check login singpass
+                    $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/' . strtoupper($request->singpass_id) . '');
 //                $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/'.$request->singpass_id.'');
 
-                if ($response->status() == "200") {
-                    $response = $response->json();
+                    if ($response->status() == "200") {
+                        $response = $response->json();
 //                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
-                    $users = User::where('nric', $response['uinfin']['value'])->first();
-                    if (!empty($users)) {
-                        $data = $this->diff_data($response, $users, $request);
-                    } else {
-                        $data = $this->newuser($request, $response);
+                        $users = User::where('nric', $response['uinfin']['value'])->first();
+                        if (!empty($users)) {
+                            $data = $this->diff_data($response, $users, $request);
+                        } else {
+                            $data = $this->newuser($request, $response);
+                        }
                     }
                 }
-            }
-        }elseif ($request->type_login == non_barcode ){
-            // api cek sinpass
+            } elseif ($request->type_login == non_barcode) {
+                // api cek sinpass
 //            $data = [
 //                'email' => 'jemmyrolish07@gmail.com',
 //                'password' => '220191',
@@ -111,38 +154,39 @@ trait AuthenticatesUsers
 //            $err = curl_error($curl);
 //
 //            curl_close($curl);
-            $data = [
-                'client_id' => 'jemmyrolish07@gmail.com',
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => '220191',
-                'code' => '220191',
-            ];
+                $data = [
+                    'client_id' => 'jemmyrolish07@gmail.com',
+                    'grant_type' => 'authorization_code',
+                    'redirect_uri' => '220191',
+                    'code' => '220191',
+                ];
 
-            $curl = curl_init();
+                $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30000,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => json_encode($data),
-                CURLOPT_HTTPHEADER => array(
-                    // Set here requred headers
-                    "accept: application/json",
-                    "content-type: application/x-www-form-urlencoded",
-                    "charset: ISO-8859-1",
-                ),
-            ));
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30000,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_HTTPHEADER => array(
+                        // Set here requred headers
+                        "accept: application/json",
+                        "content-type: application/x-www-form-urlencoded",
+                        "charset: ISO-8859-1",
+                    ),
+                ));
 
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
 
-            curl_close($curl);
-            die(print_r($response));
-            // End api cek sinpass
+                curl_close($curl);
+                die(print_r($response));
+                // End api cek sinpass
+            }
         }
 
         if (!empty($data->email)){

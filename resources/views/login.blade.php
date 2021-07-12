@@ -68,10 +68,14 @@
                                 </center>
                                 <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">
 {{--                                <div id="ndi-qr"></div>--}}
-{{--                                <center>--}}
+                                <center>
 {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
-{{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login Dummy</a></p>--}}
-{{--                                </center>--}}
+                                    @if(isset($type_dummy) && $type_dummy == dummy)
+{{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>--}}
+                                    @else
+                                        <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>
+                                    @endif
+                                </center>
                             </div>
                         </div>
                     </div>
