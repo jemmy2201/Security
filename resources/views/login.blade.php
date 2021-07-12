@@ -73,7 +73,7 @@
                                     @if(isset($type_dummy) && $type_dummy == dummy)
 {{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>--}}
                                     @else
-                                        <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>
+                                        <p><a href="{{url("/login/dummy")."/".dummy}}" >Login without singpass</a></p>
                                     @endif
                                 </center>
                             </div>
