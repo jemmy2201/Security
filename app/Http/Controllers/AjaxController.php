@@ -728,6 +728,23 @@ class AjaxController extends Controller
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
                 }
 
+                if (empty($e['declaration_date'])){
+                    $declaration_date = null;
+                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['declaration_date'])) {
+                    $declaration_date = $e['expiry_date'];
+                } else {
+                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('Y-m-d');
+                }
+
+                if (empty($e['transfer_date'])){
+                    $transfer_date = null;
+                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['transfer_date'])) {
+                    $transfer_date = $e['transfer_date'];
+                } else {
+                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('Y-m-d');
+                }
+
+
                 if (empty($users)){
                     // insert table users
                     $New_users = new User();
@@ -771,9 +788,9 @@ class AjaxController extends Controller
 
                     $booking_schedule->Status_app = $e['status_app'];
 
-                    $booking_schedule->trans_date = $e['transfer_date'];
+                    $booking_schedule->trans_date = $transfer_date;
 
-                    $booking_schedule->declaration_date = $e['declaration_date'];
+                    $booking_schedule->declaration_date = $declaration_date;
 
                     $booking_schedule->expired_date = $expired_date;
 
@@ -827,9 +844,9 @@ class AjaxController extends Controller
 
                         $update_booking_schedule->Status_app = $e['status_app'];
 
-                        $update_booking_schedule->declaration_date = $e['declaration_date'];
+                        $update_booking_schedule->declaration_date = $declaration_date;
 
-                        $update_booking_schedule->trans_date = $e['transfer_date'];
+                        $update_booking_schedule->trans_date = $transfer_date;
 
                         $update_booking_schedule->expired_date = $expired_date;
 
@@ -859,9 +876,9 @@ class AjaxController extends Controller
 
                         $booking_schedule->Status_app = $e['status_app'];
 
-                        $booking_schedule->declaration_date = $e['declaration_date'];
+                        $booking_schedule->declaration_date = $declaration_date;
 
-                        $booking_schedule->trans_date = $e['transfer_date'];
+                        $booking_schedule->trans_date = $transfer_date;
 
                         $booking_schedule->expired_date = $expired_date;
 
@@ -881,9 +898,12 @@ class AjaxController extends Controller
 
                     if (!empty($data)) {
                         $cek_setifikat = sertifikat::where(['nric'=>$e['nric'],'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
-
-                        $Transaction_amount = transaction_amount::find($data->transaction_amount_id);
-
+                        if (!empty($data->transaction_amount_id)) {
+                            $data_transcation_amount = transaction_amount::find($data->transaction_amount_id);
+                            $Transaction_amount = $data_transcation_amount->transaction_amount;
+                        }else{
+                            $Transaction_amount = null;
+                        }
                         if (empty($cek_setifikat)){
 
                             $sertifikat = new sertifikat();
@@ -918,7 +938,7 @@ class AjaxController extends Controller
 
                             $sertifikat->time_end_appointment = $data->time_end_appointment;
 
-                            $sertifikat->transaction_amount   = $Transaction_amount->transaction_amount;
+                            $sertifikat->transaction_amount   = $Transaction_amount;
 
                             $sertifikat->paymentby = $data->paymentby;
 
