@@ -17,6 +17,8 @@ use App\gst;
 use App\sertifikat;
 use DB;
 use App\Dateholiday;
+use Jenssegers\Agent\Agent;
+use PDF;
 class HomeController extends Controller
 {
     /**
@@ -122,6 +124,18 @@ class HomeController extends Controller
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
     }
 
+    public function print_pdf(Request $request,$card)
+    {
+        $request->merge(['card' => $card]);
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+        $t_grade = t_grade::get();
+
+        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+        return $pdf->stream();
+//        return $pdf->download('invoice.pdf');
+    }
+
     public function submission(Request $request)
     {
         $grade = null;
@@ -138,7 +152,6 @@ class HomeController extends Controller
             $request->merge(['Cgrade' => $request->Cgrade,'array_grade' => $request->Cgrade]);
 
         }
-
         if ($diff_data) {
             // Update
             $this->UpdateUsers($diff_data);
@@ -838,12 +851,20 @@ class HomeController extends Controller
     }
     protected function diff_data($request)
     {
-        $originData=array(
-            "homeno"=>$request->homeno,
-            "wpexpirydate"=>$request->wpexpirydate,
-            "mobileno"=>$request->mobileno
-        );
-
+        $agent = new Agent();
+        if ($agent->isDesktop() == true) {
+            $originData = array(
+                "homeno" => $request->homeno,
+                "wpexpirydate" => $request->wpexpirydate,
+                "mobileno" => $request->mobileno
+            );
+        }else{
+            $originData = array(
+                "homeno" => $request->Phonehomeno,
+                "wpexpirydate" => $request->Phonewpexpirydate,
+                "mobileno" => $request->Phonemobileno
+            );
+        }
         $personal = User::where(['id'=>Auth::id()])->first();
 
         $result=array_diff($originData,$personal->toArray());

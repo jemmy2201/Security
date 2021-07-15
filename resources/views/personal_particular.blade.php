@@ -98,7 +98,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+                <input type="text" class="form-control" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -113,7 +113,7 @@
         <div class="row visible-xs hidden-md">
             @if($personal->web == true)
                 <div class="col HeaderdataPersonal">
-                    <input type="date" class="form-control" id="wpexpirydate" name="wpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
+                    <input type="date" class="form-control" id="Phonewpexpirydate" name="Phonewpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
                 </div>
             @else
                 <div class="col">
@@ -127,7 +127,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+                <input type="text" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
             </div>
         </div>
    {{-- End Phone --}}
@@ -162,7 +162,7 @@
         $( "#click_personal_particular" ).click(function() {
 {{--            console.log('ww',{!!  json_encode($personal->web) !!})--}}
         if({!!  json_encode($personal->web) !!} == true ){
-            if (new Date($('#wpexpirydate').val()) != "Invalid Date"){
+            if (new Date($('#wpexpirydate').val()) != "Invalid Date" || new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
                 if ( new Date() >= new Date($('#wpexpirydate').val())){
                         swal("Attention!", "Pass Expiration Date is up", "error")
                 }else{

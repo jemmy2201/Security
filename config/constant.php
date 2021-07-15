@@ -145,3 +145,5 @@ define('date_last', "31");
 
 define('work_permit_pass', "G");
 define('employment_pass', "F");
+
+define('one_mb', "1000000");

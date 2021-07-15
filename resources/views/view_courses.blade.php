@@ -15,11 +15,13 @@
 {{--        <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/3.png')}}" style="width: 100%; margin-bottom: 20px;">--}}
 {{--        <center class="visible-xs hidden-md">--}}
 {{--            <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">--}}
-        <a href="javascript:history.go(-1)" style="text-decoration:none;">
-        <button class="btn btn-light" style="border-style: groove; background: #E5E5E5; color: #E31D1A">
-         <img src="{{URL::asset('/img/back.png')}}" style="width: 20%;"> Back
-        </button>
-        </a>
+
+{{--        <a href="javascript:history.go(-1)" style="text-decoration:none;">--}}
+{{--        <button class="btn btn-light" style="border-style: groove; background: #E5E5E5; color: #E31D1A">--}}
+{{--         <img src="{{URL::asset('/img/back.png')}}" style="width: 20%;"> Back--}}
+{{--        </button>--}}
+{{--        </a>--}}
+
         {{--        </center>--}}
         <h2 style="color: #E31E1A;">ID Card Application Details
         </h2>
@@ -265,7 +267,19 @@
             @endif
         </div>
         {{-- End Phone --}}
-
+        <br>
+        <div class="row">
+            <div class="col-2 back">
+                <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="{{url("/home")}}" style="text-decoration:none;"><img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back</a> </button>
+            </div>
+            <div class="col-8 medium hidden-xs">
+            </div>
+            <div class="col-6 medium visible-xs hidden-md">
+            </div>
+            <div class="col-2 next">
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank"><button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block">Print PDF</button></a>
+            </div>
+        </div>
 
     <script type="application/javascript">
         $(window).bind('resize', function(e)
@@ -273,5 +287,20 @@
             this.location.reload(false); /* false to get page from cache */
             /* true to fetch page from server */
         });
+        if($(window).width() < 767)
+        {
+            RemoveColNextBack();
+            $(".back").addClass("col-4");
+            $(".medium").addClass("col-4");
+            $(".next").addClass("col-4");
+
+            $(".email").css("font-size", "20px");
+            $(".phone").css("font-size", "20px");
+        }
+        function RemoveColNextBack() {
+            $(".back").removeClass("col-2");
+            $(".medium").removeClass("col-6");
+            $(".next").removeClass("col-2");
+        }
     </script>
 @endsection

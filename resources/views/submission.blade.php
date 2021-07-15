@@ -429,7 +429,7 @@
                 //     swal("Please!", "select a course", "error")
                 // }
             }else{
-                if ($('#upload_profile').val()) {
+                if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     save_submission();
                 } else {
                     swal("Please!", "Upload Photo", "error")
@@ -501,7 +501,7 @@
             var files = control.files;
             for (var i = 0; i < files.length; i++) {
                 if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
-                   if (files[i].size <= 1000000){
+                   if (files[i].size <= {!! json_encode(one_mb) !!}){
                        readURL(this);
                    }else{
                            control.value = null;
