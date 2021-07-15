@@ -132,7 +132,6 @@ class HomeController extends Controller
 
         }
 
-
         if ($diff_data) {
             // Update
             $this->UpdateUsers($diff_data);
@@ -800,9 +799,11 @@ class HomeController extends Controller
     if(!empty($request['homeno']) && !empty($request['mobileno'])){
         $UpdateUser = User::find(Auth::id());
 
-        $UpdateUser->email = $request['email'];
+        $UpdateUser->homeno = $request['homeno'];
 
         $UpdateUser->mobileno = $request['mobileno'];
+
+        $UpdateUser->wpexpirydate = $request['wpexpirydate'];
 
         $UpdateUser->save();
     }elseif(!empty($request['homeno'])) {
@@ -817,13 +818,20 @@ class HomeController extends Controller
          $UpdateUser->mobileno = $request['mobileno'];
 
          $UpdateUser->save();
-     }
+     }elseif (!empty($request['wpexpirydate'])){
+        $UpdateUser = User::find(Auth::id());
+
+        $UpdateUser->wpexpirydate = $request['wpexpirydate'];
+
+        $UpdateUser->save();
+    }
         return $UpdateUser;
     }
     protected function diff_data($request)
     {
         $originData=array(
             "homeno"=>$request->homeno,
+            "wpexpirydate"=>$request->wpexpirydate,
             "mobileno"=>$request->mobileno
         );
 

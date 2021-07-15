@@ -1,8 +1,8 @@
 <?php
 //application type
-define('news', 0);
-define('replacement', 1);
-define('renewal', 2);
+define('news', 1);
+define('replacement', 2);
+define('renewal', 3);
 //End application type
 
 //card
