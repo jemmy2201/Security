@@ -33,12 +33,15 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        @if (strlen($personal->name) > 40)
+                            <div class="col-4 ColoumndataPersonal">{{substr($personal->name,0,35)}}<br>{{substr($personal->name,40)}}</div>
+                        @else
+                            <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
+                        @endif
+                        <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
-
                     </div>
                 </div>
                 <div class="col-sm-0">
@@ -46,10 +49,10 @@
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)
                             @foreach($t_grade as $index =>$f)
                             @if(!empty($cek_grade) && $cek_grade->grade_id== $f->id)
@@ -74,7 +77,7 @@
                             <div class="col-4 ColoumndataPersonal">NA</div>
                         @endif
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
                         @if(!empty( $personal->passexpirydate))
                         <div class="col-4 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                         @endif
@@ -89,13 +92,19 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                    <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    @if (strlen($personal->name) > 40)
+                        <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>
+                            <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($personal->name,0,15)}}<br>{{substr($personal->name,15,15)}}<br>{{substr($personal->name,30,15)}}<br>{{substr($personal->name,45,15)}}<br>{{substr($personal->name,60,15)}}</div>
+                        @else
+                        <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
+                    @endif
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; :</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
+
                     <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
-                    <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if ($request->card == so_app)
                             @if(!empty($cek_grade) && $cek_grade->grade_id== so)
                                 <div class="col-4 ColoumndataPersonal">SO</div>
@@ -124,10 +133,11 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                    <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
                     <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Card Expiry
+                        Date&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$personal->passexpirydate}}</div>
                     </div>
                 </div>
@@ -149,12 +159,14 @@
         @if(!empty($view_declare))
             <div class="row">
                 <div class="col-4 col_declare1">
-                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                    <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
                 </div>
-                <div class="col-4 col_declare2">
+{{--                <div class="col-4 col_declare2">--}}
+                <div class="col-2 col_declare2">
+                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>
                 </div>
                 <div class="col-2 col_declare3">
-                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+{{--                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
                 </div>
             </div>
             <br>
@@ -172,12 +184,13 @@
                 @if(empty($resubmission))
                     <div class="row">
                         <div class="col-4 col_declare1">
-                            <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
                         </div>
-                        <div class="col-4 col_declare2">
+                        <div class="col-2 col_declare2">
+                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>
                         </div>
                         <div class="col-2 col_declare3">
-                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+{{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
                         </div>
                     </div>
                     <br>
@@ -211,12 +224,12 @@
                 @else
                     <div class="row">
                         <div class="col-4 col_declare1">
-                            <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
                         </div>
-                        <div class="col-4 col_declare2">
+                        <div class="col-2 col_declare2">
                         </div>
                         <div class="col-2 col_declare3">
-{{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>--}}
+{{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
                         </div>
                     </div>
                     <div class="row" >
@@ -247,12 +260,14 @@
     @elseif(!empty($replacement) && $request->card == so_app)
             <div class="row">
                 <div class="col-4 col_declare1">
-                    <h3 style="color: black;font-weight: bold;">Declaration of training records</h3>
+                    <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
                 </div>
-                <div class="col-4 col_declare2">
+{{--                <div class="col-4 col_declare2">--}}
+                <div class="col-2 col_declare2">
+                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>
                 </div>
                 <div class="col-2 col_declare3">
-                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Add Declare</button>
+{{--                    <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
                 </div>
             </div>
             <br>
@@ -271,20 +286,35 @@
             </div>
         @endif
     <br>
-    <h3 style="color: black;font-weight: bold;">Upload Photo</h3>
+    <h3 style="color: black;font-weight: bold;">Submit Photo</h3>
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 8px; border-style: groove; padding: 5px; margin-left: 10px;">
             <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 80%; margin-left: 20px; margin-top: 20px;">
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
-        <div class="col-6">
+        <div class="col-4 hidden-xs">
             <p>Guidelines for Digital Photo Image Submission</p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo uploaded must be in JPG format</p>
+            <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+        </div>
+        <div class="col-6 visible-xs hidden-md">
+            <p>Guidelines for Digital Photo Image Submission</p>
+            <p>- Photo must be taken within last 3 months</p>
+            <p>- Photo must be taken within even brightness</p>
+            <p>- Photo must be clear and in sharp focus</p>
+            <p>- Photo must be taken without spectacles</p>
+            <p>- Photo background must be white in color</p>
+            <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+        </div>
+        <div class="col-2 hidden-xs">
+            <button type="button" class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>
+        </div>
+        <div class="col visible-xs hidden-md">
+            <button type="button"  class=" btn btn-danger btn-lg btn-block">Upload Photo</button>
         </div>
     </div>
     <br>
@@ -303,7 +333,7 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" onclick="window.history.go(-1); return false;"><a href="#" style="text-decoration:none;"> <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </a></button>
+            <a href="{{ url('back/personal/particular/'.$request->card) }}" style="text-decoration:none;"><button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" > <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </button></a>
         </div>
         <div class="col-8 medium hidden-xs">
         </div>
@@ -408,7 +438,7 @@
         });
 
         function save_submission() {
-            if ($('#upload_profile').val()) {
+            if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                 if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
                     if ($("input[name='declare']:checked").val() != undefined) {
                         var inputFile = document.getElementById('upload_profile');
@@ -451,6 +481,9 @@
                 swal("Please!", "Upload Photo", "error")
             }
         }
+        if (!{!! json_encode($personal->photo) !!} == ""){
+            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
+        }
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -468,18 +501,32 @@
             var files = control.files;
             for (var i = 0; i < files.length; i++) {
                 if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
-                    readURL(this);
+                   if (files[i].size <= 1000000){
+                       readURL(this);
+                   }else{
+                           control.value = null;
+                       if (!{!! json_encode($personal->photo) !!} == ""){
+                           $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
+                       }else{
+                           $('.file_upload_profile').attr('src','/img/upload.png' );
+                       }
+                           swal("Please!", "Max Size: 1MB Only ", "error")
+                   }
                 }else{
-                    control.value = null;
-                    $('.file_upload_profile').attr('src','/img/upload.png' );
-                    swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                        control.value = null;
+                        if (!{!! json_encode($personal->photo) !!} == ""){
+                            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
+                        }else{
+                            $('.file_upload_profile').attr('src','/img/upload.png' );
+                        }
+                        swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
                 }
             }
         });
     });
 
 
-    $('.file_upload_profile').click(function(){ $('#upload_profile').trigger('click'); });
+    $('.file_upload_profiles').click(function(){ $('#upload_profile').trigger('click'); });
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
@@ -489,8 +536,8 @@
     if($(window).width() < 767)
     {
         RemoveColNextBack();
-        $(".col_declare1").addClass("col-4");
-        $(".col_declare2").addClass("col-2");
+        $(".col_declare1").addClass("col");
+        $(".col_declare2").addClass("col");
         $(".col_declare3").addClass("col-6");
         $(".select_declare").addClass("col-12");
 
@@ -507,7 +554,7 @@
     }
     function RemoveColNextBack() {
         $(".col_declare1").removeClass("col-4");
-        $(".col_declare2").removeClass("col-4");
+        $(".col_declare2").removeClass("col-2");
         $(".col_declare3").removeClass("col-2");
         $(".select_declare").removeClass("col-10");
 

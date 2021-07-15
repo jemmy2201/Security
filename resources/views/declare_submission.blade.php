@@ -74,6 +74,21 @@
         });
 
     });
+    $( document ).ready(function() {
+        if($(window).width() < 767)
+        {
+            RemoveColNextBack();
+            $(".back").addClass("col-4");
+            $(".medium").addClass("col-4");
+            $(".next").addClass("col-4");
+
+        }
+        function RemoveColNextBack() {
+            $(".back").removeClass("col-2");
+            $(".medium").removeClass("col-6");
+            $(".next").removeClass("col-2");
+        }
+    });
 
 
 </script>

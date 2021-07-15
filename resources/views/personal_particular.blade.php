@@ -23,7 +23,8 @@
                 <div class="row">
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($personal->name) > 40)
-                        <div class="col-6 ColoumndataPersonal">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>
+                        <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>
+                        <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($personal->name,0,20)}}<br>{{substr($personal->name,20,20)}}<br>{{substr($personal->name,40,20)}}<br>{{substr($personal->name,60,20)}}<br></div>
                     @else
                         <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     @endif
@@ -48,17 +49,18 @@
     <br>
     <form method="post" id="submit_personal_particular" action="{{ route('submission') }}" >
         @csrf
-     <div class="row">
+    {{-- Desktop --}}
+    <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">
             Home Phone (Singapore numbers only)
         </div>
     </div>
-    <div class="row">
+    <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
         </div>
     </div><br>
-    <div class="row">
+    <div class="row hidden-xs">
         @if($personal->web == true)
             <div class="col-4 HeaderdataPersonal expriydate">
                 WP Expiry Date
@@ -67,7 +69,7 @@
             <div class="col"></div>
         @endif
     </div>
-    <div class="row">
+    <div class="row hidden-xs">
         @if($personal->web == true)
             <div class="col-4 HeaderdataPersonal">
                 <input type="date" class="form-control" id="wpexpirydate" name="wpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
@@ -77,17 +79,60 @@
             </div>
         @endif
     </div><br>
-    <div class="row">
+    <div class="row hidden-xs">
         <div class="col-6 HeaderdataPersonal phone">
             Mobile Phone (Singapore local HP only)
         </div>
     </div>
-    <div class="row">
+    <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
             <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
         </div>
     </div>
-    <br ><br class="hidden-xs"><br class="hidden-xs">
+   {{-- End Desktop --}}
+   {{-- Phone --}}
+        <div class="row visible-xs hidden-md">
+            <div class="col HeaderdataPersonal email">
+                Home Phone (Singapore numbers only)
+            </div>
+        </div>
+        <div class="row visible-xs hidden-md">
+            <div class="col HeaderdataPersonal">
+                <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+            </div>
+        </div><br>
+        <div class="row visible-xs hidden-md">
+            @if($personal->web == true)
+                <div class="col HeaderdataPersonal expriydate">
+                    WP Expiry Date
+                </div>
+            @else
+                <div class="col"></div>
+            @endif
+        </div>
+        <div class="row visible-xs hidden-md">
+            @if($personal->web == true)
+                <div class="col HeaderdataPersonal">
+                    <input type="date" class="form-control" id="wpexpirydate" name="wpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
+                </div>
+            @else
+                <div class="col">
+                </div>
+            @endif
+        </div><br>
+        <div class="row visible-xs hidden-md">
+            <div class="col HeaderdataPersonal phone">
+                Mobile Phone (Singapore local HP only)
+            </div>
+        </div>
+        <div class="row visible-xs hidden-md">
+            <div class="col HeaderdataPersonal">
+                <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+            </div>
+        </div>
+   {{-- End Phone --}}
+
+        <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
             <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="{{url("/home")}}" style="text-decoration:none;"><img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back</a> </button>

@@ -72,6 +72,13 @@ class HomeController extends Controller
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
+    public function backpersonaldata(Request $request,$card)
+    {
+        $request->merge(['card' => $card]);
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
+        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+    }
 
     public function resubmission(Request $request, $app_type, $card)
     {
@@ -198,9 +205,8 @@ class HomeController extends Controller
             }
         }
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['users.id' => Auth::id(),'booking_schedules.card_id'=>$request->card])->first();
+            ->where(['users.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $t_grade = t_grade::get();
-
         return view('submission')->with(['t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
 
@@ -728,17 +734,20 @@ class HomeController extends Controller
     }
     protected function Upload_Image($request)
     {
-        $imageName = Auth::user()->passid.''.substr(Auth::user()->nric, -4).'.'.$request->upload_profile->getClientOriginalExtension();
+        if (!empty($request->upload_profile)) {
 
-        $request->upload_profile->move(public_path('img/img_users'), $imageName);
+            $imageName = Auth::user()->passid . '' . substr(Auth::user()->nric, -4) . '.' . $request->upload_profile->getClientOriginalExtension();
 
-        $UpdateUser = User::find(Auth::id());
+            $request->upload_profile->move(public_path('img/img_users'), $imageName);
 
-        $UpdateUser->photo = $imageName;
+            $UpdateUser = User::find(Auth::id());
 
-        $UpdateUser->save();
+            $UpdateUser->photo = $imageName;
 
-        return $UpdateUser;
+            $UpdateUser->save();
+
+            return $UpdateUser;
+        }
     }
     protected function Saveresubmission($request,$grade)
     {
@@ -796,7 +805,7 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-    if(!empty($request['homeno']) && !empty($request['mobileno'])){
+    if(!empty($request['homeno']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
         $UpdateUser = User::find(Auth::id());
 
         $UpdateUser->homeno = $request['homeno'];

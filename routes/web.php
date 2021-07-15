@@ -51,6 +51,7 @@ Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointm
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
 
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
+Route::get('/back/personal/particular/{id}','HomeController@backpersonaldata');
 Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
 Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
 
