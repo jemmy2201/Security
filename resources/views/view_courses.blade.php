@@ -41,7 +41,13 @@
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>
+                        @if (strlen($courses->name) > 40)
+                            <div class="col-4 ColoumndataPersonal hidden-xs">{{substr($courses->name,0,35)}}<br>{{substr($courses->name,35)}}</div>
+                            <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br></div>
+                        @else
+                            <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>
+                        @endif
+{{--                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal"> Mobile No &ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
@@ -56,10 +62,10 @@
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">
                             @if($courses->card_id == so_app)
                                 SO
@@ -70,7 +76,7 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)
                             @foreach($t_grade as $index =>$f)
                                 @if(!empty($courses) && $courses->grade_id== $f->id)
@@ -95,7 +101,7 @@
                             <div class="col-4 ColoumndataPersonal">NA</div>
                         @endif
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
                         @if(!empty( $courses->passexpirydate))
                         <div class="col-4 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
                         @endif
@@ -168,13 +174,18 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">NRIC/FIN &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                        @if (strlen($courses->name) > 40)
+                            <div class="col-6 ColoumndataPersonal ">{{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br></div>
+                        @else
+                            <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
+                        @endif
+{{--                        <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">
                             @if($courses->card_id == so_app)
                                 SO
@@ -184,7 +195,7 @@
                                 PI
                             @endif</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if ($request->card == so_app)
                             @foreach($t_grade as $index =>$f)
                             @if(!empty($courses) && $courses->grade_id== $f->id)
@@ -217,10 +228,10 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Expiry Date&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
                     </div>
                 </div>
@@ -229,10 +240,10 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Invoice &ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Invoice &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Payment&ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Payment&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">
                             @if($courses->status_payment == paid)
                                 Paid

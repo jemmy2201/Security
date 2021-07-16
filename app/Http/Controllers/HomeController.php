@@ -130,8 +130,8 @@ class HomeController extends Controller
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
-
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a4');
         return $pdf->stream();
 //        return $pdf->download('invoice.pdf');
     }
