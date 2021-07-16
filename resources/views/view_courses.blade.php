@@ -174,7 +174,7 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC/FIN &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">NRIC/FIN &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->nric}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
@@ -184,6 +184,29 @@
                             <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
                         @endif
 {{--                        <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>--}}
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-6 ColoumndataPersonal">{{$courses->homeno}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-6 ColoumndataPersonal">
+                            @if($courses->Status_app == draft)
+                                Draft
+                            @elseif($courses->Status_app == submitted)
+                                Submitted (Payment Done)
+                            @elseif($courses->Status_app == processing)
+                                Processing
+                            @elseif($courses->Status_app == id_card_ready_for_collection)
+                                ID Card Ready for Collection
+                            @elseif($courses->Status_app == resubmission)
+                                Resubmission
+                            @elseif($courses->Status_app == completed)
+                                Completed
+                            @endif
+                        </div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">
@@ -240,17 +263,9 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Invoice &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Receipt No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Payment&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                        <div class="col-6 ColoumndataPersonal">
-                            @if($courses->status_payment == paid)
-                                Paid
-                            @else
-                                UnPaid
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>
@@ -288,7 +303,7 @@
             <div class="col-6 medium visible-xs hidden-md">
             </div>
             <div class="col-2 next">
-                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank"><button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block">Print PDF</button></a>
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block">Print PDF</button></a>
             </div>
         </div>
 

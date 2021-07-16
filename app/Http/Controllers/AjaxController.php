@@ -61,7 +61,7 @@ class AjaxController extends Controller
         $avso_app   = false;
         $pi_app     = false;
 
-        $data = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+        $data = booking_schedule::where(['nric' => Auth::user()->nric,'app_type' => news])->get();
         foreach ($data as $index => $f){
             if($f->card_id == so_app){
                 if ($f->Status_app == null){
@@ -731,7 +731,7 @@ class AjaxController extends Controller
                 if (empty($e['declaration_date'])){
                     $declaration_date = null;
                 }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['declaration_date'])) {
-                    $declaration_date = $e['expiry_date'];
+                    $declaration_date = $e['declaration_date'];
                 } else {
                     $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('Y-m-d');
                 }

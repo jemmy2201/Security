@@ -51,9 +51,11 @@ Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointm
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
 
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
-Route::get('/back/personal/particular/{id}','HomeController@backpersonaldata');
-Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
-Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
+Route::get('/back/personal/particular/{app_type}/{card}','HomeController@backpersonaldata');
+//Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
+Route::post('/replacement/personal/particular', 'HomeController@replacement_personaldata')->name('replacement.personal.particular');
+//Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
+Route::post('/renewal/personal/particular', 'HomeController@renewal_personaldata');
 
 // get history continous
 Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@HistoryBookAppointment');

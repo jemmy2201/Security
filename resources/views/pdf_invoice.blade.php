@@ -76,11 +76,25 @@
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Home No</div>
-            <div class="column-right">{{$courses->mobileno}}</div>
+            <div class="column-right">{{$courses->homeno}}</div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Status</div>
-            <div class="column-right">{{$courses->homeno}}</div>
+            <div class="column-right">
+                @if($courses->Status_app == draft)
+                    Draft
+                @elseif($courses->Status_app == submitted)
+                    Submitted (Payment Done)
+                @elseif($courses->Status_app == processing)
+                    Processing
+                @elseif($courses->Status_app == id_card_ready_for_collection)
+                    ID Card Ready for Collection
+                @elseif($courses->Status_app == resubmission)
+                    Resubmission
+                @elseif($courses->Status_app == completed)
+                    Completed
+                @endif
+            </div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Receipt No</div>

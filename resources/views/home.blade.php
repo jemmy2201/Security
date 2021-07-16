@@ -39,10 +39,15 @@
     </div>
     <form method="post" id="personal_particular" action="{{ route('personal.particular') }}" style="display: none">
         @csrf
-        <input type="hidden" id="app_type" name="app_type">
-        <input type="hidden" id="card" name="card">
+        <input type="text" id="app_type" name="app_type">
+        <input type="text" id="card" name="card">
         <input type="submit">
     </form>
+
+    <input type="hidden" id="new_click" name="new_click">
+    <input type="hidden" id="replacement_click" name="replacement_click">
+    <input type="hidden" id="renewal_click" name="renewal_click">
+
 <br>
 <p style="color: #808080;">My Applications</p>
     <div style="border-style: ridge;padding: 10px;">
@@ -316,7 +321,14 @@
                         <tbody>
                         @if(!empty($renewal))
                             @foreach($renewal as $index => $f)
-                                @if($f->Status_app == completed && !empty($f->expired_date) && Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString())
+                                @php
+                                if (!empty($f->expired_date)){
+                                        $expried_renewal = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
+                                }else{
+                                        $expried_renewal = false;
+                                }
+                                @endphp
+                                @if($f->Status_app == completed && $expried_renewal == true )
 {{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
                                 @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
@@ -445,24 +457,39 @@
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
             $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
-            RemoveDissableRequest();
+            Remove_course();
+            // RemoveDissableRequest();
+            check_card_new();
             $("#app_type").val(document.getElementById("news").value);
+            $("#new_click").val(true);
+            $("#replacement_click").val(false);
+            $("#renewal_click").val(false);
         });
         $("#replacement").click(function() {
-            $('#Modalreplacement').modal('show');
+            // $('#Modalreplacement').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
             // RemoveDissableRequest();
+            Remove_course();
+            check_card_replacement();
+            $("#replacement_click").val(true);
+            $("#new_click").val(false);
+            $("#renewal_click").val(false);
             $("#app_type").val(document.getElementById("replacement").value);
             // $( "#personal_particular" ).submit();
         });
         $("#renewal").click(function() {
-            $('#Modalrenewal').modal('show');
+            // $('#Modalrenewal').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
             $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
             // RemoveDissableRequest();
+            Remove_course();
+            check_card_renewal();
+            $("#renewal_click").val(true);
+            $("#new_click").val(false);
+            $("#replacement_click").val(false);
             $("#app_type").val(document.getElementById("renewal").value);
             // $( "#personal_particular" ).submit();
         });
@@ -481,18 +508,85 @@
             $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#card").val(document.getElementById("avso_app").value);
-            $( "#personal_particular" ).submit();
+            if($("#new_click").val() == "true"){
+                $( "#personal_particular" ).submit();
+            }
+            if($("#replacement_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'replacement/personal/particular';
+                $("#personal_particular" ).submit();
+            }
+            if($("#renewal_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'renewal/personal/particular';
+                $("#personal_particular" ).submit();
+            }
         });
         $("#pi_app").click(function() {
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#card").val(document.getElementById("pi_app").value);
-            $( "#personal_particular" ).submit();
+            if($("#new_click").val() == "true"){
+                $( "#personal_particular" ).submit();
+            }
+            if($("#replacement_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'replacement/personal/particular';
+                $("#personal_particular" ).submit();
+            }
+            if($("#renewal_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'renewal/personal/particular';
+                $("#personal_particular" ).submit();
+            }
         });
         // End card
     });
 
+    function Remove_course() {
+        $("#so_app").prop("disabled", true);
+        $("#avso_app").prop("disabled", true);
+        $("#pi_app").prop("disabled", true);
+    }
+    function check_card_new() {
+        {!!  json_encode($new) !!}.forEach((entry) => {
+            if(entry['Status_app'] == null) {
+                if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
+                    $("#so_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
+                    $("#avso_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
+                    $("#pi_app").prop("disabled", false);
+                }
+            }
+        });
+    }
+    function check_card_replacement() {
+        {!!  json_encode($replacement) !!}.forEach((entry) => {
+            console.log('s',entry)
+            // console.log('s',new Date(entry['expired_date']))
+            // console.log('ss',new Date())
+            if(entry['Status_app'] == {!!  json_encode(completed) !!} && new Date() <= new Date(entry['expired_date'])) {
+                if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
+                    $("#so_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
+                    $("#avso_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
+                    $("#pi_app").prop("disabled", false);
+                }
+            }
+        });
+    }
+    function check_card_renewal() {
+        {!!  json_encode($renewal) !!}.forEach((entry) => {
+            if(  entry['Status_app'] == {!!  json_encode(completed) !!} && new Date() >= new Date(entry['expired_date'])) {
+                if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
+                    $("#so_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
+                    $("#avso_app").prop("disabled", false);
+                } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
+                    $("#pi_app").prop("disabled", false);
+                }
+            }
+        });
+    }
     function RemoveDissableRequest() {
         //remove disable request
         $.ajax({
@@ -500,6 +594,7 @@
             // url:'/ajax/cek/card/type',
             url:"{{ url('/ajax/cek/card/type') }}",
             success:function(data) {
+                console.log('da',data)
               if(data['so_app'] == true){
                   if(data['so_app'] == true && data['avso_app'] == true && data['pi_app'] == true){
 

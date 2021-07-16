@@ -19,6 +19,7 @@ use DB;
 use App\Dateholiday;
 use Jenssegers\Agent\Agent;
 use PDF;
+use Illuminate\Support\Facades\Route;
 class HomeController extends Controller
 {
     /**
@@ -56,6 +57,8 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
+        $new = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+
         $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->get();
 
         $renewal = booking_schedule::where(['nric' => Auth::user()->nric])->get();
@@ -64,7 +67,7 @@ class HomeController extends Controller
         if (Auth::user()->role == admin) {
             return view('admin/historylogin');
         }
-        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,
+        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
     }
 
@@ -74,9 +77,9 @@ class HomeController extends Controller
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
-    public function backpersonaldata(Request $request,$card)
+    public function backpersonaldata(Request $request,$app_type,$card)
     {
-        $request->merge(['card' => $card]);
+        $request->merge(['app_type' => $app_type,'card' => $card]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
@@ -99,17 +102,17 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
-    public function replacement_personaldata(Request $request, $card)
+    public function replacement_personaldata(Request $request)
     {
-        $request->merge(['app_type' => replacement, 'card' => $card]);
+//        $request->merge(['app_type' => replacement, 'card' => $card]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
-    public function renewal_personaldata(Request $request, $card)
+    public function renewal_personaldata(Request $request)
     {
-        $request->merge(['app_type' => renewal, 'card' => $card]);
+//        $request->merge(['app_type' => renewal, 'card' => $card]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
@@ -117,7 +120,7 @@ class HomeController extends Controller
 
     public function view_course(Request $request,$card)
     {
-        $request->merge(['app_type' => renewal, 'card' => $card]);
+        $request->merge(['app_type' => renewal, 'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
@@ -132,8 +135,8 @@ class HomeController extends Controller
         $t_grade = t_grade::get();
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a4');
-        return $pdf->stream();
-//        return $pdf->download('invoice.pdf');
+//        return $pdf->stream();
+        return $pdf->download('invoice.pdf');
     }
 
     public function submission(Request $request)
@@ -818,7 +821,7 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-    if(!empty($request['homeno']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
+    if(isset($request['homeno']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['homeno']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
         $UpdateUser = User::find(Auth::id());
 
         $UpdateUser->homeno = $request['homeno'];

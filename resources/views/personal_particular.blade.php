@@ -57,7 +57,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+            <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
         </div>
     </div><br>
     <div class="row hidden-xs">
@@ -86,7 +86,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
         </div>
     </div>
    {{-- End Desktop --}}
@@ -98,7 +98,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+                <input type="text" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -127,7 +127,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+                <input type="text" class="form-control" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
             </div>
         </div>
    {{-- End Phone --}}
