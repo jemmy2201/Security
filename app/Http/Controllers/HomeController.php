@@ -449,10 +449,11 @@ class HomeController extends Controller
         return $diff;
     }
     protected function receiptNo(){
-        $booking_schedule = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->get();
-
-        if ($booking_schedule->count() > 0){
-            $booking_schedule =$booking_schedule->count()+1;
+        $sertifikat = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
+        $booking_schedule = booking_schedule::whereNotIn('Status_app', [completed])->whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
+        $data = $sertifikat + $booking_schedule;
+        if ($data > 0){
+            $booking_schedule =$data+1;
             $data_substr = strlen((string)$booking_schedule);
             $nnnn = substr(nnnn, $data_substr);
             $booking_schedule = $nnnn.''.$booking_schedule;
@@ -637,6 +638,7 @@ class HomeController extends Controller
             }
             // End untuk mengatasi jika di refresh chorem maka data array tidak double
         }
+
         if (!empty($request->passexpirydate)){
             $passexpirydate = $request->passexpirydate;
         }else{
@@ -829,6 +831,14 @@ class HomeController extends Controller
         $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->wpexpirydate = $request['wpexpirydate'];
+
+        $UpdateUser->save();
+    }elseif(isset($request['homeno']) && isset($request['mobileno'])  && !empty($request['homeno']) && !empty($request['mobileno'] )){
+        $UpdateUser = User::find(Auth::id());
+
+        $UpdateUser->homeno = $request['homeno'];
+
+        $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->save();
     }elseif(!empty($request['homeno'])) {
