@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
 <style>
     .Listpaymentmenthod{
         font-size: 18px;
@@ -276,6 +278,7 @@
         $("#create_payment").click(function() {
             // if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
             if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
+                // enets();
                 $( "#save_payment" ).submit();
             }else{
                 swal("Please!", "Complete the data", "error")
@@ -283,13 +286,33 @@
         });
         $(".create_payment").click(function() {
             if ($('#payment_method').val() && $("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
+                // enets();
                 $( "#save_payment" ).submit();
             }else{
                 swal("Please!", "Select a payment method", "error")
             }
         });
     });
+    function enets(){
+        var data = {"ss":"1","msg":{"netsMid":"UMID_877772003","tid":"","submissionMode":"B","txnAmount":"99999999","merchantTxnRef":"test20181221001","merchantTxnDtm":"20170605 10:26:51.989","paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":"https://httpbin.org/post","b2sTxnEndURLParam":"","s2sTxnEndURL":"https://sit2.enets.sg/MerchantApp/rest/s2sTxnEnd","s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":"127.0.0.1","language":"en"}};
+        var txnreq = JSON.stringify(data);
+        var secretKey = {!!  json_encode(secretKeyEnets) !!};
+        var sign = btoa(sha256(txnreq + secretKey).match(/\w{2}/g).map(function (a) {
+            return String.fromCharCode(parseInt(a, 16));
+        }).join(''));
 
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log('sukses',this.responseText)
+            }
+        };
+        xhttp.open("POST", "https://uat-api.nets.com.sg:9065/GW2/TxnQuery", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
+        xhttp.setRequestHeader("hmac", sign);
+        xhttp.send(txnreq);
+    }
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
