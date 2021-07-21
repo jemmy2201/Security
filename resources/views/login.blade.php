@@ -101,8 +101,8 @@
             const initAuthSessionResponse = window.NDI.initAuthSession(
                 'ndi-qr',
                 {
-                    clientId: 'T5sM5a53Yaw3URyDEv2y9129CbElCN2F', // Replace with your client ID
-                    redirectUri: 'https://www.idx-id2021.com/afterlogin',        // Replace with a registered redirect URI
+                    clientId: {!!  json_encode(clientIdSinpass) !!}, // Replace with your client ID
+                    redirectUri: {!!  json_encode(redirectUrlSingpass) !!},        // Replace with a registered redirect URI
                     scope: 'openid',
                     responseType: 'code'
                 },
