@@ -149,7 +149,19 @@ define('employment_pass', "F");
 
 define('one_mb', "1000000");
 
+//Enets
 define('secretKeyEnets', "38a4b473-0295-439d-92e1-ad26a8c60279");
 define('secretIDEnets', "154eb31c-0f72-45bb-9249-84a1036fd1ca");
 define('netsMid', "UMID_877772003");
 define('Merchant_server_IP_Address', "127.0.0.1");
+//End Enets
+
+//Env singapass
+define('authApiUrl', "https://test.api.myinfo.gov.sg/com/v3/token");
+define('clientIdSinpass', "STG2-MYINFOBIZ-SELF-TEST");
+define('clientIdSecret', "127.0.0.1");
+define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
+define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
+
+
+//End Env singapass
