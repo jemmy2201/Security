@@ -35,9 +35,9 @@ class UpgradeGradeExport implements FromCollection,WithHeadings
             if ($f->trans_date){
                 $booking_schedule[$key]->trans_date = Carbon::parse($f->trans_date)->toDateString();
             }
-            if ($f->declaration_date){
-                $booking_schedule[$key]->declaration_date = Carbon::parse($f->declaration_date)->toDateString();
-            }
+//            if ($f->declaration_date){
+//                $booking_schedule[$key]->declaration_date = Carbon::parse($f->declaration_date)->toDateString();
+//            }
         }
         return $booking_schedule;
     }
