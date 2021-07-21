@@ -71,16 +71,16 @@ trait AuthenticatesUsers
             } elseif ($request->type_login == non_barcode) {
                 // api cek sinpass
                 $data = [
-                    'client_id' => 'jemmyrolish07@gmail.com',
+                    'client_id' => clientIdSinpass,
                     'grant_type' => 'authorization_code',
-                    'redirect_uri' => '220191',
-                    'code' => '220191',
+                    'redirect_uri' => redirectUrlSingpass,
+                    'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
                 ];
 
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
+                    CURLOPT_URL => authApiUrl,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,
@@ -129,16 +129,16 @@ trait AuthenticatesUsers
                 // api cek sinpass
                 ;
                 $data = [
-                    'client_id' => 'jemmyrolish07@gmail.com',
+                    'client_id' => clientIdSinpass,
                     'grant_type' => 'authorization_code',
-                    'redirect_uri' => '220191',
-                    'code' => '220191',
+                    'redirect_uri' => redirectUrlSingpass,
+                    'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
                 ];
 
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://stg-id.singpass.gov.sg:9443",
+                    CURLOPT_URL => authApiUrl,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,
