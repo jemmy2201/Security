@@ -33,26 +33,29 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @php
                             $cutnric = substr($courses->nric, -4);
                             $nric = "XXXXX$cutnric";
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($courses->name) > 40)
-                            <div class="col-4 ColoumndataPersonal hidden-xs">{{substr($courses->name,0,35)}}<br>{{substr($courses->name,35)}}</div>
-                            <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br></div>
+                            <div class="col-4 ColoumndataPersonal hidden-xs">
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
+                                {{$courses->name}}
+                                </textarea>
+                            </div>
                         @else
                             <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>
                         @endif
 {{--                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal"> Mobile No &ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal"> Mobile No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal"> Home No &ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->homeno}}</div>
 
                     </div>
@@ -115,7 +118,7 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&nbsp:</div>
+                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">
                             @if($courses->Status_app == draft)
                                 <td>Draft</td>
@@ -132,8 +135,14 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Receipt No &nbsp:</div>
+                        <div class="col-0 HeaderdataPersonal">Receipt &nbsp;No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->receiptNo}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>
+                        <div class="col-4 ColoumndataPersonal">${{$courses->grand_total}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>
+                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
 {{--                        <div class="col-4 ColoumndataPersonal">--}}
@@ -174,12 +183,17 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC/FIN &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Name&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         @if (strlen($courses->name) > 40)
-                            <div class="col-6 ColoumndataPersonal ">{{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br></div>
+                            <div class="col-6 ColoumndataPersonal ">
+                                 <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                {{$courses->name}}
+                                </textarea>
+{{--                                {{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br>--}}
+                            </div>
                         @else
                             <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
                         @endif
@@ -263,8 +277,14 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Receipt No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Receipt No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->receiptNo}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>
+                        <div class="col-4 ColoumndataPersonal">${{$courses->grand_total}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>
+                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
                     </div>
                 </div>

@@ -23,8 +23,16 @@
                 <div class="row">
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($personal->name) > 40)
-                        <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>
-                        <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($personal->name,0,20)}}<br>{{substr($personal->name,20,20)}}<br>{{substr($personal->name,40,20)}}<br>{{substr($personal->name,60,20)}}<br></div>
+                        <div class="col-6 ColoumndataPersonal hidden-xs">
+                            <textarea rows="4" cols="50" id="TextAreaName" style="resize: none;" readonly>
+                                {{$personal->name}}
+                            </textarea>
+                        </div>
+                        <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
+                            <textarea rows="4" cols="20" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                {{$personal->name}}
+                            </textarea>
+                        </div>
                     @else
                         <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     @endif
@@ -57,7 +65,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+            <input type="number" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
         </div>
     </div><br>
     <div class="row hidden-xs">
@@ -86,7 +94,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="text" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+            <input type="number" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
         </div>
     </div>
    {{-- End Desktop --}}
@@ -98,7 +106,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+                <input type="number" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -113,7 +121,7 @@
         <div class="row visible-xs hidden-md">
             @if($personal->web == true)
                 <div class="col HeaderdataPersonal">
-                    <input type="date" class="form-control" id="Phonewpexpirydate" name="Phonewpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
+                    <input type="number" class="form-control" id="Phonewpexpirydate" name="Phonewpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
                 </div>
             @else
                 <div class="col">

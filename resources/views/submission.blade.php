@@ -35,7 +35,11 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($personal->name) > 40)
-                            <div class="col-4 ColoumndataPersonal">{{substr($personal->name,0,35)}}<br>{{substr($personal->name,40)}}</div>
+                            <div class="col-4 ColoumndataPersonal">
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
+                                {{$personal->name}}
+                                </textarea>
+                            </div>
                         @else
                             <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
                         @endif
@@ -94,8 +98,13 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                     @if (strlen($personal->name) > 40)
-                        <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>
-                            <div class="col-2 ColoumndataPersonal visible-xs hidden-md">{{substr($personal->name,0,15)}}<br>{{substr($personal->name,15,15)}}<br>{{substr($personal->name,30,15)}}<br>{{substr($personal->name,45,15)}}<br>{{substr($personal->name,60,15)}}</div>
+{{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>--}}
+                            <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
+                                <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                {{$personal->name}}
+                                </textarea>
+{{--                                {{substr($personal->name,0,15)}}<br>{{substr($personal->name,15,15)}}<br>{{substr($personal->name,30,15)}}<br>{{substr($personal->name,45,15)}}<br>{{substr($personal->name,60,15)}}--}}
+                            </div>
                         @else
                         <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     @endif
@@ -290,6 +299,9 @@
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 8px; border-style: groove; padding: 5px; margin-left: 10px;">
             <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 80%; margin-left: 20px; margin-top: 20px;">
+            <center id="info_upload">
+                <b>Please Upload Photo</b>
+            </center>
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
         <div class="col-4 hidden-xs">
@@ -482,6 +494,7 @@
             }
         }
         if (!{!! json_encode($personal->photo) !!} == ""){
+            document.getElementById("info_upload").hidden = true;
             $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
         }
         function readURL(input) {
@@ -489,6 +502,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
+                    document.getElementById("info_upload").hidden = true;
                     $('.file_upload_profile').attr('src', e.target.result);
                 }
 

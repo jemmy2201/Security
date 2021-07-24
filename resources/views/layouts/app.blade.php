@@ -45,6 +45,20 @@
         .navbar-toggler {
             background: #E31E1A;
         }
+
+        /* remove arrows/spinners input type number    */
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        /* End remove arrows/spinners input type number    */
     </style>
     {{-- for $(document).ready --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -119,5 +133,15 @@
             @yield('content')
         </main>
     </div>
+    <script type="application/javascript">
+        $( document ).ready(function() {
+            var TextAreaName = document.getElementById('TextAreaName');
+            TextAreaName.value = TextAreaName.value.replace(/^\s*|\s*$/g,'');
+
+            var TextAreaNamePhone = document.getElementById('TextAreaNamePhone');
+            TextAreaNamePhone.value = TextAreaNamePhone.value.replace(/^\s*|\s*$/g,'');
+        });
+
+    </script>
 </body>
 </html>
