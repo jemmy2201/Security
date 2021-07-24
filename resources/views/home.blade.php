@@ -92,7 +92,8 @@
                         @endif
 {{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
                             @if(!empty($f->trans_date))
-                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>
+{{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
+                                <td>{{$f->trans_date}}</td>
                             @else
                             <td></td>
                             @endif
@@ -128,18 +129,18 @@
                         @else
                             <td>NA</td>
                         @endif
-                        @if($f->Status_app == draft)
-                            <td>Draft</td>
+                       @if($f->Status_app == draft)
+                            <td>{{txt_draft}}</td>
                         @elseif($f->Status_app == submitted)
-                            <td>Submitted (Payment Done)</td>
+                            <td>{{txt_submitted}}</td>
                         @elseif($f->Status_app == processing)
-                            <td>Processing</td>
+                            <td>{{txt_processing}}</td>
                         @elseif($f->Status_app == id_card_ready_for_collection)
-                            <td>ID Card Ready for Collection</td>
+                            <td>{{txt_id_card_ready_for_collection}}</td>
                         @elseif($f->Status_app == resubmission)
-                            <td>Resubmission</td>
-                        @elseif($f->Status_app == completed)
-                            <td>Completed</td>
+                            <td>{{txt_resubmission}}</td>
+                        @elseif($f->Status_app == Resubmitted)
+                            <td>{{txt_Resubmitted}}</td>
                         @endif
                         @if($f->Status_app == submitted)
 {{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
@@ -185,7 +186,8 @@
                             @endif
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
                                 @if(!empty($f->trans_date))
-                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>
+{{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
+                                    <td>{{$f->trans_date}}</td>
                                 @endif
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)

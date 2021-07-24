@@ -161,17 +161,19 @@
                         {data: 'Status_app', name: 'Status_app',
                             render: function (data, type, row) {
                                 if(data == @php echo draft @endphp){
-                                    return 'Draft';
+                                    return "@php echo txt_draft @endphp";
                                 }else if(data == @php echo submitted @endphp){
-                                    return 'Submitted';
+                                    return "@php echo txt_submitted @endphp";
                                 }else if (data == @php echo processing @endphp){
-                                    return 'Processing';
+                                    return "@php echo txt_processing @endphp";
                                 }else if(data == @php echo id_card_ready_for_collection @endphp){
-                                    return 'ID Card Ready for Collection';
+                                    return "@php echo txt_id_card_ready_for_collection @endphp";
                                 }else if(data == @php echo resubmission @endphp){
-                                    return 'Resubmission';
-                                }else if(data == @php echo completed @endphp){
-                                    return 'Completed';
+                                    return "@php echo txt_resubmission @endphp";
+                                }else if(data == @php echo Resubmitted @endphp){
+                                    return "@php echo txt_Resubmitted @endphp";
+                                }else if(data == "@php echo completed @endphp"){
+                                    return "@php echo txt_completed @endphp";
                                 }else{
                                     return "";
                                 }

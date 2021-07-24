@@ -20,6 +20,7 @@ use App\Dateholiday;
 use Jenssegers\Agent\Agent;
 use PDF;
 use Illuminate\Support\Facades\Route;
+use App\tbl_receiptNo;
 class HomeController extends Controller
 {
     /**
@@ -418,7 +419,7 @@ class HomeController extends Controller
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request['card']])
             ->update([
                 'gst_id' => $request['grade_id'],
-                'trans_date' => Carbon::today()->toDateString(),
+                'trans_date' => date('d-m-Y H:i:s'),
 //                'expired_date' => date('Y-m-d', strtotime('+1 years')),
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
@@ -428,6 +429,11 @@ class HomeController extends Controller
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
 
+            $receiptNo = new tbl_receiptNo;
+
+            $receiptNo->receiptNo = $this->receiptNo();
+
+            $receiptNo->save();
 //        $this->create_setifikat($request);
         return $BookingScheduleAppointment;
     }
@@ -449,16 +455,17 @@ class HomeController extends Controller
         return $diff;
     }
     protected function receiptNo(){
-        $sertifikat = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
-        $booking_schedule = booking_schedule::whereNotIn('Status_app', [completed])->whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
-        $data = $sertifikat + $booking_schedule;
+//        $sertifikat = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
+//        $booking_schedule = booking_schedule::whereNotIn('Status_app', [completed])->whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
+//        $data = $sertifikat + $booking_schedule;
+        $data = tbl_receiptNo::whereYear('receiptNo', '2016')->count();
         if ($data > 0){
             $booking_schedule =$data+1;
             $data_substr = strlen((string)$booking_schedule);
             $nnnn = substr(nnnn, $data_substr);
             $booking_schedule = $nnnn.''.$booking_schedule;
         }else{
-            $booking_schedule = "0001";
+            $booking_schedule = "00001";
         }
         $data = Carbon::today()->format('Ymd').''.$booking_schedule;
 //        $data = "".Carbon::today()->format('d')."/".Carbon::today()->format('m')."/".Carbon::today()->format('y')."/".$booking_schedule;
@@ -655,7 +662,7 @@ class HomeController extends Controller
                     'ssoc' => $ssoc,
                     'sssc' => $sssc,
                     'array_grade' => $merge_grade,
-                    'declaration_date' => Carbon::today()->toDateString(),
+                    'declaration_date' => Carbon::today()->format('d-m-Y'),
                     'Status_app' => draft,
                     'Status_draft' => draft_book_appointment,
                     'trans_date' => null,
@@ -678,7 +685,7 @@ class HomeController extends Controller
                     'app_type' => $request->app_type,
 //                    'card_id' => $request->card,
 //                    'grade_id' => $grade,
-                    'declaration_date' => Carbon::today()->toDateString(),
+                    'declaration_date' => Carbon::today()->format('d-m-Y'),
                     'Status_app' => draft,
                     'Status_draft' => draft_book_appointment,
                     'array_grade' => $merge_grade,
@@ -703,7 +710,7 @@ class HomeController extends Controller
                     'card_id' => $request->card,
 //                    'grade_id' => $grade,
                     'array_grade' => $request->Cgrade[0],
-                    'declaration_date' => Carbon::today()->toDateString(),
+                    'declaration_date' => Carbon::today()->format('d-m-Y'),
 //                    'status_app' => submission,
                     'trans_date' => null,
                     'expired_date' => null,

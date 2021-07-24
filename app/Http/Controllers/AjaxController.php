@@ -727,24 +727,27 @@ class AjaxController extends Controller
                 } else {
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
                 }
-
                 if (empty($e['declaration_date'])){
                     $declaration_date = null;
-                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['declaration_date'])) {
-                    $declaration_date = $e['declaration_date'];
+//                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['declaration_date'])) {
+//                    $declaration_date = $e['declaration_date'];
                 } else {
-                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('Y-m-d');
+                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('d-m-Y');
                 }
 
                 if (empty($e['transfer_date'])){
                     $transfer_date = null;
-                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['transfer_date'])) {
-                    $transfer_date = $e['transfer_date'];
+//                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['transfer_date'])) {
+//                    $transfer_date = $e['transfer_date'];
                 } else {
-                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('Y-m-d');
+                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('d-m-Y H:i:s');
                 }
 
-
+                if (strtoupper($e['status_app']) == completed ){
+                    $status_app = strtoupper($e['status_app']);
+                }else{
+                    $status_app = $e['status_app'];
+                }
                 if (empty($users)){
                     // insert table users
                     $New_users = new User();
@@ -786,7 +789,7 @@ class AjaxController extends Controller
 
                     $booking_schedule->array_grade = $e['array_grade'];
 
-                    $booking_schedule->Status_app = $e['status_app'];
+                    $booking_schedule->Status_app = $status_app;
 
                     $booking_schedule->trans_date = $transfer_date;
 
@@ -842,7 +845,7 @@ class AjaxController extends Controller
 
                         $update_booking_schedule->array_grade = $e['array_grade'];
 
-                        $update_booking_schedule->Status_app = $e['status_app'];
+                        $update_booking_schedule->Status_app = $status_app;
 
                         $update_booking_schedule->declaration_date = $declaration_date;
 
@@ -874,7 +877,7 @@ class AjaxController extends Controller
 
                         $booking_schedule->array_grade = $e['array_grade'];
 
-                        $booking_schedule->Status_app = $e['status_app'];
+                        $booking_schedule->Status_app = $status_app;
 
                         $booking_schedule->declaration_date = $declaration_date;
 
@@ -891,7 +894,7 @@ class AjaxController extends Controller
 
                 }
 
-                if ($e['status_app'] == completed && !empty($expired_date)){
+                if (strtoupper($e['status_app']) == completed && !empty($expired_date)){
                     $data = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')
                         ->where(['users.nric'=>$e['nric'],'card_id'=>$e['card_type']])
                         ->first();

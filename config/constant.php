@@ -42,8 +42,16 @@ define('submitted', 1);
 define('processing', 2);
 define('id_card_ready_for_collection', 3);
 define('resubmission', 4);
-define('completed', 5);
+define('Resubmitted', 5);
+define('completed', "X");
 
+define('txt_draft', "Draft");
+define('txt_submitted', "Submitted (Payment done)");
+define('txt_processing', "Processing");
+define('txt_id_card_ready_for_collection', "ID Card Ready for Collection");
+define('txt_resubmission', "Resubmission");
+define('txt_Resubmitted', "Resubmitted");
+define('txt_completed', "Completed (Card Collected)");
 // end status app
 
 //Status Draft

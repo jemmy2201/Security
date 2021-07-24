@@ -30,14 +30,14 @@ class UpgradeGradeExport implements FromCollection,WithHeadings
 //                $booking_schedule[$key]->grade_id = '';
 //            }
             if ($f->expired_date){
-                $booking_schedule[$key]->expired_date = Carbon::parse($f->expired_date)->toDateString();
+                $booking_schedule[$key]->expired_date = Carbon::parse($f->expired_date)->format('d/m/Y');
             }
             if ($f->trans_date){
-                $booking_schedule[$key]->trans_date = Carbon::parse($f->trans_date)->toDateString();
+                $booking_schedule[$key]->trans_date = Carbon::parse($f->trans_date)->format('d/m/Y h:i:s');
             }
-//            if ($f->declaration_date){
-//                $booking_schedule[$key]->declaration_date = Carbon::parse($f->declaration_date)->toDateString();
-//            }
+            if ($f->declaration_date){
+                $booking_schedule[$key]->declaration_date = Carbon::parse($f->declaration_date)->format('d/m/Y');
+            }
         }
         return $booking_schedule;
     }

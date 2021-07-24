@@ -120,18 +120,20 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">
-                            @if($courses->Status_app == draft)
-                                <td>Draft</td>
+                            @if($courses->Status_app == completed)
+                                <td>{{txt_completed}}</td>
+                            @elseif($courses->Status_app == draft)
+                                <td>{{txt_draft}}</td>
                             @elseif($courses->Status_app == submitted)
-                                <td>Submitted (Payment Done)</td>
+                                <td>{{txt_draft}}</td>
                             @elseif($courses->Status_app == processing)
-                                <td>Processing</td>
+                                <td>{{txt_processing}}</td>
                             @elseif($courses->Status_app == id_card_ready_for_collection)
-                                <td>ID Card Ready for Collection</td>
+                                <td>{{txt_id_card_ready_for_collection}}</td>
                             @elseif($courses->Status_app == resubmission)
-                                <td>Resubmission</td>
-                            @elseif($courses->Status_app == completed)
-                                <td>Completed</td>
+                                <td>{{txt_resubmission}}</td>
+                            @elseif($courses->Status_app == Resubmitted)
+                                {{txt_Resubmitted}}
                             @endif
                         </div>
                         <div class="w-100"></div>
@@ -207,18 +209,20 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">
-                            @if($courses->Status_app == draft)
-                                Draft
+                            @if($courses->Status_app == completed)
+                                <td>{{txt_completed}}</td>
+                            @elseif($courses->Status_app == draft)
+                                <td>{{txt_draft}}</td>
                             @elseif($courses->Status_app == submitted)
-                                Submitted (Payment Done)
+                                <td>{{txt_submitted}}</td>
                             @elseif($courses->Status_app == processing)
-                                Processing
+                                <td>{{txt_processing}}</td>
                             @elseif($courses->Status_app == id_card_ready_for_collection)
-                                ID Card Ready for Collection
+                                <td>{{txt_id_card_ready_for_collection}}</td>
                             @elseif($courses->Status_app == resubmission)
-                                Resubmission
-                            @elseif($courses->Status_app == completed)
-                                Completed
+                                <td>{{txt_resubmission}}</td>
+                            @elseif($courses->Status_app == Resubmitted)
+                                <td>{{txt_Resubmitted}}</td>
                             @endif
                         </div>
                         <div class="w-100"></div>
