@@ -251,10 +251,15 @@
 {{--                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp--}}
                                     @php $url=url("/replacement/personal/particular/")."/".$f->card_id; @endphp
                                     @php
-                                      $expried = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
+                                      //$expried = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
+                                       if ($f->expired_date){
+                                            $expried_replacement = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+                                       }else{
+                                           $expried_replacement =true;
+                                       }
                                     @endphp
 {{--                                @if($expried == false)--}}
-                                @if($f->Status_app == completed && $expried == false)
+                                @if($f->Status_app == completed && $expried_replacement == false)
 
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
@@ -325,7 +330,7 @@
                             @foreach($renewal as $index => $f)
                                 @php
                                 if (!empty($f->expired_date)){
-                                        $expried_renewal = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
+                                        $expried_renewal = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
                                 }else{
                                         $expried_renewal = false;
                                 }
@@ -562,10 +567,7 @@
     }
     function check_card_replacement() {
         {!!  json_encode($replacement) !!}.forEach((entry) => {
-            console.log('s',entry)
-            // console.log('s',new Date(entry['expired_date']))
-            // console.log('ss',new Date())
-            if(entry['Status_app'] == {!!  json_encode(completed) !!} && new Date() <= new Date(entry['expired_date'])) {
+            if(entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_replacement) !!} == false ) {
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
                     $("#so_app").prop("disabled", false);
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
@@ -578,7 +580,7 @@
     }
     function check_card_renewal() {
         {!!  json_encode($renewal) !!}.forEach((entry) => {
-            if(  entry['Status_app'] == {!!  json_encode(completed) !!} && new Date() >= new Date(entry['expired_date'])) {
+            if(  entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_renewal) !!} == true) {
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
                     $("#so_app").prop("disabled", false);
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {

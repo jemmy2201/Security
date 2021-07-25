@@ -131,7 +131,7 @@ define('delete_soft', 1);
 // end delete soft
 
 // invoice
-define('nnnn', "0000");
+define('nnnn', "00000");
 // end invoice
 
 

@@ -458,7 +458,7 @@ class HomeController extends Controller
 //        $sertifikat = sertifikat::whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
 //        $booking_schedule = booking_schedule::whereNotIn('Status_app', [completed])->whereDate('trans_date', '=', Carbon::today()->toDateTimeString())->count();
 //        $data = $sertifikat + $booking_schedule;
-        $data = tbl_receiptNo::whereYear('receiptNo', '2016')->count();
+        $data = tbl_receiptNo::whereYear('created_at', Carbon::today()->format('Y'))->count();
         if ($data > 0){
             $booking_schedule =$data+1;
             $data_substr = strlen((string)$booking_schedule);
