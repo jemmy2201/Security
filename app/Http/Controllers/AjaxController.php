@@ -21,6 +21,7 @@ use DataTables;
 use DB;
 use Artisan;
 Use Storage;
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
@@ -720,27 +721,40 @@ class AjaxController extends Controller
 
                 $users = User::where(['nric'=>$e['nric']])->first();
                 $count_users = User::count();
+
+                $format = 'd/m/Y';
+                $format_expired_date = DateTime::createFromFormat($format, $e['expiry_date']);
+                $cek_format_expired_date = $format_expired_date && $format_expired_date->format($format) === $e['expiry_date'];
                 if (empty($e['expiry_date'])){
                     $expired_date = null;
-                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['expiry_date'])) {
+                }elseif($cek_format_expired_date == true) {
                     $expired_date = $e['expiry_date'];
                 } else {
-                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('Y-m-d');
+                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
                 }
+
+                $format = 'd/m/Y';
+                $format_declaration_date = DateTime::createFromFormat($format, $e['declaration_date']);
+                $cek_format_declaration_date = $format_declaration_date && $format_declaration_date->format($format) === $e['declaration_date'];
+
                 if (empty($e['declaration_date'])){
                     $declaration_date = null;
-//                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['declaration_date'])) {
-//                    $declaration_date = $e['declaration_date'];
-                } else {
-                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('d-m-Y');
+                }elseif($cek_format_declaration_date == true) {
+                    $declaration_date = $e['declaration_date'];
+                }else{
+                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('d/m/Y');
                 }
+
+                $format = 'd/m/Y H:i:s';
+                $format_transfer_date = DateTime::createFromFormat($format, $e['transfer_date']);
+                $cek_format_transfer_date = $format_transfer_date && $format_transfer_date->format($format) === $e['transfer_date'];
 
                 if (empty($e['transfer_date'])){
                     $transfer_date = null;
-//                }elseif(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$e['transfer_date'])) {
-//                    $transfer_date = $e['transfer_date'];
+                }elseif($cek_format_transfer_date == true) {
+                    $transfer_date = $e['transfer_date'];
                 } else {
-                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('d-m-Y H:i:s');
+                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('d/m/Y H:i:s');
                 }
 
                 if (strtoupper($e['status_app']) == completed ){
