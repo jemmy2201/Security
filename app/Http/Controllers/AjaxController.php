@@ -1000,7 +1000,15 @@ class AjaxController extends Controller
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->get();
             $dateHoliday = Dateholiday::whereDate('date','=',$eventDate)->first();
-            $limit_schedule[$key]->number_schedule = $data_schedule->count();
+            $setifikat = sertifikat::whereIn('status_app', [draft, submitted])
+                ->whereDate('appointment_date','=',$eventDate)
+                ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
+                ->count();
+            if ($setifikat > 0 ){
+                $limit_schedule[$key]->number_schedule = $data_schedule->count() + $setifikat;
+            }else{
+                $limit_schedule[$key]->number_schedule = $data_schedule->count();
+            }
             $limit_schedule[$key]->half = false;
             if (!empty($dateHoliday) && $ls->start_at == half_1 ){
                 $limit_schedule[$key]->half = true;
@@ -1045,7 +1053,11 @@ class AjaxController extends Controller
                 }
             }else{
                 $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="'.$ls->id.'" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                $data .= '<td>0</td>';
+                if (!empty($ls->number_schedule)) {
+                    $data .= '<td>' . $ls->number_schedule . '</td>';
+                }else{
+                    $data .= '<td>0</td>';
+                }
                 $data .= '<td>' . $ls->amount . '</td>>';
                 $data .= '</tr>';
             }
