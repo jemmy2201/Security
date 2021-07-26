@@ -151,7 +151,8 @@
 
     let c_date = new Date();
     let day = c_date.getDay();
-    if ($('#valid_resubmission').val() == false && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+
+    if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && $('#valid_resubmission').val() == false &&  {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
         //resubmission
         $('#valid_resubmission').val(true);
         var month = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
@@ -343,8 +344,8 @@
                     // End holiday saturday,sunday
 
                     //resubmission
-                    if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-                         if(date == {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!}  && y == {!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!} &&  m == {!!  json_encode(date("m", strtotime($request->booking_schedule->appointment_date))-1) !!}){
+                    if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+                        if({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && date == {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!}  && y == {!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!} &&  m == {!!  json_encode(date("m", strtotime($request->booking_schedule->appointment_date))-1) !!}){
                             span.classList.add('choice_order_date');
                         }
                     }
@@ -362,7 +363,7 @@
 
 
     }
-        if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+        if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
             //resubmission
             var m = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
             var y = parseInt({!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!});
@@ -435,10 +436,8 @@
         })
 
         //resubmission
-        if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-{{--            let todaysDate = {!!  json_encode(date("d M Y", strtotime($request->booking_schedule->appointment_date))) !!};--}}
+        if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
             let todaysDate = {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;
-
             validate_limit_schedule(todaysDate);
             $('#view_date').val(todaysDate);
         }

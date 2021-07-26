@@ -297,6 +297,17 @@ class HomeController extends Controller
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $request->merge(['booking_schedule'=>$booking_schedule]);
         if (!empty($booking_schedule) && $booking_schedule->Status_app == resubmission){
+            $diff_date_resubmission = date_diff(date_create(date('Y-m-d')),date_create($booking_schedule->appointment_date));
+            $data_date = $diff_date_resubmission->format("%R%a");
+            if ($data_date <= less_than_days){
+                 booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+                    ->update([
+                        'appointment_date' => null,
+                        'time_start_appointment' => null,
+                        'time_end_appointment' => null,
+                    ]);
+            }
+
             $request->merge(['Status_app' =>resubmission,'booking_schedule'=>$booking_schedule]);
             $this->Saveresubmission($request,$grade);
 //            return redirect('/home');
@@ -306,7 +317,6 @@ class HomeController extends Controller
             $this->UpdateBookingSchedule($request,$grade);
         }
         $dayHoliday = Dateholiday::get();
-
         return view('book_appointment')->with(["request"=>$request,"dayHoliday"=>$dayHoliday]);
     }
     public function HistoryBookAppointment(Request $request,$app_type,$card)
@@ -341,7 +351,8 @@ class HomeController extends Controller
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
                     'Status_app' => Resubmitted,
-                ]);;
+                    'resubmission_date' => date('d/m/Y H:i:s'),
+                ]);
             return redirect('/home');
 
         }

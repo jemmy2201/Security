@@ -172,4 +172,7 @@ define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
 define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 
 
+define('less_than_days', "+7");
+
+
 //End Env singapass
