@@ -20,6 +20,9 @@
         opacity: 0.6;
         background-color:lightgrey;
     }
+    .choice_order_date{
+        background-color:forestgreen;
+    }
     .holidayfull{
         pointer-events: none;
         opacity: 0.6;
@@ -47,6 +50,7 @@
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
         <input type="hidden"  class="form-control" name="card" id="card" value="{{$request->card}}" readonly>
+        <input type="hidden"  class="form-control" name="valid_resubmission" id="valid_resubmission" readonly>
 
     <div class="row">
         <div class="col-2 HeaderdataPersonal view_date_text">
@@ -81,7 +85,12 @@
         <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
-            <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Payment <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @if(!empty($request->Status_app) && $request->Status_app == resubmission)
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmit <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @else
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Payment <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            @endif
+
         </div>
     </div>
     </form>
@@ -142,7 +151,14 @@
 
     let c_date = new Date();
     let day = c_date.getDay();
-    let month = c_date.getMonth();
+    if ($('#valid_resubmission').val() == false && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+        //resubmission
+        $('#valid_resubmission').val(true);
+        var month = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
+        //End resubmission
+    }else {
+        var month = c_date.getMonth();
+    }
     let year = c_date.getFullYear();
 
     (function App() {
@@ -208,7 +224,8 @@
         let table = document.getElementById('dates');
         table.innerHTML = '';
         let s_m = document.getElementById('s_m');
-        s_m.innerHTML = months[m] + ' ' + y;
+            s_m.innerHTML = months[m] + ' ' + y;
+
         let date = 1;
         //remaing dates of last month
         let r_pm = (d_pm-firstDay) +1;
@@ -325,6 +342,14 @@
                     });
                     // End holiday saturday,sunday
 
+                    //resubmission
+                    if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+                         if(date == {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!}  && y == {!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!} &&  m == {!!  json_encode(date("m", strtotime($request->booking_schedule->appointment_date))-1) !!}){
+                            span.classList.add('choice_order_date');
+                        }
+                    }
+                    //End resubmission
+
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
                     date++;
@@ -337,8 +362,17 @@
 
 
     }
-    renderCalendar(month, year)
-
+        if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+            //resubmission
+            var m = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
+            var y = parseInt({!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!});
+            $('.showEvent').removeClass('active');
+            $('#event').removeClass('d-none');
+            //End resubmission
+            renderCalendar(m, y)
+        }else{
+            renderCalendar(month, year)
+        }
 
     $(function(){
         function showEvent(eventDate){
@@ -390,7 +424,7 @@
             $('.showEvent').removeClass('active');
             $('#event').removeClass('d-none');
             $(this).addClass('active');
-            let todaysDate = $(this).text() +' '+ (months[month]) +' '+ year;
+            let todaysDate = $(this).text() + ' ' + (months[month]) + ' ' + year;
             let eventDay = days[new Date(year, month, $(this).text()).getDay()];
             let eventDate = $(this).text() + month + year;
             // $('.event-date').html(todaysDate).data('eventdate', eventDate);
@@ -400,6 +434,15 @@
             showEvent(eventDate);
         })
 
+        //resubmission
+        if ({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+{{--            let todaysDate = {!!  json_encode(date("d M Y", strtotime($request->booking_schedule->appointment_date))) !!};--}}
+            let todaysDate = {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;
+
+            validate_limit_schedule(todaysDate);
+            $('#view_date').val(todaysDate);
+        }
+        //End resubmission
         function validate_limit_schedule(eventDate) {
             $.ajax({
                 url: "{{ url('/ajax/cek/data/limit/schedule') }}",

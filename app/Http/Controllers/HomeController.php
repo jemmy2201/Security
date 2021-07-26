@@ -295,9 +295,11 @@ class HomeController extends Controller
             $grade = $request->grade;
         }
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+        $request->merge(['booking_schedule'=>$booking_schedule]);
         if (!empty($booking_schedule) && $booking_schedule->Status_app == resubmission){
+            $request->merge(['Status_app' =>resubmission,'booking_schedule'=>$booking_schedule]);
             $this->Saveresubmission($request,$grade);
-            return redirect('/home');
+//            return redirect('/home');
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
@@ -334,6 +336,15 @@ class HomeController extends Controller
         }
         $gst = gst::orderBy('id', 'desc')->first();
         $t_grade = t_grade::get();
+
+        if ($request->valid_resubmission == true){
+            $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+                ->update([
+                    'Status_app' => Resubmitted,
+                ]);;
+            return redirect('/home');
+
+        }
         return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
 

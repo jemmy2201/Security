@@ -352,11 +352,11 @@
         <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
-            @if(empty($resubmission))
+{{--            @if(empty($resubmission))--}}
                 <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
-            @else
-                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmission <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
-            @endif
+{{--            @else--}}
+{{--                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmission <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>--}}
+{{--            @endif--}}
         </div>
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
