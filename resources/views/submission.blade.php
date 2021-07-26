@@ -462,9 +462,9 @@
                         //     $("#book_appointment").submit();
                         // }
 
-                        if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){
-                                swal("Please!", "select a course", "error")
-                        }else{
+                        {{--if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){--}}
+                        {{--        swal("Please!", "select a course", "error")--}}
+                        {{--}else{--}}
                             if ({!!  json_encode($request->array_grade) !!} == null )
                             {
                                 swal({
@@ -480,7 +480,7 @@
                             }else{
                                 $("#book_appointment").submit();
                             }
-                        }
+                        // }
 
                     } else {
                         swal("Please!", " tick declare", "error");

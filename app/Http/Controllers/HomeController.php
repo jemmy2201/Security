@@ -354,7 +354,6 @@ class HomeController extends Controller
                     'resubmission_date' => date('d/m/Y H:i:s'),
                 ]);
             return redirect('/home');
-
         }
         return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
     }
@@ -657,12 +656,14 @@ class HomeController extends Controller
             $new_take_grade = json_decode($request->Cgrade[0]);
 
             // untuk mengatasi jika di refresh chorem maka data array tidak double
-            foreach ($new_take_grade as $index => $f){
-                if (!empty($take_grade) && !in_array($f,$take_grade)) {
-                    array_push($take_grade, $f);
-                    $merge_grade = $take_grade;
-                }else{
-                    $merge_grade = $take_grade;
+            if(!empty($new_take_grade)) {
+                foreach ($new_take_grade as $index => $f) {
+                    if (!empty($take_grade) && !in_array($f, $take_grade)) {
+                        array_push($take_grade, $f);
+                        $merge_grade = $take_grade;
+                    } else {
+                        $merge_grade = $take_grade;
+                    }
                 }
             }
             // End untuk mengatasi jika di refresh chorem maka data array tidak double

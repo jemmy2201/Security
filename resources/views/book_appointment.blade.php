@@ -72,6 +72,9 @@
                         <img src="{{URL::asset('/img/yellow_box.jpg')}}" style="width: 2%;"> : half working day up to 13:00
                     </li>
                     <li><img src="{{URL::asset('/img/red_box.jpeg')}}" style="width: 2%;"> : full day vacation</li>
+                    @if(!empty($request->Status_app) && $request->Status_app == resubmission)
+                    <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
+                    @endif
                 </ul>
             </div>
         </div>
