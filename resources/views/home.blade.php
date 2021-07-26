@@ -246,6 +246,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @php $expried_replacement =true; @endphp
                         @if(!empty($replacement))
                             @foreach($replacement as $index => $f)
 {{--                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp--}}
@@ -326,6 +327,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @php $expried_renewal =true; @endphp
                         @if(!empty($renewal))
                             @foreach($renewal as $index => $f)
                                 @php

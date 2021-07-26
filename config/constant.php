@@ -173,6 +173,7 @@ define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,pa
 
 
 define('less_than_days', "+7");
+define('thanks_payment', "Thank you for the payment");
 
 
 //End Env singapass

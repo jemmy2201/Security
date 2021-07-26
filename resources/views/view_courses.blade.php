@@ -26,6 +26,11 @@
         <h2 style="color: #E31E1A;">ID Card Application Details
         </h2>
         <br>
+        @if($request->thank_payment == true)
+        <center>
+        <h3><b>{{thanks_payment}}</b></h3>
+        </center>
+        @endif
         {{-- Desktop --}}
         <h4><b>Details</b></h4>
 
@@ -125,7 +130,7 @@
                             @elseif($courses->Status_app == draft)
                                 <td>{{txt_draft}}</td>
                             @elseif($courses->Status_app == submitted)
-                                <td>{{txt_draft}}</td>
+                                <td>{{txt_submitted}}</td>
                             @elseif($courses->Status_app == processing)
                                 <td>{{txt_processing}}</td>
                             @elseif($courses->Status_app == id_card_ready_for_collection)
@@ -157,7 +162,7 @@
                         <div class="w-100"></div>
                         @if ($request->card == so_app)
                             <br>
-                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-8 ColoumndataPersonal">
                             @foreach (json_decode($courses->array_grade) as $f)
                                 @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
@@ -298,7 +303,7 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-12 ColoumndataPersonal">
                             @foreach (json_decode($courses->array_grade) as $f)
                                 @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp

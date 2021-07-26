@@ -19,6 +19,7 @@ use DB;
 use App\Dateholiday;
 use Jenssegers\Agent\Agent;
 use PDF;
+Use Redirect;
 use Illuminate\Support\Facades\Route;
 use App\tbl_receiptNo;
 class HomeController extends Controller
@@ -119,9 +120,19 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
+    public function after_payment(Request $request,$card)
+    {
+//        die(print_r($request->all()));
+        $request->merge(['app_type' => renewal, 'thank_payment' => true,'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+        $t_grade = t_grade::get();
+        return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+    }
+
     public function view_course(Request $request,$card)
     {
-        $request->merge(['app_type' => renewal, 'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
+        $request->merge(['app_type' => renewal,'thank_payment' => false, 'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
@@ -389,7 +400,8 @@ class HomeController extends Controller
         }
 
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
-        return redirect()->route('home');
+//        return redirect()->route('home');
+        return Redirect::route('after.payment', $request->card);
     }
     protected  function ClearDataDraft($request){
         if ($request->app_type == news){

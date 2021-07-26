@@ -49,6 +49,7 @@ Route::post('/declare/submission', 'HomeController@declare_submission')->name('d
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
+Route::get('/after/payment/{id}', 'HomeController@after_payment')->name('after.payment');
 
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::get('/back/personal/particular/{app_type}/{card}','HomeController@backpersonaldata');
