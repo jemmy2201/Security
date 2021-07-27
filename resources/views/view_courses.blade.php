@@ -38,15 +38,17 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >NRIC/FIN <span style="margin-left: 80px;">:</span></div>
                         @php
                             $cutnric = substr($courses->nric, -4);
                             $nric = "XXXXX$cutnric";
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        @if (strlen($courses->name) > 40)
+{{--                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Name <span style="margin-left: 114px;">:</span></div>
+                    @if (strlen($courses->name) > 40)
                             <div class="col-4 ColoumndataPersonal hidden-xs">
                                 <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
                                 {{$courses->name}}
@@ -57,10 +59,12 @@
                         @endif
 {{--                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal"> Mobile No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal"> Mobile No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 78px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Home No <span style="margin-left: 83px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->homeno}}</div>
 
                     </div>
@@ -70,10 +74,12 @@
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Pass ID <span style="margin-left: 92px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Card Type <span style="margin-left: 70px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">
                             @if($courses->card_id == so_app)
                                 SO
@@ -84,8 +90,9 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
-                        @if ($request->card == so_app)
+{{--                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Grade <span style="margin-left: 106px;">:</span></div>
+                    @if ($request->card == so_app)
                             @foreach($t_grade as $index =>$f)
                                 @if(!empty($courses) && $courses->grade_id== $f->id)
                                     <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
@@ -109,8 +116,9 @@
                             <div class="col-4 ColoumndataPersonal">NA</div>
                         @endif
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
-                        @if(!empty( $courses->passexpirydate))
+{{--                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Card Expiry Date <span style="margin-left: 10px;">:</span></div>
+                    @if(!empty( $courses->passexpirydate))
                         <div class="col-4 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
                         @endif
                     </div>
@@ -123,7 +131,8 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Status <span style="margin-left: 111px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">
                             @if($courses->Status_app == completed)
                                 <td>{{txt_completed}}</td>
@@ -142,13 +151,16 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Receipt &nbsp;No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Receipt &nbsp;No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Receipt No <span style="margin-left: 68px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 15px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">${{$courses->grand_total}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
@@ -162,8 +174,9 @@
                         <div class="w-100"></div>
                         @if ($request->card == so_app && !empty($courses->array_grade))
                             <br>
-                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                        <div class="col-8 ColoumndataPersonal">
+{{--                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                            <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 94px;">:</span></div>
+                            <div class="col-8 ColoumndataPersonal">
                             @foreach (json_decode($courses->array_grade) as $f)
                                 @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
                                 <ul class="list-group">
@@ -190,11 +203,13 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->nric}}</div>
+{{--                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >NRIC/FIN <span style="margin-left: 70px;">:</span></div>
+                        <div class="col-6 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                        @if (strlen($courses->name) > 40)
+{{--                        <div class="col-0 HeaderdataPersonal">Name&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Name <span style="margin-left: 103px;">:</span></div>
+                    @if (strlen($courses->name) > 40)
                             <div class="col-6 ColoumndataPersonal ">
                                  <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;" readonly>
                                 {{$courses->name}}
@@ -206,13 +221,16 @@
                         @endif
 {{--                        <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 67px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Home No <span style="margin-left: 73px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->homeno}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Status <span style="margin-left: 101px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">
                             @if($courses->Status_app == completed)
                                 <td>{{txt_completed}}</td>
@@ -231,7 +249,8 @@
                             @endif
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Card Type <span style="margin-left: 66px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">
                             @if($courses->card_id == so_app)
                                 SO
@@ -241,7 +260,8 @@
                                 PI
                             @endif</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Grade <span style="margin-left: 102px;">:</span></div>
                         @if ($request->card == so_app)
                             @foreach($t_grade as $index =>$f)
                             @if(!empty($courses) && $courses->grade_id== $f->id)
@@ -274,10 +294,12 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Pass ID No <span style="margin-left: 57px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->passid}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Card Expiry Date <span style="margin-left: 6px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
                     </div>
                 </div>
@@ -286,13 +308,16 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Receipt No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Receipt No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Receipt No <span style="margin-left: 60px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 7px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">${{$courses->grand_total}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
                         <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
                     </div>
@@ -303,7 +328,8 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+{{--                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 85px;">:</span></div>
                         <div class="col-12 ColoumndataPersonal">
                             @foreach (json_decode($courses->array_grade) as $f)
                                 @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
