@@ -275,6 +275,7 @@
                     // console.log('jrg 2',m)
 
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
+
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -283,7 +284,27 @@
                             span.classList.add('dissable');
                         }
                     }
-                    if(y === c_date.getFullYear() && m === c_date.getMonth()+1){
+
+                    {{--if({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){--}}
+                    {{--    if (date > c_date.getDate() && y === c_date.getFullYear() && m-1 === c_date.getMonth()){--}}
+                    {{--        var sevenDayHidden = c_date.getDate() + 7;--}}
+                    {{--        if (date < sevenDayHidden){--}}
+                    {{--            if (d_m => sevenDayHidden){--}}
+                    {{--                window.remainder_value_resubmission = sevenDayHidden - d_m;--}}
+                    {{--                if(typeof remainder_value_resubmission !== 'undefined' && y === c_date.getFullYear() && m === c_date.getMonth()+1){--}}
+                    {{--                    // console.log('ss',parseInt("1"))--}}
+                    {{--                    // console.log('s',date)--}}
+                    {{--                    if (parseInt("3") === parseInt(remainder_value_resubmission) && y === c_date.getFullYear() && m === c_date.getMonth()+1) {--}}
+                    {{--                        console.log('s',remainder_value_resubmission)--}}
+                    {{--                        span.classList.add('dissable');--}}
+                    {{--                    }--}}
+                    {{--                }--}}
+                    {{--            }--}}
+                    {{--        }--}}
+                    {{--    }--}}
+                    {{--}--}}
+
+                    if(typeof remainder_value !== 'undefined' && y === c_date.getFullYear() && m === c_date.getMonth()+1){
                         if (date <= remainder_value) {
                             span.classList.add('dissable');
                         }
