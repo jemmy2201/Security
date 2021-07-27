@@ -155,10 +155,14 @@
     let c_date = new Date();
     let day = c_date.getDay();
 
-    if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && $('#valid_resubmission').val() == false &&  {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
+    if ($('#valid_resubmission').val() == false &&  {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
         //resubmission
         $('#valid_resubmission').val(true);
-        var month = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
+        if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null){
+            var month = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
+        }else{
+            var month = c_date.getMonth();
+        }
         //End resubmission
     }else {
         var month = c_date.getMonth();
@@ -267,9 +271,20 @@
                     let cellText = document.createTextNode(date);
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
+                    // console.log('jrg',c_date.getMonth())
+                    // console.log('jrg 2',m)
+
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
                         var sevenDayHidden = c_date.getDate() + 7;
-                        if (date < sevenDayHidden ){
+                        if (date < sevenDayHidden){
+                            if (d_m => sevenDayHidden){
+                                window.remainder_value = sevenDayHidden - d_m;
+                            }
+                            span.classList.add('dissable');
+                        }
+                    }
+                    if(y === c_date.getFullYear() && m === c_date.getMonth()+1){
+                        if (date <= remainder_value) {
                             span.classList.add('dissable');
                         }
                     }

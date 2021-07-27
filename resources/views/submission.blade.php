@@ -242,6 +242,7 @@
                         </div>
                     </div>
                     <div class="row" >
+                        @if(!empty(json_decode($data_resubmission->array_grade)) )
                         @foreach (json_decode($data_resubmission->array_grade) as $f)
                             @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
                             <div class="col-10">
@@ -253,6 +254,7 @@
                                 @endif
                             </div>
                         @endforeach
+                        @endif
                     </div>
                 @endif
 

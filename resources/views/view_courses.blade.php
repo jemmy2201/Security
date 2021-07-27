@@ -160,7 +160,7 @@
 {{--                            @endif--}}
 {{--                        </div>--}}
                         <div class="w-100"></div>
-                        @if ($request->card == so_app)
+                        @if ($request->card == so_app && !empty($courses->array_grade))
                             <br>
                         <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-8 ColoumndataPersonal">
@@ -299,7 +299,7 @@
                 </div>
             </div>
             <br class="visible-xs hidden-md">
-            @if ($request->card == so_app)
+            @if ($request->card == so_app && !empty($courses->array_grade) )
             <div class="col-sm">
                 <div class="container">
                     <div class="row">

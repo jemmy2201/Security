@@ -307,7 +307,9 @@ class HomeController extends Controller
         }
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $request->merge(['booking_schedule'=>$booking_schedule]);
+
         if (!empty($booking_schedule) && $booking_schedule->Status_app == resubmission){
+            $request->merge(['Status_app' =>resubmission,'booking_schedule'=>$booking_schedule]);
             $diff_date_resubmission = date_diff(date_create(date('Y-m-d')),date_create($booking_schedule->appointment_date));
             $data_date = $diff_date_resubmission->format("%R%a");
             if ($data_date <= less_than_days){
@@ -319,7 +321,6 @@ class HomeController extends Controller
                     ]);
             }
 
-            $request->merge(['Status_app' =>resubmission,'booking_schedule'=>$booking_schedule]);
             $this->Saveresubmission($request,$grade);
 //            return redirect('/home');
         }elseif (empty($booking_schedule)){
@@ -357,7 +358,6 @@ class HomeController extends Controller
         }
         $gst = gst::orderBy('id', 'desc')->first();
         $t_grade = t_grade::get();
-
         if ($request->valid_resubmission == true){
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
