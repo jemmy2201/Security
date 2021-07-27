@@ -476,7 +476,7 @@
 
         //resubmission
         if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-            let todaysDate = {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;
+            let todaysDate = {!!  json_encode(date("j", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;
             validate_limit_schedule(todaysDate);
             $('#view_date').val(todaysDate);
         }

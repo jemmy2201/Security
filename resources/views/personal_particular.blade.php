@@ -57,6 +57,7 @@
     <br>
     <form method="post" id="submit_personal_particular" action="{{ route('submission') }}" >
         @csrf
+    <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
     {{-- Desktop --}}
     <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">

@@ -79,17 +79,17 @@ class HomeController extends Controller
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
-    public function backpersonaldata(Request $request,$app_type,$card)
+    public function backpersonaldata(Request $request,$app_type,$card,$Status_App = false)
     {
-        $request->merge(['app_type' => $app_type,'card' => $card]);
+        $request->merge(['app_type' => $app_type,'card' => $card,'Status_App' => $Status_App]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
-    public function resubmission(Request $request, $app_type, $card)
+    public function resubmission(Request $request, $app_type, $card,$Status_App)
     {
-        $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $request->merge(['app_type' => $app_type, 'card' => $card, 'Status_App' => $Status_App]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,7 @@ Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment
 Route::get('/after/payment/{id}', 'HomeController@after_payment')->name('after.payment');
 
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
+Route::get('/back/personal/particular/{app_type}/{card}/{status}','HomeController@backpersonaldata');
 Route::get('/back/personal/particular/{app_type}/{card}','HomeController@backpersonaldata');
 //Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
 Route::post('/replacement/personal/particular', 'HomeController@replacement_personaldata')->name('replacement.personal.particular');
@@ -61,7 +63,7 @@ Route::post('/renewal/personal/particular', 'HomeController@renewal_personaldata
 // get history continous
 Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@HistoryBookAppointment');
 Route::get('/history/book/payment/{app_type}/{card}', 'HomeController@HistoryViewPayment');
-Route::get('/personal/particular/{app_type}/{card}', 'HomeController@resubmission');
+Route::get('/personal/particular/{app_type}/{card}/{status}', 'HomeController@resubmission');
 Route::get('/draft/{app_type}/{card}', 'HomeController@backDraft');
 Route::get('/view/course/{id}', 'HomeController@view_course');
 Route::get('/invoice/print/pdf/{id}', 'HomeController@print_pdf');

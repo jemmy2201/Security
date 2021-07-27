@@ -157,6 +157,7 @@
     <br><br>
     <form method="post" id="book_appointment" action="{{ route('book.appointment') }}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
         @if(!empty($request->Cgrade))
             <input type="hidden" name="Cgrade[]" id="Cgrade" value="{{json_encode($request->Cgrade)}}">
         @elseif(empty($request->Cgrade) && !empty($replacement) && $request->card == so_app)
@@ -347,7 +348,7 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <a href="{{ url('back/personal/particular/'.$request->app_type.'/'.$request->card) }}" style="text-decoration:none;"><button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" > <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </button></a>
+            <a href="{{ url('back/personal/particular/'.$request->app_type.'/'.$request->card.'/'.$request->Status_App) }}" style="text-decoration:none;"><button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" > <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </button></a>
         </div>
         <div class="col-8 medium hidden-xs">
         </div>
