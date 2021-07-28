@@ -264,7 +264,7 @@
                 console.log('sukses',this.responseText)
             }
         };
-        xhttp.open("POST", "https://uat-api.nets.com.sg:9065/GW2/TxnQuery", true);
+        xhttp.open("POST", "https://api.nets.com.sg/GW2/TxnQuery", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
         xhttp.setRequestHeader("hmac", sign);

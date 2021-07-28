@@ -27,7 +27,7 @@
     </h2>
     <br>
         {{-- Desktop --}}
-    <h4><b>Details</b></h4>
+    <h3><b>Details</b></h3>
 
     <div class="container">
             <div class="row hidden-xs">
@@ -53,6 +53,17 @@
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
+                        <div class="col-0 HeaderdataPersonal">Application Type &ensp;&nbsp;:</div>
+                        <div class="col-4 ColoumndataPersonal">
+                            @if($personal->app_type == news)
+                                New
+                            @elseif($personal->app_type == replacement)
+                                Replacement
+                            @elseif($personal->app_type == renewal)
+                                Renewal
+                            @endif
+                        </div>
+                        <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
                         <div class="w-100"></div>
