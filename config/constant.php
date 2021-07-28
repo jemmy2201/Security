@@ -166,7 +166,7 @@ define('Merchant_server_IP_Address', "127.0.0.1");
 
 //Env singapass
 define('authApiUrl', "https://test.api.myinfo.gov.sg/com/v3/token");
-define('clientIdSinpass', "STG2-MYINFOBIZ-SELF-TEST");
+define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecret', "127.0.0.1");
 define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
 define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
