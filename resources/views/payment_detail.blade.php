@@ -65,13 +65,13 @@
     </div>
     <h3>Select Payment By</h3>
     <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" data-toggle="modal" data-target="#Form_payment" id="enets" style="width: 15%; margin-right: 20px;">
-    <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment" id="paynow" style="width: 15%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+    <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
 
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
 
     <br><br class="hidden-xs"><br class="hidden-xs">
 
-    <!-- Modal -->
+    <!-- Modal Enets -->
     <div class="modal fade" id="Form_payment" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -161,31 +161,83 @@
                     <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </a>
-                    <button type="button" id="confirm_payment" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                    <button type="button" id="confirm_payment_enets" class="btn btn-danger" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
 
         </div>
     </div>
-    <!-- End Modal -->
+    <!-- End Modal Enets -->
+    <!-- Modal Paynow -->
+    <div class="modal fade" id="Form_payment_paynow" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Barcode payment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                    <div id="qrcodePaynow"></div>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
+                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </a>
+                    <button type="button" id="confirm_payment_paynow" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
 
+        </div>
+    </div>
+    <!-- End Modal Paynow -->
 </div>
+<script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        //Create a PaynowQR object
+        let qrcode = new PaynowQR({
+            uen:'201403121W',           //Required: UEN of company
+            amount : 500,               //Specify amount of money to pay.
+            editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
+            expiry: '20201231',         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
+            refNumber: 'TQINV-10001',   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            company:  'ACME Pte Ltd.'   //Company name to embed in the QR code. Optional.
+        });
 
-
-
+        //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
+        let QRstring = qrcode.output();
+        console.log('jrg',QRstring)
+        new QRCode(document.getElementById("qrcodePaynow"), QRstring)
+    });
+</script>
 <script type="application/javascript">
     $( document ).ready(function() {
-        $("#confirm_payment").click(function() {
-            if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){
-                if($("#payment_method").val() == {!!  json_encode(enets) !!}){
-                    // enets();
-                }else if($("#payment_method").val() == {!!  json_encode(paynow) !!}){
-                    // paynow()
-                }
+        $("#confirm_payment_enets").click(function() {
+            if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()) {
+                // enets();
                 $( "#save_payment").submit();
             }else{
                 swal("Please!", "Complete the data", "error")
             }
+            {{--if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){--}}
+            {{--    if($("#payment_method").val() == {!!  json_encode(enets) !!}){--}}
+            {{--        // enets();--}}
+            {{--    }else if($("#payment_method").val() == {!!  json_encode(paynow) !!}){--}}
+            {{--        // paynow()--}}
+            {{--    }--}}
+            {{--    $( "#save_payment").submit();--}}
+            {{--}else{--}}
+            {{--    swal("Please!", "Complete the data", "error")--}}
+            {{--}--}}
+        });
+
+        $("#confirm_payment_paynow").click(function() {
+            console.log('s')
+           $( "#save_payment").submit();
         });
         $("#enets").click(function() {
             $("#payment_method").val({!!  json_encode(enets) !!})
