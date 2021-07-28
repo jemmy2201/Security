@@ -800,7 +800,9 @@ class HomeController extends Controller
     {
         if (!empty($request->upload_profile)) {
 
-            $imageName = Auth::user()->passid . '' . substr(Auth::user()->nric, -4) . '.' . $request->upload_profile->getClientOriginalExtension();
+            $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+
+            $imageName =$booking_schedule->passid . '' . substr(Auth::user()->nric, -4) . '.' . $request->upload_profile->getClientOriginalExtension();
 
             $request->upload_profile->move(public_path('img/img_users'), $imageName);
 

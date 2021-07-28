@@ -236,7 +236,6 @@
         });
 
         $("#confirm_payment_paynow").click(function() {
-            console.log('s')
            $( "#save_payment").submit();
         });
         $("#enets").click(function() {
