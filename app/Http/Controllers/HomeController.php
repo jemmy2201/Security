@@ -425,7 +425,8 @@ class HomeController extends Controller
                 ->update([
                     'app_type' => $setifikat->app_type,
                     'array_grade' => $setifikat->array_grade,
-                    'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
+//                    'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
+                    'declaration_date' => $setifikat->declaration_date,
                     'trans_date' => $setifikat->trans_date,
                     'expired_date' => $setifikat->expired_date,
                     'paymentby' => $setifikat->paymentby,
@@ -666,7 +667,6 @@ class HomeController extends Controller
         if ($booking_schedule->grade_id) {
             $take_grade = json_decode($booking_schedule->array_grade);
             $new_take_grade = json_decode($request->Cgrade[0]);
-
             // untuk mengatasi jika di refresh chorem maka data array tidak double
             if(!empty($new_take_grade)) {
                 foreach ($new_take_grade as $index => $f) {
@@ -674,7 +674,11 @@ class HomeController extends Controller
                         array_push($take_grade, $f);
                         $merge_grade = $take_grade;
                     } else {
-                        $merge_grade = $take_grade;
+                        if (!empty($new_take_grade)){
+                            $merge_grade = json_encode(array($f));
+                        }else{
+                            $merge_grade = $take_grade;
+                        }
                     }
                 }
             }
