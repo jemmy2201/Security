@@ -11,7 +11,7 @@ class SingpassController extends Controller
 {
     public function login(Request $request)
     {
-        $existingUser = User::where('passid',"S9812381D")->first();
+        $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
             auth()->login($existingUser, true);
             return redirect()->to('/home');
@@ -24,7 +24,7 @@ class SingpassController extends Controller
 //            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
             "use"=> "sig",
             "crv"=>"P-521",
-            "kid"=> "idx",
+                "kid"=> "idx",
             "x"=> "AQUrwZ5XP8Dk_Ivj4u9ZJ7wPkIiTykeyy2VzkB39izR8is5jXnPBLbZUpSn30Y92U_XT8j-u-9lsPpPlUBhM2z6H",
             "y"=> "AFK8aR2UDfnhhTZcgcoB6-EGKzR_AWwMDOlljzzWDwkWrMsVs7WkUGTDFjkUMT3sZqm36k2s-Ppw_T4DAhiQ_wsg",
             "alg"=> "ES512"
