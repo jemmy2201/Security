@@ -63,8 +63,8 @@
                             </div>
                             <div id="scan" class="tab-pane fade in active">
                                 <center>
-                                    <h3><b>Scan with Singpass app</b></h3>
-                                    <h4>to log in</h4>
+{{--                                    <h3><b>Scan with Singpass app</b></h3>--}}
+{{--                                    <h4>to log in</h4>--}}
                                 </center>
 {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
                                 <div id="ndi-qr"></div>
