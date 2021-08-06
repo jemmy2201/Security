@@ -24,7 +24,7 @@ Route::get('/qrcode', function () {
     return view('login');
 });
 
-Route::get('/afterlogin', 'SingpassController@login');
+Route::get('/afterlogin/{code}/{state}', 'SingpassController@login');
 Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
 Route::get('/public/oauth2/uat_jwks', 'SingpassController@public_jwks');
 
