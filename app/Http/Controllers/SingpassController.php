@@ -3,18 +3,99 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SingpassController extends Controller
 {
-    public function login(Request $request)
+    protected function newuser($request,$response)
     {
+        $time = Carbon::now();
+
+        $web = false;
+        if (substr($response['uinfin']['value'],0,1) == work_permit_pass || substr($response['uinfin']['value'],0,1) == employment_pass){
+            $web = true;
+        }
+
+        $InUser = new User;
+
+        $InUser->name = $response['aliasname']['value'];
+
+        $InUser->email = $response['email']['value'];
+
+        $InUser->password = Hash::make($request->password);
+
+//        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
+        $InUser->nric =$response['uinfin']['value'];
+
+//        $InUser->passid =$response['uinfin']['value'];
+
+        $InUser->passportexpirydate =$response['passportexpirydate']['value'];
+
+//        $InUser->passexpirydate =$response['passportexpirydate']['value'];
+
+        $InUser->passportnumber =$response['passportnumber']['value'];
+
+        $InUser->mobileno =$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'];
+
+        $InUser->homeno =$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'];
+
+        $InUser->photo =$response['drivinglicence']['photocardserialno']['value'];
+
+        $InUser->web =$web;
+
+        $InUser->time_login_at =$time->toDateTimeString();
+
+        $InUser->save();
+
+        return $InUser;
+    }
+
+    public function login(Request $request,$code,$state)
+    {
+
+//        $data = [
+//            'client_id' => clientIdSinpass,
+//            'client_secret' => clientIdSecret,
+//            'grant_type' => 'authorization_code',
+//            'redirect_uri' => redirectUrlSingpass,
+//            'code' => $code,
+//        ];
+//
+//        $curl = curl_init();
+//
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => authApiUrl,
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30000,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => json_encode($data),
+//            CURLOPT_HTTPHEADER => array(
+//                // Set here requred headers
+//                "accept: application/json",
+//                "content-type: application/x-www-form-urlencoded",
+//                "charset: ISO-8859-1",
+//                "Host: stg-id.singpass.gov.sg",
+//            ),
+//        ));
+//
+//        $response = curl_exec($curl);
+//        $err = curl_error($curl);
+//
+//        curl_close($curl);
+
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
             auth()->login($existingUser, true);
             return redirect()->to('/home');
+        }else{
+//            $data = $this->newuser($request, $response);
         }
         return redirect()->to('/');
     }
@@ -24,7 +105,7 @@ class SingpassController extends Controller
 //            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
             "use"=> "sig",
             "crv"=>"P-521",
-                "kid"=> "idx",
+            "kid"=> "idx",
             "x"=> "AQUrwZ5XP8Dk_Ivj4u9ZJ7wPkIiTykeyy2VzkB39izR8is5jXnPBLbZUpSn30Y92U_XT8j-u-9lsPpPlUBhM2z6H",
             "y"=> "AFK8aR2UDfnhhTZcgcoB6-EGKzR_AWwMDOlljzzWDwkWrMsVs7WkUGTDFjkUMT3sZqm36k2s-Ppw_T4DAhiQ_wsg",
             "alg"=> "ES512"
