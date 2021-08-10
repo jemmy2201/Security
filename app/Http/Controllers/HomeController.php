@@ -404,6 +404,7 @@ class HomeController extends Controller
         return Redirect::route('after.payment', $request->card);
     }
     protected  function ClearDataDraft($request){
+        $clear_data="";
         if ($request->app_type == news){
 //            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->delete();
             $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
@@ -421,22 +422,25 @@ class HomeController extends Controller
                 ]);
         }elseif ($request->app_type == replacement || $request->app_type == renewal) {
             $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at', 'desc')->first();
-            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
-                ->update([
-                    'app_type' => $setifikat->app_type,
-                    'array_grade' => $setifikat->array_grade,
+            if (!empty($setifikat)){
+                $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                    ->update([
+                        'app_type' => $setifikat->app_type,
+                        'array_grade' => $setifikat->array_grade,
 //                    'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
-                    'declaration_date' => $setifikat->declaration_date,
-                    'trans_date' => $setifikat->trans_date,
-                    'expired_date' => $setifikat->expired_date,
-                    'paymentby' => $setifikat->paymentby,
-                    'status_payment' => $setifikat->status_payment,
-                    'receiptNo' => $setifikat->receiptNo,
-                    'Status_app' => $setifikat->Status_app,
-                    'appointment_date' => $setifikat->appointment_date,
-                    'time_start_appointment' => $setifikat->time_start_appointment,
-                    'time_end_appointment' => $setifikat->time_end_appointment,
-                ]);
+                        'declaration_date' => $setifikat->declaration_date,
+                        'trans_date' => $setifikat->trans_date,
+                        'expired_date' => $setifikat->expired_date,
+                        'paymentby' => $setifikat->paymentby,
+                        'status_payment' => $setifikat->status_payment,
+                        'receiptNo' => $setifikat->receiptNo,
+                        'Status_app' => $setifikat->Status_app,
+                        'appointment_date' => $setifikat->appointment_date,
+                        'time_start_appointment' => $setifikat->time_start_appointment,
+                        'time_end_appointment' => $setifikat->time_end_appointment,
+                    ]);
+            }
+
         }
         return $clear_data;
     }
