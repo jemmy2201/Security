@@ -60,9 +60,9 @@ class BackupDatabase extends Command
             Storage::disk('local')->put($filename, $getFile);
         }else{
             // if there is an error send an email
-            Mail::raw('There has been an error backing up the database.', function ($message) {
-                $message->to("jemmyrolish07@gmail.com", "jemmy")->subject("Backup Error");
-            });
+//            Mail::raw('There has been an error backing up the database.', function ($message) {
+//                $message->to("jemmyrolish07@gmail.com", "jemmy")->subject("Backup Error");
+//            });
         }
     }
 }
