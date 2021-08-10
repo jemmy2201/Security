@@ -35,6 +35,7 @@ class CreateSertifikatsTable extends Migration
             $table->string('nric');
             $table->string('passid')->nullable();
             $table->string('passexpirydate')->nullable();
+            $table->string('resubmission_date')->nullable();
             $table->timestamps();
         });
     }

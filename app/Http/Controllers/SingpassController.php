@@ -82,6 +82,9 @@ class SingpassController extends Controller
 //                "content-type: application/x-www-form-urlencoded",
 //                "charset: ISO-8859-1",
 //                "Host: stg-id.singpass.gov.sg",
+//                "typ: JWT",
+//                "alg: ES256",
+//                "kid: rp_key_01",
 //            ),
 //        ));
 //

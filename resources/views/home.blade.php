@@ -95,7 +95,7 @@
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
                                 <td>{{$f->trans_date}}</td>
                             @else
-                            <td></td>
+                                <td></td>
                             @endif
 
                         @if($f->card_id == so_app)
@@ -188,6 +188,8 @@
                                 @if(!empty($f->trans_date))
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
                                     <td>{{$f->trans_date}}</td>
+                                @else
+                                    <td></td>
                                 @endif
                             @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)

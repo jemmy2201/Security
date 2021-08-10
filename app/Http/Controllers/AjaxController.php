@@ -908,7 +908,7 @@ class AjaxController extends Controller
 
                 }
 
-                if (strtoupper($e['status_app']) == completed && !empty($expired_date)){
+                if (strtoupper($e['status_app']) == completed && !empty($expired_date) && !empty($declaration_date)){
                     $data = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')
                         ->where(['users.nric'=>$e['nric'],'card_id'=>$e['card_type']])
                         ->first();
@@ -974,6 +974,8 @@ class AjaxController extends Controller
                             $sertifikat->passid = $data->passid;
 
                             $sertifikat->passexpirydate = $data->passexpirydate;
+
+                            $sertifikat->resubmission_date = $data->resubmission_date;
 
                             $sertifikat->save();
                         }
