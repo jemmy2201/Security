@@ -54,44 +54,44 @@ class SingpassController extends Controller
         return $InUser;
     }
 
-    public function login(Request $request,$code,$state)
+    public function login(Request $request)
     {
 
-//        $data = [
-//            'client_id' => clientIdSinpass,
-//            'client_secret' => clientIdSecret,
-//            'grant_type' => 'authorization_code',
-//            'redirect_uri' => redirectUrlSingpass,
-//            'code' => $code,
-//        ];
-//
-//        $curl = curl_init();
-//
-//        curl_setopt_array($curl, array(
-//            CURLOPT_URL => authApiUrl,
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_ENCODING => "",
-//            CURLOPT_MAXREDIRS => 10,
-//            CURLOPT_TIMEOUT => 30000,
-//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//            CURLOPT_CUSTOMREQUEST => "POST",
-//            CURLOPT_POSTFIELDS => json_encode($data),
-//            CURLOPT_HTTPHEADER => array(
-//                // Set here requred headers
-//                "accept: application/json",
-//                "content-type: application/x-www-form-urlencoded",
-//                "charset: ISO-8859-1",
-//                "Host: stg-id.singpass.gov.sg",
-//                "typ: JWT",
-//                "alg: ES256",
-//                "kid: rp_key_01",
-//            ),
-//        ));
-//
-//        $response = curl_exec($curl);
-//        $err = curl_error($curl);
-//
-//        curl_close($curl);
+        $data = [
+            'client_id' => clientIdSinpass,
+            'client_secret' => clientIdSecret,
+            'grant_type' => 'authorization_code',
+            'redirect_uri' => redirectUrlSingpass,
+            'code' => $request->code,
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => authApiUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                // Set here requred headers
+                "accept: application/json",
+                "content-type: application/x-www-form-urlencoded",
+                "charset: ISO-8859-1",
+                "Host: stg-id.singpass.gov.sg",
+                "typ: JWT",
+                "alg: ES256",
+                "kid: rp_key_01",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
