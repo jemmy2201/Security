@@ -467,11 +467,11 @@ class HomeController extends Controller
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
 
-            $receiptNo = new tbl_receiptNo;
-
-            $receiptNo->receiptNo = $this->receiptNo();
-
-            $receiptNo->save();
+//            $receiptNo = new tbl_receiptNo;
+//
+//            $receiptNo->receiptNo = $this->receiptNo();
+//
+//            $receiptNo->save();
 //        $this->create_setifikat($request);
         return $BookingScheduleAppointment;
     }
@@ -593,8 +593,16 @@ class HomeController extends Controller
                                             'time_start_appointment' => $data->start_at,
                                             'time_end_appointment' => $data->end_at,
                                             'Status_app' => draft,
+                                            'receiptNo' => $this->receiptNo(),
                                             'Status_draft' => draft_payment,
                                         ]);
+
+        $receiptNo = new tbl_receiptNo;
+
+        $receiptNo->receiptNo = $this->receiptNo();
+
+        $receiptNo->save();
+
         return $BookingScheduleAppointment;
     }
     protected function UpdateBookingSchedule($request,$grade)
