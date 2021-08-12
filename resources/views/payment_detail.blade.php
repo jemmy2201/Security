@@ -199,29 +199,12 @@
 <script>
     $( document ).ready(function() {
         //Create a PaynowQR object
-        if ({!!  json_encode($request->app_type) !!} == {!!  json_encode(news) !!}){
-                var app_type = "new";
-        }else if({!!  json_encode($request->app_type) !!} == {!!  json_encode(replacement) !!}){
-                var app_type = "replacement";
-        }else if({!!  json_encode($request->app_type) !!} == {!!  json_encode(renewal) !!}){
-                var app_type = "renewal";
-        }
-
-        if ({!!  json_encode($request->card) !!} == {!!  json_encode(so_app) !!}){
-            var card = "SO";
-        }else if({!!  json_encode($request->card) !!} == {!!  json_encode(avso_app) !!}){
-            var card = "AVSO";
-        }else if({!!  json_encode($request->card) !!} == {!!  json_encode(pi_app) !!}){
-            var card = "PI";
-        }
-        var refNumber ={!!  json_encode(Auth::user()->nric) !!} +"-"+app_type+"/"+card;
-
         let qrcode = new PaynowQR({
             uen:'201403121W',           //Required: UEN of company
             amount : {!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},               //Specify amount of money to pay.
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: '20201231',         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
-            refNumber: refNumber,   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            refNumber: {!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             company:  'ACME Pte Ltd.'   //Company name to embed in the QR code. Optional.
         });
 
