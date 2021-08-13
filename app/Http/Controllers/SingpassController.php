@@ -58,11 +58,11 @@ class SingpassController extends Controller
     public function login(Request $request)
     {
 
-        $key = $request->code;
+        $key = 'sig';
         $payload = array(
             "sub" => clientIdSinpass,
-            "iss" => clientIdSinpass,
             "aud" => "https://id.singpass.gov.sg",
+            "iss" => clientIdSinpass,
             "iat" => 1356999524,
             "exp" => 9999999999
         );
@@ -77,6 +77,7 @@ class SingpassController extends Controller
 
         $data = [
             'client_assertion_type' => $jwt,
+//            'client_assertion_type' => 'urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer',
             'client_id' => clientIdSinpass,
             'grant_type' => 'authorization_code',
             'redirect_uri' => redirectUrlSingpass,
@@ -97,9 +98,10 @@ class SingpassController extends Controller
             CURLOPT_HTTPHEADER => array(
                 // Set here requred headers
 //                "accept: application/json",
+                "client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
                 "content-type: application/x-www-form-urlencoded",
                 "charset: ISO-8859-1",
-//                "Host: stg-id.singpass.gov.sg",
+                "Host: stg-id.singpass.gov.sg",
 //                "kid : ndi_stg_01",
 //                "typ : JWT",
 //                "alg : ES256"
