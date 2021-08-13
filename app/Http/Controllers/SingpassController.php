@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Firebase\JWT\JWT;
 
 class SingpassController extends Controller
 {
@@ -57,9 +58,26 @@ class SingpassController extends Controller
     public function login(Request $request)
     {
 
+        $key = $request->code;
+        $payload = array(
+            "sub" => clientIdSinpass,
+            "iss" => clientIdSinpass,
+            "aud" => "https://id.singpass.gov.sg",
+            "iat" => 1356999524,
+            "exp" => 9999999999
+        );
+
+        /**
+         * IMPORTANT:
+         * You must specify supported algorithms for your application. See
+         * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
+         * for a list of spec-compliant algorithms.
+         */
+        $jwt = JWT::encode($payload, $key);
+
         $data = [
+            'client_assertion_type' => $jwt,
             'client_id' => clientIdSinpass,
-            'client_secret' => clientIdSecret,
             'grant_type' => 'authorization_code',
             'redirect_uri' => redirectUrlSingpass,
             'code' => $request->code,
@@ -78,7 +96,7 @@ class SingpassController extends Controller
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => array(
                 // Set here requred headers
-                "accept: application/json",
+//                "accept: application/json",
                 "content-type: application/x-www-form-urlencoded",
                 "charset: ISO-8859-1",
 //                "Host: stg-id.singpass.gov.sg",
@@ -92,6 +110,8 @@ class SingpassController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
+
+//        $decoded = JWT::decode($jwt, $key, array('HS256'));
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
