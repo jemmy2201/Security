@@ -59,21 +59,25 @@ class SingpassController extends Controller
     {
 
         $key = 'sig';
+
+        $str = '{
+                  "typ" : "JWT",
+                  "alg" : "ES256",
+                  "kid" : "rp_key_01"
+                }';
+        $header =  base64_encode($str);
+
         $payload = array(
             "sub" => clientIdSinpass,
-            "aud" => "https://id.singpass.gov.sg",
+            "aud" => "https://stg-id.singpass.gov.sg",
             "iss" => clientIdSinpass,
             "iat" => 1356999524,
             "exp" => 9999999999
         );
 
-        /**
-         * IMPORTANT:
-         * You must specify supported algorithms for your application. See
-         * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
-         * for a list of spec-compliant algorithms.
-         */
-        $jwt = JWT::encode($payload, $key);
+        $Data_payload = JWT::encode($payload, $key);
+
+        $jwt = base64_encode($header) . "." . base64_encode($Data_payload);
 
         $data = [
             'client_assertion_type' => $jwt,
@@ -113,7 +117,18 @@ class SingpassController extends Controller
 
         curl_close($curl);
 
-//        $decoded = JWT::decode($jwt, $key, array('HS256'));
+        $key = 'enc';
+        $payload = array(
+            "sub" => $response['id_token'],
+            "aud" => clientIdSinpass,
+            "amr" => [ "pwd", "swk" ],
+            "iss" => "https://stg-id.singpass.gov.sg",
+            "exp" => 9999999999,
+            "iat" => 1356999524,
+            "nonce" => "qnQcCZx9RF6nx4TjwQTSI2gOHZ7ie0jHSGUd0kd5iIU="
+        );
+
+        $decoded = JWT::decode($jwt, $key, array('HS256'));
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
