@@ -165,7 +165,7 @@ define('Merchant_server_IP_Address', "127.0.0.1");
 //End Enets
 
 //Env singapass
-define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
+define('authApiUrl', "https://stg-id.singpass.gov.sg:9443/token");
 define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecret', "127.0.0.1");
 define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
