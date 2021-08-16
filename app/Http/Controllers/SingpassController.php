@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\JWT;
-
+use Firebase\JWT\JWK;
 class SingpassController extends Controller
 {
     protected function newuser($request,$response)
@@ -54,36 +54,87 @@ class SingpassController extends Controller
 
         return $InUser;
     }
+    protected  function base64url_encode($data) {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
 
     public function login(Request $request)
     {
 
-        $key = 'sig';
+//        $privateKey = <<<EOD
+//-----BEGIN EC PRIVATE KEY-----
+//MHcCAQEEILN6aQktL+2TAqwqSttDRD1xaAblpO6FG10w22F6Ky7loAoGCCqGSM49
+//AwEHoUQDQgAE74g4ykDuo3dR/EG5j/yupcUSmcWVszq/dIBwzP9iet6hDqwXoKk9
+//wLd5m8/RNnbhlLPWwn+3zIBabDupAhtRYA==
+//-----END EC PRIVATE KEY-----
+//EOD;
+//
+//            $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
+//            $Iat_encode   = Carbon::now()->timestamp;
+//
+//            $payload = array(
+//                "sub" => clientIdSinpass,
+//                "aud" => "https://stg-id.singpass.gov.sg",
+//                "iss" => clientIdSinpass,
+//                "iat" => $Iat_encode,
+//                "exp" => $Exp_encode
+//            );
+//
+//            $Data_payload = JWT::encode($payload, $privateKey,'ES256');
+//            $jwt = $Data_payload ;
+//            die($jwt);
+        // get the local secret key
 
-        $str = '{
-                  "typ" : "JWT",
-                  "alg" : "ES256",
-                  "kid" : "rp_key_01"
-                }';
-        $header =  base64_encode($str);
+        $key = json_encode([
+            "kty"=> "EC",
+            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
+            "use"=> "sig",
+            "crv"=> "P-521",
+            "kid"=> "idx",
+            "x"=> "AQUrwZ5XP8Dk_Ivj4u9ZJ7wPkIiTykeyy2VzkB39izR8is5jXnPBLbZUpSn30Y92U_XT8j-u-9lsPpPlUBhM2z6H",
+            "y"=> "AFK8aR2UDfnhhTZcgcoB6-EGKzR_AWwMDOlljzzWDwkWrMsVs7WkUGTDFjkUMT3sZqm36k2s-Ppw_T4DAhiQ_wsg",
+            "alg"=> "ES512"
+        ]);
 
-        $payload = array(
+        $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
+        $Iat_encode   = Carbon::now()->timestamp;
+        // Create the token header
+        $header = json_encode([
+            "typ" => "JWT",
+            "alg" => "ES256",
+        ]);
+
+        // Create the token payload
+        $payload = json_encode([
             "sub" => clientIdSinpass,
             "aud" => "https://stg-id.singpass.gov.sg",
             "iss" => clientIdSinpass,
-            "iat" => 1356999524,
-            "exp" => 9999999999
-        );
+            "iat" => $Iat_encode,
+            "exp" => $Exp_encode
+        ]);
+        // Encode Header
+        $base64UrlHeader = $this->base64url_encode($header);
 
-        $Data_payload = JWT::encode($payload, $key);
+        // Encode Payload
+        $base64UrlPayload = $this->base64url_encode($payload);
 
-        $jwt = base64_encode($header) . "." . base64_encode($Data_payload);
+        // Encode Key
+        $base64UrlKey = $this->base64url_encode($key);
+
+        // Create Signature Hash
+        $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, $key);
+
+        // Encode Signature to Base64Url String
+        $base64UrlSignature = $this->base64url_encode($signature);
+
+        // Create JWT
+        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
 
         $data = [
-            'client_assertion_type' => $jwt,
-//            'client_assertion_type' => 'urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer',
+            'client_assertion' => $jwt,
+            'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
             'client_id' => clientIdSinpass,
-            'grant_type' => 'authorization_code',
+            'grant_type' => "authorization_code",
             'redirect_uri' => redirectUrlSingpass,
             'code' => $request->code,
         ];
@@ -100,15 +151,9 @@ class SingpassController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => array(
-                // Set here requred headers
-//                "accept: application/json",
-                "client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
                 "content-type: application/x-www-form-urlencoded",
                 "charset: ISO-8859-1",
                 "Host: stg-id.singpass.gov.sg",
-//                "kid : ndi_stg_01",
-//                "typ : JWT",
-//                "alg : ES256"
             ),
         ));
 
@@ -117,18 +162,20 @@ class SingpassController extends Controller
 
         curl_close($curl);
 
-        $key = 'enc';
-        $payload = array(
-            "sub" => $response['id_token'],
-            "aud" => clientIdSinpass,
-            "amr" => [ "pwd", "swk" ],
-            "iss" => "https://stg-id.singpass.gov.sg",
-            "exp" => 9999999999,
-            "iat" => 1356999524,
-            "nonce" => "qnQcCZx9RF6nx4TjwQTSI2gOHZ7ie0jHSGUd0kd5iIU="
-        );
-
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
+//        $key = 'enc';
+//        $Exp_decode   = Carbon::now()->addMinutes('10')->timestamp;
+//        $Iat_decode   = Carbon::now()->timestamp;
+//        $payload = array(
+//            "sub" => $response['id_token'],
+//            "aud" => clientIdSinpass,
+//            "amr" => [ "pwd", "swk" ],
+//            "iss" => "https://stg-id.singpass.gov.sg",
+//            "exp" => $Exp_decode,
+//            "iat" => $Iat_decode,
+//            "nonce" => "qnQcCZx9RF6nx4TjwQTSI2gOHZ7ie0jHSGUd0kd5iIU="
+//        );
+//
+//        $decoded = JWT::decode($jwt, $key, array('HS256'));
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
