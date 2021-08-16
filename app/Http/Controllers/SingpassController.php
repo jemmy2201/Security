@@ -87,12 +87,12 @@ class SingpassController extends Controller
 
         $key = json_encode([
             "kty"=> "EC",
-            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
+            "d"=> "AUWpVkN6AOZ195lPgATc8iBCOJajaiweEy3ChWsEhFaB9meM2OWZXqfu3634KwJjJ32UGS8vyfggptF_aKmglZHp",
             "use"=> "sig",
             "crv"=> "P-521",
             "kid"=> "idx",
-            "x"=> "AQUrwZ5XP8Dk_Ivj4u9ZJ7wPkIiTykeyy2VzkB39izR8is5jXnPBLbZUpSn30Y92U_XT8j-u-9lsPpPlUBhM2z6H",
-            "y"=> "AFK8aR2UDfnhhTZcgcoB6-EGKzR_AWwMDOlljzzWDwkWrMsVs7WkUGTDFjkUMT3sZqm36k2s-Ppw_T4DAhiQ_wsg",
+            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
+            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
             "alg"=> "ES512"
         ]);
 
@@ -129,7 +129,7 @@ class SingpassController extends Controller
 
         // Create JWT
         $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-
+        die($jwt);
         $data = [
             'client_assertion' => $jwt,
             'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
@@ -189,21 +189,19 @@ class SingpassController extends Controller
     public function jwks(){
         $key['keys'] =[array(
             "kty"=> "EC",
-//            "d"=> "AGscyf2X8C0VREczpb3E_yUVHNnr5DeuDD-YQqgRBsn9d9GML6iELO8OayDWas7kSMABFpxT_Nk0AK0OTMo1s7zp",
             "use"=> "sig",
-            "crv"=>"P-521",
+            "crv"=> "P-521",
             "kid"=> "idx",
-            "x"=> "AQUrwZ5XP8Dk_Ivj4u9ZJ7wPkIiTykeyy2VzkB39izR8is5jXnPBLbZUpSn30Y92U_XT8j-u-9lsPpPlUBhM2z6H",
-            "y"=> "AFK8aR2UDfnhhTZcgcoB6-EGKzR_AWwMDOlljzzWDwkWrMsVs7WkUGTDFjkUMT3sZqm36k2s-Ppw_T4DAhiQ_wsg",
+            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
+            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
             "alg"=> "ES512"
             ),array(
             "kty"=> "EC",
-//            "d"=> "Af813aqlv539RquwDsaA86z9uHk1FvictvCc-NirMAeeT5pGq7Z121ErAjcOHlZCVOs-keiYcAumcG-dSulvwAJ0",
             "use"=> "enc",
             "crv"=> "P-521",
-            "kid"=> "idx2",
-            "x"=> "AfiIONfcS3x-klWcRYbsH9TmXvAiQOK6kOKEDyi6rYRW3ZQJCTX-feJu9I8lvB03bsfuNhk5EHjXqe4qP-BBS3Ae",
-            "y"=> "AZS5Ngw4suPgKw6VvJvEz2-SmAbkJk-8iXycFcBLK0kdxIfhWZz3OBHDVBff1NZGamwjReZIeB0tAT9BG7J94H1e",
+            "kid"=> "idx-enc",
+            "x"=> "AVqxiXGKBGyGexP-q_2LfDW0uFDCHCnJC55S0IMD3fhGEa__3aDp4wSPBI-6Gt1JhxFYRhzW7mxPZeajPmkpewVC",
+            "y"=> "AfwzgYm2Ovad3pcjlbMOEBMSXFAAtJ9O7R02bw-BR3a7XCE0P_3w1GK4b7z4XEQSNjpa0LUuaNhuHYQTtIkhS8EJ",
             "alg"=> "ECDH-ES+A256KW"
         )];
         return $key;
