@@ -68,68 +68,61 @@ class SingpassController extends Controller
 //wLd5m8/RNnbhlLPWwn+3zIBabDupAhtRYA==
 //-----END EC PRIVATE KEY-----
 //EOD;
+            $privateKey= file_get_contents('PrivateKey.pem');
+            $publicKey= file_get_contents('PublicKey.pem');
+            $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
+            $Iat_encode   = Carbon::now()->timestamp;
+
+            $payload = array(
+                "sub" => clientIdSinpass,
+                "aud" => "https://stg-id.singpass.gov.sg",
+                "iss" => clientIdSinpass,
+                "iat" => $Iat_encode,
+                "exp" => $Exp_encode
+            );
+
+//        $key = json_encode([
+//            "kty"=> "EC",
+//            "d"=> "AUWpVkN6AOZ195lPgATc8iBCOJajaiweEy3ChWsEhFaB9meM2OWZXqfu3634KwJjJ32UGS8vyfggptF_aKmglZHp",
+//            "crv"=> "P-256",
+//            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
+//            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
+//        ]);
 //
-//            $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
-//            $Iat_encode   = Carbon::now()->timestamp;
+//        $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
+//        $Iat_encode   = Carbon::now()->timestamp;
+//        // Create the token header
+//        $header = json_encode([
+//            "typ" => "JWT",
+//            "alg" => "ES256",
+//        ]);
 //
-//            $payload = array(
-//                "sub" => clientIdSinpass,
-//                "aud" => "https://stg-id.singpass.gov.sg",
-//                "iss" => clientIdSinpass,
-//                "iat" => $Iat_encode,
-//                "exp" => $Exp_encode
-//            );
+//        // Create the token payload
+//        $payload = json_encode([
+//            "sub" => clientIdSinpass,
+//            "aud" => "https://stg-id.singpass.gov.sg",
+//            "iss" => clientIdSinpass,
+//            "iat" => $Iat_encode,
+//            "exp" => $Exp_encode
+//        ]);
+//        // Encode Header
+//        $base64UrlHeader = $this->base64url_encode($header);
 //
-//            $Data_payload = JWT::encode($payload, $privateKey,'ES256');
-//            $jwt = $Data_payload ;
-//            die($jwt);
-        // get the local secret key
+//        // Encode Payload
+//        $base64UrlPayload = $this->base64url_encode($payload);
+//
+//        // Encode Key
+//        $base64UrlKey = $this->base64url_encode($key);
+//
+//        // Create Signature Hash
+//        $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, $key);
+//
+//        // Encode Signature to Base64Url String
+//        $base64UrlSignature = $this->base64url_encode($signature);
+//
+//        // Create JWT
+//        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
 
-        $key = json_encode([
-            "kty"=> "EC",
-            "d"=> "AUWpVkN6AOZ195lPgATc8iBCOJajaiweEy3ChWsEhFaB9meM2OWZXqfu3634KwJjJ32UGS8vyfggptF_aKmglZHp",
-            "use"=> "sig",
-            "crv"=> "P-521",
-            "kid"=> "idx",
-            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
-            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
-            "alg"=> "ES512"
-        ]);
-
-        $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
-        $Iat_encode   = Carbon::now()->timestamp;
-        // Create the token header
-        $header = json_encode([
-            "typ" => "JWT",
-            "alg" => "ES256",
-        ]);
-
-        // Create the token payload
-        $payload = json_encode([
-            "sub" => clientIdSinpass,
-            "aud" => "https://stg-id.singpass.gov.sg",
-            "iss" => clientIdSinpass,
-            "iat" => $Iat_encode,
-            "exp" => $Exp_encode
-        ]);
-        // Encode Header
-        $base64UrlHeader = $this->base64url_encode($header);
-
-        // Encode Payload
-        $base64UrlPayload = $this->base64url_encode($payload);
-
-        // Encode Key
-        $base64UrlKey = $this->base64url_encode($key);
-
-        // Create Signature Hash
-        $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, $key);
-
-        // Encode Signature to Base64Url String
-        $base64UrlSignature = $this->base64url_encode($signature);
-
-        // Create JWT
-        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-        die($jwt);
         $data = [
             'client_assertion' => $jwt,
             'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
@@ -159,23 +152,23 @@ class SingpassController extends Controller
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
+        die(print_r($response));
 
         curl_close($curl);
 
-//        $key = 'enc';
-//        $Exp_decode   = Carbon::now()->addMinutes('10')->timestamp;
-//        $Iat_decode   = Carbon::now()->timestamp;
-//        $payload = array(
-//            "sub" => $response['id_token'],
-//            "aud" => clientIdSinpass,
-//            "amr" => [ "pwd", "swk" ],
-//            "iss" => "https://stg-id.singpass.gov.sg",
-//            "exp" => $Exp_decode,
-//            "iat" => $Iat_decode,
-//            "nonce" => "qnQcCZx9RF6nx4TjwQTSI2gOHZ7ie0jHSGUd0kd5iIU="
-//        );
-//
-//        $decoded = JWT::decode($jwt, $key, array('HS256'));
+        $Data_payload = JWT::encode($payload, $privateKey,'ES256');
+        $jwt = $Data_payload ;
+        // get the local secret key
+
+
+        $decoded = JWT::decode($jwt, $publicKey, array('ES256'));
+
+        /*
+         NOTE: This will now be an object instead of an associative array. To get
+         an associative array, you will need to cast it as such:
+        */
+
+        $decoded_array = (array) $decoded;
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
