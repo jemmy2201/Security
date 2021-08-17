@@ -163,22 +163,40 @@ class SingpassController extends Controller
         return redirect()->to('/');
     }
     public function jwks(){
+//        $key['keys'] =[array(
+//            "kty"=> "EC",
+//            "use"=> "sig",
+//            "crv"=> "P-521",
+//            "kid"=> "idx",
+//            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
+//            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
+//            "alg"=> "ES512"
+//            ),array(
+//            "kty"=> "EC",
+//            "use"=> "enc",
+//            "crv"=> "P-521",
+//            "kid"=> "idx-enc",
+//            "x"=> "AVqxiXGKBGyGexP-q_2LfDW0uFDCHCnJC55S0IMD3fhGEa__3aDp4wSPBI-6Gt1JhxFYRhzW7mxPZeajPmkpewVC",
+//            "y"=> "AfwzgYm2Ovad3pcjlbMOEBMSXFAAtJ9O7R02bw-BR3a7XCE0P_3w1GK4b7z4XEQSNjpa0LUuaNhuHYQTtIkhS8EJ",
+//            "alg"=> "ECDH-ES+A256KW"
+//        )];
         $key['keys'] =[array(
             "kty"=> "EC",
+//            "d"=> "wDs_nhKvV8YG1nN_B2FkedjWZxiGVnoLipurXRUdYLI",
             "use"=> "sig",
-            "crv"=> "P-521",
-            "kid"=> "idx",
-            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
-            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
-            "alg"=> "ES512"
-            ),array(
+            "crv"=> "P-256",
+            "kid"=> "idx-sig",
+            "x"=> "9WVo-Q0eUDmwWL-6iBiClxndUf_ETCAabtqOSCo6g7g",
+            "y"=> "fiIac0yt58KXPDHvH5KGqiX_TPT4jOe9jSLYxD869PE"
+        ),array(
             "kty"=> "EC",
+//            "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
             "use"=> "enc",
-            "crv"=> "P-521",
+            "crv"=> "P-256",
             "kid"=> "idx-enc",
-            "x"=> "AVqxiXGKBGyGexP-q_2LfDW0uFDCHCnJC55S0IMD3fhGEa__3aDp4wSPBI-6Gt1JhxFYRhzW7mxPZeajPmkpewVC",
-            "y"=> "AfwzgYm2Ovad3pcjlbMOEBMSXFAAtJ9O7R02bw-BR3a7XCE0P_3w1GK4b7z4XEQSNjpa0LUuaNhuHYQTtIkhS8EJ",
-            "alg"=> "ECDH-ES+A256KW"
+            "x"=> "9Is-VbNwtijojiwRxWAbXxg-UTndznGFISU0RlQpfoY",
+            "y"=> "t67FS3cT-sohO_x5qsBvAnM5HTNkk_wNQza32YJg-6A",
+            "alg"=> "ECDH-ES+A128KW"
         )];
         return $key;
     }
