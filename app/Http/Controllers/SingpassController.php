@@ -60,14 +60,6 @@ class SingpassController extends Controller
 
     public function login(Request $request)
     {
-
-//        $privateKey = <<<EOD
-//-----BEGIN EC PRIVATE KEY-----
-//MHcCAQEEILN6aQktL+2TAqwqSttDRD1xaAblpO6FG10w22F6Ky7loAoGCCqGSM49
-//AwEHoUQDQgAE74g4ykDuo3dR/EG5j/yupcUSmcWVszq/dIBwzP9iet6hDqwXoKk9
-//wLd5m8/RNnbhlLPWwn+3zIBabDupAhtRYA==
-//-----END EC PRIVATE KEY-----
-//EOD;
             $privateKey= file_get_contents('PrivateKey.pem');
             $publicKey= file_get_contents('PublicKey.pem');
             $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
@@ -81,6 +73,7 @@ class SingpassController extends Controller
                 "exp" => $Exp_encode
             );
 
+            $jwt = JWT::encode($payload, $privateKey,'ES256');
 //        $key = json_encode([
 //            "kty"=> "EC",
 //            "d"=> "AUWpVkN6AOZ195lPgATc8iBCOJajaiweEy3ChWsEhFaB9meM2OWZXqfu3634KwJjJ32UGS8vyfggptF_aKmglZHp",
@@ -152,21 +145,11 @@ class SingpassController extends Controller
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
-        die(print_r($response));
 
         curl_close($curl);
-
-        $Data_payload = JWT::encode($payload, $privateKey,'ES256');
-        $jwt = $Data_payload ;
-        // get the local secret key
-
+        die(print_r($response));
 
         $decoded = JWT::decode($jwt, $publicKey, array('ES256'));
-
-        /*
-         NOTE: This will now be an object instead of an associative array. To get
-         an associative array, you will need to cast it as such:
-        */
 
         $decoded_array = (array) $decoded;
 
