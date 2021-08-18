@@ -60,61 +60,20 @@ class SingpassController extends Controller
 
     public function login(Request $request)
     {
-            $privateKey= file_get_contents('PrivateKey.pem');
-            $publicKey= file_get_contents('PublicKey.pem');
-            $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
-            $Iat_encode   = Carbon::now()->timestamp;
+        $privateKey= file_get_contents('PrivateKey.pem');
+        $publicKey= file_get_contents('PublicKey.pem');
+        $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
+        $Iat_encode   = Carbon::now()->timestamp;
 
-            $payload = array(
-                "sub" => clientIdSinpass,
-                "aud" => "https://stg-id.singpass.gov.sg",
-                "iss" => clientIdSinpass,
-                "iat" => $Iat_encode,
-                "exp" => $Exp_encode
-            );
+        $payload = array(
+            "sub" => clientIdSinpass,
+            "aud" => "https://stg-id.singpass.gov.sg",
+            "iss" => clientIdSinpass,
+            "iat" => $Iat_encode,
+            "exp" => $Exp_encode
+        );
 
-            $jwt = JWT::encode($payload, $privateKey,'ES256');
-//        $key = json_encode([
-//            "kty"=> "EC",
-//            "d"=> "AUWpVkN6AOZ195lPgATc8iBCOJajaiweEy3ChWsEhFaB9meM2OWZXqfu3634KwJjJ32UGS8vyfggptF_aKmglZHp",
-//            "crv"=> "P-256",
-//            "x"=> "AC2dySQ5arD18Wf4baLejfogBJmirK5PKf7a20x9f27KDKZymLTn7T7iKCjpI4PmIHYJ85-psv1piDM5MOeiEgbB",
-//            "y"=> "APTgUPTb21D01DRmX_LIkmzrv5HEUL5IQMftxZAJ8cVGeCIKijdnvIymjxAT9BUeGNtHS0nm1_IJxyhpbaopz5zF",
-//        ]);
-//
-//        $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
-//        $Iat_encode   = Carbon::now()->timestamp;
-//        // Create the token header
-//        $header = json_encode([
-//            "typ" => "JWT",
-//            "alg" => "ES256",
-//        ]);
-//
-//        // Create the token payload
-//        $payload = json_encode([
-//            "sub" => clientIdSinpass,
-//            "aud" => "https://stg-id.singpass.gov.sg",
-//            "iss" => clientIdSinpass,
-//            "iat" => $Iat_encode,
-//            "exp" => $Exp_encode
-//        ]);
-//        // Encode Header
-//        $base64UrlHeader = $this->base64url_encode($header);
-//
-//        // Encode Payload
-//        $base64UrlPayload = $this->base64url_encode($payload);
-//
-//        // Encode Key
-//        $base64UrlKey = $this->base64url_encode($key);
-//
-//        // Create Signature Hash
-//        $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, $key);
-//
-//        // Encode Signature to Base64Url String
-//        $base64UrlSignature = $this->base64url_encode($signature);
-//
-//        // Create JWT
-//        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+        $jwt = JWT::encode($payload, $privateKey,'ES256');
 
         $data = [
             'client_assertion' => $jwt,
@@ -147,9 +106,9 @@ class SingpassController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
-        die(print_r($response));
+        die(print_r($jwt));
 
-        $decoded = JWT::decode($jwt, $publicKey, array('ES256'));
+        $decoded = JWT::decode($response['id_token'], $publicKey, array('ES256'));
 
         $decoded_array = (array) $decoded;
 
@@ -182,12 +141,13 @@ class SingpassController extends Controller
 //        )];
         $key['keys'] =[array(
             "kty"=> "EC",
-//            "d"=> "wDs_nhKvV8YG1nN_B2FkedjWZxiGVnoLipurXRUdYLI",
+//            "d": "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
             "use"=> "sig",
             "crv"=> "P-256",
             "kid"=> "idx-sig",
-            "x"=> "9WVo-Q0eUDmwWL-6iBiClxndUf_ETCAabtqOSCo6g7g",
-            "y"=> "fiIac0yt58KXPDHvH5KGqiX_TPT4jOe9jSLYxD869PE"
+            "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+            "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+            "alg"=> "ES256"
         ),array(
             "kty"=> "EC",
 //            "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
