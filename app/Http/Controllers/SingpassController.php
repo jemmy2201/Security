@@ -10,6 +10,8 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\JWT;
 use Firebase\JWT\JWK;
+
+use GuzzleHttp\Client;
 class SingpassController extends Controller
 {
     public static function entity_person($response)
@@ -124,19 +126,31 @@ class SingpassController extends Controller
 
         return $decoded_array;
     }
-    public function login(Request $request)
+
+    public static function id_token($jwt,$code)
     {
-
-        $jwt = static::private_key();
-
         $data = [
             'client_assertion' => $jwt,
             'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
             'client_id' => clientIdSinpass,
             'grant_type' => "authorization_code",
             'redirect_uri' => redirectUrlSingpass,
-            'code' => $request->code,
+            'code' => $code,
         ];
+
+//        $client = new Client();
+//
+//        $http = $client->post(
+//            authApiUrl,
+//            [
+//                'content-type' => 'application/x-www-form-urlencoded',
+//                'charset' => 'ISO-8859-1',
+//                'Host' => 'stg-id.singpass.gov.sg'
+//            ],
+//        );
+//
+//        $http->setBody(json_encode($data)); #set body!
+//        $response = $http->send();
 
         $curl = curl_init();
 
@@ -161,11 +175,19 @@ class SingpassController extends Controller
 
         curl_close($curl);
 
-        die(print_r($response));
+        return $response;
+    }
+    public function login(Request $request)
+    {
 
+        $jwt = static::private_key();
+
+        $response = static::id_token($jwt,$request->code);
+        die(print_r($response));
 //        $data_person = static::public_key($response);
 
         $existingUser = User::where('nric',"S9812381D")->first();
+
         if($existingUser){
             auth()->login($existingUser, true);
             return redirect()->to('/home');
