@@ -12,8 +12,46 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\JWK;
 class SingpassController extends Controller
 {
-    protected function newuser($request,$response)
+    public static function entity_person($response)
     {
+        $data = [
+            'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+            'client_assertion' => $jwt,
+            'client_id' => clientIdSinpass,
+            'grant_type' => "authorization_code",
+            'redirect_uri' => redirectUrlSingpass,
+            'code' => $request->code,
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => authApiUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "charset: ISO-8859-1",
+                "Host: stg-id.singpass.gov.sg",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        return $response;
+    }
+    public static function newuser($response)
+    {
+        $person = static::entity_person($response);
+
         $time = Carbon::now();
 
         $web = false;
@@ -58,10 +96,9 @@ class SingpassController extends Controller
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
-    public function login(Request $request)
+    public static function private_key()
     {
         $privateKey= file_get_contents('PrivateKey.pem');
-        $publicKey= file_get_contents('PublicKey.pem');
         $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
         $Iat_encode   = Carbon::now()->timestamp;
 
@@ -74,6 +111,23 @@ class SingpassController extends Controller
         );
 
         $jwt = JWT::encode($payload, $privateKey,'ES256');
+
+        return $jwt;
+    }
+
+    public static function public_key($response)
+    {
+        $publicKey= file_get_contents('PublicKey.pem');
+        $decoded = JWT::decode($response, $publicKey, array('ES256'));
+
+        $decoded_array = (array) $decoded;
+
+        return $decoded_array;
+    }
+    public function login(Request $request)
+    {
+
+        $jwt = static::private_key();
 
         $data = [
             'client_assertion' => $jwt,
@@ -98,7 +152,7 @@ class SingpassController extends Controller
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded",
                 "charset: ISO-8859-1",
-                "Host: stg-id.singpass.gov.sg",
+//                "Host: stg-id.singpass.gov.sg",
             ),
         ));
 
@@ -106,18 +160,17 @@ class SingpassController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
-        die(print_r($jwt));
 
-        $decoded = JWT::decode($response['id_token'], $publicKey, array('ES256'));
+        die(print_r($response));
 
-        $decoded_array = (array) $decoded;
+//        $data_person = static::public_key($response);
 
         $existingUser = User::where('nric',"S9812381D")->first();
         if($existingUser){
             auth()->login($existingUser, true);
             return redirect()->to('/home');
         }else{
-//            $data = $this->newuser($request, $response);
+            $data = static::newuser($request, $response);
         }
         return redirect()->to('/');
     }
