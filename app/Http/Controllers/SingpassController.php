@@ -130,50 +130,50 @@ class SingpassController extends Controller
     public static function id_token($jwt,$code)
     {
         $data = [
-            'client_assertion' => $jwt,
             'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+            'client_assertion' => $jwt,
             'client_id' => clientIdSinpass,
             'grant_type' => "authorization_code",
             'redirect_uri' => redirectUrlSingpass,
             'code' => $code,
         ];
 
-//        $client = new Client();
+        $client = new Client();
+
+        $http = $client->post(
+            authApiUrl,
+            [
+                'headers' => ['content-type' => 'application/x-www-form-urlencoded',
+                    'charset' => 'ISO-8859-1',
+                    'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                    'Host' => 'stg-id.singpass.gov.sg'],
+                'body'    => json_encode($data)
+            ]
+        );
+        $response = $http->send();
+
+//        $curl = curl_init();
 //
-//        $http = $client->post(
-//            authApiUrl,
-//            [
-//                'content-type' => 'application/x-www-form-urlencoded',
-//                'charset' => 'ISO-8859-1',
-//                'Host' => 'stg-id.singpass.gov.sg'
-//            ],
-//        );
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => authApiUrl,
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30000,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => json_encode($data),
+//            CURLOPT_HTTPHEADER => array(
+//                "content-type: application/x-www-form-urlencoded",
+//                "charset: ISO-8859-1",
+////                "Host: stg-id.singpass.gov.sg",
+//            ),
+//        ));
 //
-//        $http->setBody(json_encode($data)); #set body!
-//        $response = $http->send();
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => authApiUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded",
-                "charset: ISO-8859-1",
-//                "Host: stg-id.singpass.gov.sg",
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
+//        $response = curl_exec($curl);
+//        $err = curl_error($curl);
+//
+//        curl_close($curl);
 
         return $response;
     }
@@ -183,7 +183,7 @@ class SingpassController extends Controller
         $jwt = static::private_key();
 
         $response = static::id_token($jwt,$request->code);
-        die(print_r($response));
+
 //        $data_person = static::public_key($response);
 
         $existingUser = User::where('nric',"S9812381D")->first();
