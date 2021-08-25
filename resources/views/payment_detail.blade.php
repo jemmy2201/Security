@@ -218,26 +218,18 @@
     $( document ).ready(function() {
         $("#confirm_payment_enets").click(function() {
             if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()) {
-                var Event = enets();
-                if(Event = {!!  json_encode(success) !!}){
-                    $( "#save_payment").submit();
-                }else{
-                    swal("Payment Failed !", "Please try again", "error")
-                }
-                $( "#save_payment").submit();
+                var Enets = enets();
+                Enets.onreadystatechange = function() {
+                    var StatusEnets = jQuery.parseJSON(this.response);
+                    if (this.readyState == 4 && this.status == 200 && StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}) {
+                        $( "#save_payment").submit();
+                    }else{
+                        swal("Payment Failed !", "Please try again", "error")
+                    }
+                };
             }else{
                 swal("Please!", "Complete the data", "error")
             }
-            {{--if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()){--}}
-            {{--    if($("#payment_method").val() == {!!  json_encode(enets) !!}){--}}
-            {{--        // enets();--}}
-            {{--    }else if($("#payment_method").val() == {!!  json_encode(paynow) !!}){--}}
-            {{--        // paynow()--}}
-            {{--    }--}}
-            {{--    $( "#save_payment").submit();--}}
-            {{--}else{--}}
-            {{--    swal("Please!", "Complete the data", "error")--}}
-            {{--}--}}
         });
 
         $("#confirm_payment_paynow").click(function() {
@@ -261,18 +253,22 @@
             return String.fromCharCode(parseInt(a, 16));
         }).join(''));
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                return {!!  json_encode(success) !!};
-            }else{
-                return {!!  json_encode(fail) !!};
-            }
-        };
+        {{--xhttp.onreadystatechange = function() {--}}
+        {{--    if (this.readyState == 4 && this.status == 200) {--}}
+        {{--        console.log('1');--}}
+        {{--        return {!!  json_encode(success) !!};--}}
+        {{--    }else{--}}
+        {{--        console.log('2');--}}
+        {{--        return {!!  json_encode(fail) !!};--}}
+        {{--    }--}}
+        {{--};--}}
         xhttp.open("POST", {!!  json_encode(ApiurlEnets) !!}, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
         xhttp.setRequestHeader("hmac", sign);
         xhttp.send(txnreq);
+
+        return xhttp;
     }
     //refresh page on browser resize
     $(window).bind('resize', function(e)
