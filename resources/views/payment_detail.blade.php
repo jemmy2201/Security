@@ -268,7 +268,7 @@
                 return {!!  json_encode(fail) !!};
             }
         };
-        xhttp.open("POST", "https://api.nets.com.sg/GW2/TxnQuery", true);
+        xhttp.open("POST", {!!  json_encode(ApiurlEnets) !!}, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
         xhttp.setRequestHeader("hmac", sign);
