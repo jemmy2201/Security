@@ -246,7 +246,7 @@
     function paynow() {
     }
     function enets(){
-        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":$("#card_number").val(),"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":"https://httpbin.org/post","b2sTxnEndURLParam":"","s2sTxnEndURL":"https://sit2.enets.sg/MerchantApp/rest/s2sTxnEnd","s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
+        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":$("#card_number").val(),"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};
         var sign = btoa(sha256(txnreq + secretKey).match(/\w{2}/g).map(function (a) {

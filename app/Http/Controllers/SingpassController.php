@@ -184,7 +184,7 @@ class SingpassController extends Controller
         $jwt = static::private_key();
 
         $response = static::id_token($jwt,$request->code);
-        die(print_r($jwt));
+        die(print_r($response));
 //        $data_person = static::public_key($response);
 
         $existingUser = User::where('nric',"S9812381D")->first();
