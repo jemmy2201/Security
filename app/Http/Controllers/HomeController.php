@@ -462,7 +462,7 @@ class HomeController extends Controller
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
-                'receiptNo' => $this->receiptNo(),
+//                'receiptNo' => $this->receiptNo(),
                 'status_app' => submitted,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
@@ -596,7 +596,6 @@ class HomeController extends Controller
                                             'receiptNo' => $this->receiptNo(),
                                             'Status_draft' => draft_payment,
                                         ]);
-
         $receiptNo = new tbl_receiptNo;
 
         $receiptNo->receiptNo = $this->receiptNo();

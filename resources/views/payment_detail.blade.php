@@ -210,7 +210,6 @@
 
         //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
         let QRstring = qrcode.output();
-        console.log('jrg',QRstring)
         new QRCode(document.getElementById("qrcodePaynow"), QRstring)
     });
 </script>
