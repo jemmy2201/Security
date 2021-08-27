@@ -120,15 +120,15 @@
                                 <div class="col">
                                     <select class="form-control" name="month" id="month" required>
                                         <option value="0" selected>please choose</option>
-                                        <option value="1">01</option>
-                                        <option value="2">02</option>
-                                        <option value="3">03</option>
-                                        <option value="4">04</option>
-                                        <option value="5">05</option>
-                                        <option value="6">06</option>
-                                        <option value="7">07</option>
-                                        <option value="8">08</option>
-                                        <option value="9">09</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
                                         <option value="10">10</option>
                                         <option value="11">11</option>
                                         <option value="12">12</option>
@@ -220,8 +220,9 @@
                 Enets.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200 ) {
                         var StatusEnets = jQuery.parseJSON(this.response);
+                        console.log('status',StatusEnets['msg'])
                         if(StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}){
-                            $( "#save_payment").submit();
+                            // $( "#save_payment").submit();
                         }else{
                             swal("Payment Failed !", "Please try again", "error")
                         }
@@ -247,9 +248,22 @@
     });
     function paynow() {
     }
+    function expiryDate() {
+        if ($("#year").val() == "1"){
+            var expiryDateY = {!!  json_encode(date('y', strtotime('+1 years'))) !!};
+        }else if ($("#year").val() == "2"){
+            var expiryDateY = {!!  json_encode(date('y', strtotime('+2 years'))) !!};
+        }else if ($("#year").val() == "3"){
+            var expiryDateY = {!!  json_encode(date('y', strtotime('+3 years'))) !!};
+        }else if ($("#year").val() == "4"){
+            var expiryDateY = {!!  json_encode(date('y', strtotime('+4 years'))) !!};
+        }else if ($("#year").val() == "5"){
+            var expiryDateY = {!!  json_encode(date('y', strtotime('+5 years'))) !!};
+        }
+        return expiryDateY + $("#month").val();
+    }
     function enets(){
-
-        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":$("#card_number").val(),"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
+        var data = {"ss":"1","msg":{"cardHolderName":$("#card_number").val(),"cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};
         var sign = btoa(sha256(txnreq + secretKey).match(/\w{2}/g).map(function (a) {
