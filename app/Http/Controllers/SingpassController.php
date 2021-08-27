@@ -130,7 +130,7 @@ class SingpassController extends Controller
     public static function id_token($jwt,$code)
     {
             $data = [
-                'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                'client_assertion_type' => "urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer",
                 'client_assertion' => $jwt,
                 'client_id' => clientIdSinpass,
                 'grant_type' => "authorization_code",

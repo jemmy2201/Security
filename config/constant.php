@@ -163,8 +163,8 @@ define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
 define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
 define('netsMid', "UMID_837852000");
 define('Merchant_server_IP_Address', "127.0.0.1");
-define('s2sTxnEndURL', "https://sit2.enets.sg/MerchantApp/rest/s2sTxnEnd");
-define('b2sTxnEndURL', "https://sit2.enets.sg/MerchantApp/sim/b2sTxnEndURL.jsp");
+define('s2sTxnEndURL', "http://www.idx-id2021.com/s2sTxnEndURL");
+define('b2sTxnEndURL', "127.0.0.1");
 //End Enets
 
 //Env singapass

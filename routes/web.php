@@ -24,6 +24,11 @@ Route::get('/qrcode', function () {
     return view('login');
 });
 
+// Enets
+Route::get('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');
+Route::get('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
+// End Enets
+
 Route::get('/afterlogin', 'SingpassController@login');
 Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
 Route::get('/public/oauth2/uat_jwks', 'SingpassController@public_jwks');
