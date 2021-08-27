@@ -212,18 +212,21 @@
         let QRstring = qrcode.output();
         new QRCode(document.getElementById("qrcodePaynow"), QRstring)
     });
-</script>
-<script type="application/javascript">
+
     $( document ).ready(function() {
         $("#confirm_payment_enets").click(function() {
             if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()) {
                 var Enets = enets();
                 Enets.onreadystatechange = function() {
-                    var StatusEnets = jQuery.parseJSON(this.response);
-                    if (this.readyState == 4 && this.status == 200 && StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}) {
-                        $( "#save_payment").submit();
+                    if (this.readyState == 4 && this.status == 200 ) {
+                        var StatusEnets = jQuery.parseJSON(this.response);
+                        if(StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}){
+                            $( "#save_payment").submit();
+                        }else{
+                            swal("Payment Failed !", "Please try again", "error")
+                        }
                     }else{
-                        swal("Payment Failed !", "Please try again", "error")
+                        swal("Payment Failed !", "Connection lost, Please try again", "error")
                     }
                 };
             }else{
@@ -245,6 +248,7 @@
     function paynow() {
     }
     function enets(){
+
         var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":$("#card_number").val(),"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};
@@ -252,15 +256,6 @@
             return String.fromCharCode(parseInt(a, 16));
         }).join(''));
         var xhttp = new XMLHttpRequest();
-        {{--xhttp.onreadystatechange = function() {--}}
-        {{--    if (this.readyState == 4 && this.status == 200) {--}}
-        {{--        console.log('1');--}}
-        {{--        return {!!  json_encode(success) !!};--}}
-        {{--    }else{--}}
-        {{--        console.log('2');--}}
-        {{--        return {!!  json_encode(fail) !!};--}}
-        {{--    }--}}
-        {{--};--}}
         xhttp.open("POST", {!!  json_encode(ApiurlEnets) !!}, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
