@@ -137,7 +137,7 @@ class SingpassController extends Controller
 //                'redirect_uri' => redirectUrlSingpass,
 //                'code' => $code,
 //            ];
-            $data = 'client_assertion_type = urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion = '.$jwt.'&client_id = '.clientIdSinpass.'&grant_type = authorization_code&redirect_uri = '.redirectUrlSingpass.'&code = '.$code.'';
+            $data = 'client_assertion_type = urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion = '.$jwt.'&client_id = '.clientIdSinpass.'&grant_type = authorization_code&redirect_uri = https%3A%2F%2www.idx-id2021.com%3afterlogin&code = '.$code.'';
 //
 //        $client = new Client();
 //

@@ -171,7 +171,7 @@ define('b2sTxnEndURL', "127.0.0.1");
 define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
 define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('redirectUrlSingpass', "https:%3A%2F%2www.idx-id2021.com%3afterlogin");
+define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
 //define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
 define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 
