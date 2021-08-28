@@ -158,13 +158,13 @@ define('employment_pass', "F");
 define('one_mb', "1000000");
 
 //Enets
-define('ApiurlEnets', "https://uat-api.nets.com.sg/GW2/TxnReqListener");
+define('ApiurlEnets', "https://uat-api.nets.com.sg/GW2/TxnReqListenerToHost");
 define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
 define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
 define('netsMid', "UMID_837852000");
 define('Merchant_server_IP_Address', "127.0.0.1");
-define('s2sTxnEndURL', "http://www.idx-id2021.com/s2sTxnEndURL");
-define('b2sTxnEndURL', "127.0.0.1");
+define('s2sTxnEndURL', "http://127.0.0.1");
+define('b2sTxnEndURL', "https://www.idx-id2021.com/b2sTxnEndURL");
 //End Enets
 
 //Env singapass

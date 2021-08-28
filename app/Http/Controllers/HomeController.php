@@ -444,7 +444,23 @@ class HomeController extends Controller
         }
         return $clear_data;
     }
-    protected  function NewPayment($request){
+
+    public function b2sTxnEndURL()
+    {
+        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request['card']])
+            ->update([
+                'gst_id' => $request['grade_id'],
+                'trans_date' => date('d/m/Y H:i:s'),
+//                'expired_date' => date('Y-m-d', strtotime('+1 years')),
+                'paymentby' => $payment_method,
+                'status_payment' => paid,
+                'grand_total' => $request['grand_total'],
+//                'receiptNo' => $this->receiptNo(),
+                'status_app' => submitted,
+                'transaction_amount_id' => $request['transaction_amount_id'],
+            ]);
+    }
+    protected  function  NewPayment($request){
         if ($request['payment_method'] == paynow){
             $payment_method = 'paynow';
         }elseif ($request['payment_method'] == enets){

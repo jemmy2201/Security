@@ -64,7 +64,8 @@
         </div>
     </div>
     <h3>Select Payment By</h3>
-    <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" data-toggle="modal" data-target="#Form_payment" id="enets" style="width: 15%; margin-right: 20px;">
+    <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="enets" style="width: 15%; margin-right: 20px;">
+{{--    <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" data-toggle="modal" data-target="#Form_payment" id="enets" style="width: 15%; margin-right: 20px;">--}}
     <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
 
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
@@ -194,6 +195,17 @@
         </div>
     </div>
     <!-- End Modal Paynow -->
+
+    <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action='https://uat2.enets.sg/GW2/TxnReqListenerToHost' method='POST' style="display: none;">
+        <textarea rows="8" cols="126" name="payload" id="payload" form="eNETSRedirectForm" form="usrform"></textarea>
+        <br>
+        <input type="text" id="apiKey" name="apiKey" value={{ secretIDEnets }} size="130">
+        <br>
+        <input type="text" id="hmac" name="hmac"  size="130">
+        <br>
+        <input type='submit' name="submit_enets" id="submit_enets" >
+    </form>
+
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
@@ -217,19 +229,19 @@
         $("#confirm_payment_enets").click(function() {
             if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()) {
                 var Enets = enets();
-                Enets.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200 ) {
-                        var StatusEnets = jQuery.parseJSON(this.response);
-                        console.log('status',StatusEnets['msg'])
-                        if(StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}){
-                            // $( "#save_payment").submit();
-                        }else{
-                            swal("Payment Failed !", "Please try again", "error")
-                        }
-                    }else{
-                        swal("Payment Failed !", "Connection lost, Please try again", "error")
-                    }
-                };
+                {{--Enets.onreadystatechange = function() {--}}
+                {{--    if (this.readyState == 4 && this.status == 200 ) {--}}
+                {{--        var StatusEnets = jQuery.parseJSON(this.response);--}}
+                {{--        console.log('status',StatusEnets['msg'])--}}
+                {{--        if(StatusEnets['msg']['netsTxnStatus'] == {!!  json_encode(success) !!}){--}}
+                {{--            // $( "#save_payment").submit();--}}
+                {{--        }else{--}}
+                {{--            swal("Payment Failed !", "Please try again", "error")--}}
+                {{--        }--}}
+                {{--    }else{--}}
+                {{--        swal("Payment Failed !", "Connection lost, Please try again", "error")--}}
+                {{--    }--}}
+                {{--};--}}
             }else{
                 swal("Please!", "Complete the data", "error")
             }
@@ -239,7 +251,8 @@
            $( "#save_payment").submit();
         });
         $("#enets").click(function() {
-            $("#payment_method").val({!!  json_encode(enets) !!})
+            {{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
+            enets();
         });
         $("#paynow").click(function() {
             $("#payment_method").val({!!  json_encode(paynow) !!})
@@ -264,21 +277,27 @@
     }
     function enets(){
 {{--        var data = {"ss":"1","msg":{"cardHolderName":$("#card_holder_name").val(),"cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};--}}
-        var data = {"ss":"1","msg":{"b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","cardHolderName":$("#card_holder_name").val(),"currencyCode":"SGD","cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"merchantTimeZone":"+8:00","merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"netsMidIndicator":"U","pan":$("#card_number").val(),"param1":"","param2":"","param3":"","param4":"","param5":"","paymentMode":"CC","paymentType":"SALE","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","submissionMode":"S","tid":"127.0.0.1","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!}}};
-            {{--var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};--}}
+{{--        var data = {"ss":"1","msg":{"b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","cardHolderName":$("#card_holder_name").val(),"currencyCode":"SGD","cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"merchantTimeZone":"+8:00","merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"netsMidIndicator":"U","pan":$("#card_number").val(),"param1":"","param2":"","param3":"","param4":"","param5":"","paymentMode":"CC","paymentType":"SALE","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","submissionMode":"S","tid":"127.0.0.1","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!}}};--}}
+            var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};
+        $("#payload").val(txnreq);
         var sign = btoa(sha256(txnreq + secretKey).match(/\w{2}/g).map(function (a) {
             return String.fromCharCode(parseInt(a, 16));
         }).join(''));
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", {!!  json_encode(ApiurlEnets) !!}, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});
-        xhttp.setRequestHeader("hmac", sign);
-        xhttp.send(txnreq);
+        $("#hmac").val(sign);
 
-        return xhttp;
+        document.getElementById("submit_enets").click();
+        // document.getElementById('hmac').value = sign;
+
+        {{--var xhttp = new XMLHttpRequest();--}}
+        {{--xhttp.open("POST", {!!  json_encode(ApiurlEnets) !!}, true);--}}
+        {{--xhttp.setRequestHeader("Content-type", "application/json");--}}
+        {{--xhttp.setRequestHeader("keyId", {!!  json_encode(secretIDEnets) !!});--}}
+        {{--xhttp.setRequestHeader("hmac", sign);--}}
+        {{--xhttp.send(txnreq);--}}
+
+        // return xhttp;
     }
     //refresh page on browser resize
     $(window).bind('resize', function(e)
