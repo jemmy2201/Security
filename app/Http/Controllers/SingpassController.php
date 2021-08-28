@@ -137,7 +137,7 @@ class SingpassController extends Controller
 //                'redirect_uri' => redirectUrlSingpass,
 //                'code' => $code,
 //            ];
-            $data = 'client_assertion_type = urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion = '.$jwt.'&client_id = '.clientIdSinpass.'&grant_type = authorization_code&redirect_uri = https%3A%2F%2www.idx-id2021.com%3afterlogin&code = '.$code.'';
+            $data = 'client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion='.$jwt.'&client_id='.clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.redirectUrlSingpassCurl.'&code='.$code.'';
 //
 //        $client = new Client();
 //
@@ -165,10 +165,8 @@ class SingpassController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded",
-                "charset: ISO-8859-1",
-//                "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-                "Host: stg-id.singpass.gov.sg",
+                "Content-Type: application/x-www-form-urlencoded",
+                "charset: ISO-8859-1"
             ),
         ));
 
