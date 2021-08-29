@@ -445,20 +445,29 @@ class HomeController extends Controller
         return $clear_data;
     }
 
-    public function b2sTxnEndURL()
+    public function b2sTxnEndURL(Request $request)
     {
+        die(print_r($request->all()));
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request['card']])
             ->update([
                 'gst_id' => $request['grade_id'],
                 'trans_date' => date('d/m/Y H:i:s'),
 //                'expired_date' => date('Y-m-d', strtotime('+1 years')),
-                'paymentby' => $payment_method,
+                'paymentby' => "Enets",
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
 //                'receiptNo' => $this->receiptNo(),
                 'status_app' => submitted,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
+
+        $request->merge(['app_type' => renewal, 'thank_payment' => true,'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+        $t_grade = t_grade::get();
+
+        return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+
     }
     protected  function  NewPayment($request){
         if ($request['payment_method'] == paynow){
