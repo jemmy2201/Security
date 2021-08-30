@@ -478,7 +478,7 @@ class HomeController extends Controller
 
         $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $request->session()->all()['card'],'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->session()->all()['card']])->first();
         $t_grade = t_grade::get();
 
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
