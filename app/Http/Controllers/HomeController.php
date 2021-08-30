@@ -377,6 +377,7 @@ class HomeController extends Controller
             'app_type' => $booking_schedule->app_type,
             'card' => $request->card,
             'grand_total' => $grand_total,
+            'grade_id' => $gst->id,
             'transaction_amount' => $transaction_amount->id
         ]);
         // End Update Session
@@ -472,7 +473,7 @@ class HomeController extends Controller
                 'grand_total' => $request->session()->all()['grand_total'],
 //                'receiptNo' => $this->receiptNo(),
                 'status_app' => submitted,
-                'transaction_amount_id' => $request['transaction_amount_id'],
+                'transaction_amount_id' => $request->session()->all()['transaction_amount_id'],
             ]);
 
         $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $request->session()->all()['card'],'router_name' => Route::getCurrentRoute()->getActionName()]);
