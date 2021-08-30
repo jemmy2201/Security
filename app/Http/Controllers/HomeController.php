@@ -473,7 +473,7 @@ class HomeController extends Controller
                 'grand_total' => $request->session()->all()['grand_total'],
 //                'receiptNo' => $this->receiptNo(),
                 'status_app' => submitted,
-                'transaction_amount_id' => $request->session()->all()['transaction_amount_id'],
+                'transaction_amount_id' => $request->session()->all()['transaction_amount'],
             ]);
 
         $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $request->session()->all()['card'],'router_name' => Route::getCurrentRoute()->getActionName()]);
