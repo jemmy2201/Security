@@ -462,7 +462,6 @@ class HomeController extends Controller
 
     public function b2sTxnEndURL(Request $request)
     {
-        die(print_r($request->all()));
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->session()->all()['card']])
             ->update([
                 'gst_id' => $request->session()->all()['grade_id'],
