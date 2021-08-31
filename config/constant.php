@@ -176,6 +176,9 @@ define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin
 //define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
 define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 
+// Paynow
+define('uen', "S78TU0494DIDC");
+// End Paynow
 
 define('less_than_days', "+7");
 define('thanks_payment', "Thank you for the payment");
