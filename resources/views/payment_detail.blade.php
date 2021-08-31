@@ -180,6 +180,10 @@
                 </div>
                 <div class="modal-body">
                     <center>
+                        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); width: 70px;">
                     <div id="qrcodePaynow"></div>
                     </center>
                 </div>
@@ -217,8 +221,8 @@
             amount :"1",               //Specify amount of money to pay.
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date("Ymd")) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
-            {{--refNumber: {!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
-            refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            refNumber: {!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             company:  'ACME Pte Ltd.'   //Company name to embed in the QR code. Optional.
         });
 
