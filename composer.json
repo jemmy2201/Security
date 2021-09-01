@@ -21,6 +21,7 @@
         "laravel/ui": "^2.5",
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.46",
+        "spomky-labs/jose": "^7.1",
         "yajra/laravel-datatables-oracle": "^9.17"
     },
     "require-dev": {
