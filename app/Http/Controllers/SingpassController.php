@@ -237,17 +237,16 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
-//        $jwt = static::private_key_jwt();
+        $jwt = static::private_key_jwt();
 
-//        $response = static::id_token($jwt,$request->code);
+        $response = static::id_token($jwt,$request->code);
 
-//        $jwe_decode = static::private_key_jwe(json_decode($response)->id_token);
+        $jwe_decode = static::private_key_jwe(json_decode($response)->id_token);
 
-//        $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
+        $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
 
-//        $sub = static::convert_sub($jwt_decode['sub']);
+        $sub = static::convert_sub($jwt_decode['sub']);
 
-        $sub = 'F1612348K';
         $validasiUser = static::validasiUser($sub);
 
         if ($validasiUser == true){
