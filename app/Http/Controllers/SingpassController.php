@@ -18,77 +18,43 @@ use Jose\Loader;
 use Jose\Object\JWKSet;
 class SingpassController extends Controller
 {
-    public static function entity_person($response)
+    public static function newuser($sub)
     {
-        $data = [
-            'client_assertion_type' => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-            'client_assertion' => $jwt,
-            'client_id' => clientIdSinpass,
-            'grant_type' => "authorization_code",
-            'redirect_uri' => redirectUrlSingpass,
-            'code' => $request->code,
-        ];
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => authApiUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded",
-                "charset: ISO-8859-1",
-                "Host: stg-id.singpass.gov.sg",
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        return $response;
-    }
-    public static function newuser($response)
-    {
-        $person = static::entity_person($response);
-
         $time = Carbon::now();
 
         $web = false;
-        if (substr($response['uinfin']['value'],0,1) == work_permit_pass || substr($response['uinfin']['value'],0,1) == employment_pass){
+        if (substr($sub,0,1) == work_permit_pass || substr($sub,0,1) == employment_pass){
             $web = true;
         }
-
+        // Email Default
+        $count_user = User::count();
+        $email = 'example'.$count_user.'@example.com';
+        // End Email Default
         $InUser = new User;
 
-        $InUser->name = $response['aliasname']['value'];
+        $InUser->name = '-';
 
-        $InUser->email = $response['email']['value'];
+        $InUser->email = $email;
 
-        $InUser->password = Hash::make($request->password);
+        $InUser->password = Hash::make(default_pass);
 
 //        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
-        $InUser->nric =$response['uinfin']['value'];
+
+        $InUser->nric =$sub;
 
 //        $InUser->passid =$response['uinfin']['value'];
 
-        $InUser->passportexpirydate =$response['passportexpirydate']['value'];
+//        $InUser->passportexpirydate =$response['passportexpirydate']['value'];
 
 //        $InUser->passexpirydate =$response['passportexpirydate']['value'];
 
-        $InUser->passportnumber =$response['passportnumber']['value'];
+//        $InUser->passportnumber =$response['passportnumber']['value'];
 
-        $InUser->mobileno =$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'];
+//        $InUser->mobileno =$response['mobileno']['prefix']['value'].''.$response['mobileno']['areacode']['value'].''.'-'.$response['mobileno']['nbr']['value'];
 
-        $InUser->homeno =$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'];
+//        $InUser->homeno =$response['homeno']['prefix']['value'].''.$response['homeno']['areacode']['value'].''.'-'.$response['homeno']['nbr']['value'];
 
-        $InUser->photo =$response['drivinglicence']['photocardserialno']['value'];
+//        $InUser->photo =$response['drivinglicence']['photocardserialno']['value'];
 
         $InUser->web =$web;
 
@@ -96,7 +62,7 @@ class SingpassController extends Controller
 
         $InUser->save();
 
-        return $InUser;
+       return $InUser;
     }
     protected  function base64url_encode($data) {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
@@ -104,7 +70,9 @@ class SingpassController extends Controller
 
     public static function private_key_jwt()
     {
+        // genereta online (https://keytool.online/)
         $privateKey= file_get_contents('PrivateKey.pem');
+        // End genereta online (https://keytool.online/)
         $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
         $Iat_encode   = Carbon::now()->timestamp;
 
@@ -152,7 +120,10 @@ class SingpassController extends Controller
 //        $jwk = JWKFactory::createFromCertificate('PrivateKey_Jwe', $jwks_uri);
 //        die(print_r($jwk));
 
+        // genereta online (https://keytool.online/) this key $jwks_uri
         $publicKey= file_get_contents('PublicKey.pem');
+        // genereta online (https://keytool.online/)
+
         $decoded = JWT::decode($response, $publicKey, array('ES256'));
         $decoded_array = (array) $decoded;
 
@@ -235,7 +206,27 @@ class SingpassController extends Controller
 
         return $response;
     }
+    protected function existingUsers($existingUser)
+    {
+        auth()->login($existingUser, true);
 
+        return redirect()->to('/home');
+    }
+    public static function validasiUser($sub)
+    {
+        $existingUser = User::where('nric',$sub)->first();
+
+        if($existingUser){
+            return true;
+        }else{
+            $newuser = static::newuser($sub);
+            if ($newuser){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
     public static function convert_sub($sub)
     {
         $Choose_sub =$sub;
@@ -246,8 +237,6 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
-        $jwe_decode = static::private_key_jwe('sss');
-
         $jwt = static::private_key_jwt();
 
         $response = static::id_token($jwt,$request->code);
@@ -258,15 +247,24 @@ class SingpassController extends Controller
 
         $sub = static::convert_sub($jwt_decode['sub']);
 
-        $existingUser = User::where('nric',$sub)->first();
+        $validasiUser = static::validasiUser($sub);
 
-        if($existingUser){
-            auth()->login($existingUser, true);
-            return redirect()->to('/home');
+        if ($validasiUser == true){
+
+            $existingUser = User::where('nric',$sub)->first();
+
+            if($existingUser) {
+
+                auth()->login($existingUser, true);
+
+                return redirect()->to('/home');
+            }
         }else{
-            $data = static::newuser($request, $response);
+
+            return redirect()->to('/');
+
         }
-        return redirect()->to('/');
+
     }
 
     public function jwks(){
