@@ -123,16 +123,9 @@ class SingpassController extends Controller
 
     public static function private_key_jwe($response)
     {
-        $jwk = JWKFactory::createFromValues([
-            "kty"=> "EC",
-            "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
-            "use"=> "enc",
-            "crv"=> "P-256",
-            "kid"=> "idx-enc",
-            "x"=> "9Is-VbNwtijojiwRxWAbXxg-UTndznGFISU0RlQpfoY",
-            "y"=> "t67FS3cT-sohO_x5qsBvAnM5HTNkk_wNQza32YJg-6A",
-            "alg"=> "ECDH-ES+A128KW",
-        ]);
+        $jwks_uri_ec_local = static::get_jwks_ec_local();
+
+        $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
         $recipient_index=[];
         $loader = new Loader();
         // This is the input we want to load verify.
@@ -162,7 +155,7 @@ class SingpassController extends Controller
         $publicKey= file_get_contents('PublicKey.pem');
         $decoded = JWT::decode($response, $publicKey, array('ES256'));
         $decoded_array = (array) $decoded;
-//        die(print_r($decoded_array));
+
         return $decoded_array;
 
     }
@@ -192,31 +185,48 @@ class SingpassController extends Controller
 
     public static function configuration_singpass()
     {
-        //  Initiate curl
         $ch = curl_init();
-        // Will return the response, if false it print the response
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Set the url
+
         curl_setopt($ch, CURLOPT_URL,authApiUrlSingpassconfiguration);
-        // Execute
+
         $response=curl_exec($ch);
-        // Closing
+
         curl_close($ch);
 
         return json_decode($response);
     }
 
+    public static function get_jwks_ec_local()
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_URL,urlec);
+
+        $response =curl_exec($ch);
+
+        curl_close($ch);
+
+        $jwks_uri = json_decode($response);
+
+        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+
+        return $response;
+    }
+
     public static function get_jwks_uri($url)
     {
-        //  Initiate curl
         $ch = curl_init();
-        // Will return the response, if false it print the response
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Set the url
+
         curl_setopt($ch, CURLOPT_URL,$url);
-        // Execute
+
         $response =curl_exec($ch);
-        // Closing
+
         curl_close($ch);
 
         $jwks_uri = json_decode($response);
@@ -236,6 +246,7 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
+        $jwe_decode = static::private_key_jwe('sss');
 
         $jwt = static::private_key_jwt();
 
@@ -244,15 +255,8 @@ class SingpassController extends Controller
         $jwe_decode = static::private_key_jwe(json_decode($response)->id_token);
 
         $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
+
         $sub = static::convert_sub($jwt_decode['sub']);
-        die(print_r($sub));
-//        $response = '{"access_token":"ESp9xtKJFwDf5TS2J9j/6MW33eSWJl2eYcyyL5ZbMPM=","token_type":"Bearer","id_token":"eyJlcGsiOnsia3R5IjoiRUMiLCJjcnYiOiJQLTI1NiIsIngiOiJLT2pBaWRRZ3A1eUV0eDBhbExyUW84NGtJYk8xdExlOTNocDVMc0E5b1c4IiwieSI6IjR1by1LZ1RPNjJjWEwwcU1hQ1NZaWdya2tvbnRzclNDeC1pdUhDdXJvdWMifSwia2lkIjoiaWR4LWVuYyIsImN0eSI6IkpXVCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJhbGciOiJFQ0RILUVTK0ExMjhLVyJ9.26srPanGa3H86euWQX5tdgWCoqO6zFNP2ZYKRw3dZG4iXK1zFXr12wYMgI96khmuzCnZZp46QkkRHW-IKTxZO4PwOvjwhtNb.lslXY5rZvvw-psTDyDZc4w.4s77eQ2ZddlBx5yifuEh_xr4BHGxW0X2bhj9jxey2MLIk1MvsDOCa3k29FB4gEfEDqIqX5fzEYJC2um1nZpUpsuiA0vjc_IXpmn1vW1Qi68bfO5N9vecieE__c1im7fsQEJfNXOOl0XDa6wZInDDDbtRuoTRlVPCJ7YsQB-zS3nZKuEb_qFr33VoHLj7TGgBc8l9aGKI2u90wcJNNsIxPSlndeJpz6eQmr74xvNNrNUn22uIRVfeUkVy59xVFPQnvFTbq6G7KhBVvHl1McW9irR_6ZrNg1LCE3ggERLxUdMvkmEuKLOzSvJQIb4kVcVkpbXJVSTn5Taao3ISrKma4zKdGqrPrv_UOpKksEq3RcWJSN2-5nemsdJQtNb6rFvl_9UXqSp7B8u1W6xT0GZxGE5yclkma89uDahr1xeZIbXbJg2KuKydtzBc6znNV7rcIqc9XKF-ItG_luyhzeDLc46wk-NvrGVjaFwyiykVqzdgWX_QXVjd44_wWSZULEiRjwq7-ApXTDOosbMY1WEaBv1OWL_8LLv_upmUxNnN6RdyLgHi9uwgMn6lqLIe9zcnAHCJpa87XuIGRZYMLNymQ4LS9rYEK6LIWauuuqttdcY.vm3acoo3ca7nuC_5t_AnQruvaNeSiSMOKGfzKHld7KQ"}';
-        $jwe_decode = static::private_key_jwe(json_decode($response)->id_token);
-//        dd();
-//        $data_persons =json_decode(json_decode($data_person), false);
-
-
-
 
         $existingUser = User::where('nric',$sub)->first();
 
@@ -264,10 +268,10 @@ class SingpassController extends Controller
         }
         return redirect()->to('/');
     }
+
     public function jwks(){
         $key['keys'] =[array(
             "kty"=> "EC",
-//            "d": "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
             "use"=> "sig",
             "crv"=> "P-256",
             "kid"=> "idx-sig",
@@ -276,7 +280,6 @@ class SingpassController extends Controller
             "alg"=> "ES256"
         ),array(
             "kty"=> "EC",
-//            "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
             "use"=> "enc",
             "crv"=> "P-256",
             "kid"=> "idx-enc",
@@ -286,26 +289,35 @@ class SingpassController extends Controller
         )];
         return $key;
     }
-    public function public_jwks(){
-        $key_public['keys'] =[array(
+    public function private_key_ec(){
+        $key['keys'] =[array(
             "kty"=> "EC",
-            "use"=> "sig",
-            "crv"=> "P-521",
-            "kid"=> "idx",
-            "x"=> "AQXQa4xh4OlMLuMC15eIA3IFyCMs8HU4o0I2vuQmpyT2yNoWGSFBIl8epClLE7sq4pnmHKAdYo6Cu0abVKwzJc0w",
-            "y"=> "AMvcLWwzFCHsuTT2tEv_oy-recW7R4F_IbKtJMfUZkPu5NLRvCpRx1HCczRVcXjWcWjM5kNl7bSWq2dPsvClJ0g9",
-            "alg"=> "ES512"
-        ),array(
-            "kty"=> "EC",
+            "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
             "use"=> "enc",
-            "crv"=> "P-521",
-            "kid"=> "idx-EC",
-            "x"=> "AWt1adYM5gdQBPd5muExnS2mDwsjCyU6z34R_02P51HOcYz7bHqdpmOVcbC_SYLuxF5i5x84mpN8epZixUMKnb4e",
-            "y"=> "Aa7A61zY0875VY19L2KP9bWlPz4IspLjz4d2CrN5k5yss9keqXA8s_5fKtFAKL5p2oyNNzUIxbsb_CdA-xfQfS4Y",
-            "alg"=> "ECDH-ES+A256KW"
+            "crv"=> "P-256",
+            "kid"=> "idx-enc",
+            "x"=> "9Is-VbNwtijojiwRxWAbXxg-UTndznGFISU0RlQpfoY",
+            "y"=> "t67FS3cT-sohO_x5qsBvAnM5HTNkk_wNQza32YJg-6A",
+            "alg"=> "ECDH-ES+A128KW"
         )];
-        return $key_public;
+        return $key;
     }
+
+    public function private_key_sig(){
+        $key['keys'] =[array(
+            "kty"=> "EC",
+            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+            "use"=> "sig",
+            "crv"=> "P-256",
+            "kid"=> "idx-sig",
+            "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+            "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+            "alg"=> "ES256"
+        )];
+        return $key;
+    }
+
+
     public function dummy_login($type)
     {
         return view('login')->with(["type_dummy"=>$type]);

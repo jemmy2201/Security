@@ -169,6 +169,8 @@ define('b2sTxnEndURL', "https://www.idx-id2021.com/b2sTxnEndURL/");
 
 //Env singapass
 define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
+define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
+define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
 define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
 define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");

@@ -31,7 +31,8 @@ Route::get('/b2sTxnEndURL/', 'HomeController@b2sTxnEndURL');
 
 Route::get('/afterlogin', 'SingpassController@login');
 Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
-Route::get('/public/oauth2/uat_jwks', 'SingpassController@public_jwks');
+Route::get('/private/ec/jwks', 'SingpassController@private_key_ec');
+Route::get('/private/sig/jwks', 'SingpassController@private_key_sig');
 
 // end user
 
