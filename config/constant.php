@@ -102,7 +102,7 @@ define('not_find_pass', 101);
 // end response update password
 
 //default password
-define('default_pass', "123123");
+define('default_pass', "Spcp1111");
 //End default password
 
 // Delete data if not payment and wait 3 month for delete data
