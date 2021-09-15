@@ -340,7 +340,7 @@
             <button type="button" class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>
         </div>
         <div class="col visible-xs hidden-md">
-            <button type="button"  class=" btn btn-danger btn-lg btn-block">Upload Photo</button>
+            <button type="button"  class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>
         </div>
     </div>
     <br>
