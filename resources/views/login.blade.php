@@ -4,23 +4,25 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="container">
+                <img src="{{URL::asset('/img/logo3.png')}}" style="width: 30%; ">
                 <div class="row">
-                    <div class="col-sm-6 hidden-xs" style="margin-top: 150px;margin-left: 150px;">
+{{--                    <div class="col-sm-6 hidden-xs" style="margin-top: 150px;margin-left: 150px;">--}}
 {{--                        <h1><b>Welcome to Union of </b></h1>--}}
 {{--                        <h1><b>Security Employees</b></h1>--}}
-                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">
+{{--                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">--}}
 
-                    </div>
-                    <div class="col-sm-6 visible-xs hidden-md">
+{{--                    </div>--}}
+{{--                    <div class="col-sm-6 visible-xs hidden-md">--}}
 {{--                        <h1><b>Welcome to Union of </b></h1>--}}
 {{--                        <h1><b>Security Employees</b></h1>--}}
-                        <br>
-                        <center>
-                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">
-                        </center>
-                        <br>
-                    </div>
-                    <div class="col-sm-4" style="border-style: groove; background: white">
+{{--                        <br>--}}
+{{--                        <center>--}}
+{{--                        <img src="{{URL::asset('/img/logo3.png')}}" style="width: 60%;">--}}
+{{--                        </center>--}}
+{{--                        <br>--}}
+{{--                    </div>--}}
+                    <div class="col-sm-4"  style="border-style: groove; background: white; margin-top: 20px;">
+
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
                             <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
@@ -48,32 +50,32 @@
                                     <br>
                                     <div class="row">
                                         <div class="col">
-{{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
+                                            {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
                                         </div>
                                         <div class="col" style="margin-left: 74px;">
-{{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
+                                            {{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
                                         </div>
                                     </div>
                                     <hr>
                                     <center>
-{{--                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>--}}
+                                        {{--                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>--}}
                                     </center>
                                     <br>
                                 </form>
                             </div>
                             <div id="scan" class="tab-pane fade in active">
                                 <center>
-{{--                                    <h3><b>Scan with Singpass app</b></h3>--}}
-{{--                                    <h4>to log in</h4>--}}
+                                    {{--                                    <h3><b>Scan with Singpass app</b></h3>--}}
+                                    {{--                                    <h4>to log in</h4>--}}
                                 </center>
-{{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
+                                {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
                                 <div id="ndi-qr"></div>
                                 <center>
-{{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
+                                    {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
                                     @if(isset($type_dummy) && $type_dummy == dummy)
-{{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>--}}
+                                        {{--                                    <p><a href="{{url("/login/dummy")."/".dummy}}" >Login bypass singpass</a></p>--}}
                                     @else
-{{--                                        <p><a href="{{url("/login/dummy")."/".dummy}}" >Login without singpass</a></p>--}}
+                                        {{--                                        <p><a href="{{url("/login/dummy")."/".dummy}}" >Login without singpass</a></p>--}}
                                     @endif
                                 </center>
                             </div>

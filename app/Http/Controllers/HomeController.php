@@ -159,7 +159,6 @@ class HomeController extends Controller
         $cek_grade = null;
         $data_resubmission = null;
         $diff_data = $this->diff_data($request);
-
         if (!empty(json_decode($request->array_grade))){
             $join_grade = array_merge(json_decode($request->array_grade),$request->Cgrade);
             $request->merge(['Cgrade' => $join_grade]);
@@ -922,28 +921,28 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-    if(isset($request['homeno']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['homeno']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
+    if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
         $UpdateUser = User::find(Auth::id());
 
-        $UpdateUser->homeno = $request['homeno'];
+        $UpdateUser->email = $request['email'];
 
         $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->wpexpirydate = $request['wpexpirydate'];
 
         $UpdateUser->save();
-    }elseif(isset($request['homeno']) && isset($request['mobileno'])  && !empty($request['homeno']) && !empty($request['mobileno'] )){
+    }elseif(isset($request['email']) && isset($request['mobileno'])  && !empty($request['email']) && !empty($request['mobileno'] )){
         $UpdateUser = User::find(Auth::id());
 
-        $UpdateUser->homeno = $request['homeno'];
+        $UpdateUser->email = $request['email'];
 
         $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->save();
-    }elseif(!empty($request['homeno'])) {
+    }elseif(!empty($request['email'])) {
          $UpdateUser = User::find(Auth::id());
 
-         $UpdateUser->homeno = $request['homeno'];
+         $UpdateUser->email = $request['email'];
 
          $UpdateUser->save();
      }elseif (!empty($request['mobileno'])){
@@ -966,13 +965,13 @@ class HomeController extends Controller
         $agent = new Agent();
         if ($agent->isDesktop() == true) {
             $originData = array(
-                "homeno" => $request->homeno,
+                "email" => $request->email,
                 "wpexpirydate" => $request->wpexpirydate,
                 "mobileno" => $request->mobileno
             );
         }else{
             $originData = array(
-                "homeno" => $request->Phonehomeno,
+                "email" => $request->Phoneemail,
                 "wpexpirydate" => $request->Phonewpexpirydate,
                 "mobileno" => $request->Phonemobileno
             );

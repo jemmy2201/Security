@@ -63,23 +63,27 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+        .navbar{
+            margin-bottom: 0px;
+            border-radius: 0px;
+        }
     </style>
 </head>
 <body onload="init()">
+<nav class="navbar navbar-dark bg-dark">
+    <div>
+        <a class="navbar-brand hidden-xs" href="{{ url('/') }}">
+            <img src="{{URL::asset('/img/logo.png')}}" style="width: 50%; margin-left: -100%; margin-top: -3%;">
+        </a>
+        <a class="navbar-brand visible-xs hidden-md" href="{{ url('/') }}">
+            <img src="{{URL::asset('/img/logo.png')}}" style="width: 50%;margin-top: -3%;">
+        </a>
+    </div>
+</nav>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light" >
-            <div>
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{URL::asset('/img/logo.png')}}">
-                </a>
-            </div>
-        </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
-
-
     </div>
     <!-- Footer -->
     <footer class="bg-light text-center text-lg-start" style="border-style: groove; background: white; ">

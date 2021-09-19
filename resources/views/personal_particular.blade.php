@@ -59,16 +59,18 @@
         @csrf
     <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
     {{-- Desktop --}}
+
     <div class="row hidden-xs">
-        <div class="col HeaderdataPersonal email">
-            Home Phone (Singapore numbers only)
+        <div class="col-6 HeaderdataPersonal phone">
+            Singapore mobile number
         </div>
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="number" class="form-control" id="homeno" name="homeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
         </div>
     </div><br>
+
     <div class="row hidden-xs">
         @if($personal->web == true)
             <div class="col-4 HeaderdataPersonal expriydate">
@@ -81,33 +83,34 @@
     <div class="row hidden-xs">
         @if($personal->web == true)
             <div class="col-4 HeaderdataPersonal">
-                <input type="date" class="form-control" id="wpexpirydate" name="wpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
+                <input type="date" class="form-control hidden-xs" id="wpexpirydate" name="wpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
             </div>
         @else
             <div class="col-4">
             </div>
         @endif
     </div><br>
+
     <div class="row hidden-xs">
-        <div class="col-6 HeaderdataPersonal phone">
-            Mobile Phone (Singapore local HP only)
+        <div class="col HeaderdataPersonal email">
+            Email address
         </div>
     </div>
     <div class="row hidden-xs">
-        <div class="col-4 HeaderdataPersonal">
-            <input type="number" class="form-control" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+        <div class="col-4 HeaderdataPersonal hidden-xs">
+            <input type="text" class="form-control hidden-xs" id="email" name="email"  placeholder="0000000" value="{{$personal->email}}" >
         </div>
     </div>
    {{-- End Desktop --}}
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
-            <div class="col HeaderdataPersonal email">
-                Home Phone (Singapore numbers only)
+            <div class="col HeaderdataPersonal phone">
+                Singapore mobile number
             </div>
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="number" class="form-control" id="Phonehomeno" name="Phonehomeno"  placeholder="0000000" value="{{$personal->homeno}}" maxlength="8">
+                <input type="number" class="form-control visible-xs hidden-md" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -122,7 +125,7 @@
         <div class="row visible-xs hidden-md">
             @if($personal->web == true)
                 <div class="col HeaderdataPersonal">
-                    <input type="number" class="form-control" id="Phonewpexpirydate" name="Phonewpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
+                    <input type="number" class="form-control visible-xs hidden-md" id="Phonewpexpirydate" name="Phonewpexpirydate"  placeholder="dd-mm-yyyy" value="{{Carbon\Carbon::parse($personal->wpexpirydate)->format('Y-m-d')}}">
                 </div>
             @else
                 <div class="col">
@@ -130,13 +133,13 @@
             @endif
         </div><br>
         <div class="row visible-xs hidden-md">
-            <div class="col HeaderdataPersonal phone">
-                Mobile Phone (Singapore local HP only)
+            <div class="col HeaderdataPersonal email">
+                Email
             </div>
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+                <input type="text" class="form-control visible-xs hidden-md" id="Phoneemail" name="Phoneemail"  placeholder="0000000" value="{{$personal->email}}" >
             </div>
         </div>
    {{-- End Phone --}}
@@ -169,21 +172,47 @@
     });
     $( document ).ready(function() {
         $( "#click_personal_particular" ).click(function() {
-{{--            console.log('ww',{!!  json_encode($personal->web) !!})--}}
-        if({!!  json_encode($personal->web) !!} == true ){
-            if (new Date($('#wpexpirydate').val()) != "Invalid Date" || new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
-                if ( new Date() >= new Date($('#wpexpirydate').val())){
-                        swal("Attention!", "Pass Expiration Date is up", "error")
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            if (width < 640){
+                if($("#Phonemobileno").val() != ""){
+                    if({!!  json_encode($personal->web) !!} == true ){
+                        if (new Date($('#wpexpirydate').val()) != "Invalid Date" || new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
+                            if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                swal("Attention!", "Pass Expiration Date is up", "error")
+                            }else{
+                                $("#submit_personal_particular").submit();
+                            }
+                        }else{
+                            swal("Please!", "Input file Pass Expiry Date", "error")
+                        }
+                    }else{
+                        $("#submit_personal_particular").submit();
+                    }
                 }else{
-                    $("#submit_personal_particular").submit();
+                    swal("Attention!", "Phone number cannot be empty", "error")
                 }
+
             }else{
-                swal("Please!", "Input file Pass Expiry Date", "error")
-            }
-        }else{
-            $("#submit_personal_particular").submit();
-        }
-    });
+                if($("#mobileno").val() != ""){
+                    if({!!  json_encode($personal->web) !!} == true ){
+                        if (new Date($('#wpexpirydate').val()) != "Invalid Date" || new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
+                            if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                    swal("Attention!", "Pass Expiration Date is up", "error")
+                            }else{
+                                $("#submit_personal_particular").submit();
+                            }
+                        }else{
+                            swal("Please!", "Input file Pass Expiry Date", "error")
+                        }
+                    }else{
+                        $("#submit_personal_particular").submit();
+                    }
+                }else{
+                    swal("Attention!", "Phone number cannot be empty", "error")
+                }
+           }
+
+        });
     });
 
 
