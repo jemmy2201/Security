@@ -53,7 +53,7 @@
 
         #app {
             /* The image used */
-            background-image: url("img/login_background.png");
+            background-image: url("img/login_background.jpg");
 
             /* Full height */
             height: 100%;
