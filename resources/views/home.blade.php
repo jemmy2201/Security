@@ -157,7 +157,7 @@
 
                     @php
                         $course_renewals = array(so_app,avso_app,pi_app);
-                        if (!empty($course_replacement)){
+                        if (!empty($course_renewal)){
                             $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));
                         }else{
                             $result_course_renewal=$course_renewals;
