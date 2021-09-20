@@ -1,214 +1,42 @@
 @extends('layouts.app')
-<style>
-    .disabled{
-        font-weight: normal;
-    }
-</style
+
 @section('content')
 <div class="container">
     <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
     <center class="visible-xs hidden-md">
     <img  src="{{URL::asset('/img/img_step_proses/design_phone/1.png')}}" style="width: 80%;">
     </center>
-    <h3 style="color: #E31E1A;">ID Card Portal</h3>
+<h3 style="color: #E31E1A;">ID Card Portal</h3>
+<p style="color: #808080;">My Application Type</p>
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <b>New</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($new as $index => $f)
-                        @php
-                            $course_new []= "";
-                            array_push($course_new,$f->card_id);
-                        @endphp
-
-                        @if($f->card_id == so_app && $f->Status_app == null)
-                            <li id="so_app" data-app_type={{news}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
-
-                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)
-                           <li class="disabled">SO</li>
-                        @endif
-
-                        @if($f->card_id == avso_app && $f->Status_app == null)
-                            <li id="avso_app" data-app_type={{news}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)
-                            <li class="disabled">AVSO</li>
-                        @endif
-
-                        @if($f->card_id == pi_app && $f->Status_app == null)
-                            <li id="pi_app" data-app_type={{news}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-
-                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)
-                            <li class="disabled">PI</li>
-                        @endif
-                    @endforeach
-
-                    @php
-                        $course = array(so_app,avso_app,pi_app);
-                        if(!empty($course_new)){
-                            $result_course_new=array_diff($course,array_filter($course_new));
-                        }else{
-                            $result_course_new=$course;
-                        }
-                    @endphp
-                    @foreach($result_course_new as $f)
-                            @if($f == so_app )
-                                <li class="disabled">SO</li>
-                            @elseif($f == avso_app )
-                                <li class="disabled">AVSO</li>
-                            @elseif($f == pi_app )
-                                <li class="disabled">PI</li>
-                            @endif
-                    @endforeach
-
-                </ul>
-        </div>
-            <div class="col-sm">
-                <b>Replacement</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($replacement as $index => $f)
-                        @php
-                            $course_replacement[]= "";
-                            array_push($course_replacement,$f->card_id);
-                        @endphp
-
-                        @if($f->card_id == so_app )
-                            <li id="so_app" data-app_type={{replacement}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">SO</li>--}}
-{{--                        @endif--}}
-
-                        @if($f->card_id == avso_app)
-                            <li id="avso_app" data-app_type={{replacement}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">AVSO</li>--}}
-{{--                        @endif--}}
-
-                        @if($f->card_id == pi_app && $f->Status_app == null)
-                            <li id="pi_app" data-app_type={{replacement}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">PI</li>--}}
-{{--                        @endif--}}
-                    @endforeach
-
-                    @php
-                        $course_replacements = array(so_app,avso_app,pi_app);
-                        if (!empty($course_replacement)){
-                            $result_course_replacement=array_diff($course_replacements,array_filter($course_replacement));
-                        }else{
-                            $result_course_replacement=$course_replacements;
-                        }
-                    @endphp
-                    @foreach($result_course_replacement as $f)
-                        @if($f == so_app )
-                            <li class="disabled">SO</li>
-                        @elseif($f == avso_app )
-                            <li class="disabled">AVSO</li>
-                        @elseif($f == pi_app )
-                            <li class="disabled">PI</li>
-                        @endif
-                    @endforeach
-
-                </ul>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" id="news" value="@php echo news @endphp"  >New</button>
             </div>
             <div class="col-sm">
-                <b>Renewal</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($renewal as $index => $f)
-                        @php
-                            $course_renewal []= "";
-                            array_push($course_renewal,$f->card_id);
-                        @endphp
-
-                        @if($f->card_id == so_app)
-                            <li id="so_app" data-app_type={{renewal}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">SO</li>--}}
-{{--                        @endif--}}
-
-                        @if($f->card_id == avso_app)
-                            <li id="avso_app" data-app_type={{renewal}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">AVSO</li>--}}
-{{--                        @endif--}}
-
-                        @if($f->card_id == pi_app )
-                            <li id="pi_app" data-app_type={{renewal}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-
-{{--                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">PI</li>--}}
-{{--                        @endif--}}
-                    @endforeach
-
-                    @php
-                        $course_renewals = array(so_app,avso_app,pi_app);
-                        if (!empty($course_replacement)){
-                            $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));
-                        }else{
-                            $result_course_renewal=$course_renewals;
-                        }
-                    @endphp
-                    @foreach($result_course_renewal as $f)
-                        @if($f == so_app )
-                            <li class="disabled">SO</li>
-                        @elseif($f == avso_app )
-                            <li class="disabled">AVSO</li>
-                        @elseif($f == pi_app )
-                            <li class="disabled">PI</li>
-                        @endif
-                    @endforeach
-
-                </ul>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" id="replacement" value="@php echo replacement @endphp" >Replacement</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" id="renewal" value="@php echo renewal @endphp" >Renewal</button>
+            </div>
+        </div>
+    </div>
+<br>
+<p style="color: #808080;">My Request</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" id="avso_app" class="btn btn-secondary btn-lg btn-block" value="@php echo avso_app @endphp" disabled>AVSO Application</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>
             </div>
 
         </div>
-
-{{--    <p style="color: #808080;">My Application Type</p>--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="news" value="@php echo news @endphp"  >New</button>--}}
-{{--            </div>--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="replacement" value="@php echo replacement @endphp" >Replacement</button>--}}
-{{--            </div>--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="renewal" value="@php echo renewal @endphp" >Renewal</button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--<br>--}}
-{{--<p style="color: #808080;">My Request</p>--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>--}}
-{{--            </div>--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" id="avso_app" class="btn btn-secondary btn-lg btn-block" value="@php echo avso_app @endphp" disabled>AVSO Application</button>--}}
-{{--            </div>--}}
-{{--            <div class="col-sm">--}}
-{{--                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
-
+    </div>
     <form method="post" id="personal_particular" action="{{ route('personal.particular') }}" style="display: none">
         @csrf
         <input type="text" id="app_type" name="app_type">
@@ -567,11 +395,11 @@
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
     });
-    {{--if ({!!  json_encode($cekStatusUser) !!} == null ){--}}
-    {{--    $("#news").prop('disabled', true);--}}
-    {{--    $("#replacement").prop('disabled', true);--}}
-    {{--    $("#renewal").prop('disabled', true);--}}
-    {{--}--}}
+    if ({!!  json_encode($cekStatusUser) !!} == null ){
+        $("#news").prop('disabled', true);
+        $("#replacement").prop('disabled', true);
+        $("#renewal").prop('disabled', true);
+    }
     // delete process
     function delete_process(id,app_type,card_id){
         swal({
@@ -680,62 +508,45 @@
 
         // card
         $("#so_app").click(function() {
-            // $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            // $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
-            // $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#card").val(document.getElementById("so_app").value);
-            $("#app_type").val($(this).attr("data-app_type"));
-            $("#card").val($(this).attr("data-card"));
             $( "#personal_particular" ).submit();
         });
         $("#avso_app").click(function() {
-            // $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            // $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
-            // $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#app_type").val($(this).attr("data-app_type"));
-            $("#card").val($(this).attr("data-card"));
-            // if($("#new_click").val() == "true"){
-            //     $( "#personal_particular" ).submit();
-            // }
-            // if($("#replacement_click").val() == "true"){
-
-            if($(this).attr("data-app_type") == {!!  json_encode(news) !!}){
-                document.getElementById('personal_particular').action = 'personal/particular';
-            }else if($(this).attr("data-app_type") == {!!  json_encode(replacement) !!}){
-                document.getElementById('personal_particular').action = 'replacement/personal/particular';
-            }else if($(this).attr("data-app_type") == {!!  json_encode(renewal) !!}){
-                document.getElementById('personal_particular').action = 'renewal/personal/particular';
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#card").val(document.getElementById("avso_app").value);
+            if($("#new_click").val() == "true"){
+                $( "#personal_particular" ).submit();
             }
-            $("#personal_particular" ).submit();
-            // }
-            // if($("#renewal_click").val() == "true"){
-            //     document.getElementById('personal_particular').action = 'renewal/personal/particular';
-            //     $("#personal_particular" ).submit();
-            // }
+            if($("#replacement_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'replacement/personal/particular';
+                $("#personal_particular" ).submit();
+            }
+            if($("#renewal_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'renewal/personal/particular';
+                $("#personal_particular" ).submit();
+            }
         });
         $("#pi_app").click(function() {
-            // $(this).addClass('btn-danger').removeClass('btn-secondary ');
-            // $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
-            // $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#app_type").val($(this).attr("data-app_type"));
-            $("#card").val($(this).attr("data-card"));
-            // if($("#new_click").val() == "true"){
-            //     $( "#personal_particular" ).submit();
-            // }
-            // if($("#replacement_click").val() == "true"){
-                if($(this).attr("data-app_type") == {!!  json_encode(news) !!}){
-                    document.getElementById('personal_particular').action = 'personal/particular';
-                }else if($(this).attr("data-app_type") == {!!  json_encode(replacement) !!}){
-                    document.getElementById('personal_particular').action = 'replacement/personal/particular';
-                }else if($(this).attr("data-app_type") == {!!  json_encode(renewal) !!}){
-                    document.getElementById('personal_particular').action = 'renewal/personal/particular';
-                }
+            $(this).addClass('btn-danger').removeClass('btn-secondary ');
+            $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
+            $("#card").val(document.getElementById("pi_app").value);
+            if($("#new_click").val() == "true"){
+                $( "#personal_particular" ).submit();
+            }
+            if($("#replacement_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'replacement/personal/particular';
                 $("#personal_particular" ).submit();
-            // }
-            // if($("#renewal_click").val() == "true"){
-            //     document.getElementById('personal_particular').action = 'renewal/personal/particular';
-            //     $("#personal_particular" ).submit();
-            // }
+            }
+            if($("#renewal_click").val() == "true"){
+                document.getElementById('personal_particular').action = 'renewal/personal/particular';
+                $("#personal_particular" ).submit();
+            }
         });
         // End card
     });

@@ -494,11 +494,11 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
             if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
-                // if ($('#Cgrade').val() != true){
+                if ($("input[name='declare']:checked").val() != undefined){
                     save_submission();
-                // }else{
-                //     swal("Please!", "select a course", "error")
-                // }
+                }else{
+                    swal("Please!", "tick declare", "error")
+                }
             }else{
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     save_submission();
@@ -509,7 +509,6 @@
         });
 
         function save_submission() {
-            if($("input[name='declare']:checked").val() != undefined){
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
                         if ($("input[name='submit_submission']:checked").val() != undefined) {
@@ -553,9 +552,7 @@
                 } else {
                     swal("Please!", "Upload Photo", "error")
                 }
-            }else{
-                swal("Please!", " tick declare", "error");
-            }
+
         }
         if (!{!! json_encode($personal->photo) !!} == ""){
             document.getElementById("info_upload").hidden = true;

@@ -55,15 +55,17 @@ class HomeController extends Controller
         // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereNotIn('Status_app', [completed])->get();
 
-        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->first();
+//        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+
+        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->orderBy('card_id', 'desc')->get();
 
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
-        $new = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->get();
 
-        $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])->get();
 
-        $renewal = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+        $renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])->get();
 
         $grade = grade::get();
         if (Auth::user()->role == admin) {
