@@ -104,6 +104,18 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
+    public function savedraft(Request $request, $app_type, $card)
+    {
+        $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $save_draft = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+            ->update([
+                'app_type' => $request->app_type,
+                'Status_app' => draft,
+                'Status_draft' => draft_book_appointment,
+            ]);
+        return redirect()->route('home');
+    }
+
     public function replacement_personaldata(Request $request)
     {
 //        $request->merge(['app_type' => replacement, 'card' => $card]);

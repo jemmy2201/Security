@@ -359,15 +359,37 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <a href="{{ url('back/personal/particular/'.$request->app_type.'/'.$request->card.'/'.$request->Status_App) }}" style="text-decoration:none;"><button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" > <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </button></a>
+            <a href="{{ url('back/personal/particular/'.$request->app_type.'/'.$request->card.'/'.$request->Status_App) }}" style="text-decoration:none;">
+                <button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" >
+{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+                    Back
+                </button>
+            </a>
         </div>
-        <div class="col-8 medium hidden-xs">
+        <div class="col-6 medium hidden-xs">
         </div>
-        <div class="col-6 medium visible-xs hidden-md">
+{{--        <div class="col-6 medium visible-xs hidden-md">--}}
+{{--        </div>--}}
+        <div class="col-2 next hidden-xs">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Save Draft
+                </a>
+        </div>
+        <div class="col-4 next visible-xs hidden-md">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Save Draft
+                </a>
         </div>
         <div class="col-2 next">
 {{--            @if(empty($resubmission))--}}
-                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                    Next
+{{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+                </button>
 {{--            @else--}}
 {{--                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmission <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>--}}
 {{--            @endif--}}

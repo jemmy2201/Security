@@ -147,14 +147,28 @@
         <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A"> <a href="{{url("/home")}}" style="text-decoration:none;"><img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back</a> </button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url("/home")}}" style="text-decoration:none; color: white;">
+{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Back
+                </a>
+            </button>
         </div>
-        <div class="col-8 medium hidden-xs">
+        <div class="col-6 medium hidden-xs">
         </div>
         <div class="col-6 medium visible-xs hidden-md">
         </div>
         <div class="col-2 next">
-            <button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block">Next <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Save Draft
+                </a>
+        </div>
+        <div class="col-2 next">
+            <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: #1E90FF; color: white;">Next
+{{--                <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+            </button>
         </div>
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
