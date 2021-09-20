@@ -81,6 +81,13 @@
     </div>
 </nav>
     <div id="app">
+{{--        <nav class="navbar navbar-expand-md navbar-light" >--}}
+{{--            <div>--}}
+{{--                <a class="navbar-brand" href="{{ url('/') }}">--}}
+{{--                    <img src="{{URL::asset('/img/logo.png')}}">--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--        </nav>--}}
         <main class="py-4">
             @yield('content')
         </main>
