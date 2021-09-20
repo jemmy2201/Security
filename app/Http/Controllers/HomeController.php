@@ -243,10 +243,29 @@ class HomeController extends Controller
 //                $request->merge(['card' => $replacement->card_id]);
             }
         }
+
+        // take grade (new design)
+        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        if (!empty($take_grade)) {
+            foreach ($take_grades as $index => $f) {
+                if (!empty(json_decode($take_grade->array_grade))){
+                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                        if ($f->id == $g) {
+                            $take_grades[$index]->take_grade = true;
+                        }
+                    }
+                }
+            }
+        }
+        // end take grade (new design)
+
+
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $t_grade = t_grade::get();
-        return view('submission')->with(['t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
+        return view('submission')->with(['take_grades' => $take_grades,'t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
     }
 
     public function declare_submission(Request $request)
@@ -726,26 +745,41 @@ class HomeController extends Controller
 //            $array_grades = array_merge($array_dataDB,$new_array_data);
 //            $sssc = $this->take_grade(json_encode($array_grades));
         }
-        if ($booking_schedule->grade_id) {
-            $take_grade = json_decode($booking_schedule->array_grade);
-            $new_take_grade = json_decode($request->Cgrade[0]);
-            // untuk mengatasi jika di refresh chorem maka data array tidak double
-            if(!empty($new_take_grade)) {
-                foreach ($new_take_grade as $index => $f) {
-                    if (!empty($take_grade) && !in_array($f, $take_grade)) {
-                        array_push($take_grade, $f);
-                        $merge_grade = $take_grade;
-                    } else {
-                        if (!empty($new_take_grade)){
-                            $merge_grade = json_encode(array($f));
-                        }else{
-                            $merge_grade = $take_grade;
-                        }
-                    }
-                }
+        $take_grade = $request->Cgrades;
+        if (!empty($booking_schedule->array_grade)){
+            $get_grade = json_decode($booking_schedule->array_grade);
+            if (!empty($request->Cgrades)) {
+                $merge_grade = array_merge($take_grade, $get_grade);
+            }else{
+                $merge_grade = $get_grade;
             }
-            // End untuk mengatasi jika di refresh chorem maka data array tidak double
+        }else{
+            $merge_grade = $take_grade;
         }
+
+        // old Page //
+//        if ($booking_schedule->grade_id) {
+//            $take_grade = json_decode($booking_schedule->array_grade);
+//            $new_take_grade = json_decode($request->Cgrade[0]);
+//            // untuk mengatasi jika di refresh chorem maka data array tidak double
+//            if(!empty($new_take_grade)) {
+//                foreach ($new_take_grade as $index => $f) {
+//                    if (!empty($take_grade) && !in_array($f, $take_grade)) {
+//                        array_push($take_grade, $f);
+//                        $merge_grade = $take_grade;
+//                    } else {
+//                        if (!empty($new_take_grade)){
+//                            $merge_grade = json_encode(array($f));
+//                        }else{
+//                            $merge_grade = $take_grade;
+//                        }
+//                    }
+//                }
+//            }
+//            // End untuk mengatasi jika di refresh chorem maka data array tidak double
+//        }
+        // End old Page //
+
 
 //        if (!empty($request->passexpirydate)){
 //            $passexpirydate = $request->passexpirydate;

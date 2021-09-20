@@ -197,37 +197,56 @@
                     <div class="col-10">
                         <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
                         <a>{{$data[0]->name}}</a><br>
-                                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
+                        <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
                     </div>
                 @endforeach
             </div>
         @else
                 @if(empty($resubmission))
-                    <div class="row">
-                        <div class="col-4 col_declare1">
-                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
-                        </div>
-                        <div class="col-2 col_declare2">
-                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>
-                        </div>
-                        <div class="col-2 col_declare3">
+{{--                    <div class="row">--}}
+{{--                        <div class="col-4 col_declare1">--}}
+{{--                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-2 col_declare2">--}}
 {{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
-                        </div>
-                    </div>
+{{--                        </div>--}}
+{{--                        <div class="col-2 col_declare3">--}}
+{{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+                    <button type="button"  class=" btn btn-danger" style="background: #1E90FF;">Training Records</button>
+
                     <br>
-                @if(!empty($cek_grade->array_grade))
-                    @foreach (json_decode($cek_grade->array_grade) as $f)
+{{--                @if(!empty($cek_grade->array_grade))--}}
+{{--                    @foreach (json_decode($cek_grade->array_grade) as $f)--}}
                         @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                        <div class="col-10">
-                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                            <a>{{$data[0]->name}}</a><br>
-                            @if(!empty($cek_grade))
-                                <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">
-                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">
-                            @endif
-                        </div>
-                    @endforeach
-                    @endif
+                        <br>
+{{--                        <div class="col-10">--}}
+{{--                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                            <a>{{$data[0]->name}}</a><br>--}}
+{{--                            @if(!empty($cek_grade))--}}
+{{--                                <input type="hidden" name="grade" id="grade" value="{{$cek_grade->grade_id}}">--}}
+{{--                                <input type="hidden" name="grade" id="grade" value="{{$data[0]->id}}">--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                        <div class="col-10">--}}
+                            <ul class="list-group">
+                                @foreach ($take_grades as $f)
+                                    @if($f->take_grade)
+                                        <li class="list-group-item"><input class="form-check-input" type="checkbox"  disabled>&ensp;&ensp; {{$f->name}}</li>
+                                        <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
+                                    @elseif($f->display)
+                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
+                                    @else
+                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                            <input type="checkbox" id="declare" name="declare" style="margin-left: 15px;">&ensp;&ensp;
+                                <b>I declare that I have been assessed and certified in the following training modules</b>
+                            {{--                        </div>--}}
+{{--                    @endforeach--}}
+{{--                    @endif--}}
 
 {{--                    @if(!empty($replacement))--}}
 {{--                        @foreach (json_decode($replacement->array_grade) as $f)--}}
@@ -271,13 +290,13 @@
                 @endif
 
                 {{--         just view one delcare--}}
-                <div class="row" id="view_declare">
-                    <div class="col-10" >
-                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">
-                        <a id="text_declare"></a>
-                        <input type="hidden" name="grade" id="grade">
-                    </div>
-                </div>
+{{--                <div class="row" id="view_declare">--}}
+{{--                    <div class="col-10" >--}}
+{{--                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
+{{--                        <a id="text_declare"></a>--}}
+{{--                        <input type="hidden" name="grade" id="grade">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 {{--         end just view one delcare--}}
         @endif
     @elseif(!empty($replacement) && $request->card == so_app)
@@ -312,7 +331,7 @@
     <h3 style="color: black;font-weight: bold;">Submit Photo</h3>
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 8px; border-style: groove; padding: 5px; margin-left: 10px;">
-            <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 80%; margin-left: 20px; margin-top: 20px;">
+            <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 100%; ">
             <center id="info_upload">
                 <b>Please Upload Photo</b>
             </center>
@@ -326,6 +345,13 @@
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
             <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: #1E90FF;">Upload Photo</button><br>
+            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
+                @if(empty($resubmission))
+                    <input type="checkbox" id="submit_submission " name="submit_submission">
+                    <b>I declare that I have submitted my photo</b>
+                @endif
+            @endif
         </div>
         <div class="col-6 visible-xs hidden-md">
             <p>Guidelines for Digital Photo Image Submission</p>
@@ -335,27 +361,24 @@
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
             <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: #1E90FF;">Upload Photo</button><br>
+            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
+                @if(empty($resubmission))
+                    <input type="checkbox" id="submit_submission" name="submit_submission">
+                    <b>I declare that I have submitted my photo</b>
+                @endif
+            @endif
         </div>
+
         <div class="col-2 hidden-xs">
-            <button type="button" class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>
+{{--            <button type="button" class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>--}}
         </div>
         <div class="col visible-xs hidden-md">
-            <button type="button"  class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>
+{{--            <button type="button"  class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>--}}
         </div>
     </div>
     <br>
-    @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
-            @if(empty($resubmission))
-            <div class="row" style="margin-left: 1px;">
-                <div class="col-0">
-                    <input type="checkbox" id="declare" name="declare">
-                </div>
-                <div class="col-8">
-                    <b>I declare that I have been assessed and certified in the following training modules</b>
-                </div>
-            </div>
-            @endif
-        @endif
+
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -401,36 +424,36 @@
     </form>
 </div>
 @if(!empty($grade))
-<div class="container declare">
-    <h2 style="color: #E31E1A;">Declare of Training</h2>
-    <h3><b>Statement of Attainment for the following modules :</b></h3>
-    <div class="row">
-        <div class="col-10 select_declare">
-            <ul class="list-group">
-            @foreach ($grade as $f)
-            <li class="list-group-item"><input class="form-check-input" type="radio" name="Cgrade" id="Cgrade" value="{{$f->id}}">&ensp;&ensp; {{$f->name}}</li>
-            @endforeach
-            </ul>
-        </div>
-    </div>
-    <input type="checkbox" id="declare_trainig" name="declare_trainig">&ensp;&ensp;
-    <b>I declare that I have been assessed and certified in the following training modules</b>
-    <div class="row">
-        <div class="col-2 back">
-        </div>
-        <div class="col-6 medium">
-        </div>
-        <form method="post" id="delcare_submission" action="{{ route('declare.submission') }}" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
-            <input type="hidden" id="card" name="card" value="{{$request->card}}">
-            <input type="hidden" id="array_grade" name="array_grade" value="{{$cek_grade->array_grade}}">
-        <div class="col-2 next">
-            <button type="button" id="submit_declare_trainig" class=" btn btn-danger btn-lg btn-block">Confirm</button>
-        </div>
-        </form>
-    </div>
-</div>
+{{--<div class="container declare">--}}
+{{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
+{{--    <h3><b>Statement of Attainment for the following modules :</b></h3>--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-10 select_declare">--}}
+{{--            <ul class="list-group">--}}
+{{--            @foreach ($grade as $f)--}}
+{{--            <li class="list-group-item"><input class="form-check-input" type="radio" name="Cgrade" id="Cgrade" value="{{$f->id}}">&ensp;&ensp; {{$f->name}}</li>--}}
+{{--            @endforeach--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <input type="checkbox" id="declare_trainig" name="declare_trainig">&ensp;&ensp;--}}
+{{--    <b>I declare that I have been assessed and certified in the following training modules</b>--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-2 back">--}}
+{{--        </div>--}}
+{{--        <div class="col-6 medium">--}}
+{{--        </div>--}}
+{{--        <form method="post" id="delcare_submission" action="{{ route('declare.submission') }}" enctype="multipart/form-data">--}}
+{{--            @csrf--}}
+{{--            <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">--}}
+{{--            <input type="hidden" id="card" name="card" value="{{$request->card}}">--}}
+{{--            <input type="hidden" id="array_grade" name="array_grade" value="{{$cek_grade->array_grade}}">--}}
+{{--        <div class="col-2 next">--}}
+{{--            <button type="button" id="submit_declare_trainig" class=" btn btn-danger btn-lg btn-block">Confirm</button>--}}
+{{--        </div>--}}
+{{--        </form>--}}
+{{--    </div>--}}
+{{--</div>--}}
 @elseif(!empty($replacement) && $request->card == so_app)
         <form method="post" id="delcare_submission" action="{{ route('declare.submission') }}" enctype="multipart/form-data">
             @csrf
@@ -486,47 +509,52 @@
         });
 
         function save_submission() {
-            if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
-                if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
-                    if ($("input[name='declare']:checked").val() != undefined) {
-                        var inputFile = document.getElementById('upload_profile');
-                        var pathFile = inputFile.value;
-                        var ekstensiOk = /(\.jpg|\.jpeg)$/i;
-                        // if (!ekstensiOk.exec(pathFile)) {
-                        //     swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
-                        // } else {
-                        //     $("#book_appointment").submit();
-                        // }
+            if($("input[name='declare']:checked").val() != undefined){
+                if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
+                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
+                        if ($("input[name='submit_submission']:checked").val() != undefined) {
+                            var inputFile = document.getElementById('upload_profile');
+                            var pathFile = inputFile.value;
+                            var ekstensiOk = /(\.jpg|\.jpeg)$/i;
+                            // if (!ekstensiOk.exec(pathFile)) {
+                            //     swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                            // } else {
+                            //     $("#book_appointment").submit();
+                            // }
 
-                        {{--if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){--}}
-                        {{--        swal("Please!", "select a course", "error")--}}
-                        {{--}else{--}}
-                            if ({!!  json_encode($request->array_grade) !!} == null )
+                            {{--if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){--}}
+                            {{--        swal("Please!", "select a course", "error")--}}
+                            {{--}else{--}}
+                            {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
+                            if ($('#Cgrades').is(':checked') == false)
                             {
-                                swal({
-                                    title: 'You have not selected any courses!',
-                                    text: 'Do you want to continue?',
-                                    icon: 'warning',
-                                    buttons: ["Cancel", "Yes!"],
-                                }).then(function(value) {
-                                    if (value) {
-                                        $("#book_appointment").submit();
-                                    }
-                                });
-                            }else{
-                                $("#book_appointment").submit();
-                            }
-                        // }
+                                    swal({
+                                        title: 'You have not selected any courses!',
+                                        text: 'Do you want to continue?',
+                                        icon: 'warning',
+                                        buttons: ["Cancel", "Yes!"],
+                                    }).then(function(value) {
+                                        if (value) {
+                                            $("#book_appointment").submit();
+                                        }
+                                    });
+                                }else{
+                                    $("#book_appointment").submit();
+                                }
+                            // }
 
+                        } else {
+                            swal("Please!", " tick submit", "error");
+                        }
                     } else {
-                        swal("Please!", " tick declare", "error");
+                        $("#book_appointment").submit();
                     }
-                } else {
-                    $("#book_appointment").submit();
-                }
 
-            } else {
-                swal("Please!", "Upload Photo", "error")
+                } else {
+                    swal("Please!", "Upload Photo", "error")
+                }
+            }else{
+                swal("Please!", " tick declare", "error");
             }
         }
         if (!{!! json_encode($personal->photo) !!} == ""){
@@ -601,6 +629,7 @@
         $(".next").addClass("col-4");
 
         $(".file_upload_profile").css("margin-top", "70px");
+        $(".upload_profile ").css("border-style", "none");
     }
     function RemoveColNextBack() {
         $(".col_declare1").removeClass("col-4");
