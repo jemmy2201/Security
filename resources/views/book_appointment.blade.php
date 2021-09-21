@@ -46,7 +46,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/4.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Book Appointment</h2><br>
+    <h2 style="color: #E31E1A;">Book Appointment For Collection</h2><br>
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
         <input type="hidden"  class="form-control" name="card" id="card" value="{{$request->card}}" readonly>
@@ -81,17 +81,55 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #E5E5E5; color: #E31D1A" onclick="window.history.go(-1); return false;"><a href="#" style="text-decoration:none;"> <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> Back </a></button>
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+                <a href="#" style="text-decoration:none;color: white;">
+{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+                    Back
+                </a>
+            </button>
         </div>
-        <div class="col-8 medium hidden-xs">
+        <div class="col-6 medium hidden-xs">
         </div>
-        <div class="col-6 medium visible-xs hidden-md">
+
+        <div class="col-2 next hidden-xs">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Save Draft
+                </a>
         </div>
-        <div class="col-2 next">
+        <div class="col-4  visible-xs hidden-md">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Save Draft
+                </a>
+        </div>
+        <div class="col-2 next hidden-xs">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Resubmit <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                    Resubmit
+{{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+                </button>
             @else
-                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block">Payment <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;"></button>
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                    Make payment
+{{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+                </button>
+            @endif
+
+        </div>
+        <div class="col-4 visible-xs hidden-md">
+            @if(!empty($request->Status_app) && $request->Status_app == resubmission)
+                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                    Resubmit
+                    {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+                </button>
+            @else
+                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                    Make payment
+                    {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+                </button>
             @endif
 
         </div>
@@ -102,6 +140,13 @@
 <script type="application/javascript">
     $( document ).ready(function() {
         $( "#save_book_appointment" ).click(function() {
+            if ($("input[name='limit_schedule_id']:checked").val()){
+                $( "#save_appointment" ).submit();
+            }else{
+                swal("Please!", " select a date and time", "error")
+            }
+        });
+        $( "#phone_save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{

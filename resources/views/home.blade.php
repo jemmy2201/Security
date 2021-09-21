@@ -20,51 +20,63 @@
                         @php
                             $course_new []= "";
                             array_push($course_new,$f->card_id);
+
+                            $course = array(so_app,avso_app,pi_app);
+                            if(!empty($course_new)){
+                                $result_course_new=array_diff($course,array_filter($course_new));
+                            }else{
+                                $result_course_new=$course;
+                            }
+
                         @endphp
 
-                        @if($f->card_id == so_app && $f->Status_app == null)
+                        @foreach($result_course_new as $g)
+                            @if($g == so_app )
+                                <li class="disabled">SO</li>
+                            @endif
+                        @endforeach
+
+                        @if($f->card_id == so_app)
                             <li id="so_app" data-app_type={{news}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
                         @endif
 
-                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)
-                           <li class="disabled">SO</li>
-                        @endif
+                        @foreach($result_course_new as $g)
+                            @if($g == avso_app )
+                                <li class="disabled">AVSO</li>
+                            @endif
+                        @endforeach
 
-                        @if($f->card_id == avso_app && $f->Status_app == null)
+                        @if($f->card_id == avso_app)
                             <li id="avso_app" data-app_type={{news}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
                         @endif
 
-                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)
-                            <li class="disabled">AVSO</li>
-                        @endif
+                        @foreach($result_course_new as $g)
+                            @if($g == pi_app )
+                                <li class="disabled">PI</li>
+                            @endif
+                        @endforeach
 
-                        @if($f->card_id == pi_app && $f->Status_app == null)
+                        @if($f->card_id == pi_app)
                             <li id="pi_app" data-app_type={{news}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
                         @endif
 
-                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)
-                            <li class="disabled">PI</li>
+                    @endforeach
+                        @php
+                            $courses = array(so_app,avso_app,pi_app);
+                        @endphp
+
+                        @if(count($new) ==0)
+
+                            @foreach($courses as $f)
+                                @if($f == so_app )
+                                    <li class="disabled">SO</li>
+                                @elseif($f == avso_app )
+                                    <li class="disabled">AVSO</li>
+                                @elseif($f == pi_app )
+                                    <li class="disabled">PI</li>
+                                @endif
+                            @endforeach
                         @endif
-                    @endforeach
-
-                    @php
-                        $course = array(so_app,avso_app,pi_app);
-                        if(!empty($course_new)){
-                            $result_course_new=array_diff($course,array_filter($course_new));
-                        }else{
-                            $result_course_new=$course;
-                        }
-                    @endphp
-                    @foreach($result_course_new as $f)
-                            @if($f == so_app )
-                                <li class="disabled">SO</li>
-                            @elseif($f == avso_app )
-                                <li class="disabled">AVSO</li>
-                            @elseif($f == pi_app )
-                                <li class="disabled">PI</li>
-                            @endif
-                    @endforeach
-
                 </ul>
         </div>
             <div class="col-sm">
@@ -74,50 +86,60 @@
                         @php
                             $course_replacement[]= "";
                             array_push($course_replacement,$f->card_id);
+
+                           $course_replacements = array(so_app,avso_app,pi_app);
+                            if (!empty($course_replacement)){
+                                $result_course_replacement=array_diff($course_replacements,array_filter($course_replacement));
+                            }else{
+                                $result_course_replacement=$course_replacements;
+                            }
                         @endphp
+
+                        @foreach($result_course_replacement as $g)
+                            @if($g == so_app )
+                                <li class="disabled">SO</li>
+                            @endif
+                        @endforeach
 
                         @if($f->card_id == so_app )
                             <li id="so_app" data-app_type={{replacement}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
                         @endif
 
-{{--                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">SO</li>--}}
-{{--                        @endif--}}
+                        @foreach($result_course_replacement as $g)
+                            @if($g == avso_app )
+                                <li class="disabled">AVSO</li>
+                            @endif
+                        @endforeach
 
                         @if($f->card_id == avso_app)
                             <li id="avso_app" data-app_type={{replacement}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
                         @endif
 
-{{--                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">AVSO</li>--}}
-{{--                        @endif--}}
+                        @foreach($result_course_replacement as $g)
+                            @if($g == pi_app )
+                                <li class="disabled">PI</li>
+                            @endif
+                        @endforeach
 
-                        @if($f->card_id == pi_app && $f->Status_app == null)
+                        @if($f->card_id == pi_app)
                             <li id="pi_app" data-app_type={{replacement}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
                         @endif
 
-{{--                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">PI</li>--}}
-{{--                        @endif--}}
                     @endforeach
-
                     @php
                         $course_replacements = array(so_app,avso_app,pi_app);
-                        if (!empty($course_replacement)){
-                            $result_course_replacement=array_diff($course_replacements,array_filter($course_replacement));
-                        }else{
-                            $result_course_replacement=$course_replacements;
-                        }
                     @endphp
-                    @foreach($result_course_replacement as $f)
-                        @if($f == so_app )
-                            <li class="disabled">SO</li>
-                        @elseif($f == avso_app )
-                            <li class="disabled">AVSO</li>
-                        @elseif($f == pi_app )
-                            <li class="disabled">PI</li>
+                        @if(empty($result_course_replacement))
+                            @foreach($course_replacements as $f)
+                                @if($f == so_app )
+                                    <li class="disabled">SO</li>
+                                @elseif($f == avso_app )
+                                    <li class="disabled">AVSO</li>
+                                @elseif($f == pi_app )
+                                    <li class="disabled">PI</li>
+                                @endif
+                            @endforeach
                         @endif
-                    @endforeach
 
                 </ul>
             </div>
@@ -128,51 +150,58 @@
                         @php
                             $course_renewal []= "";
                             array_push($course_renewal,$f->card_id);
+
+                            $course_renewals = array(so_app,avso_app,pi_app);
+                            if (!empty($course_renewal)){
+                                $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));
+                            }else{
+                                $result_course_renewal=$course_renewals;
+                            }
+
                         @endphp
+
+                        @foreach($result_course_renewal as $g)
+                            @if($g == so_app )
+                                <li class="disabled">SO</li>
+                            @endif
+                        @endforeach
 
                         @if($f->card_id == so_app)
                             <li id="so_app" data-app_type={{renewal}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
                         @endif
 
-{{--                        @if(empty($f->card_id != so_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">SO</li>--}}
-{{--                        @endif--}}
-
+                        @foreach($result_course_renewal as $g)
+                            @if($g == avso_app )
+                                <li class="disabled">AVSO</li>
+                            @endif
+                        @endforeach
                         @if($f->card_id == avso_app)
                             <li id="avso_app" data-app_type={{renewal}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
                         @endif
 
-{{--                        @if(empty($f->card_id != avso_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">AVSO</li>--}}
-{{--                        @endif--}}
-
+                        @foreach($result_course_renewal as $g)
+                            @if($g == pi_app )
+                                <li class="disabled">PI</li>
+                            @endif
+                        @endforeach
                         @if($f->card_id == pi_app )
                             <li id="pi_app" data-app_type={{renewal}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
                         @endif
-
-{{--                        @if(empty($f->card_id != pi_app)&& $f->Status_app != null)--}}
-{{--                            <li class="disabled">PI</li>--}}
-{{--                        @endif--}}
                     @endforeach
-
-                    @php
-                        $course_renewals = array(so_app,avso_app,pi_app);
-                        if (!empty($course_renewal)){
-                            $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));
-                        }else{
-                            $result_course_renewal=$course_renewals;
-                        }
-                    @endphp
-                    @foreach($result_course_renewal as $f)
-                        @if($f == so_app )
-                            <li class="disabled">SO</li>
-                        @elseif($f == avso_app )
-                            <li class="disabled">AVSO</li>
-                        @elseif($f == pi_app )
-                            <li class="disabled">PI</li>
+                        @php
+                            $course_renewals = array(so_app,avso_app,pi_app);
+                        @endphp
+                        @if(count($renewal) ==0)
+                        @foreach($course_renewals as $f)
+                                @if($f == so_app )
+                                    <li class="disabled">SO</li>
+                                @elseif($f == avso_app )
+                                    <li class="disabled">AVSO</li>
+                                @elseif($f == pi_app )
+                                    <li class="disabled">PI</li>
+                                @endif
+                            @endforeach
                         @endif
-                    @endforeach
-
                 </ul>
             </div>
 

@@ -61,7 +61,7 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
-        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->get();
+        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)->get();
 
         $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])->get();
 

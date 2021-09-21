@@ -63,27 +63,11 @@
             </table>
         </div>
     </div>
-    <h2>Payment Mode</h2><br>
-     <div class="row hidden-xs">
-         <div class="col-2">
-         </div>
-         <div class="col-4">
-             <h3>Select Your Payment Method</h3><br>
-         </div>
-     </div>
-    <div class="row hidden-xs">
-        <div class="col-2">
-        </div>
-        <div class="col-10">
-            <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-            <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="enets" style="width: 15%; margin-left: 60px;">
-        </div>
-    </div>
-    <div class="visible-xs hidden-md">
-        <h3>Select Your Payment Method</h3><br>
-        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-        <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="phone_enets" style="width: 35%;">
-    </div>
+    <h3>Select Payment By</h3>
+    <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="enets" style="width: 15%; margin-right: 20px;">
+{{--    <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" data-toggle="modal" data-target="#Form_payment" id="enets" style="width: 15%; margin-right: 20px;">--}}
+    <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
 
     <br><br class="hidden-xs"><br class="hidden-xs">
@@ -226,51 +210,6 @@
         <input type='submit' name="submit_enets" id="submit_enets" >
     </form>
 
-    <div class="row hidden-xs">
-        <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
-                <a href="#" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Back
-                </a>
-            </button>
-        </div>
-        <div class="col-6 medium ">
-        </div>
-        <div class="col-2 next">
-        </div>
-        <div class="col-2 next">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4 back Visible-xs hidden-md">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
-                <a href="#" style="text-decoration:none;color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
-                    Back
-                </a>
-            </button>
-        </div>
-        <div class="col-4  visible-xs hidden-md">
-
-        </div>
-        <div class="col-4 visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-            </button>
-        </div>
-    </div>
-
-
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
@@ -318,10 +257,6 @@
            $( "#save_payment").submit();
         });
         $("#enets").click(function() {
-            {{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
-            enets();
-        });
-        $("#phone_enets").click(function() {
             {{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
             enets();
         });
