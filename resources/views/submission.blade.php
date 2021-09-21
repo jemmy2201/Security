@@ -16,14 +16,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Submission -
-    @if($request->card == so_app)
-        SO
-    @elseif($request->card == avso_app)
-        AVSO
-    @elseif($request->card == pi_app)
-        PI
-    @endif
+    <h2 style="color: #E31E1A;">Submission
     </h2>
     <br>
         {{-- Desktop --}}
@@ -56,13 +49,21 @@
                 <div class="col-sm">
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Application Type &ensp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">
+                        <div class="col-6 ColoumndataPersonal">
                             @if($personal->app_type == news)
                                 New
                             @elseif($personal->app_type == replacement)
                                 Replacement
                             @elseif($personal->app_type == renewal)
                                 Renewal
+                            @endif
+                            -
+                            @if($request->card == so_app)
+                                SO
+                            @elseif($request->card == avso_app)
+                                AVSO
+                            @elseif($request->card == pi_app)
+                                PI
                             @endif
                         </div>
                         <div class="w-100"></div>
@@ -109,6 +110,10 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
+                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; :</div>
+                        <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
+
+                        <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                     @if (strlen($personal->name) > 40)
 {{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>--}}
@@ -122,10 +127,25 @@
                         <div class="col-6 ColoumndataPersonal">{{$personal->name}}</div>
                     @endif
                     <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; :</div>
-                    <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
+                        <div class="col-0 HeaderdataPersonal">Application Type&ensp;&nbsp; :</div>
+                        <div class="col-6 ColoumndataPersonal">@if($personal->app_type == news)
+                                New
+                            @elseif($personal->app_type == replacement)
+                                Replacement
+                            @elseif($personal->app_type == renewal)
+                                Renewal
+                            @endif
+                            -
+                            @if($request->card == so_app)
+                                SO
+                            @elseif($request->card == avso_app)
+                                AVSO
+                            @elseif($request->card == pi_app)
+                                PI
+                            @endif
+                        </div>
 
-                    <div class="w-100"></div>
+                        <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if ($request->card == so_app)
                             @if(!empty($cek_grade) && $cek_grade->grade_id== so)
