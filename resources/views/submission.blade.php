@@ -350,10 +350,12 @@
             </div>
         @endif
     <br>
-    <h3 style="color: black;font-weight: bold;">Photo Submission</h3>
+    <h3 style="color: black;font-weight: bold;">
+        <button type="button" class=" btn btn-danger" style="background: #1E90FF;">Photo Submission</button><br>
+    </h3>
     <div class="row">
-        <div class="col-2 upload_profile" style="margin-top: 8px; border-style: groove; padding: 5px; margin-left: 10px;">
-            <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 100%; ">
+        <div class="col-2 upload_profile" style="margin-top: 10px; border: 5px solid limegreen; padding: 5px 0px 5px 10px; margin-left: 10px;">
+            <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 95%; ">
             <center id="info_upload">
                 <b>Please Upload Photo</b>
             </center>
@@ -362,7 +364,6 @@
         <div class="col-4 hidden-xs" style="border-right: 1px solid black;">
             <ul class="list-group list-group-flush" >
                 <li class="list-group-item" style=" border-bottom: 0 none;">
-                    <button type="button" class=" btn btn-danger" style="background: #1E90FF; margin-left: 100px;">Photo Submission</button><br>
                 </li>
                 <li class="list-group-item" style="margin-top: 120px;">
                     <button type="button" class=" btn btn-danger file_upload_profiles" style="background: #1E90FF; border: 2px solid black">Upload Photo</button><br>
