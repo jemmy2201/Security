@@ -33,6 +33,9 @@
             <div class="row hidden-xs">
                 <div class="col-sm">
                     <div class="row">
+                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                        <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
+                        <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($personal->name) > 40)
                             <div class="col-4 ColoumndataPersonal">
@@ -43,9 +46,8 @@
                         @else
                             <div class="col-4 ColoumndataPersonal">{{$personal->name}}</div>
                         @endif
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
+
+
                     </div>
                 </div>
                 <div class="col-sm-0">
