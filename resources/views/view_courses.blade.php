@@ -301,7 +301,10 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 15px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">${{formatcurrency($courses->grand_total)}}</div>
+                        @php
+                        $grand_total = formatcurrency($courses->grand_total);
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
@@ -469,7 +472,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 7px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">${{formatcurrency($courses->grand_total)}}</div>
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
