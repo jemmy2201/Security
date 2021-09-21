@@ -31,6 +31,14 @@
                             }
                         @endphp
                     @foreach($new as $index => $f)
+                            @php
+                                $counts = count($new);
+                                 if ($counts == 1){
+                                     $count = 0;
+                                 }else{
+                                     $count = 1;
+                                 }
+                            @endphp
                         @if($index==0)
                             @foreach($result_course_new as $g)
                                 @if($g == so_app )
@@ -56,7 +64,7 @@
                         @php
                         @endphp
 
-                        @if($index == 1  )
+                        @if($index == $count )
                             @foreach($result_course_new as $g)
                                 @if($g == pi_app )
                                     <li class="disabled">PI</li>
@@ -105,7 +113,14 @@
                         }
                     @endphp
                     @foreach($replacement as $index => $f)
-
+                            @php
+                                $counts = count($replacement);
+                                 if ($counts == 1){
+                                     $count = 0;
+                                 }else{
+                                     $count = 1;
+                                 }
+                            @endphp
                         @if($index==0)
                             @foreach($result_course_replacement as $g)
                                 @if($g == so_app )
@@ -130,7 +145,7 @@
                             <li id="avso_app" data-app_type={{replacement}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
                         @endif
 
-                        @if($index==1)
+                        @if($index==$count)
                             @foreach($result_course_replacement as $g)
                                 @if($g == pi_app )
                                     <li class="disabled">PI</li>
@@ -177,7 +192,14 @@
                         }
                     @endphp
                     @foreach($renewal as $index => $f)
-
+                        @php
+                        $counts = count($renewal);
+                         if ($counts == 1){
+                             $count = 0;
+                         }else{
+                             $count = 1;
+                         }
+                        @endphp
                         @if($index == 0)
                             @foreach($result_course_renewal as $g)
                                 @if($g == so_app )
@@ -201,7 +223,7 @@
                             <li id="avso_app" data-app_type={{renewal}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
                         @endif
 
-                        @if($index == 1)
+                        @if($index == $count)
                             @foreach($result_course_renewal as $g)
                                 @if($g == pi_app )
                                     <li class="disabled">PI</li>

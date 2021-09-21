@@ -67,9 +67,13 @@ class HomeController extends Controller
         $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
 
-        $renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
+        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
 
+        $after_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal,'Status_app'=>completed])
+            ->orderBy('card_id', 'asc')->get();
+        $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
+        $renewal = json_decode(json_encode($result_renewal), FALSE);
         $grade = grade::get();
         if (Auth::user()->role == admin) {
             return view('admin/historylogin');
