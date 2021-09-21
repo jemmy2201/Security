@@ -81,6 +81,14 @@
 {{--                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Card Type <span style="margin-left: 70px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">
+                            @if($courses->app_type == news)
+                                NEW
+                            @elseif($courses->app_type == replacement)
+                                REPLACEMENT
+                            @elseif($courses->app_type == renewal)
+                                RENEWAL
+                            @endif
+                            -
                             @if($courses->card_id == so_app)
                                 SO
                             @elseif($courses->card_id == avso_app)

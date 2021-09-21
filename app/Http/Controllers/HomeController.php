@@ -61,11 +61,14 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
-        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)->get();
+        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)
+            ->orderBy('card_id', 'asc')->get();
 
-        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])->get();
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+            ->orderBy('card_id', 'asc')->get();
 
-        $renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])->get();
+        $renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
+            ->orderBy('card_id', 'asc')->get();
 
         $grade = grade::get();
         if (Auth::user()->role == admin) {
