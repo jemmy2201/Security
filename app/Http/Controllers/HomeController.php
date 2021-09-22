@@ -22,6 +22,8 @@ use PDF;
 Use Redirect;
 use Illuminate\Support\Facades\Route;
 use App\tbl_receiptNo;
+use function GuzzleHttp\Promise\all;
+
 class HomeController extends Controller
 {
     /**
@@ -101,7 +103,7 @@ class HomeController extends Controller
         $urldecode_Cgrades = urldecode($Cgrades);
         $Cgrades = json_decode($urldecode_Cgrades);
         $request->merge(['app_type' => $app_type,'card' => $card,'Cgrades' => $Cgrades]);
-        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>$request->app_type,'card_id'=>$request->card])->first();
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $remove_grade []="";
         $temp_array_grade= json_decode($booking_schedule->array_grade);
         $array_grade []="";
@@ -481,7 +483,9 @@ class HomeController extends Controller
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
-            $this->UpdateBookingSchedule($request,$grade);
+            if ($booking_schedule->Status_app == completed || empty($booking_schedule->declaration_date)){
+                $this->UpdateBookingSchedule($request,$grade);
+            }
         }
         $dayHoliday = Dateholiday::get();
         return view('book_appointment')->with(["request"=>$request,"dayHoliday"=>$dayHoliday]);
