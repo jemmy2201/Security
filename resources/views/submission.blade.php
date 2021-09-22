@@ -259,7 +259,7 @@
                             <ul class="list-group">
                                 @foreach ($take_grades as $f)
                                     @if($f->take_grade)
-{{--                                        <li class="list-group-item"><input class="form-check-input" type="checkbox"  disabled>&ensp;&ensp; {{$f->name}}</li>--}}
+                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>
                                         <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
                                     @elseif($f->display)
                                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
