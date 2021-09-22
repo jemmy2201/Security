@@ -263,6 +263,8 @@
                                         <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
                                     @elseif($f->display)
                                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
+                                    @elseif($f->grade_not_payment)
+                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" checked>&ensp;&ensp; {{$f->name}}</li>
                                     @else
                                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
                                     @endif
@@ -432,11 +434,12 @@
 {{--        <div class="col-6 medium visible-xs hidden-md">--}}
 {{--        </div>--}}
         <div class="col-2 next hidden-xs">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+            <button type="button" class="btn btn-light btn-lg btn-block save_draft" style="border-style: groove; background: #1E90FF; color: white;">
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
-                </a>
+{{--                </a>--}}
+            </button>
         </div>
         <div class="col-4 next visible-xs hidden-md">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
@@ -511,6 +514,15 @@
             $( "#delcare_submission" ).submit();
         });
 
+        $(".save_draft" ).click(function() {
+            var val = [];
+            $(':checkbox:checked').each(function(i){
+                val[i] = $(this).val();
+            });
+            var arrStr = encodeURIComponent(JSON.stringify(val));
+            window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr;
+        });
+
         $("#submit_declare_trainig" ).click(function() {
             if ($("input[name='Cgrade']:checked").val() != undefined) {
                 if ($("input[name='declare_trainig']:checked").val()){
@@ -563,6 +575,7 @@
                             {{--        swal("Please!", "select a course", "error")--}}
                             {{--}else{--}}
                             {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
+                                console.log('s',$('#Cgrades').is(':checked'))
                             if ($('#Cgrades').is(':checked') == false)
                             {
                                 swal("Please!", "Selected any courses", "error");
