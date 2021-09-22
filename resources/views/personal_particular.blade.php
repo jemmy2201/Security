@@ -22,7 +22,11 @@
             <div class="col-sm">
                 <div class="row">
                     <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
+                    @php
+                        $cutnric = substr($personal->nric, -4);
+                        $nric = "XXXXX$cutnric";
+                    @endphp
+                    <div class="col-6 ColoumndataPersonal">{{$nric}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($personal->name) > 40)
@@ -98,7 +102,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal hidden-xs">
-            <input type="text" class="form-control hidden-xs" id="email" name="email"  placeholder="0000000" value="{{$personal->email}}" >
+            <input type="text" class="form-control hidden-xs" id="email" name="email"  value="{{$personal->email}}" >
         </div>
     </div>
    {{-- End Desktop --}}
@@ -139,7 +143,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="text" class="form-control visible-xs hidden-md" id="Phoneemail" name="Phoneemail"  placeholder="0000000" value="{{$personal->email}}" >
+                <input type="text" class="form-control visible-xs hidden-md" id="Phoneemail" name="Phoneemail" value="{{$personal->email}}" >
             </div>
         </div>
    {{-- End Phone --}}

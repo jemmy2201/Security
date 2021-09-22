@@ -27,7 +27,11 @@
                 <div class="col-sm">
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$personal->nric}}</div>
+                        @php
+                            $cutnric = substr($personal->nric, -4);
+                            $nric = "XXXXX$cutnric";
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($personal->name) > 40)
@@ -111,7 +115,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; :</div>
-                        <div class="col-6 ColoumndataPersonal">{{$personal->nric}}</div>
+                        <div class="col-6 ColoumndataPersonal">{{$nric}}</div>
 
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
