@@ -81,12 +81,22 @@
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
-                <a href="#" style="text-decoration:none;color: white;">
-{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+            @if($request->Status_app != resubmission && $request->card == so_app  )
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
                 </a>
             </button>
+            @else
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+                <a href="#" style="text-decoration:none;color: white;">
+{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+                    Backs
+                </a>
+            </button>
+            @endif
+
         </div>
         <div class="col-6 medium hidden-xs">
         </div>

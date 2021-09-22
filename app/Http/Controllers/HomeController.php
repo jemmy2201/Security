@@ -96,6 +96,120 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
+    public function backsubmission(Request $request,$app_type,$card,$Cgrades = false)
+    {
+        $urldecode_Cgrades = urldecode($Cgrades);
+        $Cgrades = json_decode($urldecode_Cgrades);
+        $request->merge(['app_type' => $app_type,'card' => $card,'Cgrades' => $Cgrades]);
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>$request->app_type,'card_id'=>$request->card])->first();
+        $remove_grade []="";
+        $temp_array_grade= json_decode($booking_schedule->array_grade);
+        $array_grade []="";
+
+        foreach ($request->Cgrades as $f ){
+            $result=array_search($f,json_decode($booking_schedule->array_grade));
+            unset($temp_array_grade[$result]);
+        }
+        foreach ($temp_array_grade as $f){
+            array_unshift($array_grade, $f);
+        }
+
+        $update_grade = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>$request->app_type,'card_id'=>$request->card])
+            ->update([
+                'array_grade' => json_encode(array_filter($array_grade)),
+            ]);
+        // param submission
+        $grade = null;
+        $replacement = null;
+        $view_declare = null;
+        $cek_grade = null;
+        $data_resubmission = null;
+//        // view_declare
+//        if (!empty($request->Cgrade)) {
+//            if ($request->app_type == replacement) {
+//                $replacement = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+////                $array_grade = array_merge(json_decode($replacement->array_grade), $request->Cgrade);
+//                $view_declare = $request->Cgrade;
+//            } else {
+//                $view_declare = $request->Cgrade;
+//            }
+//        }
+//        // End view_declare
+
+        // take grade (new design)
+        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        if (!empty($take_grade)) {
+            foreach ($take_grades as $index => $f) {
+                if (!empty(json_decode($take_grade->array_grade))){
+                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                        if ($f->id == $g) {
+                            $take_grades[$index]->take_grade = true;
+                        }
+                    }
+                }
+            }
+        }
+        // end take grade (new design)
+        $t_grade = t_grade::get();
+        $resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card, 'Status_app' => resubmission])->first();
+        if ($request->card == so_app) {
+            if ($request->app_type == renewal) {
+                if (!empty($resubmission)) {
+                    $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                    $grade = grade::get();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                } else {
+                    $renewal = booking_schedule::where(['nric' => Auth::user()->nric])->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->first();
+                    $grade = grade::where(['card_id' => $renewal->card_id])->get();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                }
+            } elseif ($request->app_type == replacement) {
+                if (!empty($resubmission)) {
+                    $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                    $grade = grade::get();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                } else {
+                    $replacement = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+//                  $replacement = booking_schedule::first();
+                    $grade = grade::where(['card_id' => $replacement->card_id])->get();
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                }
+            } else {
+                if (!empty($request->Cgrade)) {
+                    // view declare more than 1
+                    $grade = grade::get();
+                    // end view declare more than 1
+                    $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+
+                } else {
+                    if (!empty($resubmission)) {
+                        $data_resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                        $grade = grade::get();
+                        $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                    } else {
+                        // user cannot belong to declare
+                        $grade = grade::get();
+                        $cek_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+                        // End user cannot belong to declare
+                    }
+                }
+            }
+        } else {
+            if ($request->app_type == replacement || $request->app_type == renewal) {
+                $replacement = booking_schedule::where(['nric' => Auth::user()->nric])->first();
+//                $request->merge(['card' => $replacement->card_id]);
+            }
+        }
+        $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['users.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
+        // End param submission
+
+        return view('submission')->with(['take_grades' => $take_grades,'t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
+
+    }
+
     public function resubmission(Request $request, $app_type, $card,$Status_App)
     {
         $request->merge(['app_type' => $app_type, 'card' => $card, 'Status_App' => $Status_App]);
@@ -339,7 +453,9 @@ class HomeController extends Controller
     }
     public function book_appointment(Request $request)
     {
-//        $request->merge(['passexpirydate' => Carbon::parse($request->passexpirydate)->format('d-m-Y')]);
+        $json_cgrades = json_encode($request->Cgrades);
+        $Cgrades = urlencode($json_cgrades);
+        $request->merge(['SentCgrades' =>$Cgrades]);
         $grade = false;
         if (!empty($request->grade)){
             $grade = $request->grade;

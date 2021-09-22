@@ -259,7 +259,7 @@
                             <ul class="list-group">
                                 @foreach ($take_grades as $f)
                                     @if($f->take_grade)
-                                        <li class="list-group-item"><input class="form-check-input" type="checkbox"  disabled>&ensp;&ensp; {{$f->name}}</li>
+{{--                                        <li class="list-group-item"><input class="form-check-input" type="checkbox"  disabled>&ensp;&ensp; {{$f->name}}</li>--}}
                                         <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
                                     @elseif($f->display)
                                         <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
@@ -358,7 +358,7 @@
         <button type="button" class=" btn btn-danger" style="background: #1E90FF;">Photo Submission</button><br>
     </h3>
     <div class="row">
-        <div class="col-2 upload_profile" style="margin-top: 10px; border: 5px solid limegreen; padding: 5px 0px 5px 10px; margin-left: 10px;">
+        <div class="col-2 upload_profile" style="margin-top: 10px; border: 1px solid black; padding: 5px 0px 5px 10px; margin-left: 10px;">
             <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 95%; ">
             <center id="info_upload">
                 <b>Please Upload Photo</b>
@@ -565,16 +565,18 @@
                             {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
                             if ($('#Cgrades').is(':checked') == false)
                             {
-                                    swal({
-                                        title: 'You have not selected any courses!',
-                                        text: 'Do you want to continue?',
-                                        icon: 'warning',
-                                        buttons: ["Cancel", "Yes!"],
-                                    }).then(function(value) {
-                                        if (value) {
-                                            $("#book_appointment").submit();
-                                        }
-                                    });
+                                swal("Please!", "Selected any courses", "error");
+
+                                // swal({
+                                //         title: 'You have not selected any courses!',
+                                //         text: 'Do you want to continue?',
+                                //         icon: 'warning',
+                                //         buttons: ["Cancel", "Yes!"],
+                                //     }).then(function(value) {
+                                //         if (value) {
+                                //             $("#book_appointment").submit();
+                                //         }
+                                //     });
                                 }else{
                                     $("#book_appointment").submit();
                                 }

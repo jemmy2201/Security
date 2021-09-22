@@ -52,6 +52,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
+Route::get('/submission', 'HomeController@getsubmission');
 Route::post('/declare/submission', 'HomeController@declare_submission')->name('declare.submission');
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
@@ -61,6 +62,7 @@ Route::get('/after/payment/{id}', 'HomeController@after_payment')->name('after.p
 Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::get('/back/personal/particular/{app_type}/{card}/{status}','HomeController@backpersonaldata');
 Route::get('/back/personal/particular/{app_type}/{card}','HomeController@backpersonaldata');
+Route::get('/back/submission/{app_type}/{card}/{Cgrades}','HomeController@backsubmission');
 //Route::get('/replacement/personal/particular/{id}', 'HomeController@replacement_personaldata');
 Route::post('/replacement/personal/particular', 'HomeController@replacement_personaldata')->name('replacement.personal.particular');
 //Route::get('/renewal/personal/particular/{id}', 'HomeController@renewal_personaldata');
