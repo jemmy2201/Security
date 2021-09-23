@@ -102,24 +102,54 @@ class HomeController extends Controller
     {
         $urldecode_Cgrades = urldecode($Cgrades);
         $Cgrades = json_decode($urldecode_Cgrades);
+        $Val_Cgrades = json_decode($urldecode_Cgrades);
         $request->merge(['app_type' => $app_type,'card' => $card,'Cgrades' => $Cgrades]);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $remove_grade []="";
         $temp_array_grade= json_decode($booking_schedule->array_grade);
         $array_grade []="";
+//        die(print_r($Cgrades));
 
-        foreach ($request->Cgrades as $f ){
-            $result=array_search($f,json_decode($booking_schedule->array_grade));
-            unset($temp_array_grade[$result]);
-        }
-        foreach ($temp_array_grade as $f){
-            array_unshift($array_grade, $f);
+        foreach ($Cgrades as $f ){
+            $result=array_search("on",$Cgrades);
+            unset($Cgrades[$result]);
         }
 
-        $update_grade = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>$request->app_type,'card_id'=>$request->card])
-            ->update([
-                'array_grade' => json_encode(array_filter($array_grade)),
-            ]);
+        if (!empty($Cgrades)) {
+            if (count($Cgrades) != count($Val_Cgrades)){
+                $sertifikat = sertifikat::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+                if (!empty($sertifikat)) {
+                    $array_grade = json_decode($sertifikat->array_grade);
+                }else{
+                    $array_grade = null;
+                }
+            }else {
+                foreach ($Cgrades as $f) {
+                    $result = array_search($f, json_decode($booking_schedule->array_grade));
+                    unset($temp_array_grade[$result]);
+                }
+                foreach ($temp_array_grade as $f) {
+                    array_unshift($array_grade, $f);
+                }
+            }
+//            die(print_r(json_encode(array_filter($array_grade))));
+
+        }else{
+            $sertifikat = sertifikat::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+            $array_grade = json_decode($sertifikat->array_grade);
+        }
+        if (!empty($array_grade)) {
+            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+                ->update([
+                    'array_grade' => json_encode(array_filter($array_grade)),
+                ]);
+        }else{
+            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+                ->update([
+                    'array_grade' => null,
+                ]);
+        }
+
         // param submission
         $grade = null;
         $replacement = null;
@@ -241,15 +271,39 @@ class HomeController extends Controller
                 ]);
         }else{
             $temp_array_grade = json_decode($array_grade);
-            foreach ($temp_array_grade as $f ){
-                $result=array_search("on",$temp_array_grade);
-                unset($temp_array_grade[$result]);
-            }
-
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
 
-            $merge_array = array_merge(json_decode($booking_schedule->array_grade),$temp_array_grade);
+            if (is_null($booking_schedule->Status_app) && !$booking_schedule->Status_app == draft) {
+                foreach ($temp_array_grade as $f) {
+                    $result = array_search("on", $temp_array_grade);
+                    unset($temp_array_grade[$result]);
+                }
+            }
 
+            if (!empty($booking_schedule->array_grade)) {
+//                die(print_r(count($temp_array_grade)));
+//                die(print_r(count(json_decode($booking_schedule->array_grade))));
+                if (count($temp_array_grade) == count(json_decode($booking_schedule->array_grade))) {
+                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
+                }else{
+                    if ( count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)){
+                        $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
+                    }else{
+                        $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
+//                        die(print_r($different_value));
+//                        die(print_r(count($temp_array_grade)));
+//                        die(print_r(count(json_decode($booking_schedule->array_grade))));
+                        $merge_array = json_decode($booking_schedule->array_grade);
+//                        die(print_r($merge_array));
+                        for ($x = 1; $x <= $different_value; $x++) {
+                            array_pop($merge_array);
+                        }
+                    }
+                }
+            }else{
+                $merge_array = json_decode($array_grade);
+            }
+//            die(print_r($merge_array));
             $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                 ->update([
                     'app_type' => $request->app_type,
@@ -392,8 +446,10 @@ class HomeController extends Controller
         // take grade (new design)
         $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
         $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
-        if (count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
+        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
             $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
+        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
+            $grade_not_payment = json_decode($take_grade->array_grade);
         }
         $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
         $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
@@ -624,7 +680,7 @@ class HomeController extends Controller
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,
-                    'Status_app' => null,
+//                    'Status_app' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
@@ -643,7 +699,7 @@ class HomeController extends Controller
                         'paymentby' => $setifikat->paymentby,
                         'status_payment' => $setifikat->status_payment,
                         'receiptNo' => $setifikat->receiptNo,
-                        'Status_app' => $setifikat->Status_app,
+//                        'Status_app' => $setifikat->Status_app,
                         'appointment_date' => $setifikat->appointment_date,
                         'time_start_appointment' => $setifikat->time_start_appointment,
                         'time_end_appointment' => $setifikat->time_end_appointment,
@@ -825,7 +881,7 @@ class HomeController extends Controller
                                             'appointment_date' => $date,
                                             'time_start_appointment' => $data->start_at,
                                             'time_end_appointment' => $data->end_at,
-                                            'Status_app' => draft,
+//                                            'Status_app' => draft,
                                             'receiptNo' => $this->receiptNo(),
                                             'Status_draft' => draft_payment,
                                         ]);
@@ -839,7 +895,6 @@ class HomeController extends Controller
     }
     protected function UpdateBookingSchedule($request,$grade)
     {
-//        die(print_r($request->passexpirydate));
 //        $request->validate([
 //            'upload_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //        ]);
@@ -853,71 +908,99 @@ class HomeController extends Controller
         $ssoc = null;
         $sssc = null;
         $merge_grade = null;
-
         $this->Upload_Image($request);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
-        if ($booking_schedule->grade_id == so){
-            $array_dataDB = json_decode($booking_schedule->array_grade);
-            $new_array_data = json_decode($request->Cgrade[0]);
-            if (!empty($array_dataDB)) {
-                $array_grades = array_merge($array_dataDB, $new_array_data);
-                $bsoc = $this->take_grade(json_encode($array_grades));
-            }else{
-                $bsoc = $this->take_grade($request->Cgrade[0]);
+//        if ($booking_schedule->grade_id == so){
+//            $array_dataDB = json_decode($booking_schedule->array_grade);
+//            $new_array_data = json_decode($request->Cgrade[0]);
+//            if (!empty($array_dataDB)) {
+//                $array_grades = array_merge($array_dataDB, $new_array_data);
+//                $bsoc = $this->take_grade(json_encode($array_grades));
+//            }else{
+//                $bsoc = $this->take_grade($request->Cgrade[0]);
+//            }
+//        }elseif ($booking_schedule->grade_id == sso){
+//            $array_dataDB = json_decode($booking_schedule->array_grade);
+//            $new_array_data = json_decode($request->Cgrade[0]);
+//            if (!empty($array_dataDB)) {
+//                $array_grades = array_merge($array_dataDB, $new_array_data);
+//                $ssoc = $this->take_grade(json_encode($array_grades));
+//            }else{
+//                $ssoc = $this->take_grade($request->Cgrade[0]);
+//            }
+//        }elseif ($booking_schedule->grade_id == ss){
+//            $array_dataDB = json_decode($booking_schedule->array_grade);
+//            $new_array_data = json_decode($request->Cgrade[0]);
+//            if (!empty($array_dataDB)) {
+//                $array_grades = array_merge($array_dataDB, $new_array_data);
+//                $sssc = $this->take_grade(json_encode($array_grades));
+//            }else{
+//                $sssc = $this->take_grade($request->Cgrade[0]);
+//            }
+////            $array_grades = array_merge($array_dataDB,$new_array_data);
+////            $sssc = $this->take_grade(json_encode($array_grades));
+//        }elseif ($booking_schedule->grade_id == sss){
+//            $array_dataDB = json_decode($booking_schedule->array_grade);
+//            $new_array_data = json_decode($request->Cgrade[0]);
+//            if (!empty($array_dataDB)) {
+//                $array_grades = array_merge($array_dataDB, $new_array_data);
+//                $sssc = $this->take_grade(json_encode($array_grades));
+//            }else{
+//                $sssc = $this->take_grade($request->Cgrade[0]);
+//            }
+////            $array_grades = array_merge($array_dataDB,$new_array_data);
+////            $sssc = $this->take_grade(json_encode($array_grades));
+//        }elseif ($booking_schedule->grade_id == cso){
+//            $array_dataDB = json_decode($booking_schedule->array_grade);
+//            $new_array_data = json_decode($request->Cgrade[0]);
+//            if (!empty($array_dataDB)) {
+//                $array_grades = array_merge($array_dataDB, $new_array_data);
+//                $sssc = $this->take_grade(json_encode($array_grades));
+//            }else{
+//                $sssc = $this->take_grade($request->Cgrade[0]);
+//            }
+////            $array_grades = array_merge($array_dataDB,$new_array_data);
+////            $sssc = $this->take_grade(json_encode($array_grades));
+//        }
+        if ($request->card == so_app){
+            $take_grade = $request->Cgrades;
+            foreach ($take_grade as $f ){
+                $result=array_search("on",$take_grade);
+
+                if (!is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
+        //                dd($booking_schedule->Status_app);
+                    unset($take_grade[$result]);
+                }
             }
-        }elseif ($booking_schedule->grade_id == sso){
-            $array_dataDB = json_decode($booking_schedule->array_grade);
-            $new_array_data = json_decode($request->Cgrade[0]);
-            if (!empty($array_dataDB)) {
-                $array_grades = array_merge($array_dataDB, $new_array_data);
-                $ssoc = $this->take_grade(json_encode($array_grades));
+        //        die(print_r($take_grade));
+            if (!empty($booking_schedule->array_grade)){
+                $get_grade = json_decode($booking_schedule->array_grade);
+                if (!empty($request->Cgrades)) {
+        //                die(print_r(count(json_decode($request->Cgrade[0]))));
+        //                die(print_r(count($request->Cgrades)));
+        //                die(print_r($request->all()));
+                    if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
+                        $merge_grade = array_merge($take_grade, $get_grade);
+                    }else{
+                        if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
+        //                        die('1');
+                            $merge_grade = array_merge($take_grade, $get_grade);
+                        }else{
+        //                        die('2');
+                            $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+        //                        die(print_r($different_value));
+                            $merge_grade = array_merge($take_grade, $get_grade);
+                            for ($x = 1; $x <= $different_value; $x++) {
+                                array_pop($merge_grade);
+                            }
+                        }
+                    }
+                }else{
+                    $merge_grade = $get_grade;
+                }
             }else{
-                $ssoc = $this->take_grade($request->Cgrade[0]);
+                $merge_grade = $take_grade;
             }
-        }elseif ($booking_schedule->grade_id == ss){
-            $array_dataDB = json_decode($booking_schedule->array_grade);
-            $new_array_data = json_decode($request->Cgrade[0]);
-            if (!empty($array_dataDB)) {
-                $array_grades = array_merge($array_dataDB, $new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }else{
-                $sssc = $this->take_grade($request->Cgrade[0]);
-            }
-//            $array_grades = array_merge($array_dataDB,$new_array_data);
-//            $sssc = $this->take_grade(json_encode($array_grades));
-        }elseif ($booking_schedule->grade_id == sss){
-            $array_dataDB = json_decode($booking_schedule->array_grade);
-            $new_array_data = json_decode($request->Cgrade[0]);
-            if (!empty($array_dataDB)) {
-                $array_grades = array_merge($array_dataDB, $new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }else{
-                $sssc = $this->take_grade($request->Cgrade[0]);
-            }
-//            $array_grades = array_merge($array_dataDB,$new_array_data);
-//            $sssc = $this->take_grade(json_encode($array_grades));
-        }elseif ($booking_schedule->grade_id == cso){
-            $array_dataDB = json_decode($booking_schedule->array_grade);
-            $new_array_data = json_decode($request->Cgrade[0]);
-            if (!empty($array_dataDB)) {
-                $array_grades = array_merge($array_dataDB, $new_array_data);
-                $sssc = $this->take_grade(json_encode($array_grades));
-            }else{
-                $sssc = $this->take_grade($request->Cgrade[0]);
-            }
-//            $array_grades = array_merge($array_dataDB,$new_array_data);
-//            $sssc = $this->take_grade(json_encode($array_grades));
-        }
-        $take_grade = $request->Cgrades;
-        if (!empty($booking_schedule->array_grade)){
-            $get_grade = json_decode($booking_schedule->array_grade);
-            if (!empty($request->Cgrades)) {
-                $merge_grade = array_merge($take_grade, $get_grade);
-            }else{
-                $merge_grade = $get_grade;
-            }
-        }else{
-            $merge_grade = $take_grade;
         }
 
         // old Page //
