@@ -82,17 +82,17 @@
     <div class="row">
         <div class="col-2 back">
             @if($request->Status_app != resubmission && $request->card == so_app  )
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" onclick="window.history.go(-1);">
+{{--                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
-                </a>
+{{--                </a>--}}
             </button>
             @else
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
                 <a href="#" style="text-decoration:none;color: white;">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
-                    Backs
+                    Back
                 </a>
             </button>
             @endif
