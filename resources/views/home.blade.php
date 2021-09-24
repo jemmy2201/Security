@@ -403,7 +403,7 @@
 {{--                                    @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp--}}
 {{--                                @endif--}}
                                 @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-primary">Draft</button></a></td>
+                                <td><a href="{{$url}}"><button class="btn btn-primary">Continue</button></a></td>
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
