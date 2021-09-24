@@ -1398,7 +1398,7 @@ class HomeController extends Controller
                 $merge_grade = $take_grade;
             }
         }
-        die(print_r($merge_grade));
+//        die(print_r($merge_grade));
         // old Page //
 //        if ($booking_schedule->grade_id) {
 //            $take_grade = json_decode($booking_schedule->array_grade);
