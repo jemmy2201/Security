@@ -73,7 +73,7 @@ Route::get('/history/book/appointment/{app_type}/{card}', 'HomeController@Histor
 Route::get('/history/book/payment/{app_type}/{card}', 'HomeController@HistoryViewPayment');
 Route::get('/personal/particular/{app_type}/{card}/{status}', 'HomeController@resubmission');
 Route::get('/draft/{app_type}/{card}', 'HomeController@backDraft');
-Route::get('/save_draft/{app_type}/{card}/{array_grade}', 'HomeController@savedraft');
+Route::get('/save_draft/{app_type}/{card}/{array_grade}/{logout_save_draft}', 'HomeController@savedraft');
 Route::get('/view/course/{id}', 'HomeController@view_course');
 Route::get('/invoice/print/pdf/{id}', 'HomeController@print_pdf');
 // end get history continous

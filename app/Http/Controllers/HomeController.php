@@ -20,6 +20,7 @@ use App\Dateholiday;
 use Jenssegers\Agent\Agent;
 use PDF;
 Use Redirect;
+use Artisan;
 use Illuminate\Support\Facades\Route;
 use App\tbl_receiptNo;
 use function GuzzleHttp\Promise\all;
@@ -264,9 +265,10 @@ class HomeController extends Controller
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
-    public function savedraft(Request $request, $app_type, $card,$array_grade = false)
+    public function savedraft(Request $request, $app_type, $card,$array_grade = false,$logout_save_draft = false)
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
+//        die(print_r($request->all()));
         if ($array_grade == false) {
             $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                 ->update([
@@ -587,7 +589,13 @@ class HomeController extends Controller
                     'array_grade' => json_encode($merge_array),
                 ]);
         }
-        return redirect()->route('home');
+        if ($logout_save_draft == true){
+            Artisan::call('cache:clear');
+            Auth::logout();
+            return redirect()->route('home');
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     public function replacement_personaldata(Request $request)

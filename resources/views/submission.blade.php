@@ -504,6 +504,7 @@
 @endif
 
 <script type="application/javascript">
+
     $( document ).ready(function() {
         $(".declare").hide();
         $("#view_declare").hide();
@@ -515,21 +516,24 @@
         });
 
         $(".save_draft" ).click(function() {
-            if (!$("input[name='declare']:checked").val() && !$("input[name='submit_submission ']:checked").val()){
-                if ($('#declare').prop('checked', false)) {
-                        var val = [];
-                        $(':checkbox:checked').each(function(i){
-                            val[i] = $(this).val();
-                        });
-                        var arrStr = encodeURIComponent(JSON.stringify(val));
-                        window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr;
-                }else{
-                    swal("Please!", "remove photo declaration", "error")
-                }
-            }else{
+            if($("input[name='submit_submission']:checked").val() && $("input[name='declare']:checked").val()){
                 swal("Please!", "remove photo declaration and get certified", "error")
+            }else if($("input[name='declare']:checked").val()){
+                swal("Please!", "remove get certified", "error")
+            }else if($("input[name='submit_submission']:checked").val()){
+                swal("Please!", "remove photo declaration", "error")
+            }else{
+                var val = [];
+                $(':checkbox:checked').each(function(i){
+                    val[i] = $(this).val();
+                });
+                var arrStr = encodeURIComponent(JSON.stringify(val));
+                if ($("#logout_save_draft").val()){
+                    window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr+'/'+$("#logout_save_draft").val();
+                }else{
+                    window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr+'/'+ {!! json_encode(draft) !!};
+                }
             }
-
         });
 
         $("#submit_declare_trainig" ).click(function() {
@@ -661,7 +665,11 @@
             }
         });
     });
+    $(".logout_save_draft").click(function() {
+        $("#logout_save_draft").val(true)
+        $( ".save_draft" ).trigger( "click" );
 
+    });
 
     $('.file_upload_profiles').click(function(){ $('#upload_profile').trigger('click'); });
     //refresh page on browser resize

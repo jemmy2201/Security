@@ -108,7 +108,10 @@
 {{--                        @guest--}}
                             <li class="nav-item">
 {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
-                                <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
+                                <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
+
+                                    <a class="nav-link" href="#" ><h5 class="logout_save_draft" style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
+{{--                                <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
                             </li>
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             <?php if(config('adminlte.logout_method')): ?>
@@ -141,6 +144,7 @@
 
             var TextAreaNamePhone = document.getElementById('TextAreaNamePhone');
             TextAreaNamePhone.value = TextAreaNamePhone.value.replace(/^\s*|\s*$/g,'');
+
         });
 
     </script>

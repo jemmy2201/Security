@@ -447,7 +447,10 @@
                 swal("Please!", "Complete the data", "error")
             }
         });
-
+        $(".logout_save_draft").click(function() {
+            $("#logout_save_draft").val(true)
+            window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+{!! json_encode(draft) !!}+'/'+ $("#logout_save_draft").val();
+        });
         $("#confirm_payment_paynow").click(function() {
            $( "#save_payment").submit();
         });

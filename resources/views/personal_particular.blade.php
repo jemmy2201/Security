@@ -164,7 +164,7 @@
         </div>
         <div class="col-2 next">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft)}}" style="text-decoration:none; color: white;">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
                 </a>
@@ -187,6 +187,10 @@
     {
         this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
+    });
+    $(".logout_save_draft").click(function() {
+        $("#logout_save_draft").val(true)
+        window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+{!! json_encode(draft) !!}+'/'+$("#logout_save_draft").val();
     });
     $( document ).ready(function() {
         $( "#click_personal_particular" ).click(function() {
