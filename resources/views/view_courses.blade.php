@@ -304,7 +304,7 @@
                         @php
                         $grand_total = formatcurrency($courses->grand_total);
                         @endphp
-                        <div class="col-4 ColoumndataPersonal">${{$grand_total}}</div>
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
@@ -325,19 +325,19 @@
                         @if ($request->card == so_app && !empty($courses->array_grade))
                             <br>
 {{--                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
-                            <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 94px;">:</span></div>
-                            <div class="col-8 ColoumndataPersonal">
-                            @foreach (json_decode($courses->array_grade) as $f)
-                                @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:5px;">
-                                        {{$data[0]->name}}
-                                    </li>
-                                </u>
-                            @endforeach
+{{--                            <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 94px;">:</span></div>--}}
+{{--                            <div class="col-8 ColoumndataPersonal">--}}
+{{--                            @foreach (json_decode($courses->array_grade) as $f)--}}
+{{--                                @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp--}}
+{{--                                <ul class="list-group">--}}
+{{--                                    <li class="list-group-item">--}}
+{{--                                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:5px;">--}}
+{{--                                        {{$data[0]->name}}--}}
+{{--                                    </li>--}}
+{{--                                </u>--}}
+{{--                            @endforeach--}}
 
-                        </div>
+{{--                        </div>--}}
                         @endif
                     </div>
                 </div>
@@ -472,7 +472,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 7px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">${{$grand_total}}</div>
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
@@ -490,18 +490,18 @@
                 <div class="container">
                     <div class="row">
 {{--                        <div class="col-0 HeaderdataPersonal">Courses &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 85px;">:</span></div>
-                        <div class="col-12 ColoumndataPersonal">
-                            @foreach (json_decode($courses->array_grade) as $f)
-                                @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:5px;">
-                                        {{$data[0]->name}}
-                                    </li>
-                                    </u>
-                            @endforeach
-                        </div>
+{{--                        <div class="col-0 HeaderdataPersonal" >Courses <span style="margin-left: 85px;">:</span></div>--}}
+{{--                        <div class="col-12 ColoumndataPersonal">--}}
+{{--                            @foreach (json_decode($courses->array_grade) as $f)--}}
+{{--                                @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp--}}
+{{--                                <ul class="list-group">--}}
+{{--                                    <li class="list-group-item">--}}
+{{--                                        <img src="{{URL::asset('/img/rounded .png')}}" style="width:5px;">--}}
+{{--                                        {{$data[0]->name}}--}}
+{{--                                    </li>--}}
+{{--                                    </u>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
 
                     </div>
                 </div>
