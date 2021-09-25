@@ -22,7 +22,7 @@ Route::get('/login/dummy/{type}', 'SingpassController@dummy_login');
 
 Route::get('/qrcode', function () {
     return view('login');
-});
+})->name('qrcode');
 
 // Enets
 //Route::get('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');

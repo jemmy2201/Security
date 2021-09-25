@@ -108,10 +108,12 @@
 {{--                        @guest--}}
                             <li class="nav-item">
 {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
-                                <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
-
-                                    <a class="nav-link" href="#" ><h5 class="logout_save_draft" style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
-{{--                                <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
+                                    <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
+                                    @if(Request::route()->getName() == default_alter_login)
+                                        <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
+                                    @else
+                                        <a class="nav-link" href="#" ><h5 class="logout_save_draft" style="cursor:pointer; color: #E31E1A;">Logout</h5></a>
+                                    @endif
                             </li>
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             <?php if(config('adminlte.logout_method')): ?>
@@ -139,6 +141,7 @@
     </div>
     <script type="application/javascript">
         $( document ).ready(function() {
+
             var TextAreaName = document.getElementById('TextAreaName');
             TextAreaName.value = TextAreaName.value.replace(/^\s*|\s*$/g,'');
 
