@@ -577,7 +577,7 @@ class HomeController extends Controller
             }else{
                 $merge_array = json_decode($array_grade);
             }
-            die(print_r($merge_array));
+//            die(print_r($merge_array));
             $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                 ->update([
                     'app_type' => $request->app_type,
