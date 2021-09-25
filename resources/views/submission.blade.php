@@ -442,11 +442,11 @@
             </button>
         </div>
         <div class="col-4 next visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">
+            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: #1E90FF; color: #E31D1A">
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
-                </a>
+{{--                </a>--}}
         </div>
         <div class="col-2 next">
 {{--            @if(empty($resubmission))--}}
@@ -515,12 +515,21 @@
         });
 
         $(".save_draft" ).click(function() {
-            var val = [];
-            $(':checkbox:checked').each(function(i){
-                val[i] = $(this).val();
-            });
-            var arrStr = encodeURIComponent(JSON.stringify(val));
-            window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr;
+            if (!$("input[name='declare']:checked").val() && !$("input[name='submit_submission ']:checked").val()){
+                if ($('#declare').prop('checked', false)) {
+                        var val = [];
+                        $(':checkbox:checked').each(function(i){
+                            val[i] = $(this).val();
+                        });
+                        var arrStr = encodeURIComponent(JSON.stringify(val));
+                        window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr;
+                }else{
+                    swal("Please!", "remove photo declaration", "error")
+                }
+            }else{
+                swal("Please!", "remove photo declaration and get certified", "error")
+            }
+
         });
 
         $("#submit_declare_trainig" ).click(function() {
