@@ -200,7 +200,7 @@
                         <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 83px;">:</span></div>
+                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 117px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->email}}</div>
 
                     </div>
@@ -376,7 +376,7 @@
                         <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 73px;">:</span></div>
+                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 107px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->email}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}

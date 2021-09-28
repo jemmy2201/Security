@@ -580,8 +580,8 @@
                             {{--        swal("Please!", "select a course", "error")--}}
                             {{--}else{--}}
                             {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
-                                console.log('s',$('#Cgrades').is(':checked'))
-                            if ($('#Cgrades').is(':checked') == false)
+                                console.log('s',$('input[name="Cgrades[]"]:checked').val())
+                            if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
                             {
                                 swal("Please!", "Selected any courses", "error");
 
