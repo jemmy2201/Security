@@ -164,7 +164,7 @@
         <br>
         @if($request->thank_payment == true)
         <center>
-        <h3><b>{{thanks_payment}}</b></h3>
+{{--        <h3><b>{{thanks_payment}}</b></h3>--}}
         </center>
         @endif
         {{-- Desktop --}}
@@ -200,8 +200,8 @@
                         <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Home No <span style="margin-left: 83px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{$courses->homeno}}</div>
+                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 83px;">:</span></div>
+                        <div class="col-4 ColoumndataPersonal">{{$courses->email}}</div>
 
                     </div>
                 </div>
@@ -308,7 +308,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
+                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment_date)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 84px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} : {{$courses->time_end_appointment}} </div>
@@ -376,8 +376,8 @@
                         <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Home No <span style="margin-left: 73px;">:</span></div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->homeno}}</div>
+                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 73px;">:</span></div>
+                        <div class="col-6 ColoumndataPersonal">{{$courses->email}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Status <span style="margin-left: 101px;">:</span></div>
@@ -476,7 +476,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
-                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment)->format('d-m-Y')}}</div>
+                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment_date)->format('d-m-Y')}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 75px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} : {{$courses->time_end_appointment}}</div>

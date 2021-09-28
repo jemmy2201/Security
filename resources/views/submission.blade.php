@@ -516,15 +516,8 @@
         });
 
         $(".save_draft" ).click(function() {
-            if($("input[name='submit_submission']:checked").val() && $("input[name='declare']:checked").val()){
-                swal("Please!", "remove photo declaration and get certified", "error")
-            }else if($("input[name='declare']:checked").val()){
-                swal("Please!", "remove get certified", "error")
-            }else if($("input[name='submit_submission']:checked").val()){
-                swal("Please!", "remove photo declaration", "error")
-            }else{
                 var val = [];
-                $(':checkbox:checked').each(function(i){
+                $('input[name="Cgrades[]"]:checked').each(function(i){
                     val[i] = $(this).val();
                 });
                 var arrStr = encodeURIComponent(JSON.stringify(val));
@@ -533,7 +526,6 @@
                 }else{
                     window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+arrStr+'/'+ {!! json_encode(draft) !!};
                 }
-            }
         });
 
         $("#submit_declare_trainig" ).click(function() {
