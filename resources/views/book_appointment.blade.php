@@ -80,7 +80,7 @@
         </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
-        <div class="col-2 back">
+        <div class="col-2 back hidden-xs">
             @if($request->Status_app != resubmission && $request->card == so_app  )
             <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" onclick="window.history.go(-1);">
 {{--                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">--}}
@@ -95,6 +95,24 @@
                     Back
                 </a>
             </button>
+            @endif
+
+        </div>
+        <div class="col-3 visible-xs hidden-md">
+            @if($request->Status_app != resubmission && $request->card == so_app  )
+                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" onclick="window.history.go(-1);">
+                    {{--                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">--}}
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+                    Back
+                    {{--                </a>--}}
+                </button>
+            @else
+                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+                    <a href="#" style="text-decoration:none;color: white;">
+                        {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
+                        Back
+                    </a>
+                </button>
             @endif
 
         </div>
@@ -129,7 +147,7 @@
             @endif
 
         </div>
-        <div class="col-4 visible-xs hidden-md">
+        <div class="col-5 visible-xs hidden-md">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                 <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
                     Resubmit

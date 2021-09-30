@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="container">
-                <img src="{{URL::asset('/img/logo3.jpg')}}" >
+                <img src="{{URL::asset('/img/logo3.jpg')}}" class="hidden-xs" >
+                <img src="{{URL::asset('/img/logo3.jpg')}}" class="visible-xs hidden-md" style="width: 100%;" >
                 <div class="row">
 {{--                    <div class="col-sm-6 hidden-xs" style="margin-top: 150px;margin-left: 150px;">--}}
 {{--                        <h1><b>Welcome to Union of </b></h1>--}}

@@ -442,7 +442,7 @@
             </button>
         </div>
         <div class="col-4 next visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: #1E90FF; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft

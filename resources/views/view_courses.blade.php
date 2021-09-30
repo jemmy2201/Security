@@ -376,8 +376,13 @@
                         <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 107px;">:</span></div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->email}}</div>
+                        <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 108px;">:</span></div>
+                        <div class="col-6 ColoumndataPersonal">
+                            <textarea rows="4" cols="18" style="resize: none;" readonly>
+                                {{$courses->email}}
+                                </textarea>
+{{--                            {{$courses->email}}--}}
+                        </div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Status <span style="margin-left: 101px;">:</span></div>
@@ -520,10 +525,13 @@
             </div>
             <div class="col-8 medium hidden-xs">
             </div>
-            <div class="col-6 medium visible-xs hidden-md">
+            <div class="col-3  visible-xs hidden-md">
             </div>
-            <div class="col-2 next">
-                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button" id="click_personal_particular" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print Receipt</button></a>
+            <div class="col-2 next hidden-xs">
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print Receipt</button></a>
+            </div>
+            <div class="col-5 visible-xs hidden-md">
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print Receipt</button></a>
             </div>
         </div>
 
