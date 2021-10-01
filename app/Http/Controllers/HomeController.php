@@ -268,18 +268,21 @@ class HomeController extends Controller
     public function savedraft(Request $request, $app_type, $card,$array_grade = false,$logout_save_draft = false)
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
+        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
+
 //        die(print_r($request->all()));
         if ($array_grade == false) {
-            $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
-                ->update([
-                    'app_type' => $request->app_type,
-                    'Status_app' => draft,
-                    'declaration_date' => null,
-                    'Status_draft' => draft_book_appointment,
-                ]);
+            if (!$booking_schedule->Status_app == resubmission) {
+                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                    ->update([
+                        'app_type' => $request->app_type,
+                        'Status_app' => draft,
+                        'declaration_date' => null,
+                        'Status_draft' => draft_book_appointment,
+                    ]);
+            }
         }else{
             $temp_array_grade = json_decode($array_grade);
-            $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
             $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
 
             if ($request->app_type == news) {
@@ -580,14 +583,16 @@ class HomeController extends Controller
                 $merge_array = json_decode($array_grade);
             }
 //            die(print_r($merge_array));
-            $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
-                ->update([
-                    'app_type' => $request->app_type,
-                    'declaration_date' => null,
-                    'Status_app' => draft,
-                    'Status_draft' => draft_book_appointment,
-                    'array_grade' => json_encode($merge_array),
-                ]);
+            if (!$booking_schedule->Status_app == resubmission){
+                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                    ->update([
+                        'app_type' => $request->app_type,
+                        'declaration_date' => null,
+                        'Status_app' => draft,
+                        'Status_draft' => draft_book_appointment,
+                        'array_grade' => json_encode($merge_array),
+                    ]);
+            }
         }
         if ($logout_save_draft == true){
             Artisan::call('cache:clear');
