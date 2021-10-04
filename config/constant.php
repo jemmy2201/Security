@@ -196,3 +196,10 @@ define('success', 0);
 
 
 //End Env singapass
+
+// activation phone
+define('failed', 0);
+define('succes', 1);
+define('already_used', 2);
+
+// end activation phone

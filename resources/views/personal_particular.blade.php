@@ -171,9 +171,11 @@
         </div>
         <div class="col-2 next">
             <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: #1E90FF; color: white;">Next
-{{--                <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
+            </button>
+            <button type="button" id="form_activation" data-toggle="modal" data-target="#code_activation_Modal" class=" btn btn-primary btn-lg btn-block" style=" background: #1E90FF; color: white; display: none;">
             </button>
         </div>
+
     </div>
         <input type="hidden" id="app_type" name="app_type" value="{{$request->app_type}}">
         <input type="hidden" id="card" name="card" value="{{$request->card}}">
@@ -181,6 +183,103 @@
 
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="code_activation_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Verification Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                We have sent an SMS to your mobile number with a verification code. Please check your phone and enter the verification code below
+                <input type="number" class="form-control" id="kode_activation" name="kode_activation" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="check_activation">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<script>
+    $( document ).ready(function() {
+        $( "#click_personal_particular" ).click(function() {
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            if (width < 640){
+                if($("#Phonemobileno").val() != ""){
+                    if({!!  json_encode($personal->web) !!} == true ){
+                        if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
+                            if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
+                                swal("Attention!", "Pass Expiration Date is up", "error")
+                            }else{
+                                $( "#form_activation" ).trigger( "click" );
+                                create_activation();
+                                // $("#submit_personal_particular").submit();
+                            }
+                        }else{
+                            swal("Please!", "Input file Pass Expiry Date", "error")
+                        }
+                    }else{
+                        $( "#form_activation" ).trigger( "click" );
+                        create_activation();
+                        // $("#submit_personal_particular").submit();
+                    }
+                }else{
+                    swal("Attention!", "Phone number cannot be empty", "error")
+                }
+
+            }else{
+                if($("#mobileno").val() != ""){
+                    if({!!  json_encode($personal->web) !!} == true ){
+                        if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
+                            if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                swal("Attention!", "Pass Expiration Date is up", "error")
+                            }else{
+                                $( "#form_activation" ).trigger( "click" );
+                                create_activation();
+                                // $("#submit_personal_particular").submit();
+                            }
+                        }else{
+                            swal("Please!", "Input file Pass Expiry Date", "error")
+                        }
+                    }else{
+                        // console.log(12')
+                        $( "#form_activation" ).trigger( "click" );
+                        create_activation();
+                        // $("#submit_personal_particular").submit();
+                    }
+                }else{
+                    swal("Attention!", "Phone number cannot be empty", "error")
+                }
+            }
+
+        });
+        $( "#check_activation" ).click(function() {
+            $.ajax({
+                url: "{{ url('/ajax/check/activation') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), activation:$("#kode_activation").val()},
+                success: function (data) {
+                    if (data == {!! json_encode(succes) !!}){
+                        $("#submit_personal_particular").submit();
+                    }else if (data == {!! json_encode(already_used) !!}){
+                        swal("Attention!", "Activation code already used", "error")
+                    }else{
+                        swal("Attention!", "Wrong activation code", "error")
+                    }
+                }
+            });
+        });
+
+    });
+
+</script>
 <script type="application/javascript">
     //refresh page on browser resize
     $(window).bind('resize', function(e)
@@ -192,54 +291,23 @@
         $("#logout_save_draft").val(true)
         window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+{!! json_encode(draft) !!}+'/'+$("#logout_save_draft").val();
     });
-    $( document ).ready(function() {
-        $( "#click_personal_particular" ).click(function() {
-            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-            if (width < 640){
-                console.log('1')
-                if($("#Phonemobileno").val() != ""){
-                    if({!!  json_encode($personal->web) !!} == true ){
-                        if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
-                            if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
-                                swal("Attention!", "Pass Expiration Date is up", "error")
-                            }else{
-                                $("#submit_personal_particular").submit();
-                            }
-                        }else{
-                            swal("Please!", "Input file Pass Expiry Date", "error")
-                        }
-                    }else{
-                        $("#submit_personal_particular").submit();
-                    }
-                }else{
-                    swal("Attention!", "Phone number cannot be empty", "error")
-                }
 
-            }else{
-                console.log('2')
-
-                if($("#mobileno").val() != ""){
-                    if({!!  json_encode($personal->web) !!} == true ){
-                        if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
-                            if ( new Date() >= new Date($('#wpexpirydate').val())){
-                                    swal("Attention!", "Pass Expiration Date is up", "error")
-                            }else{
-                                $("#submit_personal_particular").submit();
-                            }
-                        }else{
-                            swal("Please!", "Input file Pass Expiry Date", "error")
-                        }
-                    }else{
-                        $("#submit_personal_particular").submit();
-                    }
-                }else{
-                    swal("Attention!", "Phone number cannot be empty", "error")
-                }
-           }
-
+    function create_activation(eventDate){
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if (width < 640){
+            var phone = $("#Phonemobileno").val();
+        }else{
+            var phone = $("#mobileno").val();
+        }
+        $.ajax({
+            url: "{{ url('/ajax/sent/activation/phone') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), phone:phone},
+            success: function (data) {
+            }
         });
-    });
-
+    }
 
     if($(window).width() < 767)
     {

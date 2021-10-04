@@ -127,5 +127,6 @@ Route::prefix('ajax')->group(function () {
     Route::get('/download/excel/template/grade', 'AjaxController@download_template_grade');
     Route::post('/restoring/table', 'AjaxController@restoring_table')->name('admin.restoring.table');
     Route::post('/delete/process', 'AjaxController@delete_process')->name('users.delete.process');
-
+    Route::post('/sent/activation/phone', 'AjaxController@sent_activation_phone');
+    Route::post('/check/activation', 'AjaxController@check_activation');
 });

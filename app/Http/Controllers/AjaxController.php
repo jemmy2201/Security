@@ -15,6 +15,7 @@ use App\transaction_amount;
 use App\Backup_booking_schedule;
 use App\Backup_users;
 use App\Dateholiday;
+use App\activation_phones;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DataTables;
@@ -993,6 +994,78 @@ class AjaxController extends Controller
     public function cek_limit_schedule(Request $request)
     {
         return $this->view_time_schedule($this->time_schedule(Carbon::parse($request->eventDate)->toDateString()),$this->limit_schedule(),Carbon::parse($request->eventDate)->toDateString());
+    }
+    public function check_activation(Request $request)
+    {
+        $activation = activation_phones::where(['activation'=>$request->activation,'nric'=> Auth::user()->nric])
+                      ->first();
+        if (!empty($activation)) {
+            if ($activation->status == false) {
+                $respon = succes;
+                $update_activation_phones = activation_phones::find($activation->id);
+
+                $update_activation_phones->status = succes;
+
+                $update_activation_phones->save();
+            } else {
+                $respon = already_used;
+            }
+        }else{
+            $respon = failed;
+        }
+        return $respon;
+    }
+    public function sent_activation_phone(Request $request)
+    {
+        $activation = $this->create_activation_phone();
+        $sent = $this->gw_send_sms($activation,$request->phone);
+        $sent = true;
+        if($sent){
+            $new_activation = new activation_phones();
+
+            $new_activation->activation = $activation;
+
+            $new_activation->status =false;
+
+            $new_activation->nric = Auth::user()->nric;
+
+            $new_activation->save();
+
+        }
+//        die(print_r($new_activation));
+        return $sent;
+    }
+    public function create_activation_phone()
+    {
+        $digits = 4;
+        return rand(pow(10, $digits-1), pow(10, $digits)-1);
+    }
+    public function gw_send_sms($activation,$sms_to)
+    {
+        $sms_msg = "Use OTP ".$activation." to verify your phone number";
+        $query_string = "api.aspx?apiusername=".env('username_gateway_sms')."&apipassword=".env('password_gateway_sms');
+        $query_string .= "&senderid=".rawurlencode(env('sms_from_gateway_sms'))."&mobileno=".rawurlencode($sms_to);
+        $query_string .= "&message=".rawurlencode(stripslashes($sms_msg)) . "&languagetype=1";
+        $url = env('url_gateway_sms').$query_string;
+        $fd = @implode ('', file ($url));
+        if ($fd)
+        {
+            if ($fd > 0) {
+//                Print("MT ID : " . $fd);
+                $respon = true;
+            }
+            else {
+//                print("Please refer to API on Error : " . $fd);
+                $respon = false;
+            }
+        }
+        else
+        {
+            // no contact with gateway
+//            $respon = "fail";
+            $respon = false;
+        }
+        return $respon ;
     }
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
