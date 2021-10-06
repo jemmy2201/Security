@@ -1038,15 +1038,15 @@ class AjaxController extends Controller
         if ($phone[0] == "6" || $phone[1] == "5") {
             $response = $this->gw_send_sms($activation, $phone);
             if ($response) {
-//                $new_activation = new activation_phones();
-//
-//                $new_activation->activation = $activation;
-//
-//                $new_activation->status = false;
-//
-//                $new_activation->nric = Auth::user()->nric;
-//
-//                $new_activation->save();
+                $new_activation = new activation_phones();
+
+                $new_activation->activation = $activation;
+
+                $new_activation->status = false;
+
+                $new_activation->nric = Auth::user()->nric;
+
+                $new_activation->save();
 
             }
         }else{
