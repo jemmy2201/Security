@@ -1018,22 +1018,42 @@ class AjaxController extends Controller
     public function sent_activation_phone(Request $request)
     {
         $activation = $this->create_activation_phone();
-        $sent = $this->gw_send_sms($activation,$request->phone);
-        $sent = true;
-        if($sent){
-            $new_activation = new activation_phones();
+//        die(print_r(strlen($request->phone)));
+//        die($request->phone[0]);
+        if(strlen($request->phone) == 10){
+            if ($request->phone[0] == "6" && $request->phone[1] == "5"){
+                $phone = $request->phone;
+            }else{
+                $phone = not_number_singapore;
+            }
+        }elseif (strlen($request->phone) == 8){
+            if ($request->phone[0] == "9" || $request->phone[1] == "8"){
+                $phone = "65".$request->phone;
+            }else{
+                $phone = not_number_singapore;
+            }
+        }else{
+            $phone = wrong_format_number;
+        }
+        if ($phone[0] == "6" || $phone[1] == "5") {
+            $response = $this->gw_send_sms($activation, $phone);
+            if ($response) {
+//                $new_activation = new activation_phones();
+//
+//                $new_activation->activation = $activation;
+//
+//                $new_activation->status = false;
+//
+//                $new_activation->nric = Auth::user()->nric;
+//
+//                $new_activation->save();
 
-            $new_activation->activation = $activation;
-
-            $new_activation->status =false;
-
-            $new_activation->nric = Auth::user()->nric;
-
-            $new_activation->save();
-
+            }
+        }else{
+            $response = $phone;
         }
 //        die(print_r($new_activation));
-        return $sent;
+        return $response;
     }
     public function create_activation_phone()
     {

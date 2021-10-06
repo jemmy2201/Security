@@ -202,4 +202,6 @@ define('failed', 0);
 define('succes', 1);
 define('already_used', 2);
 
+define('not_number_singapore', 2);
+define('wrong_format_number', 3);
 // end activation phone

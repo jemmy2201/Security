@@ -217,7 +217,6 @@
                             if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
                                 swal("Attention!", "Pass Expiration Date is up", "error")
                             }else{
-                                $( "#form_activation" ).trigger( "click" );
                                 create_activation();
                                 // $("#submit_personal_particular").submit();
                             }
@@ -225,7 +224,6 @@
                             swal("Please!", "Input file Pass Expiry Date", "error")
                         }
                     }else{
-                        $( "#form_activation" ).trigger( "click" );
                         create_activation();
                         // $("#submit_personal_particular").submit();
                     }
@@ -240,7 +238,7 @@
                             if ( new Date() >= new Date($('#wpexpirydate').val())){
                                 swal("Attention!", "Pass Expiration Date is up", "error")
                             }else{
-                                $( "#form_activation" ).trigger( "click" );
+                                // $( "#form_activation" ).trigger( "click" );
                                 create_activation();
                                 // $("#submit_personal_particular").submit();
                             }
@@ -249,7 +247,7 @@
                         }
                     }else{
                         // console.log(12')
-                        $( "#form_activation" ).trigger( "click" );
+                        // $( "#form_activation" ).trigger( "click" );
                         create_activation();
                         // $("#submit_personal_particular").submit();
                     }
@@ -305,6 +303,14 @@
             /* send the csrf-token and the input to the controller */
             data: {_token: $('meta[name="csrf-token"]').attr('content'), phone:phone},
             success: function (data) {
+                if (data == true){
+                    $( "#form_activation" ).trigger( "click" );
+                }else if(data == {!!  json_encode(not_number_singapore) !!}){
+                    swal("Please!", "Use Singapore Number", "error")
+                }else if(data == {!!  json_encode(wrong_format_number) !!}){
+                    swal("Please!", "Wrong number format", "error")
+                }
+
             }
         });
     }
