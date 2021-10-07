@@ -189,9 +189,10 @@
                             return number_format($floatcurr,$currencies[$curr][0],$currencies[$curr][1],$currencies[$curr][2]);
                         }
                     }
+                    $grand_total = formatcurrency($grand_total);
                 @endphp
 {{--                    <td>{{$gst->amount_gst}}%</td>--}}
-                    <td>${{formatcurrency($grand_total)}} inclusive GST</td>
+                    <td>${{$grand_total}} inclusive GST</td>
                 <tbody>
                 </tbody>
             </table>
@@ -408,6 +409,7 @@
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
+    console.log('s',{!!  json_encode($grand_total) !!})
     $( document ).ready(function() {
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
