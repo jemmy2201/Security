@@ -309,8 +309,9 @@
                     swal("Please!", "Use Singapore Number", "error")
                 }else if(data == {!!  json_encode(wrong_format_number) !!}){
                     swal("Please!", "Wrong number format", "error")
+                }else if(data == {!!  json_encode(same_number_phone) !!}){
+                    $("#submit_personal_particular").submit();
                 }
-
             }
         });
     }

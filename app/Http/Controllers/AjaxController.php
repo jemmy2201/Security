@@ -1018,8 +1018,6 @@ class AjaxController extends Controller
     public function sent_activation_phone(Request $request)
     {
         $activation = $this->create_activation_phone();
-//        die(print_r(strlen($request->phone)));
-//        die($request->phone[0]);
         if(strlen($request->phone) == 10){
             if ($request->phone[0] == "6" && $request->phone[1] == "5"){
                 $phone = $request->phone;
@@ -1036,23 +1034,26 @@ class AjaxController extends Controller
             $phone = wrong_format_number;
         }
         if ($phone[0] == "6" || $phone[1] == "5") {
-            $response = $this->gw_send_sms($activation, $phone);
-            if ($response) {
-                $new_activation = new activation_phones();
+            if (Auth::user()->mobileno == $phone){
+                $response = same_number_phone;
+            }else {
+                $response = $this->gw_send_sms($activation, $phone);
+                if ($response) {
+                    $new_activation = new activation_phones();
 
-                $new_activation->activation = $activation;
+                    $new_activation->activation = $activation;
 
-                $new_activation->status = false;
+                    $new_activation->status = false;
 
-                $new_activation->nric = Auth::user()->nric;
+                    $new_activation->nric = Auth::user()->nric;
 
-                $new_activation->save();
+                    $new_activation->save();
 
+                }
             }
         }else{
             $response = $phone;
         }
-//        die(print_r($new_activation));
         return $response;
     }
     public function create_activation_phone()
