@@ -351,7 +351,7 @@
     </div>
     <!-- End Modal Paynow -->
 
-    <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action='https://uat2.enets.sg/GW2/TxnReqListenerToHost' method='POST' style="display: none;">
+    <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action={{ ApiurlEnets }} method='POST' style="display: none;">
         <textarea rows="8" cols="126" name="payload" id="payload" form="eNETSRedirectForm" form="usrform"></textarea>
         <br>
         <input type="text" id="apiKey" name="apiKey" value={{ secretIDEnets }} size="130">
@@ -487,8 +487,6 @@
     }
     function enets(){
             var b2sTxnEndURLParam = '{"card":{!!  json_encode($request->card) !!},"grade_id":{!!  json_encode($gst->id) !!}}';
-        {{--        var data = {"ss":"1","msg":{"cardHolderName":$("#card_holder_name").val(),"cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};--}}
-{{--        var data = {"ss":"1","msg":{"b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":"","cardHolderName":$("#card_holder_name").val(),"currencyCode":"SGD","cvv":$("#ccv_number").val(),"expiryDate":expiryDate(),"ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"merchantTimeZone":"+8:00","merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"netsMidIndicator":"U","pan":$("#card_number").val(),"param1":"","param2":"","param3":"","param4":"","param5":"","paymentMode":"CC","paymentType":"SALE","s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","submissionMode":"S","tid":"127.0.0.1","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!}}};--}}
             var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhisu")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.u")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};

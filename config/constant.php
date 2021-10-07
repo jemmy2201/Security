@@ -163,7 +163,7 @@ define('employment_pass', "F");
 define('one_mb', "1000000");
 
 //Enets
-define('ApiurlEnets', "https://uat-api.nets.com.sg/GW2/TxnReqListenerToHost");
+define('ApiurlEnets', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
 define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
 define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
 define('netsMid', "UMID_837852000");
