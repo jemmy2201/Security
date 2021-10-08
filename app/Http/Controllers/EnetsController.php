@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class EnetsController extends Controller
 {
-    public function s2sTxnEndURL()
+    public function frontend_response()
     {
-        return 'success';
+
     }
 
     /**
@@ -16,8 +16,8 @@ class EnetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function b2sTxnEndURL()
+    public function backend_response(Request $request)
     {
-        return 'success';
+        die(print_r($request->all()));
     }
 }
