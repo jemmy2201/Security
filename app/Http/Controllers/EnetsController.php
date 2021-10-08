@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 class EnetsController extends Controller
 {
-    public function frontend_response()
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
 
+    public function frontend_response(Request $request)
+    {
+        die(print_r($request->all()));
     }
 
     /**
