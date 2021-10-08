@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 class EnetsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function s2sTxnEndURL(Request $request)
     {
         die(print_r($request->all()));
