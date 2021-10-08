@@ -6,8 +6,6 @@ use App\booking_schedule;
 use App\t_grade;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class EnetsController extends Controller
 {
