@@ -7,6 +7,7 @@ use App\t_grade;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Route;
 
 class EnetsController extends Controller
 {
