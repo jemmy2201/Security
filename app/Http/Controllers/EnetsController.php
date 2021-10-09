@@ -21,9 +21,9 @@ class EnetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function b2sTxnEndURL(Request $request,$id)
+    public function b2sTxnEndURL(Request $request)
     {
-        die(print_r($id));
+        die(print_r($request->all()));
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->session()->all()['card']])
             ->update([
                 'gst_id' => $request->session()->all()['grade_id'],
