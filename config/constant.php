@@ -170,7 +170,7 @@ define('netsMid', "UMID_837852000");
 define('Merchant_server_IP_Address', "127.0.0.1");
 //define('s2sTxnEndURL', "http://127.0.0.1");
 define('s2sTxnEndURL', "http://www.idx-id2021.com/s2sTxnEndURL");
-define('b2sTxnEndURL', "http://www.idx-id2021.com/b2sTxnEndURL");
+define('b2sTxnEndURL', "https://www.idx-id2021.com/b2sTxnEndURL");
 //End Enets
 
 //Env singapass
