@@ -26,8 +26,9 @@ Route::get('/qrcode', function () {
 })->name('qrcode');
 
 // Enets
-Route::post('/s2sTxnEndURL/', 'EnetsController@s2sTxnEndURL');
-Route::get('/b2sTxnEndURL/', 'EnetsController@b2sTxnEndURL');
+Route::post('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');
+Route::post('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
+//Route::get('/b2sTxnEndURL/', 'EnetsController@b2sTxnEndURL');
 
 //Route::post('/enets/frontend_response', 'EnetsController@frontend_response');
 //Route::post('/enets/backend_response', 'EnetsController@backend_response');
