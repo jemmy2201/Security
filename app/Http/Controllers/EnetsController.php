@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 class EnetsController extends Controller
 {
-    public function s2sTxnEndURL(Request $request)
+    public function s2sTxnEndURL(Request $request, Room $room)
     {
         die(print_r($request->all()));
     }
