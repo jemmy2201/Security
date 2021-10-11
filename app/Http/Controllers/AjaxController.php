@@ -791,15 +791,6 @@ class AjaxController extends Controller
 
                     $booking_schedule->passid = $e['passid'];
 
-//                    if (strtoupper($e['grade']) == "SO"){
-//                        $grade = so;
-//                    }elseif (strtoupper($e['grade']) == "SSO"){
-//                        $grade = sso;
-//                    }elseif (strtoupper($e['grade']) == "SSS"){
-//                        $grade = sss;
-//                    }else{
-//                        $grade = null;
-//                    }
                     $booking_schedule->grade_id = $e['grade'];
 
                     $booking_schedule->array_grade = $e['array_grade'];
@@ -834,16 +825,6 @@ class AjaxController extends Controller
                     // End update table user
 
                     // update table booking
-//                    if (strtoupper($e['grade']) == "SO"){
-//                        $grade = so;
-//                    }elseif (strtoupper($e['grade']) == "SSO"){
-//                        $grade = sso;
-//                    }elseif (strtoupper($e['grade']) == "SSS"){
-//                        $grade = sss;
-//                    }else{
-//                        $grade = null;
-//                    }
-
 
                     $ID_booking = booking_schedule::where(['nric' => $e['nric'],"card_id"=>$e['card_type']])->first();
                     if (!empty($ID_booking)) {
@@ -879,15 +860,6 @@ class AjaxController extends Controller
 
                         $booking_schedule->passid = $e['passid'];
 
-//                        if (strtoupper($e['grade']) == "SO"){
-//                            $grade = so;
-//                        }elseif (strtoupper($e['grade']) == "SSO"){
-//                            $grade = sso;
-//                        }elseif (strtoupper($e['grade']) == "SSS"){
-//                            $grade = sss;
-//                        }else{
-//                            $grade = null;
-//                        }
                         $booking_schedule->grade_id = $e['grade'];
 
                         $booking_schedule->array_grade = $e['array_grade'];
@@ -944,8 +916,6 @@ class AjaxController extends Controller
 
                             $sertifikat->gst                = $data->gst_id;
 
-    //                    $sertifikat->grand_gst          = $request['grand_gst'];
-
                             $sertifikat->trans_date = $data->trans_date;
 
                             $sertifikat->expired_date = $data->expired_date;
@@ -977,6 +947,10 @@ class AjaxController extends Controller
                             $sertifikat->passexpirydate = $data->passexpirydate;
 
                             $sertifikat->resubmission_date = $data->resubmission_date;
+
+                            $sertifikat->netstxnref = $data->netstxnref;
+
+                            $sertifikat->txnrand = $data->txnrand;
 
                             $sertifikat->save();
                         }

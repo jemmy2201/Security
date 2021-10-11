@@ -13,7 +13,7 @@ class EnetsController extends Controller
 {
     public function s2sTxnEndURL(Request $request)
     {
-        die(print_r($request->all()));
+        
     }
 
     /**
@@ -23,18 +23,24 @@ class EnetsController extends Controller
      */
     public function b2sTxnEndURL(Request $request)
     {
-        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->session()->all()['card']])
-            ->update([
-                'gst_id' => $request->session()->all()['grade_id'],
-                'trans_date' => date('d/m/Y H:i:s'),
+        $jsonmsg = urldecode($request->message);
+        $jsonarr = json_decode($jsonmsg);
+        if ($jsonarr->msg->netsTxnStatus == success) {
+            $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->session()->all()['card']])
+                ->update([
+                    'gst_id' => $request->session()->all()['grade_id'],
+                    'trans_date' => date('d/m/Y H:i:s'),
 //                'expired_date' => date('Y-m-d', strtotime('+1 years')),
-                'paymentby' => "Enets",
-                'status_payment' => paid,
-                'grand_total' => $request->session()->all()['grand_total'],
+                    'paymentby' => "Enets",
+                    'status_payment' => paid,
+                    'grand_total' => $request->session()->all()['grand_total'],
 //                'receiptNo' => $this->receiptNo(),
-                'status_app' => submitted,
-                'transaction_amount_id' => $request->session()->all()['transaction_amount'],
-            ]);
+                    'status_app' => submitted,
+                    'transaction_amount_id' => $request->session()->all()['transaction_amount'],
+                    'netstxnref' => $jsonarr->msg->netsTxnRef,
+                    'txnrand' => $jsonarr->msg->txnRand,
+                ]);
+        }
 
         $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $request->session()->all()['card'],'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
