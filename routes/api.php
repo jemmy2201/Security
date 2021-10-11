@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Enets
+Route::post('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');
+Route::post('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
+// End Enets

@@ -25,15 +25,6 @@ Route::get('/qrcode', function () {
     return view('login');
 })->name('qrcode');
 
-// Enets
-Route::post('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');
-Route::post('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
-//Route::get('/b2sTxnEndURL/', 'EnetsController@b2sTxnEndURL');
-
-//Route::post('/enets/frontend_response', 'EnetsController@frontend_response');
-//Route::post('/enets/backend_response', 'EnetsController@backend_response');
-
-// End Enets
 
 Route::get('/afterlogin', 'SingpassController@login');
 Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
