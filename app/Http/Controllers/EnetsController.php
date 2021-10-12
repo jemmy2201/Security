@@ -25,26 +25,25 @@ class EnetsController extends Controller
     {
         $jsonmsg = urldecode($request->message);
         $jsonarr = json_decode($jsonmsg);
+        $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
         if ($jsonarr->msg->netsTxnStatus == success) {
-            $BookingScheduleAppointment = booking_schedule::where(['nric' => $request->session()->all()['nric'], 'card_id' => $request->session()->all()['card']])
+            $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
                 ->update([
-                    'gst_id' => $request->session()->all()['grade_id'],
+                    'gst_id' => $data_person->grade_id,
                     'trans_date' => date('d/m/Y H:i:s'),
-//                'expired_date' => date('Y-m-d', strtotime('+1 years')),
                     'paymentby' => "Enets",
                     'status_payment' => paid,
-                    'grand_total' => $request->session()->all()['grand_total'],
-//                'receiptNo' => $this->receiptNo(),
+                    'grand_total' => $data_person->grand_total,
                     'status_app' => submitted,
-                    'transaction_amount_id' => $request->session()->all()['transaction_amount'],
+                    'transaction_amount_id' => $data_person->transaction_amount_id,
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'txnrand' => $jsonarr->msg->txnRand,
                 ]);
         }
 
-        $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $request->session()->all()['card'],'router_name' => Route::getCurrentRoute()->getActionName()]);
+        $request->merge(['app_type' => $data_person->app_type, 'thank_payment' => true,'card' => $data_person->card,'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->session()->all()['card']])->first();
+            ->where(['booking_schedules.nric' => $data_person->nric,'booking_schedules.card_id'=>$data_person->card])->first();
         $t_grade = t_grade::get();
 
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
