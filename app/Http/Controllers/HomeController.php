@@ -919,6 +919,7 @@ class HomeController extends Controller
         $grand_total = $transaction_amount->transaction_amount + $value_gst;
 
         session([
+            'nric' => Auth::user()->nric,
             'app_type' => $booking_schedule->app_type,
             'card' => $request->card,
             'grand_total' => $grand_total,

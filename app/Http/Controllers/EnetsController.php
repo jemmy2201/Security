@@ -13,7 +13,7 @@ class EnetsController extends Controller
 {
     public function s2sTxnEndURL(Request $request)
     {
-        
+
     }
 
     /**
@@ -26,7 +26,7 @@ class EnetsController extends Controller
         $jsonmsg = urldecode($request->message);
         $jsonarr = json_decode($jsonmsg);
         if ($jsonarr->msg->netsTxnStatus == success) {
-            $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->session()->all()['card']])
+            $BookingScheduleAppointment = booking_schedule::where(['nric' => $request->session()->all()['nric'], 'card_id' => $request->session()->all()['card']])
                 ->update([
                     'gst_id' => $request->session()->all()['grade_id'],
                     'trans_date' => date('d/m/Y H:i:s'),
