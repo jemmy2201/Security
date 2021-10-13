@@ -409,7 +409,6 @@
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
-    console.log('s',{!!  json_encode($grand_total) !!})
     $( document ).ready(function() {
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
@@ -418,7 +417,7 @@
             amount :"1",               //Specify amount of money to pay.
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date("Ymd")) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
-            refNumber: "Website Testing" + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             company:  'ACME Pte Ltd.'   //Company name to embed in the QR code. Optional.
         });
@@ -488,7 +487,7 @@
     function enets(){
         var Val_b2sTxnEndURLParam = {"nric":{!!  json_encode(Auth::user()->nric) !!},"app_type":{!!  json_encode( $booking_schedule->app_type) !!},"card":{!!  json_encode( $booking_schedule->card_id) !!},"grand_total":{!!  json_encode( $grand_total) !!},"transaction_amount_id":{!!  json_encode($transaction_amount->id) !!},"grade_id":{!!  json_encode($gst->id) !!}};
         var b2sTxnEndURLParam = JSON.stringify(Val_b2sTxnEndURLParam);
-        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymd h:i:s")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.v")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
+        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.v")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
         var txnreq = JSON.stringify(data);
         var secretKey = {!!  json_encode(secretKeyEnets) !!};
         $("#payload").val(txnreq);
