@@ -1929,20 +1929,31 @@ class HomeController extends Controller
     }
     protected function diff_data($request)
     {
+
         $agent = new Agent();
         if ($agent->isDesktop() == true) {
+            if ($request->mobileno[0] != "6" || $request->mobileno[1] != "5") {
+                $mobileno = "65".$request->mobileno;
+            }else{
+                $mobileno = $request->mobileno;
+            }
             $originData = array(
 //                "homeno" => $request->homeno,
                 "email" => $request->email,
                 "wpexpirydate" => $request->wpexpirydate,
-                "mobileno" => $request->mobileno
+                "mobileno" => $mobileno
             );
         }else{
+            if ($request->Phonemobileno[0] != "6" || $request->Phonemobileno[1] != "5") {
+                $Phonemobileno = "65".$request->Phonemobileno;
+            }else{
+                $Phonemobileno = $request->mobileno;
+            }
             $originData = array(
 //                "homeno" => $request->Phonehomeno,
                 "email" => $request->Phoneemail,
                 "wpexpirydate" => $request->Phonewpexpirydate,
-                "mobileno" => $request->Phonemobileno
+                "mobileno" => $Phonemobileno
             );
         }
         $personal = User::where(['id'=>Auth::id()])->first();

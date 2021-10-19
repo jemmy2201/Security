@@ -71,7 +71,7 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
         </div>
     </div><br>
 
@@ -114,7 +114,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="number" class="form-control visible-xs hidden-md" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8">
+                <input type="number" class="form-control visible-xs hidden-md" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -158,9 +158,21 @@
                 </a>
             </button>
         </div>
-        <div class="col-6 medium hidden-xs">
+        <div class="col-4 medium hidden-xs">
         </div>
-        <div class="visible-xs hidden-md">
+        <div class="col-2 next hidden-xs">
+            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="#" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Update Number
+                </a>
+        </div>
+        <div class="col-6 visible-xs hidden-md">
+            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+                <a href="#" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Update Number
+                </a>
         </div>
         <div class="col-2 next">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
@@ -208,6 +220,11 @@
 <!-- End Modal -->
 <script>
     $( document ).ready(function() {
+        $( ".update_number" ).click(function() {
+            $('#mobileno').removeAttr('readonly');
+            $('#Phonemobileno').removeAttr('readonly');
+        });
+
         $( "#click_personal_particular" ).click(function() {
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (width < 640){
