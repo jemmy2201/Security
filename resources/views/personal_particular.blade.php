@@ -174,6 +174,9 @@
                     Update Number
                 </a>
         </div>
+        <br class="visible-xs hidden-md">
+        <br class="visible-xs hidden-md">
+        <br class="visible-xs hidden-md">
         <div class="col-2 next">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
@@ -224,7 +227,7 @@
             $('#mobileno').removeAttr('readonly');
             $('#Phonemobileno').removeAttr('readonly');
         });
-        function check_dekstop(){
+        function check_size_layout(){
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             var data='';
             if (width < 640) {
@@ -234,7 +237,7 @@
             }
             return data;
         }
-        if (check_dekstop() == {!!  json_encode(desktop) !!}){
+        if (check_size_layout() == {!!  json_encode(desktop) !!}){
             if ($('#mobileno').val() == "" || $('#mobileno').val() == '-' ){
                 $('#mobileno').removeAttr('readonly');
             }
@@ -245,8 +248,8 @@
         }
 
         $( "#click_personal_particular" ).click(function() {
-            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-            if (width < 640){
+            // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            if (check_size_layout() == {!!  json_encode(phone) !!}){
                 if($("#Phonemobileno").val() != ""){
                     if({!!  json_encode($personal->web) !!} == true ){
                         if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
