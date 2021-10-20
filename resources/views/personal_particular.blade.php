@@ -224,6 +224,25 @@
             $('#mobileno').removeAttr('readonly');
             $('#Phonemobileno').removeAttr('readonly');
         });
+        function check_dekstop(){
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            var data='';
+            if (width < 640) {
+                data = {!!  json_encode(phone) !!};
+            }else{
+                data = {!!  json_encode(desktop) !!};
+            }
+            return data;
+        }
+        if (check_dekstop() == {!!  json_encode(desktop) !!}){
+            if ($('#mobileno').val() == "" || $('#mobileno').val() == '-' ){
+                $('#mobileno').removeAttr('readonly');
+            }
+        }else{
+            if ($('#Phonemobileno').val() == "" || $('#Phonemobileno').val() == '-' ) {
+                $('#Phonemobileno').removeAttr('readonly');
+            }
+        }
 
         $( "#click_personal_particular" ).click(function() {
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;

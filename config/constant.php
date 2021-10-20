@@ -207,3 +207,8 @@ define('not_number_singapore', 2);
 define('wrong_format_number', 3);
 define('same_number_phone', 4);
 // end activation phone
+
+// Size
+define('desktop', 1);
+define('phone', 2);
+// End Size
