@@ -999,7 +999,7 @@ class AjaxController extends Controller
                 $phone = not_number_singapore;
             }
         }elseif (strlen($request->phone) == 8){
-            if ($request->phone[0] == "9" || $request->phone[1] == "8"){
+            if ($request->phone[0] == "9" || $request->phone[0] == "8"){
                 $phone = "65".$request->phone;
             }else{
                 $phone = not_number_singapore;
