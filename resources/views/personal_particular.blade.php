@@ -250,10 +250,13 @@
         $('#code_activation_Modal').on('hidden.bs.modal', function () {
             $('#mobileno').val({{$personal->mobileno}})
             $('#Phonemobileno').val({{$personal->mobileno}})
-
-            $('#mobileno').attr('readonly',true);
-            $('#Phonemobileno').attr('readonly',true);
-
+            if ({!!  json_encode($personal->mobileno) !!} == "" || {!!  json_encode($personal->mobileno) !!} == '-' ){
+                $('#mobileno').removeAttr('readonly');
+                $('#Phonemobileno').removeAttr('readonly');
+            }else{
+                $('#mobileno').attr('readonly',true);
+                $('#Phonemobileno').attr('readonly',true);
+            }
         })
         $( "#click_personal_particular" ).click(function() {
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
