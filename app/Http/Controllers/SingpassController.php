@@ -16,6 +16,8 @@ use GuzzleHttp\Client;
 use Jose\Factory\JWKFactory;
 use Jose\Loader;
 use Jose\Object\JWKSet;
+use Artisan;
+
 class SingpassController extends Controller
 {
     public static function newuser($sub)
@@ -318,6 +320,9 @@ class SingpassController extends Controller
 
     public function dummy_login($type)
     {
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Auth::logout();
         return view('login')->with(["type_dummy"=>$type]);
 
     }
