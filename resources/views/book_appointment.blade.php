@@ -121,14 +121,14 @@
 
         <div class="col-2 next hidden-xs">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft)}}" style="text-decoration:none; color: white;">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
                 </a>
         </div>
         <div class="col-4  visible-xs hidden-md">
             <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft)}}" style="text-decoration:none; color: white;">
+                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
                 </a>
@@ -198,7 +198,7 @@
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
-        this.location.reload(false); /* false to get page from cache */
+        // this.location.reload(false); /* false to get page from cache */
         /* true to fetch page from server */
     });
     if($(window).width() < 767)

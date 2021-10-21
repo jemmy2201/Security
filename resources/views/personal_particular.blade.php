@@ -205,7 +205,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Verification Code</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" id="closes_code_activation_Modal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -247,48 +247,57 @@
             }
         }
 
+        $('#code_activation_Modal').on('hidden.bs.modal', function () {
+            $('#mobileno').val({{$personal->mobileno}})
+            $('#Phonemobileno').val({{$personal->mobileno}})
+
+            $('#mobileno').attr('readonly',true);
+            $('#Phonemobileno').attr('readonly',true);
+
+        })
         $( "#click_personal_particular" ).click(function() {
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (check_size_layout() == {!!  json_encode(phone) !!}){
-                if($("#Phonemobileno").val() != ""){
-                    if({!!  json_encode($personal->web) !!} == true ){
-                        if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
-                            if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
-                                swal("Attention!", "Pass Expiration Date is up", "error")
+                    if($("#Phonemobileno").val() != ""){
+                        if (check_number_singapore() == true){
+                          if({!!  json_encode($personal->web) !!} == true ){
+                            if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
+                                if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
+                                    swal("Attention!", "Pass Expiration Date is up", "error")
+                                }else{
+                                    create_activation();
+                                    // $("#submit_personal_particular").submit();
+                                }
                             }else{
-                                create_activation();
-                                // $("#submit_personal_particular").submit();
+                                swal("Please!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
-                            swal("Please!", "Input file Pass Expiry Date", "error")
+                            create_activation();
                         }
                     }else{
-                        create_activation();
-                        // $("#submit_personal_particular").submit();
+                            swal("Please!", "Use Singapore Number", "error")
                     }
                 }else{
-                    swal("Attention!", "Phone number cannot be empty", "error")
+                        swal("Attention!", "Phone number cannot be empty", "error")
                 }
-
             }else{
                 if($("#mobileno").val() != ""){
-                    if({!!  json_encode($personal->web) !!} == true ){
-                        if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
-                            if ( new Date() >= new Date($('#wpexpirydate').val())){
-                                swal("Attention!", "Pass Expiration Date is up", "error")
+                    if (check_number_singapore() == true){
+                        if({!!  json_encode($personal->web) !!} == true ){
+                            if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
+                                if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                    swal("Attention!", "Pass Expiration Date is up", "error")
+                                }else{
+                                    create_activation();
+                                }
                             }else{
-                                // $( "#form_activation" ).trigger( "click" );
-                                create_activation();
-                                // $("#submit_personal_particular").submit();
+                                swal("Please!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
-                            swal("Please!", "Input file Pass Expiry Date", "error")
+                            create_activation();
                         }
                     }else{
-                        // console.log(12')
-                        // $( "#form_activation" ).trigger( "click" );
-                        create_activation();
-                        // $("#submit_personal_particular").submit();
+                        swal("Please!", "Use Singapore Number", "error")
                     }
                 }else{
                     swal("Attention!", "Phone number cannot be empty", "error")
@@ -296,6 +305,31 @@
             }
 
         });
+        function check_number_singapore(){
+            var check_number_singapore = false;
+            if (check_size_layout() == {!!  json_encode(desktop) !!}) {
+                if ($("#mobileno").val()[0] == '6' || $("#mobileno").val()[1] == '5') {
+                    if ($("#mobileno").val()[2] == '9' || $("#mobileno").val()[2] == '8' && $("#mobileno").val().length == '10') {
+                        var check_number_singapore = true;
+                    }
+                } else {
+                    if ($("#mobileno").val()[0] == '9' || $("#mobileno").val()[0] == '8' && $("#mobileno").val().length == '8') {
+                        var check_number_singapore = true;
+                    }
+                }
+            }else{
+                if ($("#Phonemobileno").val()[0] == '6' || $("#Phonemobileno").val()[1] == '5') {
+                    if ($("#Phonemobileno").val()[2] == '9' || $("#Phonemobileno").val()[2] == '8' && $("#Phonemobileno").val().length == '10') {
+                        var check_number_singapore = true;
+                    }
+                } else {
+                    if ($("#Phonemobileno").val()[0] == '9' || $("#Phonemobileno").val()[0] == '8' && $("#Phonemobileno").val().length == '8') {
+                        var check_number_singapore = true;
+                    }
+                }
+            }
+            return check_number_singapore;
+        }
         $( "#check_activation" ).click(function() {
             $.ajax({
                 url: "{{ url('/ajax/check/activation') }}",
