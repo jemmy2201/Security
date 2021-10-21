@@ -355,6 +355,7 @@
 
 </script>
 <script type="application/javascript">
+    window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName === 'INPUT' && e.target.type !== 'textarea'){e.preventDefault();return false;}}},true);
     //refresh page on browser resize
     $(window).bind('resize', function(e)
     {
