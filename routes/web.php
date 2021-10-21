@@ -22,6 +22,7 @@ Route::get('/login/dummy/{type}', 'SingpassController@dummy_login');
 
 Route::get('/qrcode', function () {
     Artisan::call('cache:clear');
+    Artisan::call('view:clear');
     Auth::logout();
     return view('login');
 })->name('qrcode');
