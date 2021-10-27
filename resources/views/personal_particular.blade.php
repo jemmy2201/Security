@@ -357,11 +357,11 @@
 <script type="application/javascript">
     window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName === 'INPUT' && e.target.type !== 'textarea'){e.preventDefault();return false;}}},true);
     //refresh page on browser resize
-    $(window).bind('resize', function(e)
-    {
-        this.location.reload(false); /* false to get page from cache */
-        /* true to fetch page from server */
-    });
+    // $(window).bind('resize', function(e)
+    // {
+    //     this.location.reload(false); /* false to get page from cache */
+    //     /* true to fetch page from server */
+    // });
     $(".logout_save_draft").click(function() {
         $("#logout_save_draft").val(true)
         window.location.href ='/save_draft/'+{!! json_encode($request->app_type) !!}+'/'+{!! json_encode($request->card) !!}+'/'+{!! json_encode(draft) !!}+'/'+$("#logout_save_draft").val();
