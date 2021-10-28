@@ -665,11 +665,11 @@
 
     $('.file_upload_profiles').click(function(){ $('#upload_profile').trigger('click'); });
     //refresh page on browser resize
-    $(window).bind('resize', function(e)
-    {
-        this.location.reload(false); /* false to get page from cache */
-        /* true to fetch page from server */
-    });
+    // $(window).bind('resize', function(e)
+    // {
+    //     this.location.reload(false); /* false to get page from cache */
+    //     /* true to fetch page from server */
+    // });
     if($(window).width() < 767)
     {
         RemoveColNextBack();
