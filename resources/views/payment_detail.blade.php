@@ -216,7 +216,7 @@
     </div>
     <div class="visible-xs hidden-md">
         <h3>Select Your Payment Method</h3><br>
-        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow_phone" style="width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="phone_enets" style="width: 35%;">
     </div>
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
@@ -464,6 +464,9 @@
             enets();
         });
         $("#paynow").click(function() {
+            $("#payment_method").val({!!  json_encode(paynow) !!})
+        });
+        $("#paynow_phone").click(function() {
             $("#payment_method").val({!!  json_encode(paynow) !!})
         });
 
