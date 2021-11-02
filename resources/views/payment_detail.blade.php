@@ -7,9 +7,34 @@
     th {
         height: 50px;
     }
+
+    #loading {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 @section('content')
 <div class="container">
+    <div id="loading"></div>
     <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/5.png')}}" style="width: 100%;margin-bottom: 20px;">
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/5.png')}}" style="width: 80%;">
@@ -409,6 +434,14 @@
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
+    function hideLoader() {
+        $('#loading').hide();
+    }
+    $(window).ready(hideLoader);
+
+    // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+    setTimeout(hideLoader, 20 * 1000);
+
     $( document ).ready(function() {
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
