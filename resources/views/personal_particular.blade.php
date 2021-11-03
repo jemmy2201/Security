@@ -166,6 +166,7 @@
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Update Number
                 </a>
+            </button>
         </div>
         <div class="col-6 visible-xs hidden-md">
             <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: #1E90FF; color: #E31D1A">
@@ -173,6 +174,7 @@
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Update Number
                 </a>
+            </button>
         </div>
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
@@ -224,6 +226,7 @@
 <script>
     $( document ).ready(function() {
         $( ".update_number" ).click(function() {
+            $(".update_number").attr("disabled", true);
             $('#mobileno').removeAttr('readonly');
             $('#Phonemobileno').removeAttr('readonly');
         });
