@@ -20,6 +20,8 @@ class UpgradeGradeExport implements FromCollection,WithHeadings
             "booking_schedules.Status_app","booking_schedules.declaration_date","booking_schedules.trans_date","booking_schedules.expired_date")
             ->leftJoin('users', 'booking_schedules.nric', '=', 'users.nric')->get();
         foreach($booking_schedule as $key => $f) {
+              $booking_schedule[$key]->nric = base64_decode($f->nric);
+
 //            if ($f->grade_id == so){
 //                $booking_schedule[$key]->grade_id = 'SO';
 //            }elseif ($f->grade_id == sso){

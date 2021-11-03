@@ -26,7 +26,7 @@ class BookingScheduleExport implements FromCollection, WithHeadings
                                         WHEN booking_schedules.card_id = ".avso_app." THEN 'AVSO Application'
                                         WHEN booking_schedules.card_id = ".pi_app." THEN 'PI Application'
                                         END AS card_id"),"grade_id","declaration_date",DB::raw('CONCAT(time_start_appointment, "-", time_end_appointment) AS time'))
-                                ->leftJoin('users', 'booking_schedules.user_id', '=', 'users.id')->get();
+                                ->leftJoin('users', 'booking_schedules.nric', '=', 'users.nric')->get();
         foreach($booking_schedule as $key => $f) {
 //            foreach (json_decode($f->grade_id) as $g) {
 //                $grade = grade::where(['id'=>$g])->first();
@@ -42,6 +42,8 @@ class BookingScheduleExport implements FromCollection, WithHeadings
 //            }else{
 //                $booking_schedule[$key]->grade_id = $grades[0].','.$grades[1].','.$grades[2];
 //            }
+            $booking_schedule[$key]->nric = base64_decode($f->nric);
+
             if ($f->grade_id == so){
                $booking_schedule[$key]->grade_id = 'SO';
             }elseif ($f->grade_id == sso){
