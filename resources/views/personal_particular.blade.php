@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                     @php
-                        $cutnric = substr($personal->nric, -4);
+                        $cutnric = substr(base64_decode($personal->nric), -4);
                         $nric = "XXXXX$cutnric";
                     @endphp
                     <div class="col-6 ColoumndataPersonal">{{$nric}}</div>

@@ -63,15 +63,16 @@ trait AuthenticatesUsers
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
                 // dummy api
-                $dummy_api = User::where('nric', $request->singpass_id)->first();
+                $dummy_api = User::where('nric', base64_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
-                    $data = User::where('nric', $request->singpass_id)->first();
+                    $data = User::where('nric', base64_encode( $request->singpass_id ))->first();
                 }
             } elseif ($request->type_login == non_barcode) {
                 // api cek sinpass
                 $data = [
                     'client_id' => clientIdSinpass,
+                    'client_secret' => clientIdSecret,
                     'grant_type' => 'authorization_code',
                     'redirect_uri' => redirectUrlSingpass,
                     'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
@@ -108,7 +109,7 @@ trait AuthenticatesUsers
             if ($request->type_login == non_barcode) {
                 // api cek sinpass
                 // dummy api
-                $dummy_api = User::where('nric', $request->singpass_id)->first();
+                $dummy_api = User::where('nric', base64_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
                     $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/' . strtoupper($request->singpass_id) . '');
@@ -117,7 +118,7 @@ trait AuthenticatesUsers
                     if ($response->status() == "200") {
                         $response = $response->json();
 //                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
-                        $users = User::where('nric', $response['uinfin']['value'])->first();
+                        $users = User::where('nric', base64_encode($response['uinfin']['value']))->first();
                         if (!empty($users)) {
                             $data = $this->diff_data($response, $users, $request);
                         } else {
@@ -130,6 +131,7 @@ trait AuthenticatesUsers
                 ;
                 $data = [
                     'client_id' => clientIdSinpass,
+                    'client_secret' => clientIdSecret,
                     'grant_type' => 'authorization_code',
                     'redirect_uri' => redirectUrlSingpass,
                     'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
@@ -338,7 +340,7 @@ trait AuthenticatesUsers
         $InUser->password = Hash::make($request->password);
 
 //        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
-        $InUser->nric =$response['uinfin']['value'];
+        $InUser->nric =base64_encode($response['uinfin']['value']);
 
 //        $InUser->passid =$response['uinfin']['value'];
 
@@ -385,7 +387,7 @@ trait AuthenticatesUsers
 //            $UpdateUser->password = $result['password'];
 //        }
         if (!empty($result['sponsoredchildrenrecords'])) {
-            $UpdateUser->nric = $result['sponsoredchildrenrecords'];
+            $UpdateUser->nric = base64_encode($result['sponsoredchildrenrecords']);
         }
 
 //        if (!empty($result['uinfin'])) {
@@ -432,7 +434,7 @@ trait AuthenticatesUsers
 //            "email"=>$response['email']['value'],
 //            "password"=>Hash::make($request->password),
 //            "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
-            "nric"=>$response['uinfin']['value'],
+            "nric"=>base64_encode($response['uinfin']['value']),
 //            "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
 //            "passexpirydate"=>$response['passexpirydate']['value'],
