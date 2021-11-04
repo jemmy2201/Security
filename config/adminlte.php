@@ -230,6 +230,11 @@ return [
             'icon' => 'fa fa-history',
         ],
         [
+            'text' => 'List User Officer',
+            'url'  => 'admin/upgrade/grade',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'Security Employees',
             'url'  => 'admin/security/employees',
             'icon' => 'fa fa-user',

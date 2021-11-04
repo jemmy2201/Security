@@ -13,8 +13,9 @@
 @elseif ($menuItemHelper->isSubmenu($item))
 
     {{-- Treeview menu --}}
-    @include('adminlte::partials.sidebar.menu-item-treeview-menu')
-
+    @if(Auth::user()->role == admin)
+        @include('adminlte::partials.sidebar.menu-item-treeview-menu')
+    @endif
 @elseif ($menuItemHelper->isLink($item))
 
     {{-- Link --}}

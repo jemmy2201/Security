@@ -71,6 +71,7 @@ define('time16', "16:00");
 define('time17', "17:00");
 
 define('admin', 1);
+define('office', 2);
 
 // type login
 define('update', 0);

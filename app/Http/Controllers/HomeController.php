@@ -78,8 +78,10 @@ class HomeController extends Controller
         $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
         $renewal = json_decode(json_encode($result_renewal), FALSE);
         $grade = grade::get();
-        if (Auth::user()->role == admin) {
+        if (Auth::user()->role == admin  ) {
             return view('admin/historylogin');
+        }elseif(Auth::user()->role == office){
+            return view('admin/upgrade_grade');
         }
         return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
