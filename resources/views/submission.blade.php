@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                         @php
-                            $cutnric = substr(base64_decode($personal->nric), -4);
+                            $cutnric = substr(secret_decode($personal->nric), -4);
                             $nric = "XXXXX$cutnric";
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
@@ -55,7 +55,7 @@
                         <div class="col-0 HeaderdataPersonal">Application Type &ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">
                             @if($personal->app_type == news )
-                                @if($personal->app_type == news && $take_sertifikat->app_type == news)
+                                @if($personal->app_type == news && isset($take_sertifikat) && $take_sertifikat->app_type == news)
                                     Replacement
                                 @else
                                     New

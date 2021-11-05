@@ -199,7 +199,7 @@ class AjaxController extends Controller
     {
         $history_login = User::whereNull('role')->get();
         foreach ($history_login as $index =>$f){
-            $history_login[$index]->nric = base64_decode($f->nric);
+            $history_login[$index]->nric = secret_decode($f->nric);
             if (!empty($f->time_login_at)){
                 $history_login[$index]->time_login_at = Carbon::createFromFormat('Y-m-d', $f->time_login_at)->format('d-m-Y');
             }else{
@@ -237,7 +237,7 @@ class AjaxController extends Controller
                 $grade_id = "-";
             }
             $security_employees[$key]->name_grade = $grade_id;
-            $security_employees[$key]->nric = base64_decode($f->nric);
+            $security_employees[$key]->nric = secret_decode($f->nric);
             $security_employees[$key]->expired_date = Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('d-m-Y');
 //            $security_employees[$key]->count_grade = count($grade_name);
         }
@@ -284,7 +284,7 @@ class AjaxController extends Controller
 //            ->whereNull('booking_schedules.app_type')
             ->get();
         foreach ($data_grade as $index =>$f){
-            $data_grade[$index]->nric = base64_decode($f->nric);
+            $data_grade[$index]->nric = secret_decode($f->nric);
         }
         return Datatables::of($data_grade)->addColumn('action', function($row){
 
@@ -725,7 +725,7 @@ class AjaxController extends Controller
         foreach ($arr as $e){
             if ($e['nric'] != 'nric'){
 
-                $users = User::where(['nric'=>base64_encode($e['nric'])])->first();
+                $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
                 $count_users = User::count();
 
                 $format = 'd/m/Y';
@@ -773,7 +773,7 @@ class AjaxController extends Controller
                     // insert table users
                     $New_users = new User();
 
-                    $New_users->nric = base64_encode($nric);
+                    $New_users->nric = secret_encode($nric);
 
                     $New_users->name = $e['name'];
 
@@ -821,7 +821,7 @@ class AjaxController extends Controller
 
                     $Update_users = User::find($users->id);
 
-                    $Update_users->nric = base64_encode($nric);
+                    $Update_users->nric = secret_encode($nric);
 
                     $Update_users->name = $e['name'];
 
@@ -833,7 +833,7 @@ class AjaxController extends Controller
                     // End update table user
                     // update table booking
 
-                    $ID_booking = booking_schedule::where(['nric' => base64_encode($e['nric']),"card_id"=>$e['card_type']])->first();
+                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])->first();
 
                     if (!empty($ID_booking)) {
 
@@ -891,11 +891,11 @@ class AjaxController extends Controller
 
                 if (strtoupper($e['status_app']) == completed && !empty($expired_date) && !empty($declaration_date)){
                     $data = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')
-                        ->where(['users.nric'=>base64_encode($e['nric']),'card_id'=>$e['card_type']])
+                        ->where(['users.nric'=>secret_encode($e['nric']),'card_id'=>$e['card_type']])
                         ->first();
 
                     if (!empty($data)) {
-                        $cek_setifikat = sertifikat::where(['nric'=>base64_encode($e['nric']),'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
+                        $cek_setifikat = sertifikat::where(['nric'=>secret_encode($e['nric']),'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
                         if (!empty($data->transaction_amount_id)) {
                             $data_transcation_amount = transaction_amount::find($data->transaction_amount_id);
                             $Transaction_amount = $data_transcation_amount->transaction_amount;

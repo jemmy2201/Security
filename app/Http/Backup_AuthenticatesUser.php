@@ -11,7 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use function GuzzleHttp\Promise\all;
-
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -62,11 +63,13 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
+//                $encode = secret_encode($request->singpass_id);
+//                $decode = secret_decode($encode);
                 // dummy api
-                $dummy_api = User::where('nric', base64_encode( $request->singpass_id ))->first();
+                $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
-                    $data = User::where('nric', base64_encode( $request->singpass_id ))->first();
+                    $data = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 }
             } elseif ($request->type_login == non_barcode) {
                 // api cek sinpass
@@ -109,7 +112,7 @@ trait AuthenticatesUsers
             if ($request->type_login == non_barcode) {
                 // api cek sinpass
                 // dummy api
-                $dummy_api = User::where('nric', base64_encode( $request->singpass_id ))->first();
+                $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
                     $response = Http::get('https://sandbox.api.myinfo.gov.sg/com/v3/person-sample/' . strtoupper($request->singpass_id) . '');
@@ -118,7 +121,7 @@ trait AuthenticatesUsers
                     if ($response->status() == "200") {
                         $response = $response->json();
 //                    $users = User::where('nric', $response['sponsoredchildrenrecords'][0]['nric'])->orWhere('passid', $response['uinfin']['value'])->first();
-                        $users = User::where('nric', base64_encode($response['uinfin']['value']))->first();
+                        $users = User::where('nric', secret_encode($response['uinfin']['value']))->first();
                         if (!empty($users)) {
                             $data = $this->diff_data($response, $users, $request);
                         } else {
@@ -340,7 +343,7 @@ trait AuthenticatesUsers
         $InUser->password = Hash::make($request->password);
 
 //        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
-        $InUser->nric =base64_encode($response['uinfin']['value']);
+        $InUser->nric =secret_encode($response['uinfin']['value']);
 
 //        $InUser->passid =$response['uinfin']['value'];
 
@@ -387,7 +390,7 @@ trait AuthenticatesUsers
 //            $UpdateUser->password = $result['password'];
 //        }
         if (!empty($result['sponsoredchildrenrecords'])) {
-            $UpdateUser->nric = base64_encode($result['sponsoredchildrenrecords']);
+            $UpdateUser->nric = secret_encode($result['sponsoredchildrenrecords']);
         }
 
 //        if (!empty($result['uinfin'])) {
@@ -434,7 +437,7 @@ trait AuthenticatesUsers
 //            "email"=>$response['email']['value'],
 //            "password"=>Hash::make($request->password),
 //            "nric"=>$response['sponsoredchildrenrecords'][0]['nric']['value'],
-            "nric"=>base64_encode($response['uinfin']['value']),
+            "nric"=>secret_encode($response['uinfin']['value']),
 //            "passid"=>$response['uinfin']['value'],
             "passportexpirydate"=>$response['passportexpirydate']['value'],
 //            "passexpirydate"=>$response['passexpirydate']['value'],

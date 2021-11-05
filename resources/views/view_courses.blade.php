@@ -177,7 +177,7 @@
 {{--                        <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >NRIC/FIN <span style="margin-left: 80px;">:</span></div>
                         @php
-                            $cutnric = substr(base64_decode($courses->nric), -4);
+                            $cutnric = substr(secret_decode($courses->nric), -4);
                             $nric = "XXXXX$cutnric";
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>

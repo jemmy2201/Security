@@ -42,7 +42,7 @@ class BookingScheduleExport implements FromCollection, WithHeadings
 //            }else{
 //                $booking_schedule[$key]->grade_id = $grades[0].','.$grades[1].','.$grades[2];
 //            }
-            $booking_schedule[$key]->nric = base64_decode($f->nric);
+            $booking_schedule[$key]->nric = secret_decode($f->nric);
 
             if ($f->grade_id == so){
                $booking_schedule[$key]->grade_id = 'SO';

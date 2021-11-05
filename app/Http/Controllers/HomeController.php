@@ -777,7 +777,7 @@ class HomeController extends Controller
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $t_grade = t_grade::get();
-        return view('submission')->with(['take_grades' => $take_grades,'t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare]);
+        return view('submission')->with(['take_grades' => $take_grades,'t_grade' => $t_grade,'data_resubmission' => $data_resubmission, 'resubmission' => $resubmission, 'cek_grade' => $cek_grade, 'personal' => $personal, "grade" => $grade, "request" => $request, "replacement" => $replacement, "view_declare" => $view_declare,"take_sertifikat" => $take_grade_sertifikat]);
     }
 
     public function declare_submission(Request $request)
