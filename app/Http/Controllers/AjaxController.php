@@ -769,10 +769,11 @@ class AjaxController extends Controller
                     $status_app = $e['status_app'];
                 }
                 if (empty($users)){
+                    $nric = str_replace(' ', '', $e['nric']);
                     // insert table users
                     $New_users = new User();
 
-                    $New_users->nric = base64_encode($e['nric']);
+                    $New_users->nric = base64_encode($nric);
 
                     $New_users->name = $e['name'];
 
@@ -816,10 +817,11 @@ class AjaxController extends Controller
                 }else{
 
                     // update table user
+                    $nric = str_replace(' ', '', $e['nric']);
 
                     $Update_users = User::find($users->id);
 
-                    $Update_users->nric = base64_encode($e['nric']);
+                    $Update_users->nric = base64_encode($nric);
 
                     $Update_users->name = $e['name'];
 
