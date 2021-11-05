@@ -54,12 +54,15 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Application Type &ensp;&nbsp;:</div>
                         <div class="col-6 ColoumndataPersonal">
-                            @if($personal->app_type == news)
-                                New
-                            @elseif($personal->app_type == replacement)
-                                Replacement
-                            @elseif($personal->app_type == renewal)
-                                Renewal
+                            @if($personal->app_type == news )
+                                @if($personal->app_type == news && $take_sertifikat->app_type == news)
+                                    Replacement
+                                @else
+                                    New
+                                @endif
+                            @endif
+                            @if($personal->app_type == replacement )
+                                    Renewal
                             @endif
                             -
                             @if($request->card == so_app)
