@@ -42,7 +42,7 @@ class SingpassController extends Controller
 
 //        $InUser->nric =$response['sponsoredchildrenrecords'][0]['nric']['value'];
 
-        $InUser->nric =base64_encode($sub);
+        $InUser->nric =secret_encode($sub);
 
 //        $InUser->passid =$response['uinfin']['value'];
 
@@ -216,7 +216,7 @@ class SingpassController extends Controller
     }
     public static function validasiUser($sub)
     {
-        $existingUser = User::where('nric',base64_encode($sub))->first();
+        $existingUser = User::where('nric',secret_encode($sub))->first();
 
         if($existingUser){
             return true;
@@ -253,7 +253,7 @@ class SingpassController extends Controller
 
         if ($validasiUser == true){
 
-            $existingUser = User::where('nric',base64_encode($sub))->first();
+            $existingUser = User::where('nric',secret_encode($sub))->first();
 
             if($existingUser) {
 
