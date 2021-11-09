@@ -1,6 +1,27 @@
 <?php
 use Firebase\JWT\JWT;
-
+if (!function_exists('encrypt_decrypt')) {
+    /**
+     * Group array of : key => Group Title
+     * @param array $exclude
+     * @return array
+     */
+    function encrypt_decrypt($string, $action = 'encrypt')
+    {
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = env('SECRET_NRIC'); // user define private key
+        $secret_iv = env('SECRET_NRIC_IV'); // user define secret key
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16); // sha256 is hash_hmac_algo
+        if ($action == 'encrypt') {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if ($action == 'decrypt') {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
+}
 if (!function_exists('secret_encode')) {
     /**
      * Group array of : key => Group Title
@@ -9,16 +30,19 @@ if (!function_exists('secret_encode')) {
      */
     function secret_encode($nric)
     {
-        $key= file_get_contents('PrivateKey.pem');
+//        $key= file_get_contents('PrivateKey.pem');
+//
+//        $payload = array(
+//            "iss" => $nric,
+//            "aud" => "https://www.idx-id2021.com",
+//        );
+//
+//        $jwt = JWT::encode($payload, $key, 'HS256');
+//        return  $jwt;
 
-        $payload = array(
-            "iss" => $nric,
-            "aud" => "https://www.idx-id2021.com",
-        );
-
-        $jwt = JWT::encode($payload, $key, 'HS256');
-        return  $jwt;
+        return encrypt_decrypt($nric, 'encrypt');
     }
+
 }
 
 if (!function_exists('secret_decode')) {
@@ -29,10 +53,13 @@ if (!function_exists('secret_decode')) {
      */
     function secret_decode($jwt)
     {
-        $key= file_get_contents('PrivateKey.pem');
+//        $key= file_get_contents('PrivateKey.pem');
+//
+//        $decoded = JWT::decode($jwt, $key, array('HS256'));
+//        $decoded_array = (array) $decoded;
+//        return  $decoded_array['iss'];
 
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
-        $decoded_array = (array) $decoded;
-        return  $decoded_array['iss'];
+        return encrypt_decrypt($jwt, 'decrypt');
+
     }
 }
