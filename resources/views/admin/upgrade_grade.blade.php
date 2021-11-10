@@ -65,9 +65,10 @@
             var control = document.getElementById("upgrade_grade");
             var files = control.files;
             for (var i = 0; i < files.length; i++) {
-                if(files[i].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+                console.log('s',files[i].type)
+                if(files[i].type != "text/csv"){
                     control.value = '';
-                    swal("Please!", "upload files with the extension excel ", "error")
+                    swal("Please!", "upload files with the extension csv ", "error")
                 }
             }
         });

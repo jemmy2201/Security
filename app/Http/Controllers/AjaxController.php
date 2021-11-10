@@ -521,13 +521,13 @@ class AjaxController extends Controller
     }
     public function schedule(){
 
-        return Excel::download(new BookingScheduleExport, 'appointment.xlsx');
+        return Excel::download(new BookingScheduleExport, 'appointment.csv');
 
     }
 
     public function download_template_grade(){
 
-        return Excel::download(new UpgradeGradeExport, 'template_grade.xlsx');
+        return Excel::download(new UpgradeGradeExport, 'template_grade.csv');
 
     }
 
