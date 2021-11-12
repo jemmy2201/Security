@@ -748,7 +748,8 @@ class AjaxController extends Controller
                 }elseif($cek_format_declaration_date == true) {
                     $declaration_date = $e['declaration_date'];
                 }else{
-                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('d/m/Y');
+//                    $declaration_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['declaration_date'])->format('d/m/Y');
+                    $declaration_date = $e['declaration_date'];
                 }
 
                 $format = 'd/m/Y H:i:s';
@@ -760,7 +761,9 @@ class AjaxController extends Controller
                 }elseif($cek_format_transfer_date == true) {
                     $transfer_date = $e['transfer_date'];
                 } else {
-                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('d/m/Y H:i:s');
+//                    $transfer_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['transfer_date'])->format('d/m/Y H:i:s');
+                    $transfer_date = $e['transfer_date'];
+
                 }
 
                 if (strtoupper($e['status_app']) == completed ){
