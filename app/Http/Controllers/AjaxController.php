@@ -839,10 +839,17 @@ class AjaxController extends Controller
                     $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])->first();
 
                     if (!empty($ID_booking)) {
+                        if ($e['app_type'] == renewal){
+                            $app_type = $e['app_type'];
+                        }elseif ($e['app_type'] == replacement){
+                            $app_type = $e['app_type'] + 1;
+                        }else{
+                            $app_type = $e['app_type'];
+                        }
 
                         $update_booking_schedule = booking_schedule::find($ID_booking->id);
 
-                        $update_booking_schedule->app_type = $e['app_type'];
+                        $update_booking_schedule->app_type = $app_type;
 
                         $update_booking_schedule->card_id = $e['card_type'];
 
@@ -862,6 +869,7 @@ class AjaxController extends Controller
 
                         $update_booking_schedule->save();
                     }else{
+
                         // insert table boooking
                         $booking_schedule = new booking_schedule;
 
@@ -898,18 +906,37 @@ class AjaxController extends Controller
                         ->first();
 
                     if (!empty($data)) {
-                        $cek_setifikat = sertifikat::where(['nric'=>secret_encode($e['nric']),'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->first();
+                        $cek_setifikat = sertifikat::where(['nric'=>secret_encode($e['nric']),'card_id'=>$e['card_type']])->latest()->first();
                         if (!empty($data->transaction_amount_id)) {
                             $data_transcation_amount = transaction_amount::find($data->transaction_amount_id);
                             $Transaction_amount = $data_transcation_amount->transaction_amount;
                         }else{
                             $Transaction_amount = null;
                         }
+
                         if (empty($cek_setifikat)){
+                            if ($data->app_type == renewal || $data->app_type == replacement){
+                                $app_type = $data->app_type - 1 ;
+                            }else{
+                                $app_type = $data->app_type;
+                            }
+                        }else{
+                            if ($data->app_type == renewal || $data->app_type == replacement){
+                                if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $cek_setifikat->expired_date)->format('Y-m-d') ) {
+                                    $app_type = $data->app_type;
+                                }else{
+                                    $app_type = $data->app_type;
+                                }
+                            }else{
+                                $app_type = $data->app_type;
+                            }
+                        }
+                        $cek_setifikats = sertifikat::where(['nric'=>secret_encode($e['nric']),'card_id'=>$e['card_type'],'receiptNo'=>$data->receiptNo])->latest()->first();
+                        if (empty($cek_setifikats)){
 
                             $sertifikat = new sertifikat();
 
-                            $sertifikat->app_type = $data->app_type;
+                            $sertifikat->app_type = $app_type;
 
                             $sertifikat->card_id = $data->card_id;
 

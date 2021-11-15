@@ -57,7 +57,6 @@ class HomeController extends Controller
         }
         // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereNotIn('Status_app', [completed])->get();
-
 //        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->get();
 
         $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->orderBy('card_id', 'desc')->get();
@@ -66,23 +65,54 @@ class HomeController extends Controller
 
         $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)
             ->orderBy('card_id', 'asc')->get();
-
-        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+        $next_new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', completed)
             ->orderBy('card_id', 'asc')->get();
+//        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
 
-        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,])
+            ->where('status_payment', null)
             ->orderBy('card_id', 'asc')->get();
+        foreach ($next_new as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                $replacement = $next_new;
+            }else{
+                $replacement = array();
+            };
+        }
+//        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
 
-        $after_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal,'Status_app'=>completed])
+//        $after_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
+
+//        $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
+//        $renewal = json_decode(json_encode($result_renewal), FALSE);
+
+        $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
             ->orderBy('card_id', 'asc')->get();
-        $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
-        $renewal = json_decode(json_encode($result_renewal), FALSE);
+        $renewal = array();
+        foreach ($renewals as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                $replacement = $renewals;
+            }else{
+                $replacement = array();
+            };
+        }
+        foreach ($renewals as $index => $f) {
+            if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
+                $renewal = $renewals;
+            }else{
+                $renewal = array();
+            };
+        }
         $grade = grade::get();
         if (Auth::user()->role == admin  ) {
             return view('admin/historylogin');
         }elseif(Auth::user()->role == office){
             return view('admin/upgrade_grade');
         }
+//        die(print_r($sertifikat->first()));
         return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
     }
@@ -1714,7 +1744,7 @@ class HomeController extends Controller
                     'Status_app' => draft,
                     'Status_draft' => draft_book_appointment,
                     'trans_date' => null,
-                    'expired_date' => null,
+//                    'expired_date' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
@@ -1738,7 +1768,7 @@ class HomeController extends Controller
                     'Status_draft' => draft_book_appointment,
                     'array_grade' => $merge_grade,
                     'trans_date' => null,
-                    'expired_date' => null,
+//                    'expired_date' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
