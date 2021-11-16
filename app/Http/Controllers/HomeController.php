@@ -70,9 +70,17 @@ class HomeController extends Controller
 //        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
 //            ->orderBy('card_id', 'asc')->get();
 
-        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,])
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement])
+//            ->whereNotIn('Status_draft', [draft_book_appointment])
             ->where('status_payment', null)
             ->orderBy('card_id', 'asc')->get();
+        foreach ($replacement as $index => $f) {
+            if ($f->Status_draft != "0") {
+                $replacement = $replacement;
+            }else{
+                $replacement = array();
+            };
+        }
         foreach ($next_new as $index => $f) {
             if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                 $replacement = $next_new;
@@ -91,7 +99,7 @@ class HomeController extends Controller
 
         $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
 //            ->where('status_payment', null)
-//            ->whereNotIn('status_payment', [submitted])
+//            ->whereNotIn('status_payment', [paid])
             ->orderBy('card_id', 'asc')->get();
         $renewal = array();
         foreach ($renewals as $index => $f) {
@@ -101,9 +109,18 @@ class HomeController extends Controller
                 $replacement = array();
             };
         }
+//die(print_r($renewals));
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
-                $renewal = $renewals;
+                if ($f->Status_draft != "0"){
+                    if ($f->Status_app != "1") {
+                        $renewal = $renewals;
+                    }else{
+                        $renewal = array();
+                    }
+                }else{
+                    $renewal = array();
+                }
             }else{
                 $renewal = array();
             };
@@ -303,8 +320,6 @@ class HomeController extends Controller
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
-
-//        die(print_r($request->all()));
         if ($array_grade == false) {
             if (!$booking_schedule->Status_app == resubmission) {
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
@@ -317,7 +332,7 @@ class HomeController extends Controller
             }
         }else{
             $temp_array_grade = json_decode($array_grade);
-            $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
+            $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest()->first();
 
             if ($request->app_type == news) {
                 if (is_null($booking_schedule->Status_app) && !$booking_schedule->Status_app == draft) {
@@ -335,7 +350,7 @@ class HomeController extends Controller
 //                        die(print_r(count(json_decode($booking_schedule->array_grade))));
                 if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
 //                    die('s');
-                    if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
+                    if (isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
                             foreach ($temp_array_grade as $f) {
                                 $result = array_search("on", $temp_array_grade);
                                 unset($temp_array_grade[$result]);
