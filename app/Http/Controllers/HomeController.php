@@ -1020,23 +1020,26 @@ class HomeController extends Controller
 //            $clear_data = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->delete();
             $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                 ->update([
-                    'declaration_date' => null,
+                    'Status_app' => draft,
+                    'Status_draft' => draft_book_appointment,
+//                    'declaration_date' => null,
                     'trans_date' => null,
                     'expired_date' => null,
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,
-//                    'Status_app' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
                 ]);
         }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-            $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at', 'desc')->first();
+            $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest()->first();
             if (!empty($setifikat)){
                 $clear_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                     ->update([
-                        'app_type' => $setifikat->app_type,
+                        'Status_app' => draft,
+                        'Status_draft' => draft_book_appointment,
+//                        'app_type' => $setifikat->app_type,
 //                        'array_grade' => $setifikat->array_grade,
 //                    'declaration_date' => Carbon::parse($setifikat->declaration_date)->toDateString(),
                         'declaration_date' => $setifikat->declaration_date,

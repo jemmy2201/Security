@@ -64,6 +64,9 @@
                             @if($personal->app_type == replacement )
                                     Replacement
                             @endif
+                            @if($personal->app_type == renewal )
+                                    Renewal
+                            @endif
                             -
                             @if($request->card == so_app)
                                 SO
