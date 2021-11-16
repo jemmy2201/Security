@@ -921,12 +921,14 @@ class AjaxController extends Controller
                                 $app_type = $data->app_type;
                             }
                         }else{
-                            if ($data->app_type == renewal || $data->app_type == replacement){
+                            if ($data->app_type == renewal){
                                 if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $cek_setifikat->expired_date)->format('Y-m-d') ) {
-                                    $app_type = $data->app_type;
+                                    $app_type = $data->app_type ;
                                 }else{
-                                    $app_type = $data->app_type;
+                                    $app_type = $data->app_type -1;
                                 }
+                            }elseif ($data->app_type == replacement){
+                                $app_type = $data->app_type ;
                             }else{
                                 $app_type = $data->app_type;
                             }

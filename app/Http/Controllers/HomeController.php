@@ -90,6 +90,8 @@ class HomeController extends Controller
 //        $renewal = json_decode(json_encode($result_renewal), FALSE);
 
         $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
+//            ->where('status_payment', null)
+//            ->whereNotIn('status_payment', [submitted])
             ->orderBy('card_id', 'asc')->get();
         $renewal = array();
         foreach ($renewals as $index => $f) {
