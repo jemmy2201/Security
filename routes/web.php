@@ -27,11 +27,17 @@ Route::get('/qrcode', function () {
     return view('login');
 })->name('qrcode');
 
-
+// singpass
 Route::get('/afterlogin', 'SingpassController@login');
+//Uat
 Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
+//ENd Uat
+//Prod
+Route::get('/oauth2/jwks', 'SingpassController@jwks');
+//Prod
 Route::get('/private/ec/jwks', 'SingpassController@private_key_ec');
 Route::get('/private/sig/jwks', 'SingpassController@private_key_sig');
+// End singpass
 
 // end user
 
