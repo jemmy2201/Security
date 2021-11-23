@@ -25,8 +25,8 @@ class EnetsController extends Controller
     {
         $jsonmsg = urldecode($request->message);
         $jsonarr = json_decode($jsonmsg);
-        $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
         if ($jsonarr->msg->netsTxnStatus == success) {
+            $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
                 ->update([
                     'gst_id' => $data_person->grade_id,
