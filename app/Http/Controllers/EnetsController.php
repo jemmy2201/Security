@@ -39,15 +39,16 @@ class EnetsController extends Controller
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'txnrand' => $jsonarr->msg->txnRand,
                 ]);
+
+            $request->merge(['app_type' => $data_person->app_type, 'thank_payment' => true,'card' => $data_person->card,'router_name' => Route::getCurrentRoute()->getActionName()]);
+            $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+                ->where(['booking_schedules.nric' => $data_person->nric,'booking_schedules.card_id'=>$data_person->card])->first();
+            $t_grade = t_grade::get();
+
+            return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+        }else{
+            return view('home');
         }
-
-        $request->merge(['app_type' => $data_person->app_type, 'thank_payment' => true,'card' => $data_person->card,'router_name' => Route::getCurrentRoute()->getActionName()]);
-        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' => $data_person->nric,'booking_schedules.card_id'=>$data_person->card])->first();
-        $t_grade = t_grade::get();
-
-        return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
-
     }
 
 }
