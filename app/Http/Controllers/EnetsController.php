@@ -47,7 +47,7 @@ class EnetsController extends Controller
 
             return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
         }else{
-            return view('home');
+            return redirect()->route('home');
         }
     }
 
