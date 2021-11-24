@@ -440,9 +440,10 @@
     $(window).ready(hideLoader);
 
     // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
-    setTimeout(hideLoader, 2000000 * 1000);
+    setTimeout($("#app").css("display", "none"), 60 * 1000);
 
     $( document ).ready(function() {
+        $("#app").css("display", "block");
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
             uen: {!!  json_encode(uen) !!},           //Required: UEN of company
