@@ -16,7 +16,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/2.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: black;">Personal Particulars</h2>
+    <h2 style="color: black;"><b>Personal Particulars</b></h2>
     <br>
 {{--        <div class="row">--}}
             <div class="col-sm">
@@ -172,16 +172,16 @@
                 </a>
             </button>
         </div>
-        <div class="col-4 medium hidden-xs">
-        </div>
-        <div class="col-2 next hidden-xs">
+{{--        <div class="col-4 medium hidden-xs">--}}
+{{--        </div>--}}
+{{--        <div class="col-2 next hidden-xs">--}}
 {{--            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
 {{--                <a href="#" style="text-decoration:none; color: white;">--}}
 {{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
 {{--                    Update Number--}}
 {{--                </a>--}}
 {{--            </button>--}}
-        </div>
+{{--        </div>--}}
 {{--        <div class="col-6 visible-xs hidden-md">--}}
 {{--            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
 {{--                <a href="#" style="text-decoration:none; color: white;">--}}
