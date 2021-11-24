@@ -16,11 +16,11 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Submission
+    <h2 style="color: Black;">Submission
     </h2>
     <br>
         {{-- Desktop --}}
-    <h3><b>Details</b></h3>
+    <h3 style="font-size: 20px;"><b>Details</b></h3>
 
     <div class="container">
             <div class="row hidden-xs">
@@ -265,19 +265,20 @@
                             <ul class="list-group">
                                 @foreach ($take_grades as $f)
                                     @if($f->take_grade)
-                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>
                                         <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
                                     @elseif($f->display)
-                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
                                     @elseif($f->grade_not_payment)
-                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" checked>&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" checked>&ensp;&ensp; {{$f->name}}</li>
                                     @else
-                                        <li class="list-group-item"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
                                     @endif
                                 @endforeach
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="0" >&ensp;&ensp; None of the above (SO)</li>
                             </ul>
-                            <input type="checkbox" id="declare" name="declare" style="margin-left: 15px;">&ensp;&ensp;
-                                <b>I declare that I have been assessed and certified in the following training modules</b>
+{{--                            <input type="checkbox" id="declare" name="declare" style="margin-left: 15px;">&ensp;&ensp;--}}
+{{--                                <b>I declare that I have been assessed and certified in the following training modules</b>--}}
                             {{--                        </div>--}}
 {{--                    @endforeach--}}
 {{--                    @endif--}}
@@ -361,7 +362,7 @@
                 @endforeach
             </div>
         @endif
-    <br>
+{{--    <br>--}}
     <h3 style="color: black;font-weight: bold;">
         <button type="button" class=" btn btn-danger" style="background: black;">Photo Submission</button><br>
     </h3>
@@ -373,16 +374,18 @@
             </center>
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
-        <div class="col-4 hidden-xs" style="border-right: 1px solid black;">
+        <button type="button" class="btn btn-danger  file_upload_profiles" style="background: black; border: 2px solid black;position: absolute;margin-top: 263px;
+    margin-left: 17px;">Upload Photo</button>
+
+        <div class="col-2 hidden-xs" style="border-right: 1px solid black;">
             <ul class="list-group list-group-flush" >
                 <li class="list-group-item" style=" border-bottom: 0 none;">
                 </li>
                 <li class="list-group-item" style="margin-top: 120px;">
-                    <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black; border: 2px solid black">Upload Photo</button><br>
                     @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
                         @if(empty($resubmission))
-                            <input type="checkbox" id="submit_submission " name="submit_submission">
-                            <b>I declare that I have submitted my photo</b>
+{{--                            <input type="checkbox" id="submit_submission " name="submit_submission">--}}
+{{--                            <b>I declare that I have submitted my photo</b>--}}
                         @endif
                     @endif
                 </li>
@@ -407,13 +410,13 @@
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
             <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
-            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>
-            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
-                @if(empty($resubmission))
-                    <input type="checkbox" id="submit_submission" name="submit_submission">
-                    <b>I declare that I have submitted my photo</b>
-                @endif
-            @endif
+{{--            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>--}}
+{{--            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
+{{--                @if(empty($resubmission))--}}
+{{--                    <input type="checkbox" id="submit_submission" name="submit_submission">--}}
+{{--                    <b>I declare that I have submitted my photo</b>--}}
+{{--                @endif--}}
+{{--            @endif--}}
         </div>
 
         <div class="col-2 hidden-xs">
@@ -424,7 +427,14 @@
         </div>
     </div>
     <br>
-
+        @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
+            @if(empty($resubmission))
+                <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
+                <b class="hidden-xs">I declare the information on the training competency is true and i have submitted my photo</b>
+                <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
+                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information on the training competency is true and i have submitted my photo</b>
+            @endif
+        @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
@@ -555,11 +565,11 @@
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
             if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
-                if ($("input[name='declare']:checked").val() != undefined){
+                // if ($("input[name='declare']:checked").val() != undefined){
                     save_submission();
-                }else{
-                    swal("Please!", "tick declare", "error")
-                }
+                // }else{
+                //     swal("Please!", "tick declare", "error")
+                // }
             }else{
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     save_submission();
