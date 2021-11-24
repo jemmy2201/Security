@@ -246,7 +246,7 @@
 {{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
-                    <button type="button"  class=" btn btn-danger" style="background: #1E90FF;">Training Records</button>
+                    <button type="button"  class=" btn btn-danger" style="background: black;">Training Records</button>
 
                     <br>
 {{--                @if(!empty($cek_grade->array_grade))--}}
@@ -363,7 +363,7 @@
         @endif
     <br>
     <h3 style="color: black;font-weight: bold;">
-        <button type="button" class=" btn btn-danger" style="background: #1E90FF;">Photo Submission</button><br>
+        <button type="button" class=" btn btn-danger" style="background: black;">Photo Submission</button><br>
     </h3>
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 10px; border: 1px solid black; padding: 5px 0px 5px 10px; margin-left: 10px;">
@@ -378,7 +378,7 @@
                 <li class="list-group-item" style=" border-bottom: 0 none;">
                 </li>
                 <li class="list-group-item" style="margin-top: 120px;">
-                    <button type="button" class=" btn btn-danger file_upload_profiles" style="background: #1E90FF; border: 2px solid black">Upload Photo</button><br>
+                    <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black; border: 2px solid black">Upload Photo</button><br>
                     @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
                         @if(empty($resubmission))
                             <input type="checkbox" id="submit_submission " name="submit_submission">
@@ -407,7 +407,7 @@
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
             <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
-            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: #1E90FF;">Upload Photo</button><br>
+            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>
             @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
                 @if(empty($resubmission))
                     <input type="checkbox" id="submit_submission" name="submit_submission">
@@ -429,7 +429,7 @@
     <div class="row">
         <div class="col-2 back">
             <a href="{{ url('back/personal/particular/'.$request->app_type.'/'.$request->card.'/'.$request->Status_App) }}" style="text-decoration:none;">
-                <button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" >
+                <button type="button" class="btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white" >
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
                 </button>
@@ -440,7 +440,7 @@
 {{--        <div class="col-6 medium visible-xs hidden-md">--}}
 {{--        </div>--}}
         <div class="col-2 next hidden-xs">
-            <button type="button" class="btn btn-light btn-lg btn-block save_draft" style="border-style: groove; background: #1E90FF; color: white;">
+            <button type="button" class="btn btn-light btn-lg btn-block save_draft" style="border-style: groove; background: black; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
@@ -448,7 +448,7 @@
             </button>
         </div>
         <div class="col-4 next visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: #1E90FF; color: white;">
+            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: black; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
@@ -456,7 +456,7 @@
         </div>
         <div class="col-2 next">
 {{--            @if(empty($resubmission))--}}
-                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                <button type="button" id="submit_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
                     Next
 {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>

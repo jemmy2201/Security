@@ -388,7 +388,7 @@
 
     <div class="row hidden-xs">
         <div class="col-2 back">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="window.history.go(-1); return false;">
                 <a href="#" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Back
@@ -400,7 +400,7 @@
         <div class="col-2 next">
         </div>
         <div class="col-2 next">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
@@ -410,7 +410,7 @@
     </div>
     <div class="row">
         <div class="col-4 back Visible-xs hidden-md">
-            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+            <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="window.history.go(-1); return false;">
                 <a href="#" style="text-decoration:none;color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
@@ -421,7 +421,7 @@
 
         </div>
         <div class="col-4 visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft

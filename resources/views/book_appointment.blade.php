@@ -82,14 +82,14 @@
     <div class="row">
         <div class="col-2 back hidden-xs">
             @if($request->Status_app != resubmission && $request->card == so_app  )
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" onclick="window.history.go(-1);">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white" onclick="window.history.go(-1);">
 {{--                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
 {{--                </a>--}}
             </button>
             @else
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="window.history.go(-1); return false;">
                 <a href="#" style="text-decoration:none;color: white;">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
@@ -100,14 +100,14 @@
         </div>
         <div class="col-3 visible-xs hidden-md">
             @if($request->Status_app != resubmission && $request->card == so_app  )
-                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: white" onclick="window.history.go(-1);">
+                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white" onclick="window.history.go(-1);">
                     {{--                <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
                     {{--                </a>--}}
                 </button>
             @else
-                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A" onclick="window.history.go(-1); return false;">
+                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="window.history.go(-1); return false;">
                     <a href="#" style="text-decoration:none;color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                         Back
@@ -120,14 +120,14 @@
         </div>
 
         <div class="col-2 next hidden-xs">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
                 </a>
         </div>
         <div class="col-4  visible-xs hidden-md">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
@@ -135,12 +135,12 @@
         </div>
         <div class="col-2 next hidden-xs">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
                     Resubmit
 {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
             @else
-                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
                     Make payment
 {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
@@ -149,12 +149,12 @@
         </div>
         <div class="col-5 visible-xs hidden-md">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
                     Resubmit
                     {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
             @else
-                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">
+                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
                     Make payment
                     {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>

@@ -16,7 +16,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/2.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Personal Particulars</h2>
+    <h2 style="color: black;">Personal Particulars</h2>
     <br>
 {{--        <div class="row">--}}
             <div class="col-sm">
@@ -31,12 +31,12 @@
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($personal->name) > 40)
                         <div class="col-6 ColoumndataPersonal hidden-xs">
-                            <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
+                            <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;outline: none;border: none;" readonly>
                                 {{$personal->name}}
                             </textarea>
                         </div>
                         <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
-                            <textarea rows="4" cols="20" id="TextAreaNamePhone" style="resize: none;" readonly>
+                            <textarea rows="4" cols="20" id="TextAreaNamePhone" style="resize: none;outline: none;border: none;" readonly>
                                 {{$personal->name}}
                             </textarea>
                         </div>
@@ -66,12 +66,20 @@
 
     <div class="row hidden-xs">
         <div class="col-6 HeaderdataPersonal phone">
-            Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory Field</span>
+            Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
         </div>
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
             <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
+        </div>
+        <div class="col-4 HeaderdataPersonal">
+            <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
+                <a href="#" style="text-decoration:none; color: white;">
+                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                    Update Number
+                </a>
+            </button>
         </div>
     </div><br>
 
@@ -97,7 +105,7 @@
 
     <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">
-            Email address <span style="color:red; vertical-align: super; font-size: small;">*Optional field</span>
+            Email address <span style="color:black; vertical-align: super; font-size: small;">*Optional</span>
         </div>
     </div>
     <div class="row hidden-xs">
@@ -109,12 +117,18 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory Field</span>
+                Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
                 <input type="number" class="form-control visible-xs hidden-md" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
+                <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
+                    <a href="#" style="text-decoration:none; color: white;">
+                        {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                        Update Number
+                    </a>
+                </button>
             </div>
         </div><br>
         <div class="row visible-xs hidden-md">
@@ -138,7 +152,7 @@
         </div><br>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal email">
-                Email <span style="color:red; vertical-align: super; font-size: small;">*Optional field</span>
+                Email <span style="color:black; vertical-align: super; font-size: small;">*Optional field</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
@@ -151,7 +165,7 @@
         <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url("/home")}}" style="text-decoration:none; color: white;">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Back
@@ -161,35 +175,35 @@
         <div class="col-4 medium hidden-xs">
         </div>
         <div class="col-2 next hidden-xs">
-            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="#" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Update Number
-                </a>
-            </button>
+{{--            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="#" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Update Number--}}
+{{--                </a>--}}
+{{--            </button>--}}
         </div>
-        <div class="col-6 visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                <a href="#" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Update Number
-                </a>
-            </button>
-        </div>
+{{--        <div class="col-6 visible-xs hidden-md">--}}
+{{--            <button class=" btn btn-light btn-lg btn-block update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="#" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Update Number--}}
+{{--                </a>--}}
+{{--            </button>--}}
+{{--        </div>--}}
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
         <div class="col-2 next">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
+            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
                 </a>
         </div>
         <div class="col-2 next">
-            <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: #1E90FF; color: white;">Next
+            <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white;">Next
             </button>
-            <button type="button" id="form_activation" data-toggle="modal" data-target="#code_activation_Modal" class=" btn btn-primary btn-lg btn-block" style=" background: #1E90FF; color: white; display: none;">
+            <button type="button" id="form_activation" data-toggle="modal" data-target="#code_activation_Modal" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white; display: none;">
             </button>
         </div>
 
