@@ -246,8 +246,8 @@
 {{--                            <button type="button" id="button_declare" class=" btn btn-danger btn-lg btn-block">Declare</button>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
-                    <button type="button"  class=" btn btn-danger" style="background: black;">Training Records</button>
-
+{{--                    <button type="button"  class=" btn btn-danger" style="background: black;">Training Records</button>--}}
+                    <h3 style="font-size: 20px;"><b>Training Records</b></h3>
                     <br>
 {{--                @if(!empty($cek_grade->array_grade))--}}
 {{--                    @foreach (json_decode($cek_grade->array_grade) as $f)--}}
@@ -364,7 +364,9 @@
         @endif
 {{--    <br>--}}
     <h3 style="color: black;font-weight: bold;">
-        <button type="button" class=" btn btn-danger" style="background: black;">Photo Submission</button><br>
+{{--        <button type="button" class=" btn btn-danger" style="background: black;">Photo Submission</button>--}}
+        <h3 style="font-size: 20px;"><b>Photo Submission</b></h3>
+        <br>
     </h3>
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 10px; border: 1px solid black; padding: 5px 0px 5px 10px; margin-left: 10px;">
@@ -374,24 +376,24 @@
             </center>
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
-        <button type="button" class="btn btn-danger  file_upload_profiles" style="background: black; border: 2px solid black;position: absolute;margin-top: 263px;
+        <button type="button" class="btn btn-danger  file_upload_profiles" style="background: black; border: 2px solid black;position: absolute;margin-top: 273px;
     margin-left: 17px;">Upload Photo</button>
 
-        <div class="col-2 hidden-xs" style="border-right: 1px solid black;">
-            <ul class="list-group list-group-flush" >
-                <li class="list-group-item" style=" border-bottom: 0 none;">
-                </li>
-                <li class="list-group-item" style="margin-top: 120px;">
-                    @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
-                        @if(empty($resubmission))
+{{--        <div class="col-2 hidden-xs" style="border-right: 1px solid black;">--}}
+{{--            <ul class="list-group list-group-flush" >--}}
+{{--                <li class="list-group-item" style=" border-bottom: 0 none;">--}}
+{{--                </li>--}}
+{{--                <li class="list-group-item" style="margin-top: 120px;">--}}
+{{--                    @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
+{{--                        @if(empty($resubmission))--}}
 {{--                            <input type="checkbox" id="submit_submission " name="submit_submission">--}}
 {{--                            <b>I declare that I have submitted my photo</b>--}}
-                        @endif
-                    @endif
-                </li>
-            </ul>
+{{--                        @endif--}}
+{{--                    @endif--}}
+{{--                </li>--}}
+{{--            </ul>--}}
 
-        </div>
+{{--        </div>--}}
         <div class="col-4 hidden-xs">
             <p>Guidelines for Digital Photo Image Submission</p>
             <p>- Photo must be taken within last 3 months</p>
@@ -399,7 +401,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>
 
         </div>
         <div class="col-6 visible-xs hidden-md">
@@ -409,7 +411,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo uploaded must be in JPG format (max size: 1MB only)</p>
+            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>
 {{--            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>--}}
 {{--            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
 {{--                @if(empty($resubmission))--}}
@@ -429,6 +431,7 @@
     <br>
         @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
             @if(empty($resubmission))
+                <br class="hidden-xs">
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
                 <b class="hidden-xs">I declare the information on the training competency is true and i have submitted my photo</b>
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
