@@ -395,8 +395,8 @@
                 </a>
             </button>
         </div>
-        <div class="col-6 medium ">
-        </div>
+{{--        <div class="col-6 medium ">--}}
+{{--        </div>--}}
         <div class="col-2 next">
         </div>
         <div class="col-2 next">

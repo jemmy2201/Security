@@ -116,8 +116,8 @@
             @endif
 
         </div>
-        <div class="col-6 medium hidden-xs">
-        </div>
+{{--        <div class="col-6 medium hidden-xs">--}}
+{{--        </div>--}}
 
         <div class="col-2 next hidden-xs">
             <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
