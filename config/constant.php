@@ -90,6 +90,7 @@ define('aktif', 1);
 // status payment
 define('unpaid', 0);
 define('paid', 1);
+define('C4', 9);
 // end payment
 
 // response limit schedule
