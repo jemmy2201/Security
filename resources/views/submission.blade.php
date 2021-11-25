@@ -275,7 +275,7 @@
                                         <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
                                     @endif
                                 @endforeach
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="0" >&ensp;&ensp; None of the above (SO)</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="false" >&ensp;&ensp; None of the above (SO)</li>
                             </ul>
 {{--                            <input type="checkbox" id="declare" name="declare" style="margin-left: 15px;">&ensp;&ensp;--}}
 {{--                                <b>I declare that I have been assessed and certified in the following training modules</b>--}}
@@ -581,7 +581,9 @@
                 }
             }
         });
-
+        function checkGrade(v) {
+            return v == "false";
+        }
         function save_submission() {
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
@@ -599,10 +601,19 @@
                             {{--        swal("Please!", "select a course", "error")--}}
                             {{--}else{--}}
                             {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
-                                console.log('s',$('input[name="Cgrades[]"]:checked').val())
-                            if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
-                            {
-                                swal("Please!", "Selected any courses", "error");
+
+                                // console.log('ss',$('input[name="Cgrades[]"]:checked').val())
+
+                            var val = [];
+                            $('input[name="Cgrades[]"]:checked').each(function(i){
+                                val[i] = $(this).val();
+                            });
+                            // var arrStr = encodeURIComponent(JSON.stringify(val));
+
+
+                                if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
+                                {
+                                    swal("Please!", "Selected any courses", "error");
 
                                 // swal({
                                 //         title: 'You have not selected any courses!',
@@ -614,6 +625,8 @@
                                 //             $("#book_appointment").submit();
                                 //         }
                                 //     });
+                                }else if(val.length > 1 && val.find(checkGrade) === "false"){
+                                    swal("Please!", "Please choose the correct course", "error");
                                 }else{
                                     $("#book_appointment").submit();
                                 }

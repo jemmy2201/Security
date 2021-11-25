@@ -333,13 +333,14 @@ class HomeController extends Controller
         }else{
             $temp_array_grade = json_decode($array_grade);
             $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest()->first();
-
             if ($request->app_type == news) {
                 if (is_null($booking_schedule->Status_app) && !$booking_schedule->Status_app == draft) {
-//                    die('s');
                     foreach ($temp_array_grade as $f) {
                         $result = array_search("on", $temp_array_grade);
+                        $remove_false = array_search("false", $temp_array_grade);
                         unset($temp_array_grade[$result]);
+                        unset($temp_array_grade[$remove_false]);
+//                        unset($temp_array_grade[$remove_zero]);
                     }
                 }
             }elseif($request->app_type == replacement || $request->app_type == renewal){
@@ -353,7 +354,9 @@ class HomeController extends Controller
                     if (isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
                             foreach ($temp_array_grade as $f) {
                                 $result = array_search("on", $temp_array_grade);
+                                $remove_false = array_search("false", $temp_array_grade);
                                 unset($temp_array_grade[$result]);
+                                unset($temp_array_grade[$remove_false]);
                             }
 //                                    die(print_r($temp_array_grade));
                     }
@@ -365,9 +368,12 @@ class HomeController extends Controller
 //                die(print_r(count($temp_array_grade)));
 //                die(print_r(count(json_decode($booking_schedule->array_grade))));
                 if (count($temp_array_grade) == count(json_decode($booking_schedule->array_grade))) {
+//                    die('2');
                     foreach ($temp_array_grade as $f) {
                         $result = array_search("on", $temp_array_grade);
+                        $remove_false = array_search("false", $temp_array_grade);
                         unset($temp_array_grade[$result]);
+                        unset($temp_array_grade[$remove_false]);
                     }
                     $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
                 }else{
@@ -380,7 +386,9 @@ class HomeController extends Controller
 //                            die('2');
                             foreach ($temp_array_grade as $f) {
                                 $result = array_search("on", $temp_array_grade);
+                                $remove_false = array_search("false", $temp_array_grade);
                                 unset($temp_array_grade[$result]);
+                                unset($temp_array_grade[$remove_false]);
                             }
                             $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
                         }
@@ -472,7 +480,9 @@ class HomeController extends Controller
 //                                                                                         die('1');
                                                                                          foreach ($temp_array_grade as $f) {
                                                                                              $result = array_search("on", $temp_array_grade);
+                                                                                             $remove_false = array_search("false", $temp_array_grade);
                                                                                              unset($temp_array_grade[$result]);
+                                                                                             unset($temp_array_grade[$remove_false]);
                                                                                          }
                                                                                          if (empty($temp_array_grade)){
                                                                                              $different_value = count(json_decode($booking_schedule->array_grade)) - 4;
@@ -493,7 +503,9 @@ class HomeController extends Controller
 //                                                                                         die('s');
                                                                                         foreach ($temp_array_grade as $f) {
                                                                                             $result = array_search("on", $temp_array_grade);
+                                                                                            $remove_false = array_search("false", $temp_array_grade);
                                                                                             unset($temp_array_grade[$result]);
+                                                                                            unset($temp_array_grade[$remove_false]);
                                                                                         }
                                                                                         if (empty($temp_array_grade)){
                                                                                             $different_value = count(json_decode($booking_schedule->array_grade)) - 3;
@@ -514,7 +526,9 @@ class HomeController extends Controller
 //                                                                                         die('s');
                                                                                          foreach ($temp_array_grade as $f) {
                                                                                              $result = array_search("on", $temp_array_grade);
+                                                                                             $remove_false = array_search("false", $temp_array_grade);
                                                                                              unset($temp_array_grade[$result]);
+                                                                                             unset($temp_array_grade[$remove_false]);
                                                                                          }
                                                                                          if (empty($temp_array_grade)){
                                                                                              $different_value = count(json_decode($booking_schedule->array_grade)) - 2;
@@ -541,7 +555,9 @@ class HomeController extends Controller
 //                                                                                         die('s');
                                                                                          foreach ($temp_array_grade as $f) {
                                                                                              $result = array_search("on", $temp_array_grade);
+                                                                                             $remove_false = array_search("false", $temp_array_grade);
                                                                                              unset($temp_array_grade[$result]);
+                                                                                             unset($temp_array_grade[$remove_false]);
                                                                                          }
                                                                                          if (empty($temp_array_grade)){
                                                                                              $different_value = count(json_decode($booking_schedule->array_grade)) - 1;
