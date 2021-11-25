@@ -63,49 +63,17 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-//                $encode = secret_encode($request->singpass_id);
+//                $encode = secret_encode("S9812381D");
 //                $decode = secret_decode($encode);
+
                 // dummy api
                 $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
                     $data = User::where('nric', secret_encode( $request->singpass_id ))->first();
+                }else{
+                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for futher assitence','image'=>'fa fa-info-circle']);
                 }
-            } elseif ($request->type_login == non_barcode) {
-                // api cek sinpass
-                $data = [
-                    'client_id' => clientIdSinpass,
-                    'client_secret' => clientIdSecret,
-                    'grant_type' => 'authorization_code',
-                    'redirect_uri' => redirectUrlSingpass,
-                    'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
-                ];
-
-                $curl = curl_init();
-
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => authApiUrl,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30000,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => json_encode($data),
-                    CURLOPT_HTTPHEADER => array(
-                        // Set here requred headers
-                        "accept: application/json",
-                        "content-type: application/x-www-form-urlencoded",
-                        "charset: ISO-8859-1",
-                    ),
-                ));
-
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-
-                curl_close($curl);
-                die(print_r($response));
-                // End api cek sinpass
             }
         }else {
 //        if ($request->type_login == non_barcode && $request->dummy_login == dummy ) {
@@ -128,43 +96,9 @@ trait AuthenticatesUsers
                             $data = $this->newuser($request, $response);
                         }
                     }
+                }else{
+                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for futher assitence','image'=>'fa fa-info-circle']);
                 }
-            } elseif ($request->type_login == non_barcode) {
-                // api cek sinpass
-                ;
-                $data = [
-                    'client_id' => clientIdSinpass,
-                    'client_secret' => clientIdSecret,
-                    'grant_type' => 'authorization_code',
-                    'redirect_uri' => redirectUrlSingpass,
-                    'code' => 'n0esc3NRze7LTCu7iYzS6a5acc3f0ogp4',
-                ];
-
-                $curl = curl_init();
-
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => authApiUrl,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30000,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => json_encode($data),
-                    CURLOPT_HTTPHEADER => array(
-                        // Set here requred headers
-                        "accept: application/json",
-                        "content-type: application/x-www-form-urlencoded",
-                        "charset: ISO-8859-1",
-                    ),
-                ));
-
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-
-                curl_close($curl);
-                die(print_r($response));
-                // End api cek sinpass
             }
         }
 
