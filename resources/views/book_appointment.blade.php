@@ -26,12 +26,12 @@
     .holidayfull{
         pointer-events: none;
         opacity: 0.6;
-        background-color:red;
+        background-color:blue;
     }
     .holidayhalf{
         /*pointer-events: none;*/
         /*opacity: 0.6;*/
-        background-color:yellow;
+        background-color:brown;
     }
     .active{
         background-color:blue;
@@ -69,9 +69,9 @@
             <div class="col">
                 <ul style="font-weight: bold; list-style-type: none;margin-left: -25px;">
                     <li>
-                        <img src="{{URL::asset('/img/yellow_box.jpg')}}" style="width: 2%;"> : half working day up to 13:00
+                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:00
                     </li>
-                    <li><img src="{{URL::asset('/img/red_box.jpeg')}}" style="width: 2%;"> : full day vacation</li>
+                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public Holidays - Closed</li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                     <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
                     @endif
@@ -141,7 +141,7 @@
                 </button>
             @else
                 <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
-                    Make payment
+                    Next
 {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
             @endif
@@ -155,7 +155,7 @@
                 </button>
             @else
                 <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
-                    Make payment
+                    Next
                     {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
             @endif
@@ -390,9 +390,12 @@
 
                     // Date Holiday
                     {!!  json_encode($dayHoliday) !!}.forEach(function(entry) {
-                        if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo full @endphp) {
+                        var today = new Date(entry.date);
+                        var mm = String(today.getMonth() + 1).padStart(2, '0');
+                        var yyyy = today.getFullYear();
+                        if (y == yyyy && m+1 == mm && entry.date.substring(8, 10) == date && entry.time_work == @php echo full @endphp) {
                             span.classList.add('holidayfull');
-                        }else if (entry.date.substring(8, 10) == date  && y === c_date.getFullYear() && m === entry.date.substring(6, 7)-1 && entry.time_work == @php echo half @endphp) {
+                        }else if (y == yyyy && m+1 == mm && entry.date.substring(8, 10) == date && entry.time_work == @php echo half @endphp) {
                             span.classList.add('holidayhalf');
                         }
                     });
