@@ -46,7 +46,25 @@ class EnetsController extends Controller
             $t_grade = t_grade::get();
 
             return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+        }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == paid) {
+            $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
+            $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
+                ->update([
+                    'paymentby' => "Enets",
+                    'status_payment' => unpaid,
+                    'netstxnref' => $jsonarr->msg->netsTxnRef,
+                    'stagerespcode' => $jsonarr->msg->stageRespCode,
+                ]);
+            return redirect()->route('home');
         }else{
+            $data_person = json_decode($jsonarr->b2sTxnEndURLParam);
+            $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
+                ->update([
+                    'paymentby' => "Enets",
+                    'status_payment' => unpaid,
+                    'netstxnref' => $jsonarr->netsTxnRef,
+                    'stagerespcode' => $jsonarr->stageRespCode,
+                ]);
             return redirect()->route('home');
         }
     }
