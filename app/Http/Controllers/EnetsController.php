@@ -64,7 +64,7 @@ class EnetsController extends Controller
                     'status_payment' => unpaid,
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'stagerespcode' => $jsonarr->msg->stageRespCode,
-                ]);
+                ]); 
             return redirect()->route('home');
         }else{
             $data_person = json_decode($jsonarr->b2sTxnEndURLParam);
