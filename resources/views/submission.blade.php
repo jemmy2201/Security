@@ -614,7 +614,7 @@
 
                                 if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
                                 {
-                                    swal("Please!", "Invalid selection(s) - Training Records.", "error");
+                                    swal("Error!", "Invalid selection(s) - Training Records.", "error");
 
                                 // swal({
                                 //         title: 'You have not selected any courses!',
@@ -627,7 +627,7 @@
                                 //         }
                                 //     });
                                 }else if(val.length > 1 && val.find(checkGrade) === "false"){
-                                    swal("Please!", "Invalid selection(s).", "error");
+                                    swal("Error!", "Invalid selection(s) - Training Records.", "error");
                                 }else{
                                     $("#book_appointment").submit();
                                 }
