@@ -39,6 +39,9 @@
     .now{
         background-color:blue;
     }
+    #s_m{
+        font-weight: 1000;
+    }
 </style>
 @section('content')
 <div class="container">
@@ -46,7 +49,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/4.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Book Appointment For Collection</h2><br>
+    <h2 style="color: black;"><b>Book Appointment For Collection</b></h2><br>
     <form method="post" id="save_appointment" action="{{ route('save.book.appointment') }}" >
         @csrf
         <input type="hidden"  class="form-control" name="card" id="card" value="{{$request->card}}" readonly>
@@ -71,7 +74,7 @@
                     <li>
                         <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:30
                     </li>
-                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public Holidays - Closed</li>
+                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public to public Holidays - Closed</li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                     <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
                     @endif
