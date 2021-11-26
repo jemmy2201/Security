@@ -64,8 +64,18 @@
         .swal-text {
             color: red;
         }
-        .swal-button{
-            background-color: red;
+        @media only screen and (min-width: 600px) {
+            .swal-button {
+                background-color: red;
+                margin-right: 184px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .swal-button{
+                background-color: red;
+                margin-right:138px;
+            }
         }
     </style>
     {{-- for $(document).ready --}}

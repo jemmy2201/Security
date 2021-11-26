@@ -295,7 +295,7 @@
                             create_activation();
                         }
                     }else{
-                            swal("Please!", "Use Singapore Number", "error")
+                            swal("Please!", "Only Singapore numbers are valid.", "error")
                     }
                 }else{
                         swal("Error!", "Mobile number incomplete.", "error")
@@ -317,7 +317,7 @@
                             create_activation();
                         }
                     }else{
-                        swal("Please!", "Use Singapore Number", "error")
+                        swal("Please!", "Only Singapore numbers are valid.", "error")
                     }
                 }else{
                     swal("Error!", "Mobile number incomplete.", "error")
@@ -400,7 +400,7 @@
                 if (data == true){
                     $( "#form_activation" ).trigger( "click" );
                 }else if(data == {!!  json_encode(not_number_singapore) !!}){
-                    swal("Please!", "Use Singapore Number", "error")
+                    swal("Please!", "Only Singapore numbers are valid.", "error")
                 }else if(data == {!!  json_encode(wrong_format_number) !!}){
                     swal("Please!", "Wrong number format", "error")
                 }else if(data == {!!  json_encode(same_number_phone) !!}){

@@ -376,9 +376,10 @@
             </center>
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
-        <button type="button" class="btn btn-danger  file_upload_profiles" style="background: black; border: 2px solid black;position: absolute;margin-top: 273px;
+        <button type="button" class="btn btn-danger  file_upload_profiles hidden-xs" style="background: black; border: 2px solid black;position: absolute;margin-top: 263px;
+    margin-left: 41px;">Upload Photo</button>
+        <button type="button" class="btn btn-danger  file_upload_profiles visible-xs hidden-md" style="background: black; border: 2px solid black;position: absolute;margin-top: 273px;
     margin-left: 17px;">Upload Photo</button>
-
 {{--        <div class="col-2 hidden-xs" style="border-right: 1px solid black;">--}}
 {{--            <ul class="list-group list-group-flush" >--}}
 {{--                <li class="list-group-item" style=" border-bottom: 0 none;">--}}
@@ -433,9 +434,9 @@
             @if(empty($resubmission))
                 <br class="hidden-xs">
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
-                <b class="hidden-xs">I declare the information on the training competency is true and I have submitted my photo</b>
+                <b class="hidden-xs">I declare the information on the training competency is true and I have submitted my photo.</b>
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
-                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information on the training competency is true and I have submitted my photo</b>
+                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information on the training competency is true and I have submitted my photo.</b>
             @endif
         @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
@@ -592,7 +593,7 @@
                             var pathFile = inputFile.value;
                             var ekstensiOk = /(\.jpg|\.jpeg)$/i;
                             // if (!ekstensiOk.exec(pathFile)) {
-                            //     swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                            //     swal("Please!", "Photo uploaded must be in JPG format. ", "error")
                             // } else {
                             //     $("#book_appointment").submit();
                             // }
@@ -626,14 +627,14 @@
                                 //         }
                                 //     });
                                 }else if(val.length > 1 && val.find(checkGrade) === "false"){
-                                    swal("Please!", "Please choose the correct course", "error");
+                                    swal("Please!", "Invalid selection(s).", "error");
                                 }else{
                                     $("#book_appointment").submit();
                                 }
                             // }
 
                         } else {
-                            swal("Please!", " tick submit", "error");
+                            swal("Please!", " Please acknowledge declaration.", "error");
                         }
                     } else {
                         $("#book_appointment").submit();
@@ -675,7 +676,7 @@
                        }else{
                            $('.file_upload_profile').attr('src','/img/upload.png' );
                        }
-                           swal("Please!", "Max Size: 1MB Only ", "error")
+                           swal("Please!", "Photo uploaded must be less than 1 MB size.", "error")
                    }
                 }else{
                         control.value = null;
@@ -684,7 +685,7 @@
                         }else{
                             $('.file_upload_profile').attr('src','/img/upload.png' );
                         }
-                        swal("Please!", "upload files with the extension .jpeg & .jpg ", "error")
+                        swal("Please!", "Photo uploaded must be in JPG format. ", "error")
                 }
             }
         });
