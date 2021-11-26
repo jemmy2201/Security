@@ -33,6 +33,7 @@ class EnetsController extends Controller
                     'trans_date' => date('d/m/Y H:i:s'),
                     'paymentby' => "Enets",
                     'status_payment' => paid,
+                    'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
                     'grand_total' => $data_person->grand_total,
                     'status_app' => submitted,
                     'transaction_amount_id' => $data_person->transaction_amount_id,
@@ -47,11 +48,13 @@ class EnetsController extends Controller
 
             return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
         }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == paid) {
+
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
                 ->update([
                     'paymentby' => "Enets",
                     'status_payment' => unpaid,
+                    'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'stagerespcode' => $jsonarr->msg->stageRespCode,
                 ]);
@@ -62,9 +65,10 @@ class EnetsController extends Controller
                 ->update([
                     'paymentby' => "Enets",
                     'status_payment' => unpaid,
+                    'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'stagerespcode' => $jsonarr->msg->stageRespCode,
-                ]); 
+                ]);
             return redirect()->route('home');
         }else{
             $data_person = json_decode($jsonarr->b2sTxnEndURLParam);
@@ -72,6 +76,7 @@ class EnetsController extends Controller
                 ->update([
                     'paymentby' => "Enets",
                     'status_payment' => unpaid,
+                    'netsTxnStatus' => $jsonarr->netsTxnStatus,
                     'netstxnref' => $jsonarr->netsTxnRef,
                     'stagerespcode' => $jsonarr->stageRespCode,
                 ]);
