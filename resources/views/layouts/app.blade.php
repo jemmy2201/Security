@@ -60,6 +60,13 @@
             -moz-appearance: textfield;
         }
         /* End remove arrows/spinners input type number    */
+
+        .swal-text {
+            color: red;
+        }
+        .swal-button{
+            background-color: red;
+        }
     </style>
     {{-- for $(document).ready --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>

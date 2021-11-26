@@ -298,7 +298,7 @@
                             swal("Please!", "Use Singapore Number", "error")
                     }
                 }else{
-                        swal("Attention!", "Mobile number incomplete", "error")
+                        swal("Error!", "Mobile number incomplete.", "error")
                 }
             }else{
                 if($("#mobileno").val() != ""){
@@ -320,7 +320,7 @@
                         swal("Please!", "Use Singapore Number", "error")
                     }
                 }else{
-                    swal("Attention!", "Mobile number incomplete", "error")
+                    swal("Error!", "Mobile number incomplete.", "error")
                 }
             }
 
