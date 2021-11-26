@@ -614,7 +614,7 @@
 
                                 if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
                                 {
-                                    swal("Please!", "Selected any courses", "error");
+                                    swal("Please!", "Invalid selection(s) - Training Records.", "error");
 
                                 // swal({
                                 //         title: 'You have not selected any courses!',

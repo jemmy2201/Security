@@ -69,7 +69,7 @@
             <div class="col">
                 <ul style="font-weight: bold; list-style-type: none;margin-left: -25px;">
                     <li>
-                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:00
+                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:30
                     </li>
                     <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public Holidays - Closed</li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
@@ -119,20 +119,20 @@
 {{--        <div class="col-6 medium hidden-xs">--}}
 {{--        </div>--}}
 
-        <div class="col-2 next hidden-xs">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-        </div>
-        <div class="col-4  visible-xs hidden-md">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-        </div>
+{{--        <div class="col-2 next hidden-xs">--}}
+{{--            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Save Draft--}}
+{{--                </a>--}}
+{{--        </div>--}}
+{{--        <div class="col-4  visible-xs hidden-md">--}}
+{{--            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Save Draft--}}
+{{--                </a>--}}
+{{--        </div>--}}
         <div class="col-2 next hidden-xs">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                 <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
@@ -171,14 +171,14 @@
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Please!", " select a date and time", "error")
+                swal("Please!", "No time slot selection.", "error")
             }
         });
         $( "#phone_save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Please!", " select a date and time", "error")
+                swal("Please!", "No time slot selection.", "error")
             }
         });
     });
