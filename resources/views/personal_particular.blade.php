@@ -66,12 +66,12 @@
 
     <div class="row hidden-xs">
         <div class="col-6 HeaderdataPersonal phone">
-            Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
+            SG mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
         </div>
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal">
-            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
+            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
         </div>
         <div class="col-4 HeaderdataPersonal">
             <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
@@ -117,7 +117,7 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
+                SG mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
