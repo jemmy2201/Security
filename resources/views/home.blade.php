@@ -320,6 +320,13 @@
                 <input class="form-check-input" type="checkbox" name="request" id="pi_app" value="" data-card={{pi_app}}><b>&ensp;&ensp;&ensp;Private Investigator (PI)</b>
         </div>
     </div>
+<br>
+    <p><b>My Updates</b></p>
+    <div class="container">
+        <div class="row">
+            <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;New SO Course Attended</b>
+        </div>
+    </div>
 {{--End revisi 2 design--}}
 
     <form method="post" id="personal_particular" action="{{ route('personal.particular') }}" style="display: none">
