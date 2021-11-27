@@ -174,14 +174,14 @@
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Please!", "No time slot selection.", "error")
+                swal("Error!", "No date selection.", "error")
             }
         });
         $( "#phone_save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Please!", "No time slot selection.", "error")
+                swal("Please!", "No date selection.", "error")
             }
         });
     });
