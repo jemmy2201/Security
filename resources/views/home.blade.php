@@ -10,250 +10,11 @@
     <center class="visible-xs hidden-md">
     <img  src="{{URL::asset('/img/img_step_proses/design_phone/1.png')}}" style="width: 80%;">
     </center>
-    <h3 style="color: #E31E1A;">ID Card Portal</h3>
+    <h3 style="color: black;"><b>ID Card Portal</b></h3><br>
     <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <b>New</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($new as $index => $f)
-                        @php
-                            $course_new []= "";
-                            array_push($course_new,$f->card_id);
-                        @endphp
-                    @endforeach
-                        @php
-                            $course = array(so_app,avso_app,pi_app);
-                            if(!empty($course_new)){
-                                $result_course_new=array_diff($course,array_filter($course_new));
-                            }else{
-                                $result_course_new=$course;
-                            }
-                        @endphp
-                    @foreach($new as $index => $f)
-                            @php
-                                $counts = count($new);
-                                 if ($counts == 1){
-                                     $count = 0;
-                                 }else{
-                                     $count = 1;
-                                 }
-                            @endphp
-                        @if($index==0)
-                            @foreach($result_course_new as $g)
-                                @if($g == so_app )
-                                    <li class="disabled">SO</li>
-                                @endif
-                            @endforeach
-                        @endif
-                        @if($f->card_id == so_app)
-                            <li id="so_app" data-app_type={{news}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
+     <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
 
-                        @if($index==0)
-                        @foreach($result_course_new as $g)
-                            @if($g == avso_app )
-                                <li class="disabled">AVSO</li>
-                            @endif
-                        @endforeach
-                        @endif
-                        @if($f->card_id == avso_app)
-                            <li id="avso_app" data-app_type={{news}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-                        @php
-                        @endphp
-
-                        @if($index == $count )
-                            @foreach($result_course_new as $g)
-                                @if($g == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                        @if($f->card_id == pi_app)
-                            <li id="pi_app" data-app_type={{news}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-
-                    @endforeach
-                        @php
-                            $courses = array(so_app,avso_app,pi_app);
-                        @endphp
-
-                        @if(count($new) ==0)
-
-                            @foreach($courses as $f)
-                                @if($f == so_app )
-                                    <li class="disabled">SO</li>
-                                @elseif($f == avso_app )
-                                    <li class="disabled">AVSO</li>
-                                @elseif($f == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-                </ul>
-        </div>
-            <div class="col-sm">
-                <b>Replacement</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($replacement as $index => $f)
-                        @php
-                            $course_replacement []= "";
-                            array_push($course_replacement,$f->card_id);
-                        @endphp
-                    @endforeach
-                    @php
-                        $course_replacements = array(so_app,avso_app,pi_app);
-                        if(!empty($course_replacement)){
-                            $result_course_replacement=array_diff($course_replacements,array_filter($course_replacement));
-                        }else{
-                            $result_course_replacement=$course_replacements;
-                        }
-                    @endphp
-                    @foreach($replacement as $index => $f)
-                            @php
-                                $counts = count($replacement);
-                                 if ($counts == 1){
-                                     $count = 0;
-                                 }else{
-                                     $count = 1;
-                                 }
-                            @endphp
-                        @if($index==0)
-                            @foreach($result_course_replacement as $g)
-                                @if($g == so_app )
-                                    <li class="disabled">SO</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                        @if($f->card_id == so_app )
-                            <li id="so_app" data-app_type={{replacement}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
-
-                        @if($index==0)
-                            @foreach($result_course_replacement as $g)
-                                @if($g == avso_app )
-                                    <li class="disabled">AVSO</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                        @if($f->card_id == avso_app)
-                            <li id="avso_app" data-app_type={{replacement}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-                        @if($index==$count)
-                            @foreach($result_course_replacement as $g)
-                                @if($g == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-                        @if($f->card_id == pi_app)
-                            <li id="pi_app" data-app_type={{replacement}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-
-                    @endforeach
-                    @php
-                        $course_replacements = array(so_app,avso_app,pi_app);
-                    @endphp
-                        @if(count($replacement) ==0)
-                            @foreach($course_replacements as $f)
-                                @if($f == so_app )
-                                    <li class="disabled">SO</li>
-                                @elseif($f == avso_app )
-                                    <li class="disabled">AVSO</li>
-                                @elseif($f == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                </ul>
-            </div>
-            <div class="col-sm">
-                <b>Renewal</b><br>
-                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">
-                    @foreach($renewal as $index => $f)
-                        @php
-                            $course_renewal []= "";
-                            array_push($course_renewal,$f->card_id);
-                        @endphp
-                    @endforeach
-                    @php
-                        $course_renewals = array(so_app,avso_app,pi_app);
-                        if(!empty($course_renewal)){
-                            $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));
-                        }else{
-                            $result_course_renewal=$course_renewals;
-                        }
-                    @endphp
-                    @foreach($renewal as $index => $f)
-                        @php
-                        $counts = count($renewal);
-                         if ($counts == 1){
-                             $count = 0;
-                         }else{
-                             $count = 1;
-                         }
-                        @endphp
-                        @if($index == 0)
-                            @foreach($result_course_renewal as $g)
-                                @if($g == so_app )
-                                    <li class="disabled">SO</li>
-                                @endif
-                            @endforeach
-                        @endif
-                        @if($f->card_id == so_app)
-                            <li id="so_app" data-app_type={{renewal}} data-card={{so_app}} style='cursor: pointer;'>SO</li>
-                        @endif
-
-                        @if($index == 0)
-                            @foreach($result_course_renewal as $g)
-                                @if($g == avso_app )
-                                    <li class="disabled">AVSO</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                        @if($f->card_id == avso_app)
-                            <li id="avso_app" data-app_type={{renewal}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>
-                        @endif
-
-                        @if($index == $count)
-                            @foreach($result_course_renewal as $g)
-                                @if($g == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-
-                        @if($f->card_id == pi_app )
-                            <li id="pi_app" data-app_type={{renewal}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>
-                        @endif
-                    @endforeach
-                        @php
-                            $course_renewals = array(so_app,avso_app,pi_app);
-                        @endphp
-                        @if(count($renewal) ==0)
-                        @foreach($course_renewals as $f)
-                                @if($f == so_app )
-                                    <li class="disabled">SO</li>
-                                @elseif($f == avso_app )
-                                    <li class="disabled">AVSO</li>
-                                @elseif($f == pi_app )
-                                    <li class="disabled">PI</li>
-                                @endif
-                            @endforeach
-                        @endif
-                </ul>
-            </div>
-
-        </div>
-
+        {{--First design--}}
 {{--    <p style="color: #808080;">My Application Type</p>--}}
 {{--    <div class="container">--}}
 {{--        <div class="row">--}}
@@ -268,10 +29,279 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </div>--}}
-{{--<br>--}}
-{{--<p style="color: #808080;">My Request</p>--}}
-{{--    <div class="container">--}}
+{{--End First design--}}
+
+{{--revisi 1 design--}}
 {{--        <div class="row">--}}
+{{--            <div class="col-sm">--}}
+{{--                <b>New</b><br>--}}
+{{--                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">--}}
+{{--                    @foreach($new as $index => $f)--}}
+{{--                        @php--}}
+{{--                            $course_new []= "";--}}
+{{--                            array_push($course_new,$f->card_id);--}}
+{{--                        @endphp--}}
+{{--                    @endforeach--}}
+{{--                        @php--}}
+{{--                            $course = array(so_app,avso_app,pi_app);--}}
+{{--                            if(!empty($course_new)){--}}
+{{--                                $result_course_new=array_diff($course,array_filter($course_new));--}}
+{{--                            }else{--}}
+{{--                                $result_course_new=$course;--}}
+{{--                            }--}}
+{{--                        @endphp--}}
+{{--                    @foreach($new as $index => $f)--}}
+{{--                            @php--}}
+{{--                                $counts = count($new);--}}
+{{--                                 if ($counts == 1){--}}
+{{--                                     $count = 0;--}}
+{{--                                 }else{--}}
+{{--                                     $count = 1;--}}
+{{--                                 }--}}
+{{--                            @endphp--}}
+{{--                        @if($index==0)--}}
+{{--                            @foreach($result_course_new as $g)--}}
+{{--                                @if($g == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+{{--                        @if($f->card_id == so_app)--}}
+{{--                            <li id="so_app" data-app_type={{news}} data-card={{so_app}} style='cursor: pointer;'>SO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @if($index==0)--}}
+{{--                        @foreach($result_course_new as $g)--}}
+{{--                            @if($g == avso_app )--}}
+{{--                                <li class="disabled">AVSO</li>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                        @endif--}}
+{{--                        @if($f->card_id == avso_app)--}}
+{{--                            <li id="avso_app" data-app_type={{news}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @php--}}
+{{--                        @endphp--}}
+
+{{--                        @if($index == $count )--}}
+{{--                            @foreach($result_course_new as $g)--}}
+{{--                                @if($g == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                        @if($f->card_id == pi_app)--}}
+{{--                            <li id="pi_app" data-app_type={{news}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>--}}
+{{--                        @endif--}}
+
+{{--                    @endforeach--}}
+{{--                        @php--}}
+{{--                            $courses = array(so_app,avso_app,pi_app);--}}
+{{--                        @endphp--}}
+
+{{--                        @if(count($new) ==0)--}}
+
+{{--                            @foreach($courses as $f)--}}
+{{--                                @if($f == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @elseif($f == avso_app )--}}
+{{--                                    <li class="disabled">AVSO</li>--}}
+{{--                                @elseif($f == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+{{--                </ul>--}}
+{{--        </div>--}}
+{{--            <div class="col-sm">--}}
+{{--                <b>Replacement</b><br>--}}
+{{--                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">--}}
+{{--                    @foreach($replacement as $index => $f)--}}
+{{--                        @php--}}
+{{--                            $course_replacement []= "";--}}
+{{--                            array_push($course_replacement,$f->card_id);--}}
+{{--                        @endphp--}}
+{{--                    @endforeach--}}
+{{--                    @php--}}
+{{--                        $course_replacements = array(so_app,avso_app,pi_app);--}}
+{{--                        if(!empty($course_replacement)){--}}
+{{--                            $result_course_replacement=array_diff($course_replacements,array_filter($course_replacement));--}}
+{{--                        }else{--}}
+{{--                            $result_course_replacement=$course_replacements;--}}
+{{--                        }--}}
+{{--                    @endphp--}}
+{{--                    @foreach($replacement as $index => $f)--}}
+{{--                            @php--}}
+{{--                                $counts = count($replacement);--}}
+{{--                                 if ($counts == 1){--}}
+{{--                                     $count = 0;--}}
+{{--                                 }else{--}}
+{{--                                     $count = 1;--}}
+{{--                                 }--}}
+{{--                            @endphp--}}
+{{--                        @if($index==0)--}}
+{{--                            @foreach($result_course_replacement as $g)--}}
+{{--                                @if($g == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                        @if($f->card_id == so_app )--}}
+{{--                            <li id="so_app" data-app_type={{replacement}} data-card={{so_app}} style='cursor: pointer;'>SO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @if($index==0)--}}
+{{--                            @foreach($result_course_replacement as $g)--}}
+{{--                                @if($g == avso_app )--}}
+{{--                                    <li class="disabled">AVSO</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                        @if($f->card_id == avso_app)--}}
+{{--                            <li id="avso_app" data-app_type={{replacement}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @if($index==$count)--}}
+{{--                            @foreach($result_course_replacement as $g)--}}
+{{--                                @if($g == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+{{--                        @if($f->card_id == pi_app)--}}
+{{--                            <li id="pi_app" data-app_type={{replacement}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>--}}
+{{--                        @endif--}}
+
+{{--                    @endforeach--}}
+{{--                    @php--}}
+{{--                        $course_replacements = array(so_app,avso_app,pi_app);--}}
+{{--                    @endphp--}}
+{{--                        @if(count($replacement) ==0)--}}
+{{--                            @foreach($course_replacements as $f)--}}
+{{--                                @if($f == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @elseif($f == avso_app )--}}
+{{--                                    <li class="disabled">AVSO</li>--}}
+{{--                                @elseif($f == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--            <div class="col-sm">--}}
+{{--                <b>Renewal</b><br>--}}
+{{--                <ul class="list-group list-group-flush" style="list-style-type: circle; margin-left: 15px;font-weight: bold;">--}}
+{{--                    @foreach($renewal as $index => $f)--}}
+{{--                        @php--}}
+{{--                            $course_renewal []= "";--}}
+{{--                            array_push($course_renewal,$f->card_id);--}}
+{{--                        @endphp--}}
+{{--                    @endforeach--}}
+{{--                    @php--}}
+{{--                        $course_renewals = array(so_app,avso_app,pi_app);--}}
+{{--                        if(!empty($course_renewal)){--}}
+{{--                            $result_course_renewal=array_diff($course_renewals,array_filter($course_renewal));--}}
+{{--                        }else{--}}
+{{--                            $result_course_renewal=$course_renewals;--}}
+{{--                        }--}}
+{{--                    @endphp--}}
+{{--                    @foreach($renewal as $index => $f)--}}
+{{--                        @php--}}
+{{--                        $counts = count($renewal);--}}
+{{--                         if ($counts == 1){--}}
+{{--                             $count = 0;--}}
+{{--                         }else{--}}
+{{--                             $count = 1;--}}
+{{--                         }--}}
+{{--                        @endphp--}}
+{{--                        @if($index == 0)--}}
+{{--                            @foreach($result_course_renewal as $g)--}}
+{{--                                @if($g == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+{{--                        @if($f->card_id == so_app)--}}
+{{--                            <li id="so_app" data-app_type={{renewal}} data-card={{so_app}} style='cursor: pointer;'>SO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @if($index == 0)--}}
+{{--                            @foreach($result_course_renewal as $g)--}}
+{{--                                @if($g == avso_app )--}}
+{{--                                    <li class="disabled">AVSO</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                        @if($f->card_id == avso_app)--}}
+{{--                            <li id="avso_app" data-app_type={{renewal}} data-card={{avso_app}} style='cursor: pointer;'>AVSO</li>--}}
+{{--                        @endif--}}
+
+{{--                        @if($index == $count)--}}
+{{--                            @foreach($result_course_renewal as $g)--}}
+{{--                                @if($g == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+{{--                        @if($f->card_id == pi_app )--}}
+{{--                            <li id="pi_app" data-app_type={{renewal}} data-card={{pi_app}} style='cursor: pointer;'>PI</li>--}}
+{{--                        @endif--}}
+{{--                    @endforeach--}}
+{{--                        @php--}}
+{{--                            $course_renewals = array(so_app,avso_app,pi_app);--}}
+{{--                        @endphp--}}
+{{--                        @if(count($renewal) ==0)--}}
+{{--                        @foreach($course_renewals as $f)--}}
+{{--                                @if($f == so_app )--}}
+{{--                                    <li class="disabled">SO</li>--}}
+{{--                                @elseif($f == avso_app )--}}
+{{--                                    <li class="disabled">AVSO</li>--}}
+{{--                                @elseif($f == pi_app )--}}
+{{--                                    <li class="disabled">PI</li>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--End revisi 1 design--}}
+
+{{--revisi 2 design--}}
+
+    <p><b>My Application Type</b></p>
+    <div class="container">
+        <div class="row">
+{{--            <div class="col-sm">--}}
+{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="news" value="@php echo news @endphp"  >New</button>--}}
+{{--            </div>--}}
+{{--            <div class="col-sm">--}}
+{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="replacement" value="@php echo replacement @endphp" >Replacement</button>--}}
+{{--            </div>--}}
+{{--            <div class="col-sm">--}}
+{{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="renewal" value="@php echo renewal @endphp" >Renewal</button>--}}
+{{--            </div>--}}
+            <input class="form-check-input" type="checkbox" name="app_type" id="news" value="{{news}}" ><b>&ensp;&ensp;&ensp;New</b><br/>
+        </div>
+        <div class="row">
+            <input class="form-check-input" type="checkbox" name="app_type" id="replacement" value="{{replacement}}" ><b>&ensp;&ensp;&ensp;Replacement</b>
+        </div>
+        <div class="row">
+            <input class="form-check-input" type="checkbox" name="app_type" id="renewal" value="{{renewal}}" ><b>&ensp;&ensp;&ensp;Renewal</b>
+        </div>
+    </div>
+<br>
+    <p><b>My Request</b></p>
+    <div class="container">
+        <div class="row">
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>--}}
 {{--            </div>--}}
@@ -281,9 +311,16 @@
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>--}}
 {{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
+                <input class="form-check-input" type="checkbox" name="request" id="so_app" value="" data-card={{so_app}}><b>&ensp;&ensp;&ensp;Security Officer (SO)</b>
+        </div>
+        <div class="row">
+                <input class="form-check-input" type="checkbox" name="request" id="avso_app" value="" data-card={{avso_app}}><b>&ensp;&ensp;&ensp;Aviation Security Officer (AVSO)</b>
+        </div>
+        <div class="row">
+                <input class="form-check-input" type="checkbox" name="request" id="pi_app" value="" data-card={{pi_app}}><b>&ensp;&ensp;&ensp;Private Investigator (PI)</b>
+        </div>
+    </div>
+{{--End revisi 2 design--}}
 
     <form method="post" id="personal_particular" action="{{ route('personal.particular') }}" style="display: none">
         @csrf
@@ -710,21 +747,31 @@
     //         }
     //     }
     // });
+
     $(document).ready(function() {
         // Application type
+        Remove_course();
+
         $("#news").click(function() {
+            $("#replacement").prop('checked', false);
+            $("#renewal").prop('checked', false);
+
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#replacement").addClass('btn-secondary').removeClass('btn-danger ');
             $("#renewal").addClass('btn-secondary').removeClass('btn-danger ');
             Remove_course();
             // RemoveDissableRequest();
             check_card_new();
-            $("#app_type").val(document.getElementById("news").value);
+            // $("#app_type").val(document.getElementById("news").value);
+            $("#app_type").val($('input[name="app_type"]:checked').val());
             $("#new_click").val(true);
             $("#replacement_click").val(false);
             $("#renewal_click").val(false);
         });
         $("#replacement").click(function() {
+            $("#news").prop('checked', false);
+            $("#renewal").prop('checked', false);
+
             // $('#Modalreplacement').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
@@ -735,10 +782,16 @@
             $("#replacement_click").val(true);
             $("#new_click").val(false);
             $("#renewal_click").val(false);
-            $("#app_type").val(document.getElementById("replacement").value);
+            // $("#app_type").val(document.getElementById("replacement").value);
+            $("#app_type").val($('input[name="app_type"]:checked').val());
+
             // $( "#personal_particular" ).submit();
         });
         $("#renewal").click(function() {
+
+            $("#news").prop('checked', false);
+            $("#replacement").prop('checked', false);
+
             // $('#Modalrenewal').modal('show');
             $(this).addClass('btn-danger').removeClass('btn-secondary ');
             $("#news").addClass('btn-secondary').removeClass('btn-danger ');
@@ -760,7 +813,9 @@
             // $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
             // $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
             $("#card").val(document.getElementById("so_app").value);
-            $("#app_type").val($(this).attr("data-app_type"));
+
+            // $("#app_type").val($(this).attr("data-app_type"));
+
             $("#card").val($(this).attr("data-card"));
             $( "#personal_particular" ).submit();
         });
@@ -768,7 +823,7 @@
             // $(this).addClass('btn-danger').removeClass('btn-secondary ');
             // $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
             // $("#pi_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#app_type").val($(this).attr("data-app_type"));
+            // $("#app_type").val($(this).attr("data-app_type"));
             $("#card").val($(this).attr("data-card"));
             // if($("#new_click").val() == "true"){
             //     $( "#personal_particular" ).submit();
@@ -793,7 +848,7 @@
             // $(this).addClass('btn-danger').removeClass('btn-secondary ');
             // $("#so_app").addClass('btn-secondary').removeClass('btn-danger ');
             // $("#avso_app").addClass('btn-secondary').removeClass('btn-danger ');
-            $("#app_type").val($(this).attr("data-app_type"));
+            // $("#app_type").val($(this).attr("data-app_type"));
             $("#card").val($(this).attr("data-card"));
             // if($("#new_click").val() == "true"){
             //     $( "#personal_particular" ).submit();
@@ -818,8 +873,14 @@
 
     function Remove_course() {
         $("#so_app").prop("disabled", true);
-        $("#avso_app").prop("disabled", true);
+        $("#avso_app").prop( "disabled",true);
         $("#pi_app").prop("disabled", true);
+    }
+
+    function add_course() {
+        $("#so_app").prop("disabled", false);
+        $("#avso_app").prop( "disabled",false);
+        $("#pi_app").prop("disabled", false);
     }
     function check_card_new() {
         {!!  json_encode($new) !!}.forEach((entry) => {
@@ -836,7 +897,7 @@
     }
     function check_card_replacement() {
         {!!  json_encode($replacement) !!}.forEach((entry) => {
-            if(entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_replacement) !!} == false ) {
+            {{--if(entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_replacement) !!} == false ) {--}}
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
                     $("#so_app").prop("disabled", false);
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
@@ -844,12 +905,12 @@
                 } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
                     $("#pi_app").prop("disabled", false);
                 }
-            }
+            // }
         });
     }
     function check_card_renewal() {
         {!!  json_encode($renewal) !!}.forEach((entry) => {
-            if(  entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_renewal) !!} == true) {
+            {{--if(  entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_renewal) !!} == true) {--}}
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
                     $("#so_app").prop("disabled", false);
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
@@ -857,7 +918,7 @@
                 } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
                     $("#pi_app").prop("disabled", false);
                 }
-            }
+            // }
         });
     }
     function RemoveDissableRequest() {
@@ -867,7 +928,6 @@
             // url:'/ajax/cek/card/type',
             url:"{{ url('/ajax/cek/card/type') }}",
             success:function(data) {
-                console.log('da',data)
               if(data['so_app'] == true){
                   if(data['so_app'] == true && data['avso_app'] == true && data['pi_app'] == true){
 

@@ -1321,8 +1321,7 @@ class HomeController extends Controller
                 if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
 //                    die(print_r($take_grade));
 //                    die(print_r($request->Cgrade[0]));
-//                    die(print_r($request->Cgrades));
-                    if (count((json_decode($request->Cgrade[0]))) <=  count($request->Cgrades) && !count((json_decode($request->Cgrade[0]))) ==  count($request->Cgrades)) {
+                        if (!empty(json_decode($request->Cgrade[0])) && count((json_decode($request->Cgrade[0]))) <=  count($request->Cgrades) && !count((json_decode($request->Cgrade[0]))) ==  count($request->Cgrades)) {
                         foreach ($take_grade as $f) {
                             $result = array_search("on", $take_grade);
                             unset($take_grade[$result]);
