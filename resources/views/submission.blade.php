@@ -557,10 +557,10 @@
                     $("#grade").val($("input[name='Cgrade']:checked").val());
                     $("#text_declare" ).text($('input[name="Cgrade"]:checked').parent().text());
                 }else{
-                    swal("Please!", " tick declare", "error")
+                    swal("Error!", " tick declare", "error")
                 }
             }else{
-                swal("Please!", " select training", "error")
+                swal("Error!", " select training", "error")
 
             }
 
@@ -572,13 +572,13 @@
                 // if ($("input[name='declare']:checked").val() != undefined){
                     save_submission();
                 // }else{
-                //     swal("Please!", "tick declare", "error")
+                //     swal("Error!", "tick declare", "error")
                 // }
             }else{
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
                     save_submission();
                 } else {
-                    swal("Please!", "Upload Photo", "error")
+                    swal("Error!", "Upload Photo", "error")
                 }
             }
         });
@@ -593,13 +593,13 @@
                             var pathFile = inputFile.value;
                             var ekstensiOk = /(\.jpg|\.jpeg)$/i;
                             // if (!ekstensiOk.exec(pathFile)) {
-                            //     swal("Please!", "Photo uploaded must be in JPG format. ", "error")
+                            //     swal("Error!", "Photo uploaded must be in JPG format. ", "error")
                             // } else {
                             //     $("#book_appointment").submit();
                             // }
 
                             {{--if ($('#Cgrade').val() == "" && {!!  json_encode($request->array_grade) !!} == null){--}}
-                            {{--        swal("Please!", "select a course", "error")--}}
+                            {{--        swal("Error!", "select a course", "error")--}}
                             {{--}else{--}}
                             {{--if ({!!  json_encode($request->array_grade) !!} == null )--}}
 
@@ -634,14 +634,14 @@
                             // }
 
                         } else {
-                            swal("Please!", " Please acknowledge declaration.", "error");
+                            swal("Error!", " Please acknowledge declaration.", "error");
                         }
                     } else {
                         $("#book_appointment").submit();
                     }
 
                 } else {
-                    swal("Please!", "Upload Photo", "error")
+                    swal("Error!", "Upload Photo", "error")
                 }
 
         }
@@ -676,7 +676,7 @@
                        }else{
                            $('.file_upload_profile').attr('src','/img/upload.png' );
                        }
-                           swal("Please!", "Photo uploaded must be less than 1 MB size.", "error")
+                           swal("Error!", "Photo uploaded must be less than 1 MB size.", "error")
                    }
                 }else{
                         control.value = null;
@@ -685,7 +685,7 @@
                         }else{
                             $('.file_upload_profile').attr('src','/img/upload.png' );
                         }
-                        swal("Please!", "Photo uploaded must be in JPG format. ", "error")
+                        swal("Error!", "Photo uploaded must be in JPG format. ", "error")
                 }
             }
         });
