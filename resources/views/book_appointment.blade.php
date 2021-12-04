@@ -181,7 +181,7 @@
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Please!", "No date selection.", "error")
+                swal("Error!", "No date selection.", "error")
             }
         });
     });

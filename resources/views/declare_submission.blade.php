@@ -67,7 +67,7 @@
                 //     swal("Please!", " tick declare", "error")
                 // }
             }else{
-                swal("Please!", " select training", "error")
+                swal("Error!", " select training", "error")
 
             }
 

@@ -68,7 +68,7 @@
                 console.log('s',files[i].type)
                 if(files[i].type != "text/csv"){
                     control.value = '';
-                    swal("Please!", "upload files with the extension csv ", "error")
+                    swal("Error!", "upload files with the extension csv ", "error")
                 }
             }
         });

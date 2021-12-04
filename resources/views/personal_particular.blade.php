@@ -289,13 +289,13 @@
                                     // $("#submit_personal_particular").submit();
                                 }
                             }else{
-                                swal("Please!", "Input file Pass Expiry Date", "error")
+                                swal("Error!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
                             create_activation();
                         }
                     }else{
-                            swal("Please!", "Only Singapore numbers are valid.", "error")
+                            swal("Error!", "Only Singapore numbers are valid.", "error")
                     }
                 }else{
                         swal("Error!", "Mobile number incomplete.", "error")
@@ -311,13 +311,13 @@
                                     create_activation();
                                 }
                             }else{
-                                swal("Please!", "Input file Pass Expiry Date", "error")
+                                swal("Error!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
                             create_activation();
                         }
                     }else{
-                        swal("Please!", "Only Singapore numbers are valid.", "error")
+                        swal("Error!", "Only Singapore numbers are valid.", "error")
                     }
                 }else{
                     swal("Error!", "Mobile number incomplete.", "error")
@@ -400,9 +400,9 @@
                 if (data == true){
                     $( "#form_activation" ).trigger( "click" );
                 }else if(data == {!!  json_encode(not_number_singapore) !!}){
-                    swal("Please!", "Only Singapore numbers are valid.", "error")
+                    swal("Error!", "Only Singapore numbers are valid.", "error")
                 }else if(data == {!!  json_encode(wrong_format_number) !!}){
-                    swal("Please!", "Wrong number format", "error")
+                    swal("Error!", "Wrong number format", "error")
                 }else if(data == {!!  json_encode(same_number_phone) !!}){
                     $("#submit_personal_particular").submit();
                 }

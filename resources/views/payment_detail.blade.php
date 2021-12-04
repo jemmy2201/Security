@@ -496,7 +496,7 @@
                 {{--    }--}}
                 {{--};--}}
             }else{
-                swal("Please!", "Complete the data", "error")
+                swal("Error!", "Complete the data", "error")
             }
         });
         $(".logout_save_draft").click(function() {
