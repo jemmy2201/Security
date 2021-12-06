@@ -105,7 +105,7 @@
         <br class="hidden-xs">
     <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">
-            Email address <span style="color:red; vertical-align: super; font-size: small;">*Optional</span>
+            Email address <span style="color:black; vertical-align: super; font-size: small;">*Optional</span>
         </div>
     </div>
     <div class="row hidden-xs">
@@ -152,7 +152,7 @@
         </div><br>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal email">
-                Email <span style="color:red; vertical-align: super; font-size: small;">*Optional</span>
+                Email <span style="color:black; vertical-align: super; font-size: small;">*Optional</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
