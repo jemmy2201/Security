@@ -66,14 +66,14 @@
 
     <div class="row hidden-xs">
         <div class="col-6 HeaderdataPersonal phone">
-            SG mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
+            Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
         </div>
     </div>
     <div class="row hidden-xs">
-        <div class="col-4 HeaderdataPersonal">
-            <input type="number" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
+        <div class="col-4 HeaderdataPersonal" >
+            <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
         </div>
-        <div class="col-4 HeaderdataPersonal">
+        <div class="col-4 HeaderdataPersonal" style="margin-left: -20px;">
             <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="#" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
@@ -102,10 +102,10 @@
             </div>
         @endif
     </div><br>
-
+        <br class="hidden-xs">
     <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">
-            Email address <span style="color:red; vertical-align: super; font-size: small;">*Optional</span>
+            Email address <span style="color:black; vertical-align: super; font-size: small;">*Optional</span>
         </div>
     </div>
     <div class="row hidden-xs">
@@ -117,7 +117,7 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                SG mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
+                Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
@@ -152,7 +152,7 @@
         </div><br>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal email">
-                Email <span style="color:red; vertical-align: super; font-size: small;">*Optional field</span>
+                Email <span style="color:black; vertical-align: super; font-size: small;">*Optional field</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
