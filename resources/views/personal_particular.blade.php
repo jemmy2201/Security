@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="row hidden-xs">
-        <div class="col-4 HeaderdataPersonal" >
+        <div class="col-2 HeaderdataPersonal" >
             <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
         </div>
         <div class="col-4 HeaderdataPersonal" style="margin-left: -20px;">
