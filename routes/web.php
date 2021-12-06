@@ -55,6 +55,7 @@ Route::get('/admin/payment', function () {
 Auth::routes();
 // User
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/landing_page', 'HomeController@landing_page')->name('home');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::get('/submission', 'HomeController@getsubmission');

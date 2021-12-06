@@ -263,7 +263,8 @@ class SingpassController extends Controller
             }
         }else{
 
-            return redirect()->to('/');
+//            return redirect()->to('/');
+            return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
 
         }
 

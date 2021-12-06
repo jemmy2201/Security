@@ -166,7 +166,7 @@
     <div class="row">
         <div class="col-2 back">
             <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url("/home")}}" style="text-decoration:none; color: white;">
+                <a href="{{url("/landing_page")}}" style="text-decoration:none; color: white;">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Back
                 </a>

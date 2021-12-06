@@ -42,8 +42,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
     public function index()
+    {
+        return view('home');
+    }
+    public function landing_page()
     {
         $cek_del_schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereIn('Status_app', [draft])->get();
 
@@ -132,7 +135,7 @@ class HomeController extends Controller
             return view('admin/upgrade_grade');
         }
 //        die(print_r($sertifikat->first()));
-        return view('home')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
+        return view('landing_page')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
     }
 
