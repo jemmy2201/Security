@@ -66,7 +66,7 @@
 
     <div class="row hidden-xs">
         <div class="col-6 HeaderdataPersonal phone">
-            Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
+            Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
         </div>
     </div>
     <div class="row hidden-xs">
@@ -105,7 +105,7 @@
         <br class="hidden-xs">
     <div class="row hidden-xs">
         <div class="col HeaderdataPersonal email">
-            Email address <span style="color:black; vertical-align: super; font-size: small;">*Optional</span>
+            Email address <span style="color:red; vertical-align: super; font-size: small;">*Optional</span>
         </div>
     </div>
     <div class="row hidden-xs">
@@ -117,7 +117,7 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                Singapore mobile number <span style="color:black; vertical-align: super; font-size: small;">*Mandatory</span>
+                Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
@@ -152,7 +152,7 @@
         </div><br>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal email">
-                Email <span style="color:black; vertical-align: super; font-size: small;">*Optional field</span>
+                Email <span style="color:red; vertical-align: super; font-size: small;">*Optional</span>
             </div>
         </div>
         <div class="row visible-xs hidden-md">
