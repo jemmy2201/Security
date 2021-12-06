@@ -16,8 +16,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/3.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: Black;">Submission
-    </h2>
+    <h2 style="color: Black;"><b>Submission</b></h2>
     <br>
         {{-- Desktop --}}
     <h3 style="font-size: 20px;"><b>Details</b></h3>
