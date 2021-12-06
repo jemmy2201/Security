@@ -98,7 +98,7 @@
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
                 @if(isset($request->Status_App) && $request->Status_App == resubmission ||Request::route()->getName() == default_alter_login || isset($request->router_name) || $request->router_name == view_course)
-                    <a  href="{{ url('/home') }}">
+                    <a  href="{{ url('/landing_page') }}">
                         <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
                     </a>
                 @else
