@@ -197,7 +197,7 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/5.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: #E31E1A;">Payment Details</h2>
+    <h2 style="color: black;font-weight: bold;">Payment Details</h2>
     <br>
         @csrf
     <div class="row">
@@ -252,14 +252,14 @@
         <div class="col-2">
         </div>
         <div class="col-10">
-            <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-            <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="enets" style="width: 15%; margin-left: 60px;">
+            <img src="{{URL::asset('/img/payment_icon/paynow.png')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+            <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="width: 15%; margin-left: 60px;">
         </div>
     </div>
     <div class="visible-xs hidden-md">
         <h3>Select Your Payment Method</h3><br>
-        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow_phone" style="width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-        <img  src="{{URL::asset('/img/payment_icon/enets.png')}}" id="phone_enets" style="width: 35%;">
+        <img src="{{URL::asset('/img/payment_icon/paynow.png')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow_phone" style="width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+        <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="width: 35%;">
     </div>
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
 
