@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <h4 style="font-weight: bold;">
-            To continue further, you must agree to the terms of user for accessing this web portal.
+            To continue further, you must agree to the terms of use for accessing this web portal.
         </h4>
         <h4 style="font-weight: bold;">
             Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.
