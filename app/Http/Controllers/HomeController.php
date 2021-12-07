@@ -154,6 +154,10 @@ class HomeController extends Controller
     public function backpersonaldata(Request $request,$app_type,$card,$Status_App = false)
     {
         $request->merge(['app_type' => $app_type,'card' => $card,'Status_App' => $Status_App]);
+        $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+            ->update([
+                'Status_draft' => null,
+            ]);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
