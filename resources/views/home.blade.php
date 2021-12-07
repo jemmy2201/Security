@@ -7,7 +7,10 @@
 @section('content')
     <div class="container">
         <h4 style="font-weight: bold;">
-            To continue further, you must agree to the terms of user for accessing this web portal. Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.
+            To continue further, you must agree to the terms of user for accessing this web portal.
+        </h4>
+        <h4 style="font-weight: bold;">
+            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.
         </h4>
     </div>
     <div class="container">
@@ -24,16 +27,31 @@
             </div>
         </div>
     </div>
+    <br><br><br>
     <div class="container">
         <div class="row">
-            <div class="col-2">
+            <div class="col-2 hidden-xs">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
                 </button>
             </div>
-            <div class="col-2">
+            <div class="col-2 hidden-xs">
+                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
+                    <a href="" style="text-decoration:none; color: white;">
+                        Next
+                    </a>
+                </button>
+            </div>
+            <div class="col-4 visible-xs hidden-md">
+                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+                    <a href="" style="text-decoration:none; color: white;">
+                        Back
+                    </a>
+                </button>
+            </div>
+            <div class="col-4 visible-xs hidden-md">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
                     <a href="" style="text-decoration:none; color: white;">
                         Next
@@ -55,7 +73,7 @@
             if ($("input[name='agree_pdf']:checked").val()) {
                     window.location.href = "/landing_page";
             }else{
-                swal("Error!", "Tick Accept the Terms of Use and continue.", "error")
+                swal("Error!", "Tick Accept the Terms of Use.", "error")
             }
         });
     });
