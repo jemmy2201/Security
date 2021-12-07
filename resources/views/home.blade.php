@@ -39,7 +39,7 @@
             </div>
             <div class="col-2 hidden-xs">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
-                    <a href="" style="text-decoration:none; color: white;">
+                    <a href="#" style="text-decoration:none; color: white;">
                         Next
                     </a>
                 </button>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-4 visible-xs hidden-md">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
-                    <a href="" style="text-decoration:none; color: white;">
+                    <a href="#" style="text-decoration:none; color: white;">
                         Next
                     </a>
                 </button>
@@ -62,15 +62,13 @@
     </div>
 <script type="application/javascript">
     $( document ).ready(function() {
-        // $('#agree_pdf').on('click', function () {
-        //     window.location.href = "/landing_page";
-        // });
         $('#open_terms').on('click', function () {
             $("#view_terms").css("display", "block");
         });
 
         $('#next').on('click', function () {
             if ($("input[name='agree_pdf']:checked").val()) {
+                console.log('ss')
                     window.location.href = "/landing_page";
             }else{
                 swal("Error!", "Tick Accept the Terms of Use.", "error")
