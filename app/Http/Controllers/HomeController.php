@@ -44,6 +44,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == admin  ) {
+            return view('admin/historylogin');
+        }elseif(Auth::user()->role == office){
+            return view('admin/upgrade_grade');
+        }
+//        die(print_r($sertifikat->first()));
         return view('home');
     }
     public function landing_page()
