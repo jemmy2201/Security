@@ -3,11 +3,24 @@
     .disabled{
         font-weight: normal;
     }
+    @media (min-width: 768px) {
+        .modal-dialog {
+            max-width: 900px !important;
+        }
+        #view_terms {
+            width: 570px;
+        }
+    }
+    @media only screen and (max-width: 600px) {
+        #view_terms {
+            width: 350px;
+        }
+    }
 </style>
 @section('content')
     <div class="container">
         <h4 style="font-weight: bold;">
-            To continue further, you must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms</span> of use for accessing this web portal.
+            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this web portal.
         </h4>
 {{--        <h4 style="font-weight: bold;">--}}
 {{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}
@@ -22,7 +35,7 @@
             <div class="col-12">
                 <h4>
                 <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
-                <span style="margin-left: 20px;font-weight: bold;">Accept and proceed</span>
+                <span style="margin-left: 20px;font-weight: bold;">Accept and proceed.</span>
                 </h4>
             </div>
         </div>
@@ -72,7 +85,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                      <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}#toolbar=0" width="100%" height="500px;" style="display: block;" id="view_terms"></iframe>
+                          <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
                 </div>
 {{--                <div class="modal-footer">--}}
 {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
