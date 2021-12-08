@@ -72,7 +72,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                      <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}" width="100%" height="250px;" style="display: block;" id="view_terms"></iframe>
+                      <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}#toolbar=0" width="100%" height="500px;" style="display: block;" id="view_terms"></iframe>
                 </div>
 {{--                <div class="modal-footer">--}}
 {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
