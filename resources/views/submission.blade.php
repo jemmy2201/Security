@@ -461,7 +461,7 @@
             </button>
         </div>
         <div class="col-4  visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg " save_draft style="border-style: groove; background: black; color: white;">
+            <button class=" btn btn-light btn-lg save_draft" type="button"  style="border-style: groove; background: black; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
