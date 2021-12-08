@@ -127,7 +127,7 @@
                     @if (strlen($personal->name) > 40)
 {{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>--}}
                             <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
-                                <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="resize: none;" readonly>
                                 {{$personal->name}}
                                 </textarea>
 {{--                                {{substr($personal->name,0,15)}}<br>{{substr($personal->name,15,15)}}<br>{{substr($personal->name,30,15)}}<br>{{substr($personal->name,45,15)}}<br>{{substr($personal->name,60,15)}}--}}
@@ -452,7 +452,7 @@
 {{--        </div>--}}
 {{--        <div class="col-6 medium visible-xs hidden-md">--}}
 {{--        </div>--}}
-        <div class="col-2 next hidden-xs">
+        <div class="col-2  hidden-xs">
             <button type="button" class="btn btn-light btn-lg btn-block save_draft" style="border-style: groove; background: black; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
@@ -460,8 +460,8 @@
 {{--                </a>--}}
             </button>
         </div>
-        <div class="col-4 next visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" save_draft style="border-style: groove; background: black; color: white;">
+        <div class="col-4  visible-xs hidden-md">
+            <button class=" btn btn-light btn-lg " save_draft style="border-style: groove; background: black; color: white;">
 {{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card)}}" style="text-decoration:none; color: white;">--}}
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft

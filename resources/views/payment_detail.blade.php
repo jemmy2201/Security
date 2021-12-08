@@ -434,11 +434,11 @@
                 </a>
             </button>
         </div>
-        <div class="col-4  visible-xs hidden-md">
+        <div class="col-3  visible-xs hidden-md">
 
         </div>
         <div class="col-4 visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
+            <button class=" btn btn-light btn-lg" style="border-style: groove; background: black; color: #E31D1A">
                 <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft)}}" style="text-decoration:none; color: white;">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
