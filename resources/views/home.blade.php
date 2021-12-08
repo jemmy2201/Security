@@ -3,26 +3,26 @@
     .disabled{
         font-weight: normal;
     }
-</style
+</style>
 @section('content')
     <div class="container">
         <h4 style="font-weight: bold;">
-            To continue further, you must agree to the terms of use for accessing this web portal.
+            To continue further, you must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms</span> of use for accessing this web portal.
         </h4>
-        <h4 style="font-weight: bold;">
-            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.
-        </h4>
+{{--        <h4 style="font-weight: bold;">--}}
+{{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}
+{{--        </h4>--}}
     </div>
-    <div class="container">
-        <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}" width="100%" height="100%" style="display: none;" id="view_terms"></iframe>
-    </div>
+{{--    <div class="container">--}}
+{{--        <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}" width="100%" height="100%" style="display: none;" id="view_terms"></iframe>--}}
+{{--    </div>--}}
     <br>
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <h4>
                 <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
-                <span style="margin-left: 20px;font-weight: bold;">Accept Terms Of Use and proceed</span>
+                <span style="margin-left: 20px;font-weight: bold;">Accept and proceed</span>
                 </h4>
             </div>
         </div>
@@ -60,10 +60,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+{{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                      <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}" width="100%" height="250px;" style="display: block;" id="view_terms"></iframe>
+                </div>
+{{--                <div class="modal-footer">--}}
+{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+{{--                </div>--}}
+            </div>
+        </div>
+    </div>
+
+
 <script type="application/javascript">
     $( document ).ready(function() {
         $('#open_terms').on('click', function () {
-            $("#view_terms").css("display", "block");
+            // $("#view_terms").css("display", "block");
+            // $('#view_terms').modal('show');
         });
 
         $('#next').on('click', function () {
