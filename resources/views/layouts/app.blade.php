@@ -74,7 +74,7 @@
         @media only screen and (max-width: 600px) {
             .swal-button{
                 background-color: red;
-                margin-right:138px;
+                margin-right:116px;
             }
         }
     </style>

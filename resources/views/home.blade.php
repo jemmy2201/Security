@@ -19,7 +19,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <h4>
                 <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
                 <span style="margin-left: 20px;font-weight: bold;">Accept Terms Of Use and proceed</span>
@@ -52,7 +52,7 @@
                 </button>
             </div>
             <div class="col-4 visible-xs hidden-md">
-                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
+                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
                     </a>
@@ -70,6 +70,14 @@
             if ($("input[name='agree_pdf']:checked").val()) {
                 console.log('ss')
                     window.location.href = "/landing_page";
+            }else{
+                swal("Error!", "Tick Accept the Terms of Use.", "error")
+            }
+        });
+        $('#next_phone').on('click', function () {
+            if ($("input[name='agree_pdf']:checked").val()) {
+                console.log('ss')
+                window.location.href = "/landing_page";
             }else{
                 swal("Error!", "Tick Accept the Terms of Use.", "error")
             }
