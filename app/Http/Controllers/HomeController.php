@@ -197,6 +197,9 @@ class HomeController extends Controller
                 foreach ($temp_array_grade as $f) {
                     array_unshift($array_grade, $f);
                 }
+                if (empty($array_grade[0])){
+                    $array_grade = null;
+                }
             }
 //            die(print_r(json_encode(array_filter($array_grade))));
 

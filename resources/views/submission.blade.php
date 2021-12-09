@@ -367,9 +367,9 @@
         <h3 style="font-size: 20px;"><b>Photo Submission</b></h3>
         <br>
     </h3>
-        <button type="button" class="btn btn-danger  file_upload_profiles hidden-xs" style="background: black; border: 2px solid black;position: absolute;
+        <button type="button" class="btn btn-secondary  file_upload_profiles hidden-xs" style=" border: 2px solid black;position: absolute;
     margin-left: 27px;">Upload Photo</button>
-        <button type="button" class="btn btn-danger  file_upload_profiles visible-xs hidden-md" style="background: black; border: 2px solid black;position: absolute;">Upload Photo</button>
+        <button type="button" class="btn btn-secondary  file_upload_profiles visible-xs hidden-md" style=" border: 2px solid black;position: absolute;">Upload Photo</button>
     <br><br>
 
     <div class="row">
@@ -529,7 +529,6 @@
 @endif
 
 <script type="application/javascript">
-
     $( document ).ready(function() {
         $(".declare").hide();
         $("#view_declare").hide();
