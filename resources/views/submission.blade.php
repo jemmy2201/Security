@@ -35,7 +35,7 @@
                         <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($personal->name) > 40)
                             <div class="col-4 ColoumndataPersonal">
-                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
                                 {{$personal->name}}
                                 </textarea>
                             </div>
@@ -127,7 +127,7 @@
                     @if (strlen($personal->name) > 40)
 {{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($personal->name,0,40)}}<br>{{substr($personal->name,40)}}</div>--}}
                             <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
-                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="resize: none;border: none;" readonly>
                                 {{$personal->name}}
                                 </textarea>
 {{--                                {{substr($personal->name,0,15)}}<br>{{substr($personal->name,15,15)}}<br>{{substr($personal->name,30,15)}}<br>{{substr($personal->name,45,15)}}<br>{{substr($personal->name,60,15)}}--}}
@@ -196,7 +196,7 @@
         </div>
         {{-- End Phone --}}
 
-    <br><br>
+{{--    <br><br>--}}
     <form method="post" id="book_appointment" action="{{ route('book.appointment') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
@@ -247,11 +247,11 @@
 {{--                    </div>--}}
 {{--                    <button type="button"  class=" btn btn-danger" style="background: black;">Training Records</button>--}}
                     <h3 style="font-size: 20px;"><b>Training Records</b></h3>
-                    <br>
+{{--                    <br>--}}
 {{--                @if(!empty($cek_grade->array_grade))--}}
 {{--                    @foreach (json_decode($cek_grade->array_grade) as $f)--}}
                         @php $data = DB::table('grades')->where(['id'=>$f])->get();@endphp
-                        <br>
+{{--                        <br>--}}
 {{--                        <div class="col-10">--}}
 {{--                            <img src="{{URL::asset('/img/rounded .png')}}" style="width:15px;">--}}
 {{--                            <a>{{$data[0]->name}}</a><br>--}}
@@ -367,6 +367,11 @@
         <h3 style="font-size: 20px;"><b>Photo Submission</b></h3>
         <br>
     </h3>
+        <button type="button" class="btn btn-danger  file_upload_profiles hidden-xs" style="background: black; border: 2px solid black;position: absolute;
+    margin-left: 27px;">Upload Photo</button>
+        <button type="button" class="btn btn-danger  file_upload_profiles visible-xs hidden-md" style="background: black; border: 2px solid black;position: absolute;">Upload Photo</button>
+    <br><br>
+
     <div class="row">
         <div class="col-2 upload_profile" style="margin-top: 10px; border: 1px solid black; padding: 5px 0px 5px 10px; margin-left: 10px;">
             <img class="file_upload_profile"  src="{{URL::asset('/img/upload.png')}}" style="width: 95%; ">
@@ -375,10 +380,7 @@
             </center>
             <input type="file" name="upload_profile" id="upload_profile" style="display: none;">
         </div>
-        <button type="button" class="btn btn-danger  file_upload_profiles hidden-xs" style="background: black; border: 2px solid black;position: absolute;margin-top: 263px;
-    margin-left: 41px;">Upload Photo</button>
-        <button type="button" class="btn btn-danger  file_upload_profiles visible-xs hidden-md" style="background: black; border: 2px solid black;position: absolute;margin-top: 273px;
-    margin-left: 17px;">Upload Photo</button>
+
 {{--        <div class="col-2 hidden-xs" style="border-right: 1px solid black;">--}}
 {{--            <ul class="list-group list-group-flush" >--}}
 {{--                <li class="list-group-item" style=" border-bottom: 0 none;">--}}
@@ -401,7 +403,9 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>
+{{--            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>--}}
+            <p>- Photo uploaded must be in JPG or PNG formats</p>
+            <p>- Photo image's size must not more than 5 MB</p>
 
         </div>
         <div class="col-6 visible-xs hidden-md">
@@ -411,7 +415,9 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>
+{{--            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>--}}
+            <p>- Photo uploaded must be in JPG or PNG formats</p>
+            <p>- Photo image's size must not more than 5 MB</p>
 {{--            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>--}}
 {{--            @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
 {{--                @if(empty($resubmission))--}}
@@ -428,10 +434,10 @@
 {{--            <button type="button"  class=" btn btn-danger btn-lg btn-block file_upload_profiles">Upload Photo</button>--}}
         </div>
     </div>
-    <br>
+{{--    <br>--}}
         @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
             @if(empty($resubmission))
-                <br class="hidden-xs">
+{{--                <br class="hidden-xs">--}}
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
                 <b class="hidden-xs">I declare the information on the training competency is true and I have submitted my photo.</b>
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
@@ -534,7 +540,7 @@
             $( "#delcare_submission" ).submit();
         });
 
-        $(".save_draft" ).click(function() {
+        $(".TextAreaName" ).click(function() {
                 var val = [];
                 $('input[name="Cgrades[]"]:checked').each(function(i){
                     val[i] = $(this).val();
@@ -665,8 +671,8 @@
             var control = document.getElementById("upload_profile");
             var files = control.files;
             for (var i = 0; i < files.length; i++) {
-                if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
-                   if (files[i].size <= {!! json_encode(one_mb) !!}){
+                // if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
+                   if (files[i].size <= {!! json_encode(five_mb) !!}){
                        readURL(this);
                    }else{
                            control.value = null;
@@ -675,17 +681,17 @@
                        }else{
                            $('.file_upload_profile').attr('src','/img/upload.png' );
                        }
-                           swal("Error!", "Photo uploaded must be less than 1 MB size.", "error")
+                           swal("Error!", "Photo uploaded must be less than 5 MB size.", "error")
                    }
-                }else{
-                        control.value = null;
-                        if (!{!! json_encode($personal->photo) !!} == ""){
-                            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
-                        }else{
-                            $('.file_upload_profile').attr('src','/img/upload.png' );
-                        }
-                        swal("Error!", "Photo uploaded must be in JPG format. ", "error")
-                }
+                {{--}else{--}}
+                {{--        control.value = null;--}}
+                {{--        if (!{!! json_encode($personal->photo) !!} == ""){--}}
+                {{--            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});--}}
+                {{--        }else{--}}
+                {{--            $('.file_upload_profile').attr('src','/img/upload.png' );--}}
+                {{--        }--}}
+                {{--        swal("Error!", "Photo uploaded must be in JPG format. ", "error")--}}
+                {{--}--}}
             }
         });
     });

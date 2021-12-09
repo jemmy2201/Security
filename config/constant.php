@@ -163,6 +163,7 @@ define('work_permit_pass', "G");
 define('employment_pass', "F");
 
 define('one_mb', "1000000");
+define('five_mb', "5000000");
 
 //Enets
 define('ApiurlEnets', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
