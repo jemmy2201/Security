@@ -209,20 +209,25 @@ class HomeController extends Controller
                 $array_grade = json_decode($sertifikat->array_grade);
             }
         }
-        if (!empty($array_grade)) {
-            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
-                ->update([
-                    'array_grade' => json_encode(array_filter($array_grade)),
-                    'declaration_date' => null,
-                ]);
-        }else{
-            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
-                ->update([
-                    'array_grade' => null,
-                    'declaration_date' => null,
-                ]);
-        }
+//        if (!empty($array_grade)) {
+//            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+//                ->update([
+//                    'array_grade' => json_encode(array_filter($array_grade)),
+//                    'declaration_date' => null,
+//                ]);
+//        }else{
+//            $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+//                ->update([
+//                    'array_grade' => null,
+//                    'declaration_date' => null,
+//                ]);
+//        }
 
+        $update_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'app_type' => $request->app_type, 'card_id' => $request->card])
+            ->update([
+                'Status_draft' => null,
+                'declaration_date' => null,
+            ]);
         // param submission
         $grade = null;
         $replacement = null;
@@ -254,6 +259,36 @@ class HomeController extends Controller
                         }
                     }
                 }
+            }
+        }
+        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+        $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->latest('created_at')->first();
+        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
+            $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
+        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
+            $grade_not_payment = json_decode($take_grade->array_grade);
+        }
+        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+        if (!empty($take_grade)) {
+            foreach ($take_grades as $index => $f) {
+                if (!empty(json_decode($take_grade->array_grade))){
+                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+                        if ($f->id == $g) {
+                            $take_grades[$index]->take_grade = true;
+                        }
+                    }
+                }
+
+                if (!empty($grade_not_payment)){
+                    foreach ($grade_not_payment as $index2 => $i) {
+                        if ($f->id == $i) {
+                            $take_grades[$index]->grade_not_payment = true;
+                            $take_grades[$index]->take_grade = false;
+                        }
+                    }
+                }
+
             }
         }
         // end take grade (new design)
