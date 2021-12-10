@@ -168,24 +168,24 @@ define('five_mb', "5000000");
 //Enets
 
 // Uat
-define('ApiurlEnets', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
-define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
-define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
-define('netsMid', "UMID_837852000");
-define('Merchant_server_IP_Address', "127.0.0.1");
-define('s2sTxnEndURL', "http://www.idx-id2021.com/api/s2sTxnEndURL");
-define('b2sTxnEndURL', "https://www.idx-id2021.com/api/b2sTxnEndURL");
-// End Uat
-
-//Prod
-//define('ApiurlEnets', "https://www2.enets.sg/GW2/TxnReqListenerToHost");
+//define('ApiurlEnets', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
 //define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
 //define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
 //define('netsMid', "UMID_837852000");
 //define('Merchant_server_IP_Address', "127.0.0.1");
-//define('s2sTxnEndURL', "http://www.iduse.org.sg/api/s2sTxnEndURL");
-//define('b2sTxnEndURL', "https://www.iduse.org.sg/api/b2sTxnEndURL");
-////define('b2sTxnEndURL', "http://localhost:8000/api/b2sTxnEndURL");
+//define('s2sTxnEndURL', "http://www.idx-id2021.com/api/s2sTxnEndURL");
+//define('b2sTxnEndURL', "https://www.idx-id2021.com/api/b2sTxnEndURL");
+// End Uat
+
+//Prod
+define('ApiurlEnets', "https://www2.enets.sg/GW2/TxnReqListenerToHost");
+define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
+define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
+define('netsMid', "UMID_837852000");
+define('Merchant_server_IP_Address', "127.0.0.1");
+define('s2sTxnEndURL', "http://www.iduse.org.sg/api/s2sTxnEndURL");
+define('b2sTxnEndURL', "https://www.iduse.org.sg/api/b2sTxnEndURL");
+//define('b2sTxnEndURL', "http://localhost:8000/api/b2sTxnEndURL");
 //End Prod
 
 
@@ -195,29 +195,29 @@ define('b2sTxnEndURL', "https://www.idx-id2021.com/api/b2sTxnEndURL");
 
 //Uat
 
-define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
-define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
-define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
-define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
-define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
-define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
-//define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
-define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
+//define('authApiUrl', "https://stg-id.singpass.gov.sg/token"); 
+//define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
+//define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
+//define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
+//define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
+//define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
+////define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
+//define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 //End Uat
 
 // Prod
-//define('authApiUrl', "https://id.singpass.gov.sg/token");
-//define('urlsig', "https://www.iduse.org.sg/private/sig/jwks");
-//define('urlec', "http://www.iduse.org.sg/private/ec/jwks");
-//define('authApiUrlSingpassconfiguration', "https://id.singpass.gov.sg/.well-known/openid-configuration");
-//define('clientIdSinpass', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
-//define('clientIdSecret', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
-//define('redirectUrlSingpass', "https://www.iduse.org.sg/afterlogin");
-//define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.iduse.org.sg%2Fafterlogin");
-////define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
-//define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
+define('authApiUrl', "https://id.singpass.gov.sg/token");
+define('urlsig', "https://www.iduse.org.sg/private/sig/jwks");
+define('urlec', "http://www.iduse.org.sg/private/ec/jwks");
+define('authApiUrlSingpassconfiguration', "https://id.singpass.gov.sg/.well-known/openid-configuration");
+define('clientIdSinpass', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('clientIdSecret', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('redirectUrlSingpass', "https://www.iduse.org.sg/afterlogin");
+define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.iduse.org.sg%2Fafterlogin");
+//define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
+define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 // End Prod
 
 // Paynow
