@@ -143,7 +143,7 @@ class SingpassController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :id.singpass.gov.sg'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :id.singpass.gov.sg')); 
 
 
         // receive server response ...
