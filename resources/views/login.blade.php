@@ -88,6 +88,7 @@
         </div>
     </div>
     <script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>
+    <script src="https://id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>
     <script>
         // Barcode
         async function init() {
