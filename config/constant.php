@@ -177,8 +177,8 @@ define('b2sTxnEndURL', "https://www.idx-id2021.com/api/b2sTxnEndURL");
 //End Enets
 
 //Env singapass
-//define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
-define('authApiUrl', "https://id.singpass.gov.sg/token");
+define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
+//define('authApiUrl', "https://id.singpass.gov.sg/token");
 define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
 define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
 define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
