@@ -78,13 +78,26 @@ class SingpassController extends Controller
         $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
         $Iat_encode   = Carbon::now()->timestamp;
 
+//        UAT
+
+//        $payload = array(
+//            "sub" => clientIdSinpass,
+//            "aud" => "https://stg-id.singpass.gov.sg",
+//            "iss" => clientIdSinpass,
+//            "iat" => $Iat_encode,
+//            "exp" => $Exp_encode
+//        );
+//       end Uat
+
+//        Prod
         $payload = array(
             "sub" => clientIdSinpass,
-            "aud" => "https://stg-id.singpass.gov.sg",
+            "aud" => "https://id.singpass.gov.sg",
             "iss" => clientIdSinpass,
             "iat" => $Iat_encode,
             "exp" => $Exp_encode
         );
+//       End Prod
 
         $jwt = JWT::encode($payload, $privateKey,'ES256');
 
