@@ -178,7 +178,7 @@ define('five_mb', "5000000");
 // End Uat
 
 //Prod
-define('ApiurlEnets', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
+define('ApiurlEnets', "https://www2.enets.sg/GW2/TxnReqListenerToHost");
 define('secretKeyEnets', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
 define('secretIDEnets', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
 define('netsMid', "UMID_837852000");
