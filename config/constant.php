@@ -178,14 +178,24 @@ define('b2sTxnEndURL', "https://www.idx-id2021.com/api/b2sTxnEndURL");
 
 //Env singapass
 //define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
+//define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
+//define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
+//define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
+//define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
+//define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
+////define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
+//define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
+
 define('authApiUrl', "https://id.singpass.gov.sg/token");
-define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
-define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
-define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
-define('clientIdSinpass', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('clientIdSecret', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('redirectUrlSingpass', "https://www.idx-id2021.com/afterlogin");
-define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
+define('urlsig', "https://www.iduse.org.sg/private/sig/jwks");
+define('urlec', "http://www.iduse.org.sg/private/ec/jwks");
+define('authApiUrlSingpassconfiguration', "https://id.singpass.gov.sg/.well-known/openid-configuration");
+define('clientIdSinpass', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('clientIdSecret', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('redirectUrlSingpass', "https://www.iduse.org.sg/afterlogin");
+define('redirectUrlSingpassCurl', "https%3A%2F%2Fwww.iduse.org.sg%2Fafterlogin");
 //define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
 define('attributesSingPass', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 
