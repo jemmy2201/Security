@@ -195,7 +195,7 @@ define('b2sTxnEndURL', "https://www.iduse.org.sg/api/b2sTxnEndURL");
 
 //Uat
 
-//define('authApiUrl', "https://stg-id.singpass.gov.sg/token");
+//define('authApiUrl', "https://stg-id.singpass.gov.sg/token"); 
 //define('urlsig', "https://www.idx-id2021.com/private/sig/jwks");
 //define('urlec', "http://www.idx-id2021.com/private/ec/jwks");
 //define('authApiUrlSingpassconfiguration', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
