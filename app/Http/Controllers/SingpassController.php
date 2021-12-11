@@ -145,11 +145,14 @@ class SingpassController extends Controller
             $authApiUrl = authApiUrlUat;
             $clientIdSinpass = clientIdSinpassUat;
             $redirectUrlSingpassCurl = redirectUrlSingpassCurlUat;
+            $host = hostUat;
         }elseif (detect_url() == URLProd){
             $authApiUrl = authApiUrlProd;
             $clientIdSinpass = clientIdSinpassProd;
             $redirectUrlSingpassCurl = redirectUrlSingpassCurlProd;
+            $host = hostProd;
         }
+        
         $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
 
         $ch = curl_init();
@@ -158,7 +161,7 @@ class SingpassController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :id.singpass.gov.sg'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
 
 
         // receive server response ...
