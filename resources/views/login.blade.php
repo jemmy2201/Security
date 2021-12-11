@@ -102,11 +102,19 @@
                 console.log(`onError. errorId:${errorId} message:${message}`);
             };
 
+            if ({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLUat) !!}){
+                var clientIdSinpass = {!!  json_encode(clientIdSinpassUat) !!}
+                var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassUat) !!}
+            }else if({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLProd) !!}){
+                var clientIdSinpass = {!!  json_encode(clientIdSinpassProd) !!}
+                var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassProd) !!}
+
+            }
             const initAuthSessionResponse = window.NDI.initAuthSession(
                 'ndi-qr',
                 {
-                    clientId: {!!  json_encode(clientIdSinpass) !!}, // Replace with your client ID
-                    redirectUri: {!!  json_encode(redirectUrlSingpass) !!},        // Replace with a registered redirect URI
+                    clientId: clientIdSinpass, // Replace with your client ID
+                    redirectUri: redirectUrlSingpass,        // Replace with a registered redirect URI
                     scope: 'openid',
                     responseType: 'code'
                 },

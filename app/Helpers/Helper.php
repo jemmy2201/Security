@@ -1,5 +1,19 @@
 <?php
 use Firebase\JWT\JWT;
+if (!function_exists('detect_url')) {
+    /**
+     * Group array of : key => Group Title
+     * @param array $exclude
+     * @return array
+     */
+    function detect_url()
+    {
+
+        $reponse = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+        return $reponse;
+    }
+}
 if (!function_exists('encrypt_decrypt')) {
     /**
      * Group array of : key => Group Title

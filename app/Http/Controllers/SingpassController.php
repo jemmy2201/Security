@@ -78,26 +78,19 @@ class SingpassController extends Controller
         $Exp_encode   = Carbon::now()->addMinutes('2')->timestamp;
         $Iat_encode   = Carbon::now()->timestamp;
 
-//        UAT
+        if (detect_url() == URLUat){
+            $clientIdSinpass = clientIdSinpassUat;
+        }elseif (detect_url() == URLProd){
+            $clientIdSinpass = clientIdSinpassProd;
+        }
 
-//        $payload = array(
-//            "sub" => clientIdSinpass,
-//            "aud" => "https://stg-id.singpass.gov.sg",
-//            "iss" => clientIdSinpass,
-//            "iat" => $Iat_encode,
-//            "exp" => $Exp_encode
-//        );
-//       end Uat
-
-//        Prod
         $payload = array(
-            "sub" => clientIdSinpass,
+            "sub" => $clientIdSinpass,
             "aud" => "https://id.singpass.gov.sg",
-            "iss" => clientIdSinpass,
+            "iss" => $clientIdSinpass,
             "iat" => $Iat_encode,
             "exp" => $Exp_encode
         );
-//       End Prod
 
         $jwt = JWT::encode($payload, $privateKey,'ES256');
 
@@ -148,11 +141,20 @@ class SingpassController extends Controller
 
     public static function id_token($jwt,$code)
     {
-        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.redirectUrlSingpassCurl.'&code='.$code.'';
+        if (detect_url() == URLUat){
+            $authApiUrl = authApiUrlUat;
+            $clientIdSinpass = clientIdSinpassUat;
+            $redirectUrlSingpassCurl = redirectUrlSingpassCurlUat;
+        }elseif (detect_url() == URLProd){
+            $authApiUrl = authApiUrlProd;
+            $clientIdSinpass = clientIdSinpassProd;
+            $redirectUrlSingpassCurl = redirectUrlSingpassCurlProd;
+        }
+        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL,authApiUrl);
+        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             $data);
@@ -171,11 +173,17 @@ class SingpassController extends Controller
 
     public static function configuration_singpass()
     {
+        if (detect_url() == URLUat){
+            $authApiUrlSingpassconfiguration = authApiUrlSingpassconfigurationUat;
+        }elseif (detect_url() == URLProd){
+            $authApiUrlSingpassconfiguration = authApiUrlSingpassconfigurationProd;
+        }
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt($ch, CURLOPT_URL,authApiUrlSingpassconfiguration);
+        curl_setopt($ch, CURLOPT_URL,$authApiUrlSingpassconfiguration);
 
         $response=curl_exec($ch);
 

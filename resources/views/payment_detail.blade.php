@@ -175,12 +175,27 @@
 @endphp
 <script>
     function enets(){
+
+        if ({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLUat) !!}){
+            var secretKeyEnets = {!!  json_encode(secretKeyEnetsUat) !!} ;
+            var netsMid = {!!  json_encode(netsMidUat) !!} ;
+            var Merchant_server_IP_Address = {!!  json_encode(Merchant_server_IP_AddressUat) !!} ;
+            var s2sTxnEndURL = {!!  json_encode(s2sTxnEndURLUat) !!} ;
+            var b2sTxnEndURL = {!!  json_encode(b2sTxnEndURLUat) !!} ;
+        }else if({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLProd) !!}){
+            var secretKeyEnets = {!!  json_encode(secretKeyEnetsProd) !!} ;
+            var netsMid = {!!  json_encode(netsMidProd) !!} ;
+            var Merchant_server_IP_Address = {!!  json_encode(Merchant_server_IP_AddressProd) !!} ;
+            var s2sTxnEndURL = {!!  json_encode(s2sTxnEndURLProd) !!} ;
+            var b2sTxnEndURL = {!!  json_encode(b2sTxnEndURLProd) !!} ;
+        }
+
         var Val_b2sTxnEndURLParam = {"nric":{!!  json_encode(Auth::user()->nric) !!},"app_type":{!!  json_encode( $booking_schedule->app_type) !!},"card":{!!  json_encode( $booking_schedule->card_id) !!},"grand_total":{!!  json_encode( $grand_total) !!},"transaction_amount_id":{!!  json_encode($transaction_amount->id) !!},"grade_id":{!!  json_encode($gst->id) !!}};
         var b2sTxnEndURLParam = JSON.stringify(Val_b2sTxnEndURLParam);
-        var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhis")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.v")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};
+        var data = {"ss":"1","msg":{"netsMid":netsMid,"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymdhis")) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.v")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":b2sTxnEndURL,"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":s2sTxnEndURL,"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":Merchant_server_IP_Address,"language":"en"}};
             {{--var data = {"ss":"1","msg":{"netsMid":{!!  json_encode(netsMid) !!},"tid":"","submissionMode":"B","txnAmount":{!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},"merchantTxnRef":{!!  json_encode(date("Ymd h:i:s")) !!} + "" +{!!  json_encode( $booking_schedule->receiptNo) !!},"merchantTxnDtm":{!!  json_encode(date("Ymd h:i:s.v")) !!},"paymentType":"SALE","currencyCode":"SGD","paymentMode":"","merchantTimeZone":"+8:00","b2sTxnEndURL":{!!  json_encode(b2sTxnEndURL) !!},"b2sTxnEndURLParam":b2sTxnEndURLParam,"s2sTxnEndURL":{!!  json_encode(s2sTxnEndURL) !!},"s2sTxnEndURLParam":"","clientType":"W","supMsg":"","netsMidIndicator":"U","ipAddress":{!!  json_encode(Merchant_server_IP_Address) !!},"language":"en"}};--}}
         var txnreq = JSON.stringify(data);
-        var secretKey = {!!  json_encode(secretKeyEnets) !!};
+        var secretKey = secretKeyEnets;
         $("#payload").val(txnreq);
         var sign = btoa(sha256(txnreq + secretKey).match(/\w{2}/g).map(function (a) {
             return String.fromCharCode(parseInt(a, 16));
@@ -392,11 +407,19 @@
         </div>
     </div>
     <!-- End Modal Paynow -->
-
-    <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action={{ ApiurlEnets }} method='POST' style="display: none;">
+    @php
+        if (detect_url() == URLUat){
+           $ApiurlEnets = ApiurlEnetsUat;
+           $secretIDEnets = secretIDEnetsUat;
+        }elseif (detect_url() == URLProd){
+           $ApiurlEnets = ApiurlEnetsProd;
+           $secretIDEnets = secretIDEnetsProd;
+        }
+    @endphp
+    <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action={{ $ApiurlEnets }} method='POST' style="display: none;">
         <textarea rows="8" cols="126" name="payload" id="payload" form="eNETSRedirectForm" form="usrform"></textarea>
         <br>
-        <input type="text" id="apiKey" name="apiKey" value={{ secretIDEnets }} size="130">
+        <input type="text" id="apiKey" name="apiKey" value={{ $secretIDEnets }} size="130">
         <br>
         <input type="text" id="hmac" name="hmac"  size="130">
         <br>
