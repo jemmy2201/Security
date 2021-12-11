@@ -87,8 +87,13 @@
             </div>
         </div>
     </div>
-    <script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>
-    <script src="https://id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>
+    @php
+        if (detect_url() == URLUat){
+               echo '<script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>';
+        }elseif (detect_url() == URLProd){
+              echo '<script src="https://id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>';
+        }
+    @endphp
     <script>
         // Barcode
         async function init() {
