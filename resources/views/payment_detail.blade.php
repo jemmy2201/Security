@@ -188,6 +188,12 @@
             var Merchant_server_IP_Address = {!!  json_encode(Merchant_server_IP_AddressProd) !!} ;
             var s2sTxnEndURL = {!!  json_encode(s2sTxnEndURLProd) !!} ;
             var b2sTxnEndURL = {!!  json_encode(b2sTxnEndURLProd) !!} ;
+        }else{
+            var secretKeyEnets = {!!  json_encode(secretKeyEnetsLocal) !!} ;
+            var netsMid = {!!  json_encode(netsMidLocal) !!} ;
+            var Merchant_server_IP_Address = {!!  json_encode(Merchant_server_IP_AddressLocal) !!} ;
+            var s2sTxnEndURL = {!!  json_encode(s2sTxnEndURLLocal) !!} ;
+            var b2sTxnEndURL = {!!  json_encode(b2sTxnEndURLLocal) !!} ;
         }
 
         var Val_b2sTxnEndURLParam = {"nric":{!!  json_encode(Auth::user()->nric) !!},"app_type":{!!  json_encode( $booking_schedule->app_type) !!},"card":{!!  json_encode( $booking_schedule->card_id) !!},"grand_total":{!!  json_encode( $grand_total) !!},"transaction_amount_id":{!!  json_encode($transaction_amount->id) !!},"grade_id":{!!  json_encode($gst->id) !!}};
@@ -414,6 +420,9 @@
         }elseif (detect_url() == URLProd){
            $ApiurlEnets = ApiurlEnetsProd;
            $secretIDEnets = secretIDEnetsProd;
+        }else{
+           $ApiurlEnets = ApiurlEnetsLocal;
+           $secretIDEnets = secretIDEnetsLocal;
         }
     @endphp
     <form id="eNETSRedirectForm" name="eNETSRedirectForm"  action={{ $ApiurlEnets }} method='POST' style="display: none;">

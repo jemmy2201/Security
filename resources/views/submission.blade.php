@@ -539,7 +539,7 @@
             $( "#delcare_submission" ).submit();
         });
 
-        $(".TextAreaName" ).click(function() {
+        $(".save_draft" ).click(function() {
                 var val = [];
                 $('input[name="Cgrades[]"]:checked').each(function(i){
                     val[i] = $(this).val();

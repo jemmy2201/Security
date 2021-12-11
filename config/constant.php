@@ -167,6 +167,16 @@ define('five_mb', "5000000");
 
 //Enets
 
+// Local Host
+define('ApiurlEnetsLocal', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
+define('secretKeyEnetsLocal', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
+define('secretIDEnetsLocal', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
+define('netsMidLocal', "UMID_837852000");
+define('Merchant_server_IP_AddressLocal', "127.0.0.1");
+define('s2sTxnEndURLLocal', "http://localhost:8000/api/s2sTxnEndURL");
+define('b2sTxnEndURLLocal', "http://localhost:8000/api/b2sTxnEndURL");
+// End LOcal Host
+
 // Uat
 define('ApiurlEnetsUat', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
 define('secretKeyEnetsUat', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
