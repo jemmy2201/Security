@@ -395,11 +395,6 @@ class HomeController extends Controller
                     }
                 }
             }elseif($request->app_type == replacement || $request->app_type == renewal){
-//                            die(print_r($temp_array_grade));
-//            die(print_r($request->all()));
-//                die('ss');
-//                                        die(print_r(count($temp_array_grade)));
-//                        die(print_r(count(json_decode($booking_schedule->array_grade))));
                 if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
 //                    die('s');
                     if (isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
@@ -698,7 +693,13 @@ class HomeController extends Controller
             }else{
                 $merge_array = json_decode($array_grade);
             }
-//            die(print_r($merge_array));
+
+            if (empty($merge_array)){
+                $merge_array = null;
+            }else{
+                $merge_array = json_encode($merge_array);
+            }
+//            die(print_r(json_encode($merge_array)));
             if (!$booking_schedule->Status_app == resubmission){
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                     ->update([
@@ -706,7 +707,7 @@ class HomeController extends Controller
                         'declaration_date' => null,
                         'Status_app' => draft,
                         'Status_draft' => draft_book_appointment,
-                        'array_grade' => json_encode($merge_array),
+                        'array_grade' => $merge_array,
                     ]);
             }
         }
