@@ -670,7 +670,7 @@
             var control = document.getElementById("upload_profile");
             var files = control.files;
             for (var i = 0; i < files.length; i++) {
-                // if(files[i].type == "image/jpeg" || files[i].type == "image/jpg"){
+                if(files[i].type == "image/jpeg" || files[i].type == "image/jpg" || files[i].type == "image/png"){
                    if (files[i].size <= {!! json_encode(five_mb) !!}){
                        readURL(this);
                    }else{
@@ -682,15 +682,15 @@
                        }
                            swal("Error!", "Photo uploaded must be less than 5 MB size.", "error")
                    }
-                {{--}else{--}}
-                {{--        control.value = null;--}}
-                {{--        if (!{!! json_encode($personal->photo) !!} == ""){--}}
-                {{--            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});--}}
-                {{--        }else{--}}
-                {{--            $('.file_upload_profile').attr('src','/img/upload.png' );--}}
-                {{--        }--}}
-                {{--        swal("Error!", "Photo uploaded must be in JPG format. ", "error")--}}
-                {{--}--}}
+                }else{
+                        control.value = null;
+                        if (!{!! json_encode($personal->photo) !!} == ""){
+                            $('.file_upload_profile').attr('src', "/img/img_users/"+{!! json_encode($personal->photo) !!});
+                        }else{
+                            $('.file_upload_profile').attr('src','/img/upload.png' );
+                        }
+                        swal("Error!", "Photo uploaded must be in JPG and PNG format. ", "error")
+                }
             }
         });
     });
