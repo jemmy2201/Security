@@ -3,17 +3,26 @@
     .disabled{
         font-weight: normal;
     }
-    @media (min-width: 768px) {
+    @media (min-width :768px) {
         .modal-dialog {
-            max-width: 900px !important;
+            width: 968px !important;
         }
         #view_terms {
-            width: 570px;
+            width: 900px;
         }
     }
+    @media (min-width :576px) {
+        .modal-dialog {
+            max-width: 930px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
+    }
+
     @media only screen and (max-width: 600px) {
         #view_terms {
-            width: 350px;
+            width: 300px;
         }
     }
 </style>
@@ -35,7 +44,7 @@
             <div class="col-12">
                 <h4>
                 <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
-                <span style="margin-left: 20px;font-weight: bold;">Accept and proceed.</span>
+                <span style="margin-left: 20px;font-weight: bold;">I have read and agree to the website's terms of use.</span>
                 </h4>
             </div>
         </div>
