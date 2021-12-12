@@ -1,4 +1,4 @@
-@if(Auth::user()->role == admin && $item['text'] != "List User Officer")
+@if(Auth::user()->role == admin && $item['text'] != "Import Records")
 <li @if(isset($item['id'])) id="{{ $item['id'] }}" @endif class="nav-item">
 
     <a class="nav-link {{ $item['class'] }} @if(isset($item['shift'])) {{ $item['shift'] }} @endif"
@@ -22,7 +22,7 @@
     </a>
 
 </li>
-@elseif(Auth::user()->role == office && $item['text'] == "List User Officer")
+@elseif(Auth::user()->role == office && $item['text'] == "Import Records")
     <li @if(isset($item['id'])) id="{{ $item['id'] }}" @endif class="nav-item">
         <a class="nav-link {{ $item['class'] }} @if(isset($item['shift'])) {{ $item['shift'] }} @endif"
            href="{{ $item['href'] }}" @if(isset($item['target'])) target="{{ $item['target'] }}" @endif

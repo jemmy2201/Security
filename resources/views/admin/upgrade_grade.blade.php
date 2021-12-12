@@ -26,14 +26,14 @@
             <div class="modal-dialog">
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
-                        <h5 class="modal-title" style="font-size: 25px;font-weight:600" id="ExerciseModalLabel"></h5>
+                        <h5 class="modal-title"><b>Import New Records To USE Web Portal</b></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
                         <form style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormUploadExcelGrade" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="title" class="col-form-label">Upgrade grade</label>
+{{--                                <label for="title" class="col-form-label">Upgrade grade</label>--}}
                                <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
                             </div>
                             <div class="mb-3">
@@ -75,35 +75,49 @@
 
         $(document).ready(function(){
             $.fn.dataTable.ext.errMode = 'none';
+            console.log('s',{!!  json_encode(Auth::user()->role) !!})
+            if({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(admin) !!}) {
+                var acces_button = [
+                    {
+                        text: 'Upload Excel',
+                        className: 'buttontable btn btn-light datatableCeate',
+                        action: function (e, dt, node, config) {
+                            $('#FormUpload').modal('show');
+                        }
+                    },
+                    {
+                        text: 'Download Template',
+                        className: 'buttontable btn btn-light datatableCeate',
+                        action: function (e, dt, node, config) {
+                            window.location.href = '{{ url('ajax/download/excel/template/grade') }}';
+                        }
+                    },
+                    {
+                        text: 'Restoring Data',
+                        className: 'buttontable btn btn-light datatableCeate',
+                        action: function (e, dt, node, config) {
+                            {{--window.location.href = '{{ url('ajax/restoring/table') }}';--}}
+                            $("#restoring_data").trigger("click");
+                        }
+                    }
+                ];
+            }else if ({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(office) !!}){
+                var acces_button = [
+                    {
+                        text: 'Upload Excel',
+                        className: 'buttontable btn btn-light datatableCeate',
+                        action: function (e, dt, node, config) {
+                            $('#FormUpload').modal('show');
+                        }
+                    }
+                ];
+            }
             table_grade = $('#table_grade').DataTable({
                     processing: true,
                     serverSide: true,
                     searching: false,
                     dom: 'Bfrtip',
-                    buttons: [
-                        {
-                            text: 'Upload Excel',
-                            className: 'buttontable btn btn-light datatableCeate',
-                            action: function ( e, dt, node, config ) {
-                                $('#FormUpload').modal('show');
-                            }
-                        },
-                        {
-                            text: 'Download Template',
-                            className: 'buttontable btn btn-light datatableCeate',
-                            action: function ( e, dt, node, config ) {
-                                window.location.href = '{{ url('ajax/download/excel/template/grade') }}';
-                            }
-                        },
-                        {
-                            text: 'Restoring Data',
-                            className: 'buttontable btn btn-light datatableCeate',
-                            action: function ( e, dt, node, config ) {
-                                {{--window.location.href = '{{ url('ajax/restoring/table') }}';--}}
-                                $( "#restoring_data" ).trigger( "click" );
-                            }
-                        }
-                    ],
+                    buttons: acces_button,
                     "ajax": {
                         "url": "{{route('admin.data.upgrade')}}",
                         "global": false,

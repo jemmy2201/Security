@@ -230,7 +230,7 @@ return [
             'icon' => 'fa fa-history',
         ],
         [
-            'text' => 'List User Officer',
+            'text' => 'Import Records',
             'url'  => 'admin/upgrade/grade',
             'icon' => 'fas fa-fw fa-user',
         ],
@@ -249,7 +249,7 @@ return [
             'icon'    => 'fa fa-cog',
             'submenu' => [
                 [
-                    'text' => 'List User',
+                    'text' => 'Import records',
                     'url'  => 'admin/upgrade/grade',
                 ],
                 [
