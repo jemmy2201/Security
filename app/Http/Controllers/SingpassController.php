@@ -80,13 +80,15 @@ class SingpassController extends Controller
 
         if (detect_url() == URLUat){
             $clientIdSinpass = clientIdSinpassUat;
+            $aud = audUat;
         }elseif (detect_url() == URLProd){
             $clientIdSinpass = clientIdSinpassProd;
+            $aud = audProd;
         }
 
         $payload = array(
             "sub" => $clientIdSinpass,
-            "aud" => "https://id.singpass.gov.sg",
+            "aud" => $aud,
             "iss" => $clientIdSinpass,
             "iat" => $Iat_encode,
             "exp" => $Exp_encode
@@ -152,7 +154,7 @@ class SingpassController extends Controller
             $redirectUrlSingpassCurl = redirectUrlSingpassCurlProd;
             $host = hostProd;
         }
-        
+
         $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
 
         $ch = curl_init();
