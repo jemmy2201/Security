@@ -233,7 +233,7 @@ define('authApiUrlSingpassconfigurationProd', "https://id.singpass.gov.sg/.well-
 define('clientIdSinpassProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
 define('clientIdSecretProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
 define('redirectUrlSingpassProd', "https://www.iduse.org.sg/afterlogin");
-define('redirectUrlSingpassCurlProd', "https%3A%2F%2Fwww.iduse.org.sg%2Fafterlogin");
+define('redirectUrlSingpassCurlProd', "https://www.iduse.org.sg/afterlogin");
 define('attributesSingPassProd', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 define('hostProd', "id.singpass.gov.sg");
 // End Prod
