@@ -1007,8 +1007,7 @@ class HomeController extends Controller
         $this->UpdateBookingScheduleAppointment($request);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $request->merge(['app_type' => $booking_schedule->app_type]);
-
-        if (!empty($booking_schedule->grade_id)){
+        if ($booking_schedule->grade_id == null){
                   $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
 //                foreach (json_decode($booking_schedule->grade_id) as $f){
 //                    $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
