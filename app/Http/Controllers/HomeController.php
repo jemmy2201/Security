@@ -995,9 +995,9 @@ class HomeController extends Controller
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
-            if (empty($booking_schedule->declaration_date)){
+//            if (empty($booking_schedule->declaration_date)){
                 $this->UpdateBookingSchedule($request,$grade);
-            }
+//            }
 
         }
         $dayHoliday = Dateholiday::get();
@@ -1398,6 +1398,7 @@ class HomeController extends Controller
 //                        die(print_r(count(json_decode($request->Cgrade[0]))));
 //                        die(print_r(count($request->Cgrades)));
 //                        die(print_r($request->all()));
+
                     if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
 //                        die('s');
                         if ($request->app_type == news) {
@@ -1474,8 +1475,12 @@ class HomeController extends Controller
                         if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
 //                            die('s');
                             if ($request->app_type == news) {
-//                                die('1');
-                                $merge_grade = array_merge($get_grade,$take_grade);
+                                if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
+                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                }else{
+                                    $take_grade = [$request->Cgrades[0]];
+                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                }
                             }elseif ($request->app_type == replacement || $request->app_type == renewal) {
 //                                die('2');
                                 if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
