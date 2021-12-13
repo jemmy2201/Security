@@ -218,8 +218,8 @@ define('authApiUrlSingpassconfigurationUat', "https://stg-id.singpass.gov.sg/.we
 define('clientIdSinpassUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecretUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('redirectUrlSingpassUat', "https://www.idx-id2021.com/afterlogin");
-define('redirectUrlSingpassCurlUat', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
-//define('redirectUrlSingpass', "https://www.idx-id2021.com/oauth2/uat_jwks");
+//define('redirectUrlSingpassCurlUat', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
+define('redirectUrlSingpassCurlUat', "https://www.idx-id2021.com/afterlogin");
 define('attributesSingPassUat', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 define('hostUat', "stg-id.singpass.gov.sg");
 
