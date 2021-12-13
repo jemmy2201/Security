@@ -439,9 +439,9 @@
             @if(empty($resubmission))
 {{--                <br class="hidden-xs">--}}
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
-                <b class="hidden-xs">I declare the information submitted is true and i have submitted photo.</b>
+                <b class="hidden-xs">I declare the information submitted is true and I have submitted photo.</b>
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
-                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information submitted is true and i have submitted photo.</b>
+                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information submitted is true and I have submitted photo.</b>
             @endif
         @endif
     <br><br class="hidden-xs"><br class="hidden-xs">
