@@ -246,7 +246,6 @@
             }else if ({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(office) !!}){
                 var router = "{{route('admin.upload.import.grade')}}";
             }
-            console.log('s',router)
             $.ajax({
                 type: "POST",
                 dataType: 'JSON',

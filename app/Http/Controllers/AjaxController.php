@@ -831,6 +831,7 @@ class AjaxController extends Controller
                 }
             }
         }
+        return $data;
     }
     public function upload_excel_grade(Request $request)
     {
