@@ -93,7 +93,7 @@
             </a>
             @else
             <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
             </button>
