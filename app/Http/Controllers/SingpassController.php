@@ -199,11 +199,17 @@ class SingpassController extends Controller
 
     public static function get_jwks_ec_local()
     {
+
+        if (detect_url() == URLUat){
+            $urlec = urlecUat;
+        }elseif (detect_url() == URLProd){
+            $urlec = urlecProd;
+        }
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt($ch, CURLOPT_URL,urlec);
+        curl_setopt($ch, CURLOPT_URL,$urlec);
 
         $response =curl_exec($ch);
 
