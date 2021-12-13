@@ -26,18 +26,28 @@
             <div class="modal-dialog">
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
+                        @if(Auth::user()->role == office)
                         <h5 class="modal-title"><b>Import New Records To USE Web Portal</b></h5>
+                        @endif
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
                         <form style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormUploadExcelGrade" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-{{--                                <label for="title" class="col-form-label">Upgrade grade</label>--}}
+                                @if(Auth::user()->role == admin)
+                                <label for="title" class="col-form-label">Upgrade grade</label>
+                                @endif
                                <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block"><b>Save</b></button>
+                                <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block">
+                                 @if(Auth::user()->role == admin)
+                                    <b>Save</b>
+                                 @elseif(Auth::user()->role == office)
+                                        <b>Save</b>
+                                 @endif
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -75,7 +85,6 @@
 
         $(document).ready(function(){
             $.fn.dataTable.ext.errMode = 'none';
-            console.log('s',{!!  json_encode(Auth::user()->role) !!})
             if({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(admin) !!}) {
                 var acces_button = [
                     {
@@ -232,14 +241,19 @@
             var form = $(this);
             var form_data = new FormData(document.getElementById("FormUploadExcelGrade"));
             form_data.append("_token", "{{ csrf_token() }}");
-
+            if({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(admin) !!}) {
+                var router = "{{route('admin.upload.grade')}}";
+            }else if ({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(office) !!}){
+                var router = "{{route('admin.upload.import.grade')}}";
+            }
+            console.log('s',router)
             $.ajax({
                 type: "POST",
                 dataType: 'JSON',
                 contentType: false,
                 cache: false,
                 processData: false,
-                url: "{{route('admin.upload.grade')}}",
+                url: router,
                 data: form_data, // serializes the form's elements.
                 success: function(data,textStatus, xhr)
                 {

@@ -249,7 +249,7 @@ return [
             'icon'    => 'fa fa-cog',
             'submenu' => [
                 [
-                    'text' => 'Import records',
+                    'text' => 'Update Proses',
                     'url'  => 'admin/upgrade/grade',
                 ],
                 [

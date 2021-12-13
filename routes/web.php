@@ -125,6 +125,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/delete/holiday', 'AjaxController@delete_holiday')->name('admin.delete.holiday');
     Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
     Route::post('/upload/excel/grade', 'AjaxController@upload_excel_grade')->name('admin.upload.grade');
+    Route::post('/upload/import/excel/grades', 'AjaxController@upload_import_excel_grade')->name('admin.upload.import.grade');
     Route::post('/insert/course', 'AjaxController@add_course')->name('admin.insert.course');
     Route::post('/update/course', 'AjaxController@update_course')->name('admin.update.course');
     Route::post('/delete/course', 'AjaxController@delete_course')->name('admin.delete.course');

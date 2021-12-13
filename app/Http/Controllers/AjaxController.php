@@ -698,6 +698,140 @@ class AjaxController extends Controller
 
         return $data;
     }
+    public function upload_import_excel_grade(Request $request)
+    {
+        // Backup Data For restoring
+        Artisan::call("backup:database");
+        // End Backup Data For restoring
+
+        $data = Excel::toArray(new BookingScheduleExport(), request()->file('upgrade_grade'));
+        foreach($data[0] as $row) {
+            $row = explode("|", $row[0]);
+            $arr[] = [
+                'nric' => $row[0],
+                'passid' => $row[1],
+                'app_type' => $row[2],
+                'card_type' => $row[3],
+                'grade' => $row[4],
+                'expiry_date' => $row[5],
+                'name' => $row[6],
+            ];
+        }
+
+        foreach ($arr as $index => $e) {
+            if ($index != 0){
+                $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
+                $count_users = User::count();
+
+                $format = 'd/m/Y';
+                $format_expired_date = DateTime::createFromFormat($format, $e['expiry_date']);
+                $cek_format_expired_date = $format_expired_date && $format_expired_date->format($format) === $e['expiry_date'];
+                if (empty($e['expiry_date'])){
+                    $expired_date = null;
+                }elseif($cek_format_expired_date == true) {
+                    $expired_date = $e['expiry_date'];
+                } else {
+                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
+                }
+                if (empty($users)){
+                    $nric = str_replace(' ', '', $e['nric']);
+                    // insert table users
+                    $New_users = new User();
+
+                    $New_users->nric = secret_encode($nric);
+
+                    $New_users->name = $e['name'];
+
+                    $New_users->email = 'email'.$count_users.'@admin.com';
+
+                    $New_users->password = Hash::make('123123');
+
+                    $New_users->save();
+                    // End insert table users
+
+                    // insert table boooking
+                    $booking_schedule = new booking_schedule;
+
+                    $booking_schedule->app_type = $e['app_type'];
+
+                    $booking_schedule->card_id = $e['card_type'];
+
+                    $booking_schedule->passid = $e['passid'];
+
+                    $booking_schedule->grade_id = $e['grade'];
+
+                    $booking_schedule->expired_date = $expired_date;
+
+                    $booking_schedule->nric = $New_users->nric;
+
+                    $booking_schedule->save();
+                    // End insert table boooking
+
+                }else{
+
+                    // update table user
+                    $nric = str_replace(' ', '', $e['nric']);
+
+                    $Update_users = User::find($users->id);
+
+                    $Update_users->nric = secret_encode($nric);
+
+                    $Update_users->name = $e['name'];
+
+                    $Update_users->save();
+                    // End update table user
+                    // update table booking
+
+                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])->first();
+
+                    if (!empty($ID_booking)) {
+                        if ($e['app_type'] == renewal){
+                            $app_type = $e['app_type'];
+                        }elseif ($e['app_type'] == replacement){
+                            $app_type = $e['app_type'] + 1;
+                        }else{
+                            $app_type = $e['app_type'];
+                        }
+
+                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
+
+                        $update_booking_schedule->app_type = $app_type;
+
+                        $update_booking_schedule->card_id = $e['card_type'];
+
+                        $update_booking_schedule->grade_id = $e['grade'];
+
+                        $update_booking_schedule->passid = $e['passid'];
+
+                        $update_booking_schedule->expired_date = $expired_date;
+
+                        $update_booking_schedule->save();
+                    }else{
+
+                        // insert table boooking
+                        $booking_schedule = new booking_schedule;
+
+                        $booking_schedule->app_type = $e['app_type'];
+
+                        $booking_schedule->card_id = $e['card_type'];
+
+                        $booking_schedule->passid = $e['passid'];
+
+                        $booking_schedule->grade_id = $e['grade'];
+
+                        $booking_schedule->expired_date = $expired_date;
+
+                        $booking_schedule->nric = $users->nric;
+
+                        $booking_schedule->save();
+                        // End insert table boooking
+                    }
+                    // End update table booking
+
+                }
+            }
+        }
+    }
     public function upload_excel_grade(Request $request)
     {
         // Backup Data For restoring
