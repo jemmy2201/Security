@@ -408,8 +408,9 @@ class HomeController extends Controller
                     }
                 }
             }
-//            die(print_r($temp_array_grade));
 
+//            die(print_r($temp_array_grade));
+//            die(print_r($booking_schedule->array_grade));
             if (!empty($booking_schedule->array_grade)) {
 //                die(print_r(count($temp_array_grade)));
 //                die(print_r(count(json_decode($booking_schedule->array_grade))));
@@ -430,13 +431,22 @@ class HomeController extends Controller
                             $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
                         }else {
 //                            die('2');
-                            foreach ($temp_array_grade as $f) {
-                                $result = array_search("on", $temp_array_grade);
-                                $remove_false = array_search("false", $temp_array_grade);
-                                unset($temp_array_grade[$result]);
-                                unset($temp_array_grade[$remove_false]);
+                            if ( count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
+                                for ($i = 1; $i <= 4; $i++) {
+                                    $result = array_search("on", $temp_array_grade);
+                                    unset($temp_array_grade[$result]);
+                                }
+                                $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
+                            }else{
+                                foreach ($temp_array_grade as $f) {
+                                    $result = array_search("on", $temp_array_grade);
+                                    $remove_false = array_search("false", $temp_array_grade);
+                                    unset($temp_array_grade[$result]);
+                                    unset($temp_array_grade[$remove_false]);
+                                }
+                                $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
                             }
-                            $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
+
                         }
                     }else{
                         if ($request->app_type == news) {
