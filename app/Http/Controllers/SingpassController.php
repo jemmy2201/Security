@@ -17,7 +17,7 @@ use Jose\Factory\JWKFactory;
 use Jose\Loader;
 use Jose\Object\JWKSet;
 use Artisan;
-
+use Illuminate\Support\Facades\Http;
 class SingpassController extends Controller
 {
     public static function newuser($sub)
@@ -84,6 +84,9 @@ class SingpassController extends Controller
         }elseif (detect_url() == URLProd){
             $clientIdSinpass = clientIdSinpassProd;
             $aud = audProd;
+        }else{
+            $clientIdSinpass = clientIdSinpassUat;
+            $aud = audUat;
         }
 
         $payload = array(
@@ -153,25 +156,43 @@ class SingpassController extends Controller
             $clientIdSinpass = clientIdSinpassProd;
             $redirectUrlSingpassCurl = redirectUrlSingpassCurlProd;
             $host = hostProd;
+        }else{
+            $authApiUrl = authApiUrlUat;
+            $clientIdSinpass = clientIdSinpassUat;
+            $redirectUrlSingpassCurl = redirectUrlSingpassCurlUat;
+            $host = hostUat;
         }
 
-        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
+//        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
+//
+//        $ch = curl_init();
+//
+//        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
+//        curl_setopt($ch, CURLOPT_POST, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS,
+//            $data);
+//        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
+//
+//
+//        // receive server response ...
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//
+//        $response = curl_exec ($ch);
+//
+//        curl_close ($ch);
 
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,
-            $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
-
-
-        // receive server response ...
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec ($ch);
-
-        curl_close ($ch);
+        $client = new Client();
+        $res = $client->post($authApiUrl, [
+            'form_params' => [
+                'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                'client_assertion' => $jwt,
+                'client_id' => $clientIdSinpass,
+                'grant_type' => 'authorization_code',
+                'redirect_uri' => $redirectUrlSingpassCurl,
+                'code' => $code
+            ]
+        ]);
+        $response = $res->getBody();
 
         return $response;
     }
