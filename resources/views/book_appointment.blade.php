@@ -414,6 +414,9 @@
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
+                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }
                     // hidden next 3 month
                     var hidden_3month = c_date.getMonth() + 2;
