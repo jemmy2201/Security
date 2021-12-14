@@ -213,18 +213,30 @@ define('URLProd', "https://www.iduse.org.sg");
 
 //Uat
 
-define('authApiUrlUat', "https://stg-id.singpass.gov.sg/token");
-define('urlsigUat', "https://www.idx-id2021.com/private/sig/jwks");
-define('urlecUat', "http://www.idx-id2021.com/private/ec/jwks");
-define('authApiUrlSingpassconfigurationUat', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
-define('clientIdSinpassUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('clientIdSecretUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
-define('redirectUrlSingpassUat', "https://www.idx-id2021.com/afterlogin");
-//define('redirectUrlSingpassCurlUat', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
-define('redirectUrlSingpassCurlUat', "https://www.idx-id2021.com/afterlogin");
+//define('authApiUrlUat', "https://stg-id.singpass.gov.sg/token");
+//define('urlsigUat', "https://www.idx-id2021.com/private/sig/jwks");
+//define('urlecUat', "http://www.idx-id2021.com/private/ec/jwks");
+//define('authApiUrlSingpassconfigurationUat', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
+//define('clientIdSinpassUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('clientIdSecretUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
+//define('redirectUrlSingpassUat', "https://www.idx-id2021.com/afterlogin");
+////define('redirectUrlSingpassCurlUat', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
+//define('redirectUrlSingpassCurlUat', "https://www.idx-id2021.com/afterlogin");
+//define('attributesSingPassUat', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
+//define('hostUat', "https://stg-id.singpass.gov.sg");
+//define('audUat', "https://stg-id.singpass.gov.sg");
+
+define('authApiUrlUat', "https://id.singpass.gov.sg/token");
+define('urlsigUat', "https://www.iduse.org.sg/private/sig/jwks");
+define('urlecUat', "http://www.iduse.org.sg/private/ec/jwks");
+define('authApiUrlSingpassconfigurationUat', "https://id.singpass.gov.sg/.well-known/openid-configuration");
+define('clientIdSinpassUat', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('clientIdSecretUat', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
+define('redirectUrlSingpassUat', "https://www.iduse.org.sg/afterlogin");
+define('redirectUrlSingpassCurlUat', "https://www.iduse.org.sg/afterlogin");
 define('attributesSingPassUat', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
-define('hostUat', "https://stg-id.singpass.gov.sg");
-define('audUat', "https://stg-id.singpass.gov.sg");
+define('hostUat', "https://id.singpass.gov.sg");
+define('audUat', "https://id.singpass.gov.sg");
 
 //End Uat
 
