@@ -155,8 +155,10 @@ define('cek_pathname', "/qrcode");
 define('login_dummy', "/login/dummy/1");
 define('default_alter_login', "home");
 define('default_alter_term_use', "landing_page");
+define('after_payment', "after.payment");
+define('view_course', "view.course");
 define('default_submission', "submission");
-define('view_course', "App\Http\Controllers\HomeController@view_course{\"mode\":\"full\",\"isActive\":false}");
+//define('view_course', "App\Http\Controllers\HomeController@view_course{\"mode\":\"full\",\"isActive\":false}");
 
 define('date_last', "31");
 

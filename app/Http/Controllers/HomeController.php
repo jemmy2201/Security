@@ -752,10 +752,10 @@ class HomeController extends Controller
     public function after_payment(Request $request,$card)
     {
 //        die(print_r($request->all()));
-        $request->merge(['app_type' => $request->session()->all()['app_type'], 'thank_payment' => true,'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
+        $request->merge(['app_type' => $request->session()->all()['app_type'],'Status_app'=>$course->Status_app, 'thank_payment' => true,'card' => $card,'router_name' => Route::getCurrentRoute()->getActionName()]);
 
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
     }
@@ -998,9 +998,9 @@ class HomeController extends Controller
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
-            if (empty($booking_schedule->declaration_date)){
+//            if (empty($booking_schedule->declaration_date)){
                 $this->UpdateBookingSchedule($request,$grade);
-            }
+//            }
 
         }
         $dayHoliday = Dateholiday::get();
@@ -1316,58 +1316,6 @@ class HomeController extends Controller
         $merge_grade = null;
         $this->Upload_Image($request);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
-//        if ($booking_schedule->grade_id == so){
-//            $array_dataDB = json_decode($booking_schedule->array_grade);
-//            $new_array_data = json_decode($request->Cgrade[0]);
-//            if (!empty($array_dataDB)) {
-//                $array_grades = array_merge($array_dataDB, $new_array_data);
-//                $bsoc = $this->take_grade(json_encode($array_grades));
-//            }else{
-//                $bsoc = $this->take_grade($request->Cgrade[0]);
-//            }
-//        }elseif ($booking_schedule->grade_id == sso){
-//            $array_dataDB = json_decode($booking_schedule->array_grade);
-//            $new_array_data = json_decode($request->Cgrade[0]);
-//            if (!empty($array_dataDB)) {
-//                $array_grades = array_merge($array_dataDB, $new_array_data);
-//                $ssoc = $this->take_grade(json_encode($array_grades));
-//            }else{
-//                $ssoc = $this->take_grade($request->Cgrade[0]);
-//            }
-//        }elseif ($booking_schedule->grade_id == ss){
-//            $array_dataDB = json_decode($booking_schedule->array_grade);
-//            $new_array_data = json_decode($request->Cgrade[0]);
-//            if (!empty($array_dataDB)) {
-//                $array_grades = array_merge($array_dataDB, $new_array_data);
-//                $sssc = $this->take_grade(json_encode($array_grades));
-//            }else{
-//                $sssc = $this->take_grade($request->Cgrade[0]);
-//            }
-////            $array_grades = array_merge($array_dataDB,$new_array_data);
-////            $sssc = $this->take_grade(json_encode($array_grades));
-//        }elseif ($booking_schedule->grade_id == sss){
-//            $array_dataDB = json_decode($booking_schedule->array_grade);
-//            $new_array_data = json_decode($request->Cgrade[0]);
-//            if (!empty($array_dataDB)) {
-//                $array_grades = array_merge($array_dataDB, $new_array_data);
-//                $sssc = $this->take_grade(json_encode($array_grades));
-//            }else{
-//                $sssc = $this->take_grade($request->Cgrade[0]);
-//            }
-////            $array_grades = array_merge($array_dataDB,$new_array_data);
-////            $sssc = $this->take_grade(json_encode($array_grades));
-//        }elseif ($booking_schedule->grade_id == cso){
-//            $array_dataDB = json_decode($booking_schedule->array_grade);
-//            $new_array_data = json_decode($request->Cgrade[0]);
-//            if (!empty($array_dataDB)) {
-//                $array_grades = array_merge($array_dataDB, $new_array_data);
-//                $sssc = $this->take_grade(json_encode($array_grades));
-//            }else{
-//                $sssc = $this->take_grade($request->Cgrade[0]);
-//            }
-////            $array_grades = array_merge($array_dataDB,$new_array_data);
-////            $sssc = $this->take_grade(json_encode($array_grades));
-//        }
 
         if ($request->card == so_app){
             $take_grade = $request->Cgrades;
@@ -1394,6 +1342,18 @@ class HomeController extends Controller
                     }
                 }
             }
+
+            // New function array grade
+
+//            die(print_r($request->all()));
+//            if (!empty($booking_schedule->array_grade)){
+//                $result = array_search("on", $request->Cgrades);
+//                die(print_r($result));
+//            }else{
+//                $merge_grade = $request->Cgrades;
+//            }
+            // End New function array grade
+
 
             if (!empty($booking_schedule->array_grade)){
                 $get_grade = json_decode($booking_schedule->array_grade);
