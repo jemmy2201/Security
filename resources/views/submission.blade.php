@@ -435,7 +435,7 @@
         </div>
     </div>
 {{--    <br>--}}
-        @if(!empty($grade) || !empty($replacement) && $request->card == so_app)
+{{--        @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
             @if(empty($resubmission))
 {{--                <br class="hidden-xs">--}}
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
@@ -443,7 +443,7 @@
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
                 <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information submitted is true and I have submitted photo.</b>
             @endif
-        @endif
+{{--        @endif--}}
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
