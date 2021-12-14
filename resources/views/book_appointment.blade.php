@@ -74,7 +74,7 @@
                     <li>
                         <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:30
                     </li>
-                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public to public Holidays - Closed</li>
+{{--                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public to public Holidays - Closed</li>--}}
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                     <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
                     @endif
@@ -174,14 +174,14 @@
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Error!", "No date selection.", "error")
+                swal("Error!", "No date/time slot selection.", "error")
             }
         });
         $( "#phone_save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
                 $( "#save_appointment" ).submit();
             }else{
-                swal("Error!", "No date selection.", "error")
+                swal("Error!", "No date/time slot selection.", "error")
             }
         });
     });

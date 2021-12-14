@@ -1394,6 +1394,7 @@ class HomeController extends Controller
                     }
                 }
             }
+
             if (!empty($booking_schedule->array_grade)){
                 $get_grade = json_decode($booking_schedule->array_grade);
                 $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
@@ -1474,15 +1475,24 @@ class HomeController extends Controller
 
                         }
                     }else{
-//                        die('s');
+//                        die('ss');
                         if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
 //                            die('s');
                             if ($request->app_type == news) {
                                 if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
                                     $merge_grade = array_merge($get_grade,$take_grade);
                                 }else{
-                                    $take_grade = [$request->Cgrades[0]];
-                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                    if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
+                                        foreach ($take_grade as $f) {
+                                            $result = array_search("on", $take_grade);
+                                            unset($take_grade[$result]);
+                                        }
+                                        $merge_grade = array_merge($get_grade,$take_grade);
+                                    }else{
+                                        $take_grade = [$request->Cgrades[0]];
+                                        $merge_grade = array_merge($get_grade,$take_grade);
+                                    }
+
                                 }
                             }elseif ($request->app_type == replacement || $request->app_type == renewal) {
 //                                die('2');
