@@ -223,7 +223,7 @@ define('redirectUrlSingpassUat', "https://www.idx-id2021.com/afterlogin");
 //define('redirectUrlSingpassCurlUat', "https%3A%2F%2Fwww.idx-id2021.com%2Fafterlogin");
 define('redirectUrlSingpassCurlUat', "https://www.idx-id2021.com/afterlogin");
 define('attributesSingPassUat', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
-define('hostUat', "stg-id.singpass.gov.sg");
+define('hostUat', "https://stg-id.singpass.gov.sg");
 define('audUat', "https://stg-id.singpass.gov.sg");
 
 //End Uat
@@ -238,7 +238,7 @@ define('clientIdSecretProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
 define('redirectUrlSingpassProd', "https://www.iduse.org.sg/afterlogin");
 define('redirectUrlSingpassCurlProd', "https://www.iduse.org.sg/afterlogin");
 define('attributesSingPassProd', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
-define('hostProd', "id.singpass.gov.sg");
+define('hostProd', "https://id.singpass.gov.sg");
 define('audProd', "https://id.singpass.gov.sg");
 
 // End Prod
