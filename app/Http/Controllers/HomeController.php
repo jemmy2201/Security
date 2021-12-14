@@ -190,12 +190,15 @@ class HomeController extends Controller
                     $array_grade = null;
                 }
             }else {
-                foreach ($Cgrades as $f) {
-                    $result = array_search($f, json_decode($booking_schedule->array_grade));
-                    unset($temp_array_grade[$result]);
-                }
-                foreach ($temp_array_grade as $f) {
-                    array_unshift($array_grade, $f);
+                if (!empty(json_decode($booking_schedule->array_grade))) {
+
+                    foreach ($Cgrades as $f) {
+                        $result = array_search($f, json_decode($booking_schedule->array_grade));
+                        unset($temp_array_grade[$result]);
+                    }
+                    foreach ($temp_array_grade as $f) {
+                        array_unshift($array_grade, $f);
+                    }
                 }
                 if (empty($array_grade[0])){
                     $array_grade = null;
@@ -995,9 +998,9 @@ class HomeController extends Controller
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
-//            if (empty($booking_schedule->declaration_date)){
+            if (empty($booking_schedule->declaration_date)){
                 $this->UpdateBookingSchedule($request,$grade);
-//            }
+            }
 
         }
         $dayHoliday = Dateholiday::get();
@@ -1801,7 +1804,9 @@ class HomeController extends Controller
                 $merge_grade = $request->Cgrades;
             }
         }
-//        die(print_r($merge_grade));
+        if($request->Cgrades[0] == "false"){
+            $merge_grade = null;
+        }
         // old Page //
 //        if ($booking_schedule->grade_id) {
 //            $take_grade = json_decode($booking_schedule->array_grade);
