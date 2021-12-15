@@ -125,19 +125,23 @@ class SingpassController extends Controller
     }
     public static function public_key_jwt($response)
     {
-        $public_get_jwks_ec_local = static::public_get_jwks_sig_local();
+        $private_uri_sig_local = static::private_get_jwks_sig_local();
 
-        $signing_keys = JWKFactory::createFromValues($public_get_jwks_ec_local);
+        $encryption_keys = JWKFactory::createFromValues($private_uri_sig_local);
 
-        $private_get_jwks_ec_local = static::private_get_jwks_sig_local();
+        $public_uri_sig_local = static::public_get_jwks_sig_local();
 
-        $encryption_keys = JWKFactory::createFromValues($private_get_jwks_ec_local);
+        $signing_keys = JWKFactory::createFromValues($public_uri_sig_local);
 
-        $jwkset = JWKFactory::createKeySets([
-            $signing_keys,
-            $encryption_keys,
-        ]);
-        $public_key_set = JWKFactory::createPublicKeySet($jwkset);
+        $public_private_uri_sig_local = static::public_private_get_jwks_sig_local();
+
+        $public_private_uri_sig_local = JWKFactory::createFromValues($public_private_uri_sig_local);
+        die(print_r($public_private_uri_sig_local));
+//        $jwkset = JWKFactory::createKeySets([
+//            $signing_keys,
+//            $encryption_keys,
+//        ]);
+//        $public_key_set = JWKFactory::createPublicKeySet($jwkset);
 
 //        // genereta online (https://keytool.online/) this key $jwks_uri
 //        $publicKey= file_get_contents('PublicKey.pem');
@@ -231,13 +235,15 @@ class SingpassController extends Controller
         return json_decode($response);
     }
 
-    public static function public_get_jwks_ec_local()
+
+
+    public static function private_get_jwks_ec_local()
     {
 
         if (detect_url() == URLUat){
-            $urlec = urlsigUat;
+            $urlec = urlecUat;
         }elseif (detect_url() == URLProd){
-            $urlec = urlsigProd;
+            $urlec = urlecProd;
         }
         $ch = curl_init();
 
@@ -249,9 +255,59 @@ class SingpassController extends Controller
 
         curl_close($ch);
 
-        $response = json_decode($response);
+        $jwks_uri = json_decode($response);
 
-//        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+
+        return $response;
+    }
+
+    public static function public_private_get_jwks_sig_local()
+    {
+
+        if (detect_url() == URLUat){
+            $urlec = urlpublicprivatecsigUat;
+        }elseif (detect_url() == URLProd){
+            $urlec = urlpublicprivatecsigProd;
+        }
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_URL,$urlec);
+
+        $response =curl_exec($ch);
+
+        curl_close($ch);
+
+        $jwks_uri = json_decode($response);
+
+        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+
+        return $response;
+    }
+
+    public static function private_get_jwks_sig_local()
+    {
+
+        if (detect_url() == URLUat){
+            $urlec = urlecUat;
+        }elseif (detect_url() == URLProd){
+            $urlec = urlecProd;
+        }
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_URL,$urlec);
+
+        $response =curl_exec($ch);
+
+        curl_close($ch);
+
+        $jwks_uri = json_decode($response);
+
+        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
 
         return $response;
     }
@@ -260,35 +316,9 @@ class SingpassController extends Controller
     {
 
         if (detect_url() == URLUat){
-            $urlec = urlpublicsigUat;
+            $urlec = urlecUat;
         }elseif (detect_url() == URLProd){
-            $urlec = urlpublicsigProd;
-        }
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_URL,$urlec);
-
-        $response =curl_exec($ch);
-
-        curl_close($ch);
-
-        $response = json_decode($response);
-
-//        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
-
-        return $response;
-    }
-
-
-    public static function private_get_jwks_sig_local()
-    {
-
-        if (detect_url() == URLUat){
-            $urlec = urlprivatecsigUat;
-        }elseif (detect_url() == URLProd){
-            $urlec = urlprivatecsigProd;
+            $urlec = urlecProd;
         }
         $ch = curl_init();
 
@@ -369,9 +399,9 @@ class SingpassController extends Controller
         }
 
         $jwe_decode = static::private_key_jwe($data);
-
+//        die(print_r($jwe_decode["\x00Jose\Object\JWE\x00payload"]));
         $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
-
+        die(print_r($jwe_decode));
         $sub = static::convert_sub($jwt_decode['sub']);
 
         $validasiUser = static::validasiUser($sub);
