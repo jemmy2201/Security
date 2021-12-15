@@ -229,7 +229,7 @@ define('audUat', "https://stg-id.singpass.gov.sg");
 //End Uat
 
 // Prod
-define('authApiUrlProd', "https://www.id.singpass.gov.sg/token");
+define('authApiUrlProd', "https://id.singpass.gov.sg/token");
 define('urlsigProd', "https://www.iduse.org.sg/private/sig/jwks");
 define('urlecProd', "http://www.iduse.org.sg/private/ec/jwks");
 define('authApiUrlSingpassconfigurationProd', "https://id.singpass.gov.sg/.well-known/openid-configuration");
