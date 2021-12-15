@@ -36,7 +36,9 @@ Route::get('/oauth2/uat_jwks', 'SingpassController@jwks');
 Route::get('/oauth2/jwks', 'SingpassController@jwks');
 //Prod
 Route::get('/private/ec/jwks', 'SingpassController@private_key_ec');
+
 Route::get('/private/sig/jwks', 'SingpassController@private_key_sig');
+Route::get('/public/sig/jwks', 'SingpassController@public_key_sig');
 // End singpass
 
 // end user

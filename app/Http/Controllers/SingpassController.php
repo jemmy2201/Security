@@ -104,7 +104,7 @@ class SingpassController extends Controller
 
     public static function private_key_jwe($response)
     {
-        $jwks_uri_ec_local = static::get_jwks_ec_local();
+        $jwks_uri_ec_local = static::private_get_jwks_ec_local();
 
         $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
         $recipient_index=[];
@@ -125,20 +125,26 @@ class SingpassController extends Controller
     }
     public static function public_key_jwt($response)
     {
-//        $configuration_singpass = static::configuration_singpass();
+        $public_get_jwks_ec_local = static::public_get_jwks_sig_local();
 
-//        $jwks_uri = static::get_jwks_uri($configuration_singpass->jwks_uri);
+        $signing_keys = JWKFactory::createFromValues($public_get_jwks_ec_local);
 
-//        $jwk = JWKFactory::createFromCertificateFile('PrivateKey_Jwe.pem', $jwks_uri);
-//        $jwk = JWKFactory::createFromCertificate('PrivateKey_Jwe', $jwks_uri);
-//        die(print_r($jwk));
+        $private_get_jwks_ec_local = static::private_get_jwks_sig_local();
 
-        // genereta online (https://keytool.online/) this key $jwks_uri
-        $publicKey= file_get_contents('PublicKey.pem');
-        // genereta online (https://keytool.online/)
+        $encryption_keys = JWKFactory::createFromValues($private_get_jwks_ec_local);
 
-        $decoded = JWT::decode($response, $publicKey, array('ES256'));
-        $decoded_array = (array) $decoded;
+        $jwkset = JWKFactory::createKeySets([
+            $signing_keys,
+            $encryption_keys,
+        ]);
+        $public_key_set = JWKFactory::createPublicKeySet($jwkset);
+
+//        // genereta online (https://keytool.online/) this key $jwks_uri
+//        $publicKey= file_get_contents('PublicKey.pem');
+//        // genereta online (https://keytool.online/)
+//
+//        $decoded = JWT::decode($response, $publicKey, array('ES256'));
+//        $decoded_array = (array) $decoded;
 
         return $decoded_array;
 
@@ -163,37 +169,44 @@ class SingpassController extends Controller
             $host = hostUat;
         }
 
-//        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
-//
-//        $ch = curl_init();
-//
-//        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
-//        curl_setopt($ch, CURLOPT_POST, 1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS,
-//            $data);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
-//
-//
-//        // receive server response ...
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//
-//        $response = curl_exec ($ch);
-//
-//        curl_close ($ch);
+        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
 
-        $client = new Client();
-        $res = $client->post($authApiUrl, [
-            'form_params' => [
-                'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                'client_assertion' => $jwt,
-                'client_id' => $clientIdSinpass,
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => $redirectUrlSingpassCurl,
-                'code' => $code
-            ]
-        ]);
-        $response = $res->getBody();
+//        $data = '';
+//        $data .= 'client_assertion_type:urn:ietf:params:oauth:client-assertion-type:jwt-bearer<br>';
+//        $data .= 'client_assertion:'.$jwt.'<br>';
+//        $data .= 'client_id:'.$clientIdSinpass.'<br>';
+//        $data .= 'grant_type:authorization_code<br>';
+//        $data .= 'redirect_uri:'.$redirectUrlSingpassCurl.'<br>';
+//        $data .= 'code:'.$code.'<br>';
 
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
+            $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
+
+
+        // receive server response ...
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec ($ch);
+
+        curl_close ($ch);
+
+//        $client = new Client();
+//        $res = $client->post($authApiUrl, [
+//            'form_params' => [
+//                'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+//                'client_assertion' => $jwt,
+//                'client_id' => $clientIdSinpass,
+//                'grant_type' => 'authorization_code',
+//                'redirect_uri' => $redirectUrlSingpassCurl,
+//                'code' => $code
+//            ]
+//        ]);
+//        $response = $res->getBody();
         return $response;
     }
 
@@ -218,13 +231,64 @@ class SingpassController extends Controller
         return json_decode($response);
     }
 
-    public static function get_jwks_ec_local()
+    public static function public_get_jwks_ec_local()
     {
 
         if (detect_url() == URLUat){
-            $urlec = urlecUat;
+            $urlec = urlsigUat;
         }elseif (detect_url() == URLProd){
-            $urlec = urlecProd;
+            $urlec = urlsigProd;
+        }
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_URL,$urlec);
+
+        $response =curl_exec($ch);
+
+        curl_close($ch);
+
+        $response = json_decode($response);
+
+//        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+
+        return $response;
+    }
+
+    public static function public_get_jwks_sig_local()
+    {
+
+        if (detect_url() == URLUat){
+            $urlec = urlpublicsigUat;
+        }elseif (detect_url() == URLProd){
+            $urlec = urlpublicsigProd;
+        }
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_URL,$urlec);
+
+        $response =curl_exec($ch);
+
+        curl_close($ch);
+
+        $response = json_decode($response);
+
+//        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+
+        return $response;
+    }
+
+
+    public static function private_get_jwks_sig_local()
+    {
+
+        if (detect_url() == URLUat){
+            $urlec = urlprivatecsigUat;
+        }elseif (detect_url() == URLProd){
+            $urlec = urlprivatecsigProd;
         }
         $ch = curl_init();
 
@@ -292,11 +356,19 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
+
         $jwt = static::private_key_jwt();
 
         $response = static::id_token($jwt,$request->code);
 
-        $jwe_decode = static::private_key_jwe(json_decode($response)->id_token);
+        if (detect_url() == URLUat){
+            $data = json_decode($response)->id_token;
+        }elseif (detect_url() == URLProd){
+            $data = json_decode($response, true);
+            $data = $data['id_token'];
+        }
+
+        $jwe_decode = static::private_key_jwe($data);
 
         $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
 
@@ -357,11 +429,20 @@ class SingpassController extends Controller
         return $key;
     }
 
-    public function private_key_sig(){
+    public function public_private_key_sig(){
         $key['keys'] =[array(
             "kty"=> "EC",
+//            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+//            "use"=> "sig",
+            "crv"=> "P-256",
+            "kid"=> "idx-sig",
+            "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+            "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+//            "alg"=> "ES256"
+        ),array(
+            "kty"=> "EC",
             "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
-            "use"=> "sig",
+//            "use"=> "sig",
             "crv"=> "P-256",
             "kid"=> "idx-sig",
             "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
@@ -371,6 +452,33 @@ class SingpassController extends Controller
         return $key;
     }
 
+    public function private_key_sig(){
+        $key['keys'] =[array(
+            "kty"=> "EC",
+            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+//            "use"=> "sig",
+            "crv"=> "P-256",
+            "kid"=> "idx-sig",
+            "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+            "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+            "alg"=> "ES256"
+        )];
+        return $key;
+    }
+
+    public function public_key_sig(){
+        $key['keys'] =[array(
+            "kty"=> "EC",
+//            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+//            "use"=> "sig",
+            "crv"=> "P-256",
+            "kid"=> "idx-sig",
+            "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+            "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+//            "alg"=> "ES256"
+        )];
+        return $key;
+    }
 
     public function dummy_login($type)
     {
