@@ -39,7 +39,7 @@ Route::get('/private/ec/jwks', 'SingpassController@private_key_ec');
 
 Route::get('/private/sig/jwks', 'SingpassController@private_key_sig');
 Route::get('/public/sig/jwks', 'SingpassController@public_key_sig');
-Route::get('/public/private/sig/jwks', 'SingpassController@public_private_get_jwks_sig_local');
+Route::get('/public/private/sig/jwks', 'SingpassController@public_private_key_sig');
 // End singpass
 
 // end user
