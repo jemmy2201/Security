@@ -214,11 +214,11 @@ define('URLProd', "https://www.iduse.org.sg");
 //Uat
 
 define('authApiUrlUat', "https://stg-id.singpass.gov.sg/token");
-define('urlsigUat', "https://www.idx-id2021.com/private/sig/jwks");
+define('urlsigUat', "http://www.idx-id2021.com/private/sig/jwks");
 define('urlecUat', "http://www.idx-id2021.com/private/ec/jwks");
-define('urlpublicsigUat', "https://www.idx-id2021.com/public/sig/jwks");
-define('urlprivatecsigUat', "https://www.idx-id2021.com/private/sig/jwks");
-define('urlpublicprivatecsigUat', "https://www.idx-id2021.com/public/private/sig/jwks");
+define('urlpublicsigUat', "http//www.idx-id2021.com/public/sig/jwks");
+define('urlprivatecsigUat', "http://www.idx-id2021.com/private/sig/jwks");
+define('urlpublicprivatecsigUat', "http://www.idx-id2021.com/public/private/sig/jwks");
 define('authApiUrlSingpassconfigurationUat', "https://stg-id.singpass.gov.sg/.well-known/openid-configuration");
 define('clientIdSinpassUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
 define('clientIdSecretUat', "99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I");
@@ -233,11 +233,11 @@ define('audUat', "https://stg-id.singpass.gov.sg");
 
 // Prod
 define('authApiUrlProd', "https://id.singpass.gov.sg/token");
-define('urlsigProd', "https://www.iduse.org.sg/private/sig/jwks");
-define('urlpublicsigProd', "https://www.iduse.org.sg/public/sig/jwks");
-define('urlprivatecsigProd', "https://www.iduse.org.sg/private/sig/jwks");
-define('urlpublicprivatecsigProd', "https://www.iduse.org.sg/public/private/sig/jwks");
-define('urlecProd', "https://www.iduse.org.sg/private/ec/jwks");
+define('urlsigProd', "http://www.iduse.org.sg/private/sig/jwks");
+define('urlpublicsigProd', "http://www.iduse.org.sg/public/sig/jwks");
+define('urlprivatecsigProd', "http://www.iduse.org.sg/private/sig/jwks");
+define('urlpublicprivatecsigProd', "http://www.iduse.org.sg/public/private/sig/jwks");
+define('urlecProd', "http://www.iduse.org.sg/private/ec/jwks");
 define('authApiUrlSingpassconfigurationProd', "https://id.singpass.gov.sg/.well-known/openid-configuration");
 define('clientIdSinpassProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
 define('clientIdSecretProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");

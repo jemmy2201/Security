@@ -125,30 +125,33 @@ class SingpassController extends Controller
     }
     public static function public_key_jwt($response)
     {
-        $private_uri_sig_local = static::private_get_jwks_sig_local();
 
-        $encryption_keys = JWKFactory::createFromValues($private_uri_sig_local);
+        if (detect_url() == URLUat){
+            // genereta online (https://keytool.online/) this key $jwks_uri
+            $publicKey= file_get_contents('PublicKey.pem');
+            // genereta online (https://keytool.online/)
 
-        $public_uri_sig_local = static::public_get_jwks_sig_local();
+            $decoded = JWT::decode($response, $publicKey, array('ES256'));
+            $decoded_array = (array) $decoded;
+        }elseif (detect_url() == URLProd) {
 
-        $signing_keys = JWKFactory::createFromValues($public_uri_sig_local);
+            $public_private_uri_sig_local = static::public_private_get_jwks_sig_local();
 
-        $public_private_uri_sig_local = static::public_private_get_jwks_sig_local();
+            $public_private_uri_sig_local = JWKFactory::createFromValues($public_private_uri_sig_local);
 
-        $public_private_uri_sig_local = JWKFactory::createFromValues($public_private_uri_sig_local);
-        die(print_r($public_private_uri_sig_local));
-//        $jwkset = JWKFactory::createKeySets([
-//            $signing_keys,
-//            $encryption_keys,
-//        ]);
-//        $public_key_set = JWKFactory::createPublicKeySet($jwkset);
+//            $response = 'eyJraWQiOiJuZGlfcHJkXzAxIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJzPVMxNzE4MzY1Rix1PWI1MDAwNjA1LTNhZjMtNDExMC04NDI0LWRhYTc4YzgzZTk1YSIsImF1ZCI6Ik5hZXRTS0RDb0JEN0JtV2FwWGhhNjE4NzhTTmtQM3pGIiwiYW1yIjpbInB3ZCIsInN3ayJdLCJpc3MiOiJodHRwczovL2lkLnNpbmdwYXNzLmdvdi5zZyIsImV4cCI6MTYzOTU4NTA4OSwiaWF0IjoxNjM5NTg0NDg5LCJub25jZSI6ImR1bW15U2Vzc2lvbk5vbmNlIn0.T-GP2PGYFMRg-DehvJDFyq_7vNFFNQ6QAcgSthKZS1QCQ8dH7r12-JD4HkI_nmUStT0XHR-EuXvFdXyhEAEFyw';
+            // We create our loader.
+            $loader = new Loader();
 
-//        // genereta online (https://keytool.online/) this key $jwks_uri
-//        $publicKey= file_get_contents('PublicKey.pem');
-//        // genereta online (https://keytool.online/)
-//
-//        $decoded = JWT::decode($response, $publicKey, array('ES256'));
-//        $decoded_array = (array) $decoded;
+            // The signature is verified using our key set.
+            $jws = $loader->loadAndVerifySignatureUsingKeySet(
+                $response,
+                $public_private_uri_sig_local,
+                ['ES256'],
+                $signature_index
+            );
+            $decoded_array = (array)$jws;
+        }
 
         return $decoded_array;
 
@@ -174,14 +177,6 @@ class SingpassController extends Controller
         }
 
         $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
-
-//        $data = '';
-//        $data .= 'client_assertion_type:urn:ietf:params:oauth:client-assertion-type:jwt-bearer<br>';
-//        $data .= 'client_assertion:'.$jwt.'<br>';
-//        $data .= 'client_id:'.$clientIdSinpass.'<br>';
-//        $data .= 'grant_type:authorization_code<br>';
-//        $data .= 'redirect_uri:'.$redirectUrlSingpassCurl.'<br>';
-//        $data .= 'code:'.$code.'<br>';
 
         $ch = curl_init();
 
@@ -269,6 +264,8 @@ class SingpassController extends Controller
             $urlec = urlpublicprivatecsigUat;
         }elseif (detect_url() == URLProd){
             $urlec = urlpublicprivatecsigProd;
+        }else{
+            $urlec = urlpublicprivatecsigUat;
         }
         $ch = curl_init();
 
@@ -280,9 +277,9 @@ class SingpassController extends Controller
 
         curl_close($ch);
 
-        $jwks_uri = json_decode($response);
+        $response = json_decode($response,true);
 
-        $response = json_decode(json_encode($jwks_uri->keys[0]), true);
+//        $response = json_decode(json_encode($jwks_uri->keys), true);
 
         return $response;
     }
@@ -386,7 +383,6 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
-
         $jwt = static::private_key_jwt();
 
         $response = static::id_token($jwt,$request->code);
@@ -401,8 +397,15 @@ class SingpassController extends Controller
         $jwe_decode = static::private_key_jwe($data);
 //        die(print_r($jwe_decode["\x00Jose\Object\JWE\x00payload"]));
         $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
-        die(print_r($jwe_decode));
-        $sub = static::convert_sub($jwt_decode['sub']);
+
+        if (detect_url() == URLUat){
+            $sub = $jwt_decode['sub'];
+        }elseif (detect_url() == URLProd){
+            $sub =$jwt_decode["\x00Jose\Object\JWS\x00payload"];
+            $sub =$sub['sub'];
+        }
+
+        $sub = static::convert_sub($sub);
 
         $validasiUser = static::validasiUser($sub);
 
@@ -417,7 +420,6 @@ class SingpassController extends Controller
                 return redirect()->to('/home');
             }
         }else{
-
 //            return redirect()->to('/');
             return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
 
@@ -491,7 +493,7 @@ class SingpassController extends Controller
             "kid"=> "idx-sig",
             "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
             "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
-            "alg"=> "ES256"
+//            "alg"=> "ES256"
         )];
         return $key;
     }
