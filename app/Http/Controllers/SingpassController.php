@@ -222,9 +222,9 @@ class SingpassController extends Controller
     {
 
         if (detect_url() == URLUat){
-            $urlec = urlecUat;
+            $urlec = urlsigUat;
         }elseif (detect_url() == URLProd){
-            $urlec = urlecProd;
+            $urlec = urlsigProd;
         }
         $ch = curl_init();
 
