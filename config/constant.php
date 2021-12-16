@@ -248,7 +248,7 @@ define('hostProd', "https://id.singpass.gov.sg");
 define('audProd', "https://id.singpass.gov.sg");
 // End Prod
 
-define('url_api_private_key_jwe', "http://www.iduse.org.sg/api/jwe/decrypted");
+define('url_api_private_key_jwe', "https://www.idx-id2021.com/api/jwe/decrypted");
 
 
 // Paynow
