@@ -229,18 +229,6 @@ class SingpassController extends Controller
 
         curl_close ($ch);
 
-//        $client = new Client();
-//        $res = $client->post($authApiUrl, [
-//            'form_params' => [
-//                'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-//                'client_assertion' => $jwt,
-//                'client_id' => $clientIdSinpass,
-//                'grant_type' => 'authorization_code',
-//                'redirect_uri' => $redirectUrlSingpassCurl,
-//                'code' => $code
-//            ]
-//        ]);
-//        $response = $res->getBody();
         return $response;
     }
 
@@ -314,8 +302,6 @@ class SingpassController extends Controller
         curl_close($ch);
 
         $response = json_decode($response,true);
-
-//        $response = json_decode(json_encode($jwks_uri->keys), true);
 
         return $response;
     }
@@ -419,18 +405,6 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
-//        $jwe_decode = static::public_key_jwt("eyJraWQiOiJuZGlfcHJkXzAxIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJzPVMxNzE4MzY1Rix1PWI1MDAwNjA1LTNhZjMtNDExMC04NDI0LWRhYTc4YzgzZTk1YSIsImF1ZCI6Ik5hZXRTS0RDb0JEN0JtV2FwWGhhNjE4NzhTTmtQM3pGIiwiYW1yIjpbInB3ZCIsInN3ayJdLCJpc3MiOiJodHRwczpcL1wvaWQuc2luZ3Bhc3MuZ292LnNnIiwiZXhwIjoxNjM5NjM4Mzg4LCJpYXQiOjE2Mzk2Mzc3ODgsIm5vbmNlIjoiZHVtbXlTZXNzaW9uTm9uY2UifQ.CIxzjcaTXG26dGl6puzjVeuA63RxGnJ9K1Corr7wqImDehT7i1-vWeYKkMX03lpNLv1Ra4gER9OCIPYiLHHAow");
-//        dd( $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"]);
-//        $sub = $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
-//        $subs = json_decode($sub);
-//        $sub = $subs->sub;
-//        $sub = static::convert_sub($sub);
-//        die(print_r($sub));
-
-//        $jwe_decode = static::private_key_jwe("eyJlcGsiOnsia3R5IjoiRUMiLCJjcnYiOiJQLTI1NiIsIngiOiJMYUhITVlnZVlHbmwwaTFDVVRTNlhIOVNEZ1pzd3VrRUdhYTExVG4wcmRFIiwieSI6IkdoYXJxZktVbi1tc2U5RjhfaHd5U09hNDczNjhqS25PWWNBS0ZCbjBzX3MifSwia2lkIjoiaWR4LWVuYyIsImN0eSI6IkpXVCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJhbGciOiJFQ0RILUVTK0ExMjhLVyJ9.9Ihbn9nLDB-7c2adASvwddbl3t1qRZvRM2ZTxfAr1vk-JK-8SUv0S9q178uwMOkamBrhOUGYKg4Gie_leW4vU2z4KTCnZten.gG20zK2aZmHyTKn6Fg5Gjw.I162s9dbfOpbMFgl6M2N4-2OMIhQ96I8kEYlWURsuYp-AiTGUa5AAIh-1PiBSBsOnWqRw5xZ4YHMm4tCH9hZqu4cFUbn17g3ZZ-JYeMUK8Sgxgq4Hwoh4bKevtp8xnfd3N4BtSDD8BHRLnHM4AYKwRtLaBuc4iTdOgRfwaQmB4UB7qdGATAzzeu9aBkNbE2depCww48E-rLUAocgq3E_5iX1gO2Og545Bo3hZrcNkI4ZdISciFuqMCrB-PpOzq8bCoWRngEmjaZ9R9vvgBd_iytG0Ho7adu8floXyuXj9wUZzjIrfwrHQWG6d8Naw-q5hmG1Emka9h5_DGlu8ppddvJd7IIw0AUiCe4A8LqK4CII753WWaJJ6DDsxuFJmznF_BpOdzKE2GCwjmeD7fB9Lhxen7iE30_u0NR-5d2oHQFJbwF-W6Bse0PbNVxnb71CgdpG-peTZw8tNem00Esmd38N4LRmCCHVE_NyrpG-R7QthIBD6mMJ6yYLIEs5a5JJuNpyB7mwgeBZ8TNXVGgkSGmyMNdFq5zFhspNEY-iwhbMXCCQhXjUYAa2gFxcrOHt1c5yvbG0Y8806v4kd9qnWw.f04GTNqgO5TWQIZddj070G1n40pzu0WnjqR9qoYc_tc");
-//        dd($jwe_decode["\x00Jose\Component\Encryption\JWE\x00payload"]);
-//        $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
-
         $jwt = static::private_key_jwt();
 
         $response = static::id_token($jwt,$request->code);
@@ -447,15 +421,14 @@ class SingpassController extends Controller
         if (detect_url() == URLUat){
             $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
         }elseif (detect_url() == URLProd){
-            $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
+            $jwe_decode = $jwe_decode;
         }
 
         $jwt_decode = static::public_key_jwt($jwe_decode);
-
         if (detect_url() == URLUat){
             $sub = $jwt_decode['sub'];
         }elseif (detect_url() == URLProd){
-            $sub = $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
+            $sub = $jwt_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
             $subs = json_decode($sub);
             $sub = $subs->sub;
         }
