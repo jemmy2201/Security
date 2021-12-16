@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Firebase\JWT\JWK;
 use Illuminate\Http\Request;
 use Jose\Factory\JWKFactory;
+use Jose\Loader;
 
 class JWEController extends Controller
 {
