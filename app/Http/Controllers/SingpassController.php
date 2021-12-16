@@ -18,6 +18,12 @@ use Jose\Loader;
 use Jose\Object\JWKSet;
 use Artisan;
 use Illuminate\Support\Facades\Http;
+use Jose\Factory\JWSFactory;
+use EllipticCurve;
+use Jose\Component\Signature\Serializer\JWSSerializerManager;
+use Jose\Component\Signature\Serializer\CompactSerializer;
+
+
 class SingpassController extends Controller
 {
     public static function newuser($sub)
@@ -104,22 +110,42 @@ class SingpassController extends Controller
 
     public static function private_key_jwe($response)
     {
-        $jwks_uri_ec_local = static::private_get_jwks_ec_local();
+        if (detect_url() == URLUat){
+            $jwks_uri_ec_local = static::private_get_jwks_ec_local();
 
-        $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
-        $recipient_index=[];
-        $loader = new Loader();
-        // This is the input we want to load verify.
-        // $response = 'eyJhbGciOiJSU0EtT0FFUCIsImtpZCI6InNhbXdpc2UuZ2FtZ2VlQGhvYmJpdG9uLmV4YW1wbGUiLCJlbmMiOiJBMjU2R0NNIn0.rT99rwrBTbTI7IJM8fU3Eli7226HEB7IchCxNuh7lCiud48LxeolRdtFF4nzQibeYOl5S_PJsAXZwSXtDePz9hk-BbtsTBqC2UsPOdwjC9NhNupNNu9uHIVftDyucvI6hvALeZ6OGnhNV4v1zx2k7O1D89mAzfw-_kT3tkuorpDU-CpBENfIHX1Q58-Aad3FzMuo3Fn9buEP2yXakLXYa15BUXQsupM4A1GD4_H4Bd7V3u9h8Gkg8BpxKdUV9ScfJQTcYm6eJEBz3aSwIaK4T3-dwWpuBOhROQXBosJzS1asnuHtVMt2pKIIfux5BC6huIvmY7kzV7W7aIUrpYm_3H4zYvyMeq5pGqFmW2k8zpO878TRlZx7pZfPYDSXZyS0CfKKkMozT_qiCwZTSz4duYnt8hS4Z9sGthXn9uDqd6wycMagnQfOTs_lycTWmY-aqWVDKhjYNRf03NiwRtb5BE-tOdFwCASQj3uuAgPGrO2AWBe38UjQb0lvXn1SpyvYZ3WFc7WOJYaTa7A8DRn6MC6T-xDmMuxC0G7S2rscw5lQQU06MvZTlFOt0UvfuKBa03cxA_nIBIhLMjY2kOTxQMmpDPTr6Cbo8aKaOnx6ASE5Jx9paBpnNmOOKH35j_QlrQhDWUN6A2Gg8iFayJ69xDEdHAVCGRzN3woEI2ozDRs.-nBoKLH0YkLZPSI9.o4k2cnGN8rSSw3IDo1YuySkqeS_t2m1GXklSgqBdpACm6UJuJowOHC5ytjqYgRL-I-soPlwqMUf4UgRWWeaOGNw6vGW-xyM01lTYxrXfVzIIaRdhYtEMRBvBWbEwP7ua1DRfvaOjgZv6Ifa3brcAM64d8p5lhhNcizPersuhw5f-pGYzseva-TUaL8iWnctc-sSwy7SQmRkfhDjwbz0fz6kFovEgj64X1I5s7E6GLp5fnbYGLa1QUiML7Cc2GxgvI7zqWo0YIEc7aCflLG1-8BboVWFdZKLK9vNoycrYHumwzKluLWEbSVmaPpOslY2n525DxDfWaVFUfKQxMF56vn4B9QMpWAbnypNimbM8zVOw.UCGiqJxhBI3IFVdPalHHvA';
-        // The payload is decrypted using our key.
-        $jws = $loader->loadAndDecryptUsingKey(
-            $response,            // The input to load and decrypt
-            $jwk,                 // The symmetric or private key
-            ['ECDH-ES+A128KW'],      // A list of allowed key encryption algorithms
-            ['A256CBC-HS512'],       // A list of allowed content encryption algorithms
-            $recipient_index   // If decrypted, this variable will be set with the recipient index used to decrypt
-        );
-        $jws = (array) $jws;
+            $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
+
+            $recipient_index=[];
+
+            $loader = new Loader();
+            // This is the input we want to load verify.
+            // $response = 'eyJhbGciOiJSU0EtT0FFUCIsImtpZCI6InNhbXdpc2UuZ2FtZ2VlQGhvYmJpdG9uLmV4YW1wbGUiLCJlbmMiOiJBMjU2R0NNIn0.rT99rwrBTbTI7IJM8fU3Eli7226HEB7IchCxNuh7lCiud48LxeolRdtFF4nzQibeYOl5S_PJsAXZwSXtDePz9hk-BbtsTBqC2UsPOdwjC9NhNupNNu9uHIVftDyucvI6hvALeZ6OGnhNV4v1zx2k7O1D89mAzfw-_kT3tkuorpDU-CpBENfIHX1Q58-Aad3FzMuo3Fn9buEP2yXakLXYa15BUXQsupM4A1GD4_H4Bd7V3u9h8Gkg8BpxKdUV9ScfJQTcYm6eJEBz3aSwIaK4T3-dwWpuBOhROQXBosJzS1asnuHtVMt2pKIIfux5BC6huIvmY7kzV7W7aIUrpYm_3H4zYvyMeq5pGqFmW2k8zpO878TRlZx7pZfPYDSXZyS0CfKKkMozT_qiCwZTSz4duYnt8hS4Z9sGthXn9uDqd6wycMagnQfOTs_lycTWmY-aqWVDKhjYNRf03NiwRtb5BE-tOdFwCASQj3uuAgPGrO2AWBe38UjQb0lvXn1SpyvYZ3WFc7WOJYaTa7A8DRn6MC6T-xDmMuxC0G7S2rscw5lQQU06MvZTlFOt0UvfuKBa03cxA_nIBIhLMjY2kOTxQMmpDPTr6Cbo8aKaOnx6ASE5Jx9paBpnNmOOKH35j_QlrQhDWUN6A2Gg8iFayJ69xDEdHAVCGRzN3woEI2ozDRs.-nBoKLH0YkLZPSI9.o4k2cnGN8rSSw3IDo1YuySkqeS_t2m1GXklSgqBdpACm6UJuJowOHC5ytjqYgRL-I-soPlwqMUf4UgRWWeaOGNw6vGW-xyM01lTYxrXfVzIIaRdhYtEMRBvBWbEwP7ua1DRfvaOjgZv6Ifa3brcAM64d8p5lhhNcizPersuhw5f-pGYzseva-TUaL8iWnctc-sSwy7SQmRkfhDjwbz0fz6kFovEgj64X1I5s7E6GLp5fnbYGLa1QUiML7Cc2GxgvI7zqWo0YIEc7aCflLG1-8BboVWFdZKLK9vNoycrYHumwzKluLWEbSVmaPpOslY2n525DxDfWaVFUfKQxMF56vn4B9QMpWAbnypNimbM8zVOw.UCGiqJxhBI3IFVdPalHHvA';
+            // The payload is decrypted using our key.
+            $jws = $loader->loadAndDecryptUsingKey(
+                $response,            // The input to load and decrypt
+                $jwk,                 // The symmetric or private key
+                ['ECDH-ES+A128KW'],      // A list of allowed key encryption algorithms
+                ['A256CBC-HS512'],       // A list of allowed content encryption algorithms
+                $recipient_index   // If decrypted, this variable will be set with the recipient index used to decrypt
+            );
+            $jws = (array) $jws;
+        }elseif (detect_url() == URLProd) {
+            $jwk = new JWK([
+                "kty"=> "EC",
+                "d"=> "7FaRgw1cJmzGA1hss0YcLK4483zkKJ6JPafOwEoMlIw",
+                "use"=> "enc",
+                "crv"=> "P-256",
+                "kid"=> "idx-enc",
+                "x"=> "9Is-VbNwtijojiwRxWAbXxg-UTndznGFISU0RlQpfoY",
+                "y"=> "t67FS3cT-sohO_x5qsBvAnM5HTNkk_wNQza32YJg-6A",
+                "alg"=> "ECDH-ES+A128KW"
+            ]);
+
+        }
+
+
+
+
 
         return $jws;
     }
@@ -135,22 +161,32 @@ class SingpassController extends Controller
             $decoded_array = (array) $decoded;
         }elseif (detect_url() == URLProd) {
 
-            $public_private_uri_sig_local = static::public_private_get_jwks_sig_local();
+            $jwk = new JWK([
+                "kty"=> "EC",
+                "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+                "use"=> "sig",
+                "crv"=> "P-256",
+                "kid"=> "idx-sig",
+                "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
+                "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
+            ]);
 
-            $public_private_uri_sig_local = JWKFactory::createFromValues($public_private_uri_sig_local);
+            // The serializer manager. We only use the JWS Compact Serialization Mode.
+            $serializerManager = new JWSSerializerManager([
+                new CompactSerializer(),
+            ]);
 
-//            $response = 'eyJraWQiOiJuZGlfcHJkXzAxIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJzPVMxNzE4MzY1Rix1PWI1MDAwNjA1LTNhZjMtNDExMC04NDI0LWRhYTc4YzgzZTk1YSIsImF1ZCI6Ik5hZXRTS0RDb0JEN0JtV2FwWGhhNjE4NzhTTmtQM3pGIiwiYW1yIjpbInB3ZCIsInN3ayJdLCJpc3MiOiJodHRwczovL2lkLnNpbmdwYXNzLmdvdi5zZyIsImV4cCI6MTYzOTU4NTA4OSwiaWF0IjoxNjM5NTg0NDg5LCJub25jZSI6ImR1bW15U2Vzc2lvbk5vbmNlIn0.T-GP2PGYFMRg-DehvJDFyq_7vNFFNQ6QAcgSthKZS1QCQ8dH7r12-JD4HkI_nmUStT0XHR-EuXvFdXyhEAEFyw';
-            // We create our loader.
-            $loader = new Loader();
 
-            // The signature is verified using our key set.
-            $jws = $loader->loadAndVerifySignatureUsingKeySet(
-                $response,
-                $public_private_uri_sig_local,
-                ['ES256'],
-                $signature_index
-            );
+            // We try to load the token.
+            $jws = $serializerManager->unserialize($response);
+
+            // We verify the signature. This method does NOT check the header.
+            // The arguments are:
+            // - The JWS object,
+            // - The key,
+            // - The index of the signature to check. See
             $decoded_array = (array)$jws;
+
         }
 
         return $decoded_array;
@@ -263,9 +299,10 @@ class SingpassController extends Controller
         if (detect_url() == URLUat){
             $urlec = urlpublicprivatecsigUat;
         }elseif (detect_url() == URLProd){
-            $urlec = urlpublicprivatecsigProd;
+            $urlec = urlsigProd;
         }else{
-            $urlec = urlpublicprivatecsigUat;
+            $urlec = urlsigProd;
+
         }
         $ch = curl_init();
 
@@ -383,6 +420,18 @@ class SingpassController extends Controller
     }
     public function login(Request $request)
     {
+//        $jwe_decode = static::public_key_jwt("eyJraWQiOiJuZGlfcHJkXzAxIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJzPVMxNzE4MzY1Rix1PWI1MDAwNjA1LTNhZjMtNDExMC04NDI0LWRhYTc4YzgzZTk1YSIsImF1ZCI6Ik5hZXRTS0RDb0JEN0JtV2FwWGhhNjE4NzhTTmtQM3pGIiwiYW1yIjpbInB3ZCIsInN3ayJdLCJpc3MiOiJodHRwczpcL1wvaWQuc2luZ3Bhc3MuZ292LnNnIiwiZXhwIjoxNjM5NjM4Mzg4LCJpYXQiOjE2Mzk2Mzc3ODgsIm5vbmNlIjoiZHVtbXlTZXNzaW9uTm9uY2UifQ.CIxzjcaTXG26dGl6puzjVeuA63RxGnJ9K1Corr7wqImDehT7i1-vWeYKkMX03lpNLv1Ra4gER9OCIPYiLHHAow");
+//        dd( $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"]);
+//        $sub = $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
+//        $subs = json_decode($sub);
+//        $sub = $subs->sub;
+//        $sub = static::convert_sub($sub);
+//        die(print_r($sub));
+
+//        $jwe_decode = static::private_key_jwe("eyJlcGsiOnsia3R5IjoiRUMiLCJjcnYiOiJQLTI1NiIsIngiOiJMYUhITVlnZVlHbmwwaTFDVVRTNlhIOVNEZ1pzd3VrRUdhYTExVG4wcmRFIiwieSI6IkdoYXJxZktVbi1tc2U5RjhfaHd5U09hNDczNjhqS25PWWNBS0ZCbjBzX3MifSwia2lkIjoiaWR4LWVuYyIsImN0eSI6IkpXVCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJhbGciOiJFQ0RILUVTK0ExMjhLVyJ9.9Ihbn9nLDB-7c2adASvwddbl3t1qRZvRM2ZTxfAr1vk-JK-8SUv0S9q178uwMOkamBrhOUGYKg4Gie_leW4vU2z4KTCnZten.gG20zK2aZmHyTKn6Fg5Gjw.I162s9dbfOpbMFgl6M2N4-2OMIhQ96I8kEYlWURsuYp-AiTGUa5AAIh-1PiBSBsOnWqRw5xZ4YHMm4tCH9hZqu4cFUbn17g3ZZ-JYeMUK8Sgxgq4Hwoh4bKevtp8xnfd3N4BtSDD8BHRLnHM4AYKwRtLaBuc4iTdOgRfwaQmB4UB7qdGATAzzeu9aBkNbE2depCww48E-rLUAocgq3E_5iX1gO2Og545Bo3hZrcNkI4ZdISciFuqMCrB-PpOzq8bCoWRngEmjaZ9R9vvgBd_iytG0Ho7adu8floXyuXj9wUZzjIrfwrHQWG6d8Naw-q5hmG1Emka9h5_DGlu8ppddvJd7IIw0AUiCe4A8LqK4CII753WWaJJ6DDsxuFJmznF_BpOdzKE2GCwjmeD7fB9Lhxen7iE30_u0NR-5d2oHQFJbwF-W6Bse0PbNVxnb71CgdpG-peTZw8tNem00Esmd38N4LRmCCHVE_NyrpG-R7QthIBD6mMJ6yYLIEs5a5JJuNpyB7mwgeBZ8TNXVGgkSGmyMNdFq5zFhspNEY-iwhbMXCCQhXjUYAa2gFxcrOHt1c5yvbG0Y8806v4kd9qnWw.f04GTNqgO5TWQIZddj070G1n40pzu0WnjqR9qoYc_tc");
+//        dd($jwe_decode["\x00Jose\Component\Encryption\JWE\x00payload"]);
+//        $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
+
         $jwt = static::private_key_jwt();
 
         $response = static::id_token($jwt,$request->code);
@@ -395,14 +444,21 @@ class SingpassController extends Controller
         }
 
         $jwe_decode = static::private_key_jwe($data);
-//        die(print_r($jwe_decode["\x00Jose\Object\JWE\x00payload"]));
-        $jwt_decode = static::public_key_jwt($jwe_decode["\x00Jose\Object\JWE\x00payload"]);
+
+        if (detect_url() == URLUat){
+            $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
+        }elseif (detect_url() == URLProd){
+            $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
+        }
+
+        $jwt_decode = static::public_key_jwt($jwe_decode);
 
         if (detect_url() == URLUat){
             $sub = $jwt_decode['sub'];
         }elseif (detect_url() == URLProd){
-            $sub =$jwt_decode["\x00Jose\Object\JWS\x00payload"];
-            $sub =$sub['sub'];
+            $sub = $jwe_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
+            $subs = json_decode($sub);
+            $sub = $subs->sub;
         }
 
         $sub = static::convert_sub($sub);
@@ -420,9 +476,7 @@ class SingpassController extends Controller
                 return redirect()->to('/home');
             }
         }else{
-//            return redirect()->to('/');
             return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
-
         }
 
     }
@@ -464,8 +518,8 @@ class SingpassController extends Controller
     public function public_private_key_sig(){
         $key['keys'] =[array(
             "kty"=> "EC",
-//            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
-//            "use"=> "sig",
+            "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
+            "use"=> "sig",
             "crv"=> "P-256",
             "kid"=> "idx-sig",
             "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
@@ -474,12 +528,12 @@ class SingpassController extends Controller
         ),array(
             "kty"=> "EC",
             "d"=> "rTMBv7X9HgJfRjZCqyv6XQbOOk-G5C85tIRssTPnhLM",
-//            "use"=> "sig",
+            "use"=> "sig",
             "crv"=> "P-256",
             "kid"=> "idx-sig",
             "x"=> "vZU7a9zvPgDW0foGqkxtcbzYw796G1uYKLYCj0BGQYo",
             "y"=> "ocA9DH32SmIVzuObjeOMHvZZYuLrD4p66w4KE2gngSU",
-            "alg"=> "ES256"
+//            "alg"=> "ES256"
         )];
         return $key;
     }
