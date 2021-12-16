@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/s2sTxnEndURL', 'EnetsController@s2sTxnEndURL');
 Route::post('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
 // End Enets
+
+// jwe decrypted
+Route::post('/jwe/decrypted', 'JWEController@private_key_jwe');
+// end jwe decrypted

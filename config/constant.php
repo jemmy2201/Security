@@ -246,8 +246,10 @@ define('redirectUrlSingpassCurlProd', "https://www.iduse.org.sg/afterlogin");
 define('attributesSingPassProd', "attributes=name,email,uinfin,passportexpirydate,passportnumber,homeno,mobileno");
 define('hostProd', "https://id.singpass.gov.sg");
 define('audProd', "https://id.singpass.gov.sg");
-
 // End Prod
+
+define('url_api_private_key_jwe', "http://www.iduse.org.sg/api/jwe/decrypted");
+
 
 // Paynow
 define('uen', "S78TU0494DIDC");
