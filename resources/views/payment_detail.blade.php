@@ -230,8 +230,6 @@
     <br>
         @csrf
     {{-- Desktop --}}
-    <h3 style="font-size: 20px;"><b>Details</b></h3>
-
     <div class="container">
         <div class="row hidden-xs">
             <div class="col-sm">
@@ -430,7 +428,6 @@
         </div>
     </div>
     {{-- End Phone --}}
-    <h2 style="color: black;font-weight: bold;">Payment Details</h2>
     <br>
     <div class="row">
         <div class="col-10">
