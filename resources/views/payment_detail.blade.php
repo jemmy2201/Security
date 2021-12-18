@@ -31,6 +31,14 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+    .HeaderdataPersonal{
+        color:#808080;
+        font-size: 20px;
+    }
+    .ColoumndataPersonal{
+        font-weight: bold;
+        font-size: 20px;
+    }
 </style>
 @php
     $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
@@ -218,9 +226,216 @@
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/5.png')}}" style="width: 80%;">
     </center>
-    <h2 style="color: black;font-weight: bold;">Payment Details</h2>
+    <h2 style="color: black;font-weight: bold;">My Application Details</h2>
     <br>
         @csrf
+    {{-- Desktop --}}
+    <h3 style="font-size: 20px;"><b>Details</b></h3>
+
+    <div class="container">
+        <div class="row hidden-xs">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
+                    @php
+                        $cutnric = substr(secret_decode($booking_schedule->nric), -4);
+                        $nric = "XXXXX$cutnric";
+                    @endphp
+                    <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    @if (strlen($booking_schedule->name) > 40)
+                        <div class="col-4 ColoumndataPersonal">
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
+                                {{$booking_schedule->name}}
+                                </textarea>
+                        </div>
+                    @else
+                        <div class="col-4 ColoumndataPersonal">{{$booking_schedule->name}}</div>
+                    @endif
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
+                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->mobileno}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;: </div>
+                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->email}}</div>
+                </div>
+            </div>
+            <div class="col-sm-0">
+            </div>
+            <br class="visible-xs hidden-md">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-0 HeaderdataPersonal">Application Type &ensp;&nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">
+                        @if($booking_schedule->app_type == news )
+                            @if($booking_schedule->app_type == news && isset($take_sertifikat) && $take_sertifikat->app_type == news)
+                                Replacement
+                            @else
+                                New
+                            @endif
+                        @endif
+                        @if($booking_schedule->app_type == replacement )
+                            Replacement
+                        @endif
+                        @if($booking_schedule->app_type == renewal )
+                            Renewal
+                        @endif
+                        -
+                        @if($request->card == so_app)
+                            SO
+                        @elseif($request->card == avso_app)
+                            AVSO
+                        @elseif($request->card == pi_app)
+                            PI
+                        @endif
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->passid}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
+                    @if ($request->card == so_app)
+                        @foreach($t_grade as $index =>$f)
+                            @if(!empty($cek_grade) && $cek_grade->grade_id== $f->id)
+                                <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
+                                {{--                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)--}}
+                                {{--                               <div class="col-4 ColoumndataPersonal">SO</div>--}}
+                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id == $f->id)--}}
+                                {{--                                <div class="col-4 ColoumndataPersonal">SSO</div>--}}
+                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+                                {{--                                <div class="col-4 ColoumndataPersonal">SS</div>--}}
+                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+                                {{--                                <div class="col-4 ColoumndataPersonal">SSS</div>--}}
+                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
+                                {{--                                <div class="col-4 ColoumndataPersonal">CSO</div>--}}
+                                {{--                            @else--}}
+                                {{--                                <div class="col-4 ColoumndataPersonal">SO</div>--}}
+                            @endif
+                        @endforeach
+                    @elseif($request->card == avso_app)
+                        <div class="col-4 ColoumndataPersonal">NA</div>
+                    @else
+                        <div class="col-4 ColoumndataPersonal">NA</div>
+                    @endif
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
+                    @if(!empty( $booking_schedule->passexpirydate))
+                        <div class="col-4 ColoumndataPersonal">{{$booking_schedule->passexpirydate}}</div>
+                    @endif
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Appointment Date&ensp;:</div>
+                    @php
+                        $date=date_create($booking_schedule->appointment_date);
+                    @endphp
+                    <div class="col-5 ColoumndataPersonal">{{ date_format($date,"d F Y")}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Time Slot&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-5 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} : {{$booking_schedule->time_end_appointment}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Desktop --}}
+
+    {{-- Phone --}}
+    <div class="row visible-xs hidden-md">
+        <div class="col-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-0 HeaderdataPersonal">NRIC/FIN&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; :</div>
+                    <div class="col-6 ColoumndataPersonal">{{$nric}}</div>
+
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    @if (strlen($booking_schedule->name) > 40)
+                        {{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($booking_schedule->name,0,40)}}<br>{{substr($booking_schedule->name,40)}}</div>--}}
+                        <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
+                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="resize: none;border: none;" readonly>
+                                {{$booking_schedule->name}}
+                                </textarea>
+                            {{--                                {{substr($booking_schedule->name,0,15)}}<br>{{substr($booking_schedule->name,15,15)}}<br>{{substr($booking_schedule->name,30,15)}}<br>{{substr($booking_schedule->name,45,15)}}<br>{{substr($booking_schedule->name,60,15)}}--}}
+                        </div>
+                    @else
+                        <div class="col-6 ColoumndataPersonal">{{$booking_schedule->name}}</div>
+                    @endif
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->mobileno}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->email}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Application Type&ensp;&nbsp; :</div>
+                    <div class="col-6 ColoumndataPersonal">@if($booking_schedule->app_type == news)
+                            New
+                        @elseif($booking_schedule->app_type == replacement)
+                            Replacement
+                        @elseif($booking_schedule->app_type == renewal)
+                            Renewal
+                        @endif
+                        -
+                        @if($request->card == so_app)
+                            SO
+                        @elseif($request->card == avso_app)
+                            AVSO
+                        @elseif($request->card == pi_app)
+                            PI
+                        @endif
+                    </div>
+
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    @if ($request->card == so_app)
+                        @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                            <div class="col-4 ColoumndataPersonal">SO</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sso)
+                            <div class="col-4 ColoumndataPersonal">SSO</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
+                            <div class="col-4 ColoumndataPersonal">SS</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                            <div class="col-4 ColoumndataPersonal">SSS</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
+                            <div class="col-4 ColoumndataPersonal">CSO</div>
+                        @else
+                            <div class="col-4 ColoumndataPersonal">SO</div>
+                        @endif
+                    @elseif($request->card == avso_app)
+                        <div class="col-6 ColoumndataPersonal">NA</div>
+                    @else
+                        <div class="col-6 ColoumndataPersonal">NA</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+        </div>
+        <br class="visible-xs hidden-md">
+        <div class="col-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->passid}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Card Expiry
+                        Date&ensp;&nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->passexpirydate}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Appointment Date&ensp;:</div>
+                    @php
+                        $date=date_create($booking_schedule->appointment_date);
+                    @endphp
+                    <div class="col-6 ColoumndataPersonal">{{ date_format($date,"d F Y")}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-0 HeaderdataPersonal">Time Slot&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} : {{$booking_schedule->time_end_appointment}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Phone --}}
+    <h2 style="color: black;font-weight: bold;">Payment Details</h2>
+    <br>
     <div class="row">
         <div class="col payment_method" style="border-style: groove;">
             <table class="table">
@@ -263,23 +478,38 @@
     </div>
 {{--    <h2>Payment Mode</h2><br>--}}
      <div class="row hidden-xs">
-         <div class="col-2">
-         </div>
+{{--         <div class="col-2">--}}
+{{--         </div>--}}
          <div class="col-4">
              <h3>Select Your Payment Method</h3><br>
          </div>
      </div>
     <div class="row hidden-xs">
-        <div class="col-2">
+        {{--         <div class="col-2">--}}
+        {{--         </div>--}}
+        <div class="col-10">
+            <h4>
+                <input class="form-check-input" name="understand_transaction" type="checkbox" id="understand_transaction" width="120%">
+                <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
+            </h4>
+        </div>
+    </div>
+    <div class="row hidden-xs">
+        <div class="col-1">
         </div>
         <div class="col-10">
-            <img src="{{URL::asset('/img/payment_icon/paynow.png')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+            <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
             <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 15%; margin-left: 60px;">
         </div>
     </div>
+    <button data-toggle="modal" data-target="#Form_payment_paynow" style="display: none" id="popup_paynow"></button>
     <div class="visible-xs hidden-md">
         <h3>Select Your Payment Method</h3><br>
-        <img src="{{URL::asset('/img/payment_icon/paynow.png')}}" data-toggle="modal" data-target="#Form_payment_paynow" id="paynow_phone" style="cursor: pointer;width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+        <h4>
+            <input class="form-check-input" name="understand_transaction_phone" type="checkbox" id="understand_transaction_phone" width="120%">
+            <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
+        </h4><br>
+        <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="cursor: pointer;width: 35%;">
     </div>
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
@@ -448,14 +678,14 @@
 {{--        </div>--}}
         <div class="col-2 next">
         </div>
-        <div class="col-2 next">
-            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-            </button>
-        </div>
+{{--        <div class="col-2 next">--}}
+{{--            <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Save Draft--}}
+{{--                </a>--}}
+{{--            </button>--}}
+{{--        </div>--}}
     </div>
     <div class="row">
         <div class="col-4 back Visible-xs hidden-md">
@@ -469,14 +699,14 @@
         <div class="col-3  visible-xs hidden-md">
 
         </div>
-        <div class="col-4 visible-xs hidden-md">
-            <button class=" btn btn-light btn-lg" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Save Draft
-                </a>
-            </button>
-        </div>
+{{--        <div class="col-4 visible-xs hidden-md">--}}
+{{--            <button class=" btn btn-light btn-lg" style="border-style: groove; background: black; color: #E31D1A">--}}
+{{--                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">--}}
+{{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+{{--                    Save Draft--}}
+{{--                </a>--}}
+{{--            </button>--}}
+{{--        </div>--}}
     </div>
 
 
@@ -511,6 +741,39 @@
     });
 
     $( document ).ready(function() {
+        $('#paynow').on('click', function () {
+            if ($("input[name='understand_transaction']:checked").val()) {
+                $( "#popup_paynow" ).trigger( "click" );
+                $("#payment_method").val({!!  json_encode(paynow) !!})
+            }else{
+                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+            }
+        });
+        $('#paynow_phone').on('click', function () {
+            if ($("input[name='understand_transaction_phone']:checked").val()) {
+                $( "#popup_paynow" ).trigger( "click" );
+                $("#payment_method").val({!!  json_encode(paynow) !!})
+            }else{
+                swal("Error!", "TickI also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+            }
+        });
+        $("#enets").click(function() {
+            if ($("input[name='understand_transaction']:checked").val()) {
+                $("#payment_method").val({!!  json_encode(enets) !!})
+                enets();
+            }else{
+                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+            }
+        });
+        $("#phone_enets").click(function() {
+            if ($("input[name='understand_transaction_phone']:checked").val()) {
+                $("#payment_method").val({!!  json_encode(enets) !!})
+                enets();
+            }else{
+                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+            }
+        });
+
         $("#confirm_payment_enets").click(function() {
             if ($("#card_holder_name").val() && $("#card_number").val() &&  $("#month").val() != false &&  $("#year").val() != false &&  $("#ccv_number").val()) {
                 var Enets = enets();
@@ -538,20 +801,20 @@
         $("#confirm_payment_paynow").click(function() {
            $( "#save_payment").submit();
         });
-        $("#enets").click(function() {
-            {{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
-            enets();
-        });
-        $("#phone_enets").click(function() {
-            {{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
-            enets();
-        });
-        $("#paynow").click(function() {
-            $("#payment_method").val({!!  json_encode(paynow) !!})
-        });
-        $("#paynow_phone").click(function() {
-            $("#payment_method").val({!!  json_encode(paynow) !!})
-        });
+        {{--$("#enets").click(function() {--}}
+        {{--    --}}{{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
+        {{--    enets();--}}
+        {{--});--}}
+        {{--$("#phone_enets").click(function() {--}}
+        {{--    --}}{{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
+        {{--    enets();--}}
+        {{--});--}}
+        {{--$("#paynow").click(function() {--}}
+        {{--    $("#payment_method").val({!!  json_encode(paynow) !!})--}}
+        {{--});--}}
+        {{--$("#paynow_phone").click(function() {--}}
+        {{--    $("#payment_method").val({!!  json_encode(paynow) !!})--}}
+        {{--});--}}
 
     });
     function paynow() {

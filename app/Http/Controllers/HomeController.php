@@ -1018,7 +1018,7 @@ class HomeController extends Controller
     public function View_payment(Request $request)
     {
         $this->UpdateBookingScheduleAppointment($request);
-        $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+        $booking_schedule = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $request->merge(['app_type' => $booking_schedule->app_type]);
         if ($booking_schedule->grade_id == null){
                   $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
