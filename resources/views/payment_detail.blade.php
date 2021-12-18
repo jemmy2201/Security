@@ -296,23 +296,19 @@
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                     @if ($request->card == so_app)
-                        @foreach($t_grade as $index =>$f)
-                            @if(!empty($cek_grade) && $cek_grade->grade_id== $f->id)
-                                <div class="col-4 ColoumndataPersonal">{{$f->name}}</div>
-                                {{--                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)--}}
-                                {{--                               <div class="col-4 ColoumndataPersonal">SO</div>--}}
-                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id == $f->id)--}}
-                                {{--                                <div class="col-4 ColoumndataPersonal">SSO</div>--}}
-                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
-                                {{--                                <div class="col-4 ColoumndataPersonal">SS</div>--}}
-                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
-                                {{--                                <div class="col-4 ColoumndataPersonal">SSS</div>--}}
-                                {{--                            @elseif(!empty($cek_grade) && $cek_grade->grade_id== $f->id)--}}
-                                {{--                                <div class="col-4 ColoumndataPersonal">CSO</div>--}}
-                                {{--                            @else--}}
-                                {{--                                <div class="col-4 ColoumndataPersonal">SO</div>--}}
-                            @endif
-                        @endforeach
+                        @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                            <div class="col-4 ColoumndataPersonal">SO</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sso)
+                            <div class="col-4 ColoumndataPersonal">SSO</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
+                            <div class="col-4 ColoumndataPersonal">SS</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                            <div class="col-4 ColoumndataPersonal">SSS</div>
+                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
+                            <div class="col-4 ColoumndataPersonal">CSO</div>
+                        @else
+                            <div class="col-4 ColoumndataPersonal">SO</div>
+                        @endif
                     @elseif($request->card == avso_app)
                         <div class="col-4 ColoumndataPersonal">NA</div>
                     @else
@@ -437,6 +433,7 @@
     <h2 style="color: black;font-weight: bold;">Payment Details</h2>
     <br>
     <div class="row">
+        <div class="col-10">
         <div class="col payment_method" style="border-style: groove;">
             <table class="table">
                 <thead>
@@ -474,6 +471,7 @@
                 <tbody>
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 {{--    <h2>Payment Mode</h2><br>--}}
