@@ -283,7 +283,12 @@ class AjaxController extends Controller
             ->whereNull('role')
 //            ->whereNull('booking_schedules.app_type')
             ->get();
+
         foreach ($data_grade as $index =>$f){
+            $seftifikasi = sertifikat::where(['nric'=>$f->nric])->latest()->first();
+            if (!empty($seftifikasi) && $seftifikasi->app_type == replacement && $f->app_type == renewal){
+                $data_grade[$index]->app_type = replacement;
+            }
             $data_grade[$index]->nric = secret_decode($f->nric);
         }
         return Datatables::of($data_grade)->addColumn('action', function($row){
@@ -871,7 +876,8 @@ class AjaxController extends Controller
                 }elseif($cek_format_expired_date == true) {
                     $expired_date = $e['expiry_date'];
                 } else {
-                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
+                    $expired_date = $e['expiry_date'];
+//                    $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
                 }
 
                 $format = 'd/m/Y';

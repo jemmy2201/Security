@@ -80,23 +80,30 @@ class HomeController extends Controller
 //            ->orderBy('card_id', 'asc')->get();
 
         $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement])
-//            ->whereNotIn('Status_draft', [draft_book_appointment])
             ->where('status_payment', null)
             ->orderBy('card_id', 'asc')->get();
-        foreach ($replacement as $index => $f) {
-            if ($f->Status_draft != "0") {
-                $replacement = $replacement;
-            }else{
-                $replacement = array();
-            };
-        }
-        foreach ($next_new as $index => $f) {
-            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                $replacement = $next_new;
-            }else{
-                $replacement = array();
-            };
-        }
+
+//        foreach ($replacement as $index => $f) {
+//            if ($f->Status_draft != "0") {
+//                $replacement = $replacement;
+//            }else{
+//                $replacement = array();
+//            };
+//        }
+//
+//        foreach ($next_new as $index => $f) {
+//            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+//                $replacement = $next_new;
+//            }else{
+//                $replacement = array();
+//            };
+//        }
+
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+            ->orderBy('card_id', 'asc')->get();
+
+
+
 //        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
 //            ->orderBy('card_id', 'asc')->get();
 
