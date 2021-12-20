@@ -230,7 +230,7 @@
     <br>
         @csrf
     {{-- Desktop --}}
-    <div class="container">
+   <div class="container">
         <div class="row hidden-xs">
             <div class="col-sm">
                 <div class="row">
@@ -251,9 +251,10 @@
                     @else
                         <div class="col-4 ColoumndataPersonal">{{$booking_schedule->name}}</div>
                     @endif
-                    <div class="w-100"></div>
+
+                    <div class="w-100" style="margin-top: 54px;"></div>
                     <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
-                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->mobileno}}</div>
+                    <div class="col-4 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;: </div>
                     <div class="col-4 ColoumndataPersonal">{{$booking_schedule->email}}</div>
@@ -325,7 +326,7 @@
                     <div class="col-5 ColoumndataPersonal">{{ date_format($date,"d F Y")}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Time Slot&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-5 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} : {{$booking_schedule->time_end_appointment}}</div>
+                    <div class="col-5 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} - {{$booking_schedule->time_end_appointment}}</div>
                 </div>
             </div>
         </div>
@@ -355,7 +356,7 @@
                     @endif
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->mobileno}}</div>
+                    <div class="col-6 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$booking_schedule->email}}</div>
@@ -422,7 +423,7 @@
                     <div class="col-6 ColoumndataPersonal">{{ date_format($date,"d F Y")}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Time Slot&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} : {{$booking_schedule->time_end_appointment}}</div>
+                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->time_start_appointment}} - {{$booking_schedule->time_end_appointment}}</div>
                 </div>
             </div>
         </div>
@@ -430,7 +431,8 @@
     {{-- End Phone --}}
     <br>
     <div class="row">
-        <div class="col-10">
+        {{--  Desktop   --}}
+        <div class="col-10 hidden-xs">
         <div class="col payment_method" style="border-style: groove;">
             <table class="table">
                 <thead>
@@ -470,16 +472,59 @@
             </table>
         </div>
         </div>
+        {{--  End Desktop   --}}
+        {{--  Phone   --}}
+        <div class="col-0 visible-xs hidden-md">
+            <div class="col payment_method" style="border-style: groove;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Application Type</th>
+                        <th scope="col" >Type</th>
+                        {{--                    <th scope="col">Invoice</th>--}}
+                        {{--                    <th scope="col">Fee</th>--}}
+                        {{--                    <th scope="col">GST</th>--}}
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    @if($booking_schedule->app_type == news)
+                        <td>New</td>
+                    @elseif($booking_schedule->app_type == replacement)
+                        <td>Replacement</td>
+                    @elseif($booking_schedule->app_type == renewal)
+                        <td>Renewal</td>
+                    @endif
+                    @if($booking_schedule->card_id == so_app)
+                        <td>SO Application</td>
+                    @elseif($booking_schedule->card_id == avso_app)
+                        <td>AVSO Application</td>
+                    @elseif($booking_schedule->card_id == pi_app)
+                        <td>PI Application</td>
+                    @endif
+                    {{--                <td>${{$booking_schedule->rece}}</td>--}}
+                    @if(!empty($addition_transaction_amount))
+                        {{--                    <td>${{$addition_transaction_amount}}</td>--}}
+                    @else
+                        {{--                    <td>${{$transaction_amount->transaction_amount}}</td>--}}
+                    @endif
+                    {{--                    <td>{{$gst->amount_gst}}%</td>--}}
+                    <td>${{$grand_total}} inclusive GST</td>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{--  End Phone   --}}
     </div>
 {{--    <h2>Payment Mode</h2><br>--}}
-     <div class="row hidden-xs">
+     <div class="row hidden-xs" >
 {{--         <div class="col-2">--}}
 {{--         </div>--}}
          <div class="col-4">
              <h3>Select Your Payment Method</h3><br>
          </div>
      </div>
-    <div class="row hidden-xs">
+    <div class="row hidden-xs" style="margin-top: -20px;">
         {{--         <div class="col-2">--}}
         {{--         </div>--}}
         <div class="col-10">
