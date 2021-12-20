@@ -49,11 +49,13 @@ class HomeController extends Controller
         }elseif(Auth::user()->role == office){
             return view('admin/upgrade_grade');
         }
-//        die(print_r($sertifikat->first()));
+//        die(print_r(Auth::user()->nric));
         return view('home');
     }
     public function landing_page()
     {
+//        die(print_r(Auth::user()->nric));
+
         $cek_del_schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereIn('Status_app', [draft])->get();
 
         // Delete data if not payment 3 month
@@ -83,24 +85,26 @@ class HomeController extends Controller
             ->where('status_payment', null)
             ->orderBy('card_id', 'asc')->get();
 
-//        foreach ($replacement as $index => $f) {
-//            if ($f->Status_draft != "0") {
-//                $replacement = $replacement;
-//            }else{
-//                $replacement = array();
-//            };
-//        }
-//
-//        foreach ($next_new as $index => $f) {
-//            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-//                $replacement = $next_new;
-//            }else{
-//                $replacement = array();
-//            };
-//        }
+        foreach ($replacement as $index => $f) {
+            if ($f->Status_draft != "0") {
+                $replacement = $replacement;
+            }else{
+                $replacement = array();
+            };
+        }
 
-        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+        foreach ($next_new as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                $replacement = $next_new;
+            }else{
+                $replacement = array();
+            };
+        }
+        $from_new_to_replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
+        if (count($replacement) == '0'){
+            $replacement = $from_new_to_replacement;
+        }
 
 
 
