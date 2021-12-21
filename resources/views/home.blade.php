@@ -117,7 +117,7 @@
                 console.log('ss')
                     window.location.href = "/landing_page";
             }else{
-                swal("Error!", "Tick Accept the Terms of Use.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $('#next_phone').on('click', function () {
@@ -125,7 +125,7 @@
                 console.log('ss')
                 window.location.href = "/landing_page";
             }else{
-                swal("Error!", "Tick Accept the Terms of Use.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
     });

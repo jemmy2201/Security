@@ -70,9 +70,9 @@
     </div>
         <div class="row">
             <div class="col">
-                <ul style="font-weight: bold; list-style-type: none;margin-left: -25px;">
+                <ul style=" list-style-type: none;margin-left: -25px;">
                     <li>
-                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style="width: 2%;"> : Half Day - Last Appointment @ 12:30
+                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style=";width: 2%;"> : <span style="font-weight: bold">Half Day</span> / <span style="color: blue;">Eve Of Public Holidays - Last Appointment @12.30pm</span>
                     </li>
 {{--                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public to public Holidays - Closed</li>--}}
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)

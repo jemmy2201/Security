@@ -122,7 +122,7 @@
         </div>
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal">
-                <input type="number" class="form-control visible-xs hidden-md" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{$personal->mobileno}}" maxlength="8" readonly>
+                <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
                 <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
