@@ -108,11 +108,11 @@
                         @php
                             if($personal->expired_date){
                                 $myDateTime = DateTime::createFromFormat('d/m/Y',$personal->expired_date);
-                                $expired_date = $myDateTime->format('d-m-Y');
+                                $expired_date = $myDateTime->format('d F Y');
                             }
                         @endphp
                         @if(!empty($personal->expired_date))
-                        <div class="col-4 ColoumndataPersonal">{{ $expired_date}}</div>
+                        <div class="col-6 ColoumndataPersonal">{{ $expired_date}}</div>
                         @endif
                     </div>
                 </div>

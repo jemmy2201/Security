@@ -319,8 +319,14 @@
                     @endif
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
-                    @if(!empty( $booking_schedule->passexpirydate))
-                        <div class="col-4 ColoumndataPersonal">{{$booking_schedule->passexpirydate}}</div>
+                    @php
+                        if($booking_schedule->expired_date){
+                            $myDateTime = DateTime::createFromFormat('d/m/Y',$booking_schedule->expired_date);
+                            $expired_date = $myDateTime->format('d F Y');
+                        }
+                    @endphp
+                    @if(!empty($booking_schedule->expired_date))
+                        <div class="col-6 ColoumndataPersonal">{{$expired_date}}</div>
                     @endif
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Appointment Date&ensp;:</div>
