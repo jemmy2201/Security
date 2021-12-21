@@ -424,7 +424,7 @@
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Card Expiry
                         Date&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->passexpirydate}}</div>
+                    <div class="col-6 ColoumndataPersonal">{{$expired_date}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Appointment Date&ensp;:</div>
                     @php
