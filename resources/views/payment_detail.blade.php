@@ -252,7 +252,7 @@
                         <div class="col-4 ColoumndataPersonal">{{$booking_schedule->name}}</div>
                     @endif
 
-                    <div class="w-100" style="margin-top: 57px;"></div>
+                    <div class="w-100" style="margin-top: 53px;"></div>
                     <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
                     <div class="col-4 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>
