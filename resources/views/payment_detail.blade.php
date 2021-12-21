@@ -244,7 +244,7 @@
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($booking_schedule->name) > 40)
                         <div class="col-4 ColoumndataPersonal">
-                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
+                                <textarea cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
                                 {{$booking_schedule->name}}
                                 </textarea>
                         </div>
@@ -252,7 +252,11 @@
                         <div class="col-4 ColoumndataPersonal">{{$booking_schedule->name}}</div>
                     @endif
 
-                    <div class="w-100" style="margin-top: 53px;"></div>
+                    @if (strlen($booking_schedule->name) > 40)
+                        <div class="w-100" style="margin-top: 23px;"></div>
+                    @else
+                        <div class="w-100" style="margin-top: 53px;"></div>
+                    @endif
                     <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
                     <div class="col-4 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>

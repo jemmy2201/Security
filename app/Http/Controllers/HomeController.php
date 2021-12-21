@@ -1113,9 +1113,7 @@ class HomeController extends Controller
                 ->update([
                     'Status_app' => draft,
                     'Status_draft' => draft_book_appointment,
-//                    'declaration_date' => null,
                     'trans_date' => null,
-                    'expired_date' => null,
                     'paymentby' => null,
                     'status_payment' => null,
                     'receiptNo' => null,
@@ -1879,7 +1877,7 @@ class HomeController extends Controller
                     'declaration_date' => Carbon::today()->format('d/m/Y'),
 //                    'status_app' => submission,
                     'trans_date' => null,
-                    'expired_date' => null,
+//                    'expired_date' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
