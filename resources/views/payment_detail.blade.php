@@ -753,12 +753,20 @@
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
+
+    //refresh page on browser resize
+    // $(window).bind('resize', function(e)
+    // {
+    //     this.location.reload(false); /* false to get page from cache */
+    //     /* true to fetch page from server */
+    // });
+    
     function hideLoader() {
         $('#loading').hide();
     }
     $(window).ready(hideLoader);
-
-    // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+    //
+    // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
     setTimeout($("#app").css("display", "none"), 60 * 1000);
 
     $( document ).ready(function() {
@@ -873,12 +881,7 @@
         }
         return expiryDateY + $("#month").val();
     }
-    //refresh page on browser resize
-    $(window).bind('resize', function(e)
-    {
-        this.location.reload(false); /* false to get page from cache */
-        /* true to fetch page from server */
-    });
+
 
 </script>
 @endsection
