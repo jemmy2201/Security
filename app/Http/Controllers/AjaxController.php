@@ -747,7 +747,9 @@ class AjaxController extends Controller
 
                     $New_users->name = $e['name'];
 
-                    $New_users->email = 'email'.$count_users.'@admin.com';
+//                    $New_users->email = 'email'.$count_users.'@admin.com';
+
+                    $New_users->email = null;
 
                     $New_users->password = Hash::make('123123');
 
@@ -925,7 +927,9 @@ class AjaxController extends Controller
 
                     $New_users->homeno = $e['home'];
 
-                    $New_users->email = 'email'.$count_users.'@admin.com';
+//                    $New_users->email = 'email'.$count_users.'@admin.com';
+
+                    $New_users->email = null;
 
                     $New_users->password = Hash::make('123123');
 
