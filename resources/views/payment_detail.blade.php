@@ -760,7 +760,7 @@
     //     this.location.reload(false); /* false to get page from cache */
     //     /* true to fetch page from server */
     // });
-    
+
     function hideLoader() {
         $('#loading').hide();
     }

@@ -3,6 +3,9 @@
     .datatableCeate{
         margin: 10px 0px 0px 10px;
     }
+    #table_grade_filter{
+        margin-top: 15px;
+    }
 </style>
 @section('content')
 <div class="container">
@@ -124,7 +127,7 @@
             table_grade = $('#table_grade').DataTable({
                     processing: true,
                     serverSide: true,
-                    searching: false,
+                    searching: true,
                     dom: 'Bfrtip',
                     buttons: acces_button,
                     "ajax": {
@@ -184,17 +187,32 @@
                         },
                         {data: 'Status_app', name: 'Status_app',
                             render: function (data, type, row) {
+                                {{--if(data == @php echo draft @endphp){--}}
+                                {{--    return "@php echo txt_draft @endphp";--}}
+                                {{--}else if(data == @php echo submitted @endphp){--}}
+                                {{--    return "@php echo txt_submitted @endphp";--}}
+                                {{--}else if (data == @php echo processing @endphp){--}}
+                                {{--    return "@php echo txt_processing @endphp";--}}
+                                {{--}else if(data == @php echo id_card_ready_for_collection @endphp){--}}
+                                {{--    return "@php echo txt_id_card_ready_for_collection @endphp";--}}
+                                {{--}else if(data == @php echo resubmission @endphp){--}}
+                                {{--    return "@php echo txt_resubmission @endphp";--}}
+                                {{--}else if(data == @php echo Resubmitted @endphp){--}}
+                                {{--    return "@php echo txt_Resubmitted @endphp";--}}
+                                {{--}else if(data == "@php echo completed @endphp"){--}}
+                                {{--    return "@php echo txt_completed @endphp";--}}
+                                {{--}else{--}}
+                                {{--    return "";--}}
+                                {{--}--}}
                                 if(data == @php echo draft @endphp){
                                     return "@php echo txt_draft @endphp";
                                 }else if(data == @php echo submitted @endphp){
-                                    return "@php echo txt_submitted @endphp";
-                                }else if (data == @php echo processing @endphp){
                                     return "@php echo txt_processing @endphp";
-                                }else if(data == @php echo id_card_ready_for_collection @endphp){
+                                }else if (data == @php echo processing @endphp){
                                     return "@php echo txt_id_card_ready_for_collection @endphp";
-                                }else if(data == @php echo resubmission @endphp){
+                                }else if(data == @php echo id_card_ready_for_collection @endphp){
                                     return "@php echo txt_resubmission @endphp";
-                                }else if(data == @php echo Resubmitted @endphp){
+                                }else if(data == @php echo resubmission @endphp){
                                     return "@php echo txt_Resubmitted @endphp";
                                 }else if(data == "@php echo completed @endphp"){
                                     return "@php echo txt_completed @endphp";

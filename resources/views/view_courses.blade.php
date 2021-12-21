@@ -278,20 +278,33 @@
 {{--                        <div class="col-0 HeaderdataPersonal">Status &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Status <span style="margin-left: 111px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">
+{{--                            @if($courses->Status_app == completed)--}}
+{{--                                <td>{{txt_completed}}</td>--}}
+{{--                            @elseif($courses->Status_app == draft)--}}
+{{--                                <td>{{txt_draft}}</td>--}}
+{{--                            @elseif($courses->Status_app == submitted)--}}
+{{--                                <td>{{txt_submitted}}</td>--}}
+{{--                            @elseif($courses->Status_app == processing)--}}
+{{--                                <td>{{txt_processing}}</td>--}}
+{{--                            @elseif($courses->Status_app == id_card_ready_for_collection)--}}
+{{--                                <td>{{txt_id_card_ready_for_collection}}</td>--}}
+{{--                            @elseif($courses->Status_app == resubmission)--}}
+{{--                                <td>{{txt_resubmission}}</td>--}}
+{{--                            @elseif($courses->Status_app == Resubmitted)--}}
+{{--                                {{txt_Resubmitted}}--}}
+{{--                            @endif--}}
                             @if($courses->Status_app == completed)
                                 <td>{{txt_completed}}</td>
                             @elseif($courses->Status_app == draft)
                                 <td>{{txt_draft}}</td>
                             @elseif($courses->Status_app == submitted)
-                                <td>{{txt_submitted}}</td>
-                            @elseif($courses->Status_app == processing)
                                 <td>{{txt_processing}}</td>
-                            @elseif($courses->Status_app == id_card_ready_for_collection)
+                            @elseif($courses->Status_app == processing)
                                 <td>{{txt_id_card_ready_for_collection}}</td>
-                            @elseif($courses->Status_app == resubmission)
+                            @elseif($courses->Status_app == id_card_ready_for_collection)
                                 <td>{{txt_resubmission}}</td>
-                            @elseif($courses->Status_app == Resubmitted)
-                                {{txt_Resubmitted}}
+                            @elseif($courses->Status_app == resubmission)
+                                <td>{{txt_Resubmitted}}</td>
                             @endif
                         </div>
                         <div class="w-100"></div>

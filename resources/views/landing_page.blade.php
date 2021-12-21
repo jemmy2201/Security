@@ -421,19 +421,32 @@
                         @else
                             <td>NA</td>
                         @endif
-                       @if($f->Status_app == draft)
-                            <td>{{txt_draft}}</td>
-                        @elseif($f->Status_app == submitted)
-                            <td>{{txt_submitted}}</td>
-                        @elseif($f->Status_app == processing)
-                            <td>{{txt_processing}}</td>
-                        @elseif($f->Status_app == id_card_ready_for_collection)
-                            <td>{{txt_id_card_ready_for_collection}}</td>
-                        @elseif($f->Status_app == resubmission)
-                            <td>{{txt_resubmission}}</td>
-                        @elseif($f->Status_app == Resubmitted)
-                            <td>{{txt_Resubmitted}}</td>
-                        @endif
+{{--                       @if($f->Status_app == draft)--}}
+{{--                            <td>{{txt_draft}}</td>--}}
+{{--                        @elseif($f->Status_app == submitted)--}}
+{{--                            <td>{{txt_processing}}</td>--}}
+{{--                        @elseif($f->Status_app == processing)--}}
+{{--                            <td>{{txt_processing}}</td>--}}
+{{--                        @elseif($f->Status_app == id_card_ready_for_collection)--}}
+{{--                            <td>{{txt_id_card_ready_for_collection}}</td>--}}
+{{--                        @elseif($f->Status_app == resubmission)--}}
+{{--                            <td>{{txt_resubmission}}</td>--}}
+{{--                        @elseif($f->Status_app == Resubmitted)--}}
+{{--                            <td>{{txt_Resubmitted}}</td>--}}
+{{--                        @endif--}}
+
+                            @if($f->Status_app == draft)
+                                <td>{{txt_draft}}</td>
+                            @elseif($f->Status_app == submitted)
+                                <td>{{txt_processing}}</td>
+                            @elseif($f->Status_app == processing)
+                                <td>{{txt_id_card_ready_for_collection}}</td>
+                            @elseif($f->Status_app == id_card_ready_for_collection)
+                                <td>{{txt_resubmission}}</td>
+                            @elseif($f->Status_app == resubmission)
+                                <td>{{txt_Resubmitted}}</td>
+                            @endif
+
                         @if($f->Status_app == submitted)
 {{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                         @else

@@ -37,6 +37,14 @@ define('non_barcode', 1);
 //define('book_appointment', 2);
 //define('payment', 3);
 
+//define('draft', 0);
+//define('submitted', 1);
+//define('processing', 2);
+//define('id_card_ready_for_collection', 3);
+//define('resubmission', 4);
+//define('Resubmitted', 5);
+//define('completed', "X");
+
 define('draft', 0);
 define('submitted', 1);
 define('processing', 2);
@@ -44,6 +52,7 @@ define('id_card_ready_for_collection', 3);
 define('resubmission', 4);
 define('Resubmitted', 5);
 define('completed', "X");
+
 
 define('txt_draft', "Draft");
 define('txt_submitted', "Submitted (Payment done)");
