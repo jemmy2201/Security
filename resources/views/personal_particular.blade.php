@@ -110,7 +110,14 @@
     </div>
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal hidden-xs">
-            <input type="text" class="form-control hidden-xs" id="email" name="email"  value="{{$personal->email}}" >
+            @php
+             if(substr($personal->email,0,5)){
+                $email = '';
+             }else{
+                $email = $personal->email;
+             }
+            @endphp
+            <input type="text" class="form-control hidden-xs" id="email" name="email"  value="{{$email}}" >
         </div>
     </div>
    {{-- End Desktop --}}
