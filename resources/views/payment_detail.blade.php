@@ -244,7 +244,7 @@
                     <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                     @if (strlen($booking_schedule->name) > 40)
                         <div class="col-4 ColoumndataPersonal">
-                                <textarea cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
+                                <textarea cols="30" id="TextAreaName" style="overflow-y: hidden;resize: none;border: none;" readonly>
                                 {{$booking_schedule->name}}
                                 </textarea>
                         </div>
@@ -356,7 +356,7 @@
                     @if (strlen($booking_schedule->name) > 40)
                         {{--                            <div class="col-6 ColoumndataPersonal hidden-xs">{{substr($booking_schedule->name,0,40)}}<br>{{substr($booking_schedule->name,40)}}</div>--}}
                         <div class="col-2 ColoumndataPersonal visible-xs hidden-md">
-                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="resize: none;border: none;" readonly>
+                                <textarea rows="4" cols="12" id="TextAreaNamePhone" style="overflow-y: hidden;resize: none;border: none;" readonly>
                                 {{$booking_schedule->name}}
                                 </textarea>
                             {{--                                {{substr($booking_schedule->name,0,15)}}<br>{{substr($booking_schedule->name,15,15)}}<br>{{substr($booking_schedule->name,30,15)}}<br>{{substr($booking_schedule->name,45,15)}}<br>{{substr($booking_schedule->name,60,15)}}--}}
