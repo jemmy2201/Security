@@ -422,9 +422,10 @@
                     <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                     <div class="col-6 ColoumndataPersonal">{{$booking_schedule->passid}}</div>
                     <div class="w-100"></div>
-                    <div class="col-0 HeaderdataPersonal">Card Expiry
-                        Date&ensp;&nbsp;:</div>
+                    <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
+                    @if(!empty($booking_schedule->expired_date))
                     <div class="col-6 ColoumndataPersonal">{{$expired_date}}</div>
+                    @endif
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Appointment Date&ensp;:</div>
                     @php
