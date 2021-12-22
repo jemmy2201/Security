@@ -85,13 +85,13 @@ class HomeController extends Controller
             ->where('status_payment', null)
             ->orderBy('card_id', 'asc')->get();
 
-        foreach ($replacement as $index => $f) {
-            if ($f->Status_draft != "0") {
-                $replacement = $replacement;
-            }else{
-                $replacement = array();
-            };
-        }
+//        foreach ($replacement as $index => $f) {
+//            if ($f->Status_draft != "0") {
+//                $replacement = $replacement;
+//            }else{
+//                $replacement = array();
+//            };
+//        }
 
         foreach ($next_new as $index => $f) {
             if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
@@ -100,6 +100,8 @@ class HomeController extends Controller
                 $replacement = array();
             };
         }
+//        die(print_r($replacement));
+
         $from_new_to_replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
         if (count($replacement) == '0'){
@@ -118,29 +120,28 @@ class HomeController extends Controller
 //        $renewal = json_decode(json_encode($result_renewal), FALSE);
 
         $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
-//            ->where('status_payment', null)
+            ->where('Status_app', completed)
 //            ->whereNotIn('status_payment', [paid])
             ->orderBy('card_id', 'asc')->get();
         $renewal = array();
-        foreach ($renewals as $index => $f) {
-            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                $replacement = $renewals;
-            }else{
-                $replacement = array();
-            };
-        }
-//die(print_r($renewals));
+//        foreach ($renewals as $index => $f) {
+//            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+//                $replacement = $renewals;
+//            }else{
+//                $replacement = array();
+//            };
+//        }
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
-                if ($f->Status_draft != "0"){
-                    if ($f->Status_app != "1") {
+//                if ($f->Status_draft != "0"){
+//                    if ($f->Status_app != "1") {
                         $renewal = $renewals;
-                    }else{
-                        $renewal = array();
-                    }
-                }else{
-                    $renewal = array();
-                }
+//                    }else{
+//                        $renewal = array();
+//                    }
+//                }else{
+//                    $renewal = array();
+//                }
             }else{
                 $renewal = array();
             };

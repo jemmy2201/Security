@@ -929,6 +929,7 @@
         });
     }
     function check_card_renewal() {
+        console.log('ss',{!!  json_encode($renewal) !!});
         {!!  json_encode($renewal) !!}.forEach((entry) => {
             {{--if(  entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_renewal) !!} == true) {--}}
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {

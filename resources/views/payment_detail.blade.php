@@ -249,7 +249,7 @@
                                 </textarea>
                         </div>
                     @else
-                        <div class="col-4 ColoumndataPersonal">{{$booking_schedule->name}}</div>
+                        <div class="col-8 ColoumndataPersonal">{{$booking_schedule->name}}</div>
                     @endif
 
                     @if (strlen($booking_schedule->name) > 40)
