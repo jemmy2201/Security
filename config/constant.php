@@ -288,3 +288,8 @@ define('same_number_phone', 4);
 define('desktop', 1);
 define('phone', 2);
 // End Size
+
+// month
+define('december', 11);
+define('januari', 0);
+// End month

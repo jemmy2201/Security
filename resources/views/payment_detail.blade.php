@@ -805,7 +805,7 @@
                 $( "#popup_paynow" ).trigger( "click" );
                 $("#payment_method").val({!!  json_encode(paynow) !!})
             }else{
-                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $('#paynow_phone').on('click', function () {
@@ -813,7 +813,7 @@
                 $( "#popup_paynow" ).trigger( "click" );
                 $("#payment_method").val({!!  json_encode(paynow) !!})
             }else{
-                swal("Error!", "TickI also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#enets").click(function() {
@@ -821,7 +821,7 @@
                 $("#payment_method").val({!!  json_encode(enets) !!})
                 enets();
             }else{
-                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#phone_enets").click(function() {
@@ -829,7 +829,7 @@
                 $("#payment_method").val({!!  json_encode(enets) !!})
                 enets();
             }else{
-                swal("Error!", "Tick I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.", "error")
+                swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
 
