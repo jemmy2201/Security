@@ -419,14 +419,14 @@
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }
                     // hidden next 3 month
-                    if(c_date.getMonth() == {!!  json_encode(december) !!}){
-                        var hidden_3month = {!!  json_encode(januari) !!}+2;
-                    }else{
-                        var hidden_3month = c_date.getMonth() + 2;
-                    }
-                    if (y === c_date.getFullYear() && m > hidden_3month) {
-                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }
+                    {{--if(c_date.getMonth() == {!!  json_encode(december) !!}){--}}
+                    {{--    var hidden_3month = {!!  json_encode(januari) !!}+2;--}}
+                    {{--}else{--}}
+                    {{--    var hidden_3month = c_date.getMonth() + 2;--}}
+                    {{--}--}}
+                    {{--if (y === c_date.getFullYear() && m > hidden_3month) {--}}
+                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
+                    {{--}--}}
                     // End hidden next 3 month
 
                     // holiday saturday,sunday
