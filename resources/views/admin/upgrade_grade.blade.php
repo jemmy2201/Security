@@ -189,7 +189,7 @@
                             render: function (data, type, row) {
                                 {{--if(data == @php echo draft @endphp){--}}
                                 {{--    return "@php echo txt_draft @endphp";--}}
-                                {{--}else if(data == @php echo submitted @endphp){--}}
+                                {{--}else if(data == @php echo processing @endphp){--}}
                                 {{--    return "@php echo txt_submitted @endphp";--}}
                                 {{--}else if (data == @php echo processing @endphp){--}}
                                 {{--    return "@php echo txt_processing @endphp";--}}
@@ -206,13 +206,15 @@
                                 {{--}--}}
                                 if(data == @php echo draft @endphp){
                                     return "@php echo txt_draft @endphp";
-                                }else if(data == @php echo submitted @endphp){
+                                }else if(data == @php echo processing @endphp){
                                     return "@php echo txt_processing @endphp";
-                                }else if (data == @php echo processing @endphp){
-                                    return "@php echo txt_id_card_ready_for_collection @endphp";
+                                }else if (data == @php echo ready_for_id_card_printing @endphp){
+                                    return "@php echo txt_ready_for_id_card_printing @endphp";
                                 }else if(data == @php echo id_card_ready_for_collection @endphp){
-                                    return "@php echo txt_resubmission @endphp";
+                                    return "@php echo txt_id_card_ready_for_collection @endphp";
                                 }else if(data == @php echo resubmission @endphp){
+                                    return "@php echo txt_resubmission @endphp";
+                                }else if(data == @php echo Resubmitted @endphp){
                                     return "@php echo txt_Resubmitted @endphp";
                                 }else if(data == "@php echo completed @endphp"){
                                     return "@php echo txt_completed @endphp";

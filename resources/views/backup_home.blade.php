@@ -67,7 +67,7 @@
             <tbody>
             @if(!empty($schedule))
                 @foreach($schedule as $index => $f)
-                    @if($f->Status_app == submitted)
+                    @if($f->Status_app == processing)
 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                         @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @elseif($f->Status_app == draft)
@@ -131,7 +131,7 @@
                         @endif
                        @if($f->Status_app == draft)
                             <td>{{txt_draft}}</td>
-                        @elseif($f->Status_app == submitted)
+                        @elseif($f->Status_app == processing)
                             <td>{{txt_submitted}}</td>
                         @elseif($f->Status_app == processing)
                             <td>{{txt_processing}}</td>
@@ -142,7 +142,7 @@
                         @elseif($f->Status_app == Resubmitted)
                             <td>{{txt_Resubmitted}}</td>
                         @endif
-                        @if($f->Status_app == submitted)
+                        @if($f->Status_app == processing)
 {{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                         @else
 {{--                            <td></td>--}}
@@ -159,7 +159,7 @@
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
-                        @elseif($f->Status_app >= submitted)
+                        @elseif($f->Status_app >= processing)
                                 @php $url=url("/view/course")."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif

@@ -46,17 +46,18 @@ define('non_barcode', 1);
 //define('completed', "X");
 
 define('draft', 0);
-define('submitted', 1);
-define('processing', 2);
+define('processing', 1);
+define('ready_for_id_card_printing', 2);
 define('id_card_ready_for_collection', 3);
 define('resubmission', 4);
 define('Resubmitted', 5);
-define('completed', "X");
+define('completed', 6);
 
 
 define('txt_draft', "Draft");
 define('txt_submitted', "Submitted (Payment done)");
 define('txt_processing', "Processing");
+define('txt_ready_for_id_card_printing', "Ready For ID card printing");
 define('txt_id_card_ready_for_collection', "ID Card Ready for Collection");
 define('txt_resubmission', "Resubmission");
 define('txt_Resubmitted', "Resubmitted");

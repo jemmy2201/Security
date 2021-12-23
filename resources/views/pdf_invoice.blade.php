@@ -82,17 +82,19 @@
             <div class="column-left">Status</div>
             <div class="column-right">
                 @if($courses->Status_app == draft)
-                    Draft
-                @elseif($courses->Status_app == submitted)
-                    Submitted (Payment Done)
+                    {{txt_draft}}
                 @elseif($courses->Status_app == processing)
-                    Processing
+                    {{txt_processing}}
+                @elseif($courses->Status_app == ready_for_id_card_printing)
+                    {{txt_ready_for_id_card_printing}}
                 @elseif($courses->Status_app == id_card_ready_for_collection)
-                    ID Card Ready for Collection
+                    {{txt_id_card_ready_for_collection}}
                 @elseif($courses->Status_app == resubmission)
-                    Resubmission
+                    {{txt_resubmission}}
+                @elseif($courses->Status_app == Resubmitted)
+                    {{txt_Resubmitted}}
                 @elseif($courses->Status_app == completed)
-                    Completed
+                    {{txt_completed}}
                 @endif
             </div>
             <br>

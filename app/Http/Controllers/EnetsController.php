@@ -35,7 +35,7 @@ class EnetsController extends Controller
                     'status_payment' => paid,
                     'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
                     'grand_total' => $data_person->grand_total,
-                    'status_app' => submitted,
+                    'status_app' => processing,
                     'transaction_amount_id' => $data_person->transaction_amount_id,
                     'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'txnrand' => $jsonarr->msg->txnRand,

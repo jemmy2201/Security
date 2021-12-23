@@ -1181,7 +1181,7 @@ class HomeController extends Controller
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
 //                'receiptNo' => $this->receiptNo(),
-                'status_app' => submitted,
+                'status_app' => processing,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
 

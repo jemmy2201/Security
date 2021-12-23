@@ -103,12 +103,12 @@ class AjaxController extends Controller
 //                }elseif ($f->card_id == pi_app){
 //                    $pi_app = true;
 //                }
-            }elseif ($f->Status_app == draft || $f->Status_app == submitted){
-                if ($f->card_id == so_app && $f->Status_app == draft || $f->Status_app == submitted){
+            }elseif ($f->Status_app == draft || $f->Status_app == processing){
+                if ($f->card_id == so_app && $f->Status_app == draft || $f->Status_app == processing){
                     $so_app = true;
-                }elseif ($f->card_id == avso_app && $f->Status_app == draft || $f->Status_app == submitted){
+                }elseif ($f->card_id == avso_app && $f->Status_app == draft || $f->Status_app == processing){
                     $avso_app = true;
-                }elseif ($f->card_id == pi_app && $f->Status_app == draft || $f->Status_app == submitted){
+                }elseif ($f->card_id == pi_app && $f->Status_app == draft || $f->Status_app == processing){
                     $pi_app = true;
                 }
             }else{
@@ -907,11 +907,11 @@ class AjaxController extends Controller
 
                 }
 
-                if (strtoupper($e['status_app']) == completed ){
-                    $status_app = strtoupper($e['status_app']);
-                }else{
+//                if (strtoupper($e['status_app']) == completed ){
+//                    $status_app = strtoupper($e['status_app']);
+//                }else{
                     $status_app = $e['status_app'];
-                }
+//                }
                 if (empty($users)){
                     $nric = str_replace(' ', '', $e['nric']);
                     // insert table users
@@ -1257,13 +1257,13 @@ class AjaxController extends Controller
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {
-            $data_schedule = booking_schedule::whereIn('Status_app', [draft, submitted,resubmission,Resubmitted])
+            $data_schedule = booking_schedule::whereIn('Status_app', [draft, processing,resubmission,Resubmitted])
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->get();
 
             $dateHoliday = Dateholiday::whereDate('date','=',$eventDate)->first();
-            $setifikat = sertifikat::whereIn('status_app', [draft, submitted])
+            $setifikat = sertifikat::whereIn('status_app', [draft, processing])
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->count();
@@ -1358,7 +1358,7 @@ class AjaxController extends Controller
     }
 
     protected function time_schedule($eventDate){
-        $data = booking_schedule::whereIn('status_app', [draft, submitted])
+        $data = booking_schedule::whereIn('status_app', [draft, processing])
             ->whereDate('appointment_date','=',$eventDate)
             ->get();
         return $data;

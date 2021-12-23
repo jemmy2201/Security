@@ -342,24 +342,23 @@
 
 <br>
 <p style="color: #808080;">My Applications</p>
-    <div style="border-style: ridge;padding: 10px;">
+    <div class="row" >
+        <div class="col-10" style="border-style: ridge;padding: 10px;">
         <table class="table" >
             <thead>
             <tr>
-                <th scope="col">Application Type</th>
-                <th scope="col" >Request Application</th>
-{{--                <th scope="col" >Date Of Application</th>--}}
-                <th scope="col">Date Of Transaction</th>
+                <th scope="col">Application</th>
+                <th scope="col" >Card Type</th>
                 <th scope="col">Grade</th>
+                <th scope="col">Date Of Transaction</th>
                 <th scope="col" >Status</th>
-{{--                <th scope="col" >Expired Date</th>--}}
-                <th scope="col" >Action</th>
+                <th scope="col" >Action/Remarks</th>
             </tr>
             </thead>
             <tbody>
             @if(!empty($schedule))
                 @foreach($schedule as $index => $f)
-                    @if($f->Status_app == submitted)
+                    @if($f->Status_app == processing)
 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
                         @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @elseif($f->Status_app == draft)
@@ -376,21 +375,13 @@
                         @endif
 
                         @if($f->card_id == so_app)
-                            <td>SO Application</td>
+                            <td>SO</td>
                         @elseif($f->card_id == avso_app)
-                            <td>AVSO Application</td>
+                            <td>AVSO</td>
                         @elseif($f->card_id == pi_app)
-                            <td>PI Application</td>
+                            <td>PI</td>
                         @endif
-{{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
-                            @if(!empty($f->trans_date))
-{{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
-                                <td>{{$f->trans_date}}</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                        @if($f->card_id == so_app)
+                            @if($f->card_id == so_app)
                                 @if(!empty($f->grade_id) && $f->grade_id== so)
                                     <td>SO</td>
                                 @elseif(!empty($f->grade_id) && $f->grade_id== sso)
@@ -404,26 +395,35 @@
                                 @else
                                     <td >SO</td>
                                 @endif
-{{--                            <td>--}}
-{{--                                @foreach($grade as $g)--}}
-{{--                                    @foreach (json_decode($f->grade_id) as $i)--}}
-{{--                                        @if($g->id == $i)--}}
-{{--                                            <pre>{{$g->name}}</pre>--}}
-{{--                                        @endif--}}
-{{--                                    @endforeach--}}
-{{--                                @endforeach--}}
-{{--                            </td>--}}
-{{--                            @foreach($grade as $g)--}}
-{{--                                @if($g->id == $f->grade_id)--}}
-{{--                                    <td>{{$g->name}}</td>--}}
-{{--                                @endif--}}
-{{--                            @endforeach--}}
-                        @else
-                            <td>NA</td>
-                        @endif
+                                {{--                            <td>--}}
+                                {{--                                @foreach($grade as $g)--}}
+                                {{--                                    @foreach (json_decode($f->grade_id) as $i)--}}
+                                {{--                                        @if($g->id == $i)--}}
+                                {{--                                            <pre>{{$g->name}}</pre>--}}
+                                {{--                                        @endif--}}
+                                {{--                                    @endforeach--}}
+                                {{--                                @endforeach--}}
+                                {{--                            </td>--}}
+                                {{--                            @foreach($grade as $g)--}}
+                                {{--                                @if($g->id == $f->grade_id)--}}
+                                {{--                                    <td>{{$g->name}}</td>--}}
+                                {{--                                @endif--}}
+                                {{--                            @endforeach--}}
+                            @else
+                                <td>NA</td>
+                            @endif
+{{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
+                            @if(!empty($f->trans_date))
+{{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
+                                <td>{{$f->trans_date}}</td>
+                            @else
+                                <td></td>
+                            @endif
+
+
 {{--                       @if($f->Status_app == draft)--}}
 {{--                            <td>{{txt_draft}}</td>--}}
-{{--                        @elseif($f->Status_app == submitted)--}}
+{{--                        @elseif($f->Status_app == processing)--}}
 {{--                            <td>{{txt_processing}}</td>--}}
 {{--                        @elseif($f->Status_app == processing)--}}
 {{--                            <td>{{txt_processing}}</td>--}}
@@ -437,17 +437,21 @@
 
                             @if($f->Status_app == draft)
                                 <td>{{txt_draft}}</td>
-                            @elseif($f->Status_app == submitted)
-                                <td>{{txt_processing}}</td>
                             @elseif($f->Status_app == processing)
-                                <td>{{txt_id_card_ready_for_collection}}</td>
+                                <td>{{txt_processing}}</td>
+                            @elseif($f->Status_app == ready_for_id_card_printing)
+                                <td>{{txt_ready_for_id_card_printing}}</td>
                             @elseif($f->Status_app == id_card_ready_for_collection)
-                                <td>{{txt_resubmission}}</td>
+                                <td>{{txt_id_card_ready_for_collection}}</td>
                             @elseif($f->Status_app == resubmission)
+                                <td>{{txt_resubmission}}</td>
+                            @elseif($f->Status_app == Resubmitted)
                                 <td>{{txt_Resubmitted}}</td>
+                            @elseif($f->Status_app == completed)
+                                <td>{{txt_completed}}</td>
                             @endif
 
-                        @if($f->Status_app == submitted)
+                        @if($f->Status_app == processing)
 {{--                             <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                         @else
 {{--                            <td></td>--}}
@@ -464,7 +468,7 @@
                         @elseif($f->Status_app == resubmission)
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
-                        @elseif($f->Status_app >= submitted)
+                        @elseif($f->Status_app >= processing)
                                 @php $url=url("/view/course")."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif
@@ -483,12 +487,41 @@
                             @endif
 
                             @if($f->card_id == so_app)
-                                <td>SO Application</td>
+                                <td>SO </td>
                             @elseif($f->card_id == avso_app)
-                                <td>AVSO Application</td>
+                                <td>AVSO </td>
                             @elseif($f->card_id == pi_app)
-                                <td>PI Application</td>
+                                <td>PI </td>
                             @endif
+                                @if($f->card_id == so_app)
+                                    @if(!empty($f->grade_id) && $f->grade_id== so)
+                                        <td>SO</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                        <td>SSO</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                        <td>SS</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                        <td>SSS</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                        <td>CSO</td>
+                                    @else
+                                        <td >SO</td>
+                                    @endif
+                                    {{--                                <td>--}}
+                                    {{--                                @foreach($grade as $g)--}}
+                                    {{--                                        @foreach (json_decode($f->grade_id) as $i)--}}
+                                    {{--                                            @if($g->id == $i)--}}
+                                    {{--                                                    <pre>{{$g->name}}</pre>--}}
+                                    {{--                                            @endif--}}
+                                    {{--                                        @endforeach--}}
+                                    {{--                                    @if($g->id == $f->grade_id)--}}
+                                    {{--                                        <td>{{$g->name}}</td>--}}
+                                    {{--                                    @endif--}}
+                                    {{--                                @endforeach--}}
+                                    {{--                                </td>--}}
+                                @else
+                                    <td>NA</td>
+                                @endif
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
                                 @if(!empty($f->trans_date))
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
@@ -496,35 +529,7 @@
                                 @else
                                     <td></td>
                                 @endif
-                            @if($f->card_id == so_app)
-                                @if(!empty($f->grade_id) && $f->grade_id== so)
-                                    <td>SO</td>
-                                @elseif(!empty($f->grade_id) && $f->grade_id== sso)
-                                    <td>SSO</td>
-                                @elseif(!empty($f->grade_id) && $f->grade_id== ss)
-                                    <td>SS</td>
-                                @elseif(!empty($f->grade_id) && $f->grade_id== sss)
-                                    <td>SSS</td>
-                                @elseif(!empty($f->grade_id) && $f->grade_id== cso)
-                                    <td>CSO</td>
-                                @else
-                                    <td >SO</td>
-                                @endif
-{{--                                <td>--}}
-{{--                                @foreach($grade as $g)--}}
-{{--                                        @foreach (json_decode($f->grade_id) as $i)--}}
-{{--                                            @if($g->id == $i)--}}
-{{--                                                    <pre>{{$g->name}}</pre>--}}
-{{--                                            @endif--}}
-{{--                                        @endforeach--}}
-{{--                                    @if($g->id == $f->grade_id)--}}
-{{--                                        <td>{{$g->name}}</td>--}}
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
-{{--                                </td>--}}
-                            @else
-                                <td>NA</td>
-                            @endif
+
                             <td>Completed</td>
 {{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->expired_date)->format('d-m-Y') @endphp</td>--}}
                             <td></td>
@@ -533,6 +538,7 @@
             @endif
             </tbody>
         </table>
+        </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="Modalreplacement">
         <div class="modal-dialog" role="document">
