@@ -124,13 +124,14 @@ class HomeController extends Controller
 //            ->whereNotIn('status_payment', [paid])
             ->orderBy('card_id', 'asc')->get();
         $renewal = array();
-//        foreach ($renewals as $index => $f) {
-//            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-//                $replacement = $renewals;
-//            }else{
-//                $replacement = array();
-//            };
-//        }
+        foreach ($renewals as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                $replacement = array_merge($replacement->toArray(), $renewals->toArray());
+                $replacement = json_decode(json_encode($replacement), false);
+            }else{
+                $replacement = array();
+            };
+        }
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
 //                if ($f->Status_draft != "0"){
