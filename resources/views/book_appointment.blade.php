@@ -26,7 +26,7 @@
     .holidayfull{
         pointer-events: none;
         opacity: 0.6;
-        background-color:blue;
+        background-color:purple;
     }
     .holidayhalf{
         /*pointer-events: none;*/
@@ -71,10 +71,24 @@
         <div class="row">
             <div class="col">
                 <ul style=" list-style-type: none;margin-left: -25px;">
+                    <p style="font-weight: bold;">Operating Hours:
+                    </p>
+                    <p style="font-weight: bold;">
+                        Monday - Friday : 9am - 5pm (last walk-in at 4.50pm)
+                    </p>
+                    <p style="font-weight: bold;">
+                        Last Tuesday of the month and selected eve of Public Holidays
+                    </p>
+                    <p style="font-weight: bold;">
+                        (New Year's Day,Chinese New Year & Christmas Day) : 9am-12.30pm
+                    </p>
+                    <p style="font-weight: bold;">
+                        Closed on Public Holidays,Saturdays and Sundays
+                    </p>
                     <li>
-                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style=";width: 2%;"> : <span style="font-weight: bold">Half Day / Eve Of Public Holidays - Last Appointment @12.30pm</span>
+                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style=";width: 2%;"><span style="font-weight: bold">: Half Day / Eve Of Public Holidays - Last Appointment @12.30pm</span>
                     </li>
-{{--                    <li><img src="{{URL::asset('/img/blue_box.jpeg')}}" style="width: 2%;"> : Saturday/Sunday/public to public Holidays - Closed</li>--}}
+                    <li><img src="{{URL::asset('/img/purple.jpeg')}}" style="width: 2%;"><span style="font-weight: bold">: Public Holiday</span></li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
                     <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
                     @endif
@@ -421,18 +435,16 @@
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }
                     // hidden next 3 month
-                    if(y === c_date.getFullYear()){
-                        var hidden_3month = c_date.getMonth() + 2;
-                    }else{
-                        var hidden_3month = {!!  json_encode(januari) !!}+2;
-                    }
-                    if (y === c_date.getFullYear() && m > hidden_3month) {
-                        console.log('1')
-                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }else if(y >= c_date.getFullYear() && m > hidden_3month){
-                        console.log('2')
-                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }
+                    {{--if(y === c_date.getFullYear()){--}}
+                    {{--    var hidden_3month = c_date.getMonth() + 2;--}}
+                    {{--}else{--}}
+                    {{--    var hidden_3month = {!!  json_encode(januari) !!}+2;--}}
+                    {{--}--}}
+                    {{--if (y === c_date.getFullYear() && m > hidden_3month) {--}}
+                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
+                    {{--}else if(y >= c_date.getFullYear() && m > hidden_3month){--}}
+                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
+                    {{--}--}}
                     // End hidden next 3 month
 
                     // holiday saturday,sunday
