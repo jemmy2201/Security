@@ -103,7 +103,7 @@ class HomeController extends Controller
                 if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                     $replacement = $from_new_to_replacement;
                     $replacement = array_merge($replacement->toArray(), $from_new_to_replacement->toArray());
-                    $replacement = json_decode(json_encode($replacement), true);
+                    $replacement = json_decode(json_encode($replacement), false);
                 }
             }
         }
@@ -135,7 +135,6 @@ class HomeController extends Controller
                 $replacement = array();
             };
         }
-
 
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
@@ -1023,9 +1022,9 @@ class HomeController extends Controller
         }elseif (empty($booking_schedule)){
 //            $this->NewBookingSchedule($request,$grade);
         }else{
-//            if (empty($booking_schedule->declaration_date)){
+            if (empty($booking_schedule->declaration_date)){
                 $this->UpdateBookingSchedule($request,$grade);
-//            }
+            }
 
         }
         $dayHoliday = Dateholiday::get();

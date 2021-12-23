@@ -317,7 +317,9 @@
         let date = 1;
         //remaing dates of last month
         let r_pm = (d_pm-firstDay) +1;
-            for (let i = 0; i < 6; i++) {
+        let r_pm_s = (d_pm-firstDay) +1;
+
+        for (let i = 0; i < 6; i++) {
             let row = document.createElement('tr');
             for (let j = 0; j < 7; j++) {
                 if (i === 0 && j < firstDay) {
@@ -325,6 +327,7 @@
                     let span = document.createElement('span');
                     let cellText = document.createTextNode(r_pm);
                     // span.classList.add('prevMonth');
+                    span.classList.add('dissable');
                     cell.appendChild(span).appendChild(cellText);
                     row.appendChild(cell);
                     r_pm++;
@@ -334,9 +337,11 @@
                         let i = 0;
                         for (let k = j; k < 7; k++) {
                             i++
+
                             let cell = document.createElement('td');
                             let span = document.createElement('span');
                             let cellText = document.createTextNode(i);
+                            span.classList.add('dissable');
                             // span.classList.add('ntMonth');
                             // span.classList.add('nextMonth');
                             cell.appendChild(span).appendChild(cellText);
@@ -351,9 +356,6 @@
                     let cellText = document.createTextNode(date);
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
-                    // console.log('jrg',c_date.getMonth())
-                    // console.log('jrg 2',m)
-
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
 
                         var sevenDayHidden = c_date.getDate() + 7;
@@ -405,83 +407,91 @@
                     // End Date Holiday
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        console.log('1')
-                        table.classList.remove('dissable');
-                        span.classList.add('dissable');
+                        $(this).find('span').add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        console.log('2')
                         span.classList.add('dissable');
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
-                        console.log('3')
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
-                        console.log('4')
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
-                        console.log('5',c_date.getDate())
-                        console.log('6',d_m);
-                        // if (d_m > c_date.getDate()) {
-                        //     console.log('6')
-                        //     span.classList.add('dissable');
-                        table.classList.add('dissable');
-                        // }
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }
                     // hidden next 3 month
-                    {{--if(c_date.getMonth() == {!!  json_encode(december) !!}){--}}
-                    {{--    var hidden_3month = {!!  json_encode(januari) !!}+2;--}}
-                    {{--}else{--}}
-                    {{--    var hidden_3month = c_date.getMonth() + 2;--}}
-                    {{--}--}}
-                    {{--if (y === c_date.getFullYear() && m > hidden_3month) {--}}
-                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
-                    {{--}--}}
+                    if(y === c_date.getFullYear()){
+                        var hidden_3month = c_date.getMonth() + 2;
+                    }else{
+                        var hidden_3month = {!!  json_encode(januari) !!}+2;
+                    }
+                    if (y === c_date.getFullYear() && m > hidden_3month) {
+                        console.log('1')
+                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }else if(y >= c_date.getFullYear() && m > hidden_3month){
+                        console.log('2')
+                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }
                     // End hidden next 3 month
 
                     // holiday saturday,sunday
-                    {{--var d = new Date();--}}
-                    {{--var month = m;--}}
-                    {{--// var getTot = daysInMonth(month,d.getFullYear());--}}
-                    {{--var getTot = {!!  json_encode(date_last) !!};--}}
-                    {{--var sat = new Array();--}}
-                    {{--var sun = new Array();--}}
+                    var d = new Date();
+                    var month = m;
+                    // var getTot = daysInMonth(month,d.getFullYear());
+                    var getTot = {!!  json_encode(date_last) !!};
+                    var sat = new Array();
+                    var sun = new Array();
 
-                    {{--for(var s=1;s<=getTot;s++){--}}
-                    {{--    var newDate = new Date(d.getFullYear(), month, s)--}}
-                    {{--    if (newDate.getDay() == 6) {--}}
-                    {{--            sat.push(s)--}}
-                    {{--        }--}}
-                    {{--        if (newDate.getDay() == 0) {--}}
-                    {{--            sun.push(s)--}}
-                    {{--        }--}}
-                    {{--}--}}
-                    {{--function daysInMonth(month,year) {--}}
-                    {{--    return new Date(year, month, 0).getDate();--}}
-                    {{--}--}}
+                    for(var s=1;s<=getTot;s++){
+                        var newDate = new Date(d.getFullYear(), month, s)
+                        if (y === c_date.getFullYear()) {
+                            if (newDate.getDay() == 6) {
+                                sat.push(s)
+                            }
+                            if (newDate.getDay() == 0) {
+                                sun.push(s)
+                            }
+                        }else if(y >= c_date.getFullYear()){
+                            if (newDate.getDay() == 5) {
+                                sat.push(s)
+                            }
+                            if (newDate.getDay() == 6) {
+                                sun.push(s)
+                            }
+                        }
+                    }
+                    function daysInMonth(month,year) {
+                        return new Date(year, month, 0).getDate();
+                    }
 
-                    {{--sat.forEach(function(saturday) {--}}
-                    {{--    if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){--}}
-                    {{--            span.classList.add('weekend');--}}
-                    {{--    }--}}
-                    {{--});--}}
-                    {{--sat.forEach(function(saturday) {--}}
-                    {{--    if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){--}}
-                    {{--        span.classList.add('weekend');--}}
-                    {{--    }--}}
-                    {{--});--}}
-                    {{--sun.forEach(function(saturday) {--}}
-                    {{--    if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){--}}
-                    {{--        span.classList.add('weekend');--}}
-                    {{--    }--}}
-                    {{--});--}}
-                    {{--sun.forEach(function(saturday) {--}}
-                    {{--    if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){--}}
-                    {{--        span.classList.add('weekend');--}}
-                    {{--    }--}}
-                    {{--});--}}
+
+                    sat.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                                span.classList.add('weekend');
+                        }else if(date == saturday  && y >= c_date.getFullYear() && m < c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }
+                    });
+                    sat.forEach(function(saturday) {
+                        if(date == saturday  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }
+                    });
+                    // sun.forEach(function(sun) {
+                    //     if(date == sun  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                    //         span.classList.add('weekend');
+                    //     }
+                    // });
+                    sun.forEach(function(sun) {
+                        if(date == sun  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }else if(date == sun  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }else if(date == sun  && y >= c_date.getFullYear() && m < c_date.getMonth()){
+                            span.classList.add('weekend');
+                        }
+                    });
                     // End holiday saturday,sunday
 
                     //resubmission
