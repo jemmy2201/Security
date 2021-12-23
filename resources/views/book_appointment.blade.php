@@ -405,16 +405,28 @@
                     // End Date Holiday
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
+                        console.log('1')
+                        table.classList.remove('dissable');
                         span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        console.log('2')
                         span.classList.add('dissable');
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                        console.log('3')
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
+                        console.log('4')
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
+                        console.log('5',c_date.getDate())
+                        console.log('6',d_m);
+                        // if (d_m > c_date.getDate()) {
+                        //     console.log('6')
+                        //     span.classList.add('dissable');
+                        table.classList.add('dissable');
+                        // }
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
                     }
