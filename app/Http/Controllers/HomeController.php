@@ -1381,10 +1381,6 @@ class HomeController extends Controller
                 $get_grade = json_decode($booking_schedule->array_grade);
                 $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
                 if (!empty($request->Cgrades)) {
-//                        die(print_r(count(json_decode($request->Cgrade[0]))));
-//                        die(print_r(count($request->Cgrades)));
-//                        die(print_r($request->all()));
-
                     if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
 //                        die('s');
                         if ($request->app_type == news) {
@@ -1532,7 +1528,7 @@ class HomeController extends Controller
                                 }
                             }
                         }else{
-//                            die('s');
+//                            die('sss');
                             if ($request->app_type == news) {
                                 $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
 //                                die(print_r(count($request->Cgrades)));
@@ -1674,7 +1670,28 @@ class HomeController extends Controller
 //                                                                                            die('2');
                                                                                             if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
 //                                                                                                die('1');
-                                                                                                $merge_grade = array_merge($get_grade,$take_grade);
+                                                                                                if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
+                                                                                                    die('1');
+                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                                                                                }else{
+                                                                                                    foreach ($take_grade as $f) {
+                                                                                                        $result = array_search("on", $take_grade);
+                                                                                                        unset($take_grade[$result]);
+                                                                                                    }
+                                                                                                    if (count($request->Cgrades) == 3){
+                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
+                                                                                                    }elseif (count($request->Cgrades) == 2){
+                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 3;
+                                                                                                    }elseif (count($request->Cgrades) == 1){
+                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
+                                                                                                    }else{
+                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+                                                                                                    }
+                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                                                                                    for ($x = 1; $x <= $different_value; $x++) {
+                                                                                                        array_pop($merge_grade);
+                                                                                                    }
+                                                                                                }
                                                                                             }else{
 //                                                                                                die('2');
                                                                                                 foreach ($take_grade as $f) {
@@ -1712,6 +1729,7 @@ class HomeController extends Controller
                                                                         }
 
                                                                     }else{
+//                                                                        die('2');
                                                                         foreach ($take_grade as $f) {
                                                                             $result = array_search("on", $take_grade);
                                                                             unset($take_grade[$result]);
