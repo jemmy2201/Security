@@ -293,3 +293,5 @@ define('phone', 2);
 define('december', 11);
 define('januari', 0);
 // End month
+
+define('zero', 0);
