@@ -988,27 +988,41 @@ class AjaxController extends Controller
                             $app_type = $e['app_type'];
                         }
 
-                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
+                        $update_booking_schedule = DB::table('booking_schedules')
+                            ->where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])
+                            ->update([
+                                "app_type" => $app_type,
+                                "card_id" => $e['card_type'],
+                                "grade_id" => $e['grade'],
+                                "passid" => $e['passid'],
+                                "array_grade" => $e['array_grade'],
+                                "Status_app" => $status_app,
+                                "declaration_date" => $declaration_date,
+                                "trans_date" => $transfer_date,
+                                "expired_date" => $expired_date,
+                            ]);
 
-                        $update_booking_schedule->app_type = $app_type;
-
-                        $update_booking_schedule->card_id = $e['card_type'];
-
-                        $update_booking_schedule->grade_id = $e['grade'];
-
-                        $update_booking_schedule->passid = $e['passid'];
-
-                        $update_booking_schedule->array_grade = $e['array_grade'];
-
-                        $update_booking_schedule->Status_app = $status_app;
-
-                        $update_booking_schedule->declaration_date = $declaration_date;
-
-                        $update_booking_schedule->trans_date = $transfer_date;
-
-                        $update_booking_schedule->expired_date = $expired_date;
-
-                        $update_booking_schedule->save();
+//                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
+//
+//                        $update_booking_schedule->app_type = $app_type;
+//
+//                        $update_booking_schedule->card_id = $e['card_type'];
+//
+//                        $update_booking_schedule->grade_id = $e['grade'];
+//
+//                        $update_booking_schedule->passid = $e['passid'];
+//
+//                        $update_booking_schedule->array_grade = $e['array_grade'];
+//
+//                        $update_booking_schedule->Status_app = $status_app;
+//
+//                        $update_booking_schedule->declaration_date = $declaration_date;
+//
+//                        $update_booking_schedule->trans_date = $transfer_date;
+//
+//                        $update_booking_schedule->expired_date = $expired_date;
+//
+//                        $update_booking_schedule->save();
                     }else{
 
                         // insert table boooking

@@ -643,6 +643,7 @@
                                 }else{
                                         $expried_renewal = false;
                                 }
+
                                 @endphp
                                 @if($f->Status_app == completed && $expried_renewal == true )
 {{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}

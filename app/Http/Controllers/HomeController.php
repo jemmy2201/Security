@@ -94,20 +94,22 @@ class HomeController extends Controller
 //        }
 
 
-//        die(print_r($replacement));
 
         $from_new_to_replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
-        if (count($replacement) == zero){
+//        if (count($replacement) == zero){
             foreach ($from_new_to_replacement as $index => $f) {
                 if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                    $replacement = $from_new_to_replacement;
-                    $replacement = array_merge($replacement->toArray(), $from_new_to_replacement->toArray());
+//                    $replacement = $from_new_to_replacement;
+//                    $replacement = array_merge($replacement->toArray(), $from_new_to_replacement->toArray());
+//                    $replacement = json_decode(json_encode($replacement), false);
+                    $replacement[] = array_merge($replacement->toArray(), $f->toArray());
                     $replacement = json_decode(json_encode($replacement), false);
                 }
             }
-        }
+//        }
 
+//        die(print_r($replacement));
 
 //        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
 //            ->orderBy('card_id', 'asc')->get();
@@ -129,7 +131,10 @@ class HomeController extends Controller
                 if (count($replacement) == zero){
                     $replacement = array();
                 }
-                $replacement = array_merge($replacement, $renewals->toArray());
+//                $replacement = array_merge($replacement, $renewals->toArray());
+//                $replacement = json_decode(json_encode($replacement), false);
+
+                $replacement[] = array_merge($replacement, $f->toArray());
                 $replacement = json_decode(json_encode($replacement), false);
             }else{
                 $replacement = array();
@@ -153,11 +158,10 @@ class HomeController extends Controller
         }
         foreach ($next_new as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                $renewal = array_merge($renewal, $next_new->toArray());
+                $renewal[] = array_merge($renewal, $f->toArray());
                 $renewal = json_decode(json_encode($renewal), false);
             }
         }
-
         $grade = grade::get();
         if (Auth::user()->role == admin  ) {
             return view('admin/historylogin');
