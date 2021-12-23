@@ -109,7 +109,6 @@ class HomeController extends Controller
             }
 //        }
 
-//        die(print_r($replacement));
 
 //        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
 //            ->orderBy('card_id', 'asc')->get();
@@ -133,13 +132,11 @@ class HomeController extends Controller
                 }
 //                $replacement = array_merge($replacement, $renewals->toArray());
 //                $replacement = json_decode(json_encode($replacement), false);
-
                 $replacement[] = array_merge($replacement, $f->toArray());
                 $replacement = json_decode(json_encode($replacement), false);
-            }else{
-                $replacement = array();
-            };
+            }
         }
+//        die(print_r($replacement));
 
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
