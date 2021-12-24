@@ -421,7 +421,7 @@
                     // End Date Holiday
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        $(this).find('span').add('dissable');
+                        span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
                         span.classList.add('dissable');

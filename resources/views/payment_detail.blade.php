@@ -39,6 +39,16 @@
         font-weight: bold;
         font-size: 20px;
     }
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 700px !important;
+        }
+    }
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 692px !important;
+        }
+    }
 </style>
 @php
     $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
@@ -669,17 +679,50 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Barcode paynow</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+{{--                <div class="modal-header">--}}
+{{--                    <h4 class="modal-title">Barcode paynow</h4>--}}
+{{--                    <button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+{{--                </div>--}}
                 <div class="modal-body">
                     <center>
-                        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); width: 70px;">
-                    <div id="qrcodePaynow"></div>
+{{--                        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;--}}
+{{--  top: 50%;--}}
+{{--  left: 50%;--}}
+{{--  transform: translate(-50%, -50%); width: 70px;">--}}
+{{--                        <div id="qrcodePaynow"></div>--}}
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
+            top: 50%;
+            left: 63%;
+            transform: translate(-50%, -50%); width: 70px;">
+
+                                <div id="qrcodePaynow"></div>
+                            </div>
+                            <div class="col-8">
+                                <h4>How to Make a PayNow </h4>
+                                <ol>
+                                    <li style="margin-left: 95px; text-align: left;">Scan this QR code with <b>QR scanner on your banking app</b> on your phone.</li>
+                                    <li style="margin-left: 95px; text-align: left;">Verity that displays the following :
+                                        <br>Entity Name <b> Union OF Security Employees</b>.</li>
+                                    <li style="margin-left: 95px; text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
+                                    <li style="margin-left: 95px; text-align: left;">Once yout Paynow transaction has been successfull, Use will process with your application .</li>
+
+                                </ol>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6" style="text-align: left">Total Amount &nbsp;: </div>
+                                    <div class="col-4" style="margin-left: -94px;"> <b>${{$grand_total}}</b></div>
+                                    <div class="w-100"></div>
+                                    <div class="col-6" style="text-align: left">Reference No : </div>
+                                    <div class="col-8" style="margin-left: -120px;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
+                                    <div class="w-100"></div>
+                                </div>
+{{--                                <p style="text-align: left;margin-top: 15px;">Total Amount : <b>${{$grand_total}}</b></p>--}}
+{{--                                <p>Reference No : <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></p>--}}
+                            </div>
+                        </div>
                     </center>
                 </div>
                 <div class="modal-footer">
@@ -687,7 +730,7 @@
                     <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </a>
-                    <button type="button" id="confirm_payment_paynow" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                    <button type="button" id="confirm_payment_paynow" class="btn btn-danger" data-dismiss="modal" style="margin-right: 100px;">Confirm</button>
                 </div>
             </div>
 
@@ -764,7 +807,6 @@
 </div>
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
-
     //refresh page on browser resize
     // $(window).bind('resize', function(e)
     // {
