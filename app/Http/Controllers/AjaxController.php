@@ -1070,7 +1070,7 @@ class AjaxController extends Controller
                         }
 
                         if (empty($cek_setifikat)){
-                            if ($data->app_type == renewal || $data->app_type == replacement){
+                            if ($data->app_type == replacement){
                                 $app_type = $data->app_type - 1 ;
                             }else{
                                 $app_type = $data->app_type;

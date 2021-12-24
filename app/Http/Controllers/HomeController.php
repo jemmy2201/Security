@@ -118,13 +118,22 @@ class HomeController extends Controller
 
 //        $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
 //        $renewal = json_decode(json_encode($result_renewal), FALSE);
+        $renewal = array();
 
+        $import_renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
+            ->where('Status_app', null)
+//            ->whereNotIn('status_payment', [paid])
+            ->orderBy('card_id', 'asc')->get();
+        if (count($import_renewals) != zero) {
+            $renewal = array_merge($renewal, $import_renewals->toArray());
+            $renewal = json_decode(json_encode($renewal), false);
+        }
+//        die(print_r($renewal));
         $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
             ->where('Status_app', completed)
 //            ->whereNotIn('status_payment', [paid])
             ->orderBy('card_id', 'asc')->get();
 
-        $renewal = array();
         foreach ($renewals as $index => $f) {
             if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                 if (count($replacement) == zero){
