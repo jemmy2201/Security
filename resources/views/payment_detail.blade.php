@@ -712,10 +712,10 @@
                             </div>
                             <div class="col-6">
                                 <div class="row">
-                                    <div class="col-6" style="text-align: left">Total Amount &nbsp;: </div>
+                                    <div class="col-6" style="text-align: left">Total Amount&ensp;&nbsp;: </div>
                                     <div class="col-4" style="margin-left: -94px;"> <b>${{$grand_total}}</b></div>
                                     <div class="w-100"></div>
-                                    <div class="col-6" style="text-align: left">Reference No : </div>
+                                    <div class="col-6" style="text-align: left">Reference No&nbsp;: </div>
                                     <div class="col-8" style="margin-left: -120px;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
                                     <div class="w-100"></div>
                                 </div>

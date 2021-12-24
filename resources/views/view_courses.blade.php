@@ -159,7 +159,7 @@
 {{--        </a>--}}
 
         {{--        </center>--}}
-        <h2 style="color: #E31E1A;">ID Card Application Details
+        <h2 style="color: black;">ID Card Application Details
         </h2>
         <br>
         @if($request->thank_payment == true)
@@ -186,7 +186,7 @@
                         <div class="col-0 HeaderdataPersonal" >Name <span style="margin-left: 114px;">:</span></div>
                     @if (strlen($courses->name) > 40)
                             <div class="col-4 ColoumndataPersonal hidden-xs">
-                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;" readonly>
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;outline: none;border: none;" readonly>
                                 {{$courses->name}}
                                 </textarea>
                             </div>
@@ -197,7 +197,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Mobile No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 78px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{$courses->mobileno}}</div>
+                        <div class="col-4 ColoumndataPersonal">{{substr($courses->mobileno, 2)}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 117px;">:</span></div>
@@ -216,7 +216,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Card Type &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Card Type <span style="margin-left: 70px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">
+                        <div class="col-6 ColoumndataPersonal">
                             @if($courses->app_type == news)
                                 NEW
                             @elseif($courses->app_type == replacement)
@@ -270,7 +270,7 @@
             </div>
         </div>
 
-        <br>
+{{--        <br>--}}
         <div class="container">
             <div class="row hidden-xs">
                 <div class="col-sm">
@@ -311,7 +311,7 @@
                         </div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Receipt &nbsp;No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Receipt No <span style="margin-left: 68px;">:</span></div>
+                        <div class="col-0 HeaderdataPersonal" >Transaction Ref <span style="margin-left: 27px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
@@ -319,14 +319,17 @@
                         @php
                         $grand_total = formatcurrency($courses->grand_total);
                         @endphp
-                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST</div>
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment_date)->format('d-m-Y')}}</div>
+                        @php
+                            $date_appointment=date_create($courses->appointment_date);
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 84px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} : {{$courses->time_end_appointment}} </div>
+                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}} </div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
 {{--                        <div class="col-4 ColoumndataPersonal">--}}
@@ -376,7 +379,7 @@
                         <div class="col-0 HeaderdataPersonal" >Name <span style="margin-left: 103px;">:</span></div>
                     @if (strlen($courses->name) > 40)
                             <div class="col-6 ColoumndataPersonal ">
-                                 <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;" readonly>
+                                 <textarea rows="4" cols="18" id="TextAreaNamePhone" style="resize: none;outline: none;border: none;" readonly>
                                 {{$courses->name}}
                                 </textarea>
 {{--                                {{substr($courses->name,0,20)}}<br>{{substr($courses->name,20,20)}}<br>{{substr($courses->name,40,20)}}<br>{{substr($courses->name,60,20)}}<br>--}}
@@ -388,7 +391,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 67px;">:</span></div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->mobileno}}</div>
+                        <div class="col-6 ColoumndataPersonal">{{substr($courses->mobileno, 2)}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 108px;">:</span></div>
@@ -501,20 +504,21 @@
             <div class="col-sm">
                 <div class="container">
                     <div class="row">
-{{--                        <div class="col-0 HeaderdataPersonal">Receipt No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Receipt No <span style="margin-left: 60px;">:</span></div>
+{{--                        <div class="col-0 HeaderdataPersonal">Transaction Ref&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Transaction Ref <span style="margin-left: 19px;">:</span></div>
                         <div class="col-6 ColoumndataPersonal">{{$courses->receiptNo}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 7px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST</div>
+                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
-                        <div class="col-4 ColoumndataPersonal">{{Carbon\Carbon::parse($courses->appointment_date)->format('d-m-Y')}}</div>
+                        <div class="col-5 ColoumndataPersonal"></div>
+                        <div class="col-8 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 75px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} : {{$courses->time_end_appointment}}</div>
+                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
                         <div class="w-100"></div>
                     </div>
                 </div>
@@ -550,7 +554,7 @@
                 <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
                     <a href="{{url("/home")}}" style="text-decoration:none; color: white;">
 {{--                        <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
-                        Back
+                        Next
                 </a> </button>
             </div>
             <div class="col-8 medium hidden-xs">
