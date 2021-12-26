@@ -811,7 +811,7 @@ class HomeController extends Controller
         $t_grade = t_grade::get();
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a4','landscape');
-        return $pdf->stream();
+//        return $pdf->stream();
         return $pdf->download('Receipt.pdf');
     }
 
