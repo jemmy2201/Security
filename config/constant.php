@@ -243,11 +243,11 @@ define('audUat', "https://stg-id.singpass.gov.sg");
 
 // Prod
 define('authApiUrlProd', "https://id.singpass.gov.sg/token");
-define('urlsigProd', "http://www.iduse.org.sg/private/sig/jwks");
-define('urlpublicsigProd', "http://www.iduse.org.sg/public/sig/jwks");
-define('urlprivatecsigProd', "http://www.iduse.org.sg/private/sig/jwks");
-define('urlpublicprivatecsigProd', "http://www.iduse.org.sg/public/private/sig/jwks");
-define('urlecProd', "http://www.iduse.org.sg/private/ec/jwks");
+define('urlsigProd', "https://www.iduse.org.sg/private/sig/jwks");
+define('urlpublicsigProd', "https://www.iduse.org.sg/public/sig/jwks");
+define('urlprivatecsigProd', "https://www.iduse.org.sg/private/sig/jwks");
+define('urlpublicprivatecsigProd', "https://www.iduse.org.sg/public/private/sig/jwks");
+define('urlecProd', "https://www.iduse.org.sg/private/ec/jwks");
 define('authApiUrlSingpassconfigurationProd', "https://id.singpass.gov.sg/.well-known/openid-configuration");
 define('clientIdSinpassProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
 define('clientIdSecretProd', "NaetSKDCoBD7BmWapXha61878SNkP3zF");
