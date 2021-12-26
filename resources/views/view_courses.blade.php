@@ -195,13 +195,30 @@
                         @endif
 {{--                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
+                        {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
+                        @php
+                            $date_appointment=date_create($courses->appointment_date);
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 84px;">:</span></div>
+                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}} </div>
+                        <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Mobile No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 78px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">{{substr($courses->mobileno, 2)}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 117px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{$courses->email}}</div>
+                        @php
+                            if(substr($courses->email,0,5)){
+                               $email = '-';
+                            }else{
+                               $email = $personal->email;
+                            }
+                        @endphp
+                        <div class="col-4 ColoumndataPersonal">{{$email}}</div>
 
                     </div>
                 </div>
@@ -269,7 +286,6 @@
                 </div>
             </div>
         </div>
-
 {{--        <br>--}}
         <div class="container">
             <div class="row hidden-xs">
@@ -320,16 +336,6 @@
                         $grand_total = formatcurrency($courses->grand_total);
                         @endphp
                         <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
-                        <div class="w-100"></div>
-{{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Appointment Date <span style="margin-left: 7px;">:</span></div>
-                        @php
-                            $date_appointment=date_create($courses->appointment_date);
-                        @endphp
-                        <div class="col-4 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 84px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}} </div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
 {{--                        <div class="col-4 ColoumndataPersonal">--}}
@@ -388,6 +394,14 @@
                             <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>
                         @endif
 {{--                        <div class="col-6 ColoumndataPersonal">{{$courses->name}}</div>--}}
+                        <div class="w-100"></div>
+                        {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
+                        <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
+                        <div class="col-5 ColoumndataPersonal"></div>
+                        <div class="col-8 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 75px;">:</span></div>
+                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Mobile No <span style="margin-left: 67px;">:</span></div>
@@ -511,15 +525,6 @@
 {{--                        <div class="col-0 HeaderdataPersonal">Payment Amount&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Payment Amount <span style="margin-left: 7px;">:</span></div>
                         <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
-                        <div class="w-100"></div>
-{{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
-                        <div class="col-0 HeaderdataPersonal" >Appointment Date :</div>
-                        <div class="col-5 ColoumndataPersonal"></div>
-                        <div class="col-8 ColoumndataPersonal">{{ date_format($date_appointment,"d F Y")}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal" >Time Slot <span style="margin-left: 75px;">:</span></div>
-                        <div class="col-4 ColoumndataPersonal">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
-                        <div class="w-100"></div>
                     </div>
                 </div>
             </div>
