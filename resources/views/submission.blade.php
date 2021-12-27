@@ -106,12 +106,12 @@
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
                         @php
-                            if($personal->passexpirydate){
-                                $myDateTime = DateTime::createFromFormat('d/m/Y',$personal->passexpirydate);
+                            if($personal->expired_date){
+                                $myDateTime = DateTime::createFromFormat('d/m/Y',$personal->expired_date);
                                 $expired_date = $myDateTime->format('d F Y');
                             }
                         @endphp
-                        @if(!empty($personal->passexpirydate))
+                        @if(!empty($personal->expired_date))
                         <div class="col-6 ColoumndataPersonal">{{ $expired_date}}</div>
                         @endif
                     </div>
@@ -195,7 +195,7 @@
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Card Expiry
                         Date&ensp;&nbsp;:</div>
-                    @if(!empty($personal->passexpirydate))
+                    @if(!empty($personal->expired_date))
                     <div class="col-6 ColoumndataPersonal">{{ $expired_date}}</div>
                     @endif
                     </div>
