@@ -215,7 +215,7 @@
                             if(substr($courses->email,0,5)){
                                $email = '-';
                             }else{
-                               $email = $personal->email;
+                               $email = $courses->email;
                             }
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$email}}</div>
