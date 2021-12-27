@@ -812,7 +812,7 @@ class HomeController extends Controller
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a4','landscape');
 //        return $pdf->stream();
-        return $pdf->download('Receipt.pdf');
+        return $pdf->download('App_Slip.pdf');
     }
 
     public function submission(Request $request)

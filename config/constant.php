@@ -296,3 +296,4 @@ define('januari', 0);
 // End month
 
 define('zero', 0);
+define('default_email', "email");

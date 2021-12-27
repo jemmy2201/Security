@@ -212,7 +212,7 @@
 {{--                        <div class="col-0 HeaderdataPersonal"> Home No&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Email <span style="margin-left: 117px;">:</span></div>
                         @php
-                            if(substr($courses->email,0,5)){
+                            if(substr($courses->email,0,5) == default_email ){
                                $email = '-';
                             }else{
                                $email = $courses->email;

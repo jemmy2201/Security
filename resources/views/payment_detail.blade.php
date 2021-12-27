@@ -267,11 +267,18 @@
                     @else
                         <div class="w-100" style="margin-top: 53px;"></div>
                     @endif
-                    <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
+                    @php
+                    if(substr($booking_schedule->email,0,5) == default_email ){
+                        $email = '-';
+                    }else{
+                        $email = $booking_schedule->email;
+                    }
+                    @endphp
+                        <div class="col-0 HeaderdataPersonal">Mobile No &ensp;&ensp;: </div>
                     <div class="col-4 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;: </div>
-                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->email}}</div>
+                    <div class="col-4 ColoumndataPersonal">{{$email}}</div>
                 </div>
             </div>
             <div class="col-sm-0">
@@ -379,7 +386,7 @@
                     <div class="col-6 ColoumndataPersonal">{{substr($booking_schedule->mobileno, 2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Email &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->email}}</div>
+                    <div class="col-6 ColoumndataPersonal">{{$email}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Application Type&ensp;&nbsp; :</div>
                     <div class="col-6 ColoumndataPersonal">@if($booking_schedule->app_type == news)

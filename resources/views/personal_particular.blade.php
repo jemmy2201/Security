@@ -111,7 +111,7 @@
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal hidden-xs">
             @php
-             if(substr($personal->email,0,5)){
+             if(substr($personal->email,0,5)  == default_email){
                 $email = '';
              }else{
                 $email = $personal->email;
