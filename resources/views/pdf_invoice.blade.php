@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>App Details</title>
+    <title>PDF_Screen Shot.pdf</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         * {
@@ -38,6 +38,23 @@
             width: 30%;
         }
 
+        .column-right-left {
+            float: right;
+            width: 47%;
+        }
+
+        .column-right-right {
+            float: right;
+            width: 30%;
+            font-weight: bold;
+        }
+
+        .column-right-center {
+            display: inline-block;
+            padding-left: 22%;
+            padding-top: 5px;
+            width: 30%;
+        }
 
         /* Clear floats after the columns */
         .row:after {
@@ -195,30 +212,94 @@
             <div class="column-center">:</div>
             <div class="column-left">NRIC / FIN</div>
             <div class="column-right">{{$nric}}</div>
+            <div class="column-right-center">:</div>
+            <div class="column-right-left">Pass ID No</div>
+            <div class="column-right-right">{{$courses->passid}}</div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Name</div>
             @if (strlen($courses->name) > 40)
             <div class="column-right">{{substr($courses->name,0,40)}}<br>{{substr($courses->name,40)}}</div>
+                <div class="column-right-center">:</div>
+                <div class="column-right-left">Card Type</div>
+                <div class="column-right-right">
+                    @if($courses->app_type == news)
+                        NEW
+                    @elseif($courses->app_type == replacement)
+                        REPLACEMENT
+                    @elseif($courses->app_type == renewal)
+                        RENEWAL
+                    @endif
+                    -
+                    @if($courses->card_id == so_app)
+                        SO
+                    @elseif($courses->card_id == avso_app)
+                        AVSO
+                    @elseif($courses->card_id == pi_app)
+                        PI
+                    @endif
+                </div>
                 <br><br>
             @else
                 <div class="column-right">{{$courses->name}}</div>
+                <div class="column-right-center">:</div>
+                <div class="column-right-left">Card Type</div>
+                <div class="column-right-right">
+                    @if($courses->app_type == news)
+                        NEW
+                    @elseif($courses->app_type == replacement)
+                        REPLACEMENT
+                    @elseif($courses->app_type == renewal)
+                        RENEWAL
+                    @endif
+                    -
+                    @if($courses->card_id == so_app)
+                        SO
+                    @elseif($courses->card_id == avso_app)
+                        AVSO
+                    @elseif($courses->card_id == pi_app)
+                        PI
+                    @endif
+                </div>
                 <br>
             @endif
+
             <div class="column-center">:</div>
             <div class="column-left">Appointment Date</div>
             @php
                 $date_appointment=date_create($courses->appointment_date);
             @endphp
             <div class="column-right">{{ date_format($date_appointment,"d F Y")}}</div>
+            <div class="column-right-center">:</div>
+            <div class="column-right-left">Grade</div>
+            <div class="column-right-right">
+                @if ($request->card == so_app)
+                    @foreach($t_grade as $index =>$f)
+                        @if(!empty($courses) && $courses->grade_id== $f->id)
+                            <div class="column-right">{{$f->name}}</div>
+                        @endif
+                    @endforeach
+                @elseif($request->card == avso_app)
+                    NA
+                @else
+                    NA
+                @endif
+            </div>
             <br>
             <div class="column-left">Time Slot</div>
             <div class="column-center">:</div>
             <div class="column-right">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
+            <div class="column-right-center">:</div>
+            <div class="column-right-left">Card Expiry Date</div>
+            <div class="column-right-right">
+                @if(!empty( $courses->expired_date))
+                    {{$courses->expired_date}}
+                @endif
+            </div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Mobile No</div>
-            <div class="column-right">{{substr($courses->mobileno, 2)}}</div>
+            <div class="column-right"></div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Email</div>
@@ -256,55 +337,12 @@
             <div class="column-right">{{$courses->receiptNo}}</div>
             <br>
             <div class="column-center">:</div>
-            <div class="column-left">Appointment Date</div>
+            <div class="column-left">Payment Amount</div>
             @php
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
-            <br>
-            <div class="column-center">:</div>
-            <div class="column-left">Pass ID No</div>
-            <div class="column-right">{{$courses->passid}}</div>
-            <br>
-            <div class="column-center">:</div>
-            <div class="column-left">Card Type</div>
-            <div class="column-right">
-                @if($courses->app_type == news)
-                    NEW
-                @elseif($courses->app_type == replacement)
-                    REPLACEMENT
-                @elseif($courses->app_type == renewal)
-                    RENEWAL
-                @endif
-                -
-                @if($courses->card_id == so_app)
-                    SO
-                @elseif($courses->card_id == avso_app)
-                    AVSO
-                @elseif($courses->card_id == pi_app)
-                    PI
-                @endif
-            </div>
-            <br>
-            <div class="column-center">:</div>
-            <div class="column-left">Grade</div>
-            @if ($request->card == so_app)
-                @foreach($t_grade as $index =>$f)
-                    @if(!empty($courses) && $courses->grade_id== $f->id)
-                        <div class="column-right">{{$f->name}}</div>
-                    @endif
-                @endforeach
-            @elseif($request->card == avso_app)
-                <div class="column-right">NA</div>
-            @else
-                <div class="column-right">NA</div>
-            @endif
-            <br>
-            <div class="column-center">:</div>
-            <div class="column-left">Card Expiry Date</div>
-            @if(!empty( $courses->passexpirydate))
-                <div class="column-right">{{$courses->passexpirydate}}</div>
-            @endif
+
         </div>
 {{--        <div class="column2">--}}
 {{--            <div class="column-center">:</div>--}}
