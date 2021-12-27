@@ -279,8 +279,8 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Card Expiry Date <span style="margin-left: 10px;">:</span></div>
-                    @if(!empty( $courses->passexpirydate))
-                        <div class="col-4 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
+                    @if(!empty( $courses->expired_date))
+                        <div class="col-4 ColoumndataPersonal">{{$courses->expired_date}}</div>
                         @endif
                     </div>
                 </div>
