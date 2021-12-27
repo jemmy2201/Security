@@ -206,8 +206,7 @@
     <div class="row">
         <div class="column" >
             @php
-                $cutnric = substr($courses->nric, -4);
-                $nric = "XXXXX$cutnric";
+                $nric = secret_decode($courses->nric);
             @endphp
             <div class="column-center">:</div>
             <div class="column-left">NRIC / FIN</div>
@@ -219,7 +218,7 @@
             <div class="column-center">:</div>
             <div class="column-left">Name</div>
             @if (strlen($courses->name) > 40)
-            <div class="column-right">{{substr($courses->name,0,40)}}<br>{{substr($courses->name,40)}}</div>
+                <div class="column-right">{{substr($courses->name,0,30)}}<br>{{substr($courses->name,30,32)}}<br>{{substr($courses->name,32,35)}}</div>
                 <div class="column-right-center">:</div>
                 <div class="column-right-left">Card Type</div>
                 <div class="column-right-right">
@@ -239,7 +238,7 @@
                         PI
                     @endif
                 </div>
-                <br><br>
+                <br><br><br>
             @else
                 <div class="column-right">{{$courses->name}}</div>
                 <div class="column-right-center">:</div>
@@ -276,7 +275,7 @@
                 @if ($request->card == so_app)
                     @foreach($t_grade as $index =>$f)
                         @if(!empty($courses) && $courses->grade_id== $f->id)
-                            <div class="column-right">{{$f->name}}</div>
+                            {{$f->name}}
                         @endif
                     @endforeach
                 @elseif($request->card == avso_app)
@@ -299,7 +298,7 @@
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Mobile No</div>
-            <div class="column-right"></div>
+            <div class="column-right">{{substr($courses->mobileno, 2)}}</div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Email</div>
