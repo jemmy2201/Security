@@ -55,6 +55,12 @@
             padding-top: 5px;
             width: 30%;
         }
+        .column-right-center2 {
+            display: inline-block;
+            padding-left: 67%;
+            padding-top: 5px;
+            width: 30%;
+        }
 
         /* Clear floats after the columns */
         .row:after {
@@ -207,6 +213,8 @@
         <div class="column" >
             @php
                 $nric = secret_decode($courses->nric);
+                $cutnric = substr($nric, -4);
+                $nric = "XXXXX$cutnric";
             @endphp
             <div class="column-center">:</div>
             <div class="column-left">NRIC / FIN</div>
@@ -217,8 +225,13 @@
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Name</div>
-            @if (strlen($courses->name) > 40)
-                <div class="column-right">{{substr($courses->name,0,30)}}<br>{{substr($courses->name,30,32)}}<br>{{substr($courses->name,32,35)}}</div>
+            @if (strlen($courses->name) >= 40)
+                <div class="column-right">
+                    {{substr($courses->name,0,25)}}<br>
+                    {{substr($courses->name,25,32)}}<br>
+                    {{substr($courses->name,33,35)}}<br>
+                    {{substr($courses->name,36,40)}}
+                </div>
                 <div class="column-right-center">:</div>
                 <div class="column-right-left">Card Type</div>
                 <div class="column-right-right">
@@ -238,7 +251,31 @@
                         PI
                     @endif
                 </div>
-                <br><br><br>
+            <br>
+                <div class="column-right-center2">&nbsp;:</div>
+                <div class="column-right-left">Grade</div>
+                <div class="column-right-right">
+                    @if ($request->card == so_app)
+                        @foreach($t_grade as $index =>$f)
+                            @if(!empty($courses) && $courses->grade_id== $f->id)
+                                {{$f->name}}
+                            @endif
+                        @endforeach
+                    @elseif($request->card == avso_app)
+                        NA
+                    @else
+                        NA
+                    @endif
+                </div>
+                <br>
+                <div class="column-right-center2">&nbsp;:</div>
+                <div class="column-right-left">Card Expiry Date</div>
+                <div class="column-right-right">
+                    @if(!empty( $courses->expired_date))
+                        {{$courses->expired_date}}
+                    @endif
+                </div>
+                <br><br>
             @else
                 <div class="column-right">{{$courses->name}}</div>
                 <div class="column-right-center">:</div>
@@ -260,6 +297,28 @@
                         PI
                     @endif
                 </div>
+                <div class="column-right-center">:</div>
+                <div class="column-right-left">Grade</div>
+                <div class="column-right-right">
+                    @if ($request->card == so_app)
+                        @foreach($t_grade as $index =>$f)
+                            @if(!empty($courses) && $courses->grade_id== $f->id)
+                                {{$f->name}}
+                            @endif
+                        @endforeach
+                    @elseif($request->card == avso_app)
+                        NA
+                    @else
+                        NA
+                    @endif
+                </div>
+                <div class="column-right-center2">:</div>
+                <div class="column-right-left">Card Expiry Date</div>
+                <div class="column-right-right2">
+                    @if(!empty( $courses->expired_date))
+                        {{$courses->expired_date}}
+                    @endif
+                </div>
                 <br>
             @endif
 
@@ -269,32 +328,11 @@
                 $date_appointment=date_create($courses->appointment_date);
             @endphp
             <div class="column-right">{{ date_format($date_appointment,"d F Y")}}</div>
-            <div class="column-right-center">:</div>
-            <div class="column-right-left">Grade</div>
-            <div class="column-right-right">
-                @if ($request->card == so_app)
-                    @foreach($t_grade as $index =>$f)
-                        @if(!empty($courses) && $courses->grade_id== $f->id)
-                            {{$f->name}}
-                        @endif
-                    @endforeach
-                @elseif($request->card == avso_app)
-                    NA
-                @else
-                    NA
-                @endif
-            </div>
             <br>
             <div class="column-left">Time Slot</div>
             <div class="column-center">:</div>
             <div class="column-right">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
-            <div class="column-right-center">:</div>
-            <div class="column-right-left">Card Expiry Date</div>
-            <div class="column-right-right">
-                @if(!empty( $courses->expired_date))
-                    {{$courses->expired_date}}
-                @endif
-            </div>
+
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Mobile No</div>

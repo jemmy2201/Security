@@ -557,12 +557,12 @@
         <div class="row">
             <div class="col-2 back">
                 <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
-                    <a href="{{url("/home")}}" style="text-decoration:none; color: white;">
+                    <a href="{{url("/landing_page")}}" style="text-decoration:none; color: white;">
 {{--                        <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                         Next
                 </a> </button>
             </div>
-            <div class="col-8 medium hidden-xs">
+            <div class="col-0 medium hidden-xs">
             </div>
             <div class="col-3  visible-xs hidden-md">
             </div>
