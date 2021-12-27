@@ -510,7 +510,7 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Card Expiry Date <span style="margin-left: 6px;">:</span></div>
-                        <div class="col-6 ColoumndataPersonal">{{$courses->passexpirydate}}</div>
+                        <div class="col-6 ColoumndataPersonal">{{$courses->expired_date}}</div>
                     </div>
                 </div>
             </div>
