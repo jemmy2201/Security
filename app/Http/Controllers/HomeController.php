@@ -1125,8 +1125,8 @@ class HomeController extends Controller
         }
 
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
-//        return redirect()->route('home');
-        return Redirect::route('after.payment', $request->card);
+        return redirect()->route('landing_page');
+//        return Redirect::route('after.payment', $request->card);
     }
     protected  function ClearDataDraft($request){
         $clear_data="";
