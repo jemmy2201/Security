@@ -184,15 +184,15 @@
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
                         <div class="col-0 HeaderdataPersonal" >Name <span style="margin-left: 114px;">:</span></div>
-                    @if (strlen($courses->name) > 40)
+{{--                    @if (strlen($courses->name) > 40)--}}
                             <div class="col-4 ColoumndataPersonal hidden-xs">
                                 <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;outline: none;border: none;" readonly>
                                 {{$courses->name}}
                                 </textarea>
                             </div>
-                        @else
-                            <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>
-                        @endif
+{{--                        @else--}}
+{{--                            <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
+{{--                        @endif--}}
 {{--                        <div class="col-4 ColoumndataPersonal">{{$courses->name}}</div>--}}
                         <div class="w-100"></div>
                         {{--                        <div class="col-0 HeaderdataPersonal">Appointment Date &nbsp;:</div>--}}
@@ -335,7 +335,7 @@
                         @php
                         $grand_total = formatcurrency($courses->grand_total);
                         @endphp
-                        <div class="col-4 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
+                        <div class="col-6 ColoumndataPersonal">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
                         <div class="w-100"></div>
 {{--                        <div class="col-0 HeaderdataPersonal">Payment &ensp;&ensp;&nbsp;:</div>--}}
 {{--                        <div class="col-4 ColoumndataPersonal">--}}
@@ -567,10 +567,10 @@
             <div class="col-3  visible-xs hidden-md">
             </div>
             <div class="col-2 next hidden-xs">
-                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print Receipt</button></a>
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print </button></a>
             </div>
             <div class="col-5 visible-xs hidden-md">
-                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print Receipt</button></a>
+                <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print </button></a>
             </div>
         </div>
 
