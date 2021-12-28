@@ -692,22 +692,57 @@
 {{--                </div>--}}
                 <div class="modal-body">
                     <center>
-{{--                        <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;--}}
-{{--  top: 50%;--}}
-{{--  left: 50%;--}}
-{{--  transform: translate(-50%, -50%); width: 70px;">--}}
-{{--                        <div id="qrcodePaynow"></div>--}}
-                        <div class="row">
+                        {{-- Phone --}}
+                        <div class="row Visible-xs hidden-md">
+                            <div class="col-12">
+                                <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" class="Visible-xs hidden-md" style=" position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); width: 70px;">
+                                <div id="qrcodePaynow" class="Visible-xs hidden-md"></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6" >Total Amount<span style="margin-left: 7px;">:</span></div>
+                                    <div class="col-4" style="margin-left: -72px;"> <b>${{$grand_total}}</b></div>
+                                    <div class="w-100"></div>
+                                    <div class="col-6" >Reference No<span style="margin-left:2px;">:</span> </div>
+                                    <div class="col-8" style="margin-left: -100px;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
+                                    <div class="w-100"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-14">
+                                <h4>How to Make a PayNow </h4>
+
+                                <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;" >
+
+                                <ol>
+                                    <li style=" text-align: left;">Scan this QR code with <b>QR scanner on your banking app</b> on your phone.</li>
+                                    <li style=" text-align: left;">Verity that displays the following :
+                                        <br>Entity Name <b> Union OF Security Employees</b>.</li>
+                                    <li style=" text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
+                                    <li style=" text-align: left;">Once yout Paynow transaction has been successfull, Use will process with your application .</li>
+
+                                </ol>
+                            </div>
+                        </div>
+                        {{-- End Phone --}}
+
+                        {{-- Dekstop --}}
+                        <div class="row hidden-xs">
                             <div class="col-4">
                                 <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
-            top: 50%;
+            top: 40%;
             left: 63%;
             transform: translate(-50%, -50%); width: 70px;">
 
-                                <div id="qrcodePaynow"></div>
+                                <div id="qrcodePaynowPhone"></div>
                             </div>
                             <div class="col-8">
                                 <h4>How to Make a PayNow </h4>
+
+                                <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;margin-left: 93px;" >
+
                                 <ol>
                                     <li style="margin-left: 95px; text-align: left;">Scan this QR code with <b>QR scanner on your banking app</b> on your phone.</li>
                                     <li style="margin-left: 95px; text-align: left;">Verity that displays the following :
@@ -717,7 +752,7 @@
 
                                 </ol>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6" style="margin-top: -50px;">
                                 <div class="row">
                                     <div class="col-6" style="text-align: left">Total Amount<span style="margin-left: 7px;">:</span></div>
                                     <div class="col-4" style="margin-left: -94px;"> <b>${{$grand_total}}</b></div>
@@ -726,18 +761,18 @@
                                     <div class="col-8" style="margin-left: -120px;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
                                     <div class="w-100"></div>
                                 </div>
-{{--                                <p style="text-align: left;margin-top: 15px;">Total Amount : <b>${{$grand_total}}</b></p>--}}
-{{--                                <p>Reference No : <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></p>--}}
                             </div>
                         </div>
+                        {{-- Dekstop --}}
                     </center>
                 </div>
                 <div class="modal-footer">
                     @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
+                        <button type="button" id="confirm_payment_paynow"  class="btn btn-dark" data-dismiss="modal">Payment Confirmed</button>
                     <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 100px;">Cancel</button>
+                        <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>
                     </a>
-                    <button type="button" id="confirm_payment_paynow" class="btn btn-danger" data-dismiss="modal" style="margin-right: 100px;">Confirm</button>
                 </div>
             </div>
 
@@ -845,6 +880,7 @@
 
         //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
         let QRstring = qrcode.output();
+        new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
         new QRCode(document.getElementById("qrcodePaynow"), QRstring)
     });
 
