@@ -40,9 +40,9 @@
                                     <option value="@php echo renewal @endphp">Renewal</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" style="display: none">
                                 <label for="location" class="col-form-label">Card</label>
-                                <select class="form-control" id="card_id" name="card_id" required>
+                                <select class="form-control" id="card_id" name="card_id" >
                                     <option selected>Please choose</option>
                                     <option value="@php echo so_app @endphp">SO Application</option>
                                     <option value="@php echo avso_app @endphp">AVSO Application</option>
@@ -152,37 +152,54 @@
                             }
                             }
                         },
-                        {data: 'card_type', name: 'card_type',
+                        {
+                            data: 'app_type', name: 'app_type',
                             render: function (data, type, row) {
-                                if(data == @php echo so_app @endphp){
-                                    var data = 'SO Application';
-                                    return data;
-                                }else if(data ==@php echo avso_app @endphp){
-                                        var data = 'AVSO Application';
-                                    return data;
-                                }else if(data ==@php echo pi_app @endphp){
-                                        var data = 'PI Application';
-                                    return data;
-                                }
+                                if(data == @php echo news @endphp){
+                                    var data = 'New Request';
+                                return data;
+                            }else if(data ==@php echo replacement @endphp){
+                                    var data = 'Replacement Request';
+                                return data;
+                            }else if(data ==@php echo renewal @endphp){
+                                    var data = 'Renewal Request';
+                                return data;
+                            }
                             }
                         },
-                        {data: 'grade_type', name: 'grade_type',
-                            render: function (data, type, row) {
-                                if(data == @php echo so @endphp){
-                                    return "SO";
-                                }else if(data == @php echo sso @endphp){
-                                    return "SSO";
-                                }else if(data == @php echo ss @endphp){
-                                    return "SS";
-                                }else if(data == @php echo sss @endphp){
-                                    return "SSS";
-                                }else if(data == @php echo cso @endphp){
-                                    return "CSO";
-                                }else{
-                                    return '-';
-                                }
-                            }
-                        },
+                        {{--{data: 'card_type', name: 'card_type',--}}
+                        {{--    render: function (data, type, row) {--}}
+                        {{--        if(data == @php echo so_app @endphp){--}}
+                        {{--            var data = 'SO Application';--}}
+                        {{--            return data;--}}
+                        {{--        }else if(data ==@php echo avso_app @endphp){--}}
+                        {{--                var data = 'AVSO Application';--}}
+                        {{--            return data;--}}
+                        {{--        }else if(data ==@php echo pi_app @endphp){--}}
+                        {{--                var data = 'PI Application';--}}
+                        {{--            return data;--}}
+                        {{--        }--}}
+                        {{--    }--}}
+                        {{--},--}}
+
+                        {{--{data: 'grade_type', name: 'grade_type',--}}
+                        {{--    render: function (data, type, row) {--}}
+                        {{--        if(data == @php echo so @endphp){--}}
+                        {{--            return "SO";--}}
+                        {{--        }else if(data == @php echo sso @endphp){--}}
+                        {{--            return "SSO";--}}
+                        {{--        }else if(data == @php echo ss @endphp){--}}
+                        {{--            return "SS";--}}
+                        {{--        }else if(data == @php echo sss @endphp){--}}
+                        {{--            return "SSS";--}}
+                        {{--        }else if(data == @php echo cso @endphp){--}}
+                        {{--            return "CSO";--}}
+                        {{--        }else{--}}
+                        {{--            return '-';--}}
+                        {{--        }--}}
+                        {{--    }--}}
+                        {{--},--}}
+                        {data: 'grade_type', name: 'grade_type'},
                         {data: 'transaction_amount', name: 'transaction_amount'},
                         {data: 'action', name: 'action', orderable: false, searchable: false},
                     ]
