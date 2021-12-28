@@ -26,6 +26,7 @@ use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
+use Log;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -791,64 +792,71 @@ class AjaxController extends Controller
                     // End insert table boooking
 
                 }else{
-
                     // update table user
+                    $data = array(
+                        "error"=>data_already_exists,
+                    );
+
                     $nric = str_replace(' ', '', $e['nric']);
 
-                    $Update_users = User::find($users->id);
+                    $log  = "user already exists: ".$nric.' - '.date("F j, Y, g:i a").PHP_EOL;
 
-                    $Update_users->nric = secret_encode($nric);
+                    file_put_contents('./log_import/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
 
-                    $Update_users->name = $e['name'];
-
-                    $Update_users->save();
-                    // End update table user
-                    // update table booking
-
-                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])->first();
-
-                    if (!empty($ID_booking)) {
-                        if ($e['app_type'] == renewal){
-                            $app_type = $e['app_type'];
-                        }elseif ($e['app_type'] == replacement){
-                            $app_type = $e['app_type'] + 1;
-                        }else{
-                            $app_type = $e['app_type'];
-                        }
-
-                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
-
-                        $update_booking_schedule->app_type = $app_type;
-
-                        $update_booking_schedule->card_id = $e['card_type'];
-
-                        $update_booking_schedule->grade_id = $e['grade'];
-
-                        $update_booking_schedule->passid = $e['passid'];
-
-                        $update_booking_schedule->expired_date = $expired_date;
-
-                        $update_booking_schedule->save();
-                    }else{
-
-                        // insert table boooking
-                        $booking_schedule = new booking_schedule;
-
-                        $booking_schedule->app_type = $e['app_type'];
-
-                        $booking_schedule->card_id = $e['card_type'];
-
-                        $booking_schedule->passid = $e['passid'];
-
-                        $booking_schedule->grade_id = $e['grade'];
-
-                        $booking_schedule->expired_date = $expired_date;
-
-                        $booking_schedule->nric = $users->nric;
-
-                        $booking_schedule->save();
-                        // End insert table boooking
-                    }
+//                    $Update_users = User::find($users->id);
+//
+//                    $Update_users->nric = secret_encode($nric);
+//
+//                    $Update_users->name = $e['name'];
+//
+//                    $Update_users->save();
+//                    // End update table user
+//                    // update table booking
+//
+//                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']),"card_id"=>$e['card_type']])->first();
+//
+//                    if (!empty($ID_booking)) {
+//                        if ($e['app_type'] == renewal){
+//                            $app_type = $e['app_type'];
+//                        }elseif ($e['app_type'] == replacement){
+//                            $app_type = $e['app_type'] + 1;
+//                        }else{
+//                            $app_type = $e['app_type'];
+//                        }
+//
+//                        $update_booking_schedule = booking_schedule::find($ID_booking->id);
+//
+//                        $update_booking_schedule->app_type = $app_type;
+//
+//                        $update_booking_schedule->card_id = $e['card_type'];
+//
+//                        $update_booking_schedule->grade_id = $e['grade'];
+//
+//                        $update_booking_schedule->passid = $e['passid'];
+//
+//                        $update_booking_schedule->expired_date = $expired_date;
+//
+//                        $update_booking_schedule->save();
+//                    }else{
+//
+//                        // insert table boooking
+//                        $booking_schedule = new booking_schedule;
+//
+//                        $booking_schedule->app_type = $e['app_type'];
+//
+//                        $booking_schedule->card_id = $e['card_type'];
+//
+//                        $booking_schedule->passid = $e['passid'];
+//
+//                        $booking_schedule->grade_id = $e['grade'];
+//
+//                        $booking_schedule->expired_date = $expired_date;
+//
+//                        $booking_schedule->nric = $users->nric;
+//
+//                        $booking_schedule->save();
+//                        // End insert table boooking
+//                    }
                     // End update table booking
 
                 }

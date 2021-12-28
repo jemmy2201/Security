@@ -48,7 +48,7 @@
                                  @if(Auth::user()->role == admin)
                                     <b>Save</b>
                                  @elseif(Auth::user()->role == office)
-                                        <b>Save</b>
+                                        <b>Proceed</b>
                                  @endif
                                 </button>
                             </div>
@@ -276,8 +276,10 @@
                 data: form_data, // serializes the form's elements.
                 success: function(data,textStatus, xhr)
                 {
-                    if(xhr.status == "201" || xhr.status == "200"){
-                        // table_grade.ajax.reload();
+                    if (data.error == @php echo data_already_exists @endphp) {
+                        swal("Error!", " The data already exists", "error");
+                    }else if(xhr.status == "201" || xhr.status == "200"){
+                        swal("Success!", "Import", "success");
                         location.reload();
                         $('#FormUpload').modal('hide');
                     }
