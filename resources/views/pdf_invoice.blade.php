@@ -233,10 +233,9 @@
             <div class="column-left">Name</div>
             @if (strlen($courses->name) >= 40)
                 <div class="column-right">
-                    {{substr($courses->name,0,20)}}<br>
-                    {{substr($courses->name,21,40)}}<br>
-                    {{substr($courses->name,41,60)}}<br>
-                    {{substr($courses->name,61,80)}}
+                    @php
+                        echo wordwrap($courses->name,30,"<br>\n");
+                    @endphp
                 </div>
                 <div class="column-right-center">:</div>
                 <div class="column-right-left">Card Type</div>
