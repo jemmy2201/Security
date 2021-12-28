@@ -713,16 +713,16 @@
                                 </div>
                             </div>
                             <div class="col-md-14">
-                                <h4>How to Make a PayNow </h4>
+                                <h4>How to Make a PayNow Transfer </h4>
 
                                 <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;" >
 
                                 <ol>
-                                    <li style=" text-align: left;">Scan this QR code with <b>QR scanner on your banking app</b> on your phone.</li>
-                                    <li style=" text-align: left;">Verity that displays the following :
-                                        <br>Entity Name <b> Union OF Security Employees</b>.</li>
+                                    <li style=" text-align: left;">Scan this QR code with the <b>QR scanner on your banking app</b> on your phone.</li>
+                                    <li style=" text-align: left;">Verity that it displays the following :
+                                        <br>Entity Name <b> Union Of Security Employees</b>.</li>
                                     <li style=" text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
-                                    <li style=" text-align: left;">Once yout Paynow transaction has been successfull, Use will process with your application .</li>
+                                    <li style=" text-align: left;">Once your Paynow transaction has been successfull, USE will process with your application .</li>
 
                                 </ol>
                             </div>
@@ -739,17 +739,17 @@
 
                                 <div id="qrcodePaynowPhone"></div>
                             </div>
-                            <div class="col-8">
-                                <h4>How to Make a PayNow </h4>
+                            <div class="col-8" >
+                                <h4 style="margin-left: 68px">How to Make a PayNow Transfer</h4>
 
                                 <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;margin-left: 93px;" >
 
                                 <ol>
-                                    <li style="margin-left: 95px; text-align: left;">Scan this QR code with <b>QR scanner on your banking app</b> on your phone.</li>
-                                    <li style="margin-left: 95px; text-align: left;">Verity that displays the following :
-                                        <br>Entity Name <b> Union OF Security Employees</b>.</li>
+                                    <li style="margin-left: 95px; text-align: left;">Scan this QR code with the <b>QR scanner on your banking app</b> on your phone.</li>
+                                    <li style="margin-left: 95px; text-align: left;">Verity that it displays the following :
+                                        <br>Entity Name <b> Union Of Security Employees</b>.</li>
                                     <li style="margin-left: 95px; text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
-                                    <li style="margin-left: 95px; text-align: left;">Once yout Paynow transaction has been successfull, Use will process with your application .</li>
+                                    <li style="margin-left: 95px; text-align: left;">Once your Paynow transaction has been successfull, USE will process with your application .</li>
 
                                 </ol>
                             </div>
@@ -769,9 +769,9 @@
                 </div>
                 <div class="modal-footer">
                     @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
-                        <button type="button" id="confirm_payment_paynow"  class="btn btn-dark" data-dismiss="modal">Payment Confirmed</button>
+                        <button type="button" id="confirm_payment_paynow"  class="btn btn-dark" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
                     <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
-                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 100px;">Cancel</button>
+                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>
                         <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>
                     </a>
                 </div>

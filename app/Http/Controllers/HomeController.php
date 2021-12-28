@@ -1000,7 +1000,7 @@ class HomeController extends Controller
     public function cancel_payment(Request $request,$app_type,$card){
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $this->ClearDataDraft($request);
-        return redirect()->route('home');
+        return redirect()->route('landing_page');
     }
     public function book_appointment(Request $request)
     {
