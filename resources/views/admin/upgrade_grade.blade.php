@@ -9,28 +9,63 @@
 </style>
 @section('content')
 <div class="container">
-    <div class=" navbar-light navbar-white">
-        <table id="table_grade" class="table table-striped table-bordered dt-responsive nowrap">
-            <thead>
-            <tr>
-                <th scope="col">NRIC</th>
-                <th scope="col">Name</th>
-                <th scope="col">Application Type</th>
-                <th scope="col">Card Type</th>
-                <th scope="col">Grade Type</th>
-                <th scope="col">Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+{{--    <div class=" navbar-light navbar-white">--}}
+{{--        <table id="table_grade" class="table table-striped table-bordered dt-responsive nowrap">--}}
+{{--            <thead>--}}
+{{--            <tr>--}}
+{{--                <th scope="col">NRIC</th>--}}
+{{--                <th scope="col">Name</th>--}}
+{{--                <th scope="col">Application Type</th>--}}
+{{--                <th scope="col">Card Type</th>--}}
+{{--                <th scope="col">Grade Type</th>--}}
+{{--                <th scope="col">Status</th>--}}
+{{--            </tr>--}}
+{{--            </thead>--}}
+{{--            <tbody>--}}
+{{--            </tbody>--}}
+{{--        </table>--}}
+
         {{-- Modal --}}
-        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+{{--        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >--}}
+{{--            <div class="modal-dialog">--}}
+{{--                <div class="modal-content" style="font-family: sans-serif">--}}
+{{--                    <div class="modal-header" style="justify-content: center !important;border-bottom:0px">--}}
+{{--                        @if(Auth::user()->role == office)--}}
+{{--                        <h5 class="modal-title"><b>Import New Records To USE Web Portal</b></h5>--}}
+{{--                        @endif--}}
+{{--                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--}}
+{{--                    </div>--}}
+{{--                    <div class="modal-body">--}}
+{{--                        <form style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormUploadExcelGrade" enctype="multipart/form-data">--}}
+{{--                            @csrf--}}
+{{--                            <div class="mb-3">--}}
+{{--                                @if(Auth::user()->role == admin)--}}
+{{--                                <label for="title" class="col-form-label">Upgrade grade</label>--}}
+{{--                                @endif--}}
+{{--                               <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">--}}
+{{--                            </div>--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block">--}}
+{{--                                 @if(Auth::user()->role == admin)--}}
+{{--                                    <b>Save</b>--}}
+{{--                                 @elseif(Auth::user()->role == office)--}}
+{{--                                        <b>Proceed</b>--}}
+{{--                                 @endif--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+        {{-- End Modal --}}
+
+{{--        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >--}}
             <div class="modal-dialog">
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
                         @if(Auth::user()->role == office)
-                        <h5 class="modal-title"><b>Import New Records To USE Web Portal</b></h5>
+                            <h5 class="modal-title"><b>Import New Records To USE Web Portal</b></h5>
                         @endif
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
@@ -39,26 +74,30 @@
                             @csrf
                             <div class="mb-3">
                                 @if(Auth::user()->role == admin)
-                                <label for="title" class="col-form-label">Upgrade grade</label>
+                                    <label for="title" class="col-form-label">Upgrade grade</label>
                                 @endif
-                               <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
+                                <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block">
-                                 @if(Auth::user()->role == admin)
-                                    <b>Save</b>
-                                 @elseif(Auth::user()->role == office)
+                                    @if(Auth::user()->role == admin)
+                                        <b>Save</b>
+                                    @elseif(Auth::user()->role == office)
                                         <b>Proceed</b>
-                                 @endif
+                                    @endif
                                 </button>
                             </div>
                         </form>
+                        <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>
+                        <h5 id="status" style="margin-left:160px;"></h5>
+                        <p id="total" style="margin-left: 135px;"></p>
+                        <p id="already_nric" style="margin-left: 58px;"></p>
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- End Modal --}}
-    </div>
+{{--        </div>--}}
+
+{{--    </div>--}}
 
 <div id="restoring_data" style="display: block;"></div>
 
@@ -254,7 +293,17 @@
                 }
                 });
         });
-
+        function progressHandler(event){
+            document.getElementById("progressBar").style.display = "block";
+            // hitung prosentase
+            var percent = (event.loaded / event.total) * 100;
+            // menampilkan prosentase ke komponen id 'progressBar'
+            document.getElementById("progressBar").value = Math.round(percent);
+            // menampilkan prosentase ke komponen id 'status'
+            document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+            // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
+            document.getElementById("total").innerHTML = "Complete "+event.loaded+" bytes From "+event.total;
+        }
         $("#FormUploadExcelGrade").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -266,36 +315,54 @@
             }else if ({!!  json_encode(Auth::user()->role) !!} == {!!  json_encode(office) !!}){
                 var router = "{{route('admin.upload.import.grade')}}";
             }
-            $.ajax({
-                type: "POST",
-                dataType: 'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                url: router,
-                data: form_data, // serializes the form's elements.
-                success: function(data,textStatus, xhr)
-                {
-                    if (data.error == @php echo data_already_exists @endphp) {
-                        swal("Error!", " The data already exists", "error");
-                    }else if(xhr.status == "201" || xhr.status == "200"){
-                        swal("Success!", "Import", "success");
-                        location.reload();
-                        $('#FormUpload').modal('hide');
-                    }
-                }, error: function(data,textStatus, xhr){
-                    // Error...
-                    var errors = $.parseJSON(data.responseText);
-                    $.each(errors, function(index, value) {
-                        if(value == "The given data was invalid."){
-                            swal("Error!", "Just only excel", "error");
-                        }else if(index == "message" && value.search("1062") ){
-                            swal("Error!", "Duplicate entry passid", "error");
-                        }
-                    });
+            {{--$.ajax({--}}
+            {{--    type: "POST",--}}
+            {{--    dataType: 'JSON',--}}
+            {{--    contentType: false,--}}
+            {{--    cache: false,--}}
+            {{--    processData: false,--}}
+            {{--    url: router,--}}
+            {{--    data: form_data, // serializes the form's elements.--}}
+            {{--    success: function(data,textStatus, xhr)--}}
+            {{--    {--}}
+            {{--        if (data.error == @php echo data_already_exists @endphp) {--}}
+            {{--            swal("Error!", " The data already exists", "error");--}}
+            {{--        }else if(xhr.status == "201" || xhr.status == "200"){--}}
+            {{--            swal("Success!", "Import", "success");--}}
+            {{--            location.reload();--}}
+            {{--            $('#FormUpload').modal('hide');--}}
+            {{--        }--}}
+            {{--    }, error: function(data,textStatus, xhr){--}}
+            {{--        // Error...--}}
+            {{--        var errors = $.parseJSON(data.responseText);--}}
+            {{--        $.each(errors, function(index, value) {--}}
+            {{--            if(value == "The given data was invalid."){--}}
+            {{--                swal("Error!", "Just only excel", "error");--}}
+            {{--            }else if(index == "message" && value.search("1062") ){--}}
+            {{--                swal("Error!", "Duplicate entry passid", "error");--}}
+            {{--            }--}}
+            {{--        });--}}
 
+            {{--    }--}}
+            {{--});--}}
+            var file = document.getElementById("upgrade_grade").files[0];
+            var formdata = new FormData();
+            formdata.append("_token", "{{ csrf_token() }}");
+            formdata.append("upgrade_grade", file);
+
+            // proses upload via AJAX disubmit ke 'upload.php'
+            // selama proses upload, akan menjalankan progressHandler()
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseText){
+                        document.getElementById("already_nric").innerHTML = "There are some existing nric, please check the log";
+                    }
                 }
-            });
+            };
+            ajax.upload.addEventListener("progress", progressHandler, true);
+            ajax.open("POST", router, true);
+            ajax.send(formdata);
 
         });
 

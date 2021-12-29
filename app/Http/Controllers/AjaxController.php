@@ -729,6 +729,8 @@ class AjaxController extends Controller
         // End Backup Data For restoring
 
         $data = Excel::toArray(new BookingScheduleExport(), request()->file('upgrade_grade'));
+
+        $data_reponse []='';
         foreach($data[0] as $row) {
             $row = explode("|", $row[0]);
             $arr[] = [
@@ -798,6 +800,10 @@ class AjaxController extends Controller
                     );
 
                     $nric = str_replace(' ', '', $e['nric']);
+
+//                    $o = new stdClass;
+//                    $o->nric_already=$nric;
+//                    array_push($data_reponse, $o);
 
                     $log  = "user already exists: ".$nric.' - '.date("F j, Y, g:i a").PHP_EOL;
 
