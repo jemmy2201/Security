@@ -301,9 +301,11 @@
             // hitung prosentase
             var percent = (event.loaded / event.total) * 100;
             // menampilkan prosentase ke komponen id 'progressBar'
-            document.getElementById("progressBar").value = Math.round(percent);
+            // document.getElementById("progressBar").value = Math.round(percent);
+            document.getElementById("progressBar").value = Math.round("50");
             // menampilkan prosentase ke komponen id 'status'
-            document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+            // document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+            document.getElementById("status").innerHTML = Math.round("50")+"% Complete";
             // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
         }
         $("#FormUploadExcelGrade").submit(function(e) {
@@ -365,6 +367,9 @@
                     // console.log('last array',DataArr.pop());
                     // console.log('count',count)
                     // console.log('count_real_excel',DataArr[0].count_real_excel)
+                    document.getElementById("progressBar").value = Math.round("100");
+                    document.getElementById("status").innerHTML = Math.round("100")+"% Complete";
+
                     document.getElementById("total").innerHTML = "Total New Records Added = "+ count +","+ parseInt(DataArr[0].count_real_excel);
                     if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
