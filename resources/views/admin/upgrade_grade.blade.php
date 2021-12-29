@@ -89,9 +89,10 @@
                             </div>
                         </form>
                         <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>
-                        <h5 id="status" style="margin-left:160px;"></h5>
-                        <p id="total" style="margin-left: 135px;"></p>
-                        <p id="already_nric" style="margin-left: 58px;"></p>
+                        <h5 id="status" style="margin-left:110px;"></h5>
+                        <p id="total" style="margin-left: 140px;"></p>
+                        <p id="import_completed" style="margin-left: 135px;"></p>
+                        <p id="already_nric" style="margin-left: 100px;"></p>
                     </div>
                 </div>
             </div>
@@ -302,7 +303,7 @@
             // menampilkan prosentase ke komponen id 'status'
             document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
             // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
-            document.getElementById("total").innerHTML = "Complete "+event.loaded+" bytes From "+event.total;
+            document.getElementById("total").innerHTML = "Total New Records Added = "+event.loaded+","+event.total;
         }
         $("#FormUploadExcelGrade").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -355,8 +356,9 @@
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("import_completed").innerHTML = "Import Records Completed";
                     if (this.responseText){
-                        document.getElementById("already_nric").innerHTML = "There are some existing nric, please check the log";
+                        document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
                 }
             };
