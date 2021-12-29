@@ -365,7 +365,7 @@
                     // console.log('last array',DataArr.pop());
                     // console.log('count',count)
                     // console.log('count_real_excel',DataArr[0].count_real_excel)
-                    document.getElementById("total").innerHTML = "Total New Records Added = "+ count +","+ DataArr[0].count_real_excel;
+                    document.getElementById("total").innerHTML = "Total New Records Added = "+ count +","+ parseInt(DataArr[0].count_real_excel);
                     if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
