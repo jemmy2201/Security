@@ -89,10 +89,12 @@
                             </div>
                         </form>
                         <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>
-                        <h5 id="status" style="margin-left:110px;"></h5>
-                        <p id="total" style="margin-left: 140px;"></p>
-                        <p id="import_completed" style="margin-left: 135px;"></p>
-                        <p id="already_nric" style="margin-left: 100px;"></p>
+                        <center>
+                        <h5 id="status" ></h5>
+                        <p id="total" ></p>
+                        <p id="import_completed" ></p>
+                        <p id="already_nric"></p>
+                        </center>
                     </div>
                 </div>
             </div>
@@ -303,7 +305,6 @@
             // menampilkan prosentase ke komponen id 'status'
             document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
             // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
-            document.getElementById("total").innerHTML = "Total New Records Added = "+event.loaded+","+event.total;
         }
         $("#FormUploadExcelGrade").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -357,7 +358,15 @@
             ajax.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("import_completed").innerHTML = "Import Records Completed";
-                    if (this.responseText){
+                    var DataArr = JSON.parse(this.responseText);
+                    var Count_real = JSON.parse(this.responseText);
+                    var count = Object.keys(Count_real.pop()).length;
+                    // console.log('rael',DataArr);
+                    // console.log('last array',DataArr.pop());
+                    // console.log('count',count)
+                    // console.log('count_real_excel',DataArr[0].count_real_excel)
+                    document.getElementById("total").innerHTML = "Total New Records Added = "+ count +","+ DataArr[0].count_real_excel;
+                    if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
                 }

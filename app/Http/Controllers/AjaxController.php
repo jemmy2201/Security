@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
 use Log;
+use Response;
 class AjaxController extends Controller
 {
     public function __construct()
@@ -729,7 +730,7 @@ class AjaxController extends Controller
         // End Backup Data For restoring
 
         $data = Excel::toArray(new BookingScheduleExport(), request()->file('upgrade_grade'));
-
+        $count_real_excel = count($data[0])-1;
         $data_reponse []='';
         foreach($data[0] as $row) {
             $row = explode("|", $row[0]);
@@ -743,7 +744,11 @@ class AjaxController extends Controller
                 'name' => $row[6],
             ];
         }
-
+        $data= [];
+        $News_users = [];
+        array_push($data, (object)[
+            "count_real_excel"=>$count_real_excel,
+        ]);
         foreach ($arr as $index => $e) {
             if ($index != 0){
                 $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
@@ -759,51 +764,14 @@ class AjaxController extends Controller
                 } else {
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
                 }
-                if (empty($users)){
-                    $nric = str_replace(' ', '', $e['nric']);
-                    // insert table users
-                    $New_users = new User();
+                if ($users){
 
-                    $New_users->nric = secret_encode($nric);
-
-                    $New_users->name = $e['name'];
-
-                    $New_users->email = 'email'.$count_users.'@admin.com';
-
-                    $New_users->password = Hash::make('123123');
-
-                    $New_users->save();
-                    // End insert table users
-
-                    // insert table boooking
-                    $booking_schedule = new booking_schedule;
-
-                    $booking_schedule->app_type = $e['app_type'];
-
-                    $booking_schedule->card_id = $e['card_type'];
-
-                    $booking_schedule->passid = $e['passid'];
-
-                    $booking_schedule->grade_id = $e['grade'];
-
-                    $booking_schedule->expired_date = $expired_date;
-
-                    $booking_schedule->nric = $New_users->nric;
-
-                    $booking_schedule->save();
-                    // End insert table boooking
-
-                }else{
                     // update table user
-                    $data = array(
+                    array_push($data, (object)[
                         "error"=>data_already_exists,
-                    );
+                    ]);
 
                     $nric = str_replace(' ', '', $e['nric']);
-
-//                    $o = new stdClass;
-//                    $o->nric_already=$nric;
-//                    array_push($data_reponse, $o);
 
                     $log  = "user already exists: ".$nric.' - '.date("F j, Y, g:i a").PHP_EOL;
 
@@ -865,10 +833,59 @@ class AjaxController extends Controller
 //                    }
                     // End update table booking
 
+                }else{
+                    $nric = str_replace(' ', '', $e['nric']);
+                    // insert table users
+
+                    $Data_New_users[] = [
+                        'nric' => secret_encode($nric),
+
+                        'name' => $e['name'],
+
+                        'email' => 'email'.$count_users.'@admin.com',
+
+                        'password' => Hash::make('123123')
+                    ];
+                    array_push($News_users,$Data_New_users);
+
+                    $New_users = new User();
+
+                    $New_users->nric = secret_encode($nric);
+
+                    $New_users->name = $e['name'];
+
+                    $New_users->email = 'email'.$count_users.'@admin.com';
+
+                    $New_users->password = Hash::make('123123');
+
+                    $New_users->save();
+//                     End insert table users
+
+//                     insert table boooking
+                    $booking_schedule = new booking_schedule;
+
+                    $booking_schedule->app_type = $e['app_type'];
+
+                    $booking_schedule->card_id = $e['card_type'];
+
+                    $booking_schedule->passid = $e['passid'];
+
+                    $booking_schedule->grade_id = $e['grade'];
+
+                    $booking_schedule->expired_date = $expired_date;
+
+                    $booking_schedule->nric = $New_users->nric;
+
+                    $booking_schedule->save();
+                    // End insert table boooking
+
+
                 }
             }
         }
-        return $data;
+        array_push($data,$News_users);
+
+        return Response::json($data);
     }
     public function upload_excel_grade(Request $request)
     {
