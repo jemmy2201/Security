@@ -773,7 +773,7 @@ class AjaxController extends Controller
 
                     $nric = str_replace(' ', '', $e['nric']);
 
-                    $log  = "user already exists: ".$nric.' - '.date("F j, Y, g:i a").PHP_EOL;
+                    $log  = "user already exists: ".$e['passid'].' - '.date("F j, Y, g:i a").PHP_EOL;
 
                     file_put_contents('./log_import/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
 
