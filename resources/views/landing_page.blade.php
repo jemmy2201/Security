@@ -702,6 +702,36 @@
 
 </div>
 <script type="application/javascript">
+    {{--  Card Issue  --}}
+    if ({!!  json_encode($card_issue) !!} != false)
+    {
+        {!!  json_encode($card_issue) !!}.forEach((entry) => {
+            {{--if (entry['card_id'] == {!!  json_encode(so_app) !!}){--}}
+            {{--    var str1="Cannot apply SO ID Card.\n";--}}
+            {{--    var str2="Kindly check your PLRD SO licence status with PLRD.";--}}
+            {{--}else if(entry['card_id'] == {!!  json_encode(avso_app) !!}){--}}
+            {{--    var str1="Cannot apply AVSO ID Card.\n";--}}
+            {{--    var str2="Kindly check your PLRD AVSO licence status with PLRD.";--}}
+            {{--}else if(entry['card_id'] == {!!  json_encode(pi_app) !!}){--}}
+            {{--    var str1="Cannot apply PI ID Card.\n";--}}
+            {{--    var str2="Kindly check your PLRD PI licence status with PLRD.";--}}
+            {{--}else if(entry['card_id'] == {!!  json_encode(so_app) !!} && entry['card_id'] == {!!  json_encode(avso_app) !!}){--}}
+            {{--    var str1="Cannot apply SO/AVSO ID Card.\n";--}}
+            {{--    var str2="Kindly check your PLRD SO/AVSO licence status with PLRD.";--}}
+            {{--}else if(entry['card_id'] == {!!  json_encode(so_app) !!} && entry['card_id'] == {!!  json_encode(avso_app) !!} && entry['card_id'] == {!!  json_encode(pi_app) !!}){--}}
+            //     var str1="Cannot apply SO/AVSO/PI ID Card.\n";
+            //     var str2="Kindly check your PLRD SO/AVSO/PI licence status with PLRD.";
+            {{--}--}}
+            var str1="Cannot apply SO/AVSO/PI ID Card.\n";
+            var str2="Kindly check your PLRD SO/AVSO/PI licence status with PLRD.";
+            var str="Your licence's status is\xa0\xa0"+ entry['licence_status'] +".\n" +
+                ""+str1+"" +
+                ""+str2+"";
+            swal("Error!", str, "error")
+        });
+
+    }
+    {{--  ENd Card Issue  --}}
     $(window).bind('resize', function(e)
     {
         this.location.reload(false); /* false to get page from cache */

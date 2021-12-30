@@ -174,8 +174,13 @@ class HomeController extends Controller
         }elseif(Auth::user()->role == office){
             return view('admin/upgrade_grade');
         }
+
+        // card issue
+        $card_issue = booking_schedule::where(['nric' => Auth::user()->nric,'card_issue'=>"Y"])->get();
+        // End card issue
+
 //        die(print_r($sertifikat->first()));
-        return view('landing_page')->with(["schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
+        return view('landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
     }
 
