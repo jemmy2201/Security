@@ -435,9 +435,9 @@ class SingpassController extends Controller
 
         $sub = static::convert_sub($sub);
 
-        $validasiUser = static::validasiUser($sub);
+//        $validasiUser = static::validasiUser($sub);
 
-        if ($validasiUser == true){
+//        if ($validasiUser == true){
 
             $existingUser = User::where('nric',secret_encode($sub))->first();
 
@@ -447,7 +447,8 @@ class SingpassController extends Controller
 
                 return redirect()->to('/home');
             }
-        }else{
+//        }
+        else{
             return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
         }
 
