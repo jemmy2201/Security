@@ -725,6 +725,7 @@ class AjaxController extends Controller
     }
     public function upload_import_excel_grade(Request $request)
     {
+        ini_set('MAX_EXECUTION_TIME', '-1');
         // Backup Data For restoring
         Artisan::call("backup:database");
         // End Backup Data For restoring
@@ -751,9 +752,8 @@ class AjaxController extends Controller
         ]);
         foreach ($arr as $index => $e) {
             if ($index != 0){
-                $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
-                $count_users = User::count();
-
+                $users = User::where(['nric'=>secret_encode($e['nric'])])->latest('id')->first();
+                $count_users = User::count()+1;
                 $format = 'd/m/Y';
                 $format_expired_date = DateTime::createFromFormat($format, $e['expiry_date']);
                 $cek_format_expired_date = $format_expired_date && $format_expired_date->format($format) === $e['expiry_date'];
