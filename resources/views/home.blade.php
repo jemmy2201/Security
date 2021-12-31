@@ -81,6 +81,12 @@
                 </button>
             </div>
         </div>
+        @php
+            $cutnric = substr(secret_decode(Auth::user()->nric), -4);
+            $nric = "XXXXX$cutnric";
+        @endphp
+        <br>
+        <h4>Nric : {{ $nric }}</h4>
     </div>
 
     <!-- Modal -->
