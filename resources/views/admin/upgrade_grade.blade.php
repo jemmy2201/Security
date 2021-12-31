@@ -374,6 +374,8 @@
                     if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
+                }else if(this.status == 500){
+                    swal("Error!", "Please Import Again", "error")
                 }
             };
             ajax.upload.addEventListener("progress", progressHandler, true);
