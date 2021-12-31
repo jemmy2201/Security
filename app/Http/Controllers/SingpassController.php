@@ -442,7 +442,7 @@ class SingpassController extends Controller
 
             $existingUser = User::where('nric',secret_encode($sub))->first();
 
-            if($existingUser) {
+            if(!empty($existingUser)) {
 
                 auth()->login($existingUser, true);
 
