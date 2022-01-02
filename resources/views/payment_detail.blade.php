@@ -870,7 +870,7 @@
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
             uen: {!!  json_encode(uen) !!},           //Required: UEN of company
-            amount : {!!  json_encode(preg_replace("/[.]/", "", $grand_total)) !!},               //Specify amount of money to pay.
+            amount : {!!  json_encode($grand_total) !!},               //Specify amount of money to pay.
             // amount :"1",               //Specify amount of money to pay.
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date("Ymd")) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.

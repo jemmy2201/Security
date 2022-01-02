@@ -86,7 +86,7 @@
             $nric = "XXXXX$cutnric";
         @endphp
         <br>
-        <h4>Nric : {{ $nric }}</h4>
+{{--        <h4>Nric : {{ $nric }}</h4>--}}
     </div>
 
     <!-- Modal -->
