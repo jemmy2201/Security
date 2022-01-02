@@ -364,26 +364,32 @@
                     document.getElementById("import_completed").innerHTML = "Import Records Completed";
 
                     var DataArr = JSON.parse(this.responseText);
-
                     var Count_alread_nric = Object.keys(DataArr[DataArr.length - 1]['Already_nric']).length;
 
                     var percent = (Count_alread_nric / DataArr[0]['count_real_excel']) * 100;
-                    console.log('percent',percent)
-                    console.log('Count_alread_nric',Count_alread_nric)
-                    console.log('count_real_excel',DataArr[0]['count_real_excel'])
+
+                    // console.log('DataArr',DataArr[1].length);
+                    // console.log('percent',percent)
+                    // console.log('Count_alread_nric',Count_alread_nric)
+                    // console.log('count_real_excel',DataArr[0]['count_real_excel'])
 
                     if(percent == {!!  json_encode(zero) !!}){
                         document.getElementById("progressBar").value = Math.round('100');
 
                         document.getElementById("status").innerHTML = Math.round('100')+"% Complete";
+
+                        document.getElementById("total").innerHTML = "Total New Records Added = "+ DataArr[1].length +","+ parseInt(DataArr[0]['count_real_excel']);
+
                     }else{
                         document.getElementById("progressBar").value = Math.round(percent);
 
                         document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+
+                        document.getElementById("total").innerHTML = "Total New Records Added = "+ Count_alread_nric +","+ parseInt(DataArr[0]['count_real_excel']);
+
                     }
 
 
-                    document.getElementById("total").innerHTML = "Total New Records Added = "+ Count_alread_nric +","+ parseInt(DataArr[0]['count_real_excel']);
 
                     if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
