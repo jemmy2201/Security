@@ -747,6 +747,7 @@ class AjaxController extends Controller
         }
         $data= [];
         $News_users = [];
+        $Data_Already_nric = [];
         array_push($data, (object)[
             "count_real_excel"=>$count_real_excel,
         ]);
@@ -776,6 +777,14 @@ class AjaxController extends Controller
                     $log  = "user already exists: ".$e['passid'].' - '.date("F j, Y, g:i a").PHP_EOL;
 
                     file_put_contents('./log_import/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+
+                    $Already_nric[] = [
+                        'nric' => $nric
+
+                    ];
+
+
+                    array_push($Data_Already_nric,$Already_nric);
 
 //                    $Update_users = User::find($users->id);
 //
@@ -884,7 +893,9 @@ class AjaxController extends Controller
             }
         }
         array_push($data,$News_users);
-
+        array_push($data, (object)[
+            "Already_nric"=>$Data_Already_nric,
+        ]);
         return Response::json($data);
     }
     public function upload_excel_grade(Request $request)

@@ -302,10 +302,10 @@
             var percent = (event.loaded / event.total) * 100;
             // menampilkan prosentase ke komponen id 'progressBar'
             // document.getElementById("progressBar").value = Math.round(percent);
-            document.getElementById("progressBar").value = Math.round("50");
+            document.getElementById("progressBar").value = Math.round("0");
             // menampilkan prosentase ke komponen id 'status'
             // document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
-            document.getElementById("status").innerHTML = Math.round("50")+"% Complete";
+            document.getElementById("status").innerHTML = Math.round("0")+"% Complete";
             // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
         }
         $("#FormUploadExcelGrade").submit(function(e) {
@@ -359,18 +359,20 @@
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("import_completed").innerHTML = "Import Records Completed";
-                    var DataArr = JSON.parse(this.responseText);
-                    var Count_real = JSON.parse(this.responseText);
-                    var count = Object.keys(Count_real.pop()).length;
-                    // console.log('rael',DataArr);
-                    // console.log('last array',DataArr.pop());
-                    // console.log('count',count)
-                    // console.log('count_real_excel',DataArr[0].count_real_excel)
-                    document.getElementById("progressBar").value = Math.round("100");
-                    document.getElementById("status").innerHTML = Math.round("100")+"% Complete";
 
-                    document.getElementById("total").innerHTML = "Total New Records Added = "+ count +","+ parseInt(DataArr[0].count_real_excel);
+                    document.getElementById("import_completed").innerHTML = "Import Records Completed";
+
+                    var DataArr = JSON.parse(this.responseText);
+
+                    var Count_alread_nric = Object.keys(DataArr[DataArr.length - 1]['Already_nric']).length;
+
+                    var percent = (Count_alread_nric / DataArr[0]['count_real_excel']) * 100;
+
+                    document.getElementById("progressBar").value = Math.round(percent);
+                    document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+
+                    document.getElementById("total").innerHTML = "Total New Records Added = "+ Count_alread_nric +","+ parseInt(DataArr[0]['count_real_excel']);
+
                     if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
@@ -381,9 +383,7 @@
             ajax.upload.addEventListener("progress", progressHandler, true);
             ajax.open("POST", router, true);
             ajax.send(formdata);
-
         });
-
 
     </script>
 @endsection
