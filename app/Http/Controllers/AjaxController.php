@@ -785,10 +785,9 @@ class AjaxController extends Controller
 
                     array_push($Data_Already_nric, $Already_nric);
 
-                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']), "card_id" => $e['card_type']])->get();
+                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']), "app_type" => $e['app_type'], "card_id" => $e['card_type']])->get();
 
-                    if (count($ID_booking) != zero) {
-
+                    if (count($ID_booking) == zero) {
                         // insert table boooking
                         $booking_schedule = new booking_schedule;
 
