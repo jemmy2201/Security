@@ -769,7 +769,7 @@
                 </div>
                 <div class="modal-footer">
                     @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
-                        <button type="button" id="confirm_payment_paynow"  class="btn btn-dark" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
+                        <button type="button" id="confirm_payment_paynow"  class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
                     <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
                         <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>
                         <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>
