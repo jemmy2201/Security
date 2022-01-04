@@ -877,13 +877,14 @@
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date("Ymd")) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
 {{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
-            refNumber: {!!  json_encode(refNumber,$booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            refNumber: {!!  json_encode($booking_schedule->receiptNo) !!},
             // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
-            company:  {!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
+            company:{!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
         });
 
         //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
         let QRstring = qrcode.output();
+        console.log('ss',QRstring)
         new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
         new QRCode(document.getElementById("qrcodePaynow"), QRstring)
     });
