@@ -268,7 +268,7 @@ define('uen', "S78TU0494DIDC");
 
 define('less_than_days', "+7");
 define('thanks_payment', "Thank you for the payment");
-define('refNumber', "SG5927Union Of Security Employees6009Singpore");
+define('refNumber', "Union Of Security Employees");
 
 define('fail', 1);
 define('success', 0);
