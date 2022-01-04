@@ -77,6 +77,9 @@
                 margin-right:116px;
             }
         }
+        .navbar{
+            border-radius: 0px !important;
+        }
     </style>
     {{-- for $(document).ready --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
