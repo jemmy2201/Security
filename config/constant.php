@@ -259,6 +259,7 @@ define('audProd', "https://id.singpass.gov.sg");
 // End Prod
 
 define('url_api_private_key_jwe', "https://www.idx-id2021.com/api/jwe/decrypted");
+//define('url_api_private_key_jwe', "http://localhost:8000/api/jwe/decrypted");
 
 
 // Paynow
