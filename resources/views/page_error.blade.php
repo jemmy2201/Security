@@ -80,7 +80,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
         <div class="container">
-                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 30%;">
+                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 25%;">
             <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
                 <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>
             </a>
@@ -101,11 +101,15 @@
                     <li class="nav-item">
                         {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
                         <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
-                        @if(Request::route()->getName() == default_alter_login)
+{{--                        @if(Request::route()->getName() == default_alter_login)--}}
 {{--                            <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
-                        @else
+{{--                        @else--}}
 {{--                            <a class="nav-link" href="#" ><h5 class="logout_save_draft" style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
-                        @endif
+{{--                        @endif--}}
+                    <li class="nav-item">
+                        <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
+                        <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@nruc.org.sg</i>
+                    </li>
                     </li>
                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                         <?php if(config('adminlte.logout_method')): ?>
