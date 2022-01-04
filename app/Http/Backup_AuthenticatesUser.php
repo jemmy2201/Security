@@ -63,8 +63,9 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-//                $encode = secret_encode("S91001010101010A");
+//                $encode = secret_encode("S1718365F");
 //                $decode = secret_decode($encode);
+//                die($encode);
                 // dummy api
                 $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 // end dummy api
@@ -96,7 +97,7 @@ trait AuthenticatesUsers
                         }
                     }
                 }else{
-                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for  further assistance.','image'=>'fa fa-info-circle']);
+                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
                 }
             }
         }

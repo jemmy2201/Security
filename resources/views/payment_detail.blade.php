@@ -708,7 +708,7 @@
                                     <div class="col-4" style="margin-left: -72px;"> <b>${{$grand_total}}</b></div>
                                     <div class="w-100"></div>
                                     <div class="col-6" >Reference No<span style="margin-left:2px;">:</span> </div>
-                                    <div class="col-8" style="margin-left: -59px;text-align: left;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
+                                    <div class="col-8" style="margin-left: -103px;"> <b>{{$booking_schedule->receiptNo}}</b></div>
 {{--                                    <div class="col-8" style="margin-left: -70px;"> <b>{{refNumber}} </b></div>--}}
                                     <div class="w-100"></div>
                                 </div>
@@ -760,8 +760,7 @@
                                     <div class="col-4" style="margin-left: -94px;"> <b>${{$grand_total}}</b></div>
                                     <div class="w-100"></div>
                                     <div class="col-6" style="text-align: left">Reference No<span style="margin-left:2px;">:</span> </div>
-                                    <div class="col-8" style="margin-left: -75px;text-align: left;"> <b>{{refNumber}} {{$booking_schedule->receiptNo}}</b></div>
-{{--                                    <div class="col-8" style="margin-left: -90px;"> <b>{{refNumber}}</b></div>--}}
+                                    <div class="col-8" style="margin-left: -75px;text-align: left;"> <b>{{$booking_schedule->receiptNo}}</b></div>
                                     <div class="w-100"></div>
                                 </div>
                             </div>

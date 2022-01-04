@@ -84,7 +84,7 @@
 {{--    <ul class="navbar-nav ml-auto pull-right">--}}
 {{--        <li class="nav-item">--}}
 {{--            <i class="fa fa-email" style="color: white;font-size: 12px;" aria-hidden="true">+65 6381 9150 (General Office)</i><br>--}}
-{{--            <i class="fa fa-email" style="color: white;font-size: 12px;" aria-hidden="true">use-idcard@nruc.org.sg</i>--}}
+{{--            <i class="fa fa-email" style="color: white;font-size: 12px;" aria-hidden="true">use-idcard@ntNuc.org.sg</i>--}}
 {{--        </li>--}}
 {{--    </ul>--}}
 {{--    </div>--}}
@@ -115,7 +115,7 @@
             <ul class="navbar-nav ml-auto pull-right" style="margin-right: -94px;">
                 <li class="nav-item">
                     <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
-                    <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@nruc.org.sg</i>
+                    <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
                 </li>
             </ul>
         </div>
