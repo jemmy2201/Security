@@ -755,6 +755,12 @@ class AjaxController extends Controller
             if ($index != 0){
                 $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
                 $count_users = User::count()+1;
+                // cek email
+                $email = User::where(['email'=>'email'.$count_users.'@admin.com'])->first();
+                if (!empty($email)){
+                    $count_users = User::count()+2;
+                }
+                // end cek email
                 $format = 'd/m/Y';
                 $format_expired_date = DateTime::createFromFormat($format, $e['expiry_date']);
                 $cek_format_expired_date = $format_expired_date && $format_expired_date->format($format) === $e['expiry_date'];
