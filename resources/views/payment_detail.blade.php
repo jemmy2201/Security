@@ -313,7 +313,7 @@
                     </div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                    <div class="col-4 ColoumndataPersonal">{{$booking_schedule->passid}}</div>
+                    <div class="col-4 ColoumndataPersonal">{{substr($booking_schedule->passid, 0, -2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                     @if ($request->card == so_app)
@@ -438,7 +438,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                    <div class="col-6 ColoumndataPersonal">{{$booking_schedule->passid}}</div>
+                    <div class="col-6 ColoumndataPersonal">{{substr($booking_schedule->passid, 0, -2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Card Expiry Date&ensp;&nbsp;:</div>
                     @if(!empty($booking_schedule->expired_date))

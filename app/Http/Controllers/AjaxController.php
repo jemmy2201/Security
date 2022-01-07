@@ -742,7 +742,9 @@ class AjaxController extends Controller
                 'card_type' => $row[3],
                 'grade' => $row[4],
                 'expiry_date' => $row[5],
-                'name' => $row[6],
+                'Licence_Status' => $row[6],
+                'Card_Issue' => $row[7],
+                'name' => $row[8],
             ];
         }
         $data= [];
@@ -806,6 +808,10 @@ class AjaxController extends Controller
 
                         $booking_schedule->grade_id = $e['grade'];
 
+                        $booking_schedule->licence_status = $e['Licence_Status'];
+
+                        $booking_schedule->card_issue = $e['Card_Issue'];
+
                         $booking_schedule->expired_date = $expired_date;
 
                         $booking_schedule->nric = $users->nric;
@@ -851,6 +857,10 @@ class AjaxController extends Controller
                     $booking_schedule->passid = $e['passid'];
 
                     $booking_schedule->grade_id = $e['grade'];
+
+                    $booking_schedule->licence_status = $e['Licence_Status'];
+
+                    $booking_schedule->card_issue = $e['Card_Issue'];
 
                     $booking_schedule->expired_date = $expired_date;
 
