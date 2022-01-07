@@ -88,9 +88,9 @@
                                 </button>
                             </div>
                         </form>
-                        <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>
+{{--                        <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>--}}
                         <center>
-                        <h5 id="status" ></h5>
+{{--                        <h5 id="status" ></h5>--}}
                         <p id="read_record"></p>
                         <p id="total" ></p>
                         <p id="import_completed" ></p>
@@ -303,10 +303,10 @@
             var percent = (event.loaded / event.total) * 100;
             // menampilkan prosentase ke komponen id 'progressBar'
             // document.getElementById("progressBar").value = Math.round(percent);
-            document.getElementById("progressBar").value = Math.round("0");
+            // document.getElementById("progressBar").value = Math.round("0");
             // menampilkan prosentase ke komponen id 'status'
             // document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
-            document.getElementById("status").innerHTML = Math.round("0")+"% Complete";
+            // document.getElementById("status").innerHTML = Math.round("0")+"% Complete";
             // menampilkan file size yg tlh terupload dan totalnya ke komponen id 'total'
         }
         $("#FormUploadExcelGrade").submit(function(e) {
@@ -388,18 +388,18 @@
                     }
                     if(percent == {!!  json_encode(zero) !!}){
 
-                        document.getElementById("progressBar").value = Math.round(Dpercent);
+                        // document.getElementById("progressBar").value = Math.round(Dpercent);
 
-                        document.getElementById("status").innerHTML = Math.round(Dpercent)+"% Complete";
+                        // document.getElementById("status").innerHTML = Math.round(Dpercent)+"% Complete";
 
                         document.getElementById("read_record").innerHTML = "Total Records Read = "+ read_records +","+ parseInt(DataArr[0]['count_real_excel']);
 
-                        document.getElementById("total").innerHTML = "Total New Records Added = "+ DataArr[1].length +","+ parseInt(DataArr[0]['count_real_excel']);
+                        document.getElementById("total").innerHTML = "Total New Records Added = "+ add_records +","+ parseInt(DataArr[0]['count_real_excel']);
 
                     }else{
-                        document.getElementById("progressBar").value = Math.round(Dpercent);
+                        // document.getElementById("progressBar").value = Math.round(Dpercent);
 
-                        document.getElementById("status").innerHTML = Math.round(Dpercent)+"% Complete";
+                        // document.getElementById("status").innerHTML = Math.round(Dpercent)+"% Complete";
 
                         if (DataArr[1].length == 'undefined'){
                             var Records_Added = 0;

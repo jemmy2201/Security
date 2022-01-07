@@ -891,7 +891,7 @@ class AjaxController extends Controller
 
 //                     insert table boooking
                     $cek_passID = booking_schedule::where(["passid" => $e['passid']])->get();
-                    if (count($cek_passID) != zero) {
+                    if (count($cek_passID) == zero) {
 
                         $booking_schedule = new booking_schedule;
 
@@ -909,7 +909,7 @@ class AjaxController extends Controller
 
                         $booking_schedule->expired_date = $expired_date;
 
-                        $booking_schedule->nric = $users->nric;
+                        $booking_schedule->nric = secret_encode($nric);
 
                         $booking_schedule->save();
 
