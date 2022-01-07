@@ -358,7 +358,7 @@
             // proses upload via AJAX disubmit ke 'upload.php'
             // selama proses upload, akan menjalankan progressHandler()
             var ajax = new XMLHttpRequest();
-            ajax.timeout = 200000000; // time in milliseconds
+            ajax.timeout = 200000000000000000000000000000000000000000000; // time in milliseconds
 
             ajax.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
