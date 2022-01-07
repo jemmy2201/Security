@@ -440,17 +440,24 @@ class SingpassController extends Controller
 //        if ($validasiUser == true){
 //        }
 
-            $existingUser = User::where('nric',secret_encode($sub))->first();
+            $existingUser = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+                            ->where('users.nric',secret_encode($sub))->get();
 
             if(!empty($existingUser)) {
-
-                auth()->login($existingUser, true);
-
-                return redirect()->to('/home');
-
+                foreach ($existingUser as $f) {
+                    if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                        return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+                    }elseif ($f->card_issue == n_card_issue){
+                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+                    }else{
+                        $existingUser = User::where('nric',secret_encode($sub))->fisrt();
+                        auth()->login($existingUser, true);
+                        return redirect()->to('/home');
+                    }
+                }
             } else{
                 return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
-             }
+            }
 
     }
 

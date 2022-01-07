@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use function GuzzleHttp\Promise\all;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -70,7 +71,17 @@ trait AuthenticatesUsers
                 $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
                 // end dummy api
                 if ($dummy_api) { // check login singpass
-                    $data = User::where('nric', secret_encode( $request->singpass_id ))->first();
+                    $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+                        ->where('users.nric', secret_encode( $request->singpass_id ))->get();
+                    foreach ($data as $f) {
+                        if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+                        }elseif ($f->card_issue == n_card_issue){
+                            return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+                        }else{
+                            $data = User::where('nric', secret_encode($request->singpass_id))->first();
+                        }
+                    }
                 }else{
                     return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
                 }
@@ -97,7 +108,7 @@ trait AuthenticatesUsers
                         }
                     }
                 }else{
-                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
+                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for  further assistance.','image'=>'fa fa-info-circle']);
                 }
             }
         }
