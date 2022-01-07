@@ -83,7 +83,7 @@
                                     @if(Auth::user()->role == admin)
                                         <b>Save</b>
                                     @elseif(Auth::user()->role == office)
-                                        <b>Proceed</b>
+                                        <b id="btn_action_upload">Proceed</b>
                                     @endif
                                 </button>
                             </div>
@@ -91,6 +91,7 @@
                         <progress id="progressBar" value="0" max="100" style="width:300px;margin-left:85; display: none"></progress>
                         <center>
                         <h5 id="status" ></h5>
+                        <p id="read_record"></p>
                         <p id="total" ></p>
                         <p id="import_completed" ></p>
                         <p id="already_nric"></p>
@@ -363,20 +364,30 @@
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("import_completed").innerHTML = "Import Records Completed";
 
+                    document.getElementById("btn_action_upload").innerHTML = "Importing Completed";
+
                     var DataArr = JSON.parse(this.responseText);
                     var Count_alread_nric = Object.keys(DataArr[DataArr.length - 1]['Already_nric']).length;
 
                     var percent = (Count_alread_nric / DataArr[0]['count_real_excel']) * 100;
 
+                    // console.log('DataArrReal',DataArr);
                     // console.log('DataArr',DataArr[1].length);
                     // console.log('percent',percent)
                     // console.log('Count_alread_nric',Count_alread_nric)
                     // console.log('count_real_excel',DataArr[0]['count_real_excel'])
+                    // console.log('read_record',DataArr[DataArr.length - 2]['data_read'] )
+                    // console.log('read_record',DataArr[1]['data_error'])
+
+                    var read_records = parseInt(DataArr[DataArr.length - 2]['data_read']) - parseInt('1');
 
                     if(percent == {!!  json_encode(zero) !!}){
+
                         document.getElementById("progressBar").value = Math.round('100');
 
                         document.getElementById("status").innerHTML = Math.round('100')+"% Complete";
+
+                        document.getElementById("read_record").innerHTML = "Total Records Read = "+ read_records +","+ parseInt(DataArr[0]['count_real_excel']);
 
                         document.getElementById("total").innerHTML = "Total New Records Added = "+ DataArr[1].length +","+ parseInt(DataArr[0]['count_real_excel']);
 
@@ -385,13 +396,15 @@
 
                         document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
 
+                        document.getElementById("read_record").innerHTML = "Total Records Read = "+ read_records +","+ parseInt(DataArr[0]['count_real_excel']);
+
                         document.getElementById("total").innerHTML = "Total New Records Added = "+ Count_alread_nric +","+ parseInt(DataArr[0]['count_real_excel']);
 
                     }
 
 
 
-                    if (DataArr[1].error == {!!  json_encode(data_already_exists) !!}){
+                    if (DataArr[1]['data_error'] == {!!  json_encode(data_already_exists) !!}){
                         document.getElementById("already_nric").innerHTML = "Errors Found - Please Review Log Files";
                     }
 

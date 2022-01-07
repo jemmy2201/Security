@@ -751,6 +751,7 @@ class AjaxController extends Controller
         array_push($data, (object)[
             "count_real_excel"=>$count_real_excel,
         ]);
+        $data_read = 0;
         foreach ($arr as $index => $e) {
             if ($index != 0){
                 $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
@@ -775,7 +776,7 @@ class AjaxController extends Controller
 
                     // update table user
                     array_push($data, (object)[
-                        "error" => data_already_exists,
+                        "data_error" => data_already_exists,
                     ]);
 
                     $nric = str_replace(' ', '', $e['nric']);
@@ -859,8 +860,12 @@ class AjaxController extends Controller
                     // End insert table boooking
                 }
             }
+            $data_read++;
         }
         array_push($data,$News_users);
+        array_push($data, (object)[
+            "data_read"=>$data_read,
+        ]);
         array_push($data, (object)[
             "Already_nric"=>$Data_Already_nric,
         ]);
