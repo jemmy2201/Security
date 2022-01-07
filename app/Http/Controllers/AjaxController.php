@@ -725,7 +725,7 @@ class AjaxController extends Controller
     }
     public function upload_import_excel_grade(Request $request)
     {
-        ini_set('max_execution_time', '30000000');
+        ini_set('max_execution_time', '300000000000000');
         // Backup Data For restoring
         Artisan::call("backup:database");
         // End Backup Data For restoring
