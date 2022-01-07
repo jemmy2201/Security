@@ -775,47 +775,67 @@ class AjaxController extends Controller
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
                 }
                 if ($users) {
-                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']), "app_type" => $e['app_type'], "card_id" => $e['card_type']])->get();
+                    $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']), "app_type" => $e['app_type'], "card_id" => $e['card_type'],"passid" => $e['passid']])->get();
 
                     if (count($ID_booking) == zero) {
                         // insert table boooking
-                        $booking_schedule = new booking_schedule;
+                        $cek_passID = booking_schedule::where(["passid" => $e['passid']])->get();
+                        if (count($cek_passID) == zero) {
 
-                        $booking_schedule->app_type = $e['app_type'];
+                            $booking_schedule = new booking_schedule;
 
-                        $booking_schedule->card_id = $e['card_type'];
+                            $booking_schedule->app_type = $e['app_type'];
 
-                        $booking_schedule->passid = $e['passid'];
+                            $booking_schedule->card_id = $e['card_type'];
 
-                        $booking_schedule->grade_id = $e['grade'];
+                            $booking_schedule->passid = $e['passid'];
 
-                        $booking_schedule->licence_status = $e['Licence_Status'];
+                            $booking_schedule->grade_id = $e['grade'];
 
-                        $booking_schedule->card_issue = $e['Card_Issue'];
+                            $booking_schedule->licence_status = $e['Licence_Status'];
 
-                        $booking_schedule->expired_date = $expired_date;
+                            $booking_schedule->card_issue = $e['Card_Issue'];
 
-                        $booking_schedule->nric = $users->nric;
+                            $booking_schedule->expired_date = $expired_date;
 
-                        $booking_schedule->save();
+                            $booking_schedule->nric = $users->nric;
 
-                        $Data_New_users[] = [
-                            'nric' => secret_encode($nric),
+                            $booking_schedule->save();
 
-                            'name' => $e['name'],
+                            $Data_New_users[] = [
+                                'nric' => secret_encode($nric),
 
-                            'app_type' => $e['app_type'],
+                                'name' => $e['name'],
 
-                            'card_type' => $e['card_type'],
+                                'app_type' => $e['app_type'],
 
-                            'passid' => $e['passid'],
+                                'card_type' => $e['card_type'],
 
-                            'email' => 'email'.$count_users.'@admin.com',
+                                'passid' => $e['passid'],
 
-                            'password' => Hash::make('123123')
-                        ];
-                        array_push($News_users,$Data_New_users);
+                                'email' => 'email' . $count_users . '@admin.com',
 
+                                'password' => Hash::make('123123')
+                            ];
+                            array_push($News_users, $Data_New_users);
+                        }else{
+                            array_push($data, (object)[
+                                "data_error" => data_already_exists,
+                            ]);
+
+                            $nric = str_replace(' ', '', $e['nric']);
+
+                            $log = "PassID already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
+
+                            file_put_contents('./log_import/log_' . date("j.n.Y") . '.log', $log, FILE_APPEND);
+
+                            $Already_nric[] = [
+                                'nric' => $nric
+
+                            ];
+
+                            array_push($Data_Already_nric, $Already_nric);
+                        }
                         // End insert table boooking
                      }elseif (count($ID_booking) != zero){
                         array_push($data, (object)[
@@ -824,7 +844,7 @@ class AjaxController extends Controller
 
                         $nric = str_replace(' ', '', $e['nric']);
 
-                        $log = "user already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
+                        $log = "PassID already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
 
                         file_put_contents('./log_import/log_' . date("j.n.Y") . '.log', $log, FILE_APPEND);
 
@@ -870,25 +890,63 @@ class AjaxController extends Controller
 //                     End insert table users
 
 //                     insert table boooking
-                    $booking_schedule = new booking_schedule;
+                    $cek_passID = booking_schedule::where(["passid" => $e['passid']])->get();
+                    if (count($cek_passID) != zero) {
 
-                    $booking_schedule->app_type = $e['app_type'];
+                        $booking_schedule = new booking_schedule;
 
-                    $booking_schedule->card_id = $e['card_type'];
+                        $booking_schedule->app_type = $e['app_type'];
 
-                    $booking_schedule->passid = $e['passid'];
+                        $booking_schedule->card_id = $e['card_type'];
 
-                    $booking_schedule->grade_id = $e['grade'];
+                        $booking_schedule->passid = $e['passid'];
 
-                    $booking_schedule->licence_status = $e['Licence_Status'];
+                        $booking_schedule->grade_id = $e['grade'];
 
-                    $booking_schedule->card_issue = $e['Card_Issue'];
+                        $booking_schedule->licence_status = $e['Licence_Status'];
 
-                    $booking_schedule->expired_date = $expired_date;
+                        $booking_schedule->card_issue = $e['Card_Issue'];
 
-                    $booking_schedule->nric = $New_users->nric;
+                        $booking_schedule->expired_date = $expired_date;
 
-                    $booking_schedule->save();
+                        $booking_schedule->nric = $users->nric;
+
+                        $booking_schedule->save();
+
+                        $Data_New_users[] = [
+                            'nric' => secret_encode($nric),
+
+                            'name' => $e['name'],
+
+                            'app_type' => $e['app_type'],
+
+                            'card_type' => $e['card_type'],
+
+                            'passid' => $e['passid'],
+
+                            'email' => 'email' . $count_users . '@admin.com',
+
+                            'password' => Hash::make('123123')
+                        ];
+                        array_push($News_users, $Data_New_users);
+                    }else{
+                        array_push($data, (object)[
+                            "data_error" => data_already_exists,
+                        ]);
+
+                        $nric = str_replace(' ', '', $e['nric']);
+
+                        $log = "PassID already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
+
+                        file_put_contents('./log_import/log_' . date("j.n.Y") . '.log', $log, FILE_APPEND);
+
+                        $Already_nric[] = [
+                            'nric' => $nric
+
+                        ];
+
+                        array_push($Data_Already_nric, $Already_nric);
+                    }
                     // End insert table boooking
                 }
             }
