@@ -371,13 +371,13 @@
 
                     var percent = (Count_alread_nric / DataArr[0]['count_real_excel']) * 100;
 
-                    // console.log('DataArrReal',DataArr);
-                    // console.log('DataArr',DataArr[1].length);
-                    // console.log('percent',percent)
-                    // console.log('Count_alread_nric',Count_alread_nric)
-                    // console.log('count_real_excel',DataArr[0]['count_real_excel'])
-                    // console.log('read_record',DataArr[DataArr.length - 2]['data_read'] )
-                    // console.log('already_data',DataArr[1]['data_error'])
+                    console.log('DataArrReal',DataArr);
+                    console.log('Records Added',DataArr[1].length);
+                    console.log('percent',percent)
+                    console.log('Count_alread_nric',Count_alread_nric)
+                    console.log('count_real_excel',DataArr[0]['count_real_excel'])
+                    console.log('read_record',DataArr[DataArr.length - 2]['data_read'] )
+                    console.log('already_data',DataArr[1]['data_error'])
 
                     var read_records = parseInt(DataArr[DataArr.length - 2]['data_read']) - parseInt('1');
 
@@ -395,6 +395,12 @@
                         document.getElementById("progressBar").value = Math.round(percent);
 
                         document.getElementById("status").innerHTML = Math.round(percent)+"% Complete";
+
+                        if (DataArr[1].length == 'undefined'){
+                            var Records_Added = 0;
+                        }else{
+                            var Records_Added = DataArr[1].length;
+                        }
 
                         document.getElementById("read_record").innerHTML = "Total Records Read = "+ read_records +","+ parseInt(DataArr[0]['count_real_excel']);
 
