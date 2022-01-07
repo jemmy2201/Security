@@ -775,25 +775,6 @@ class AjaxController extends Controller
                     $expired_date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($e['expiry_date'])->format('d/m/Y');
                 }
                 if ($users) {
-
-                    // update table user
-                    array_push($data, (object)[
-                        "data_error" => data_already_exists,
-                    ]);
-
-                    $nric = str_replace(' ', '', $e['nric']);
-
-                    $log = "user already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
-
-                    file_put_contents('./log_import/log_' . date("j.n.Y") . '.log', $log, FILE_APPEND);
-
-                    $Already_nric[] = [
-                        'nric' => $nric
-
-                    ];
-
-                    array_push($Data_Already_nric, $Already_nric);
-
                     $ID_booking = booking_schedule::where(['nric' => secret_encode($e['nric']), "app_type" => $e['app_type'], "card_id" => $e['card_type']])->get();
 
                     if (count($ID_booking) == zero) {
@@ -817,8 +798,43 @@ class AjaxController extends Controller
                         $booking_schedule->nric = $users->nric;
 
                         $booking_schedule->save();
+
+                        $Data_New_users[] = [
+                            'nric' => secret_encode($nric),
+
+                            'name' => $e['name'],
+
+                            'app_type' => $e['app_type'],
+
+                            'card_type' => $e['card_type'],
+
+                            'passid' => $e['passid'],
+
+                            'email' => 'email'.$count_users.'@admin.com',
+
+                            'password' => Hash::make('123123')
+                        ];
+                        array_push($News_users,$Data_New_users);
+
                         // End insert table boooking
-                     }
+                     }elseif (count($ID_booking) != zero){
+                        array_push($data, (object)[
+                            "data_error" => data_already_exists,
+                        ]);
+
+                        $nric = str_replace(' ', '', $e['nric']);
+
+                        $log = "user already exists: " . $e['passid'] . ' - ' . date("F j, Y, g:i a") . PHP_EOL;
+
+                        file_put_contents('./log_import/log_' . date("j.n.Y") . '.log', $log, FILE_APPEND);
+
+                        $Already_nric[] = [
+                            'nric' => $nric
+
+                        ];
+
+                        array_push($Data_Already_nric, $Already_nric);
+                    }
                 }else{
                     $nric = str_replace(' ', '', $e['nric']);
                     // insert table users
@@ -827,6 +843,12 @@ class AjaxController extends Controller
                         'nric' => secret_encode($nric),
 
                         'name' => $e['name'],
+
+                        'app_type' => $e['app_type'],
+
+                        'card_type' => $e['card_type'],
+
+                        'passid' => $e['passid'],
 
                         'email' => 'email'.$count_users.'@admin.com',
 
