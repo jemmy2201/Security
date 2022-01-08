@@ -450,7 +450,7 @@ class SingpassController extends Controller
                     }elseif ($f->card_issue == n_card_issue){
                         return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
                     }else{
-                        $existingUser = User::where('nric',secret_encode($sub))->fisrt();
+                        $existingUser = User::where('nric',secret_encode($sub))->first();
                         auth()->login($existingUser, true);
                         return redirect()->to('/home');
                     }
