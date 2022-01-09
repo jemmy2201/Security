@@ -722,12 +722,13 @@
             //     var str1="Cannot apply SO/AVSO/PI ID Card.\n";
             //     var str2="Kindly check your PLRD SO/AVSO/PI licence status with PLRD.";
             {{--}--}}
-            var str1="Cannot apply SO/AVSO/PI ID Card.\n";
-            var str2="Kindly check your PLRD SO/AVSO/PI licence status with PLRD.";
-            var str="Your licence's status is\xa0\xa0"+ entry['licence_status'] +".\n" +
-                ""+str1+"" +
-                ""+str2+"";
-            swal("Error!", str, "error")
+        
+            // var str1="Cannot apply SO/AVSO/PI ID Card.\n";
+            // var str2="Kindly check your PLRD SO/AVSO/PI licence status with PLRD.";
+            // var str="Your licence's status is\xa0\xa0"+ entry['licence_status'] +".\n" +
+            //     ""+str1+"" +
+            //     ""+str2+"";
+            // swal("Error!", str, "error")
         });
 
     }
