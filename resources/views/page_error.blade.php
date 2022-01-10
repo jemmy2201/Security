@@ -81,9 +81,7 @@
     <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
         <div class="container">
                     <img src="{{URL::asset('/img/logo.png')}}" style="width: 25%;">
-            <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
-                <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>
-            </a>
+
             {{--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">--}}
             {{--                    <span class="navbar-toggler-icon"></span>--}}
             {{--                </button>--}}
@@ -98,18 +96,23 @@
                 <ul class="navbar-nav ml-auto pull-right">
                     {{--                        <!-- Authentication Links -->--}}
                     {{--                        @guest--}}
-                    <li class="nav-item">
+                    <li class="nav-item" style="margin-right: 240px;">
                         {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
                         <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
+                        <a  class="nav-link "  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+                            {{--                <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>--}}
+                            <i class="fa fa-sign-out" aria-hidden="true" style="font-size:24px;color: red;cursor: pointer;"></i>
+                        </a>
 {{--                        @if(Request::route()->getName() == default_alter_login)--}}
 {{--                            <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
 {{--                        @else--}}
 {{--                            <a class="nav-link" href="#" ><h5 class="logout_save_draft" style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
 {{--                        @endif--}}
+                    </li>
+
                     <li class="nav-item">
                         <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
                         <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
-                    </li>
                     </li>
                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                         <?php if(config('adminlte.logout_method')): ?>
