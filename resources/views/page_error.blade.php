@@ -96,13 +96,17 @@
                 <ul class="navbar-nav ml-auto pull-right">
                     {{--                        <!-- Authentication Links -->--}}
                     {{--                        @guest--}}
+                    <li class="nav-item">
+                        <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
+                        <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
+                    </li>
                     <li class="nav-item" style="margin-right: 240px;">
                         {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
                         <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
-                        <a  class="nav-link "  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
-                            {{--                <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>--}}
-                            <i class="fa fa-sign-out" aria-hidden="true" style="font-size:24px;color: red;cursor: pointer;"></i>
-                        </a>
+{{--                        <a  class="nav-link "  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >--}}
+{{--                            --}}{{--                <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>--}}
+{{--                            <i class="fa fa-sign-out" aria-hidden="true" style="font-size:24px;color: red;cursor: pointer;"></i>--}}
+{{--                        </a>--}}
 {{--                        @if(Request::route()->getName() == default_alter_login)--}}
 {{--                            <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><h5 style="cursor:pointer; color: #E31E1A;">Logout</h5></a>--}}
 {{--                        @else--}}
@@ -110,10 +114,7 @@
 {{--                        @endif--}}
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
-                        <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
-                    </li>
+
                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                         <?php if(config('adminlte.logout_method')): ?>
                 <?php echo e(method_field(config('adminlte.logout_method'))); ?>
