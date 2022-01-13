@@ -321,10 +321,13 @@
         </div>
     </div>
 <br>
-    <p><b>My Updates</b></p>
+    <p><b>My Updates/Notifications</b></p>
     <div class="container">
         <div class="row">
             <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;New SO Course Attended</b>
+        </div>
+        <div class="row">
+            <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;Notifications</b>
         </div>
     </div>
 {{--End revisi 2 design--}}
