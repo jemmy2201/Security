@@ -409,12 +409,12 @@ class SingpassController extends Controller
 
         $response = static::id_token($jwt,$request->code);
 
-        if (detect_url() == URLUat){
+//        if (detect_url() == URLUat){
             $data = json_decode($response)->id_token;
-        }elseif (detect_url() == URLProd){
-            $data = json_decode($response, true);
-            $data = $data['id_token'];
-        }
+//        }elseif (detect_url() == URLProd){
+//            $data = json_decode($response, true);
+//            $data = $data['id_token'];
+//        }
 
         $jwe_decode = static::private_key_jwe($data);
 
@@ -443,7 +443,7 @@ class SingpassController extends Controller
             $existingUser = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                             ->where('users.nric',secret_encode($sub))->get();
 
-            if(!empty($existingUser)) {
+            if(count($existingUser) > 0) {
                 foreach ($existingUser as $f) {
                     if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                         return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
