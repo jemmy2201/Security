@@ -218,6 +218,7 @@ define('b2sTxnEndURLProd', "https://www.iduse.org.sg/api/b2sTxnEndURL");
 
 define('URLUat', "https://www.idx-id2021.com");
 define('URLProd', "https://www.iduse.org.sg");
+define('LocalHost', "http://localhost:8000");
 
 
 

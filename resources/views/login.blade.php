@@ -25,8 +25,10 @@
                     <div class="col-sm-4"  style="border-style: groove; background: white; margin-top: 40px;">
 
                         <ul class="nav nav-tabs">
+                            @if(detect_url() == URLUat || detect_url() == LocalHost)
                             <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
                             <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
+                            @endif
                         </ul>
 
                         <div class="tab-content">
