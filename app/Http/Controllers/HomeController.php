@@ -768,7 +768,7 @@ class HomeController extends Controller
             Auth::logout();
             return redirect()->route('home');
         }else{
-            return redirect()->route('home');
+            return redirect()->route('landing_page');
         }
     }
 
@@ -2042,13 +2042,15 @@ class HomeController extends Controller
     }
 
     protected function UpdateUsers($request){
-    if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
-//        if(isset($request['homeno']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['homeno']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){    $UpdateUser = User::find(Auth::id());
+        if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
+//            if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
         $UpdateUser = User::find(Auth::id());
 
 //        $UpdateUser->homeno = $request['homeno'];
 
         $UpdateUser->email = $request['email'];
+
+//        $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->mobileno = $request['mobileno'];
 
@@ -2056,12 +2058,14 @@ class HomeController extends Controller
 
         $UpdateUser->save();
     }elseif(isset($request['email']) && isset($request['mobileno'])  && !empty($request['email']) && !empty($request['mobileno'] )){
-//    }elseif(isset($request['homeno']) && isset($request['mobileno'])  && !empty($request['homeno']) && !empty($request['mobileno'] )){
+//        }elseif(isset($request['email']) && isset($request['mobileno'])  && !empty($request['email']) && !empty($request['mobileno'] )){
         $UpdateUser = User::find(Auth::id());
 
 //        $UpdateUser->homeno = $request['homeno'];
 
         $UpdateUser->email = $request['email'];
+
+//        $UpdateUser->mobileno = $request['mobileno'];
 
         $UpdateUser->mobileno = $request['mobileno'];
 
@@ -2076,8 +2080,10 @@ class HomeController extends Controller
 
          $UpdateUser->save();
      }elseif (!empty($request['mobileno'])){
+
          $UpdateUser = User::find(Auth::id());
 
+//         $UpdateUser->mobileno = $request['mobileno'];
          $UpdateUser->mobileno = $request['mobileno'];
 
          $UpdateUser->save();
@@ -2094,11 +2100,36 @@ class HomeController extends Controller
     {
 
         $agent = new Agent();
+//        if ($agent->isDesktop() == true) {
+//            if ($request->mobileno[0] != "6" || $request->mobileno[1] != "5") {
+//                $mobileno = "65".$request->mobileno;
+//            }else{
+//                $mobileno = $request->mobileno;
+//            }
+//            $originData = array(
+////                "homeno" => $request->homeno,
+//                "email" => $request->email,
+//                "wpexpirydate" => $request->wpexpirydate,
+//                "mobileno" => $mobileno
+//            );
+//        }else{
+//            if ($request->Phonemobileno[0] != "6" || $request->Phonemobileno[1] != "5") {
+//                $Phonemobileno = "65".$request->Phonemobileno;
+//            }else{
+//                $Phonemobileno = $request->mobileno;
+//            }
+//            $originData = array(
+////                "homeno" => $request->Phonehomeno,
+//                "email" => $request->Phoneemail,
+//                "wpexpirydate" => $request->Phonewpexpirydate,
+//                "mobileno" => $Phonemobileno
+//            );
+//        }
         if ($agent->isDesktop() == true) {
-            if ($request->mobileno[0] != "6" || $request->mobileno[1] != "5") {
-                $mobileno = "65".$request->mobileno;
+            if ($request->view_mobileno[0] != "6" || $request->view_mobileno[1] != "5") {
+                $mobileno = "65".$request->view_mobileno;
             }else{
-                $mobileno = $request->mobileno;
+                $mobileno = $request->view_mobileno;
             }
             $originData = array(
 //                "homeno" => $request->homeno,
@@ -2107,10 +2138,10 @@ class HomeController extends Controller
                 "mobileno" => $mobileno
             );
         }else{
-            if ($request->Phonemobileno[0] != "6" || $request->Phonemobileno[1] != "5") {
-                $Phonemobileno = "65".$request->Phonemobileno;
+            if ($request->Phoneview_mobileno[0] != "6" || $request->Phoneview_mobileno[1] != "5") {
+                $Phonemobileno = "65".$request->Phoneview_mobileno;
             }else{
-                $Phonemobileno = $request->mobileno;
+                $Phonemobileno = $request->Phoneview_mobileno;
             }
             $originData = array(
 //                "homeno" => $request->Phonehomeno,

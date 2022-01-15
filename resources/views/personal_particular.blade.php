@@ -70,18 +70,30 @@
         </div>
     </div>
     <div class="row hidden-xs">
-        <div class="col-2 HeaderdataPersonal" >
-            <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
-        </div>
-        <div class="col-4 HeaderdataPersonal" style="margin-left: -20px;">
-            <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="#" style="text-decoration:none; color: white;">
-                    {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
-                    Update Number
-                </a>
-            </button>
+        <div class="col-2 HeaderdataPersonal " >
+            <input type="number" id="view_mobileno" name="view_mobileno" class="form-control hidden-xs"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
         </div>
     </div><br>
+        <div class="row hidden-xs">
+            <div class="col-2 HeaderdataPersonal" >
+                <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000"  maxlength="8" >
+            </div>
+{{--            <div class="col-2 HeaderdataPersonal" >--}}
+                <i class="fa fa-arrow-left" aria-hidden="true" style="color: blue;font-size: 30px;"></i>
+{{--            </div>--}}
+            <div class="col-4 HeaderdataPersonal" >
+                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
+                    <a href="#" style="text-decoration:none; color: blue;">
+                        {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
+                        @if(empty($personal->mobileno))
+                            Add Number
+                        @else
+                            Update Number
+                        @endif
+                    </a>
+                </button>
+            </div>
+        </div>
 
     <div class="row hidden-xs">
         @if($personal->web == true)
@@ -128,9 +140,13 @@
             </div>
         </div>
         <div class="row visible-xs hidden-md">
+{{--            <div class="col-2 HeaderdataPersonal " >--}}
+{{--            </div>--}}
             <div class="col HeaderdataPersonal">
-                <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
-                <button class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
+                <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
+                <br>
+                <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" >
+                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                         Update Number
@@ -172,12 +188,12 @@
         <br ><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
         <div class="col-2 back">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url("/landing_page")}}" style="text-decoration:none; color: white;">
+            <a href="{{url("/landing_page")}}" style="text-decoration:none; color: white;">
+            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Back
-                </a>
             </button>
+            </a>
         </div>
 {{--        <div class="col-4 medium hidden-xs">--}}
 {{--        </div>--}}
@@ -201,18 +217,18 @@
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
         <div class="col-2 next">
-            <button class=" btn btn-light btn-lg btn-block hidden-xs" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
+            <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
+            <button class=" btn btn-light btn-lg btn-block hidden-xs" style="border-style: groove; background: black; color: white">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
-                </a>
             </button>
-            <button class=" btn btn-light btn-lg visible-xs hidden-md" style="border-style: groove; background: black; color: #E31D1A">
-                <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
+            </a>
+            <a href="{{url('/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">
+            <button class=" btn btn-light btn-lg visible-xs hidden-md" style="border-style: groove; background: black; color: white">
                     {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                     Save Draft
-                </a>
             </button>
+            </a>
         </div>
         <div class="col-2 next">
             <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white;">Next
@@ -254,9 +270,10 @@
 <script>
     $( document ).ready(function() {
         $( ".update_number" ).click(function() {
-            $(".update_number").attr("disabled", true);
-            $('#mobileno').removeAttr('readonly');
-            $('#Phonemobileno').removeAttr('readonly');
+            // $(".update_number").attr("disabled", true);
+            // $('#mobileno').removeAttr('readonly');
+            // $('#Phonemobileno').removeAttr('readonly');
+            create_activation();
         });
         function check_size_layout(){
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -279,60 +296,65 @@
         }
 
         $('#code_activation_Modal').on('hidden.bs.modal', function () {
-            $('#mobileno').val({{$personal->mobileno}})
-            $('#Phonemobileno').val({{$personal->mobileno}})
+            {{--$('#mobileno').val({{$personal->mobileno}})--}}
+            {{--$('#Phonemobileno').val({{$personal->mobileno}})--}}
+            $('#mobileno').val(null)
+            $('#Phonemobileno').val(null)
             if ({!!  json_encode($personal->mobileno) !!} == "" || {!!  json_encode($personal->mobileno) !!} == '-' ){
                 $('#mobileno').removeAttr('readonly');
                 $('#Phonemobileno').removeAttr('readonly');
             }else{
-                $('#mobileno').attr('readonly',true);
-                $('#Phonemobileno').attr('readonly',true);
+                // $('#mobileno').attr('readonly',true);
+                // $('#Phonemobileno').attr('readonly',true);
             }
         })
         $( "#click_personal_particular" ).click(function() {
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (check_size_layout() == {!!  json_encode(phone) !!}){
-                    if($("#Phonemobileno").val() != ""){
-                        if (check_number_singapore() == true){
+                    if({!!  json_encode($personal->mobileno) !!} != ""){
+                        // if (check_number_singapore() == true){
                           if({!!  json_encode($personal->web) !!} == true ){
                             if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
                                 if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
                                     swal("Attention!", "Pass Expiration Date is up", "error")
                                 }else{
-                                    create_activation();
-                                    // $("#submit_personal_particular").submit();
+                                    // create_activation();
+                                    $("#submit_personal_particular").submit();
                                 }
                             }else{
                                 swal("Error!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
-                            create_activation();
+                            // create_activation();
+                            $("#submit_personal_particular").submit();
                         }
-                    }else{
-                            swal("Error!", "Only Singapore numbers are valid.", "error")
-                    }
+                    // }else{
+                    //         swal("Error!", "Only Singapore numbers are valid.", "error")
+                    // }
                 }else{
                         swal("Error!", "Mobile number incomplete.", "error")
                 }
             }else{
-                if($("#mobileno").val() != ""){
-                    if (check_number_singapore() == true){
+                if({!!  json_encode($personal->mobileno) !!} != ""){
+                    // if (check_number_singapore() == true){
                         if({!!  json_encode($personal->web) !!} == true ){
                             if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
                                 if ( new Date() >= new Date($('#wpexpirydate').val())){
                                     swal("Attention!", "Pass Expiration Date is up", "error")
                                 }else{
-                                    create_activation();
+                                    // create_activation();
+                                    $("#submit_personal_particular").submit();
                                 }
                             }else{
                                 swal("Error!", "Input file Pass Expiry Date", "error")
                             }
                         }else{
-                            create_activation();
+                            // create_activation();
+                            $("#submit_personal_particular").submit();
                         }
-                    }else{
-                        swal("Error!", "Only Singapore numbers are valid.", "error")
-                    }
+                    // }else{
+                    //     swal("Error!", "Only Singapore numbers are valid.", "error")
+                    // }
                 }else{
                     swal("Error!", "Mobile number incomplete.", "error")
                 }
@@ -372,7 +394,12 @@
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), activation:$("#kode_activation").val()},
                 success: function (data) {
                     if (data == {!! json_encode(succes) !!}){
-                        $("#submit_personal_particular").submit();
+                        swal("Success !", "Add Or Update Mobile Number", "success");
+                        $('#view_mobileno').val($('#mobileno').val());
+                        $('#Phoneview_mobileno').val($('#Phonemobileno').val());
+                        $( ".close" ).trigger( "click" );
+                        $('.modal-backdrop').css({'position':'inherit','height':'0'});
+                        // $("#submit_personal_particular").submit();
                     }else if (data == {!! json_encode(already_used) !!}){
                         swal("Attention!", "Activation code already used", "error")
                     }else{
