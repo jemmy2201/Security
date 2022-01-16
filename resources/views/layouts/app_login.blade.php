@@ -93,10 +93,10 @@
 <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
     <div class="container">
                 <a class="navbar-brand hidden-xs" href="{{ url('/') }}">
-                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 50%;  margin-top: -3%;">
+                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 80%;  margin-top: -6%;">
                 </a>
                 <a class="navbar-brand visible-xs hidden-md" href="{{ url('/') }}">
-                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 50%;margin-top: -3%;">
+                    <img src="{{URL::asset('/img/logo.png')}}" style="width: 85%;margin-top: -6%;">
                 </a>
 {{--        <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >--}}
 {{--            <h5 style="cursor:pointer; color: #E31E1A;">Logout</h5>--}}

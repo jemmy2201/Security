@@ -106,15 +106,15 @@
                 @if(Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use )
 {{--                @if(isset($request->Status_App) && $request->Status_App == resubmission || Request::route()->getName() == default_alter_term_use )--}}
                     <a  href="{{ url('/landing_page') }}">
-                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
+                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 75%;">
                     </a>
                 @elseif(Request::route()->getName() == default_alter_login)
                     <a  href="{{ url('/home') }}">
-                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
+                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 75%;">
                     </a>
                 @else
                     <a  href="{{ url("/cancel/payment")."/".$request->app_type."/".$request->card }}">
-                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 60%;">
+                        <img src="{{URL::asset('/img/logo.png')}}" style="width: 75%;">
                     </a>
                 @endif
                 <a  class="nav-link visible-xs hidden-md"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
@@ -135,7 +135,7 @@
                     <ul class="navbar-nav ml-auto pull-right">
 {{--                        <!-- Authentication Links -->--}}
 {{--                        @guest--}}
-                            <li class="nav-item">
+                            <li class="nav-item" style="margin-top:10px;">
                                 <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
                                 <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
                             </li>
