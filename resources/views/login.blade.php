@@ -22,7 +22,7 @@
 {{--                        </center>--}}
 {{--                        <br>--}}
 {{--                    </div>--}}
-                    <div class="col-sm-2"></div>
+{{--                    <div class="col-sm-2"></div>--}}
                     <div class="col-sm-4"  style="border-style: groove; background: white; margin-top: 40px;">
 
                         <ul class="nav nav-tabs">
