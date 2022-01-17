@@ -147,7 +147,6 @@
 {{--            </div>--}}
             <div class="col HeaderdataPersonal">
                 <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
-                <input type="text" id="response_update_phone" class="form-control"  style="display: block;" readonly>
                 <br>
                 <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" >
                 <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
@@ -394,9 +393,7 @@
         }
 
         $( "#closes_code_activation_Modal" ).click(function() {
-            if ( $('#response_update_phone').val(true) == true){
                 swal("Error!", "Your mobile number is not updated", "error")
-            }
         });
 
 
@@ -411,9 +408,9 @@
                         swal("Success !", "Add Or Update Mobile Number", "success");
                         $('#view_mobileno').val($('#mobileno').val());
                         $('#Phoneview_mobileno').val($('#Phonemobileno').val());
-                        $( ".close" ).trigger( "click" );
+                        // $( ".close" ).trigger( "click" );
+                        $('#code_activation_Modal').modal('hide');
                         $('.modal-backdrop').css({'position':'inherit','height':'0'});
-                        $('#response_update_phone').val(true);
                         // $("#submit_personal_particular").submit();
                     }else if (data == {!! json_encode(already_used) !!}){
                         swal("Attention!", "Activation code already used", "error")
