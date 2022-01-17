@@ -9,6 +9,9 @@
         font-weight: bold;
         font-size: 20px;
     }
+    .modal-footer {
+        display: flow-root !important;
+    }
 </style>
 @section('content')
 <div class="container">
@@ -82,8 +85,8 @@
                 <i class="fa fa-arrow-left" aria-hidden="true" style="color: blue;font-size: 30px;"></i>
 {{--            </div>--}}
             <div class="col-4 HeaderdataPersonal" >
-                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
-                    <a href="#" style="text-decoration:none; color: blue;">
+                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: blue">
+                    <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                         @if(empty($personal->mobileno))
                             Add Number
@@ -144,6 +147,7 @@
 {{--            </div>--}}
             <div class="col HeaderdataPersonal">
                 <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
+                <input type="text" id="response_update_phone" class="form-control"  style="display: block;" readonly>
                 <br>
                 <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" >
                 <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
@@ -260,8 +264,10 @@
                 <input type="number" class="form-control" id="kode_activation" name="kode_activation" >
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+{{--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                <center>
                 <button type="button" class="btn btn-primary" id="check_activation">Submit</button>
+                </center>
             </div>
         </div>
     </div>
@@ -386,6 +392,14 @@
             }
             return check_number_singapore;
         }
+
+        $( "#closes_code_activation_Modal" ).click(function() {
+            if ( $('#response_update_phone').val(true) == true){
+                swal("Error!", "Your mobile number is not updated", "error")
+            }
+        });
+
+
         $( "#check_activation" ).click(function() {
             $.ajax({
                 url: "{{ url('/ajax/check/activation') }}",
@@ -399,6 +413,7 @@
                         $('#Phoneview_mobileno').val($('#Phonemobileno').val());
                         $( ".close" ).trigger( "click" );
                         $('.modal-backdrop').css({'position':'inherit','height':'0'});
+                        $('#response_update_phone').val(true);
                         // $("#submit_personal_particular").submit();
                     }else if (data == {!! json_encode(already_used) !!}){
                         swal("Attention!", "Activation code already used", "error")
