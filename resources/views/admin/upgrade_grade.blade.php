@@ -76,7 +76,7 @@
                                 @if(Auth::user()->role == admin)
                                     <label for="title" class="col-form-label">Upgrade grade</label>
                                 @endif
-                                <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg">
+                                <input type="file" name="upgrade_grade" id="upgrade_grade" class="form-control form-control-lg" accept=".csv" >
                             </div>
                             <div class="mb-3">
                                 <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg btn-block">
@@ -119,14 +119,19 @@
         // });
         $("#upgrade_grade").change(function() {
             var control = document.getElementById("upgrade_grade");
-            var files = control.files;
-            for (var i = 0; i < files.length; i++) {
-                console.log('s',files[i].type)
-                if(files[i].type != "text/csv"){
-                    control.value = '';
-                    swal("Error!", "upload files with the extension csv ", "error")
-                }
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
+            if (regex.test(control.value.toLowerCase())) {
+            }else{
+                swal("Error!", "upload files with the extension csv ", "error")
             }
+            // var files = control.files;
+            // for (var i = 0; i < files.length; i++) {
+            //     console.log('s',files[i].type)
+            //     if(files[i].type != "text/csv"){
+            //         control.value = '';
+            //         swal("Error!", "upload files with the extension csv ", "error")
+            //     }
+            // }
         });
 
         $(document).ready(function(){
