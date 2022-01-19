@@ -1291,11 +1291,21 @@ class AjaxController extends Controller
         if (!empty($activation)) {
             if ($activation->status == false) {
                 $respon = succes;
+
                 $update_activation_phones = activation_phones::find($activation->id);
 
                 $update_activation_phones->status = succes;
 
                 $update_activation_phones->save();
+
+                if ($request->phone[0] != "6" || $request->phone[1] != "5") {
+                    $mobileno = "65".$request->phone;
+                }else{
+                    $mobileno = $request->phone;
+                }
+
+                User::where(['nric'=> Auth::user()->nric])
+                    ->update(['mobileno' => $mobileno]);
             } else {
                 $respon = already_used;
             }

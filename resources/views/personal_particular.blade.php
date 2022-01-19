@@ -340,7 +340,7 @@
                         swal("Error!", "Mobile number incomplete.", "error")
                 }
             }else{
-                if({!!  json_encode($personal->mobileno) !!} != ""){
+                if($('#view_mobileno').val() != ""){
                     // if (check_number_singapore() == true){
                         if({!!  json_encode($personal->web) !!} == true ){
                             if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
@@ -402,7 +402,7 @@
                 url: "{{ url('/ajax/check/activation') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), activation:$("#kode_activation").val()},
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), activation:$("#kode_activation").val(),phone:$("#mobileno").val()},
                 success: function (data) {
                     if (data == {!! json_encode(succes) !!}){
                         swal("Success !", "Add Or Update Mobile Number", "success");
