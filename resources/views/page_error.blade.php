@@ -96,7 +96,7 @@
                 <ul class="navbar-nav ml-auto pull-right">
                     {{--                        <!-- Authentication Links -->--}}
                     {{--                        @guest--}}
-                    <li class="nav-item">
+                    <li class="nav-item" style="margin-top: 10px;">
                         <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
                         <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
                     </li>
@@ -134,7 +134,13 @@
             <center>
                 <h4>
                     <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
-                    <B>{{$data}}</B>
+                    <B>{{$data}}</B><br>
+                    <B>Contact details as follows:</B>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i></B></li>
+                        <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;use-idcard@ntuc.org.sg</B></i></li>
+                    </ul>
+
                 </h4>
                 <a href="/">
                     <button type="button" class="btn btn-dark" style="color: white;">
