@@ -83,7 +83,7 @@ trait AuthenticatesUsers
                         }
                     }
                 }else{
-                    return  view('page_error')->with(['data'=>'Your record not found. Please contact Union Of Security Employees for further assistance.','image'=>'fa fa-info-circle']);
+                    return  view('page_error')->with(['data'=>'Your record not found. Kindly contact Union Of Security Employees for futher assistance.','image'=>'fa fa-info-circle']);
                 }
             }
         }else {

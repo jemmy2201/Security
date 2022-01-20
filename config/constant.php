@@ -304,3 +304,7 @@ define('default_email', "email");
 define('n_card_issue', "N");
 define('value_card_issue', "Kindly contact Union Of Security Employees for further assistance. Contact details as shown on the top of this page.");
 define('value_expired_card', "Your ID card's expiry date has expired. Renew your PLRD SO/PI licence @ Go Business Singapore website - https://www.gobusiness.gov.sg.");
+
+define('phone_general_office', "+65 6381 9150 (General Office)");
+define('phone_CSC', "+65 6291 5145 (CSC)");
+define('email', "use-idcard@ntuc.org.sg");
