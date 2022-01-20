@@ -324,7 +324,7 @@
     <p><b>My Updates/Notifications</b></p>
     <div class="container">
         <div class="row">
-            <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;New SO Course Attended</b>
+            <input class="form-check-input" type="checkbox"  id="PWM" value="" ><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>
         </div>
         <div class="row">
             <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;Notifications</b>
@@ -929,7 +929,10 @@
             //     $("#personal_particular" ).submit();
             // }
         });
-        // End card
+        $("#PWM").click(function() {
+            window.location.href = "{{URL::to('update_so')}}"
+        });
+            // End card
     });
 
     function Remove_course() {

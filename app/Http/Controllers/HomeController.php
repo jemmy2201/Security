@@ -23,6 +23,7 @@ Use Redirect;
 use Artisan;
 use Illuminate\Support\Facades\Route;
 use App\tbl_receiptNo;
+use App\so_update_info;
 use function GuzzleHttp\Promise\all;
 
 class HomeController extends Controller
@@ -2155,5 +2156,93 @@ class HomeController extends Controller
         $result=array_diff($originData,$personal->toArray());
 
         return $result;
+    }
+
+    public function ui_update_so(Request $request)
+    {
+        $request->merge(['app_type' => "",'card' => ""]);
+
+        $data = so_update_info::where(['nric' => Auth::user()->nric])->first();
+//        die(print_r($data));
+        return view('update_so')->with(['personal'=>$data,"request" => $request]);
+
+    }
+    public function action_update_so(Request $request)
+    {
+//        die(print_r($request->all()));
+        if ($request->TR_RTT){
+            $TR_RTT = "YES";
+        }else{
+            $TR_RTT = null;
+        }
+        if ($request->TR_CSSPB){
+            $TR_CSSPB = "YES";
+        }else{
+            $TR_CSSPB = null;
+        }
+        if ($request->TR_CCTC){
+            $TR_CCTC = "YES";
+        }else{
+            $TR_CCTC = null;
+        }
+        if ($request->TR_HCTA){
+            $TR_HCTA = "YES";
+        }else{
+            $TR_HCTA = null;
+        }
+        if ($request->TR_X_RAY){
+            $TR_X_RAY = "YES";
+        }else{
+            $TR_X_RAY = null;
+        }
+        if ($request->SKILL_BFM){
+            $SKILL_BFM = "YES";
+        }else{
+            $SKILL_BFM = null;
+        }
+        if ($request->SKILL_BSS){
+            $SKILL_BSS = "YES";
+        }else{
+            $SKILL_BSS = null;
+        }
+        if ($request->SKILL_FSM){
+            $SKILL_FSM = "YES";
+        }else{
+            $SKILL_FSM = null;
+        }
+        if ($request->SKILL_CERT){
+            $SKILL_CERT = "YES";
+        }else{
+            $SKILL_CERT = null;
+        }
+        if ($request->SKILL_COSEM){
+            $SKILL_COSEM = "YES";
+        }else{
+            $SKILL_COSEM = null;
+        }
+        $update_grade = so_update_info::where(['nric' => Auth::user()->nric])
+            ->update([
+                'TR_RTT' => $TR_RTT,
+
+                'TR_CSSPB' => $TR_CSSPB,
+
+                'TR_CCTC' => $TR_CCTC,
+
+                'TR_HCTA' => $TR_HCTA,
+
+                'TR_X_RAY' => $TR_X_RAY,
+
+                'SKILL_BSS' => $SKILL_BSS,
+
+                'SKILL_FSM' => $SKILL_FSM,
+
+                'SKILL_CERT' => $SKILL_CERT,
+
+                'SKILL_COSEM' => $SKILL_COSEM,
+
+                'Date_Submitted' => now(),
+            ]);
+
+        return redirect()->route('landing_page');
     }
 }

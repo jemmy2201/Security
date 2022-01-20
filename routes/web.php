@@ -139,3 +139,8 @@ Route::prefix('ajax')->group(function () {
     Route::post('/sent/activation/phone', 'AjaxController@sent_activation_phone');
     Route::post('/check/activation', 'AjaxController@check_activation');
 });
+
+//Update SO
+Route::get('/update_so', 'HomeController@ui_update_so');
+Route::post('/action/update_so', 'HomeController@action_update_so')->name('action.update_so');
+//End Update SO

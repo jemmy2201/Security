@@ -308,3 +308,8 @@ define('value_expired_card', "Your ID card's expiry date has expired. Renew your
 define('phone_general_office', "+65 6381 9150 (General Office)");
 define('phone_CSC', "+65 6291 5145 (CSC)");
 define('email', "use-idcard@ntuc.org.sg");
+
+define('Senior_Security_Officer', "SSO");
+define('Security_Supervisor', "SS");
+define('Senior_Security_Supervisor', "SSS");
+define('Chief_Security_Officer', "CSO");
