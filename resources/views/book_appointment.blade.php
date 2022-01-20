@@ -270,9 +270,9 @@
                 <div class="col-sm-6 col-12 d-flex">
                     <div class="card border-0 mt-5 flex-fill">
                         <div class="card-header py-3 d-flex justify-content-between">
-                            <span class="prevMonth">&#10096;</span>
+                            <span class="prevMonth">&#10096;&#10096;&#10096;</span>
                             <span><strong id="s_m"></strong></span>
-                            <span class="nextMonth">&#10097;</span>
+                            <span class="nextMonth">&#10097;&#10097;&#10097;</span>
                         </div>
                         <div class="card-body px-1 py-3">
                             <div class="table-responsive">
@@ -354,7 +354,7 @@
 
                             let cell = document.createElement('td');
                             let span = document.createElement('span');
-                            let cellText = document.createTextNode(i);
+                            let cellText = document.createTextNode("0"+i);
                             span.classList.add('dissable');
                             // span.classList.add('ntMonth');
                             // span.classList.add('nextMonth');
@@ -367,6 +367,10 @@
                 else {
                     let cell = document.createElement('td');
                     let span = document.createElement('span');
+                    console.log('date',date)
+                    if(date == '1' || date == '2' || date == '3' || date == '4' || date == '5' || date == '6' || date == '7' || date == '8' || date == '9'){
+                        date = '0'+date;
+                    }
                     let cellText = document.createTextNode(date);
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
