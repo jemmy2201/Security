@@ -324,7 +324,14 @@
     <p><b>My Updates/Notifications</b></p>
     <div class="container">
         <div class="row">
-            <input class="form-check-input" type="checkbox"  id="PWM" value="" ><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>
+            @php
+            $check_PWM = App\so_update_info::where(['nric' => Auth::user()->nric])->first();
+            @endphp
+            @if(!empty($check_PWM))
+                <input class="form-check-input" type="checkbox"  id="PWM" value="" ><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>
+            @else
+                <input class="form-check-input" type="checkbox"  id="PWM" value="" disabled><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>
+            @endif
         </div>
         <div class="row">
             <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;Notifications</b>

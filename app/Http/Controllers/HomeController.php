@@ -2222,6 +2222,8 @@ class HomeController extends Controller
         }
         $update_grade = so_update_info::where(['nric' => Auth::user()->nric])
             ->update([
+                'New_Grade' => $request->New_Grade,
+
                 'TR_RTT' => $TR_RTT,
 
                 'TR_CSSPB' => $TR_CSSPB,
@@ -2231,6 +2233,8 @@ class HomeController extends Controller
                 'TR_HCTA' => $TR_HCTA,
 
                 'TR_X_RAY' => $TR_X_RAY,
+
+                'SKILL_BFM' => $SKILL_BFM,
 
                 'SKILL_BSS' => $SKILL_BSS,
 
