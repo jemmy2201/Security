@@ -367,7 +367,6 @@
                 else {
                     let cell = document.createElement('td');
                     let span = document.createElement('span');
-                    console.log('date',date)
                     if(date == '1' || date == '2' || date == '3' || date == '4' || date == '5' || date == '6' || date == '7' || date == '8' || date == '9'){
                         date = '0'+date;
                     }
@@ -437,6 +436,9 @@
                     }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
                         $('.prevMonth').css({"pointer-events": "", "opacity": ""});
                         $('.nextMonth').css({"pointer-events": "", "opacity": ""});
+                    }else if (date == c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
+                        span.classList.add('dissable');
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }
                     // hidden next 3 month
                     {{--if(y === c_date.getFullYear()){--}}
