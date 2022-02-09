@@ -479,7 +479,8 @@
                             @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
                         @elseif($f->Status_app >= processing)
-                                @php $url=url("/view/course")."/".$f->card_id; @endphp
+{{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
+                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif
                     </tr>
