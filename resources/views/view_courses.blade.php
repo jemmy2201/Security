@@ -553,7 +553,76 @@
             @endif
         </div>
         {{-- End Phone --}}
+        <div class="row hidden-xs">
+            <div class="col-4">
+                <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
+            top: 43%;
+            left: 36%;
+            transform: translate(-50%, -50%); width: 70px;">
+                <div id="qrcodePaynow"></div>
+            </div>
+            <div class="col-8" style="margin-left: -139px;">
+                <h4 style="margin-left: 94px">How to Make a PayNow Transfer</h4>
+
+                <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;margin-left: 93px;" >
+
+                <ol>
+                    <li style="margin-left: 95px; text-align: left;">Scan this QR code with the <b>QR scanner on your banking app</b> on your phone.</li>
+                    <li style="margin-left: 95px; text-align: left;">Verity that it displays the following :
+                        <br>Entity Name <b> Union Of Security Employees</b>.</li>
+                    <li style="margin-left: 95px; text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
+                    <li style="margin-left: 95px; text-align: left;">Once your Paynow transaction has been successfull, USE will process with your application .</li>
+
+                </ol>
+            </div>
+            <div class="col-6" style="margin-top: -35px;">
+                <div class="row">
+                    <div class="col-6" style="text-align: left">Total Amount<span style="margin-left: 7px;">:</span></div>
+                    <div class="col-4" style="margin-left: -186px;"> <b>${{$grand_total}}</b></div>
+                    <div class="w-100"></div>
+                    <div class="col-6" style="text-align: left">Reference No<span style="margin-left:2px;">:</span> </div>
+                    <div class="col-8" style="margin-left: -185px;text-align: left;"> <b>{{$courses->receiptNo}}</b></div>
+                    <div class="w-100"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row Visible-xs hidden-md">
+            <div class="col-4">
+                <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
+            top: 50%;
+            left: 108%;
+            transform: translate(-50%, -50%); width: 70px;">
+                <div id="qrcodePaynowPhone"></div>
+            </div>
+            <div class="col-6" style="margin-top: 18px;">
+                <div class="row">
+                    <div class="col-8" style="text-align: left">Total Amount<span style="margin-left: 7px;">:</span></div>
+                    <div class="col-4" style="margin-left: -35px;"> <b>${{$grand_total}}</b></div>
+                    <div class="w-100"></div>
+                    <div class="col-8" style="text-align: left">Reference No<span style="margin-left:2px;">:</span> </div>
+                    <div class="col-4" style="margin-left: -36px;text-align: left;"> <b>{{$courses->receiptNo}}</b></div>
+                    <div class="w-100"></div>
+                </div>
+            </div>
+
+            <div class="col-12" style="margin-left: -68px;" >
+                <h4 style="margin-left: 68px">How to Make a PayNow Transfer</h4>
+
+                <img src="{{URL::asset('/img/barcode_paynow.jpg')}}" style="width: 66%;margin-left: 93px;" >
+
+                <ol>
+                    <li style="margin-left: 95px; text-align: left;">Scan this QR code with the <b>QR scanner on your banking app</b> on your phone.</li>
+                    <li style="margin-left: 95px; text-align: left;">Verity that it displays the following :
+                        <br>Entity Name <b> Union Of Security Employees</b>.</li>
+                    <li style="margin-left: 95px; text-align: left;">Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.</li>
+                    <li style="margin-left: 95px; text-align: left;">Once your Paynow transaction has been successfull, USE will process with your application .</li>
+
+                </ol>
+            </div>
+        </div>
         <br>
+
         <div class="row">
             <div class="col-2 back">
                 <button type="submit" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: #1E90FF; color: #E31D1A">
@@ -573,7 +642,29 @@
                 <a href="{{ url('invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print </button></a>
             </div>
         </div>
+    <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            //Create a PaynowQR object
+            let qrcode = new PaynowQR({
+                uen: {!!  json_encode(uen) !!},           //Required: UEN of company
+                amount : {!!  json_encode($grand_total) !!},               //Specify amount of money to pay.
+                // amount :"1",               //Specify amount of money to pay.
+                editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
+                expiry: {!!  json_encode( date('Ymd', strtotime( date("Ymd"). ' + 14 days')) ) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
+                {{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
+                refNumber: {!!  json_encode($courses->receiptNo) !!},
+                // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+                company:{!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
+            });
 
+            //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
+            let QRstring = qrcode.output();
+            new QRCode(document.getElementById("qrcodePaynow"), QRstring)
+            new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
+        });
+
+    </script>
     <script type="application/javascript">
         $(".logout_save_draft").click(function() {
             $("#logout_save_draft").val(true)
