@@ -572,6 +572,7 @@
         </div>
     </div>
     <button data-toggle="modal" data-target="#Form_payment_paynow" style="display: none" id="popup_paynow"></button>
+    <button data-toggle="modal" data-target="#Form_payment_paynow_verification" style="display: none" id="popup_paynow_verfication"></button>
     <div class="visible-xs hidden-md">
         <h3>Select Your Payment Method</h3><br>
         <h4>
@@ -682,15 +683,39 @@
         </div>
     </div>
     <!-- End Modal Enets -->
+    <!-- Modal Paynow verfication succes -->
+    <div class="modal fade" id="Form_payment_paynow_verification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+{{--                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Is your PayNow transaction succesful?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm_payment_paynow">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Paynow verfication succes -->
     <!-- Modal Paynow -->
     <div class="modal fade" id="Form_payment_paynow" role="dialog" data-backdrop="static">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-{{--                <div class="modal-header">--}}
+                @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
+                <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
+                <div class="modal-header">
 {{--                    <h4 class="modal-title">Barcode paynow</h4>--}}
-{{--                    <button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-{{--                </div>--}}
+                        <button type="button" class="close" >&times;</button>
+                </div>
+                </a>
                 <div class="modal-body">
                     <center>
                         {{-- Phone --}}
@@ -769,12 +794,11 @@
                     </center>
                 </div>
                 <div class="modal-footer">
-                    @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
-                        <button type="button" id="confirm_payment_paynow"  class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
-                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
-                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>
-                        <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>
-                    </a>
+                        <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
+{{--                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">--}}
+{{--                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>--}}
+{{--                        <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>--}}
+{{--                    </a>--}}
                 </div>
             </div>
 
@@ -889,6 +913,10 @@
     });
 
     $( document ).ready(function() {
+        $('#form_paynow_verification').on('click', function () {
+            $( "#popup_paynow_verfication" ).trigger( "click" );
+        });
+
         $('#paynow').on('click', function () {
             if ($("input[name='understand_transaction']:checked").val()) {
                 $( "#popup_paynow" ).trigger( "click" );
