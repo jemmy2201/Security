@@ -3,6 +3,12 @@
 <head>
     <title>PDF_Screen Shot.pdf</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <style>
         * {
             box-sizing: border-box;
@@ -27,13 +33,17 @@
 
         .column-right {
             float: right;
-            width: 83%;
+            width: 88%;
             font-weight: bold;
         }
-
+        .column-right-paynow {
+            float: right;
+            width: 79%;
+            font-weight: bold;
+        }
         .column-center {
             display: inline-block;
-            padding-left: 15%;
+            padding-left: 10%;
             padding-top: 5px;
             width: 30%;
         }
@@ -45,7 +55,7 @@
 
         .column-right-right {
             float: right;
-            width: 30%;
+            width: 36%;
             font-weight: bold;
         }
 
@@ -57,7 +67,7 @@
         }
         .column-right-center2 {
             display: inline-block;
-            padding-left: 67%;
+            padding-left: 62%;
             padding-top: 5px;
             width: 30%;
         }
@@ -388,8 +398,36 @@
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
+            <br><br><br>
+            <div class="column-center"></div>
+            <div class="column-left"></div>
 
-        </div>
+            <div class="column-right-paynow" style=" margin-right: 140px;">
+                <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
+                margin-left: 130px;
+                margin-top: 100px;
+               transform: translate(-50%, -50%); width: 70px;">
+                <img src="{{ public_path('barcode_paynow/'.Auth::user()->nric.'.png') }} ">
+            </div>
+            <div class="column-right-paynow" style="margin-right: -140px;margin-top: -40px;" >
+                <h4 >How to Make a PayNow Transfer</h4>
+                <img src="{{public_path('/img/barcode_paynow.jpg')}}" style="width: 25%;" >
+                <br>
+                <div>
+                1.Scan this QR code with the QR scanner on your banking app on your phone.
+                </div>
+                <div>
+                2.Verity that it displays the following : Entity Name  Union Of Security Employees.
+                </div>
+                <div>
+                3.Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.
+                </div>
+                <div>
+                4.Once your Paynow transaction has been successfull, USE will process with your application.
+                </div>
+            </div>
+
+            </div>
 {{--        <div class="column2">--}}
 {{--            <div class="column-center">:</div>--}}
 {{--            <div class="column-left">NRIC / FIN</div>--}}
@@ -407,7 +445,9 @@
 {{--            <div class="column-right">{{$courses->receiptNo}}</div>--}}
 
 {{--        </div>--}}
+
     </div>
 
 </body>
+
 </html>
