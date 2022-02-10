@@ -808,14 +808,22 @@ class HomeController extends Controller
         $t_grade = t_grade::get();
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
     }
+    public function save_barcode_paynow(Request $request)
+    {
+        $data_barcode = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
+            ->update([
+                'data_barcode_paynow' => $request->data_barcode,
+            ]);
+        return $data_barcode;
 
+    }
     public function print_pdf(Request $request,$card)
     {
         $request->merge(['card' => $card]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a3','landscape');
 //        return $pdf->stream();
         return $pdf->download('App_Slip.pdf');

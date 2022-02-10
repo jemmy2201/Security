@@ -389,25 +389,25 @@
             </div>
             <br>
             <div class="column-center">:</div>
-            <div class="column-left">Transaction Ref</div>
+            <div class="column-left">Transaction Ref </div>
             <div class="column-right">{{$courses->receiptNo}}</div>
             <br>
             <div class="column-center">:</div>
-            <div class="column-left">Payment Amount</div>
+            <div class="column-left">Payment Amount </div>
             @php
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
+            @if($courses->paymentby =="paynow")
             <br><br><br>
             <div class="column-center"></div>
             <div class="column-left"></div>
-
             <div class="column-right-paynow" style=" margin-right: 140px;">
                 <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 130px;
                 margin-top: 100px;
                transform: translate(-50%, -50%); width: 70px;">
-                <img src="{{ public_path('barcode_paynow/'.Auth::user()->nric.'.png') }} ">
+                <img src="{{$courses->data_barcode_paynow}}">
             </div>
             <div class="column-right-paynow" style="margin-right: -140px;margin-top: -40px;" >
                 <h4 >How to Make a PayNow Transfer</h4>
@@ -426,7 +426,7 @@
                 4.Once your Paynow transaction has been successfull, USE will process with your application.
                 </div>
             </div>
-
+            @endif
             </div>
 {{--        <div class="column2">--}}
 {{--            <div class="column-center">:</div>--}}
@@ -445,9 +445,7 @@
 {{--            <div class="column-right">{{$courses->receiptNo}}</div>--}}
 
 {{--        </div>--}}
-
     </div>
-
 </body>
 
 </html>

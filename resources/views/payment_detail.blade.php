@@ -909,6 +909,10 @@
         let QRstring = qrcode.output();
         new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
         new QRCode(document.getElementById("qrcodePaynow"), QRstring)
+        var imageParent = document.getElementById('qrcodePaynowPhone');
+        var image = imageParent.querySelector('img')
+        image.id = 'data_barcode';
+        // console.log( document.getElementById('qrcodePaynowPhone'))
     });
 
     $( document ).ready(function() {
@@ -917,6 +921,17 @@
         });
 
         $('#paynow').on('click', function () {
+            console.log('a',$('#data_barcode').attr('src'))
+            $.ajax({
+                url: "{{ url('/save_barcode_paynow') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                success: function (data) {
+                }
+            });
+
+
             if ($("input[name='understand_transaction']:checked").val()) {
                 $( "#popup_paynow" ).trigger( "click" );
                 $("#payment_method").val({!!  json_encode(paynow) !!})
