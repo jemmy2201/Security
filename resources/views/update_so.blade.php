@@ -24,39 +24,39 @@
         @csrf
         <div class="container">
             <div class="row hidden-xs">
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
-                        @php
-                            $cutnric = substr(secret_decode($personal->NRIC), -4);
-                            $nric = "XXXXX$cutnric";
-                        @endphp
-                        <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
-                        @if (strlen($personal->Name) > 40)
-                            <div class="col-8 ColoumndataPersonal">
-                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
-                                {{$personal->Name}}
-                                </textarea>
-                            </div>
-                        @else
-                            <div class="col-8 ColoumndataPersonal">{{$personal->Name}}</div>
-                        @endif
+{{--                <div class="col-sm">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>--}}
+{{--                        @php--}}
+{{--                            $cutnric = substr(secret_decode($personal->NRIC), -4);--}}
+{{--                            $nric = "XXXXX$cutnric";--}}
+{{--                        @endphp--}}
+{{--                        <div class="col-4 ColoumndataPersonal">{{$nric}}</div>--}}
+{{--                        <div class="w-100"></div>--}}
+{{--                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
+{{--                        @if (strlen($personal->Name) > 40)--}}
+{{--                            <div class="col-8 ColoumndataPersonal">--}}
+{{--                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>--}}
+{{--                                {{$personal->Name}}--}}
+{{--                                </textarea>--}}
+{{--                            </div>--}}
+{{--                        @else--}}
+{{--                            <div class="col-8 ColoumndataPersonal">{{$personal->Name}}</div>--}}
+{{--                        @endif--}}
 
 
-                    </div>
-                </div>
-                <div class="col-sm-0">
-                </div>
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-sm-0">--}}
+{{--                </div>--}}
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
                         <div class="col-4 ColoumndataPersonal">{{substr($personal->PassID, 0, -2)}}</div>
-                        <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
-                        <div class="col-4 ColoumndataPersonal">{{$personal->Grade}}</div>
+{{--                        <div class="w-100"></div>--}}
+{{--                        <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>--}}
+{{--                        <div class="col-4 ColoumndataPersonal">{{$personal->Grade}}</div>--}}
                     </div>
                 </div>
 
@@ -158,9 +158,9 @@
                 <li class="list-group"><input class="form-check-input" type="checkbox" name="declare">&ensp;&ensp; I declare the information submitted is true</li>
             </ul>
         </div>
-        <div class="row">
-            PassID &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$personal->PassID}}
-        </div>
+{{--        <div class="row">--}}
+{{--            PassID &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$personal->PassID}}--}}
+{{--        </div>--}}
         <div class="row">
             Date of submission&emsp;: {{date("d-m-Y")}}
         </div>
