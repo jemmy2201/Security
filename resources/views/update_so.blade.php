@@ -155,11 +155,14 @@
         </div>
         <div class="row">
             <ul class="list-group">
-                <li class="list-group"><input class="form-check-input" type="checkbox" name="declare">&ensp;&ensp; I declare the information is true</li>
+                <li class="list-group"><input class="form-check-input" type="checkbox" name="declare">&ensp;&ensp; I declare the information submitted is true</li>
             </ul>
         </div>
         <div class="row">
-            Date of submission : {{date("d-m-Y")}}
+            PassID &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$personal->PassID}}
+        </div>
+        <div class="row">
+            Date of submission&emsp;: {{date("d-m-Y")}}
         </div>
         <br>
         <div class="row" style="margin-left: -35px;">
@@ -197,9 +200,44 @@
 <script type="application/javascript">
 
     $( document ).ready(function() {
+        function New_Grade_Attained() {
+            if ($("input[name='New_Grade']:checked").val()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function New_Training_Records() {
+            if ($("input[name='TR_RTT']:checked").val() != undefined || $("input[name='TR_CSSPB']:checked").val() != undefined || $("input[name='TR_CCTC']:checked").val() != undefined
+                || $("input[name='TR_HCTA']:checked").val() != undefined || $("input[name='TR_X_RAY']:checked").val() != undefined){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function Skill_Sets_Acquired() {
+            if ($("input[name='SKILL_BFM']:checked").val() != undefined || $("input[name='SKILL_BSS']:checked").val() != undefined || $("input[name='SKILL_FSM']:checked").val() != undefined
+                || $("input[name='SKILL_CERT']:checked").val() != undefined || $("input[name='SKILL_COSEM']:checked").val() != undefined){
+                return true;
+            }else{
+                return false;
+            }
+        }
         $( "#update_so" ).click(function() {
             if ($("input[name='declare']:checked").val() != undefined) {
-                $("#action_update_so").submit();
+                if (New_Grade_Attained()) {
+                    if (New_Training_Records()) {
+                        if (Skill_Sets_Acquired()) {
+                            $("#action_update_so").submit();
+                        } else {
+                            swal("Error!", " please select skill sets acquired.", "error");
+                        }
+                    } else {
+                        swal("Error!", " please select new training records.", "error");
+                    }
+                }else{
+                    swal("Error!", " please select new grade attained.", "error");
+                }
             }else{
                 swal("Error!", " Please acknowledge declaration.", "error");
             }
@@ -237,46 +275,46 @@
         // End New Grade Attained
 
         // New Training Records
-        $("#TR_RTT").change(function() {
-            if(this.checked) {
-                $("#TR_CSSPB").prop('checked', false);
-                $("#TR_CCTC").prop('checked', false);
-                $("#TR_HCTA").prop('checked', false);
-                $("#TR_X_RAY").prop('checked', false);
-            }
-        });
-        $("#TR_CSSPB").change(function() {
-            if(this.checked) {
-                $("#TR_RTT").prop('checked', false);
-                $("#TR_CCTC").prop('checked', false);
-                $("#TR_HCTA").prop('checked', false);
-                $("#TR_X_RAY").prop('checked', false);
-            }
-        });
-        $("#TR_CCTC").change(function() {
-            if(this.checked) {
-                $("#TR_RTT").prop('checked', false);
-                $("#TR_CSSPB").prop('checked', false);
-                $("#TR_HCTA").prop('checked', false);
-                $("#TR_X_RAY").prop('checked', false);
-            }
-        });
-        $("#TR_HCTA").change(function() {
-            if(this.checked) {
-                $("#TR_RTT").prop('checked', false);
-                $("#TR_CSSPB").prop('checked', false);
-                $("#TR_CCTC").prop('checked', false);
-                $("#TR_X_RAY").prop('checked', false);
-            }
-        });
-        $("#TR_X_RAY").change(function() {
-            if(this.checked) {
-                $("#TR_RTT").prop('checked', false);
-                $("#TR_CSSPB").prop('checked', false);
-                $("#TR_CCTC").prop('checked', false);
-                $("#TR_HCTA").prop('checked', false);
-            }
-        });
+        // $("#TR_RTT").change(function() {
+        //     if(this.checked) {
+        //         $("#TR_CSSPB").prop('checked', false);
+        //         $("#TR_CCTC").prop('checked', false);
+        //         $("#TR_HCTA").prop('checked', false);
+        //         $("#TR_X_RAY").prop('checked', false);
+        //     }
+        // });
+        // $("#TR_CSSPB").change(function() {
+        //     if(this.checked) {
+        //         $("#TR_RTT").prop('checked', false);
+        //         $("#TR_CCTC").prop('checked', false);
+        //         $("#TR_HCTA").prop('checked', false);
+        //         $("#TR_X_RAY").prop('checked', false);
+        //     }
+        // });
+        // $("#TR_CCTC").change(function() {
+        //     if(this.checked) {
+        //         $("#TR_RTT").prop('checked', false);
+        //         $("#TR_CSSPB").prop('checked', false);
+        //         $("#TR_HCTA").prop('checked', false);
+        //         $("#TR_X_RAY").prop('checked', false);
+        //     }
+        // });
+        // $("#TR_HCTA").change(function() {
+        //     if(this.checked) {
+        //         $("#TR_RTT").prop('checked', false);
+        //         $("#TR_CSSPB").prop('checked', false);
+        //         $("#TR_CCTC").prop('checked', false);
+        //         $("#TR_X_RAY").prop('checked', false);
+        //     }
+        // });
+        // $("#TR_X_RAY").change(function() {
+        //     if(this.checked) {
+        //         $("#TR_RTT").prop('checked', false);
+        //         $("#TR_CSSPB").prop('checked', false);
+        //         $("#TR_CCTC").prop('checked', false);
+        //         $("#TR_HCTA").prop('checked', false);
+        //     }
+        // });
         // End New Training Records
 
         // Skill Sets Acquired
