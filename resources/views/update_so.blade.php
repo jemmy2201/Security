@@ -318,46 +318,46 @@
         // End New Training Records
 
         // Skill Sets Acquired
-        $("#SKILL_BFM").change(function() {
-            if(this.checked) {
-                $("#SKILL_BSS").prop('checked', false);
-                $("#SKILL_FSM").prop('checked', false);
-                $("#SKILL_CERT").prop('checked', false);
-                $("#SKILL_COSEM").prop('checked', false);
-            }
-        });
-        $("#SKILL_BSS").change(function() {
-            if(this.checked) {
-                $("#SKILL_BFM").prop('checked', false);
-                $("#SKILL_FSM").prop('checked', false);
-                $("#SKILL_CERT").prop('checked', false);
-                $("#SKILL_COSEM").prop('checked', false);
-            }
-        });
-        $("#SKILL_FSM").change(function() {
-            if(this.checked) {
-                $("#SKILL_BFM").prop('checked', false);
-                $("#SKILL_BSS").prop('checked', false);
-                $("#SKILL_CERT").prop('checked', false);
-                $("#SKILL_COSEM").prop('checked', false);
-            }
-        });
-        $("#SKILL_CERT").change(function() {
-            if(this.checked) {
-                $("#SKILL_BFM").prop('checked', false);
-                $("#SKILL_BSS").prop('checked', false);
-                $("#SKILL_FSM").prop('checked', false);
-                $("#SKILL_COSEM").prop('checked', false);
-            }
-        });
-        $("#SKILL_COSEM").change(function() {
-            if(this.checked) {
-                $("#SKILL_BFM").prop('checked', false);
-                $("#SKILL_BSS").prop('checked', false);
-                $("#SKILL_FSM").prop('checked', false);
-                $("#SKILL_CERT").prop('checked', false);
-            }
-        });
+        // $("#SKILL_BFM").change(function() {
+        //     if(this.checked) {
+        //         $("#SKILL_BSS").prop('checked', false);
+        //         $("#SKILL_FSM").prop('checked', false);
+        //         $("#SKILL_CERT").prop('checked', false);
+        //         $("#SKILL_COSEM").prop('checked', false);
+        //     }
+        // });
+        // $("#SKILL_BSS").change(function() {
+        //     if(this.checked) {
+        //         $("#SKILL_BFM").prop('checked', false);
+        //         $("#SKILL_FSM").prop('checked', false);
+        //         $("#SKILL_CERT").prop('checked', false);
+        //         $("#SKILL_COSEM").prop('checked', false);
+        //     }
+        // });
+        // $("#SKILL_FSM").change(function() {
+        //     if(this.checked) {
+        //         $("#SKILL_BFM").prop('checked', false);
+        //         $("#SKILL_BSS").prop('checked', false);
+        //         $("#SKILL_CERT").prop('checked', false);
+        //         $("#SKILL_COSEM").prop('checked', false);
+        //     }
+        // });
+        // $("#SKILL_CERT").change(function() {
+        //     if(this.checked) {
+        //         $("#SKILL_BFM").prop('checked', false);
+        //         $("#SKILL_BSS").prop('checked', false);
+        //         $("#SKILL_FSM").prop('checked', false);
+        //         $("#SKILL_COSEM").prop('checked', false);
+        //     }
+        // });
+        // $("#SKILL_COSEM").change(function() {
+        //     if(this.checked) {
+        //         $("#SKILL_BFM").prop('checked', false);
+        //         $("#SKILL_BSS").prop('checked', false);
+        //         $("#SKILL_FSM").prop('checked', false);
+        //         $("#SKILL_CERT").prop('checked', false);
+        //     }
+        // });
         // End Skill Sets Acquired
 
         // End checkbox remove
