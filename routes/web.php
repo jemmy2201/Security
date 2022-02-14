@@ -91,9 +91,11 @@ Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment')
 
 // End User
 
+// SO Query
+Route::get('/SOQuery/IDQuery/{passid}', 'SoQueryController@soquery');
+// End SO Query
 // save data barcode paynow
 Route::post('/save_barcode_paynow', 'HomeController@save_barcode_paynow');
-
 // end save data barcode paynow
 // Admin
 Route::prefix('admin')->group(function () {
