@@ -325,7 +325,8 @@
     <div class="container">
         <div class="row">
             @php
-            $check_PWM = App\so_update_info::where(['nric' => Auth::user()->nric])->first();
+                $passID = App\booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+                $check_PWM = App\so_update_info::where(['PassID' => $passID->passid])->first();
             @endphp
             @if(!empty($check_PWM))
                 <input class="form-check-input" type="checkbox"  id="PWM" value="" ><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>

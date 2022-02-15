@@ -16,7 +16,6 @@ class CreateSoUpdateInfosTable extends Migration
         Schema::create('so_update_info', function (Blueprint $table) {
             $table->id();
             $table->string('PassID')->nullable()->unique();
-            $table->string('NRIC')->nullable();
             $table->string('Name')->nullable();
             $table->string('Grade')->nullable();
             $table->string('New_Grade')->nullable();

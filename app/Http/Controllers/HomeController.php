@@ -2169,9 +2169,8 @@ class HomeController extends Controller
     public function ui_update_so(Request $request)
     {
         $request->merge(['app_type' => "",'card' => ""]);
-
-        $data = so_update_info::where(['nric' => Auth::user()->nric])->first();
-//        die(print_r($data));
+        $passID = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+        $data = so_update_info::where(['PassID' => $passID->passid])->first();
         return view('update_so')->with(['personal'=>$data,"request" => $request]);
 
     }
