@@ -24,31 +24,31 @@
         @csrf
         <div class="container">
             <div class="row hidden-xs">
-{{--                <div class="col-sm">--}}
-{{--                    <div class="row">--}}
+                <div class="col-sm">
+                    <div class="row">
 {{--                        <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>--}}
 {{--                        @php--}}
 {{--                            $cutnric = substr(secret_decode($personal->NRIC), -4);--}}
 {{--                            $nric = "XXXXX$cutnric";--}}
 {{--                        @endphp--}}
 {{--                        <div class="col-4 ColoumndataPersonal">{{$nric}}</div>--}}
-{{--                        <div class="w-100"></div>--}}
-{{--                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>--}}
-{{--                        @if (strlen($personal->Name) > 40)--}}
-{{--                            <div class="col-8 ColoumndataPersonal">--}}
-{{--                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>--}}
-{{--                                {{$personal->Name}}--}}
-{{--                                </textarea>--}}
-{{--                            </div>--}}
-{{--                        @else--}}
-{{--                            <div class="col-8 ColoumndataPersonal">{{$personal->Name}}</div>--}}
-{{--                        @endif--}}
+                        <div class="w-100"></div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        @if (strlen($personal->Name) > 40)
+                            <div class="col-8 ColoumndataPersonal">
+                                <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
+                                {{$personal->Name}}
+                                </textarea>
+                            </div>
+                        @else
+                            <div class="col-8 ColoumndataPersonal">{{$personal->Name}}</div>
+                        @endif
 
 
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-sm-0">--}}
-{{--                </div>--}}
+                    </div>
+                </div>
+                <div class="col-sm-0">
+                </div>
                 <br class="visible-xs hidden-md">
                 <div class="col-sm">
                     <div class="row">
@@ -226,15 +226,15 @@
         $( "#update_so" ).click(function() {
             if ($("input[name='declare']:checked").val() != undefined) {
                 if (New_Grade_Attained()) {
-                    if (New_Training_Records()) {
-                        if (Skill_Sets_Acquired()) {
+                    // if (New_Training_Records()) {
+                    //     if (Skill_Sets_Acquired()) {
                             $("#action_update_so").submit();
-                        } else {
-                            swal("Error!", " please select skill sets acquired.", "error");
-                        }
-                    } else {
-                        swal("Error!", " please select new training records.", "error");
-                    }
+                        // } else {
+                        //     swal("Error!", " please select skill sets acquired.", "error");
+                        // }
+                    // } else {
+                    //     swal("Error!", " please select new training records.", "error");
+                    // }
                 }else{
                     swal("Error!", " please select new grade attained.", "error");
                 }
