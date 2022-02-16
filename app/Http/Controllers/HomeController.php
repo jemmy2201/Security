@@ -1405,6 +1405,7 @@ class HomeController extends Controller
                 $get_grade = json_decode($booking_schedule->array_grade);
                 $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
                 if (!empty($request->Cgrades)) {
+
                     if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
 //                        die('s');
                         if ($request->app_type == news) {
@@ -1481,16 +1482,22 @@ class HomeController extends Controller
                         if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
 //                            die('s');
                             if ($request->app_type == news) {
+//                                die('1');
                                 if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
+//                                    die('1');
                                     $merge_grade = array_merge($get_grade,$take_grade);
                                 }else{
+//                                    die('2');
                                     if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
+//                                        die('1');
                                         foreach ($take_grade as $f) {
                                             $result = array_search("on", $take_grade);
                                             unset($take_grade[$result]);
                                         }
-                                        $merge_grade = array_merge($get_grade,$take_grade);
+                                        $merge_grade = array_values(array_unique(array_merge($get_grade,$request->Cgrades)));
+
                                     }else{
+//                                        die('2');
                                         $take_grade = [$request->Cgrades[0]];
                                         $merge_grade = array_merge($get_grade,$take_grade);
                                     }
@@ -1504,7 +1511,7 @@ class HomeController extends Controller
                                         $result = array_search("on", $take_grade);
                                         unset($take_grade[$result]);
                                     }
-                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                    $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
 
                                 }else{
 //                                        die('2');
@@ -1516,7 +1523,8 @@ class HomeController extends Controller
                                                 $result = array_search("on", $take_grade);
                                                 unset($take_grade[$result]);
                                             }
-                                            $merge_grade = array_merge($get_grade,$take_grade);
+//                                            $merge_grade = array_merge($get_grade,$take_grade);
+                                            $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
                                         }else{
 //                                            die('2');
                                             if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
@@ -1529,7 +1537,7 @@ class HomeController extends Controller
                                                             $result = array_search("on", $take_grade);
                                                             unset($take_grade[$result]);
                                                         }
-                                                        $merge_grade = array_merge($get_grade,$take_grade);
+                                                        $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
                                                     }else{
 //                                                        die('2');
                                                         $merge_grade = array_merge($get_grade,$take_grade);
@@ -1541,7 +1549,8 @@ class HomeController extends Controller
                                             }else{
 //                                                die('2');
                                                 unset($take_grade[1]);
-                                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                                $merge_grade = array_merge($get_grade,$take_grade);
+                                                $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
                                             }
                                         }
 
@@ -1556,10 +1565,18 @@ class HomeController extends Controller
                             if ($request->app_type == news) {
                                 $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
 //                                die(print_r(count($request->Cgrades)));
-                                $merge_grade = array_merge($get_grade,$take_grade);
-                                for ($x = 1; $x <= $different_value; $x++) {
-                                    array_pop($merge_grade);
+//                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                for ($x = 1; $x <= $different_value; $x++) {
+//                                    array_pop($merge_grade);
+//                                }
+                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                $merge_grade = json_decode($request->Cgrade[0]);
+                                foreach ($different_value as $f){
+                                    if (($key = array_search($f, $merge_grade)) !== false) {
+                                        unset($merge_grade[$key]);
+                                    }
                                 }
+                                $merge_grade = array_values($merge_grade);
                             }elseif ($request->app_type == replacement || $request->app_type == renewal) {
 //                                die('s');
                                 if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)){
@@ -1577,7 +1594,8 @@ class HomeController extends Controller
                                                     $result = array_search("on", $take_grade);
                                                     unset($take_grade[$result]);
                                                 }
-                                                $merge_grade = array_merge($get_grade,$take_grade);
+                                                $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
+
                                             }else{
 //                                            die('2');
                                                 if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
@@ -1590,12 +1608,22 @@ class HomeController extends Controller
                                                             $result = array_search("on", $take_grade);
                                                             unset($take_grade[$result]);
                                                         }
-                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-//                                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                                        $merge_grade = array_merge($get_grade, $take_grade);
-                                                        for ($x = 1; $x <= $different_value; $x++) {
-                                                            array_pop($merge_grade);
+//                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+////                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                        $merge_grade = array_merge($get_grade, $take_grade);
+//                                                        for ($x = 1; $x <= $different_value; $x++) {
+//                                                            array_pop($merge_grade);
+//                                                        }
+
+                                                        $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                        $merge_grade = json_decode($request->Cgrade[0]);
+                                                        foreach ($different_value as $f){
+                                                            if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                unset($merge_grade[$key]);
+                                                            }
                                                         }
+                                                        $merge_grade = array_values($merge_grade);
+
                                                     }else{
 //                                                        die('2');
                                                         if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
@@ -1604,70 +1632,102 @@ class HomeController extends Controller
 //                                                                die('1');
                                                                 if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
 //                                                                    die('1');
-                                                                    $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                    if ($different_values == 3){
-//                                                                        die('1');
-                                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                    }else{
-//                                                                        die('2');
-                                                                        $different_value = $different_values + count(json_decode($sertifikat->array_grade));
+//                                                                    $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                    if ($different_values == 3){
+////                                                                        die('1');
+//                                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                    }else{
+////                                                                        die('2');
+//                                                                        $different_value = $different_values + count(json_decode($sertifikat->array_grade));
+//                                                                    }
+//                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                    for ($x = 1; $x <= $different_value; $x++) {
+//                                                                        array_pop($merge_grade);
+//                                                                    }
+                                                                    $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                    $merge_grade = json_decode($request->Cgrade[0]);
+                                                                    foreach ($different_value as $f){
+                                                                        if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                            unset($merge_grade[$key]);
+                                                                        }
                                                                     }
-                                                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                                                    for ($x = 1; $x <= $different_value; $x++) {
-                                                                        array_pop($merge_grade);
-                                                                    }
+                                                                    $merge_grade = array_values($merge_grade);
                                                                 }else{
 //                                                                    die('2');
                                                                     if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
 //                                                                        die('1');
                                                                         if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
 //                                                                            die('1');
-                                                                            $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                            $different_value = "";
-                                                                            if ($different_values == 4){
-                                                                                $different_value == 1;
-                                                                            }else{
-                                                                                $different_value == $different_values;
+//                                                                            $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                            $different_value = "";
+//                                                                            if ($different_values == 4){
+//                                                                                $different_value == 1;
+//                                                                            }else{
+//                                                                                $different_value == $different_values;
+//                                                                            }
+//                                                                            foreach ($take_grade as $f) {
+//                                                                                $result = array_search("on", $take_grade);
+//                                                                                unset($take_grade[$result]);
+//                                                                            }
+//                                                                            $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                            array_pop($merge_grade);
+                                                                            $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                            $merge_grade = json_decode($request->Cgrade[0]);
+                                                                            foreach ($different_value as $f){
+                                                                                if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                    unset($merge_grade[$key]);
+                                                                                }
                                                                             }
-                                                                            foreach ($take_grade as $f) {
-                                                                                $result = array_search("on", $take_grade);
-                                                                                unset($take_grade[$result]);
-                                                                            }
-                                                                            $merge_grade = array_merge($get_grade,$take_grade);
-                                                                            array_pop($merge_grade);
+                                                                            $merge_grade = array_values($merge_grade);
                                                                         }else{
 //                                                                            die('2');
                                                                             if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
 //                                                                                die('1');
                                                                                 if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
 //                                                                                    die('1');
-                                                                                    $different_value = '';
-                                                                                    $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                                    if ($different_values == 4){
-                                                                                        $different_value == 1;
-                                                                                    }else{
-                                                                                        $different_value == $different_values;
+//                                                                                    $different_value = '';
+//                                                                                    $different_values = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                                    if ($different_values == 4){
+//                                                                                        $different_value == 1;
+//                                                                                    }else{
+//                                                                                        $different_value == $different_values;
+//                                                                                    }
+//                                                                                    foreach ($take_grade as $f) {
+//                                                                                        $result = array_search("on", $take_grade);
+//                                                                                        unset($take_grade[$result]);
+//                                                                                    }
+//                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                    array_pop($merge_grade);
+                                                                                    $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                                    $merge_grade = json_decode($request->Cgrade[0]);
+                                                                                    foreach ($different_value as $f){
+                                                                                        if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                            unset($merge_grade[$key]);
+                                                                                        }
                                                                                     }
-                                                                                    foreach ($take_grade as $f) {
-                                                                                        $result = array_search("on", $take_grade);
-                                                                                        unset($take_grade[$result]);
-                                                                                    }
-                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                                                                    array_pop($merge_grade);
+                                                                                    $merge_grade = array_values($merge_grade);
                                                                                 }else{
 //                                                                                    die('2');
                                                                                     if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
 //                                                                                        die('1');
                                                                                         if(count($take_grade) == 1){
-                                                                                            foreach ($take_grade as $f) {
-                                                                                                $result = array_search("on", $take_grade);
-                                                                                                unset($take_grade[$result]);
+//                                                                                            foreach ($take_grade as $f) {
+//                                                                                                $result = array_search("on", $take_grade);
+//                                                                                                unset($take_grade[$result]);
+//                                                                                            }
+//                                                                                            $merge_grade = array_merge($get_grade, $take_grade);
+//                                                                                            array_pop($merge_grade);
+                                                                                            $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                                            $merge_grade = json_decode($request->Cgrade[0]);
+                                                                                            foreach ($different_value as $f){
+                                                                                                if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                                    unset($merge_grade[$key]);
+                                                                                                }
                                                                                             }
-                                                                                            $merge_grade = array_merge($get_grade, $take_grade);
-                                                                                            array_pop($merge_grade);
+                                                                                            $merge_grade = array_values($merge_grade);
 
                                                                                         }else {
-                                                                                            $merge_grade = array_merge($get_grade, $take_grade);
+                                                                                            $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
                                                                                         }
 
                                                                                     }else{
@@ -1677,10 +1737,18 @@ class HomeController extends Controller
                                                                                             $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
                                                                                             if ($different_value == 2){
 //                                                                                            die('1');
-                                                                                                $merge_grade = array_merge($get_grade,$take_grade);
-                                                                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                    array_pop($merge_grade);
+//                                                                                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                                for ($x = 1; $x <= $different_value; $x++) {
+//                                                                                                    array_pop($merge_grade);
+//                                                                                                }
+                                                                                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                                                $merge_grade = json_decode($request->Cgrade[0]);
+                                                                                                foreach ($different_value as $f){
+                                                                                                    if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                                        unset($merge_grade[$key]);
+                                                                                                    }
                                                                                                 }
+                                                                                                $merge_grade = array_values($merge_grade);
                                                                                             }else{
 //                                                                                            die('2');
                                                                                                 foreach ($take_grade as $f) {
@@ -1688,33 +1756,44 @@ class HomeController extends Controller
                                                                                                     unset($take_grade[$result]);
                                                                                                 }
 //                                                                                        die(print_r($take_grade));
-                                                                                                $merge_grade = array_merge($get_grade, $take_grade);
+//                                                                                                $merge_grade = array_merge($get_grade, $take_grade);
+                                                                                                $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
+
                                                                                             }
                                                                                         }else{
 //                                                                                            die('2');
                                                                                             if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
 //                                                                                                die('1');
                                                                                                 if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
-                                                                                                    die('1');
-                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                                    die('1');
+//                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+                                                                                                    $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
                                                                                                 }else{
-                                                                                                    foreach ($take_grade as $f) {
-                                                                                                        $result = array_search("on", $take_grade);
-                                                                                                        unset($take_grade[$result]);
+//                                                                                                    foreach ($take_grade as $f) {
+//                                                                                                        $result = array_search("on", $take_grade);
+//                                                                                                        unset($take_grade[$result]);
+//                                                                                                    }
+//                                                                                                    if (count($request->Cgrades) == 3){
+//                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
+//                                                                                                    }elseif (count($request->Cgrades) == 2){
+//                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 3;
+//                                                                                                    }elseif (count($request->Cgrades) == 1){
+//                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
+//                                                                                                    }else{
+//                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                                                    }
+//                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                                    for ($x = 1; $x <= $different_value; $x++) {
+//                                                                                                        array_pop($merge_grade);
+//                                                                                                    }
+                                                                                                    $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                                                    $merge_grade = json_decode($request->Cgrade[0]);
+                                                                                                    foreach ($different_value as $f){
+                                                                                                        if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                                            unset($merge_grade[$key]);
+                                                                                                        }
                                                                                                     }
-                                                                                                    if (count($request->Cgrades) == 3){
-                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
-                                                                                                    }elseif (count($request->Cgrades) == 2){
-                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 3;
-                                                                                                    }elseif (count($request->Cgrades) == 1){
-                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - 4;
-                                                                                                    }else{
-                                                                                                        $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                                                    }
-                                                                                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                                                                                    for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                        array_pop($merge_grade);
-                                                                                                    }
+                                                                                                    $merge_grade = array_values($merge_grade);
                                                                                                 }
                                                                                             }else{
 //                                                                                                die('2');
@@ -1723,19 +1802,27 @@ class HomeController extends Controller
                                                                                                     unset($take_grade[$result]);
                                                                                                 }
 //                                                                                            die(print_r(count($request->Cgrades)));
-                                                                                                if (count($request->Cgrades) == 3){
-                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 4;
-                                                                                                }elseif (count($request->Cgrades) == 2){
-                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 3;
-                                                                                                }elseif (count($request->Cgrades) == 1){
-                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 2;
-                                                                                                }else{
-                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                                                if (count($request->Cgrades) == 3){
+//                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 4;
+//                                                                                                }elseif (count($request->Cgrades) == 2){
+//                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 3;
+//                                                                                                }elseif (count($request->Cgrades) == 1){
+//                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - 2;
+//                                                                                                }else{
+//                                                                                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                                                }
+//                                                                                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                                for ($x = 1; $x <= $different_value; $x++) {
+//                                                                                                    array_pop($merge_grade);
+//                                                                                                }
+                                                                                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                                                $merge_grade = json_decode($request->Cgrade[0]);
+                                                                                                foreach ($different_value as $f){
+                                                                                                    if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                                                        unset($merge_grade[$key]);
+                                                                                                    }
                                                                                                 }
-                                                                                                $merge_grade = array_merge($get_grade,$take_grade);
-                                                                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                    array_pop($merge_grade);
-                                                                                                }
+                                                                                                $merge_grade = array_values($merge_grade);
                                                                                             }
 
                                                                                         }
@@ -1748,7 +1835,9 @@ class HomeController extends Controller
                                                                                     $result = array_search("on", $take_grade);
                                                                                     unset($take_grade[$result]);
                                                                                 }
-                                                                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                                $merge_grade = array_merge($get_grade,$take_grade);
+                                                                                $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
+
                                                                             }
                                                                         }
 
@@ -1760,7 +1849,9 @@ class HomeController extends Controller
                                                                         }
                                                                         $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
                                                                         $different_value = $different_value -1;
-                                                                        $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                        $merge_grade = array_merge($get_grade,$take_grade);
+                                                                        $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
+
                                                                         for ($x = 1; $x <= $different_value; $x++) {
                                                                             array_pop($merge_grade);
                                                                         }
@@ -1771,11 +1862,19 @@ class HomeController extends Controller
 
                                                             }else{
 //                                                                die('2');
-                                                                $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                                                $merge_grade = array_merge($get_grade,$take_grade);
-                                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                                    array_pop($merge_grade);
+//                                                                $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                                                $merge_grade = array_merge($get_grade,$take_grade);
+//                                                                for ($x = 1; $x <= $different_value; $x++) {
+//                                                                    array_pop($merge_grade);
+//                                                                }
+                                                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                                $merge_grade = json_decode($request->Cgrade[0]);
+                                                                foreach ($different_value as $f){
+                                                                    if (($key = array_search($f, $merge_grade)) !== false) {
+                                                                        unset($merge_grade[$key]);
+                                                                    }
                                                                 }
+                                                                $merge_grade = array_values($merge_grade);
                                                             }
 
                                                         }else{
@@ -1784,7 +1883,9 @@ class HomeController extends Controller
                                                                 $result = array_search("on", $take_grade);
                                                                 unset($take_grade[$result]);
                                                             }
-                                                            $merge_grade = array_merge($get_grade, $take_grade);
+//                                                            $merge_grade = array_merge($get_grade, $take_grade);
+                                                            $merge_grade = array_values(array_unique(array_merge($get_grade,$take_grade)));
+
                                                         }
 
                                                     }
@@ -1796,12 +1897,20 @@ class HomeController extends Controller
                                                         unset($take_grade[$result]);
                                                     }
 
-                                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-//                                                die(print_r($different_value));
-                                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                                    for ($x = 1; $x <= $different_value; $x++) {
-                                                        array_pop($merge_grade);
+//                                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+////                                                die(print_r($different_value));
+//                                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                                    for ($x = 1; $x <= $different_value; $x++) {
+//                                                        array_pop($merge_grade);
+//                                                    }
+                                                    $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                                    $merge_grade = json_decode($request->Cgrade[0]);
+                                                    foreach ($different_value as $f){
+                                                        if (($key = array_search($f, $merge_grade)) !== false) {
+                                                            unset($merge_grade[$key]);
+                                                        }
                                                     }
+                                                    $merge_grade = array_values($merge_grade);
                                                 }
                                             }
 
@@ -1811,22 +1920,38 @@ class HomeController extends Controller
                                                 $result = array_search("on", $take_grade);
                                                 unset($take_grade[$result]);
                                             }
-                                            $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-                                            $merge_grade = array_merge($get_grade,$take_grade);
-                                            for ($x = 1; $x <= $different_value; $x++) {
-                                                array_pop($merge_grade);
+//                                            $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+//                                            $merge_grade = array_merge($get_grade,$take_grade);
+//                                            for ($x = 1; $x <= $different_value; $x++) {
+//                                                array_pop($merge_grade);
+//                                            }
+                                            $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                            $merge_grade = json_decode($request->Cgrade[0]);
+                                            foreach ($different_value as $f){
+                                                if (($key = array_search($f, $merge_grade)) !== false) {
+                                                    unset($merge_grade[$key]);
+                                                }
                                             }
+                                            $merge_grade = array_values($merge_grade);
                                         }
 
                                     }
                                 }else{
 //                                    die('2');
-                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
-//                                die(print_r($different_value));
-                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                    for ($x = 1; $x <= $different_value; $x++) {
-                                        array_pop($merge_grade);
+//                                    $different_value = count(json_decode($request->Cgrade[0])) - count($request->Cgrades);
+////                                die(print_r($different_value));
+//                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                    for ($x = 1; $x <= $different_value; $x++) {
+//                                        array_pop($merge_grade);
+//                                    }
+                                    $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+                                    $merge_grade = json_decode($request->Cgrade[0]);
+                                    foreach ($different_value as $f){
+                                        if (($key = array_search($f, $merge_grade)) !== false) {
+                                            unset($merge_grade[$key]);
+                                        }
                                     }
+                                    $merge_grade = array_values($merge_grade);
                                 }
                             }
                         }

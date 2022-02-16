@@ -277,7 +277,7 @@
                                     @elseif($f->display)
                                         <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
                                     @elseif($f->grade_not_payment)
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" checked>&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" checked>&ensp;&ensp; {{$f->name}}</li>
                                     @else
                                         <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
                                     @endif
