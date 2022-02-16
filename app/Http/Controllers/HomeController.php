@@ -452,8 +452,16 @@ class HomeController extends Controller
                 }
 
             }elseif ($request->app_type == replacement || $request->app_type == renewal){
-//                $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade);
-
+                $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),json_decode($array_grade),json_decode($booking_schedule->array_grade),count(json_decode($booking_schedule->array_grade)),json_decode($booking_schedule->array_grade),json_decode($array_grade),true);
+            }
+            $check_false_grade = array_search("false", json_decode($array_grade));
+//            die(print_r($check_false_grade));
+            if(!empty($check_false_grade) && $request->app_type == news){
+                $merge_array = null;
+            }elseif (!empty($check_false_grade) && $request->app_type == replacement || $request->app_type == renewal){
+                if (($key = array_search("false", $merge_array)) !== false) {
+                    unset($merge_array[$key]);
+                }
             }
             if (!$booking_schedule->Status_app == resubmission){
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
@@ -1093,7 +1101,7 @@ class HomeController extends Controller
                         if ($request->app_type == news) {
                             $merge_grade = array_merge($get_grade,$take_grade);
                         }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                            $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade);
+                            $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
                         }
                     }else{
                         if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
@@ -1114,7 +1122,7 @@ class HomeController extends Controller
 
                                 }
                             }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade);
+                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
                             }
                         }else{
                             if ($request->app_type == news) {
@@ -1127,8 +1135,7 @@ class HomeController extends Controller
                                 }
                                 $merge_grade = array_values($merge_grade);
                             }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade);
-
+                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
                             }
                         }
                     }
@@ -1142,9 +1149,11 @@ class HomeController extends Controller
         if($request->Cgrades[0] == "false" && $request->app_type == news){
             $merge_grade = null;
         }elseif ($request->Cgrades[0] == "false" && $request->app_type == replacement || $request->app_type == renewal){
-            $merge_grade = $merge_grade;
-
+            if (($key = array_search("false", $merge_grade)) !== false) {
+                unset($merge_grade[$key]);
+            }
         }
+
         if ($request->app_type == renewal){
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
@@ -1225,25 +1234,21 @@ class HomeController extends Controller
         return $booking_schedule;
     }
 
-    protected  function proses_grade($Count_array_sertifikat,$array_sertifikat,$Cgrades,$array_booking,$Count_array_booking,$get_grade,$take_grade)
+    protected  function proses_grade($Count_array_sertifikat,$array_sertifikat,$Cgrades,$array_booking,$Count_array_booking,$get_grade,$take_grade,$save_draft=false)
     {
         if ($Count_array_sertifikat == 1) {
             $sertifikat_merge = array_merge($array_sertifikat,$Cgrades);
             if (count($sertifikat_merge) >= $Count_array_booking){
 //                                         die("+");
-                if (!$take_grade[0] =="false") {
-                    $grade = $array_booking;
-                    unset($grade[0]);
-                    unset($grade[1]);
-                    if (count($array_booking) <= count($take_grade) && count($grade) != count($take_grade)) {
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    } else {
-                        array_pop($get_grade);
-                        array_pop($get_grade);
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    }
-                }else{
-                    $merge_grade = $get_grade;
+                $grade = $array_booking;
+                unset($grade[0]);
+                unset($grade[1]);
+                if (count($array_booking) <= count($take_grade) && count($grade) != count($take_grade)) {
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
+                } else {
+                    array_pop($get_grade);
+                    array_pop($get_grade);
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
                 }
             }else{
 //                                         die('-');
@@ -1273,18 +1278,14 @@ class HomeController extends Controller
             $sertifikat_merge = array_merge($array_sertifikat,$Cgrades);
             if (count($sertifikat_merge) >= $Count_array_booking){
 //                                         die("+");
-                if (!$take_grade[0] =="false") {
-                    $grade = $array_booking;
-                    unset($grade[0]);
-                    unset($grade[1]);
-                    if (count($grade) == count($take_grade)) {
-                        array_pop($get_grade);
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    } else {
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    }
-                }else{
-                    $merge_grade = $get_grade;
+                $grade = $array_booking;
+                unset($grade[0]);
+                unset($grade[1]);
+                if (count($grade) == count($take_grade)) {
+                    array_pop($get_grade);
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
+                } else {
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
                 }
             }else{
 //             die('-');
@@ -1304,18 +1305,14 @@ class HomeController extends Controller
             $sertifikat_merge = array_merge($array_sertifikat,$Cgrades);
             if (count($sertifikat_merge) >= $Count_array_booking){
 //                                         die("+");
-                if (!$take_grade[0] =="false") {
-                    $grade = $array_booking;
-                    unset($grade[0]);
-                    unset($grade[1]);
-                    if (count($grade) == count($take_grade)) {
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    } else {
-                        array_pop($get_grade);
-                        $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                    }
-                }else{
-                    $merge_grade = $get_grade;
+                $grade = $array_booking;
+                unset($grade[0]);
+                unset($grade[1]);
+                if (count($grade) == count($take_grade)) {
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
+                } else {
+                    array_pop($get_grade);
+                    $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
                 }
             }else{
 //                                         die('-');
@@ -1333,13 +1330,15 @@ class HomeController extends Controller
                 $merge_grade = array_values($merge_grade);
             }
         }elseif ($Count_array_sertifikat == 4) {
-            $sertifikat_merge = array_merge($array_sertifikat,$Cgrades);
+            if ($Cgrades[0] == "false"){
+                $sertifikat_merge = $array_sertifikat;
+            }else{
+                $sertifikat_merge = array_merge($array_sertifikat,$Cgrades);
+            }
             if (count($sertifikat_merge) >= $Count_array_booking){
-                if (!$take_grade[0] =="false") {
+//                die('+');
+
                     $merge_grade = array_values(array_unique(array_merge($get_grade, $take_grade)));
-                }else{
-                    $merge_grade = $get_grade;
-                }
             }else{
 //              die('-');
                 $grade = $array_booking ;
