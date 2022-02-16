@@ -414,6 +414,7 @@ class HomeController extends Controller
     {
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
+        $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
         if ($array_grade == false) {
             if (!$booking_schedule->Status_app == resubmission) {
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
@@ -425,334 +426,35 @@ class HomeController extends Controller
                     ]);
             }
         }else{
-            $temp_array_grade = json_decode($array_grade);
-            $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest()->first();
-            if ($request->app_type == news) {
-                if (is_null($booking_schedule->Status_app) && !$booking_schedule->Status_app == draft) {
-                    foreach ($temp_array_grade as $f) {
-                        $result = array_search("on", $temp_array_grade);
-                        $remove_false = array_search("false", $temp_array_grade);
-                        unset($temp_array_grade[$result]);
-                        unset($temp_array_grade[$remove_false]);
-//                        unset($temp_array_grade[$remove_zero]);
-                    }
-                }
-            }elseif($request->app_type == replacement || $request->app_type == renewal){
-                if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
-//                    die('s');
-                    if (isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-                            foreach ($temp_array_grade as $f) {
-                                $result = array_search("on", $temp_array_grade);
-                                $remove_false = array_search("false", $temp_array_grade);
-                                unset($temp_array_grade[$result]);
-                                unset($temp_array_grade[$remove_false]);
-                            }
-//                                    die(print_r($temp_array_grade));
-                    }
-                }
-            }
+            if ($request->app_type == news){
+//                die(print_r(json_decode($booking_schedule->array_grade)));
+//                die(print_r(json_decode($array_grade)));
+               if (count(json_decode($booking_schedule->array_grade)) <= count(json_decode($array_grade))){
+//                    die('+');
+                   $cek_false = array_search("false", json_decode($array_grade));
+//                   die(print_r($cek_false));
+                   if ($cek_false  == true) {
+                       $merge_array = json_decode($booking_schedule->array_grade);
+                   }else{
+                       $merge_array = json_decode($array_grade);
+                   }
 
-//            die(print_r($temp_array_grade));
-//            die(print_r($booking_schedule->array_grade));
-            if (!empty($booking_schedule->array_grade)) {
-//                die(print_r(count($temp_array_grade)));
-//                die(print_r(count(json_decode($booking_schedule->array_grade))));
-                if (count($temp_array_grade) == count(json_decode($booking_schedule->array_grade))) {
-//                    die('2');
-                    foreach ($temp_array_grade as $f) {
-                        $result = array_search("on", $temp_array_grade);
-                        $remove_false = array_search("false", $temp_array_grade);
-                        unset($temp_array_grade[$result]);
-                        unset($temp_array_grade[$remove_false]);
-                    }
-                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
                 }else{
-                    if ( count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)){
-//                        die('s');
-                        if ( count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                            die('1');
-                            $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                        }else {
-//                            die('2');
-                            if ( count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-                                for ($i = 1; $i <= 4; $i++) {
-                                    $result = array_search("on", $temp_array_grade);
-                                    unset($temp_array_grade[$result]);
-                                }
-                                $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                            }else{
-                                foreach ($temp_array_grade as $f) {
-                                    $result = array_search("on", $temp_array_grade);
-                                    $remove_false = array_search("false", $temp_array_grade);
-                                    unset($temp_array_grade[$result]);
-                                    unset($temp_array_grade[$remove_false]);
-                                }
-                                $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                            }
-
-                        }
-                    }else{
-                        if ($request->app_type == news) {
-                            $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-//                        die(print_r($different_value));
-//                        die(print_r(count($temp_array_grade)));
-//                        die(print_r(count(json_decode($booking_schedule->array_grade))));
-                            $merge_array = json_decode($booking_schedule->array_grade);
-//                        die(print_r($merge_array));
-                            for ($x = 1; $x <= $different_value; $x++) {
-                                array_pop($merge_array);
-                            }
-                        }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-//                                                    die(print_r(count($temp_array_grade)));
-//                        die(print_r(count(json_decode($booking_schedule->array_grade))));
-                            if (count(json_decode($booking_schedule->array_grade)) >= count($temp_array_grade)){
-                                if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-                                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                }else {
-                                    if (count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                                        die('1');
-                                        if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                            die('1');
-                                            $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                        }else{
-//                                            die('2');
-                                            if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                             die('1');
-                                                $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                $merge_array = json_decode($booking_schedule->array_grade);
-                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                    array_pop($merge_array);
-                                                }
-                                            }else{
-//                                                die('2');
-                                                if (count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                                                    die('1');
-                                                    if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                                        die('1');
-                                                        $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                        $merge_array = json_decode($booking_schedule->array_grade);
-                                                        for ($x = 1; $x <= $different_value; $x++) {
-                                                            array_pop($merge_array);
-                                                        }
-                                                    }else{
-//                                                        die('2');
-                                                        if (count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                                                            die('1');
-                                                            if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                                                die('1');
-                                                                $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                $merge_array = json_decode($booking_schedule->array_grade);
-                                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                                    array_pop($merge_array);
-                                                                }
-                                                            }else{
-//                                                                die('2');
-                                                                if (count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                                                                    die('1');
-                                                                    if (count(json_decode($booking_schedule->array_grade)) >=  count($temp_array_grade)) {
-//                                                                        die('1');
-                                                                        if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                                                            die('1');
-                                                                            $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                                        }else{
-//                                                                            die('2');
-                                                                            if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                                                                die('1');
-                                                                                $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                                $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                for ($x = 1; $x <= $different_value; $x++) {
-                                                                                    array_pop($merge_array);
-                                                                                }
-                                                                            }else{
-//                                                                                die('2');
-                                                                                if (count(json_decode($booking_schedule->array_grade)) <=  count($temp_array_grade)) {
-//                                                                                    die('1');
-                                                                                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                                                }else{
-//                                                                                    die('2');
-//                                                                                    die(print_r(count($temp_array_grade)));
-                                                                                     if (count($temp_array_grade)== 4){
-//                                                                                         die('1');
-                                                                                         foreach ($temp_array_grade as $f) {
-                                                                                             $result = array_search("on", $temp_array_grade);
-                                                                                             $remove_false = array_search("false", $temp_array_grade);
-                                                                                             unset($temp_array_grade[$result]);
-                                                                                             unset($temp_array_grade[$remove_false]);
-                                                                                         }
-                                                                                         if (empty($temp_array_grade)){
-                                                                                             $different_value = count(json_decode($booking_schedule->array_grade)) - 4;
-//                                                                                        die(print_r($different_value));
-                                                                                             $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                             for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                 array_pop($merge_array);
-                                                                                             }
-                                                                                         }else {
-                                                                                             $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                                             $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                             for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                 array_pop($merge_array);
-                                                                                             }
-                                                                                         }
-                                                                                     }elseif (count($temp_array_grade)== 3){
-//                                                                                         die('s');
-                                                                                        foreach ($temp_array_grade as $f) {
-                                                                                            $result = array_search("on", $temp_array_grade);
-                                                                                            $remove_false = array_search("false", $temp_array_grade);
-                                                                                            unset($temp_array_grade[$result]);
-                                                                                            unset($temp_array_grade[$remove_false]);
-                                                                                        }
-                                                                                        if (empty($temp_array_grade)){
-                                                                                            $different_value = count(json_decode($booking_schedule->array_grade)) - 3;
-//                                                                                        die(print_r($different_value));
-                                                                                            $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                            for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                array_pop($merge_array);
-                                                                                            }
-                                                                                        }else {
-                                                                                            $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                                            $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                            for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                array_pop($merge_array);
-                                                                                            }
-                                                                                        }
-                                                                                    }elseif (count($temp_array_grade)== 2){
-//                                                                                         die('s');
-                                                                                         foreach ($temp_array_grade as $f) {
-                                                                                             $result = array_search("on", $temp_array_grade);
-                                                                                             $remove_false = array_search("false", $temp_array_grade);
-                                                                                             unset($temp_array_grade[$result]);
-                                                                                             unset($temp_array_grade[$remove_false]);
-                                                                                         }
-                                                                                         if (empty($temp_array_grade)){
-                                                                                             $different_value = count(json_decode($booking_schedule->array_grade)) - 2;
-//                                                                                        die(print_r($different_value));
-                                                                                             $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                             for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                 array_pop($merge_array);
-                                                                                             }
-                                                                                         }else {
-//                                                                                             die('s');
-                                                                                             if (count(json_decode($booking_schedule->array_grade)) == 2 || count(json_decode($booking_schedule->array_grade)) == 3){
-//                                                                                                 die('1');
-                                                                                                 $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                                                             }else {
-                                                                                                 $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                                                 $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                                 for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                     array_pop($merge_array);
-                                                                                                 }
-                                                                                             }
-                                                                                         }
-                                                                                     }elseif (count($temp_array_grade)== 1){
-//                                                                                         die('s');
-                                                                                         foreach ($temp_array_grade as $f) {
-                                                                                             $result = array_search("on", $temp_array_grade);
-                                                                                             $remove_false = array_search("false", $temp_array_grade);
-                                                                                             unset($temp_array_grade[$result]);
-                                                                                             unset($temp_array_grade[$remove_false]);
-                                                                                         }
-                                                                                         if (empty($temp_array_grade)){
-                                                                                             $different_value = count(json_decode($booking_schedule->array_grade)) - 1;
-//                                                                                        die(print_r($different_value));
-                                                                                             $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                             for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                 array_pop($merge_array);
-                                                                                             }
-                                                                                         }else {
-//                                                                                             die(print_r(count(json_decode($booking_schedule->array_grade))));
-                                                                                             if (count(json_decode($booking_schedule->array_grade)) == 2 || count(json_decode($booking_schedule->array_grade)) == 3 || count(json_decode($booking_schedule->array_grade)) == 4){
-//                                                                                                 die('1');
-                                                                                                 $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                                                             }else{
-//                                                                                                 die('2');
-                                                                                                 $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-                                                                                                 $merge_array = json_decode($booking_schedule->array_grade);
-                                                                                                 for ($x = 1; $x <= $different_value; $x++) {
-                                                                                                     array_pop($merge_array);
-                                                                                                 }
-                                                                                             }
-
-                                                                                         }
-                                                                                     }else{
-//                                                                                         die('2');
-                                                                                         $merge_array = array_merge(json_decode($booking_schedule->array_grade));
-                                                                                     }
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                    }else{
-//                                                                        die('2');
-                                                                        $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                                                        $merge_array = json_decode($booking_schedule->array_grade);
-                                                                        for ($x = 1; $x <= $different_value; $x++) {
-                                                                            array_pop($merge_array);
-                                                                        }
-                                                                    }
-
-                                                                }else{
-//                                                                    die('2');
-                                                                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                                }
-                                                            }
-
-                                                        }else{
-//                                                            die('2');
-                                                            $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                        }
-                                                    }
-
-                                                }else{
-//                                                    die('2');
-                                                    $merge_array = array_merge(json_decode($booking_schedule->array_grade), $temp_array_grade);
-                                                }
-                                            }
-
-                                        }
-
-                                    }else{
-//                                        die('2');
-                                        $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-
-                                        $merge_array = json_decode($booking_schedule->array_grade);
-                                        for ($x = 1; $x <= $different_value; $x++) {
-                                            array_pop($merge_array);
-                                        }
-                                    }
-//                                   die(print_r($merge_array));
-                                }
-                            }else{
-//                                    die('2');
-                                $different_value = count(json_decode($booking_schedule->array_grade)) - count($temp_array_grade);
-//                                die(print_r($different_value));
-                                $merge_array = json_decode($booking_schedule->array_grade);
-//                                die(print_r($merge_array));
-
-                                for ($x = 1; $x <= $different_value; $x++) {
-                                    array_pop($merge_array);
-                                }
-                            }
+//                    die('-');
+                    $different_value = array_diff(array_map('trim', json_decode($booking_schedule->array_grade)), json_decode($array_grade));
+                    $merge_grade = json_decode($booking_schedule->array_grade);
+                    foreach ($different_value as $f) {
+                        if (($key = array_search($f, $merge_grade)) !== false) {
+                            unset($merge_grade[$key]);
                         }
                     }
+                    $merge_array = array_values($merge_grade);
                 }
-            }else{
-                $merge_array = json_decode($array_grade);
-            }
 
-            if (empty($merge_array)){
-                $merge_array = null;
-            }else{
-                $merge_array = json_encode($merge_array);
+            }elseif ($request->app_type == replacement || $request->app_type == renewal){
+//                $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade);
+
             }
-//            die(print_r(json_encode($merge_array)));
             if (!$booking_schedule->Status_app == resubmission){
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                     ->update([
