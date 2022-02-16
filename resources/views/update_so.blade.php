@@ -28,8 +28,9 @@
                     <div class="row">
                         <div class="col-0 HeaderdataPersonal">NRIC / FIN &ensp;:</div>
                         @php
-                            $cutnric = substr(secret_decode($personal->NRIC), -4);
-                            $nric = "XXXXX$cutnric";
+                           // $cutnric = substr(secret_decode($personal->NRIC), -4);
+                           // $nric = "XXXXX$cutnric";
+                            $nric = $personal->NRIC;
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
@@ -225,7 +226,7 @@
         }
         $( "#update_so" ).click(function() {
             if ($("input[name='declare']:checked").val() != undefined) {
-                if (New_Grade_Attained()) {
+                // if (New_Grade_Attained()) {
                     // if (New_Training_Records()) {
                     //     if (Skill_Sets_Acquired()) {
                             $("#action_update_so").submit();
@@ -235,9 +236,9 @@
                     // } else {
                     //     swal("Error!", " please select new training records.", "error");
                     // }
-                }else{
-                    swal("Error!", " please select new grade attained.", "error");
-                }
+                // }else{
+                //     swal("Error!", " please select new grade attained.", "error");
+                // }
             }else{
                 swal("Error!", " Please acknowledge declaration.", "error");
             }
