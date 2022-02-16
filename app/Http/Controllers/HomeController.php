@@ -322,18 +322,19 @@ class HomeController extends Controller
                         }
                     }
                 }
-
-                if (!empty($grade_not_payment)){
-                    foreach ($grade_not_payment as $index2 => $i) {
-                        if ($f->id == $i) {
-                            $take_grades[$index]->grade_not_payment = true;
-                            $take_grades[$index]->take_grade = false;
+                if (count(json_decode($take_grade_sertifikat->array_grade)) !== count(json_decode($selected_grade->array_grade))) {
+                    if (!empty($grade_not_payment)) {
+                        foreach ($grade_not_payment as $index2 => $i) {
+                            if ($f->id == $i) {
+                                $take_grades[$index]->grade_not_payment = true;
+                                $take_grades[$index]->take_grade = false;
+                            }
                         }
                     }
                 }
-
             }
         }
+//        dd($take_grades);
         // end take grade (new design)
         $t_grade = t_grade::get();
         $resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card, 'Status_app' => resubmission])->first();
