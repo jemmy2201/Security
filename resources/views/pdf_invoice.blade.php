@@ -237,7 +237,7 @@
             <div class="column-right">{{$nric}}</div>
             <div class="column-right-center">:</div>
             <div class="column-right-left">Pass ID No</div>
-            <div class="column-right-right">{{$courses->passid}}</div>
+            <div class="column-right-right">{{substr($courses->passid, 0, -2)}}</div>
             <br>
             <div class="column-center">:</div>
             <div class="column-left">Name</div>
@@ -423,7 +423,7 @@
                 3.Ensure the reference number and amount provided on this page is displaying in banking app and proceed to submit.
                 </div>
                 <div>
-                4.Once your Paynow transaction has been successfull, USE will process with your application.
+                4.Once your Paynow transaction has been successful, USE will process with your application.
                 </div>
             </div>
             @endif
