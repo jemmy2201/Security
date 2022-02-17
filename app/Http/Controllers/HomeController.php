@@ -209,6 +209,7 @@ class HomeController extends Controller
         $Cgrades = json_decode($urldecode_Cgrades);
         $Val_Cgrades = json_decode($urldecode_Cgrades);
         $request->merge(['app_type' => $app_type,'card' => $card,'Cgrades' => $Cgrades]);
+
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $remove_grade []="";
         $temp_array_grade= json_decode($booking_schedule->array_grade);
@@ -322,7 +323,16 @@ class HomeController extends Controller
                         }
                     }
                 }
-                if (count(json_decode($take_grade_sertifikat->array_grade)) !== count(json_decode($selected_grade->array_grade))) {
+                if ($request->Cgrades[0] == false || $request->app_type == news ) {
+                    if (!empty($grade_not_payment)) {
+                        foreach ($grade_not_payment as $index2 => $i) {
+                            if ($f->id == $i) {
+                                $take_grades[$index]->grade_not_payment = true;
+                                $take_grades[$index]->take_grade = false;
+                            }
+                        }
+                    }
+                }elseif(!empty($take_grade_sertifikat)  && count(json_decode($take_grade_sertifikat->array_grade)) !== count(json_decode($selected_grade->array_grade))){
                     if (!empty($grade_not_payment)) {
                         foreach ($grade_not_payment as $index2 => $i) {
                             if ($f->id == $i) {
