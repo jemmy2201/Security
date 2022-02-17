@@ -10,6 +10,7 @@ class SoQueryController extends Controller
     public function soquery($passid)
     {
         $soquery=DB::connection('usesocard')->table('use_so_card')->where(['PassID'=>$passid])->first();
+        die(print_r($soquery));
         return view('soquery')->with(["soquery" => $soquery]);
     }
 }
