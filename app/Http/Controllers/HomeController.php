@@ -1646,7 +1646,7 @@ class HomeController extends Controller
         }else{
             $SKILL_COSEM = null;
         }
-        $update_grade = so_update_info::where(['nric' => Auth::user()->nric])
+        $update_grade = so_update_info::where(['PassID' => $request->PassID])
             ->update([
                 'New_Grade' => $request->New_Grade,
 
