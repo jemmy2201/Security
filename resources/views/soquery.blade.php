@@ -124,7 +124,7 @@
 {{--Phone--}}
 <div class="visible-xs hidden-md">
     <div class="col-12">
-        <h3><b>SECURITY OFFICER'S INFO</b></h3>
+        <h3 style="color: white;"><b>SECURITY OFFICER'S INFO</b></h3>
         <div class="row">
             <div class="col-6"style="text-align: left"><h4><b>NAME<span style="margin-left: 101px;">:</span></b></h4></div>
             <div class="col-6" style="color: white;"><h4>{{$soquery->Name}}</h4></div>
