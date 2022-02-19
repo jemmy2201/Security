@@ -6,7 +6,7 @@
 </style
 @section('content')
 {{--Dekstop--}}
-<div class="hidden-xs">
+<div class="hidden-xs" style="font-family: futura-lt-w01-book,sans-serif">
     <div class="col-8">
         <h1 style="color: white;"><b>SECURITY OFFICER'S INFO</b></h1>
         <div class="row">
