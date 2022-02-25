@@ -25,38 +25,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
-        {{--  Scroll  --}}
-        /* width */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        {{--  End Scroll  --}}
         body, html {
             height: 100%;
             margin: 0;
+            background-color: #818286;
         }
 
         #app {
             /* The image used */
-            background-image: url("img/login_background.jpg");
+            /*background-image: url("img/login_background.jpg");*/
 
             /* Full height */
-            height: 100%;
 
             /* Center and scale the image nicely */
             background-position: center;
@@ -66,6 +46,12 @@
         .navbar{
             margin-bottom: 0px;
             border-radius: 0px;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
         }
     </style>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -132,17 +118,19 @@
 {{--        </nav>--}}
         <main class="py-4">
             @yield('content')
+
         </main>
+
     </div>
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start" style="border-style: groove; background: white; ">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: #FFFFFF">
-            Copyright © @php echo date("Y")@endphp
-            <a class="text-dark" href="https://mdbootstrap.com/">Union of Security Employees. All rights reserved.</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+<!-- Footer -->
+            <footer class="footer bg-light text-center text-lg-start" style="border-style: groove; background: white; ">
+                <!-- Copyright -->
+                <div class="text-center p-3" style="background-color: #FFFFFF">
+                    Copyright © @php echo date("Y")@endphp
+                    <a class="text-dark" href="https://mdbootstrap.com/">Union of Security Employees. All rights reserved.</a>
+                </div>
+                <!-- Copyright -->
+            </footer>
+<!-- Footer -->
 </body>
 </html>

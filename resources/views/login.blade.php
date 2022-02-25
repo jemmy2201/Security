@@ -27,8 +27,8 @@
 
                         <ul class="nav nav-tabs">
                             @if(detect_url() == URLUat || detect_url() == LocalHost)
-                            <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
-                            <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
+                                <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
+                                <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
                             @endif
                         </ul>
 
@@ -84,6 +84,12 @@
                                 </center>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-4"  >
+
+                    </div>
+                    <div class="col-sm-4"  >
+                         <img src="{{URL::asset('/img/logo2.png')}}" class="hidden-xs" style="width: 60%;margin-top: 80px;" >
                     </div>
 
                 </div>
