@@ -89,7 +89,7 @@
 
                     </div>
                     <div class="col-sm-4"  >
-                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 15px;" >
+                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 52px;" >
                     </div>
 
                 </div>
