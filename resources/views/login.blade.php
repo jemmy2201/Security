@@ -85,11 +85,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4"  >
+                    <div class="col-sm-2"  >
 
                     </div>
                     <div class="col-sm-4"  >
-                         <img src="{{URL::asset('/img/logo2.png')}}" class="hidden-xs" style="width: 60%;margin-top: 80px;" >
+                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 15px;" >
                     </div>
 
                 </div>
