@@ -145,7 +145,7 @@
         $( document ).ready(function() {
             if (document.location.pathname.indexOf({!!  json_encode(login_dummy) !!}) == 0) {
                 var imageUrl ="/img/login_background.jpg";
-                $("#app").css("background-image", "url(" + imageUrl + ")");
+                // $("#app").css("background-image", "url(" + imageUrl + ")");
             }else if(!document.location.pathname.indexOf({!!  json_encode(cek_pathname) !!}) == 0 ){
                 window.location.href = '/qrcode';
             }
