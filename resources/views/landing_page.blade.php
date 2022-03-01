@@ -334,9 +334,9 @@
                 <input class="form-check-input" type="checkbox"  id="PWM" value="" disabled><b>&ensp;&ensp;&ensp;New PWM SO Grade/Courses Attended</b>
             @endif
         </div>
-        <div class="row">
-            <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;Notifications</b>
-        </div>
+{{--        <div class="row">--}}
+{{--            <input class="form-check-input" type="checkbox" name="" id="" value="" ><b>&ensp;&ensp;&ensp;Notifications</b>--}}
+{{--        </div>--}}
     </div>
 {{--End revisi 2 design--}}
 
