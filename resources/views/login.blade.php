@@ -23,14 +23,15 @@
 {{--                        <br>--}}
 {{--                    </div>--}}
 {{--                    <div class="col-sm-2"></div>--}}
-                    <div class="col-sm-4"  style="border-style: groove; background: white; margin-top: 40px;">
-
-                        <ul class="nav nav-tabs">
-                            @if(detect_url() == URLUat || detect_url() == LocalHost)
+                        @if(detect_url() == URLUat || detect_url() == LocalHost)
+                            <div class="col-sm-4"  style="border-style: groove; background: white; margin-top: 40px;">
+                            <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#scan">Singpass app</a></li>
                                 <li><a data-toggle="tab" href="#passlogin">Password login</a></li>
-                            @endif
-                        </ul>
+                            </ul>
+                        @else
+                            <div class="col-sm-4"  style=" margin-top: 40px;">
+                        @endif
 
                         <div class="tab-content">
                             <div id="passlogin" class="tab-pane fade ">
@@ -85,14 +86,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-4"  >
+                    <div class="col-sm-3"  style="text-align: center;">
                          <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 42px;" >
                     </div>
-                    <div class="col-sm-2"  >
+                    <div class="col-sm-3"  >
                     </div>
                     <div class="col-sm-2"  style="text-align: center;">
-                        <h2 style="color: white;border: 2px solid white;width: 85px;font-family:courier,arial,helvetica;">FAQs</h2>
+                        <h2 style="color: white;border: 1px solid white;width: 85px;font-family:courier,arial,helvetica;">FAQs</h2>
                     </div>
 
                 </div>
