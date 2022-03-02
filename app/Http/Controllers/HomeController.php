@@ -440,30 +440,39 @@ class HomeController extends Controller
             if ($request->app_type == news){
 //                die(print_r(json_decode($booking_schedule->array_grade)));
 //                die(print_r(json_decode($array_grade)));
-               if (count(json_decode($booking_schedule->array_grade)) <= count(json_decode($array_grade))){
-//                    die('+');
-                   $cek_false = array_search("false", json_decode($array_grade));
-//                   die(print_r($cek_false));
-                   if ($cek_false  == true) {
-                       $merge_array = json_decode($booking_schedule->array_grade);
-                   }else{
-                       $merge_array = json_decode($array_grade);
-                   }
+                if (isset($array_grade) && isset($booking_schedule->array_grade)) {
 
-                }else{
-//                    die('-');
-                    $different_value = array_diff(array_map('trim', json_decode($booking_schedule->array_grade)), json_decode($array_grade));
-                    $merge_grade = json_decode($booking_schedule->array_grade);
-                    foreach ($different_value as $f) {
-                        if (($key = array_search($f, $merge_grade)) !== false) {
-                            unset($merge_grade[$key]);
+                    if (isset($array_grade) && isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <= count(json_decode($array_grade))) {
+//                    die('+');
+                        $cek_false = array_search("false", json_decode($array_grade));
+//                   die(print_r($cek_false));
+                        if ($cek_false == true) {
+                            $merge_array = json_decode($booking_schedule->array_grade);
+                        } else {
+                            $merge_array = json_decode($array_grade);
                         }
+
+                    } else {
+//                    die('-');
+                        $different_value = array_diff(array_map('trim', json_decode($booking_schedule->array_grade)), json_decode($array_grade));
+                        $merge_grade = json_decode($booking_schedule->array_grade);
+                        foreach ($different_value as $f) {
+                            if (($key = array_search($f, $merge_grade)) !== false) {
+                                unset($merge_grade[$key]);
+                            }
+                        }
+                        $merge_array = array_values($merge_grade);
                     }
-                    $merge_array = array_values($merge_grade);
+                }else{
+                    $merge_array =null;
                 }
 
             }elseif ($request->app_type == replacement || $request->app_type == renewal){
-                $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),json_decode($array_grade),json_decode($booking_schedule->array_grade),count(json_decode($booking_schedule->array_grade)),json_decode($booking_schedule->array_grade),json_decode($array_grade),true);
+                if (isset($sertifikat->array_grade) && isset($booking_schedule->array_grade) && isset($array_grade)) {
+                    $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)), json_decode($sertifikat->array_grade), json_decode($array_grade), json_decode($booking_schedule->array_grade), count(json_decode($booking_schedule->array_grade)), json_decode($booking_schedule->array_grade), json_decode($array_grade), true);
+                }else{
+                    $merge_array =null;
+                }
             }
             $check_false_grade = array_search("false", json_decode($array_grade));
 //            die(print_r($check_false_grade));
