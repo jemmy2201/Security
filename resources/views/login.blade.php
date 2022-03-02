@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="col-sm-3"  style="text-align: center;">
-                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 42px;" >
+                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" >
                     </div>
                     <div class="col-sm-3"  >
                     </div>
