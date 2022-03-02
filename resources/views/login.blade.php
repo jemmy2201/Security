@@ -85,11 +85,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2"  >
 
-                    </div>
                     <div class="col-sm-4"  >
                          <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 42px;" >
+                    </div>
+                    <div class="col-sm-2"  >
+                    </div>
+                    <div class="col-sm-2"  style="text-align: center;">
+                        <h2 style="color: white;border: 2px solid white;width: 85px;font-family:courier,arial,helvetica;">FAQs</h2>
                     </div>
 
                 </div>
