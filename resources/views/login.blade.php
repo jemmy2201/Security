@@ -91,8 +91,9 @@
                     </div>
                     <div class="col-sm-3"  >
                     </div>
-                    <div class="col-sm-2"  style="text-align: center;">
-                        <h2 style="color: white;border: 1px solid white;width: 85px;font-family:courier,arial,helvetica;">FAQs</h2>
+                    <div class="col-sm-2 hidden-xs" style="position: absolute;
+    margin-left: 1000px">
+                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>
                     </div>
 
                 </div>
