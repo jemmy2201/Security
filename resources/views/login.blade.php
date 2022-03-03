@@ -91,8 +91,9 @@
                     </div>
                     <div class="col-sm-3"  >
                     </div>
-                    <div class="col-sm-2 hidden-xs" style="position: absolute;margin-left: 1020px">
-                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>
+                    <div class="col-sm-2" style="text-align: end;" >
+{{--                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>--}}
+                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">
                     </div>
 
                 </div>
