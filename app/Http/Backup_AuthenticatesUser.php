@@ -64,7 +64,7 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-//                $encode = secret_encode("S1718365F");
+//                $encode = secret_encode("S0221002N");
 //                $decode = secret_decode($encode);
 //                die($encode);
                 // dummy api
@@ -74,7 +74,7 @@ trait AuthenticatesUsers
                     $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                         ->where('users.nric', secret_encode( $request->singpass_id ))->get();
                     foreach ($data as $f) {
-                        if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                        if ($f->card_id == so && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                             return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
                         }elseif ($f->card_issue == n_card_issue){
                             return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);

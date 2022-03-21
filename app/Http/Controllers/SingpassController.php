@@ -445,7 +445,7 @@ class SingpassController extends Controller
 
             if(count($existingUser) > 0) {
                 foreach ($existingUser as $f) {
-                    if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                    if ($f->card_id == so && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                         return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
                     }elseif ($f->card_issue == n_card_issue){
                         return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
