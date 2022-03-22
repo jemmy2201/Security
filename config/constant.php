@@ -197,7 +197,7 @@ define('secretKeyEnetsUat', "6b06f0b3-dd78-4e5e-9efd-cb12ac488537");
 define('secretIDEnetsUat', "43074426-5e54-41cf-8195-62b8d93c53da");
 define('netsMidUat', "UMID_828259000");
 define('Merchant_server_IP_AddressUat', "127.0.0.1");
-define('s2sTxnEndURLUat', "https://www.idx-id2021.com/api/s2sTxnEndURL");
+define('s2sTxnEndURLUat', "http://www.idx-id2021.com/api/s2sTxnEndURL");
 define('b2sTxnEndURLUat', "https://www.idx-id2021.com/api/b2sTxnEndURL");
 // End Uat
 
