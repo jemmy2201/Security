@@ -74,8 +74,23 @@ trait AuthenticatesUsers
                     $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                         ->where('users.nric', secret_encode( $request->singpass_id ))->get();
                     foreach ($data as $f) {
-                        if ($f->card_id == so && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+                        if ($f->card_id == so_app && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                            $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+                                ->where(function ($query) {
+                                    $query->where(['booking_schedules.card_id'=>avso_app])
+                                        ->orWhere(['booking_schedules.card_id'=>pi_app]);
+                                })->where(['users.nric'=> secret_encode( $request->singpass_id )])->get();
+                            if (count($cek_avso_PI) == 0){
+                                return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+                            }else{
+                                foreach ($cek_avso_PI as $f) {
+                                    if ($f->card_issue == n_card_issue){
+                                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+                                    }else{
+                                        $data = User::where('nric', secret_encode($request->singpass_id))->first();
+                                    }
+                                }
+                            }
                         }elseif ($f->card_issue == n_card_issue){
                             return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
                         }else{
