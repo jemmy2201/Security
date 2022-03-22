@@ -192,12 +192,12 @@ define('b2sTxnEndURLLocal', "http://localhost:8000/api/b2sTxnEndURL");
 // End LOcal Host
 
 // Uat
-define('ApiurlEnetsUat', "https://www2.enets.sg/GW2/TxnReqListenerToHost");
-define('secretKeyEnetsUat', "6b06f0b3-dd78-4e5e-9efd-cb12ac488537");
-define('secretIDEnetsUat', "43074426-5e54-41cf-8195-62b8d93c53da");
-define('netsMidUat', "UMID_828259000");
+define('ApiurlEnetsUat', "https://uat2.enets.sg/GW2/TxnReqListenerToHost");
+define('secretKeyEnetsUat', "b747c80c-7f3d-481b-9f94-f42e0aff8ffb");
+define('secretIDEnetsUat', "a2ff775e-5a06-419b-bc8b-58c1087ce128");
+define('netsMidUat', "UMID_837852000");
 define('Merchant_server_IP_AddressUat', "127.0.0.1");
-define('s2sTxnEndURLUat', "http://www.idx-id2021.com/api/s2sTxnEndURL");
+define('s2sTxnEndURLUat', "https://www.idx-id2021.com/api/s2sTxnEndURL");
 define('b2sTxnEndURLUat', "https://www.idx-id2021.com/api/b2sTxnEndURL");
 // End Uat
 
@@ -206,8 +206,8 @@ define('ApiurlEnetsProd', "https://www2.enets.sg/GW2/TxnReqListenerToHost");
 define('secretKeyEnetsProd', "6b06f0b3-dd78-4e5e-9efd-cb12ac488537");
 define('secretIDEnetsProd', "43074426-5e54-41cf-8195-62b8d93c53da");
 define('netsMidProd', "UMID_828259000");
-define('Merchant_server_IP_AddressProd', "54.179.69.238");
-define('s2sTxnEndURLProd', "https://www.iduse.org.sg/api/s2sTxnEndURL");
+define('Merchant_server_IP_AddressProd', "127.0.0.1");
+define('s2sTxnEndURLProd', "http://www.iduse.org.sg/api/s2sTxnEndURL");
 define('b2sTxnEndURLProd', "https://www.iduse.org.sg/api/b2sTxnEndURL");
 //define('b2sTxnEndURL', "http://localhost:8000/api/b2sTxnEndURL");
 //End Prod
