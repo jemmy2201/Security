@@ -50,7 +50,6 @@ class EnetsController extends Controller
 
             return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
         }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == paid) {
-
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
                 ->update([
