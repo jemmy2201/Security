@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Route;
+use Log;
 
 class EnetsController extends Controller
 {
@@ -25,6 +26,7 @@ class EnetsController extends Controller
     {
         $jsonmsg = urldecode($request->message);
         $jsonarr = json_decode($jsonmsg);
+        file_put_contents('./log_enets_success/log_' . date("j.n.Y") . '.log', serialize($jsonarr), FILE_APPEND);
         if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == success) {
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
