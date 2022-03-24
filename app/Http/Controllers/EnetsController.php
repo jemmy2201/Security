@@ -26,7 +26,7 @@ class EnetsController extends Controller
     {
         $jsonmsg = urldecode($request->message);
         $jsonarr = json_decode($jsonmsg);
-        file_put_contents('./log_enets_success/log_' . date("j.n.Y") . '.log', serialize($jsonarr), FILE_APPEND);
+        file_put_contents('./log_enets/log_' . date("j.n.Y") . '.log', serialize($jsonarr), FILE_APPEND);
         if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == success) {
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
@@ -56,10 +56,10 @@ class EnetsController extends Controller
                     'paymentby' => "Enets",
                     'status_payment' => unpaid,
                     'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
-                    'netstxnref' => $jsonarr->msg->netsTxnRef,
+//                    'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'stagerespcode' => $jsonarr->msg->stageRespCode,
                 ]);
-            return redirect()->route('home');
+//            return redirect()->route('home');
         }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == C4) {
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
