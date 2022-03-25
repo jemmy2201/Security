@@ -56,7 +56,11 @@
     </style>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
+    {{--Popup Alert--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{--End Popup Alert--}}
 </head>
 <body onload="init()">
 {{--<nav class="navbar navbar-dark bg-dark">--}}
@@ -100,8 +104,8 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto pull-right" style="margin-right: -94px;">
                 <li class="nav-item">
-                    <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;+65 6381 9150 (General Office) &nbsp;&nbsp; +65 6291 5145 (CSC) </i><br>
-                    <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;use-idcard@ntuc.org.sg</i>
+                    <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i><br>
+                    <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{email}}</i>
                 </li>
             </ul>
         </div>

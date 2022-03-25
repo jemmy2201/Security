@@ -108,6 +108,15 @@
         }
     @endphp
     <script>
+        $( document ).ready(function() {
+            setTimeout(RefreshPage, 900000);
+            function RefreshPage() {
+                swal("Login time out!", "Please click ok to log back in!", "info");
+                setTimeout(window.location.reload(), 10000);
+            }
+
+        });
+
         // Barcode
         async function init() {
             const authParamsSupplier = async () => {
