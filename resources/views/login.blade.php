@@ -145,8 +145,7 @@
     @endphp
     <script>
         $( document ).ready(function() {
-            // setTimeout(RefreshPage, 900000);
-            setTimeout(RefreshPage, 10000);
+            setTimeout(RefreshPage, 900000);
             function RefreshPage() {
                 $( "#action_modal_re_login" ).trigger( "click" );
                 // swal("Login time out!", "Please click ok to log back in!", "info");
