@@ -1,5 +1,13 @@
 @extends('layouts.app_login')
-
+<style>
+    .modal-header{
+        background: red;
+    }
+    .modal-footer {
+        display: flow-root !important;
+        text-align: center !important;
+    }
+</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -100,6 +108,34 @@
             </div>
         </div>
     </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="action_modal_re_login" data-toggle="modal" data-target="#modal_re_login" hidden>
+
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Session Logged Out/Time-Out</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <h4>
+                            <i class="fa fa-refresh" aria-hidden="true"></i> <b>You have logged out or your session has timeout</b>
+                        </h4>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="relogin">Re-Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @php
         if (detect_url() == URLUat){
                echo '<script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>';
@@ -109,12 +145,15 @@
     @endphp
     <script>
         $( document ).ready(function() {
-            setTimeout(RefreshPage, 900000);
+            // setTimeout(RefreshPage, 900000);
+            setTimeout(RefreshPage, 10000);
             function RefreshPage() {
-                swal("Login time out!", "Please click ok to log back in!", "info");
-                setTimeout(window.location.reload(), 10000);
+                $( "#action_modal_re_login" ).trigger( "click" );
+                // swal("Login time out!", "Please click ok to log back in!", "info");
             }
-
+            $( "#relogin" ).click(function() {
+                setTimeout(window.location.reload(), 10000);
+            });
         });
 
         // Barcode

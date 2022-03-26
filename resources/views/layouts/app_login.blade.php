@@ -61,6 +61,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{--End Popup Alert--}}
+
+    {{--Fa fa--}}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    {{--End Fa fa--}}
 </head>
 <body onload="init()">
 {{--<nav class="navbar navbar-dark bg-dark">--}}
