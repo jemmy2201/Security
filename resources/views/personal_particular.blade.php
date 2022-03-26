@@ -68,7 +68,7 @@
     {{-- Desktop --}}
     <div class="row hidden-xs">
         <div class="col-4 HeaderdataPersonal " >
-            My Mobile No : {{substr($personal->mobileno, 2)}}
+           <b> My Mobile No : {{substr($personal->mobileno, 2)}} </b>
 {{--            <input type="number" id="view_mobileno" name="view_mobileno" class="form-control hidden-xs"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>--}}
         </div>
     </div><br class="hidden-xs">
@@ -140,7 +140,7 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                My Mobile No : {{substr($personal->mobileno, 2)}}
+               <b> My Mobile No : {{substr($personal->mobileno, 2)}}</b>
 {{--                <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>--}}
             </div>
         </div><br class="visible-xs hidden-md">
