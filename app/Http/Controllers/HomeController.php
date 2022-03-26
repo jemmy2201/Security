@@ -24,6 +24,7 @@ use Artisan;
 use Illuminate\Support\Facades\Route;
 use App\tbl_receiptNo;
 use App\so_update_info;
+use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
 
 class HomeController extends Controller
@@ -553,9 +554,14 @@ class HomeController extends Controller
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
+
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a3','landscape');
 //        return $pdf->stream();
+        $content = $pdf->download()->getOriginalContent();
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+        Storage::put('public/invoice/'.$name_file,$content) ;
+
         return $pdf->download('App_Slip.pdf');
     }
 
@@ -865,7 +871,7 @@ class HomeController extends Controller
         $payment_method = $this->payment_method($request);
 
         if ($payment_method){
-            $this->NewPayment($request->all());
+            $this->NewPayment($request->all(),$request);
         }
 
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
@@ -915,7 +921,7 @@ class HomeController extends Controller
         return $clear_data;
     }
 
-    protected  function  NewPayment($request){
+    protected  function  NewPayment($request,$requests){
         if ($request['payment_method'] == paynow){
             $payment_method = 'paynow';
         }elseif ($request['payment_method'] == enets){
@@ -937,7 +943,15 @@ class HomeController extends Controller
                 'status_app' => processing,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
-
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request['card']])->first();
+        $t_grade = t_grade::get();
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests])->setPaper('a3','landscape');
+//        return $pdf->stream();
+        $content = $pdf->download()->getOriginalContent();
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+        Storage::put('public/invoice/'.$name_file,$content) ;
 //            $receiptNo = new tbl_receiptNo;
 //
 //            $receiptNo->receiptNo = $this->receiptNo();

@@ -8,8 +8,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Log;
-
+use PDF;
 class EnetsController extends Controller
 {
     public function s2sTxnEndURL(Request $request)
@@ -48,7 +49,16 @@ class EnetsController extends Controller
                 ->where(['booking_schedules.nric' => $data_person->nric,'booking_schedules.card_id'=>$data_person->card])->first();
             $t_grade = t_grade::get();
 
-            return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+            // Save File PDF to folder system
+            PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+            $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a3','landscape');
+//        return $pdf->stream();
+            $content = $pdf->download()->getOriginalContent();
+            $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+            Storage::put('public/invoice/'.$name_file,$content) ;
+
+//            return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
+            return redirect()->route('landing_page');
         }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == paid) {
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
@@ -56,10 +66,10 @@ class EnetsController extends Controller
                     'paymentby' => "Enets",
                     'status_payment' => unpaid,
                     'netsTxnStatus' => $jsonarr->msg->netsTxnStatus,
-//                    'netstxnref' => $jsonarr->msg->netsTxnRef,
+                    'netstxnref' => $jsonarr->msg->netsTxnRef,
                     'stagerespcode' => $jsonarr->msg->stageRespCode,
                 ]);
-//            return redirect()->route('home');
+            return redirect()->route('home');
         }else if (!empty($jsonarr->msg) && $jsonarr->msg->netsTxnStatus == C4) {
             $data_person = json_decode($jsonarr->msg->b2sTxnEndURLParam);
             $BookingScheduleAppointment = booking_schedule::where(['nric' => $data_person->nric, 'card_id' => $data_person->card])
