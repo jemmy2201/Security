@@ -182,11 +182,11 @@
     <script type="application/javascript">
         $( document ).ready(function() {
 
-            var TextAreaName = document.getElementById('TextAreaName');
-            TextAreaName.value = TextAreaName.value.replace(/^\s*|\s*$/g,'');
-
-            var TextAreaNamePhone = document.getElementById('TextAreaNamePhone');
-            TextAreaNamePhone.value = TextAreaNamePhone.value.replace(/^\s*|\s*$/g,'');
+            // var TextAreaName = document.getElementById('TextAreaName');
+            // TextAreaName.value = TextAreaName.value.replace(/^\s*|\s*$/g,'');
+            //
+            // var TextAreaNamePhone = document.getElementById('TextAreaNamePhone');
+            // TextAreaNamePhone.value = TextAreaNamePhone.value.replace(/^\s*|\s*$/g,'');
 
         });
 

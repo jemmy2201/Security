@@ -61,25 +61,25 @@
     <br><br>
 
     <h3 style="color: black;font-weight: bold;">Update Details</h3>
-    <br>
+    <br class="hidden-xs">
     <form method="post" id="submit_personal_particular" action="{{ route('submission') }}" >
         @csrf
     <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
     {{-- Desktop --}}
-
     <div class="row hidden-xs">
-        <div class="col-6 HeaderdataPersonal phone">
-            Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
+        <div class="col-4 HeaderdataPersonal " >
+            My Mobile No : {{substr($personal->mobileno, 2)}}
+{{--            <input type="number" id="view_mobileno" name="view_mobileno" class="form-control hidden-xs"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>--}}
         </div>
-    </div>
-    <div class="row hidden-xs">
-        <div class="col-2 HeaderdataPersonal " >
-            <input type="number" id="view_mobileno" name="view_mobileno" class="form-control hidden-xs"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
-        </div>
-    </div><br>
+    </div><br class="hidden-xs">
+        <div class="row hidden-xs">
+            <div class="col-6 HeaderdataPersonal phone">
+                Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
+            </div>
+        </div><br class="hidden-xs">
         <div class="row hidden-xs">
             <div class="col-2 HeaderdataPersonal" >
-                <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000"  maxlength="8" >
+                <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control hidden-xs" id="mobileno" name="mobileno"  placeholder="0000000"  maxlength="8" autofocus>
             </div>
 {{--            <div class="col-2 HeaderdataPersonal" >--}}
                 <i class="fa fa-arrow-left" aria-hidden="true" style="color: blue;font-size: 30px;"></i>
@@ -136,19 +136,22 @@
         </div>
     </div>
    {{-- End Desktop --}}
+
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-                Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
+                My Mobile No : {{substr($personal->mobileno, 2)}}
+{{--                <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>--}}
             </div>
-        </div>
+        </div><br class="visible-xs hidden-md">
         <div class="row visible-xs hidden-md">
 {{--            <div class="col-2 HeaderdataPersonal " >--}}
 {{--            </div>--}}
             <div class="col HeaderdataPersonal">
-                <input type="number" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
+                Singapore mobile number <span style="color:red; vertical-align: super; font-size: small;">*Mandatory</span>
                 <br>
-                <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" >
+                <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" autofocus>
+                <br class="visible-xs hidden-md">
                 <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
@@ -188,7 +191,7 @@
         </div>
    {{-- End Phone --}}
 
-        <br ><br class="hidden-xs"><br class="hidden-xs">
+        <br class="visible-xs hidden-md">
     <div class="row">
         <div class="col-2 back">
             <a href="{{url("/landing_page")}}" style="text-decoration:none; color: white;">
@@ -260,7 +263,7 @@
             </div>
             <div class="modal-body">
                 We have sent an SMS to your mobile number with a verification code. Please check your phone and enter the verification code below
-                <input type="number" class="form-control" id="kode_activation" name="kode_activation" >
+                <input type="text" class="form-control" id="kode_activation" name="kode_activation" >
             </div>
             <div class="modal-footer">
 {{--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
@@ -274,6 +277,9 @@
 <!-- End Modal -->
 <script>
     $( document ).ready(function() {
+        $(document).on('show.bs.modal','#code_activation_Modal',function () {
+            $("#kode_activation").focus();
+        });
         $( ".update_number" ).click(function() {
             // $(".update_number").attr("disabled", true);
             // $('#mobileno').removeAttr('readonly');
