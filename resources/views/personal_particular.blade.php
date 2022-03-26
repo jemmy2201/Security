@@ -67,8 +67,8 @@
     <input type="hidden" name="Status_App" id="Status_App" value="{{$request->Status_App}}">
     {{-- Desktop --}}
     <div class="row hidden-xs">
-        <div class="col-4 HeaderdataPersonal " >
-           <b id="textNumber"> My Mobile No : {{substr($personal->mobileno, 2)}} </b>
+        <div class="col-4 " >
+            <div style="font-size: 20px;color:#808080;"> My Mobile No : <b id="textNumber" class="ColoumndataPersonal " style="color:black;">{{substr($personal->mobileno, 2)}} </b></div>
             <input type="hidden" id="view_mobileno" name="view_mobileno" class="form-control hidden-xs"  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
         </div>
     </div><br class="hidden-xs">
@@ -140,7 +140,7 @@
    {{-- Phone --}}
         <div class="row visible-xs hidden-md">
             <div class="col HeaderdataPersonal phone">
-               <b id="textNumberPhone"> My Mobile No : {{substr($personal->mobileno, 2)}}</b>
+                <div  style="font-size: 20px;color:#808080;"> My Mobile No : <b id="textNumberPhone" class="ColoumndataPersonal " style="color:black;">{{substr($personal->mobileno, 2)}} </b></div>
                 <input type="hidden" id="Phoneview_mobileno" name="Phoneview_mobileno" class="form-control "  placeholder="0000000" value="{{substr($personal->mobileno, 2)}}" maxlength="8" readonly>
             </div>
         </div><br class="visible-xs hidden-md">
@@ -412,8 +412,8 @@
                 success: function (data) {
                     if (data == {!! json_encode(succes) !!}){
                         swal("Success !", "Add Or Update Mobile Number", "success");
-                        $('#textNumber').text("My Mobile No :"+$('#mobileno').val())
-                        $('#textNumberPhone').text("My Mobile No :"+$('#Phonemobileno').val())
+                        $('#textNumber').text($('#mobileno').val())
+                        $('#textNumberPhone').text($('#Phonemobileno').val())
 
                         $('#view_mobileno').val($('#mobileno').val());
                         $('#Phoneview_mobileno').val($('#Phonemobileno').val());
