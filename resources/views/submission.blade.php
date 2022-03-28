@@ -607,7 +607,8 @@
         }
         function save_submission() {
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
-                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
+                    if (!{!! json_encode($resubmission) !!} ) {
+                        {{--if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {--}}
                         if ($("input[name='submit_submission']:checked").val() != undefined) {
                             var inputFile = document.getElementById('upload_profile');
                             var pathFile = inputFile.value;
