@@ -607,7 +607,7 @@
         }
         function save_submission() {
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
-                    if (!{!! json_encode($resubmission) !!} ) {
+                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
                         {{--if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {--}}
                         if ($("input[name='submit_submission']:checked").val() != undefined) {
                             var inputFile = document.getElementById('upload_profile');
@@ -633,7 +633,7 @@
                             // var arrStr = encodeURIComponent(JSON.stringify(val));
 
 
-                                if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined")
+                                if (typeof $('input[name="Cgrades[]"]:checked').val() === "undefined" && $("#card").val() == {{json_encode(so_app)}})
                                 {
                                     swal("Error!", "Invalid selection(s) - Training Records.", "error");
 

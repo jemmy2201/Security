@@ -27,6 +27,13 @@ Route::get('/qrcode', function () {
     return view('login');
 })->name('qrcode');
 
+Route::get('/relogin', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Auth::logout();
+    return view('login');
+})->name('relogin');
+
 // singpass
 Route::get('/afterlogin', 'SingpassController@login');
 //Uat

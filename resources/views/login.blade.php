@@ -145,13 +145,18 @@
     @endphp
     <script>
         $( document ).ready(function() {
-            setTimeout(RefreshPage, 900000);
-            function RefreshPage() {
+            if (window.location.pathname == {!!  json_encode(url_relogin) !!}) {
                 $( "#action_modal_re_login" ).trigger( "click" );
-                // swal("Login time out!", "Please click ok to log back in!", "info");
+            }
+                setTimeout(RefreshPage, 900000);
+            // setTimeout(RefreshPage, 10000);
+            function RefreshPage() {
+                window.location.href = "{{URL::to('relogin')}}"
+                // $( "#action_modal_re_login" ).trigger( "click" );
             }
             $( "#relogin" ).click(function() {
-                setTimeout(window.location.reload(), 10000);
+                // setTimeout(window.location.reload(), 10000);
+                window.location.href = "{{URL::to('qrcode')}}"
             });
         });
 
@@ -198,7 +203,11 @@
                 var imageUrl ="/img/login_background.jpg";
                 // $("#app").css("background-image", "url(" + imageUrl + ")");
             }else if(!document.location.pathname.indexOf({!!  json_encode(cek_pathname) !!}) == 0 ){
-                window.location.href = '/qrcode';
+                if (window.location.pathname == {!!  json_encode(url_relogin) !!}){
+                    // window.location.href = '/qrcode';
+                }else{
+                    window.location.href = '/qrcode';
+                }
             }
         });
 
