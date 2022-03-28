@@ -317,15 +317,15 @@
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                     @if ($request->card == so_app)
-                        @if(!empty($cek_grade) && $cek_grade->grade_id== so)
+                        @if(!empty($booking_schedule) && $booking_schedule->grade_id== so)
                             <div class="col-4 ColoumndataPersonal">SO</div>
-                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sso)
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sso)
                             <div class="col-4 ColoumndataPersonal">SSO</div>
-                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== ss)
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== ss)
                             <div class="col-4 ColoumndataPersonal">SS</div>
-                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== sss)
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== sss)
                             <div class="col-4 ColoumndataPersonal">SSS</div>
-                        @elseif(!empty($cek_grade) && $cek_grade->grade_id== cso)
+                        @elseif(!empty($booking_schedule) && $booking_schedule->grade_id== cso)
                             <div class="col-4 ColoumndataPersonal">CSO</div>
                         @else
                             <div class="col-4 ColoumndataPersonal">SO</div>
