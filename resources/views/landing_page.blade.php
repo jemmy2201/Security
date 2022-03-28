@@ -716,6 +716,13 @@
 
 </div>
 <script type="application/javascript">
+    // 15 minutes not action
+    setTimeout(RefreshPage, 900000);
+    function RefreshPage() {
+        window.location.href = "{{URL::to('relogin')}}"
+    }
+    // End 15 minutes not action
+
     {{--  Card Issue  --}}
     if ({!!  json_encode($card_issue) !!} != false)
     {

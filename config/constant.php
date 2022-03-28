@@ -162,6 +162,7 @@ define('half_3', "15:00");
 define('half_4', "18:00");
 
 define('cek_pathname', "/qrcode");
+define('url_relogin', "/relogin");
 define('login_dummy', "/login/dummy/1");
 define('default_alter_login', "home");
 define('page_update_so', "update.so");

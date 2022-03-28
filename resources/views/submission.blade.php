@@ -549,6 +549,13 @@
         $(".declare").hide();
         $("#view_declare").hide();
 
+        // 15 minutes not action
+        setTimeout(RefreshPage, 900000);
+        function RefreshPage() {
+            window.location.href = "{{URL::to('relogin')}}"
+        }
+        // End 15 minutes not action
+
         $("#button_declare" ).click(function() {
             // $(".submission").hide();
             // $(".declare").show();
@@ -607,7 +614,7 @@
         }
         function save_submission() {
                 if ($('#upload_profile').val() || !{!! json_encode($personal->photo) !!} == "") {
-                    if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {
+                    if (!{!! json_encode($resubmission) !!} ) {
                         {{--if (!{!! json_encode($resubmission) !!} && $("#card").val() == {{json_encode(so_app)}}) {--}}
                         if ($("input[name='submit_submission']:checked").val() != undefined) {
                             var inputFile = document.getElementById('upload_profile');

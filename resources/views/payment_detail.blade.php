@@ -881,6 +881,12 @@
     //     this.location.reload(false); /* false to get page from cache */
     //     /* true to fetch page from server */
     // });
+    // 15 minutes not action
+    setTimeout(RefreshPage, 900000);
+    function RefreshPage() {
+        window.location.href = "{{URL::to('relogin')}}"
+    }
+    // End 15 minutes not action
 
     function hideLoader() {
         $('#loading').hide();

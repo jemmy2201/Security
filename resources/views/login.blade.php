@@ -148,7 +148,7 @@
             if (window.location.pathname == {!!  json_encode(url_relogin) !!}) {
                 $( "#action_modal_re_login" ).trigger( "click" );
             }
-                setTimeout(RefreshPage, 900000);
+            setTimeout(RefreshPage, 900000);
             // setTimeout(RefreshPage, 10000);
             function RefreshPage() {
                 window.location.href = "{{URL::to('relogin')}}"

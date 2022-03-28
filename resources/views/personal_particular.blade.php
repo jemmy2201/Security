@@ -277,6 +277,13 @@
 <!-- End Modal -->
 <script>
     $( document ).ready(function() {
+        // 15 minutes not action
+        setTimeout(RefreshPage, 900000);
+        function RefreshPage() {
+            window.location.href = "{{URL::to('relogin')}}"
+        }
+        // End 15 minutes not action
+
         $(document).on('show.bs.modal','#code_activation_Modal',function () {
             $("#kode_activation").focus();
         });

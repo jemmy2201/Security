@@ -241,6 +241,12 @@
 </script>
 <script type="application/javascript">
     'use strict';
+    // 15 minutes not action
+    setTimeout(RefreshPage, 900000);
+    function RefreshPage() {
+        window.location.href = "{{URL::to('relogin')}}"
+    }
+    // End 15 minutes not action
 
     //Public Globals
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wedensday', 'Thursday', 'Friday', 'Saturday'];
