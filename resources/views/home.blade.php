@@ -113,6 +113,12 @@
 
 <script type="application/javascript">
     $( document ).ready(function() {
+        // 15 minutes not action
+        setTimeout(RefreshPage, 900000);
+        function RefreshPage() {
+            window.location.href = "{{URL::to('relogin')}}"
+        }
+        // End 15 minutes not action
         $('#open_terms').on('click', function () {
             // $("#view_terms").css("display", "block");
             // $('#view_terms').modal('show');
