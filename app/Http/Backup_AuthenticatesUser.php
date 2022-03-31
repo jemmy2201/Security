@@ -64,7 +64,7 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-//                $encode = secret_encode("S0221002N");
+//                $encode = secret_encode("S1718365F");
 //                $decode = secret_decode($encode);
 //                die($encode);
                 // dummy api
@@ -261,7 +261,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect('/relogin');
     }
 
     /**
