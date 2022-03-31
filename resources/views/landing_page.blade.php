@@ -311,11 +311,11 @@
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>--}}
 {{--            </div>--}}
-                <input class="form-check-input" type="checkbox" name="request" id="so_app" value="" data-card={{so_app}}><b>&ensp;&ensp;&ensp;Security Officer (SO)</b>
+                <input class="form-check-input" type="checkbox" name="request" id="so_app" value="" data-card={{so_app}}><b>&ensp;&ensp;&ensp;Security Officer (SO) / Aviation Security Officer (AVSO)</b>
         </div>
-        <div class="row">
-                <input class="form-check-input" type="checkbox" name="request" id="avso_app" value="" data-card={{avso_app}}><b>&ensp;&ensp;&ensp;Aviation Security Officer (AVSO)</b>
-        </div>
+{{--        <div class="row">--}}
+{{--                <input class="form-check-input" type="checkbox" name="request" id="avso_app" value="" data-card={{avso_app}}><b>&ensp;&ensp;&ensp;Aviation Security Officer (AVSO)</b>--}}
+{{--        </div>--}}
         <div class="row">
                 <input class="form-check-input" type="checkbox" name="request" id="pi_app" value="" data-card={{pi_app}}><b>&ensp;&ensp;&ensp;Private Investigator (PI)</b>
         </div>

@@ -7,6 +7,13 @@
         display: flow-root !important;
         text-align: center !important;
     }
+    @media screen and (min-width: 980px) /* Desktop */ {
+        #modal_re_login{
+            padding-right: 640px !important;
+            padding-left: 0px !important;
+        }
+    }
+
 </style>
 @section('content')
     <div class="container">
@@ -172,26 +179,31 @@
                 console.log(`onError. errorId:${errorId} message:${message}`);
             };
 
-            if ({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLUat) !!}){
-                var clientIdSinpass = {!!  json_encode(clientIdSinpassUat) !!}
-                var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassUat) !!}
-            }else if({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLProd) !!}){
-                var clientIdSinpass = {!!  json_encode(clientIdSinpassProd) !!}
-                var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassProd) !!}
+            if (window.location.pathname != {!!  json_encode(url_relogin) !!}) {
 
+                if ({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLUat) !!}) {
+                    var clientIdSinpass =
+                        {!!  json_encode(clientIdSinpassUat) !!}
+                    var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassUat) !!}
+                } else if ({!!  json_encode(detect_url()) !!} == {!!  json_encode(URLProd) !!}) {
+                    var clientIdSinpass =
+                        {!!  json_encode(clientIdSinpassProd) !!}
+                    var redirectUrlSingpass = {!!  json_encode(redirectUrlSingpassProd) !!}
+
+                }
+                const initAuthSessionResponse = window.NDI.initAuthSession(
+                    'ndi-qr',
+                    {
+                        clientId: clientIdSinpass, // Replace with your client ID
+                        redirectUri: redirectUrlSingpass,        // Replace with a registered redirect URI
+                        scope: 'openid',
+                        responseType: 'code'
+                    },
+                    authParamsSupplier,
+                    onError,
+                    {renderDownloadLink: true}
+                );
             }
-            const initAuthSessionResponse = window.NDI.initAuthSession(
-                'ndi-qr',
-                {
-                    clientId: clientIdSinpass, // Replace with your client ID
-                    redirectUri: redirectUrlSingpass,        // Replace with a registered redirect URI
-                    scope: 'openid',
-                    responseType: 'code'
-                },
-                authParamsSupplier,
-                onError,
-                { renderDownloadLink: true }
-            );
 
             console.log('initAuthSession: ', initAuthSessionResponse);
         }
