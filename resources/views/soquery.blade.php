@@ -41,7 +41,7 @@
         <div class="row">
             @if($soquery->TR_CCTC == "YES")
             <div class="col-4"style="text-align: left;"><img src="{{URL::asset('/img/logo/Logo_1.jpg')}}" style="width: 50%;"><span style="margin-left: 5px;"></span></div>
-            <div class="col-8" style="color: white;margin-left: -145px;margin-top: 32px;">
+            <div class="col-8" style="color: white;margin-left: -145px;">
                 <h2>CCTC<br>
                     Conduct Crowd and Traffic Control</h2>
             </div>
@@ -49,7 +49,7 @@
             @endif
             @if($soquery->TR_CSSPB == "YES")
             <div class="col-4"style="text-align: left;"><img src="{{URL::asset('/img/logo/Logo_2.jpg')}}" style="width: 50%;"><span style="margin-left: 5px;"></span></div>
-            <div class="col-8" style="color: white;margin-left: -145px;margin-top: 32px;">
+            <div class="col-8" style="color: white;margin-left: -145px;margin-bottom: 25px;">
                 <h2>CSS-P/B <br>
                     Conduct Security Screening of Person and Bag</h2>
             </div>
@@ -58,7 +58,7 @@
 
             @if($soquery->TR_X_RAY== "YES")
             <div class="col-4"style="text-align: left;"><img src="{{URL::asset('/img/logo/Logo_3.jpg')}}" style="width: 50%;"><span style="margin-left: 5px;"></span></div>
-            <div class="col-8" style="color: white;margin-left: -145px;margin-top: 32px;">
+            <div class="col-8" style="color: white;margin-left: -145px;margin-bottom: 25px;">
                 <h2>CSS-X<br>
                     Conduct Security Screening using X-ray Machine</h2>
             </div>
@@ -67,7 +67,7 @@
 
             @if($soquery->TR_HCTA == "YES")
             <div class="col-4"style="text-align: left;"><img src="{{URL::asset('/img/logo/Logo_4.jpg')}}" style="width: 50%;"><span style="margin-left: 5px;"></span></div>
-            <div class="col-8" style="color: white;margin-left: -145px;margin-top: 32px;">
+            <div class="col-8" style="color: white;margin-left: -145px;margin-bottom: 25px;">
                 <h2>HCTA<br>
                     Handle Counter Terrorism Activities</h2>
             </div>
@@ -75,7 +75,7 @@
             @endif
             @if($soquery->TR_RTT == "YES")
             <div class="col-4"style="text-align: left;"><img src="{{URL::asset('/img/logo/Logo_5.jpg')}}" style="width: 50%;"><span style="margin-left: 5px;"></span></div>
-            <div class="col-8" style="color: white;margin-left: -145px;margin-top: 32px;">
+            <div class="col-8" style="color: white;margin-left: -145px;margin-bottom: 25px;">
                 <h2>RTT<br>
                     Recognise Terrorist Threats</h2>
             </div>
