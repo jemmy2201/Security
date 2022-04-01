@@ -72,7 +72,7 @@
     <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
-<body onload="init()" style="background-color: darkgray">
+<body onload="init()" style="background: url('{{ asset('img/soquery.jpg')}}')  ">
 {{--<nav class="navbar navbar-dark bg-dark">--}}
 {{--    <div>--}}
 {{--        <a class="navbar-brand hidden-xs" href="{{ url('/') }}">--}}
@@ -122,7 +122,7 @@
 {{--    </div>--}}
 {{--</nav>--}}
 
-    <div id="app">
+    <div id="app" >
 {{--        <nav class="navbar navbar-expand-md navbar-light" >--}}
 {{--            <div>--}}
 {{--                <a class="navbar-brand" href="{{ url('/') }}">--}}
