@@ -28,7 +28,7 @@
                 $cutnric = substr(secret_decode($soquery->nric), -4);
                 $nric = "XXXXX$cutnric";
             @endphp
-            <div class="col-6" style="color: white;"><h2>{{$nric}}</h2></div>
+            <div class="col-6" style="color: white;"><h2>{{$soquery->nric}}</h2></div>
             <div class="w-100"></div>
             <div class="col-4"style="color: white; text-align: left"><h2><b>PWM GRADE<span style="margin-left: 65px;">:</span></b></h2></div>
             <div class="col-6" style="color: white;"><h2>{{$soquery->Grade}}</h2></div>
@@ -137,7 +137,7 @@
             <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->Name}}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>NRIC / FIN<span style="margin-left: 61px;">:</span></h5></div>
-            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$nric}}</h5></div>
+            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->nric}}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>PASS ID<span style="margin-left: 68px;">:</span></h5></div>
             <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->PassID}}</h5></div>
