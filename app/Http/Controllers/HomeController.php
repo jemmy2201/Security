@@ -652,40 +652,92 @@ class HomeController extends Controller
             }
         }
 
-        // take grade (new design)
+//        // take grade (new design)
+//        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+//        $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->latest('created_at')->first();
+//        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
+//            $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
+//        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
+//            $grade_not_payment = json_decode($take_grade->array_grade);
+//        }
+//        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+//        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+//        if (!empty($take_grade)) {
+//            foreach ($take_grades as $index => $f) {
+//                if (!empty(json_decode($take_grade->array_grade))){
+//                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+//                        if ($f->id == $g) {
+//                            $take_grades[$index]->take_grade = true;
+//                        }
+//                    }
+//                }
+//
+//                if (!empty($grade_not_payment)){
+//                    foreach ($grade_not_payment as $index2 => $i) {
+//                        if ($f->id == $i) {
+//                            $take_grades[$index]->grade_not_payment = true;
+//                            $take_grades[$index]->take_grade = false;
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//        // end take grade (new design)
+
+        // so and avso join
         $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
         $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->latest('created_at')->first();
-        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
-            $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
-        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
-            $grade_not_payment = json_decode($take_grade->array_grade);
-        }
-        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
         $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+
         if (!empty($take_grade)) {
             foreach ($take_grades as $index => $f) {
-                if (!empty(json_decode($take_grade->array_grade))){
-                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
-                        if ($f->id == $g) {
-                            $take_grades[$index]->take_grade = true;
-                        }
-                    }
+                // booking schedule
+                if ($f->short_value =="TR_RTT" && isset($take_grade) && $take_grade->TR_RTT == "YES"){
+                    $take_grades[$index]->not_payment = true;
                 }
+                if ($f->short_value =="TR_CSSPB" && isset($take_grade) && $take_grade->TR_CSSPB == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_CCTC" &&  isset($take_grade) &&$take_grade->TR_CCTC == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_HCTA" && isset($take_grade) && $take_grade->TR_HCTA == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_X_RAY" && isset($take_grade) && $take_grade->TR_X_RAY == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_AVSO" && isset($take_grade) && $take_grade->TR_AVSO == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                // end booking schedule
 
-                if (!empty($grade_not_payment)){
-                    foreach ($grade_not_payment as $index2 => $i) {
-                        if ($f->id == $i) {
-                            $take_grades[$index]->grade_not_payment = true;
-                            $take_grades[$index]->take_grade = false;
-                        }
-                    }
+                // sertifikat
+                if ($f->short_value =="TR_RTT" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_RTT == "YES"){
+                    $take_grades[$index]->payment = true;
                 }
+                if ($f->short_value =="TR_CSSPB" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_CSSPB == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_CCTC" &&  isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_CCTC == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_HCTA" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_HCTA == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_X_RAY" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_X_RAY == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_AVSO" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_AVSO == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                // end sertifikat
 
             }
         }
-        // end take grade (new design)
-
-
+        // end so and avso join
+//        die(print_r($take_grades));
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $t_grade = t_grade::get();
@@ -1108,84 +1160,127 @@ class HomeController extends Controller
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->latest('created_at')->first();
 
-        if ($request->card == so_app){
-            $take_grade = $request->Cgrades;
-            if ($request->app_type == news){
-                foreach ($take_grade as $f ){
-                    $result=array_search("on",$take_grade);
-                        unset($take_grade[$result]);
-                }
-
-            }elseif($request->app_type == replacement || $request->app_type == renewal){
-                if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
-                        if (!empty(json_decode($request->Cgrade[0])) && count((json_decode($request->Cgrade[0]))) <=  count($request->Cgrades) && !count((json_decode($request->Cgrade[0]))) ==  count($request->Cgrades)) {
-                        foreach ($take_grade as $f) {
-                            $result = array_search("on", $take_grade);
-                            unset($take_grade[$result]);
-                        }
-                    }
-                }
-            }
-
-            if (!empty($booking_schedule->array_grade)){
-                $get_grade = json_decode($booking_schedule->array_grade);
-                $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
-                if (!empty($request->Cgrades)) {
-                    if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
-                        if ($request->app_type == news) {
-                            $merge_grade = array_merge($get_grade,$take_grade);
-                        }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                            $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
-                        }
-                    }else{
-                        if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
-                            if ($request->app_type == news) {
-                                if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
-                                    $merge_grade = array_merge($get_grade,$take_grade);
-                                }else{
-                                    if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
-                                        foreach ($take_grade as $f) {
-                                            $result = array_search("on", $take_grade);
-                                            unset($take_grade[$result]);
-                                        }
-                                        $merge_grade = array_values(array_unique(array_merge($get_grade,$request->Cgrades)));
-                                    }else{
-                                        $take_grade = [$request->Cgrades[0]];
-                                        $merge_grade = array_merge($get_grade,$take_grade);
-                                    }
-
-                                }
-                            }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
-                            }
-                        }else{
-                            if ($request->app_type == news) {
-                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
-                                $merge_grade = json_decode($request->Cgrade[0]);
-                                foreach ($different_value as $f){
-                                    if (($key = array_search($f, $merge_grade)) !== false) {
-                                        unset($merge_grade[$key]);
-                                    }
-                                }
-                                $merge_grade = array_values($merge_grade);
-                            }elseif ($request->app_type == replacement || $request->app_type == renewal) {
-                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
-                            }
-                        }
-                    }
-                }else{
-                    $merge_grade = $get_grade;
-                }
+//        if ($request->card == so_app){
+//            $take_grade = $request->Cgrades;
+//            if ($request->app_type == news){
+//                foreach ($take_grade as $f ){
+//                    $result=array_search("on",$take_grade);
+//                        unset($take_grade[$result]);
+//                }
+//
+//            }elseif($request->app_type == replacement || $request->app_type == renewal){
+//                if (is_null($booking_schedule->Status_app) && $booking_schedule->Status_app == draft) {
+//                        if (!empty(json_decode($request->Cgrade[0])) && count((json_decode($request->Cgrade[0]))) <=  count($request->Cgrades) && !count((json_decode($request->Cgrade[0]))) ==  count($request->Cgrades)) {
+//                        foreach ($take_grade as $f) {
+//                            $result = array_search("on", $take_grade);
+//                            unset($take_grade[$result]);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (!empty($booking_schedule->array_grade)){
+//                $get_grade = json_decode($booking_schedule->array_grade);
+//                $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
+//                if (!empty($request->Cgrades)) {
+//                    if (count(json_decode($request->Cgrade[0])) == count($request->Cgrades)){
+//                        if ($request->app_type == news) {
+//                            $merge_grade = array_merge($get_grade,$take_grade);
+//                        }elseif ($request->app_type == replacement || $request->app_type == renewal) {
+//                            $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
+//                        }
+//                    }else{
+//                        if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)){
+//                            if ($request->app_type == news) {
+//                                if (count(json_decode($request->Cgrade[0])) >= count($request->Cgrades)) {
+//                                    $merge_grade = array_merge($get_grade,$take_grade);
+//                                }else{
+//                                    if (count(json_decode($request->Cgrade[0])) <= count($request->Cgrades)) {
+//                                        foreach ($take_grade as $f) {
+//                                            $result = array_search("on", $take_grade);
+//                                            unset($take_grade[$result]);
+//                                        }
+//                                        $merge_grade = array_values(array_unique(array_merge($get_grade,$request->Cgrades)));
+//                                    }else{
+//                                        $take_grade = [$request->Cgrades[0]];
+//                                        $merge_grade = array_merge($get_grade,$take_grade);
+//                                    }
+//
+//                                }
+//                            }elseif ($request->app_type == replacement || $request->app_type == renewal) {
+//                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
+//                            }
+//                        }else{
+//                            if ($request->app_type == news) {
+//                                $different_value = array_diff(array_map('trim', json_decode($request->Cgrade[0])), $request->Cgrades);
+//                                $merge_grade = json_decode($request->Cgrade[0]);
+//                                foreach ($different_value as $f){
+//                                    if (($key = array_search($f, $merge_grade)) !== false) {
+//                                        unset($merge_grade[$key]);
+//                                    }
+//                                }
+//                                $merge_grade = array_values($merge_grade);
+//                            }elseif ($request->app_type == replacement || $request->app_type == renewal) {
+//                                $merge_grade = $this->proses_grade(count(json_decode($sertifikat->array_grade)),json_decode($sertifikat->array_grade),$request->Cgrades,json_decode($request->Cgrade[0]),count(json_decode($request->Cgrade[0])),$get_grade,$take_grade,false);
+//                            }
+//                        }
+//                    }
+//                }else{
+//                    $merge_grade = $get_grade;
+//                }
+//            }else{
+//                $merge_grade = $request->Cgrades;
+//            }
+//        }
+//        if($request->Cgrades[0] == "false" && $request->app_type == news){
+//            $merge_grade = null;
+//        }elseif ($request->Cgrades[0] == "false" && $request->app_type == replacement || $request->app_type == renewal){
+//            if (($key = array_search("false", $merge_grade)) !== false) {
+//                unset($merge_grade[$key]);
+//            }
+//        }
+        $TR_RTT ="";
+        $TR_CSSPB ="";
+        $TR_CCTC ="";
+        $TR_HCTA ="";
+        $TR_X_RAY ="";
+        $TR_AVSO ="";
+        foreach ($request->Cgrades as $f){
+            if ($f == "TR_RTT"){
+                $TR_RTT .= "YES";
             }else{
-                $merge_grade = $request->Cgrades;
+                $TR_RTT .= null;
             }
-        }
-        if($request->Cgrades[0] == "false" && $request->app_type == news){
-            $merge_grade = null;
-        }elseif ($request->Cgrades[0] == "false" && $request->app_type == replacement || $request->app_type == renewal){
-            if (($key = array_search("false", $merge_grade)) !== false) {
-                unset($merge_grade[$key]);
+            if ($f == "TR_CSSPB"){
+                $TR_CSSPB .= "YES";
+            }else{
+                $TR_CSSPB .= null;
             }
+
+            if ($f == "TR_CCTC"){
+                $TR_CCTC .= "YES";
+            }else{
+                $TR_CCTC .= null;
+            }
+
+            if ($f == "TR_HCTA"){
+                $TR_HCTA .= "YES";
+            }else{
+                $TR_HCTA .= null;
+            }
+
+            if ($f == "TR_X_RAY"){
+                $TR_X_RAY .= "YES";
+            }else{
+                $TR_X_RAY .= null;
+            }
+
+            if ($f == "TR_AVSO"){
+                $TR_AVSO .= "YES";
+            }else{
+                $TR_AVSO .= null;
+            }
+
         }
 
         if ($request->app_type == renewal){
@@ -1214,6 +1309,12 @@ class HomeController extends Controller
                     'receiptNo' => null,
                     'status_payment' => null,
                     'nric' => Auth::user()->nric,
+                    'TR_RTT' => $TR_RTT,
+                    'TR_CSSPB' => $TR_CSSPB,
+                    'TR_CCTC' => $TR_CCTC,
+                    'TR_HCTA' => $TR_HCTA,
+                    'TR_X_RAY' => $TR_X_RAY,
+                    'TR_AVSO' => $TR_AVSO,
                 ]);
         }elseif ($request->app_type == replacement){
             $booking_schedule = booking_schedule::where([ 'nric' => Auth::user()->nric,'card_id'=>$request->card])
@@ -1238,6 +1339,12 @@ class HomeController extends Controller
                     'status_payment' => null,
                     'receiptNo' => null,
                     'nric' => Auth::user()->nric,
+                    'TR_RTT' => $TR_RTT,
+                    'TR_CSSPB' => $TR_CSSPB,
+                    'TR_CCTC' => $TR_CCTC,
+                    'TR_HCTA' => $TR_HCTA,
+                    'TR_X_RAY' => $TR_X_RAY,
+                    'TR_AVSO' => $TR_AVSO,
                 ]);
         }else{
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
@@ -1246,7 +1353,7 @@ class HomeController extends Controller
                     'card_id' => $request->card,
 //                    'grade_id' => $grade,
 //                    'array_grade' => $request->Cgrade[0],
-                    'array_grade' => $merge_grade,
+//                    'array_grade' => $merge_grade,
                     'declaration_date' => Carbon::today()->format('d/m/Y'),
 //                    'status_app' => submission,
                     'trans_date' => null,
@@ -1262,6 +1369,12 @@ class HomeController extends Controller
                     'status_payment' => null,
                     'receiptNo' => null,
                     'nric' => Auth::user()->nric,
+                    'TR_RTT' => $TR_RTT,
+                    'TR_CSSPB' => $TR_CSSPB,
+                    'TR_CCTC' => $TR_CCTC,
+                    'TR_HCTA' => $TR_HCTA,
+                    'TR_X_RAY' => $TR_X_RAY,
+                    'TR_AVSO' => $TR_AVSO,
                 ]);
         }
 

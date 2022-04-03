@@ -278,19 +278,36 @@
 {{--                        </div>--}}
 {{--                        <div class="col-10">--}}
                             <ul class="list-group">
+{{--                                @foreach ($take_grades as $f)--}}
+{{--                                    @if($f->take_grade)--}}
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>--}}
+{{--                                        <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >--}}
+{{--                                    @elseif($f->display)--}}
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>--}}
+{{--                                    @elseif($f->grade_not_payment)--}}
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" checked>&ensp;&ensp; {{$f->name}}</li>--}}
+{{--                                    @else--}}
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+
+                                {{-- SO And AVSO join  --}}
                                 @foreach ($take_grades as $f)
-                                    @if($f->take_grade)
+                                    @if($f->not_payment == true)
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->short_value}}" checked>&ensp;&ensp; {{$f->name}}</li>
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>--}}
+{{--                                        <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >--}}
+                                    @elseif($f->payment == true)
                                         <li class="list-group"><input class="form-check-input" type="checkbox" checked disabled>&ensp;&ensp; {{$f->name}}</li>
-                                        <input class="form-check-input" type="hidden" name="array_grade" id="array_grade" value="{{$request->array_grade}}" >
-                                    @elseif($f->display)
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" disabled>&ensp;&ensp; {{$f->name}}</li>
-                                    @elseif($f->grade_not_payment)
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" checked>&ensp;&ensp; {{$f->name}}</li>
+{{--                                    @elseif($f->grade_not_payment)--}}
+{{--                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" checked>&ensp;&ensp; {{$f->name}}</li>--}}
                                     @else
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->id}}" >&ensp;&ensp; {{$f->name}}</li>
+                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="{{$f->short_value}}" >&ensp;&ensp; {{$f->name}}</li>
                                     @endif
                                 @endforeach
-                                        <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="false" >&ensp;&ensp; None of the above (SO)</li>
+                                {{-- SO And AVSO join  --}}
+
+                                <li class="list-group"><input class="form-check-input" type="checkbox" name="Cgrades[]" id="Cgrades" value="false" >&ensp;&ensp; None of the above (SO)</li>
                             </ul>
 {{--                            <input type="checkbox" id="declare" name="declare" style="margin-left: 15px;">&ensp;&ensp;--}}
 {{--                                <b>I declare that I have been assessed and certified in the following training modules</b>--}}
