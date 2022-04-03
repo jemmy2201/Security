@@ -291,62 +291,116 @@ class HomeController extends Controller
 //        }
 //        // End view_declare
 
-        // take grade (new design)
-        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
-        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
-        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
-        if (!empty($take_grade)) {
-            foreach ($take_grades as $index => $f) {
-                if (!empty(json_decode($take_grade->array_grade))){
-                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
-                        if ($f->id == $g) {
-                            $take_grades[$index]->take_grade = true;
-                        }
-                    }
-                }
-            }
-        }
+//        // take grade (new design)
+//        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+//        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+//        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+//        if (!empty($take_grade)) {
+//            foreach ($take_grades as $index => $f) {
+//                if (!empty(json_decode($take_grade->array_grade))){
+//                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+//                        if ($f->id == $g) {
+//                            $take_grades[$index]->take_grade = true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+//        $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->latest('created_at')->first();
+//        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
+//            $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
+//        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
+//            $grade_not_payment = json_decode($take_grade->array_grade);
+//        }
+//        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
+//        $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+//        if (!empty($take_grade)) {
+//            foreach ($take_grades as $index => $f) {
+//                if (!empty(json_decode($take_grade->array_grade))){
+//                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
+//                        if ($f->id == $g) {
+//                            $take_grades[$index]->take_grade = true;
+//                        }
+//                    }
+//                }
+//                if ($request->Cgrades[0] == false || $request->app_type == news ) {
+//                    if (!empty($grade_not_payment)) {
+//                        foreach ($grade_not_payment as $index2 => $i) {
+//                            if ($f->id == $i) {
+//                                $take_grades[$index]->grade_not_payment = true;
+//                                $take_grades[$index]->take_grade = false;
+//                            }
+//                        }
+//                    }
+//                }elseif(!empty($take_grade_sertifikat)  && count(json_decode($take_grade_sertifikat->array_grade)) !== count(json_decode($selected_grade->array_grade))){
+//                    if (!empty($grade_not_payment)) {
+//                        foreach ($grade_not_payment as $index2 => $i) {
+//                            if ($f->id == $i) {
+//                                $take_grades[$index]->grade_not_payment = true;
+//                                $take_grades[$index]->take_grade = false;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+////        dd($take_grades);
+//        // end take grade (new design)
+
+        // so and avso join
         $take_grade = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
         $take_grade_sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->latest('created_at')->first();
-        if (isset($take_grade) && isset($take_grade_sertifikat) && count(json_decode($take_grade->array_grade)) != count(json_decode($take_grade_sertifikat->array_grade))){
-            $grade_not_payment = array_diff(json_decode($take_grade->array_grade), json_decode($take_grade_sertifikat->array_grade));
-        }elseif (!empty($take_grade) && $take_grade->status_payment !=paid){
-            $grade_not_payment = json_decode($take_grade->array_grade);
-        }
-        $selected_grade = booking_schedule::where(['card_id' => so_app, 'nric' => Auth::user()->nric])->first();
         $take_grades = grade::where(['card_id' => so_app])->whereNull('delete_soft')->orderBy('type', 'asc')->get();
+
         if (!empty($take_grade)) {
             foreach ($take_grades as $index => $f) {
-                if (!empty(json_decode($take_grade->array_grade))){
-                    foreach (json_decode($take_grade->array_grade) as $index2 => $g) {
-                        if ($f->id == $g) {
-                            $take_grades[$index]->take_grade = true;
-                        }
-                    }
+                // booking schedule
+                if ($f->short_value =="TR_RTT" && isset($take_grade) && $take_grade->TR_RTT == "YES"){
+                    $take_grades[$index]->not_payment = true;
                 }
-                if ($request->Cgrades[0] == false || $request->app_type == news ) {
-                    if (!empty($grade_not_payment)) {
-                        foreach ($grade_not_payment as $index2 => $i) {
-                            if ($f->id == $i) {
-                                $take_grades[$index]->grade_not_payment = true;
-                                $take_grades[$index]->take_grade = false;
-                            }
-                        }
-                    }
-                }elseif(!empty($take_grade_sertifikat)  && count(json_decode($take_grade_sertifikat->array_grade)) !== count(json_decode($selected_grade->array_grade))){
-                    if (!empty($grade_not_payment)) {
-                        foreach ($grade_not_payment as $index2 => $i) {
-                            if ($f->id == $i) {
-                                $take_grades[$index]->grade_not_payment = true;
-                                $take_grades[$index]->take_grade = false;
-                            }
-                        }
-                    }
+                if ($f->short_value =="TR_CSSPB" && isset($take_grade) && $take_grade->TR_CSSPB == "YES"){
+                    $take_grades[$index]->not_payment = true;
                 }
+                if ($f->short_value =="TR_CCTC" &&  isset($take_grade) &&$take_grade->TR_CCTC == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_HCTA" && isset($take_grade) && $take_grade->TR_HCTA == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_X_RAY" && isset($take_grade) && $take_grade->TR_X_RAY == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                if ($f->short_value =="TR_AVSO" && isset($take_grade) && $take_grade->TR_AVSO == "YES"){
+                    $take_grades[$index]->not_payment = true;
+                }
+                // end booking schedule
+
+                // sertifikat
+                if ($f->short_value =="TR_RTT" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_RTT == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_CSSPB" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_CSSPB == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_CCTC" &&  isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_CCTC == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_HCTA" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_HCTA == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_X_RAY" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_X_RAY == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                if ($f->short_value =="TR_AVSO" && isset($take_grade_sertifikat) && $take_grade_sertifikat->TR_AVSO == "YES"){
+                    $take_grades[$index]->payment = true;
+                }
+                // end sertifikat
+
             }
         }
-//        dd($take_grades);
-        // end take grade (new design)
+        // end so and avso join
+
         $t_grade = t_grade::get();
         $resubmission = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card, 'Status_app' => resubmission])->first();
         if ($request->card == so_app) {
