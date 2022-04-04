@@ -481,74 +481,124 @@ class HomeController extends Controller
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest("created_at")->first();
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest('created_at')->first();
-        if ($array_grade == false) {
-            if (!$booking_schedule->Status_app == resubmission) {
-                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
-                    ->update([
-                        'app_type' => $request->app_type,
-                        'Status_app' => draft,
-                        'declaration_date' => null,
-                        'Status_draft' => draft_book_appointment,
-                    ]);
+//        if ($array_grade == false) {
+//            if (!$booking_schedule->Status_app == resubmission) {
+//                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+//                    ->update([
+//                        'app_type' => $request->app_type,
+//                        'Status_app' => draft,
+//                        'declaration_date' => null,
+//                        'Status_draft' => draft_book_appointment,
+//                    ]);
+//            }
+//        }else{
+//            if ($request->app_type == news){
+////                die(print_r(json_decode($booking_schedule->array_grade)));
+////                die(print_r(json_decode($array_grade)));
+//                if (isset($array_grade) && isset($booking_schedule->array_grade)) {
+//
+//                    if (isset($array_grade) && isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <= count(json_decode($array_grade))) {
+////                    die('+');
+//                        $cek_false = array_search("false", json_decode($array_grade));
+////                   die(print_r($cek_false));
+//                        if ($cek_false == true) {
+//                            $merge_array = json_decode($booking_schedule->array_grade);
+//                        } else {
+//                            $merge_array = json_decode($array_grade);
+//                        }
+//
+//                    } else {
+////                    die('-');
+//                        $different_value = array_diff(array_map('trim', json_decode($booking_schedule->array_grade)), json_decode($array_grade));
+//                        $merge_grade = json_decode($booking_schedule->array_grade);
+//                        foreach ($different_value as $f) {
+//                            if (($key = array_search($f, $merge_grade)) !== false) {
+//                                unset($merge_grade[$key]);
+//                            }
+//                        }
+//                        $merge_array = array_values($merge_grade);
+//                    }
+//                }else{
+//                    $merge_array =null;
+//                }
+//
+//            }elseif ($request->app_type == replacement || $request->app_type == renewal){
+//                if (isset($sertifikat->array_grade) && isset($booking_schedule->array_grade) && isset($array_grade)) {
+//                    $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)), json_decode($sertifikat->array_grade), json_decode($array_grade), json_decode($booking_schedule->array_grade), count(json_decode($booking_schedule->array_grade)), json_decode($booking_schedule->array_grade), json_decode($array_grade), true);
+//                }else{
+//                    $merge_array =null;
+//                }
+//            }
+//            $check_false_grade = array_search("false", json_decode($array_grade));
+////            die(print_r($check_false_grade));
+//            if(!empty($check_false_grade) && $request->app_type == news){
+//                $merge_array = null;
+//            }elseif (!empty($check_false_grade) && $request->app_type == replacement || $request->app_type == renewal){
+//                if (($key = array_search("false", $merge_array)) !== false) {
+//                    unset($merge_array[$key]);
+//                }
+//            }
+        $TR_RTT ="";
+        $TR_CSSPB ="";
+        $TR_CCTC ="";
+        $TR_HCTA ="";
+        $TR_X_RAY ="";
+        $TR_AVSO ="";
+        foreach (json_decode($array_grade) as $f){
+            if ($f == "TR_RTT"){
+                $TR_RTT .= "YES";
+            }else{
+                $TR_RTT .= null;
             }
-        }else{
-            if ($request->app_type == news){
-//                die(print_r(json_decode($booking_schedule->array_grade)));
-//                die(print_r(json_decode($array_grade)));
-                if (isset($array_grade) && isset($booking_schedule->array_grade)) {
+            if ($f == "TR_CSSPB"){
+                $TR_CSSPB .= "YES";
+            }else{
+                $TR_CSSPB .= null;
+            }
 
-                    if (isset($array_grade) && isset($booking_schedule->array_grade) && count(json_decode($booking_schedule->array_grade)) <= count(json_decode($array_grade))) {
-//                    die('+');
-                        $cek_false = array_search("false", json_decode($array_grade));
-//                   die(print_r($cek_false));
-                        if ($cek_false == true) {
-                            $merge_array = json_decode($booking_schedule->array_grade);
-                        } else {
-                            $merge_array = json_decode($array_grade);
-                        }
+            if ($f == "TR_CCTC"){
+                $TR_CCTC .= "YES";
+            }else{
+                $TR_CCTC .= null;
+            }
 
-                    } else {
-//                    die('-');
-                        $different_value = array_diff(array_map('trim', json_decode($booking_schedule->array_grade)), json_decode($array_grade));
-                        $merge_grade = json_decode($booking_schedule->array_grade);
-                        foreach ($different_value as $f) {
-                            if (($key = array_search($f, $merge_grade)) !== false) {
-                                unset($merge_grade[$key]);
-                            }
-                        }
-                        $merge_array = array_values($merge_grade);
-                    }
-                }else{
-                    $merge_array =null;
-                }
+            if ($f == "TR_HCTA"){
+                $TR_HCTA .= "YES";
+            }else{
+                $TR_HCTA .= null;
+            }
 
-            }elseif ($request->app_type == replacement || $request->app_type == renewal){
-                if (isset($sertifikat->array_grade) && isset($booking_schedule->array_grade) && isset($array_grade)) {
-                    $merge_array = $this->proses_grade(count(json_decode($sertifikat->array_grade)), json_decode($sertifikat->array_grade), json_decode($array_grade), json_decode($booking_schedule->array_grade), count(json_decode($booking_schedule->array_grade)), json_decode($booking_schedule->array_grade), json_decode($array_grade), true);
-                }else{
-                    $merge_array =null;
-                }
+            if ($f == "TR_X_RAY"){
+                $TR_X_RAY .= "YES";
+            }else{
+                $TR_X_RAY .= null;
             }
-            $check_false_grade = array_search("false", json_decode($array_grade));
-//            die(print_r($check_false_grade));
-            if(!empty($check_false_grade) && $request->app_type == news){
-                $merge_array = null;
-            }elseif (!empty($check_false_grade) && $request->app_type == replacement || $request->app_type == renewal){
-                if (($key = array_search("false", $merge_array)) !== false) {
-                    unset($merge_array[$key]);
-                }
+
+            if ($f == "TR_AVSO"){
+                $TR_AVSO .= "YES";
+            }else{
+                $TR_AVSO .= null;
             }
-            if (!$booking_schedule->Status_app == resubmission){
-                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
-                    ->update([
-                        'app_type' => $request->app_type,
-                        'declaration_date' => null,
-                        'Status_app' => draft,
-                        'Status_draft' => draft_book_appointment,
-                        'array_grade' => $merge_array,
-                    ]);
-            }
+
         }
+
+        if (!$booking_schedule->Status_app == resubmission){
+                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                    ->update([
+                        'app_type' => $request->app_type,
+                        'declaration_date' => null,
+                        'Status_app' => draft,
+                        'Status_draft' => draft_book_appointment,
+//                        'array_grade' => $merge_array,
+                        'TR_RTT' => $TR_RTT,
+                        'TR_CSSPB' => $TR_CSSPB,
+                        'TR_CCTC' => $TR_CCTC,
+                        'TR_HCTA' => $TR_HCTA,
+                        'TR_X_RAY' => $TR_X_RAY,
+                        'TR_AVSO' => $TR_AVSO,
+                    ]);
+            }
+//        }
         if ($logout_save_draft == true){
             Artisan::call('cache:clear');
             Auth::logout();
