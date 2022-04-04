@@ -538,51 +538,54 @@ class HomeController extends Controller
 //                    unset($merge_array[$key]);
 //                }
 //            }
-        $TR_RTT ="";
-        $TR_CSSPB ="";
-        $TR_CCTC ="";
-        $TR_HCTA ="";
-        $TR_X_RAY ="";
-        $TR_AVSO ="";
-        foreach (json_decode($array_grade) as $f){
-            if ($f == "TR_RTT"){
-                $TR_RTT .= "YES";
-            }else{
-                $TR_RTT .= null;
-            }
-            if ($f == "TR_CSSPB"){
-                $TR_CSSPB .= "YES";
-            }else{
-                $TR_CSSPB .= null;
-            }
+        if (substr(url()->previous(),-11) == cek_pathname_logout && $request->app_type ==so_app) {
 
-            if ($f == "TR_CCTC"){
-                $TR_CCTC .= "YES";
-            }else{
-                $TR_CCTC .= null;
-            }
+            $TR_RTT = "";
+            $TR_CSSPB = "";
+            $TR_CCTC = "";
+            $TR_HCTA = "";
+            $TR_X_RAY = "";
+            $TR_AVSO = "";
+            foreach (json_decode($array_grade) as $f) {
+                if ($f == "TR_RTT") {
+                    $TR_RTT .= "YES";
+                } else {
+                    $TR_RTT .= null;
+                }
+                if ($f == "TR_CSSPB") {
+                    $TR_CSSPB .= "YES";
+                } else {
+                    $TR_CSSPB .= null;
+                }
 
-            if ($f == "TR_HCTA"){
-                $TR_HCTA .= "YES";
-            }else{
-                $TR_HCTA .= null;
-            }
+                if ($f == "TR_CCTC") {
+                    $TR_CCTC .= "YES";
+                } else {
+                    $TR_CCTC .= null;
+                }
 
-            if ($f == "TR_X_RAY"){
-                $TR_X_RAY .= "YES";
-            }else{
-                $TR_X_RAY .= null;
-            }
+                if ($f == "TR_HCTA") {
+                    $TR_HCTA .= "YES";
+                } else {
+                    $TR_HCTA .= null;
+                }
 
-            if ($f == "TR_AVSO"){
-                $TR_AVSO .= "YES";
-            }else{
-                $TR_AVSO .= null;
-            }
+                if ($f == "TR_X_RAY") {
+                    $TR_X_RAY .= "YES";
+                } else {
+                    $TR_X_RAY .= null;
+                }
 
+                if ($f == "TR_AVSO") {
+                    $TR_AVSO .= "YES";
+                } else {
+                    $TR_AVSO .= null;
+                }
+
+            }
         }
-
         if (!$booking_schedule->Status_app == resubmission){
+            if (substr(url()->previous(),-11) == cek_pathname_logout  && $request->app_type ==so_app) {
                 $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
                     ->update([
                         'app_type' => $request->app_type,
@@ -597,7 +600,17 @@ class HomeController extends Controller
                         'TR_X_RAY' => $TR_X_RAY,
                         'TR_AVSO' => $TR_AVSO,
                     ]);
+            }else{
+                $save_draft = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])
+                    ->update([
+                        'app_type' => $request->app_type,
+                        'declaration_date' => null,
+                        'Status_app' => draft,
+                        'Status_draft' => draft_book_appointment,
+//                        'array_grade' => $merge_array,
+                    ]);
             }
+        }
 //        }
         if ($logout_save_draft == true){
             Artisan::call('cache:clear');
