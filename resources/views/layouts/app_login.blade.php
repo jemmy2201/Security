@@ -134,7 +134,7 @@
         @else
                 <div style="margin-left:142px;cursor: pointer;border: 1px solid grey ">
         @endif
-            <h4 style="font-weight: bold;">User's Guidelines</h4>
+            <h4 style="font-weight: bold;">User Guide</h4>
             <h4 style="font-weight: bold;">Frequenlty Asked Questions</h4>
         </div>
     </div>
