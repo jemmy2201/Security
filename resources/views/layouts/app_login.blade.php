@@ -129,9 +129,13 @@
 
         </main>
 
-        <div style="margin-left:110px;cursor: pointer;border: 1px solid grey ">
-            <h4>User's Guidelines</h4>
-            <h4>Frequenlty Asked Questions</h4>
+        @if($_SERVER['SERVER_NAME'] == "127.0.0.1")
+                <div style="margin-left:110px;cursor: pointer;border: 1px solid grey ">
+        @else
+                <div style="margin-left:142px;cursor: pointer;border: 1px solid grey ">
+        @endif
+            <h4 style="font-weight: bold;">User's Guidelines</h4>
+            <h4 style="font-weight: bold;">Frequenlty Asked Questions</h4>
         </div>
     </div>
 
