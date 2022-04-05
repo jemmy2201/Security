@@ -110,10 +110,7 @@
 {{--                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>--}}
 {{--                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">--}}
                     </div>
-                    <div style="cursor: pointer;border: 1px solid grey ">
-                        <h4>User's Guidelines</h4>
-                        <h4>Frequenlty Asked Questions</h4>
-                    </div>
+                   
                 </div>
             </div>
         </div>

@@ -129,7 +129,12 @@
 
         </main>
 
+        <div style="margin-left:110px;cursor: pointer;border: 1px solid grey ">
+            <h4>User's Guidelines</h4>
+            <h4>Frequenlty Asked Questions</h4>
+        </div>
     </div>
+
 <!-- Footer -->
             <footer class="footer bg-light text-center text-lg-start" style="border-style: groove; background: white; ">
                 <!-- Copyright -->
