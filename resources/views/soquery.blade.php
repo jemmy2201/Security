@@ -134,9 +134,10 @@
         <h3 style="color: white;"><b>SECURITY OFFICER'S INFO</b></h3>
         <div class="row">
             <div class="col-6"style="color: white;text-align: left"><h5>NAME<span style="margin-left: 81px;">:</span></h5></div>
-            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->Name}}</h5></div>
+{{--            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->Name}}</h5></div>--}}
+            <div class="col-8" style="color: white;"><h5>{{$soquery->Name}}</h5></div>
             <div class="w-100"></div>
-            <div class="col-6"style="color: white;text-align: left"><h5>NRIC / FIN<span style="margin-left: 61px;">:</span></h5></div>
+            <div class="col-6"style="color: white;text-align: left"><h5>NRIC / FIN<span style="margin-left: 54px;">:</span></h5></div>
             <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->M_NRIC }}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>PASS ID<span style="margin-left: 68px;">:</span></h5></div>
