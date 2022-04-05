@@ -108,17 +108,22 @@
                     </div>
                     <div class="col-sm-2" style="text-align: end;" >
 {{--                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>--}}
-                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">
+{{--                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">--}}
                     </div>
-
+                    <div style="cursor: pointer;border: 1px solid grey ">
+                        <h4>User's Guidelines</h4>
+                        <h4>Frequenlty Asked Questions</h4>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
     </div>
     <button type="button" class="btn btn-primary" id="action_modal_re_login" data-toggle="modal" data-target="#modal_re_login" hidden>
 
     </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -430,7 +430,7 @@
 
 {{--        </div>--}}
         <div class="col-4 hidden-xs">
-            <p>Guidelines for Digital Photo Image Submission</p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
@@ -442,7 +442,7 @@
 
         </div>
         <div class="col-6 visible-xs hidden-md">
-            <p>Guidelines for Digital Photo Image Submission</p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>

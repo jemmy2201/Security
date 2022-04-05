@@ -321,7 +321,7 @@
         </div>
     </div>
 <br>
-    <p><b>My Updates/Notifications</b></p>
+    <p><b>My Updates</b></p>
     <div class="container">
         <div class="row">
             @php
