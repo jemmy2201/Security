@@ -220,23 +220,23 @@
                 </h3>
         </div>
         <div class="row">
-            @if($soquery->SKILL_BFM = "YES")
+            @if($soquery->SKILL_BFM == "YES")
             <div class="col-12"style="text-align: left;color: white;" ><h5><b>Basic Facilities Management</b></h5></div>
             <div class="w-100"></div>
             @endif
-            @if($soquery->SKILL_BSS = "YES")
+            @if($soquery->SKILL_BSS == "YES")
             <div class="col-12"style="text-align: left;color: white;"><h5><b>Fundamentals of Building Services & Safety</b></h5></div>
             <div class="w-100"></div>
             @endif
-            @if($soquery->SKILL_FSM = "YES")
+            @if($soquery->SKILL_FSM == "YES")
             <div class="col-12"style="text-align: left;color: white;"><h5><b>Fire Safety Management</b></h5></div>
             <div class="w-100"></div>
             @endif
-            @if($soquery->SKILL_CERT = "YES")
+            @if($soquery->SKILL_CERT == "YES")
             <div class="col-12"style="text-align: left;color: white;"><h5><b>CERT</b></h5></div>
             <div class="w-100"></div>
             @endif
-            @if($soquery->SKILL_COSEM = "YES")
+            @if($soquery->SKILL_COSEM == "YES")
             <div class="col-12"style="text-align: left;color: white;"><h5><b>COSEM</b></h5></div>
             <div class="w-100"></div>
             @endif
