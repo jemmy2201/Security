@@ -133,7 +133,7 @@
     <div class="col-12">
         <h3 style="color: white;"><b>SECURITY OFFICER'S INFO</b></h3>
         <div class="row">
-            <div class="col-6"style="color: white;text-align: left"><h5>NAME<span style="margin-left: 81px;">:</span></h5></div>
+            <div class="col-6"style="color: white;text-align: left"><h5>NAME<span style="margin-left: 81px;"></span></h5></div>
 {{--            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->Name}}</h5></div>--}}
             <div class="col-8" style="color: white;"><h5>{{$soquery->Name}}</h5></div>
             <div class="w-100"></div>
@@ -141,13 +141,13 @@
             <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->M_NRIC }}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>PASS ID<span style="margin-left: 68px;">:</span></h5></div>
-            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->PassID}}</h5></div>
+            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{substr($soquery->PassID, 0, -2)}}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>PWM GRADE<span style="margin-left: 34px;">:</span></h5></div>
             <div class="col-4" style="color: white;margin-left: -60px;"><h5>{{$soquery->Grade}}</h5></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h5>LICENSE EXPIRY<span style="margin-left: 7px;">:</span></h5></div>
-            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{date('m/d/Y ',strtotime($soquery->LicenseExpiryDate))}}</h5></div>
+            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{date('d/m/Y ',strtotime($soquery->LicenseExpiryDate))}}</h5></div>
             <div class="w-100"></div>
         </div>
     </div>
@@ -240,8 +240,8 @@
             <div class="col-12"style="text-align: left;color: white;"><h5><b>COSEM</b></h5></div>
             <div class="w-100"></div>
             @endif
-            <div class="col-6"style="color: white;text-align: left"><h6><b>Date Of Updated Courses<span style="margin-left: 20px;">:</span></b></h6></div>
-            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h6></div>
+            <div class="col-6"style="color: white;text-align: left"><h6><b>Information updated as of<span style="margin-left: 10px;">:</span></b></h6></div>
+            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->Date_submitted))}}</h6></div>
             <div class="w-100"></div>
         </div>
     </div>
