@@ -157,7 +157,8 @@
         </div>
         <div class="row">
             <ul class="list-group">
-                <li class="list-group"><input class="form-check-input" type="checkbox" name="declare">&ensp;&ensp; I declare the information submitted is true</li>
+                <li class="list-group"><input class="form-check-input" type="checkbox" name="declare">&ensp;&ensp; I hereby declare that the information submitted is true and correct.
+                    In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</li>
             </ul>
         </div>
 {{--        <div class="row">--}}

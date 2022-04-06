@@ -29,7 +29,7 @@
 @section('content')
     <div class="container">
         <h4 style="font-weight: bold;">
-            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this web portal.
+            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this service.
         </h4>
 {{--        <h4 style="font-weight: bold;">--}}
 {{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}

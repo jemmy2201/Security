@@ -128,14 +128,35 @@
             @yield('content')
 
         </main>
+        <div class="container" >
+            <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4" >
+{{--                            <div class="row">--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                </div>--}}
+{{--                                <div class="col-sm-6" style="--}}
+{{--  justify-content: center;--}}
+{{--  align-items: center;cursor: pointer;border: 1px solid grey ">--}}
+{{--                @if($_SERVER['SERVER_NAME'] == "127.0.0.1")--}}
+{{--                    <div style="margin-left:160px;cursor: pointer;border: 1px solid grey ">--}}
+{{--                        @else--}}
+{{--                            <div style="margin-left:142px;cursor: pointer;border: 1px solid grey ">--}}
+{{--                                @endif--}}
+                                <h4 style="font-weight: bold;margin-left: 145px;" class="hidden-xs">User Guide</h4>
+                                <h4 style="font-weight: bold;margin-left: 145px;position: fixed;" class="hidden-xs">Frequently Asked Questions</h4>
+                                <h4 style="font-weight: bold;" class="visible-xs hidden-md">User Guide</h4>
+                                <h4 style="font-weight: bold;" class="visible-xs hidden-md">Frequently Asked Questions</h4>
+{{--                                </div>--}}
+{{--                            </div>--}}
+            </div>
+                    {{--                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>--}}
+                    {{--                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">--}}
+            </div>
 
-        @if($_SERVER['SERVER_NAME'] == "127.0.0.1")
-                <div style="margin-left:110px;cursor: pointer;border: 1px solid grey ">
-        @else
-                <div style="margin-left:142px;cursor: pointer;border: 1px solid grey ">
-        @endif
-            <h4 style="font-weight: bold;">User Guide</h4>
-            <h4 style="font-weight: bold;">Frequenlty Asked Questions</h4>
         </div>
     </div>
 

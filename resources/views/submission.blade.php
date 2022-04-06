@@ -430,7 +430,7 @@
 
 {{--        </div>--}}
         <div class="col-4 hidden-xs">
-            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle" aria-hidden="true" style="color:#800000 !important;"></i></p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
@@ -442,7 +442,7 @@
 
         </div>
         <div class="col-6 visible-xs hidden-md">
-            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle" aria-hidden="true" style="color:#800000 !important;"></i></p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
@@ -472,9 +472,11 @@
             @if(empty($resubmission))
 {{--                <br class="hidden-xs">--}}
                 <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
-                <b class="hidden-xs">I declare the information submitted is true and I have submitted my photo.</b>
+                <b class="hidden-xs">I hereby declare that the information and photo submitted is true and correct.
+                    In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</b>
                 <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
-                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I declare the information submitted is true and I have submitted my photo.</b>
+                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I hereby declare that the information and photo submitted is true and correct.
+                    In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</b>
             @endif
 {{--        @endif--}}
     <br><br class="hidden-xs"><br class="hidden-xs">
