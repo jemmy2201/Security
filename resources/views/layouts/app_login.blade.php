@@ -134,7 +134,7 @@
             </div>
             <div class="col-4">
             </div>
-            <div class="col-4" >
+            <div class="col-4" style="cursor: pointer;">
 {{--                            <div class="row">--}}
 {{--                                <div class="col-sm-6">--}}
 {{--                                </div>--}}
