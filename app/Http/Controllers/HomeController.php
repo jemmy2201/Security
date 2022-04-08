@@ -1362,42 +1362,44 @@ class HomeController extends Controller
         $TR_HCTA ="";
         $TR_X_RAY ="";
         $TR_AVSO ="";
-        foreach ($request->Cgrades as $f){
-            if ($f == "TR_RTT"){
-                $TR_RTT .= "YES";
-            }else{
-                $TR_RTT .= null;
-            }
-            if ($f == "TR_CSSPB"){
-                $TR_CSSPB .= "YES";
-            }else{
-                $TR_CSSPB .= null;
-            }
+        if ($request->card == so) {
+            foreach ($request->Cgrades as $f) {
+                if ($f == "TR_RTT") {
+                    $TR_RTT .= "YES";
+                } else {
+                    $TR_RTT .= null;
+                }
+                if ($f == "TR_CSSPB") {
+                    $TR_CSSPB .= "YES";
+                } else {
+                    $TR_CSSPB .= null;
+                }
 
-            if ($f == "TR_CCTC"){
-                $TR_CCTC .= "YES";
-            }else{
-                $TR_CCTC .= null;
-            }
+                if ($f == "TR_CCTC") {
+                    $TR_CCTC .= "YES";
+                } else {
+                    $TR_CCTC .= null;
+                }
 
-            if ($f == "TR_HCTA"){
-                $TR_HCTA .= "YES";
-            }else{
-                $TR_HCTA .= null;
-            }
+                if ($f == "TR_HCTA") {
+                    $TR_HCTA .= "YES";
+                } else {
+                    $TR_HCTA .= null;
+                }
 
-            if ($f == "TR_X_RAY"){
-                $TR_X_RAY .= "YES";
-            }else{
-                $TR_X_RAY .= null;
-            }
+                if ($f == "TR_X_RAY") {
+                    $TR_X_RAY .= "YES";
+                } else {
+                    $TR_X_RAY .= null;
+                }
 
-            if ($f == "TR_AVSO"){
-                $TR_AVSO .= "YES";
-            }else{
-                $TR_AVSO .= null;
-            }
+                if ($f == "TR_AVSO") {
+                    $TR_AVSO .= "YES";
+                } else {
+                    $TR_AVSO .= null;
+                }
 
+            }
         }
 
         if ($request->app_type == renewal){

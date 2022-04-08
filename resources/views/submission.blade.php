@@ -471,12 +471,14 @@
 {{--        @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
             @if(empty($resubmission))
 {{--                <br class="hidden-xs">--}}
-                <input type="checkbox" class="hidden-xs" id="submit_submission " name="submit_submission" style="margin-top: 45px;">
-                <b class="hidden-xs">I hereby declare that the information and photo submitted is true and correct.
-                    In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</b>
-                <input type="checkbox" class="visible-xs hidden-md" id="submit_submission " name="submit_submission">
-                <b class="visible-xs hidden-md" style="margin-bottom: 10px; ">I hereby declare that the information and photo submitted is true and correct.
-                    In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</b>
+            <ul class="list-group list-group-horizontal " style="margin-top: 20px;">
+                <li style="list-style-type: none;" > <input type="checkbox" id="submit_submission " name="submit_submission" ></li>&nbsp;
+                <li style="list-style-type: none;text-align: justify;" ><b >I hereby declare that the information and photo submitted is true and correct.
+                        In case any of the above information is found to be false or untrue or misleading or misrepresenting, I am aware that I may be held liable for it.</b></li>
+            </ul>
+
+
+
             @endif
 {{--        @endif--}}
     <br><br class="hidden-xs"><br class="hidden-xs">
