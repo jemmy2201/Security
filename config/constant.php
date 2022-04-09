@@ -318,6 +318,8 @@ define('value_card_issue2', "Contact details as shown on the top of this page.")
 define('value_IDQuery', "Pass ID not found.");
 define('value_expired_card1', "Your ID card's expiry date has expired.");
 define('value_expired_card2', "Renew your PLRD SO/PI licence @ Go Business Singapore website - https://www.gobusiness.gov.sg");
+define('value_not_found1', "Record not found.");
+define('value_not_found2', "Please contact Union Of Security Employees for  further assistance.");
 
 define('phone_general_office', "+65 6381 9150");
 define('phone_CSC', "+65 6291 5145 (CSC)");

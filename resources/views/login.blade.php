@@ -1,8 +1,41 @@
 @extends('layouts.app_login')
 <style>
-    .modal-header{
-        background: red;
+    {{--  User Guide  --}}
+    @media (min-width :768px) {
+        .modal-dialog {
+            width: 968px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
     }
+    @media (min-width :576px) {
+        .modal-dialog {
+            max-width: 930px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        #view_terms {
+            width: 300px;
+        }
+    }
+    .modal-header-relogin{
+        background: red;
+        padding: 15px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: calc(0.3rem - 1px);
+        border-top-right-radius: calc(0.3rem - 1px);
+    }
+    {{--  End User Guide  --}}
+
     .modal-footer {
         display: flow-root !important;
         text-align: center !important;
@@ -102,11 +135,15 @@
                         </div>
                     </div>
                     <div class="col-sm-3"  style="text-align: center;">
-                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" >
+                        <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" >
+
+
                     </div>
                     <div class="col-sm-3"  >
+
                     </div>
                     <div class="col-sm-2" style="text-align: end;" >
+
 {{--                        <h2 style="text-align: center;width:85px;color: white;border: 1px solid white;font-family:neue;">FAQs</h2>--}}
 {{--                        <img src="{{URL::asset('/img/faqs.png')}}" style="width: 75px;">--}}
                     </div>
@@ -126,7 +163,7 @@
     <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header-relogin">
                     <h4 class="modal-title" id="exampleModalLongTitle">Session Logged Out/Time-Out</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>

@@ -473,7 +473,7 @@
 {{--                <br class="hidden-xs">--}}
             <ul class="list-group list-group-horizontal " style="margin-top: 20px;">
                 <li style="list-style-type: none;" > <input type="checkbox" id="submit_submission " name="submit_submission" ></li>&nbsp;
-                <li style="list-style-type: none;text-align: justify;" ><b >I hereby declare that the information and photo submitted is true and correct.In case any of the above information is found to be false or untrue or misleading or misrepresenting.i am aware that i may be held liable for it.</b></li>
+                <li style="list-style-type: none;text-align: justify;">I hereby declare that the information and photo submitted is true and correct.<br>In case any of the above information is found to be false or untrue or misleading or misrepresenting.<br>i am aware that i may be held liable for it.</li>
             </ul>
 
 

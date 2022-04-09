@@ -31,7 +31,27 @@
             margin: 0;
             background-color: #818286;
         }
+        {{--  Scroll  --}}
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        {{--  End Scroll  --}}
         #app {
             /* The image used */
             /*background-image: url("img/login_background.jpg");*/
@@ -132,9 +152,8 @@
             <div class="row">
             <div class="col-4">
             </div>
-            <div class="col-4">
-            </div>
-            <div class="col-4" style="cursor: pointer;">
+
+            <div class="col-4" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalCenter">
 {{--                            <div class="row">--}}
 {{--                                <div class="col-sm-6">--}}
 {{--                                </div>--}}
@@ -159,6 +178,27 @@
 
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src ="{{ asset('/FAQs for ID card Web portal.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
+                </div>
+                {{--                <div class="modal-footer">--}}
+                {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--                </div>--}}
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 
 <!-- Footer -->
             <footer class="footer bg-light text-center text-lg-start" style="border-style: groove; background: white; ">

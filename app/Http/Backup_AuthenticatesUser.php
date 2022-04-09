@@ -104,7 +104,7 @@ trait AuthenticatesUsers
                         }
                     }
                 }else{
-                    return  view('page_error')->with(['data1'=>'Record not found.','data2'=>'Please contact Union Of Security Employees for  further assistance.','image'=>'fa fa-info-circle']);
+                    return  view('page_error')->with(['data1'=>value_not_found1,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
                 }
             }
         }else {
