@@ -31,6 +31,31 @@
             margin: 0;
             background-color: #818286;
         }
+
+        {{--  User Guide  --}}
+    @media (min-width :768px) {
+            .modal-dialog-terms {
+                width: 968px !important;
+                margin-left: 210px;
+            }
+            #view_terms {
+                width: 900px;
+            }
+        }
+        @media (min-width :576px) {
+            .modal-dialog-terms {
+                max-width: 930px !important;
+            }
+            #view_terms {
+                width: 900px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            #view_terms {
+                width: 300px;
+            }
+        }
         {{--  Scroll  --}}
         /* width */
         ::-webkit-scrollbar {
@@ -153,7 +178,7 @@
             <div class="col-4">
             </div>
 
-            <div class="col-4" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalCenter">
+            <div class="col-4" style="cursor: pointer;margin-left: 48px;" data-toggle="modal" data-target="#exampleModalCenter">
 {{--                            <div class="row">--}}
 {{--                                <div class="col-sm-6">--}}
 {{--                                </div>--}}
@@ -180,7 +205,7 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-dialog-terms modal-dialog-centered" role="document" >
             <div class="modal-content" >
                 <div class="modal-header">
                     {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
@@ -210,5 +235,6 @@
                 <!-- Copyright -->
             </footer>
 <!-- Footer -->
+
 </body>
 </html>

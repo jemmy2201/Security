@@ -1,28 +1,6 @@
 @extends('layouts.app_login')
 <style>
-    {{--  User Guide  --}}
-    @media (min-width :768px) {
-        .modal-dialog {
-            width: 968px !important;
-        }
-        #view_terms {
-            width: 900px;
-        }
-    }
-    @media (min-width :576px) {
-        .modal-dialog {
-            max-width: 930px !important;
-        }
-        #view_terms {
-            width: 900px;
-        }
-    }
 
-    @media only screen and (max-width: 600px) {
-        #view_terms {
-            width: 300px;
-        }
-    }
     .modal-header-relogin{
         background: red;
         padding: 15px;
@@ -160,12 +138,12 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="margin-top: -30px;">
             <div class="modal-content">
                 <div class="modal-header-relogin">
                     <h4 class="modal-title" id="exampleModalLongTitle">Session Logged Out/Time-Out</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="closes" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -191,6 +169,9 @@
     @endphp
     <script>
         $( document ).ready(function() {
+            $( "#closes" ).click(function() {
+                $( "#relogin" ).trigger( "click" );
+            });
             if (window.location.pathname == {!!  json_encode(url_relogin) !!}) {
                 $( "#action_modal_re_login" ).trigger( "click" );
             }
