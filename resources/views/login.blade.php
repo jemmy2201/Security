@@ -114,7 +114,7 @@
                     </div>
                     <div class="col-sm-3"  style="text-align: center;">
                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" ><br>
-                        <img src="{{URL::asset('/img/UG & FAQ.png')}}" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" data-toggle="modal" data-target="#exampleModalCenter">
+                        <img src="{{URL::asset('/img/UG & FAQ.png')}}" data-toggle="modal" data-target="#exampleModalTerm" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" >
                     </div>
                     <div class="col-sm-3"  >
 
@@ -135,8 +135,29 @@
 
     </button>
 
+    <!-- Modal TERM -->
+    <div class="modal fade" id="exampleModalTerm" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+        <div class="modal-dialog-terms modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" id="ClosesTerm" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src ="{{ asset('/FAQs for ID card Web portal.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
+                </div>
+                {{--                <div class="modal-footer">--}}
+                {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--                </div>--}}
+            </div>
+        </div>
+    </div>
+    <!-- End Modal TERM -->
 
-    <!-- Modal -->
+    <!-- Modal Relogin -->
     <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="margin-top: -30px;">
             <div class="modal-content">
@@ -159,6 +180,7 @@
             </div>
         </div>
     </div>
+    <!-- End Modal Relogin -->
     @php
         if (detect_url() == URLUat){
                echo '<script src="https://stg-id.singpass.gov.sg/static/ndi_embedded_auth.js"></script>';
@@ -171,6 +193,10 @@
             $( "#closes" ).click(function() {
                 $( "#relogin" ).trigger( "click" );
             });
+            $( "#ClosesTerm" ).click(function() {
+                location.reload();
+            });
+
             if (window.location.pathname == {!!  json_encode(url_relogin) !!}) {
                 $( "#action_modal_re_login" ).trigger( "click" );
             }
