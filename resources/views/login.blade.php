@@ -113,9 +113,8 @@
                         </div>
                     </div>
                     <div class="col-sm-3"  style="text-align: center;">
-                        <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" >
-
-
+                        <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" ><br>
+                        <img src="{{URL::asset('/img/UG & FAQ.png')}}" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" data-toggle="modal" data-target="#exampleModalCenter">
                     </div>
                     <div class="col-sm-3"  >
 
