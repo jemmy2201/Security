@@ -452,18 +452,21 @@ class SingpassController extends Controller
                                     ->orWhere(['booking_schedules.card_id'=>pi_app]);
                             })->where(['users.nric'=> secret_encode( $request->singpass_id )])->get();
                         if (count($cek_avso_PI) == 0){
-                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+//                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+                            return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
                         }else{
                             foreach ($cek_avso_PI as $f) {
                                 if ($f->card_issue == n_card_issue){
-                                    return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                                    return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+                                    return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card2,'image'=>'fa fa-info-circle']);
                                 }else{
                                     $data = User::where('nric', secret_encode($request->singpass_id))->first();
                                 }
                             }
                         }
                     }elseif ($f->card_issue == n_card_issue){
-                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+                        return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
                     }else{
                         $existingUser = User::where('nric',secret_encode($sub))->first();
                         auth()->login($existingUser, true);
