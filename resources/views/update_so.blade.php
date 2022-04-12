@@ -165,7 +165,7 @@
 {{--            PassID &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: {{$personal->PassID}}--}}
 {{--        </div>--}}
         <div class="row">
-            Date of submission&emsp;: {{date("d-m-Y")}}
+            Date of submission&emsp;: {{DateTime::createFromFormat("Y-m-d H:i:s", $personal->Date_Submitted)->format('d-m-Y')}}
         </div>
         <br>
         <div class="row" style="margin-left: -35px;">
