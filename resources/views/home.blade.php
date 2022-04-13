@@ -59,7 +59,6 @@
                     </a>
                 </button>
             </div>
-            @if($check_use_file == true)
             <div class="col-2 hidden-xs">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
                     <a href="#" style="text-decoration:none; color: white;">
@@ -67,7 +66,6 @@
                     </a>
                 </button>
             </div>
-            @endif
             <div class="col-4 visible-xs hidden-md">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
@@ -75,7 +73,6 @@
                     </a>
                 </button>
             </div>
-            @if($check_use_file == true)
             <div class="col-4 visible-xs hidden-md">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
@@ -83,8 +80,6 @@
                     </a>
                 </button>
             </div>
-            @endif
-
         </div>
         @php
             $cutnric = substr(secret_decode(Auth::user()->nric), -4);
