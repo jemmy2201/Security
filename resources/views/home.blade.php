@@ -27,29 +27,6 @@
     }
 </style>
 @section('content')
-    <div class="container">
-        <h4 style="font-weight: bold;">
-            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this service.
-        </h4>
-{{--        <h4 style="font-weight: bold;">--}}
-{{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}
-{{--        </h4>--}}
-    </div>
-{{--    <div class="container">--}}
-{{--        <iframe src ="{{ asset('/USE ID Card Portal Terms Of Use.pdf') }}" width="100%" height="100%" style="display: none;" id="view_terms"></iframe>--}}
-{{--    </div>--}}
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h4>
-                <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
-                <span style="margin-left: 20px;font-weight: bold;">I have read and agree to the website's terms of use.</span>
-                </h4>
-            </div>
-        </div>
-    </div>
-    <br><br><br>
     @php
         $filename = 'C:\Windows\Temp\USE_Change.txt';
          if (file_exists($filename)) {
@@ -58,6 +35,41 @@
              $check_use_file = false;
          }
     @endphp
+    @if($check_use_file == true)
+
+        <div class="container">
+        <h4 style="font-weight: bold;">
+            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this service.
+        </h4>
+{{--        <h4 style="font-weight: bold;">--}}
+{{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}
+{{--        </h4>--}}
+    </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h4>
+                    <input class="form-check-input" name="agree_pdf" type="checkbox" id="agree_pdf" width="120%">
+                    <span style="margin-left: 20px;font-weight: bold;">I have read and agree to the website's terms of use.</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <br><br><br>
+    @else
+        <div class="container">
+            <h4 style="font-weight: bold;">
+                Hello, USE web portal ......
+            </h4>
+            {{--        <h4 style="font-weight: bold;">--}}
+            {{--            Read <a href="#"> <span style="color: blue;" id="open_terms">TERMS OF USE </span></a>document.--}}
+            {{--        </h4>--}}
+        </div>
+
+    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-2 hidden-xs">
