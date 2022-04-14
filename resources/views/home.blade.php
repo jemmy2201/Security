@@ -27,11 +27,27 @@
     }
 </style>
 @section('content')
+    <div class="container" id="form_header_welcome" >
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">
+            <h3 align="center">Hello,</h3>
+            <h3 align="center">USE Web Portal will be officially</h3>
+            <h3 align="center">launched on 02 May 2022</h3>
+            </div>
+            <div class="col-12 visible-xs hidden-md" style="background-color: #C3C3C3;">
+                <h3 align="center">Hello,</h3>
+                <h3 align="center">USE Web Portal will be officially</h3>
+                <h3 align="center">launched on 02 May 2022</h3>
+            </div>
+        </div>
+    </div>
     <div class="container" id="form_check_file">
         <div class="modal-dialog">
             <div class="modal-content" style="font-family: sans-serif">
                 <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
-                        <h3 class="modal-title"><b>Check File</b></h3>
+                    <h3 class="modal-title"><b>Choose File</b></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -43,7 +59,7 @@
                         </div>
                         <div class="mb-3">
                             <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
-                                    <b>Upload</b>
+                                <b>Proceed</b>
                             </button>
                         </div>
                     </form>
@@ -73,13 +89,13 @@
     <div class="container">
         <div class="row">
             <div class="col-2 hidden-xs">
-                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+                <button class=" btn btn-light btn-lg btn-block" id="line3" style="pointer-events: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
                 </button>
             </div>
-            <div class="col-2 hidden-xs" id="line3" style="display: none">
+            <div class="col-2 hidden-xs" id="line4" style="pointer-events: none;">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
@@ -89,13 +105,13 @@
 
             {{--   Phone   --}}
             <div class="col-4 visible-xs hidden-md">
-                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+                <button class=" btn btn-light btn-lg btn-block" id="line5" style="pointer-events: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
                 </button>
             </div>
-            <div class="col-4 visible-xs hidden-md" id="line4" style="display: none">
+            <div class="col-4 visible-xs hidden-md" id="line6" style="pointer-events: none;">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
@@ -159,9 +175,12 @@
                     if(data['massages'] == {!!  json_encode(success_check) !!}){
                         $("#line1").css("display", "block");
                         $("#line2").css("display", "block");
-                        $("#line3").css("display", "block");
-                        $("#line4").css("display", "block");
+                        $("#line3").css("pointer-events", "auto");
+                        $("#line4").css("pointer-events", "auto");
+                        $("#line5").css("pointer-events", "auto");
+                        $("#line6").css("pointer-events", "auto");
                         $("#form_check_file").css("display", "none");
+                        $("#form_header_welcome").css("display", "none");
                     }
                 }, error: function(data,textStatus, xhr){
                     // Error...
