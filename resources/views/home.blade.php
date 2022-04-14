@@ -25,6 +25,7 @@
             width: 300px;
         }
     }
+
 </style>
 @section('content')
     <div class="container" id="form_header_welcome" >
@@ -42,30 +43,47 @@
                 <h3 align="center">launched on 02 May 2022</h3>
             </div>
         </div>
-    </div>
+    </div><br>
     <div class="container" id="form_check_file">
-        <div class="modal-dialog">
-            <div class="modal-content" style="font-family: sans-serif">
-                <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
-                    <h3 class="modal-title"><b>Choose File</b></h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >
-                        @csrf
-                        <div class="mb-3">
-                            <label for="title" class="col-form-label">Upgrade grade</label>
-                            <input type="file" name="check_file" id="check_file" class="form-control form-control-lg"  accept=".txt">
-                        </div>
-                        <div class="mb-3">
-                            <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
-                                <b>Proceed</b>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">
+                <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="mb-3">
+                        <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text"  accept=".txt">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
+                            <b>Proceed</b>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+{{--        <div class="modal-dialog">--}}
+{{--            <div class="modal-content" style="font-family: sans-serif">--}}
+{{--                <div class="modal-header" style="justify-content: center !important;border-bottom:0px">--}}
+{{--                    <h3 class="modal-title"><b>Choose File</b></h3>--}}
+{{--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >--}}
+{{--                        @csrf--}}
+{{--                        <div class="mb-3">--}}
+{{--                            <label for="title" class="col-form-label">Upgrade grade</label>--}}
+{{--                            <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text"  accept=".txt">--}}
+{{--                        </div>--}}
+{{--                        <div class="mb-3">--}}
+{{--                            <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">--}}
+{{--                                <b>Proceed</b>--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 
     <div class="container" id="line1" style="display: none">
@@ -89,13 +107,13 @@
     <div class="container">
         <div class="row">
             <div class="col-2 hidden-xs">
-                <button class=" btn btn-light btn-lg btn-block" id="line3" style="pointer-events: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+                <button class=" btn btn-light btn-lg btn-block" id="line3" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
                 </button>
             </div>
-            <div class="col-2 hidden-xs" id="line4" style="pointer-events: none;">
+            <div class="col-2 hidden-xs" id="line4" style="display: none;">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
@@ -105,13 +123,13 @@
 
             {{--   Phone   --}}
             <div class="col-4 visible-xs hidden-md">
-                <button class=" btn btn-light btn-lg btn-block" id="line5" style="pointer-events: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+                <button class=" btn btn-light btn-lg btn-block" id="line5" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
                 </button>
             </div>
-            <div class="col-4 visible-xs hidden-md" id="line6" style="pointer-events: none;">
+            <div class="col-4 visible-xs hidden-md" id="line6" style="display: none;">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
@@ -175,10 +193,10 @@
                     if(data['massages'] == {!!  json_encode(success_check) !!}){
                         $("#line1").css("display", "block");
                         $("#line2").css("display", "block");
-                        $("#line3").css("pointer-events", "auto");
-                        $("#line4").css("pointer-events", "auto");
-                        $("#line5").css("pointer-events", "auto");
-                        $("#line6").css("pointer-events", "auto");
+                        $("#line3").css("display", "block");
+                        $("#line4").css("display", "block");
+                        $("#line5").css("display", "block");
+                        $("#line6").css("display", "block");
                         $("#form_check_file").css("display", "none");
                         $("#form_header_welcome").css("display", "none");
                     }
