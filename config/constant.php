@@ -329,3 +329,11 @@ define('Senior_Security_Officer', "SSO");
 define('Security_Supervisor', "SS");
 define('Senior_Security_Supervisor', "SSS");
 define('Chief_Security_Officer', "CSO");
+
+// Home
+define('check_name_file_home', "USE_Change.txt");
+define('file_wrong', "File Wrong");
+define('file_contents', "useofsecurityemployees2022");
+define('wrong_file_contents', "Wrong Value");
+define('success_check', "success");
+// End Home

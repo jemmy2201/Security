@@ -98,6 +98,8 @@ Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment')
 
 // End User
 
+
+
 // SO Query
 Route::get('/SOQuery/IDQuery/{passid}', 'SoQueryController@soquery');
 // End SO Query
@@ -119,6 +121,9 @@ Route::prefix('admin')->group(function () {
 });
 // End Admin
 Route::prefix('ajax')->group(function () {
+    // check file page home
+    Route::post('/check/file/home', 'AjaxController@check_file_home')->name('check_file_home');
+    // End check file page home
     Route::get('/cek/data/from', 'AjaxController@cek_data_from');
     Route::get('/cek/card/type', 'AjaxController@cek_card_type');
     Route::post('/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');

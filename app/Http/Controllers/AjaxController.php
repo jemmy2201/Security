@@ -1387,6 +1387,19 @@ class AjaxController extends Controller
         }
         return $respon ;
     }
+    public function check_file_home(Request $request)
+    {
+        $name_file = $request->file('check_file')->getClientOriginalName();
+        if ($name_file == check_name_file_home){
+            if ($request->file('check_file')->getContent() == file_contents){
+                return response()->json(['massages' => success_check]);
+            }else{
+                return response()->json(['massages' => wrong_file_contents],401);
+            }
+        }else{
+            return response()->json(['massages' => file_wrong],401);
+        }
+    }
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {
