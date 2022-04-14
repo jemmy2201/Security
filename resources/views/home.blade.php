@@ -51,8 +51,10 @@
             <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">
                 <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >
                     @csrf
+                    <br>
                     <div class="mb-3">
-                        <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text"  accept=".txt">
+                        <button id="tigger_check_file" style="font-size:16px" class="btn btn-secondary btn-lg ">Choose file.</button>&nbsp;<b id="text_name_file">No file chosen</b>
+                        <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text" style="display: none"  accept=".txt">
                     </div>
                     <div class="mb-3">
                         <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
@@ -169,9 +171,16 @@
     <!-- End Modal USE ID Card Portal Terms Of Use-->
 
 
-<script type="application/javascript">
+<script>
 
     $( document ).ready(function() {
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('#text_name_file').text(fileName);
+        });
+        $( "#tigger_check_file" ).on( "click", function() {
+            $( "#check_file" ).trigger( "click" );
+        });
         //check File
         $("#FormUploadFile").submit(function(e) {
             var form_data = new FormData(document.getElementById("FormUploadFile"));
@@ -191,6 +200,7 @@
                 success: function(data,textStatus, xhr)
                 {
                     if(data['massages'] == {!!  json_encode(success_check) !!}){
+                        console.log('ss',data['name'])
                         $("#line1").css("display", "block");
                         $("#line2").css("display", "block");
                         $("#line3").css("display", "block");
@@ -204,8 +214,9 @@
                     // Error...
                     var errors = $.parseJSON(data.responseText);
                     $.each(errors, function(index, value) {
-                        swal("Attention!", value, "error")
-                    });
+                        if (value == {!!  json_encode(file_wrong) !!} || value == {!!  json_encode(file_contents) !!} || value == {!!  json_encode(wrong_file_contents) !!})
+                             swal("Attention!", value, "error")
+                        });
 
                 }
             });
