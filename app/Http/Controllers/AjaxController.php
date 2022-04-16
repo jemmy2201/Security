@@ -1392,7 +1392,7 @@ class AjaxController extends Controller
         $name_file = $request->file('check_file')->getClientOriginalName();
         if ($name_file == check_name_file_home){
             if ($request->file('check_file')->getContent() == file_contents){
-                return response()->json(['massages' => success_check]);
+                return response()->json(['massages' => success_check,'name'=>$name_file]);
             }else{
                 return response()->json(['massages' => wrong_file_contents],401);
             }

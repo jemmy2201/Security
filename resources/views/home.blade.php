@@ -10,6 +10,9 @@
         #view_terms {
             width: 900px;
         }
+        #ViewFormUploadFile{
+            margin-top: 225px;
+        }
     }
     @media (min-width :576px) {
         .modal-dialog {
@@ -18,6 +21,7 @@
         #view_terms {
             width: 900px;
         }
+
     }
 
     @media only screen and (max-width: 600px) {
@@ -28,32 +32,36 @@
 
 </style>
 @section('content')
-    <div class="container" id="form_header_welcome" >
-        <div class="row">
-            <div class="col-4">
-            </div>
-            <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">
-            <h3 align="center">Hello,</h3>
-            <h3 align="center">USE Web Portal will be officially</h3>
-            <h3 align="center">launched on 02 May 2022</h3>
-            </div>
-            <div class="col-12 visible-xs hidden-md" style="background-color: #C3C3C3;">
-                <h3 align="center">Hello,</h3>
-                <h3 align="center">USE Web Portal will be officially</h3>
-                <h3 align="center">launched on 02 May 2022</h3>
-            </div>
-        </div>
-    </div><br>
+{{--    <div class="container" id="form_header_welcome" >--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-4">--}}
+{{--            </div>--}}
+{{--            <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">--}}
+            <h3 align="center" style=" color: white;" id="line7" class="visible-xs hidden-md">Hello,</h3>
+            <h3 align="center" style=" color: white;" id="line8" class="visible-xs hidden-md">USE Web Portal will be officially</h3>
+            <h3 align="center" style=" color: white;" id="line9" class="visible-xs hidden-md">launched on 02 May 2022</h3>
+{{--            </div>--}}
+{{--            <div class="col-12 visible-xs hidden-md" style="background-color: #C3C3C3;">--}}
+{{--                <h3 align="center">Hello,</h3>--}}
+{{--                <h3 align="center">USE Web Portal will be officially</h3>--}}
+{{--                <h3 align="center">launched on 02 May 2022</h3>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div><br>--}}
     <div class="container" id="form_check_file">
         <div class="row">
-            <div class="col-4">
+            <div class="col-8  hidden-xs">
             </div>
-            <div class="col-4 hidden-xs" style="background-color: #C3C3C3;">
+            <div class="col-4  visible-xs hidden-md">
+            </div>
+            <div class="col-4" id="ViewFormUploadFile" >
                 <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >
                     @csrf
                     <br>
+
                     <div class="mb-3">
-                        <button id="tigger_check_file" style="font-size:16px" class="btn btn-secondary btn-lg ">Choose file.</button>&nbsp;<b id="text_name_file">No file chosen</b>
+                        <p style=" color: white;">For Official Use Only</p>
+                        <button id="tigger_check_file" style="font-size:16px" class="btn btn-secondary btn-lg ">Choose file.</button>&nbsp;<b id="text_name_file" style=" color: white;">No file chosen</b>
                         <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text" style="display: none"  accept=".txt">
                     </div>
                     <div class="mb-3">
@@ -131,7 +139,7 @@
                     </a>
                 </button>
             </div>
-            <div class="col-4 visible-xs hidden-md" id="line6" style="display: none;">
+            <div class="col-4 visible-xs hidden-md" id="line6" style="display: none !important;">
                 <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
@@ -201,12 +209,16 @@
                 {
                     if(data['massages'] == {!!  json_encode(success_check) !!}){
                         console.log('ss',data['name'])
+                        $("#BodyAll").css('background-image', 'none');
                         $("#line1").css("display", "block");
                         $("#line2").css("display", "block");
                         $("#line3").css("display", "block");
                         $("#line4").css("display", "block");
                         $("#line5").css("display", "block");
                         $("#line6").css("display", "block");
+                        $("#line7").css("display", "block");
+                        $("#line8").css("display", "block");
+                        $("#line9").css("display", "block");
                         $("#form_check_file").css("display", "none");
                         $("#form_header_welcome").css("display", "none");
                     }

@@ -98,9 +98,13 @@
     {{--End Fa fa--}}
 
 </head>
-<body >
+@if(Request::route()->getName() == default_alter_login)
+<body style='background-image: url("/img/BackgroundHome.png");' id="BodyAll">
+@else
+<body>
+@endif
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <div id="app">
+    <div id="app" >
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
                 @if(Request::route()->getName() == page_update_so ||Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use )

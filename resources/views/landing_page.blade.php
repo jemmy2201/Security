@@ -716,6 +716,8 @@
 
 </div>
 <script type="application/javascript">
+    $("#BodyAll").css('background-image', 'none');
+
     // 15 minutes not action
     setTimeout(RefreshPage, 900000);
     function RefreshPage() {
