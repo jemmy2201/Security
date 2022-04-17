@@ -61,11 +61,13 @@
 
                     <div class="mb-3">
                         <p style=" color: white;">For Official Use Only</p>
-                        <button id="tigger_check_file" style="font-size:16px" class="btn btn-secondary btn-lg ">Choose file.</button>&nbsp;<b id="text_name_file" style=" color: white;">No file chosen</b>
+                        <button id="tigger_check_file" style="display:none;border: 1px solid #000;background-image: url('/img/BackgroundHome.png');font-size:16px" class="btn btn-secondary btn-lg">Choose file.</button>&nbsp;
                         <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text" style="display: none"  accept=".txt">
+                        <b id="text_name_file" style="display: none; color: white;">No file chosen</b>
                     </div>
+
                     <div class="mb-3">
-                        <button type="submit" id="save" style="background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
+                        <button type="submit" id="save" style="display:none;border: 1px solid #000;background-image: url('/img/BackgroundHome.png');background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
                             <b>Proceed</b>
                         </button>
                     </div>
@@ -182,6 +184,12 @@
 <script>
 
     $( document ).ready(function() {
+        window.addEventListener('load', (event) => {
+            $("#tigger_check_file").css("display", "block");
+            $("#save").css("display", "block");
+            $("#text_name_file").css("display", "block");
+        });
+
         $('input[type="file"]').change(function(e){
             var fileName = e.target.files[0].name;
             $('#text_name_file').text(fileName);
