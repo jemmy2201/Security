@@ -54,20 +54,20 @@
             </div>
             <div class="col-4  visible-xs hidden-md">
             </div>
-            <div class="col-4" id="ViewFormUploadFile" >
+            <div class="col-4 " id="ViewFormUploadFile" >
                 <form style="color:#595959" id="FormUploadFile" enctype="multipart/form-data" >
                     @csrf
                     <br>
 
-                    <div class="mb-3">
-                        <p style=" color: white;">For Official Use Only</p>
-                        <button id="tigger_check_file" style="display:none;border: 1px solid #000;background-image: url('/img/BackgroundHome.png');font-size:16px" class="btn btn-secondary btn-lg">Choose file.</button>&nbsp;
+                    <div class="mb-3 float-right">
+                        <p style=" font-size:8px;color: white;">For Official Use Only</p>
+                        <button id="tigger_check_file" style="display:none;background-image: url('/img/BackgroundHome.png');font-size:8px" class="btn btn-secondary btn-lg">Choose file.</button>&nbsp;
                         <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text" style="display: none"  accept=".txt">
-                        <b id="text_name_file" style="display: none; color: white;">No file chosen</b>
-                    </div>
+                        <b id="text_name_file" style="font-size:8px;display: none; color: white;">No file chosen</b>
+{{--                    </div>--}}
 
-                    <div class="mb-3">
-                        <button type="submit" id="save" style="display:none;border: 1px solid #000;background-image: url('/img/BackgroundHome.png');background-color: #E01E37;font-size:16px" class="btn btn-secondary btn-lg ">
+{{--                    <div class="mb-3 float-right">--}}
+                        <button type="submit" id="save" style="display:none;background-image: url('/img/BackgroundHome.png');background-color: #E01E37;font-size:8px" class="btn btn-secondary btn-lg ">
                             <b>Proceed</b>
                         </button>
                     </div>
