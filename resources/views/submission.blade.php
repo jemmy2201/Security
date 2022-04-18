@@ -9,6 +9,32 @@
         font-weight: bold;
         font-size: 20px;
     }
+    @media (min-width :768px) {
+        .modal-dialog {
+            width: 968px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
+        #ViewFormUploadFile{
+            margin-top: 225px;
+        }
+    }
+    @media (min-width :576px) {
+        .modal-dialog {
+            max-width: 930px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
+
+    }
+
+    @media only screen and (max-width: 600px) {
+        #view_terms {
+            width: 300px;
+        }
+    }
 </style>
 @section('content')
 <div class="container submission">
@@ -77,11 +103,11 @@
                         </div>
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                        @if($personal->card_id == avso_app || $personal->card_id == pi_app)
+{{--                        @if($personal->card_id == avso_app || $personal->card_id == pi_app)--}}
                         <div class="col-4 ColoumndataPersonal">{{substr($personal->passid, 0, -2)}}</div>
-                        @else
-                        <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>
-                        @endif
+{{--                        @else--}}
+{{--                        <div class="col-4 ColoumndataPersonal">{{$personal->passid}}</div>--}}
+{{--                        @endif--}}
                         <div class="w-100"></div>
                         <div class="col-0 HeaderdataPersonal">Grade &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;:</div>
                         @if ($request->card == so_app)
@@ -195,11 +221,11 @@
                 <div class="container">
                     <div class="row">
                     <div class="col-0 HeaderdataPersonal">Pass ID No &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</div>
-                    @if($personal->card_id == avso_app || $personal->card_id == pi_app)
+{{--                    @if($personal->card_id == avso_app || $personal->card_id == pi_app)--}}
                     <div class="col-6 ColoumndataPersonal">{{substr($personal->passid, 0, -2)}}</div>
-                    @else
-                    <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>
-                    @endif
+{{--                    @else--}}
+{{--                    <div class="col-6 ColoumndataPersonal">{{$personal->passid}}</div>--}}
+{{--                    @endif--}}
                     <div class="w-100"></div>
                     <div class="col-0 HeaderdataPersonal">Card Expiry
                         Date&ensp;&nbsp;:</div>
@@ -430,7 +456,7 @@
 
 {{--        </div>--}}
         <div class="col-4 hidden-xs">
-            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:#800000 !important;"></i></p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" data-toggle="modal" data-target="#Photo_guideline" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
@@ -442,7 +468,7 @@
 
         </div>
         <div class="col-6 visible-xs hidden-md">
-            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:#800000 !important;"></i></p>
+            <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" data-toggle="modal" data-target="#Photo_guideline" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
@@ -525,6 +551,29 @@
         <input type="hidden" id="passexpirydate" name="passexpirydate" value="{{$request->passexpirydate}}">
     </form>
 </div>
+
+<!-- Modal Photo guideline-->
+<div class="modal fade" id="Photo_guideline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content" >
+            <div class="modal-header">
+                {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src ="{{ asset('/Photo guideline.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
+            </div>
+            {{--                <div class="modal-footer">--}}
+            {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+            {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+            {{--                </div>--}}
+        </div>
+    </div>
+</div>
+<!-- End Modal Photo guideline-->
+
 @if(!empty($grade))
 {{--<div class="container declare">--}}
 {{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
