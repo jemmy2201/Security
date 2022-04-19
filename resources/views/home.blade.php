@@ -51,7 +51,7 @@
 <br class="hidden-xs">
 <br class="hidden-xs">
 <br class="hidden-xs">
-    <div class="container" id="form_check_file">
+        <div class="container" id="form_check_file">
         <div class="row">
             <div class="col-8  hidden-xs">
             </div>
@@ -64,7 +64,8 @@
 
                     <div class="mb-3 float-right">
                         <p style=" font-size:8px;color: white;">For Official Use Only</p>
-                        <button id="tigger_check_file" style="display:none;background-image: url('/img/BackgroundHome.png');font-size:8px" class="btn btn-secondary btn-lg">Choose file.</button>&nbsp;
+{{--                        <button id="tigger_check_file" style="display:none;background-image: url('/img/BackgroundHome.png');font-size:8px" class="btn btn-secondary btn-lg">Choose file.</button>&nbsp;--}}
+                        <button id="tigger_check_file" style="display:none;background-image: url('/img/BackgroundHome.png');font-size:8px" class="btn btn-secondary btn-lg"></button>&nbsp;
                         <input type="file" name="check_file" id="check_file" class="form-control form-control-lg" placeholder="text" style="display: none"  accept=".txt">
 {{--                        <b id="text_name_file" style="font-size:8px;display: none; color: white;">No file chosen</b>--}}
 {{--                    </div>--}}

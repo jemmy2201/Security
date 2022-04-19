@@ -114,7 +114,8 @@
                     </div>
                     <div class="col-sm-3"  style="text-align: center;">
                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" ><br>
-                        <img src="{{URL::asset('/img/UG & FAQ.png')}}" data-toggle="modal" data-target="#exampleModalTerm" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" >
+                        <img src="{{URL::asset('/img/UG.png')}}" data-toggle="modal" data-target="#exampleModalUG" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" >
+                        <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 430px;" >
                     </div>
                     <div class="col-sm-3"  >
 
@@ -135,13 +136,35 @@
 
     </button>
 
-    <!-- Modal TERM -->
-    <div class="modal fade" id="exampleModalTerm" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <!-- Modal TERM UG -->
+    <div class="modal fade" id="exampleModalUG" style="margin-left: 200px;" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
         <div class="modal-dialog-terms modal-dialog-centered" role="document" >
             <div class="modal-content" >
                 <div class="modal-header">
                     {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
-                    <button type="button" class="close" data-dismiss="modal" id="ClosesTerm" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" id="ClosesTermUG" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src ="{{ asset('/User_Guide.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
+                </div>
+                {{--                <div class="modal-footer">--}}
+                {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--                </div>--}}
+            </div>
+        </div>
+    </div>
+    <!-- End Modal TERM UG -->
+
+    <!-- Modal TERM exampleModalFAQ -->
+    <div class="modal fade" style="margin-left: 200px;" id="exampleModalFAQ" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+        <div class="modal-dialog-terms modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    {{--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" id="ClosesTermFAQ" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -155,7 +178,7 @@
             </div>
         </div>
     </div>
-    <!-- End Modal TERM -->
+    <!-- End Modal TERM exampleModalFAQ -->
 
     <!-- Modal Relogin -->
     <div class="modal fade" id="modal_re_login" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -193,7 +216,10 @@
             $( "#closes" ).click(function() {
                 $( "#relogin" ).trigger( "click" );
             });
-            $( "#ClosesTerm" ).click(function() {
+            $( "#ClosesTermUG" ).click(function() {
+                location.reload();
+            });
+            $( "#ClosesTermFAQ" ).click(function() {
                 location.reload();
             });
 
