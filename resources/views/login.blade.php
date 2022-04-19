@@ -112,10 +112,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3"  style="text-align: center;">
+                    <div class="col-sm-3"  style="">
                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" ><br>
                         <img src="{{URL::asset('/img/UG.png')}}" data-toggle="modal" data-target="#exampleModalUG" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" >
-                        <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 430px;" >
+                        <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:static;width: 90%;margin-top: 430px;" >
                     </div>
                     <div class="col-sm-3"  >
 
