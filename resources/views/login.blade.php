@@ -169,7 +169,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe src ="{{ asset('/FAQs for ID card Web portal.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
+                    <iframe src ="{{ asset('/USE_FAQs.pdf') }}#toolbar=0"   height="500px;" style="display: block;" id="view_terms"></iframe>
                 </div>
                 {{--                <div class="modal-footer">--}}
                 {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
