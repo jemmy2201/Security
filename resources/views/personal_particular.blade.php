@@ -85,7 +85,7 @@
                 <i class="fa fa-arrow-left" aria-hidden="true" style="color: blue;font-size: 30px;"></i>
 {{--            </div>--}}
             <div class="col-4 HeaderdataPersonal" >
-                <button type="button" class=" btn btn-light " style="border-style: groove; background: black; color: blue">
+                <button type="button" class=" btn btn-light " style="pointer-events: none;border-style: groove; background: black; color: blue">
 {{--                    <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: blue">--}}
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
@@ -153,7 +153,7 @@
                 <br>
                 <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" autofocus>
                 <br class="visible-xs hidden-md">
-                <button type="button" class=" btn btn-light " style="border-style: groove; background: black; color: #E31D1A">
+                <button type="button" class=" btn btn-light " style="pointer-events: none;border-style: groove; background: black; color: #E31D1A">
 {{--                    <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
