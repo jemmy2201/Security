@@ -140,7 +140,7 @@
 {{--                        <!-- Authentication Links -->--}}
 {{--                        @guest--}}
                             <li class="nav-item" style="margin-top:10px;">
-                                <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i><br>
+                                <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{phone_general_office}} / {{phone_CSC}} </i><br>
                                 <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{email}}</i>
                             </li>
                             <li class="nav-item" style="margin-left: 240px;">

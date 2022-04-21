@@ -153,7 +153,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto pull-right" style="margin-right: -94px;">
                 <li class="nav-item">
-                    <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i><br>
+                    <i class="fa fa-phone" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{phone_general_office}} / {{phone_CSC}} </i><br>
                     <i class="fa fa-envelope" style="color: white;font-size: 12px;" aria-hidden="true">&nbsp;&nbsp;{{email}}</i>
                 </li>
             </ul>
