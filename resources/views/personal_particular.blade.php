@@ -85,7 +85,8 @@
                 <i class="fa fa-arrow-left" aria-hidden="true" style="color: blue;font-size: 30px;"></i>
 {{--            </div>--}}
             <div class="col-4 HeaderdataPersonal" >
-                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: blue">
+                <button type="button" class=" btn btn-light " style="border-style: groove; background: black; color: blue">
+{{--                    <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: blue">--}}
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                         @if(empty($personal->mobileno))
@@ -152,7 +153,8 @@
                 <br>
                 <input type="number" class="form-control visible-xs hidden-md" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="Phonemobileno" name="Phonemobileno"  placeholder="0000000"  maxlength="8" autofocus>
                 <br class="visible-xs hidden-md">
-                <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">
+                <button type="button" class=" btn btn-light " style="border-style: groove; background: black; color: #E31D1A">
+{{--                    <button type="button" class=" btn btn-light update_number" style="border-style: groove; background: black; color: #E31D1A">--}}
                     <a href="#" style="text-decoration:none; color: white;">
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
                         Update Number
@@ -241,6 +243,8 @@
             </button>
             <button type="button" id="form_activation" data-toggle="modal" data-target="#code_activation_Modal" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white; display: none;">
             </button>
+            <button type="button" id="form_confim_otp" data-toggle="modal" data-target="#confim_otp" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white; display: none;">
+            </button>
         </div>
 
     </div>
@@ -251,7 +255,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal code activation-->
 <div class="modal fade" id="code_activation_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -274,7 +278,30 @@
         </div>
     </div>
 </div>
-<!-- End Modal -->
+<!-- End Modal code activation -->
+
+<!-- Modal Confirm OTP-->
+<div class="modal fade" id="confim_otp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+{{--                <h5 class="modal-title" id="exampleModalLabel">Verification Code</h5>--}}
+                <button type="button" class="close" id="closes_code_activation_Modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Confirm your mobile entered is correct,select "Get OTP" else select Cancel to re-input your mobile number
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="get_otp" data-dismiss="modal">Get OTP</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End ModalConfirm OTP -->
+
 <script>
     $( document ).ready(function() {
         // 15 minutes not action
@@ -293,6 +320,13 @@
             // $('#Phonemobileno').removeAttr('readonly');
             create_activation();
         });
+        $( "#get_otp" ).click(function() {
+            // $(".update_number").attr("disabled", true);
+            // $('#mobileno').removeAttr('readonly');
+            // $('#Phonemobileno').removeAttr('readonly');
+            create_activation();
+        });
+
         function check_size_layout(){
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             var data='';
@@ -436,7 +470,18 @@
                 }
             });
         });
-
+        $('#mobileno').keyup(function() {
+            // Your code here
+            if ($('#mobileno').val().length == 8){
+                $( "#form_confim_otp" ).trigger( "click" );
+            }
+        });
+        $('#Phonemobileno').keyup(function() {
+            // Your code here
+            if ($('#Phonemobileno').val().length == 8){
+                $( "#form_confim_otp" ).trigger( "click" );
+            }
+        });
     });
 
 </script>

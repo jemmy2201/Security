@@ -104,7 +104,7 @@
 
     <div class="container" id="line1" style="display: none">
         <h4 style="font-weight: bold;">
-            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this ervice.
+            You must agree to the <span style="color: blue; cursor: pointer;" id="open_terms" data-toggle="modal" data-target="#exampleModalCenter">terms of use</span>  for accessing this service.
         </h4>
     </div>
     <br>
