@@ -615,7 +615,7 @@ class HomeController extends Controller
         if ($logout_save_draft == true){
             Artisan::call('cache:clear');
             Auth::logout();
-            return redirect()->route('home');
+            return redirect()->route('relogin');
         }else{
             return redirect()->route('landing_page');
         }
