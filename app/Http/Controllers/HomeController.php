@@ -1926,6 +1926,8 @@ class HomeController extends Controller
                 'SKILL_COSEM' => $SKILL_COSEM,
 
                 'Date_Submitted' => now(),
+
+                'updated_at' => now(),
             ]);
 
         return redirect()->route('landing_page');

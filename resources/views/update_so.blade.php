@@ -35,7 +35,7 @@
                         @endphp
                         <div class="col-4 ColoumndataPersonal">{{$nric}}</div>
                         <div class="w-100"></div>
-                        <div class="col-0 HeaderdataPersonal">update_so &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
+                        <div class="col-0 HeaderdataPersonal">Name &ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;:</div>
                         @if (strlen($personal->Name) > 40)
                             <div class="col-8 ColoumndataPersonal">
                                 <textarea rows="4" cols="30" id="TextAreaName" style="resize: none;border: none;" readonly>
