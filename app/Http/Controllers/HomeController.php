@@ -1120,7 +1120,9 @@ class HomeController extends Controller
 //        return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
         $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
-        Storage::put('public/invoice/'.$name_file,$content) ;
+//        Storage::put('public/img/img_users/invoice/'.$name_file,$content) ;
+        file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
+
 //            $receiptNo = new tbl_receiptNo;
 //
 //            $receiptNo->receiptNo = $this->receiptNo();
