@@ -956,9 +956,9 @@
     });
 
     function Remove_course() {
-        $("#so_app").prop("disabled", true);
-        $("#avso_app").prop( "disabled",true);
-        $("#pi_app").prop("disabled", true);
+        $("#so_app").prop("disabled", true).css('appearance', 'auto');
+        $("#avso_app").prop( "disabled",true).css('appearance', 'auto');
+        $("#pi_app").prop("disabled", true).css('appearance', 'auto');
     }
 
     function add_course() {
