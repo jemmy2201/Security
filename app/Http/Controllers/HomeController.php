@@ -1929,7 +1929,7 @@ class HomeController extends Controller
 
                 'Date_Submitted' => now(),
 
-                'updated_at' => now(),
+//                'updated_at' => now(),
             ]);
 
         return redirect()->route('landing_page');
