@@ -970,11 +970,29 @@
         {!!  json_encode($new) !!}.forEach((entry) => {
             if(entry['Status_app'] == null) {
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
-                    $("#so_app").prop("disabled", false);
+                    $("#so_app").prop("disabled", false).css({'-webkit-appearance': 'none',
+                    '-moz-appearance': 'none',
+                    'appearance': 'none',
+                    /* Styling checkbox */
+                    'width': '16px',
+                    'height': '16px',
+                    'background-color': 'green'});
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
-                    $("#avso_app").prop("disabled", false);
+                    $("#avso_app").prop("disabled", false).css({'-webkit-appearance': 'none',
+                        '-moz-appearance': 'none',
+                        'appearance': 'none',
+                        /* Styling checkbox */
+                        'width': '16px',
+                        'height': '16px',
+                        'background-color': 'green'});
                 } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
-                    $("#pi_app").prop("disabled", false);
+                    $("#pi_app").prop("disabled", false).css({'-webkit-appearance': 'none',
+                        '-moz-appearance': 'none',
+                        'appearance': 'none',
+                        /* Styling checkbox */
+                        'width': '16px',
+                        'height': '16px',
+                        'background-color': 'green'});
                 }
             }
         });
