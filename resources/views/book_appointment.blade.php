@@ -28,6 +28,11 @@
         opacity: 0.6;
         background-color:purple;
     }
+    .firstDayOrder{
+        pointer-events: none;
+        opacity: 0.6;
+        background-color:blue;
+    }
     .holidayhalf{
         /*pointer-events: none;*/
         /*opacity: 0.6;*/
@@ -386,6 +391,7 @@
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
                             }
+
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
@@ -440,6 +446,24 @@
                         }
                     });
                     // End Date Holiday
+                    // console.log('date',date)
+                    if( y === c_date.getFullYear() && m === c_date.getMonth()){
+                        // console.log('1')
+                        if(date == window.remainder_value+1  && c_date.getMonth()+1 == m) {
+                            span.classList.add('firstDayOrder');
+                        }
+                    }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
+                        // console.log('2')
+                         if(date == window.remainder_value+1  &&  c_date.getMonth()+1 == m) {
+                             span.classList.add('firstDayOrder');
+                         }
+
+                    }else if(y > c_date.getFullYear() && m < c_date.getMonth() ){
+                        // console.log('3')
+                        if(date == window.remainder_value+1  &&  c_date.getMonth()+1 == m) {
+                            span.classList.add('firstDayOrder');
+                        }
+                    }
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         span.classList.add('dissable');
