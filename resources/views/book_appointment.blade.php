@@ -29,8 +29,11 @@
         background-color:purple;
     }
     .firstDayOrder{
-        opacity: 0.6;
-        background-color:blue;
+        height: 25px;
+        width: 25px;
+        background-color: blue;
+        border-radius: 50%;
+        display: inline-block;
     }
     .holidayhalf{
         /*pointer-events: none;*/
@@ -445,55 +448,6 @@
                         }
                     });
                     // End Date Holiday
-                    // console.log('date',date)
-                    if( y === c_date.getFullYear() && m === c_date.getMonth()){
-                        // console.log('1')
-                        if(date == window.remainder_value+1  && c_date.getMonth()+1 == m) {
-                            span.classList.add('firstDayOrder');
-                        }
-                    }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
-                        // console.log('2')
-                         if(date == window.remainder_value+1  &&  c_date.getMonth()+1 == m) {
-                             span.classList.add('firstDayOrder');
-                         }
-
-                    }else if(y > c_date.getFullYear() && m < c_date.getMonth() ){
-                        // console.log('3')
-                        if(date == window.remainder_value+1  &&  c_date.getMonth()+1 == m) {
-                            span.classList.add('firstDayOrder');
-                        }
-                    }
-
-                    if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        span.classList.add('dissable');
-                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        span.classList.add('dissable');
-                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
-                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
-                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
-                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
-                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
-                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
-                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
-                    }else if (date == c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        span.classList.add('dissable');
-                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
-                    }
-                    // hidden next 3 month
-                    {{--if(y === c_date.getFullYear()){--}}
-                    {{--    var hidden_3month = c_date.getMonth() + 2;--}}
-                    {{--}else{--}}
-                    {{--    var hidden_3month = {!!  json_encode(januari) !!}+2;--}}
-                    {{--}--}}
-                    {{--if (y === c_date.getFullYear() && m > hidden_3month) {--}}
-                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
-                    {{--}else if(y >= c_date.getFullYear() && m > hidden_3month){--}}
-                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
-                    {{--}--}}
-                    // End hidden next 3 month
-
                     // holiday saturday,sunday
                     var d = new Date();
                     var month = m;
@@ -527,7 +481,7 @@
 
                     sat.forEach(function(saturday) {
                         if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){
-                                span.classList.add('weekend');
+                            span.classList.add('weekend');
                         }else if(date == saturday  && y >= c_date.getFullYear() && m < c_date.getMonth()){
                             span.classList.add('weekend');
                         }
@@ -552,6 +506,85 @@
                         }
                     });
                     // End holiday saturday,sunday
+                    // console.log('date',date)
+                    if( y === c_date.getFullYear() && m === c_date.getMonth()){
+                        // console.log('1')
+                        sat.forEach(function(saturday) {
+                            if (window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }else if (!window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                    console.log('ss')
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }
+
+                        });
+                    }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
+                        // console.log('2')
+                        sat.forEach(function(saturday) {
+                            if (window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }else if (!window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                    console.log('ss')
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }
+
+                        });
+                    }else if(y > c_date.getFullYear() && m < c_date.getMonth() ){
+                        // console.log('3')
+                        sat.forEach(function(saturday) {
+                            if (window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }else if (!window.remainder_value + 1 == saturday) {
+                                if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                    console.log('ss')
+                                    span.classList.add('firstDayOrder');
+                                }
+                            }
+
+                        });
+                    }
+
+                    if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
+                        span.classList.add('dissable');
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        span.classList.add('dissable');
+                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m > c_date.getMonth()){
+                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
+                    }else if(date == c_date.getDate()  && y === c_date.getFullYear() && m < c_date.getMonth()){
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }else if(y > c_date.getFullYear()   && m < c_date.getMonth() && date == c_date.getDate()){
+                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                        $('.nextMonth').css({"pointer-events": "", "opacity": ""});
+                    }else if (date == c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
+                        span.classList.add('dissable');
+                        $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }
+                    // hidden next 3 month
+                    {{--if(y === c_date.getFullYear()){--}}
+                    {{--    var hidden_3month = c_date.getMonth() + 2;--}}
+                    {{--}else{--}}
+                    {{--    var hidden_3month = {!!  json_encode(januari) !!}+2;--}}
+                    {{--}--}}
+                    {{--if (y === c_date.getFullYear() && m > hidden_3month) {--}}
+                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
+                    {{--}else if(y >= c_date.getFullYear() && m > hidden_3month){--}}
+                    {{--    $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});--}}
+                    {{--}--}}
+                    // End hidden next 3 month
+
+
 
                     //resubmission
                     if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
