@@ -29,7 +29,6 @@
         background-color:purple;
     }
     .firstDayOrder{
-        pointer-events: none;
         opacity: 0.6;
         background-color:blue;
     }
