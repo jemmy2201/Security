@@ -31,14 +31,16 @@
     .firstDayOrder{
         height: 25px;
         width: 25px;
-        background-color: blue;
+        color: blue;
+        /*background-color: blue;*/
         border-radius: 50%;
         display: inline-block;
     }
     .firstDayOrderNotCircle{
         height: 25px;
         width: 25px;
-        background-color: blue;
+        /*background-color: blue;*/
+        color: blue;
         display: inline-block;
     }
     .holidayhalf{
