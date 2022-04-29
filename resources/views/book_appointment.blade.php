@@ -69,6 +69,9 @@
         <div class="col-2 HeaderdataPersonal value_date_text">
             <input type="text"  class="form-control" name="view_date" id="view_date" readonly>
         </div>
+        <div class="col-4 ">
+           * Select from the earliest date marked by Blue circle.
+        </div>
     </div>
     <div class="row">
         <div class="col">
