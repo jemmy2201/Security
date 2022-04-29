@@ -401,6 +401,7 @@
 
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
+
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
                             }
@@ -418,6 +419,17 @@
                                 }
                                 span.classList.add('dissable');
                             }
+                        }
+                    }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
+
+                        var sevenDayHidden = c_date.getDate() + 7;
+                        if (date < sevenDayHidden){
+
+                            if (d_m => sevenDayHidden){
+                                window.remainder_value = sevenDayHidden - d_m;
+                            }
+
+                            span.classList.add('dissable');
                         }
                     }
 
@@ -492,40 +504,68 @@
                     // Blue Color
                     if( y === c_date.getFullYear() && m === c_date.getMonth()){
                         // console.log('1')
-                        sat.forEach(function(saturday) {
-                            if (window.remainder_value + 1 == saturday) {
-                                // if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                //     span.classList.add('firstDayOrder');
-                                // }
-                                if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                    span.classList.add('firstDayOrder');
-                                } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                    span.classList.add('firstDayOrderNotCircle');
-                                }
-                            }else if (!window.remainder_value + 1 == saturday) {
-                                if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                    span.classList.add('firstDayOrder');
-                                }
-                            }
-
-                        });
-                    }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
-                        // console.log('2')
                         if (c_date.getMonth() + 1 == m) {
                             sat.forEach(function (saturday) {
                                 if (window.remainder_value + 1 == saturday) {
+                                    // console.log('2 1')
                                     if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrder');
                                     } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrderNotCircle');
                                     }
                                 } else if (!window.remainder_value + 1 == saturday) {
-                                    console.log('2 1')
+                                    // console.log('2 2')
                                     if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrder');
                                     }
                                 }
-
+                            });
+                            sun.forEach(function(sun) {
+                                if (window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrderNotCircle');
+                                    }
+                                } else if (!window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    }
+                                }
+                            });
+                        }else{
+                            // span.classList.add('firstDayOrderNotCircle');
+                        }
+                    }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
+                        // console.log('2')
+                        if (c_date.getMonth() + 1 == m) {
+                            sat.forEach(function (saturday) {
+                                if (window.remainder_value + 1 == saturday) {
+                                    // console.log('2 1')
+                                    if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrderNotCircle');
+                                    }
+                                } else if (!window.remainder_value + 1 == saturday) {
+                                    // console.log('2 2')
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    }
+                                }
+                            });
+                            sun.forEach(function(sun) {
+                                if (window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrderNotCircle');
+                                    }
+                                } else if (!window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    }
+                                }
                             });
                         }else{
                             span.classList.add('firstDayOrderNotCircle');
@@ -536,18 +576,31 @@
                         if (c_date.getMonth() + 1 == m) {
                             sat.forEach(function (saturday) {
                                 if (window.remainder_value + 1 == saturday) {
+                                    console.log('2 1')
                                     if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrder');
                                     } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrderNotCircle');
                                     }
                                 } else if (!window.remainder_value + 1 == saturday) {
-                                    console.log('2 1')
+                                    console.log('2 2')
                                     if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                         span.classList.add('firstDayOrder');
                                     }
                                 }
-
+                            });
+                            sun.forEach(function(sun) {
+                                if (window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrderNotCircle');
+                                    }
+                                } else if (!window.remainder_value + 1 == sun) {
+                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                        span.classList.add('firstDayOrder');
+                                    }
+                                }
                             });
                         }else{
                             span.classList.add('firstDayOrderNotCircle');
