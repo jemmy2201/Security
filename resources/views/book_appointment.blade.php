@@ -33,7 +33,7 @@
         width: 25px;
         color: blue;
         /*background-color: blue;*/
-        border-radius: 50%;
+        /*border-radius: 50%;*/
         display: inline-block;
     }
     .firstDayOrderNotCircle{
@@ -78,7 +78,7 @@
             <input type="text"  class="form-control" name="view_date" id="view_date" readonly>
         </div>
         <div class="col-4 ">
-           * Select from the earliest date marked by Blue circle.
+           * Select dates marked in Blue in color.
         </div>
     </div>
     <div class="row">
@@ -489,7 +489,7 @@
                         return new Date(year, month, 0).getDate();
                     }
 
-// Blue Color
+                    // Blue Color
                     if( y === c_date.getFullYear() && m === c_date.getMonth()){
                         // console.log('1')
                         sat.forEach(function(saturday) {
@@ -533,8 +533,6 @@
 
                     }else if(y > c_date.getFullYear() && m < c_date.getMonth() ){
                         // console.log('3')
-                        // console.log('getMonth',c_date.getMonth() + 1)
-                        // console.log('m',m)
                         if (c_date.getMonth() + 1 == m) {
                             sat.forEach(function (saturday) {
                                 if (window.remainder_value + 1 == saturday) {
@@ -594,6 +592,13 @@
 
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
+                        // console.log('sss',date)
+                        //
+                        // if (25 < date){
+                        //     console.log('ss',date)
+                        //     // $(".nextMonth").trigger("click");
+                        //     // $('.nextMonth').on("click")
+                        // }
                         span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){
