@@ -337,3 +337,9 @@ define('file_contents', "useofsecurityemployees2022");
 define('wrong_file_contents', "Wrong Value");
 define('success_check', "success");
 // End Home
+
+// Remove Temp page Home
+//
+define('time_off_temp_page_home', "2022-05-01 22:00:00");
+
+// Remove Temp page Home

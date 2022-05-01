@@ -398,7 +398,6 @@
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
 
@@ -421,14 +420,11 @@
                             }
                         }
                     }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
-
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
                             }
-
                             span.classList.add('dissable');
                         }
                     }
@@ -451,7 +447,6 @@
                     {{--        }--}}
                     {{--    }--}}
                     {{--}--}}
-
                     if(typeof remainder_value !== 'undefined' && y === c_date.getFullYear() && m === c_date.getMonth()+1){
                         if (date <= remainder_value) {
                             span.classList.add('dissable');
@@ -534,78 +529,99 @@
                                 }
                             });
                         }else{
-                            // span.classList.add('firstDayOrderNotCircle');
+                            if (date > sevenDayHidden) {
+                                span.classList.add('firstDayOrderNotCircle');
+                            }
                         }
                     }else if( y === c_date.getFullYear() && m > c_date.getMonth()){
                         // console.log('2')
                         if (c_date.getMonth() + 1 == m) {
-                            sat.forEach(function (saturday) {
-                                if (window.remainder_value + 1 == saturday) {
-                                    // console.log('2 1')
-                                    if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrderNotCircle');
+                            if(m > c_date.getMonth()) {
+                                span.classList.add('firstDayOrderNotCircle');
+                            }else{
+                                sat.forEach(function (saturday) {
+                                    if (window.remainder_value + 1 == saturday) {
+                                        console.log('2 1')
+                                        if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrderNotCircle');
+                                        }
+                                    } else if (!window.remainder_value + 1 == saturday) {
+                                        console.log('2 2')
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        }
                                     }
-                                } else if (!window.remainder_value + 1 == saturday) {
-                                    // console.log('2 2')
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
+                                });
+                                sun.forEach(function (sun) {
+                                    if (window.remainder_value + 1 == sun) {
+                                        console.log('3 1')
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrderNotCircle');
+                                        }
+                                    } else if (!window.remainder_value + 1 == sun) {
+                                        console.log('3 2')
+
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        }
                                     }
-                                }
-                            });
-                            sun.forEach(function(sun) {
-                                if (window.remainder_value + 1 == sun) {
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrderNotCircle');
-                                    }
-                                } else if (!window.remainder_value + 1 == sun) {
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    }
-                                }
-                            });
+                                });
+                            }
                         }else{
                             span.classList.add('firstDayOrderNotCircle');
                         }
 
-                    }else if(y > c_date.getFullYear() && m < c_date.getMonth() ){
+                    }else if(y > c_date.getFullYear() ){
                         // console.log('3')
                         if (c_date.getMonth() + 1 == m) {
-                            sat.forEach(function (saturday) {
-                                if (window.remainder_value + 1 == saturday) {
-                                    console.log('2 1')
-                                    if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrderNotCircle');
+                            if(m > c_date.getMonth()) {
+                                span.classList.add('firstDayOrderNotCircle');
+                            }else{
+                                sat.forEach(function (saturday) {
+                                    if (window.remainder_value + 1 == saturday) {
+                                        console.log('2 1')
+                                        if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrderNotCircle');
+                                        }
+                                    } else if (!window.remainder_value + 1 == saturday) {
+                                        console.log('2 2')
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        }
                                     }
-                                } else if (!window.remainder_value + 1 == saturday) {
-                                    console.log('2 2')
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
+                                });
+                                sun.forEach(function (sun) {
+                                    if (window.remainder_value + 1 == sun) {
+                                        console.log('3 1')
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrderNotCircle');
+                                        }
+                                    } else if (!window.remainder_value + 1 == sun) {
+                                        console.log('3 2')
+
+                                        if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
+                                            span.classList.add('firstDayOrder');
+                                        }
                                     }
-                                }
-                            });
-                            sun.forEach(function(sun) {
-                                if (window.remainder_value + 1 == sun) {
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrderNotCircle');
-                                    }
-                                } else if (!window.remainder_value + 1 == sun) {
-                                    if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
-                                        span.classList.add('firstDayOrder');
-                                    }
-                                }
-                            });
+                                });
+                            }
                         }else{
+                            console.log('3 7')
                             span.classList.add('firstDayOrderNotCircle');
                         }
                     }
+                    // console.log('m',m)
+                    // console.log('getMonth',c_date.getMonth())
+                    console.log('y',y)
+                    console.log('getFullYear',c_date.getFullYear())
                     // End Blue Color
 
                     sat.forEach(function(saturday) {
@@ -645,13 +661,7 @@
 
 
                     if (date === c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
-                        // console.log('sss',date)
-                        //
-                        // if (25 < date){
-                        //     console.log('ss',date)
-                        //     // $(".nextMonth").trigger("click");
-                        //     // $('.nextMonth').on("click")
-                        // }
+                        // console.log('sss')
                         span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }else if(date < c_date.getDate()  && y === c_date.getFullYear() && m === c_date.getMonth()){

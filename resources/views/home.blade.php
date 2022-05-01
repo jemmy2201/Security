@@ -188,7 +188,29 @@
 <script>
 
     $( document ).ready(function() {
+        @php
+            $dateA = date("d M, Y g:i a");
+            $dateB = time_off_temp_page_home;
+
+            $dateA = str_replace(',', '', $dateA);
+            $dateB = str_replace(',', '', $dateB);
+        @endphp
         window.addEventListener('load', (event) => {
+            if ({!!  json_encode(strtotime($dateA)) !!} > {!!  json_encode(strtotime($dateB)) !!})
+            {
+                $("#BodyAll").css('background-image', 'none');
+                $("#line1").css("display", "block");
+                $("#line2").css("display", "block");
+                $("#line3").css("display", "block");
+                $("#line4").css("display", "block");
+                $("#line5").css("display", "block");
+                $("#line6").css("display", "block");
+                $("#line7").css("display", "block");
+                $("#line8").css("display", "block");
+                $("#line9").css("display", "block");
+                $("#form_check_file").css("display", "none");
+                $("#form_header_welcome").css("display", "none");
+            }
             $("#tigger_check_file").css("display", "block");
             $("#save").css("display", "block");
             $("#text_name_file").css("display", "block");
@@ -220,7 +242,6 @@
                 success: function(data,textStatus, xhr)
                 {
                     if(data['massages'] == {!!  json_encode(success_check) !!}){
-                        console.log('ss',data['name'])
                         $("#BodyAll").css('background-image', 'none');
                         $("#line1").css("display", "block");
                         $("#line2").css("display", "block");
