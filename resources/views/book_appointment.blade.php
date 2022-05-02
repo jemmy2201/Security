@@ -46,7 +46,7 @@
     .holidayhalf{
         /*pointer-events: none;*/
         /*opacity: 0.6;*/
-        background-color:brown;
+        background-color:#b97b56;
     }
     .active{
         background-color:blue;
@@ -398,16 +398,16 @@
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        // console.log('1')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
-
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
                             }
-
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
+                        // console.log('2')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if(m > 2 && y === c_date.getFullYear()){
 
@@ -420,6 +420,7 @@
                             }
                         }
                     }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
+                        // console.log('3')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -477,6 +478,7 @@
                     for(var s=1;s<=getTot;s++){
                         var newDate = new Date(d.getFullYear(), month, s)
                         if (y === c_date.getFullYear()) {
+                            // console.log('1')
                             if (newDate.getDay() == 6) {
                                 sat.push(s)
                             }
@@ -484,11 +486,59 @@
                                 sun.push(s)
                             }
                         }else if(y >= c_date.getFullYear()){
-                            if (newDate.getDay() == 5) {
-                                sat.push(s)
-                            }
-                            if (newDate.getDay() == 6) {
-                                sun.push(s)
+                            const counting_years = y - c_date.getFullYear();
+                            if(counting_years == {!!  json_encode(Oneyears) !!}) {
+                                if (newDate.getDay() == 5) {
+                                    sat.push(s)
+                                }
+                                if (newDate.getDay() == 6) {
+                                    sun.push(s)
+                                }
+                            }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
+                                if(m >= c_date.getMonth()) {
+                                    // console.log('1')
+                                    if (newDate.getDay() == 3) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 4) {
+                                        sun.push(s)
+                                    }
+                                }else if(m <= c_date.getMonth()){
+                                    // console.log('2')
+                                    if (m === {!!  json_encode(Maret) !!} || m === {!!  json_encode(April) !!} ){
+                                        if (newDate.getDay() == 3) {
+                                            sat.push(s)
+                                        }
+                                        if (newDate.getDay() == 4) {
+                                            sun.push(s)
+                                        }
+                                    }else {
+                                        if (newDate.getDay() == 4) {
+                                            sat.push(s)
+                                        }
+                                        if (newDate.getDay() == 5) {
+                                            sun.push(s)
+                                        }
+                                    }
+                                }
+                            }else if(counting_years == {!!  json_encode(Threeyears) !!}) {
+                                if(m >= c_date.getMonth()) {
+                                    // console.log('1')
+                                    if (newDate.getDay() == 2) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 3) {
+                                        sun.push(s)
+                                    }
+                                }else if(m <= c_date.getMonth()){
+                                    // console.log('2')
+                                        if (newDate.getDay() == 2) {
+                                            sat.push(s)
+                                        }
+                                        if (newDate.getDay() == 3) {
+                                            sun.push(s)
+                                        }
+                                }
                             }
                         }
                     }
@@ -500,6 +550,7 @@
                     if( y === c_date.getFullYear() && m === c_date.getMonth()){
                         // console.log('1')
                         if (c_date.getMonth() + 1 == m) {
+                            // console.log('1 1')
                             sat.forEach(function (saturday) {
                                 if (window.remainder_value + 1 == saturday) {
                                     // console.log('2 1')
@@ -529,7 +580,7 @@
                                 }
                             });
                         }else{
-                            if (date > sevenDayHidden) {
+                            if (date >= sevenDayHidden) {
                                 span.classList.add('firstDayOrderNotCircle');
                             }
                         }
@@ -614,21 +665,28 @@
                                 });
                             }
                         }else{
-                            console.log('3 7')
+                            // console.log('3 7')
                             span.classList.add('firstDayOrderNotCircle');
                         }
                     }
                     // console.log('m',m)
                     // console.log('getMonth',c_date.getMonth())
-                    console.log('y',y)
-                    console.log('getFullYear',c_date.getFullYear())
+                    // console.log('y',y)
+                    // console.log('getFullYear',c_date.getFullYear())
                     // End Blue Color
+                    // console.log('sat',sat)
+                    // console.log('sun',sun)
 
                     sat.forEach(function(saturday) {
                         if(date == saturday  && y === c_date.getFullYear() && m === c_date.getMonth()){
+                            // console.log('1')
                             span.classList.add('weekend');
                             span.classList.remove('firstDayOrderNotCircle');
                         }else if(date == saturday  && y >= c_date.getFullYear() && m < c_date.getMonth()){
+                            // console.log('2')
+                            span.classList.add('weekend');
+                            span.classList.remove('firstDayOrderNotCircle');
+                        }else if(date == saturday  && y >= c_date.getFullYear()){
                             span.classList.add('weekend');
                             span.classList.remove('firstDayOrderNotCircle');
                         }
@@ -653,6 +711,9 @@
                             span.classList.add('weekend');
                             span.classList.remove('firstDayOrderNotCircle');
                         }else if(date == sun  && y >= c_date.getFullYear() && m < c_date.getMonth()){
+                            span.classList.add('weekend');
+                            span.classList.remove('firstDayOrderNotCircle');
+                        }else if(date == sun  && y >= c_date.getFullYear()){
                             span.classList.add('weekend');
                             span.classList.remove('firstDayOrderNotCircle');
                         }

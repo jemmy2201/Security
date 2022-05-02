@@ -44,6 +44,7 @@
                                         <option value="@php echo time14 @endphp">@php echo time14 @endphp</option>
                                         <option value="@php echo time15 @endphp">@php echo time15 @endphp</option>
                                         <option value="@php echo time16 @endphp">@php echo time16 @endphp</option>
+                                        <option value="@php echo time17 @endphp">@php echo time17 @endphp</option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -59,6 +60,7 @@
                                         <option value="@php echo time14 @endphp">@php echo time14 @endphp</option>
                                         <option value="@php echo time15 @endphp">@php echo time15 @endphp</option>
                                         <option value="@php echo time16 @endphp">@php echo time16 @endphp</option>
+                                        <option value="@php echo time17 @endphp">@php echo time17 @endphp</option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -141,6 +143,7 @@
                         '                                        <option value="@php echo time14 @endphp">@php echo time14 @endphp</option>\n' +
                         '                                        <option value="@php echo time15 @endphp">@php echo time15 @endphp</option>\n' +
                         '                                        <option value="@php echo time16 @endphp">@php echo time16 @endphp</option>\n' +
+                        '                                        <option value="@php echo time17 @endphp">@php echo time17 @endphp</option>\n' +
                         '                                    </select>\n' +
                         '                                </div>\n' +
                         '                                <div class="col">\n' +
@@ -156,6 +159,7 @@
                         '                                        <option value="@php echo time14 @endphp">@php echo time14 @endphp</option>\n' +
                         '                                        <option value="@php echo time15 @endphp">@php echo time15 @endphp</option>\n' +
                         '                                        <option value="@php echo time16 @endphp">@php echo time16 @endphp</option>\n' +
+                        '                                        <option value="@php echo time17 @endphp">@php echo time17 @endphp</option>\n' +
                         '                                    </select>\n' +
                         '                                </div>\n' +
                         '                                <div class="col">\n' +

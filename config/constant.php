@@ -159,7 +159,7 @@ define('dummy', 1);
 define('half_1', "13:00");
 define('half_2', "14:00");
 define('half_3', "15:00");
-define('half_4', "18:00");
+define('half_4', "16:00");
 
 define('cek_pathname', "/qrcode");
 define('cek_pathname_logout', "/submission");
@@ -343,3 +343,13 @@ define('success_check', "success");
 define('time_off_temp_page_home', "2022-05-01 22:00:00");
 
 // Remove Temp page Home
+
+// counting years time schedule
+define('Oneyears', 1);
+define('Twoyears', 2);
+define('Threeyears', 3);
+
+define('Maret', 2);
+define('April', 3);
+
+// End counting years time schedule
