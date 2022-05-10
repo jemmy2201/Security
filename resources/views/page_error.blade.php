@@ -138,11 +138,15 @@
                     </ul>
 
                 </h4>
-                <a href="/">
-                    <button type="button" class="btn btn-dark" style="color: white;">
-                        OK
-                    </button>
-                </a>
+                @if(isset($type_error) && $type_error == type_error_so_query)
+
+                @else
+                    <a href="/">
+                        <button type="button" class="btn btn-dark" style="color: white;">
+                            OK
+                        </button>
+                    </a>
+                @endif
             </center>
 {{--            </div>--}}
         </div>
