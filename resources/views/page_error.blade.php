@@ -128,6 +128,9 @@
                     <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
                     <B>{{$data1}}</B><br><br>
                     <B>{{$data2}}</B><br><br>
+                    @if(isset($data3))
+                    <B>{{$data3}}</B><br><br>
+                    @endif
                     <B>Contact details as follows:</B>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
