@@ -955,6 +955,14 @@
         });
         $("#enets").click(function() {
             if ($("input[name='understand_transaction']:checked").val()) {
+                $.ajax({
+                    url: "<?php echo e(url('/create_receiptno')); ?>",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'),card_id:<?php echo json_encode( $booking_schedule->card_id); ?>},
+                    success: function (data) {
+                    }
+                });
                 $("#payment_method").val({!!  json_encode(enets) !!})
                 enets();
             }else{

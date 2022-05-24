@@ -660,10 +660,31 @@ class HomeController extends Controller
     {
         $data_barcode = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
             ->update([
+                'receiptNo' => $this->receiptNo(),
                 'data_barcode_paynow' => $request->data_barcode,
             ]);
-        return $data_barcode;
+        $receiptNo = new tbl_receiptNo;
 
+        $receiptNo->receiptNo = $this->receiptNo();
+
+        $receiptNo->save();
+
+        return $data_barcode;
+    }
+    public function create_receiptno(Request $request)
+    {
+        $data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
+            ->update([
+                'receiptNo' => $this->receiptNo(),
+            ]);
+
+        $receiptNo = new tbl_receiptNo;
+
+        $receiptNo->receiptNo = $this->receiptNo();
+
+        $receiptNo->save();
+
+        return $data;
     }
     public function print_pdf(Request $request,$card)
     {
@@ -1253,14 +1274,14 @@ class HomeController extends Controller
                                             'time_start_appointment' => $data->start_at,
                                             'time_end_appointment' => $data->end_at,
 //                                            'Status_app' => draft,
-                                            'receiptNo' => $this->receiptNo(),
+//                                            'receiptNo' => $this->receiptNo(),
                                             'Status_draft' => draft_payment,
                                         ]);
-        $receiptNo = new tbl_receiptNo;
-
-        $receiptNo->receiptNo = $this->receiptNo();
-
-        $receiptNo->save();
+//        $receiptNo = new tbl_receiptNo;
+//
+//        $receiptNo->receiptNo = $this->receiptNo();
+//
+//        $receiptNo->save();
 
         return $BookingScheduleAppointment;
     }

@@ -106,6 +106,9 @@ Route::get('/SOQuery/IDQuery/{passid}', 'SoQueryController@soquery');
 // save data barcode paynow
 Route::post('/save_barcode_paynow', 'HomeController@save_barcode_paynow');
 // end save data barcode paynow
+// create number transaction
+Route::post('/create_receiptno', 'HomeController@create_receiptno');
+// end create number transaction
 // Admin
 Route::prefix('admin')->group(function () {
     Route::get('/history/login', 'AdminController@historylogin');
