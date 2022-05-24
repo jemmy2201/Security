@@ -970,7 +970,10 @@ class HomeController extends Controller
 
     public function View_payment(Request $request)
     {
-        $this->UpdateBookingScheduleAppointment($request);
+        $check_=booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
+        if (empty($check_->receiptNo)) {
+            $this->UpdateBookingScheduleAppointment($request);
+        }
         $booking_schedule = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $request->merge(['app_type' => $booking_schedule->app_type]);
         if ($booking_schedule->grade_id == null){
@@ -1243,6 +1246,7 @@ class HomeController extends Controller
     {
         $date = Carbon::parse($request->view_date)->toDateString();
         $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
+
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                                         ->update([
                                             'appointment_date' => $date,
