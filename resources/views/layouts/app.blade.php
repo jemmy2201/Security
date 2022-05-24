@@ -98,11 +98,11 @@
     {{--End Fa fa--}}
 
 </head>
-@if(Request::route()->getName() == default_alter_login)
-<body style='background-image: url("/img/BackgroundHome.png");' id="BodyAll">
-@else
+{{--@if(Request::route()->getName() == default_alter_login)--}}
+{{--<body style='background-image: url("/img/BackgroundHome.png");' id="BodyAll">--}}
+{{--@else--}}
 <body>
-@endif
+{{--@endif--}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div id="app" >
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
