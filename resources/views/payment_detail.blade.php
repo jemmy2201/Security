@@ -568,7 +568,7 @@
         </div>
         <div class="col-10">
             <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-            <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 15%; margin-left: 60px;">
+            <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 18%; margin-left: 60px;">
         </div>
     </div>
     <button data-toggle="modal" data-target="#Form_payment_paynow" style="display: none" id="popup_paynow"></button>
