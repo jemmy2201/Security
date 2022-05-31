@@ -668,8 +668,7 @@ class HomeController extends Controller
         $receiptNo->receiptNo = $this->receiptNo();
 
         $receiptNo->save();
-
-        return $data_barcode;
+        return $receiptNo;
     }
     public function create_receiptno(Request $request)
     {

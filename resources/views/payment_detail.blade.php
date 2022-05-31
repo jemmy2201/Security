@@ -733,7 +733,7 @@
                                     <div class="col-4" style="margin-left: -72px;"> <b>${{$grand_total}}</b></div>
                                     <div class="w-100"></div>
                                     <div class="col-6" >Reference No<span style="margin-left:2px;">:</span> </div>
-                                    <div class="col-8" style="margin-left: -103px;"> <b>{{$booking_schedule->receiptNo}}</b></div>
+                                    <div class="col-8" style="margin-left: -103px;"> <p id="receiptNoPhone"></p></div>
 {{--                                    <div class="col-8" style="margin-left: -70px;"> <b>{{refNumber}} </b></div>--}}
                                     <div class="w-100"></div>
                                 </div>
@@ -785,7 +785,7 @@
                                     <div class="col-4" style="margin-left: -94px;"> <b>${{$grand_total}}</b></div>
                                     <div class="w-100"></div>
                                     <div class="col-6" style="text-align: left">Reference No<span style="margin-left:2px;">:</span> </div>
-                                    <div class="col-8" style="margin-left: -75px;text-align: left;"> <b>{{$booking_schedule->receiptNo}}</b></div>
+                                    <div class="col-8" style="margin-left: -75px;text-align: left;"> <p id="receiptNo"></p></div>
                                     <div class="w-100"></div>
                                 </div>
                             </div>
@@ -934,6 +934,10 @@
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                 success: function (data) {
+                    let text = data['receiptNo'];
+                    let result = text.bold();
+                    document.getElementById("receiptNo").innerHTML = result;
+
                 }
             });
 
@@ -946,6 +950,18 @@
             }
         });
         $('#paynow_phone').on('click', function () {
+            $.ajax({
+                url: "{{ url('/save_barcode_paynow') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                success: function (data) {
+                    let textPhone = data['receiptNo'];
+                    let resultPhone = textPhone.bold();
+                    document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+
+                }
+            });
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $( "#popup_paynow" ).trigger( "click" );
                 $("#payment_method").val({!!  json_encode(paynow) !!})
