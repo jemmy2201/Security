@@ -891,13 +891,7 @@
     function hideLoader() {
         $('#loading').hide();
     }
-    $(window).ready(hideLoader);
-    //
-    // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
-    setTimeout($("#app").css("display", "none"), 60 * 1000);
-
-    $( document ).ready(function() {
-        $("#app").css("display", "block");
+    function generateBarcodePaynow(receipt){
         //Create a PaynowQR object
         let qrcode = new PaynowQR({
             uen: {!!  json_encode(uen) !!},           //Required: UEN of company
@@ -905,7 +899,7 @@
             // amount :"1",               //Specify amount of money to pay.
             editable: true,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date('Ymd', strtotime( date("Ymd"). ' + 14 days')) ) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
-{{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
+            {{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
             refNumber: {!!  json_encode($booking_schedule->receiptNo) !!},
             // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             company:{!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
@@ -918,6 +912,14 @@
         var imageParent = document.getElementById('qrcodePaynowPhone');
         var image = imageParent.querySelector('img')
         image.id = 'data_barcode';
+    }
+    $(window).ready(hideLoader);
+    //
+    // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+    setTimeout($("#app").css("display", "none"), 60 * 1000);
+
+    $( document ).ready(function() {
+        $("#app").css("display", "block");
         // console.log( document.getElementById('qrcodePaynowPhone'))
     });
 
@@ -927,13 +929,13 @@
         });
 
         $('#paynow').on('click', function () {
-            console.log('a',$('#data_barcode').attr('src'))
             $.ajax({
                 url: "{{ url('/save_barcode_paynow') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                 success: function (data) {
+                    generateBarcodePaynow(data['receiptNo'])
                     let text = data['receiptNo'];
                     let result = text.bold();
                     document.getElementById("receiptNo").innerHTML = result;
@@ -956,6 +958,7 @@
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                 success: function (data) {
+                    generateBarcodePaynow(data['receiptNo'])
                     let textPhone = data['receiptNo'];
                     let resultPhone = textPhone.bold();
                     document.getElementById("receiptNoPhone").innerHTML = resultPhone;
