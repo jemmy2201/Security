@@ -603,6 +603,7 @@
                         <input type="hidden" name="transaction_amount_id" id="transaction_amount_id" value="{{$transaction_amount->id}}">
                         <input type="hidden" name="grand_gst" id="grand_gst" value="{{$gst}}">
                         <input type="hidden" name="grand_total" id="grand_total" value="{{$grand_total}}">
+                        <input type="hidden" name="barcode_paynow" id="barcode_paynow">
                         <input type="hidden" id="payment_method" name="payment_method">
                         <div class="row">
                         <div class="col payment_method" >
@@ -912,6 +913,9 @@
         var imageParent = document.getElementById('qrcodePaynowPhone');
         var image = imageParent.querySelector('img')
         image.id = 'data_barcode';
+        // $("#barcode_paynow").val($('#data_barcode').attr('src'))
+        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 3000);
+
     }
     $(window).ready(hideLoader);
     //
@@ -942,8 +946,6 @@
 
                 }
             });
-
-
             if ($("input[name='understand_transaction']:checked").val()) {
                 $( "#popup_paynow" ).trigger( "click" );
                 $("#payment_method").val({!!  json_encode(paynow) !!})

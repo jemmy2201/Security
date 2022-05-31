@@ -661,7 +661,7 @@ class HomeController extends Controller
         $data_barcode = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
             ->update([
                 'receiptNo' => $this->receiptNo(),
-                'data_barcode_paynow' => $request->data_barcode,
+//                'data_barcode_paynow' => $request->data_barcode,
             ]);
         $receiptNo = new tbl_receiptNo;
 
@@ -1131,7 +1131,7 @@ class HomeController extends Controller
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
                 'grand_total' => $request['grand_total'],
-//                'receiptNo' => $this->receiptNo(),
+                'data_barcode_paynow' => $request['barcode_paynow'],
                 'status_app' => processing,
                 'transaction_amount_id' => $request['transaction_amount_id'],
             ]);
