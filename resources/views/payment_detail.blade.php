@@ -914,7 +914,7 @@
         var image = imageParent.querySelector('img')
         image.id = 'data_barcode';
         // $("#barcode_paynow").val($('#data_barcode').attr('src'))
-        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 3000);
+        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 100);
 
     }
     $(window).ready(hideLoader);
