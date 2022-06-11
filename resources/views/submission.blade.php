@@ -26,6 +26,10 @@
         }
     }
     @media (min-width :576px) {
+        .not_photo_selfie {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
         .modal-dialog {
             max-width: 930px !important;
         }

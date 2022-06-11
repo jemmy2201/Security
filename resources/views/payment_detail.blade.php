@@ -43,11 +43,22 @@
         .modal-dialog {
             max-width: 700px !important;
         }
+        .check_payment {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
     }
     @media (min-width: 768px) {
         .modal-dialog {
             width: 692px !important;
         }
+        .check_payment {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
+    }
+    .footer-check-payment {
+     display: block !important;
     }
 
 </style>
@@ -806,6 +817,41 @@
         </div>
     </div>
     <!-- End Modal Paynow -->
+
+    <!-- Modal Check Payment-->
+    <button data-toggle="modal" data-target="#Form_check_payment" style="display: none" id="check_payment"></button>
+    <div class="modal fade" id="Form_check_payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog check_payment" role="document">
+            <div class="modal-content">
+                {{--            <div class="modal-header">--}}
+                {{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+                {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                {{--                    <span aria-hidden="true">&times;</span>--}}
+                {{--                </button>--}}
+                {{--            </div>--}}
+                <div class="modal-body">
+                    <center>
+                        <i class="fa fa-info-circle fa-3x" aria-hidden="true"></i><br><br>
+                        <b>
+                        Payment already submitted and<br>
+                        to be confirmed by USE.<br><br>
+                        Check your Bank app for<br>
+                        the payment submitted.
+                        </b>
+                    </center>
+                </div>
+                <div class="modal-footer footer-check-payment">
+                    <center>
+                        @php $landing_page=url("/landing_page"); @endphp
+                        <a href="{{ $landing_page }}" style="color: inherit; text-decoration: none;">
+                            <button type="button" class="btn btn-primary">Continue</button>
+                        </a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Check Payment -->
     @php
         if (detect_url() == URLUat){
            $ApiurlEnets = ApiurlEnetsUat;
@@ -933,68 +979,93 @@
         });
 
         $('#paynow').on('click', function () {
-            $.ajax({
-                url: "{{ url('/save_barcode_paynow') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                success: function (data) {
-                    generateBarcodePaynow(data['receiptNo'])
-                    let text = data['receiptNo'];
-                    let result = text.bold();
-                    document.getElementById("receiptNo").innerHTML = result;
-
-                }
-            });
             if ($("input[name='understand_transaction']:checked").val()) {
-                $( "#popup_paynow" ).trigger( "click" );
-                $("#payment_method").val({!!  json_encode(paynow) !!})
-            }else{
-                swal("Error!", "Tick the check box to proceed.", "error")
-            }
+                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
+                    $( "#check_payment").trigger( "click" );
+                }else {
+                    $.ajax({
+                        url: "{{ url('/save_barcode_paynow') }}",
+                        type: 'POST',
+                        /* send the csrf-token and the input to the controller */
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            data_barcode: $('#data_barcode').attr('src'),
+                            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                        success: function (data) {
+                            generateBarcodePaynow(data['receiptNo'])
+                            let text = data['receiptNo'];
+                            let result = text.bold();
+                            document.getElementById("receiptNo").innerHTML = result;
+
+                        }
+                    });
+                    $("#popup_paynow").trigger("click");
+                    $("#payment_method").val({!!  json_encode(paynow) !!})
+                }
+
+                } else {
+                    swal("Error!", "Tick the check box to proceed.", "error")
+                }
         });
         $('#paynow_phone').on('click', function () {
-            $.ajax({
-                url: "{{ url('/save_barcode_paynow') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), data_barcode:$('#data_barcode').attr('src'),card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                success: function (data) {
-                    generateBarcodePaynow(data['receiptNo'])
-                    let textPhone = data['receiptNo'];
-                    let resultPhone = textPhone.bold();
-                    document.getElementById("receiptNoPhone").innerHTML = resultPhone;
-
-                }
-            });
             if ($("input[name='understand_transaction_phone']:checked").val()) {
-                $( "#popup_paynow" ).trigger( "click" );
-                $("#payment_method").val({!!  json_encode(paynow) !!})
-            }else{
+                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
+                    $( "#check_payment").trigger( "click" );
+                }else{
+                    $.ajax({
+                        url: "{{ url('/save_barcode_paynow') }}",
+                        type: 'POST',
+                        /* send the csrf-token and the input to the controller */
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            data_barcode: $('#data_barcode').attr('src'),
+                            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                        success: function (data) {
+                            generateBarcodePaynow(data['receiptNo'])
+                            let textPhone = data['receiptNo'];
+                            let resultPhone = textPhone.bold();
+                            document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+
+                        }
+                    });
+                    $("#popup_paynow").trigger("click");
+                    $("#payment_method").val({!!  json_encode(paynow) !!})
+                }
+            } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#enets").click(function() {
             if ($("input[name='understand_transaction']:checked").val()) {
-                $.ajax({
-                    url: "<?php echo e(url('/create_receiptno')); ?>",
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: {_token: $('meta[name="csrf-token"]').attr('content'),card_id:<?php echo json_encode( $booking_schedule->card_id); ?>},
-                    success: function (data) {
-                    }
-                });
-                $("#payment_method").val({!!  json_encode(enets) !!})
-                enets();
-            }else{
+                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
+                    $( "#check_payment").trigger( "click" );
+                }else{
+                    $.ajax({
+                        url: "<?php echo e(url('/create_receiptno')); ?>",
+                        type: 'POST',
+                        /* send the csrf-token and the input to the controller */
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            card_id:<?php echo json_encode($booking_schedule->card_id); ?>},
+                        success: function (data) {
+                        }
+                    });
+                    $("#payment_method").val({!!  json_encode(enets) !!})
+                    enets();
+                }
+            } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#phone_enets").click(function() {
             if ($("input[name='understand_transaction_phone']:checked").val()) {
-                $("#payment_method").val({!!  json_encode(enets) !!})
-                enets();
-            }else{
+                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
+                    $( "#check_payment").trigger( "click" );
+                }else{
+                    $("#payment_method").val({!!  json_encode(enets) !!})
+                    enets();
+                }
+            } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
