@@ -596,7 +596,7 @@
 {{--            </div>--}}
             <div class="modal-body">
                 <center style="color:red;">
-                    <img src="{{ asset("img/upload.png") }}" style="width: 15%">
+                    <img src="{{ asset("img/Selfies_No.png") }}" style="width: 15%">
                 <h3>Reminder !</h3>
                 Please comply to the photo guidelines.<br>
                 Selfie taken with mobile phone will be rejected.<br>
