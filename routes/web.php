@@ -102,6 +102,7 @@ Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment')
 
 // SO Query
 Route::get('/SOQuery/IDQuery/{passid}', 'SoQueryController@soquery');
+Route::get('/soqUERY/idqUERY/{passid}', 'SoQueryController@soquery');
 // End SO Query
 // save data barcode paynow
 Route::post('/save_barcode_paynow', 'HomeController@save_barcode_paynow');
