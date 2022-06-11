@@ -366,7 +366,7 @@
                 @else
                     <div class="row">
                         <div class="col-4 col_declare1">
-                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>
+{{--                            <h3 style="color: black;font-weight: bold;font-size: 23px;">Declaration of Training Records</h3>--}}
                         </div>
                         <div class="col-2 col_declare2">
                         </div>
@@ -504,7 +504,7 @@
     </div>
 {{--    <br>--}}
 {{--        @if(!empty($grade) || !empty($replacement) && $request->card == so_app)--}}
-            @if(empty($resubmission))
+{{--            @if(empty($resubmission))--}}
 {{--                <br class="hidden-xs">--}}
             <ul class="list-group list-group-horizontal " style="margin-top: 20px;">
                 <li style="list-style-type: none;" > <input type="checkbox" id="submit_submission " name="submit_submission" ></li>&nbsp;
@@ -513,7 +513,7 @@
 
 
 
-            @endif
+{{--            @endif--}}
 {{--        @endif--}}
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
@@ -777,8 +777,12 @@
                             swal("Error!", " Please acknowledge declaration.", "error");
                         }
                     } else {
-                        // $("#book_appointment").submit();
-                        $( "#reminder_photo_not_selfie" ).trigger( "click" );
+                        if ($("input[name='submit_submission']:checked").val() != undefined) {
+                            // $("#book_appointment").submit();
+                            $( "#reminder_photo_not_selfie" ).trigger( "click" );
+                        } else {
+                            swal("Error!", " Please acknowledge declaration.", "error");
+                        }
                     }
 
                 } else {

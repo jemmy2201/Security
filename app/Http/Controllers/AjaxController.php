@@ -1442,19 +1442,19 @@ class AjaxController extends Controller
                 if (!empty($ls->number_schedule)) {
                     if ($ls->valid_resubmission == true && $time == $ls->valid_resubmission_date){
                         // resubmission
-                        $data .= ' <tr style="background-color:#FF0000">';
-                        if ($ls->amount == $ls->number_schedule) {
-                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                        } else {
-                            if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
-                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-                            } else {
-                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" checked="checked">&ensp;&ensp;&ensp;' . $time . '</td>';
-                            }
-                        }
-                        $data .= '<td>' . $ls->number_schedule . '</td>';
-                        $data .= '<td>' . $ls->amount . '</td>>';
-                        $data .= '</tr>';
+//                        $data .= ' <tr style="background-color:#FF0000">';
+//                        if ($ls->amount == $ls->number_schedule) {
+//                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+//                        } else {
+//                            if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
+//                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+//                            } else {
+//                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" checked="checked">&ensp;&ensp;&ensp;' . $time . '</td>';
+//                            }
+//                        }
+//                        $data .= '<td>' . $ls->number_schedule . '</td>';
+//                        $data .= '<td>' . $ls->amount . '</td>>';
+//                        $data .= '</tr>';
                         // End resubmission
                     }else {
                         $data .= ' <tr>';

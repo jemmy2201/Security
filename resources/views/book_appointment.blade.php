@@ -108,7 +108,7 @@
                     </li>
                     <li><img src="{{URL::asset('/img/purple.jpeg')}}" style="width: 2%;"><span style="font-weight: bold">: Public Holiday</span></li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                    <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>
+{{--                    <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>--}}
                     @endif
                 </ul>
             </div>
@@ -755,11 +755,11 @@
 
 
                     //resubmission
-                    if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-                        if({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && date == {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!}  && y == {!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!} &&  m == {!!  json_encode(date("m", strtotime($request->booking_schedule->appointment_date))-1) !!}){
-                            span.classList.add('choice_order_date');
-                        }
-                    }
+                    {{--if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){--}}
+                    {{--    if({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && date == {!!  json_encode(date("d", strtotime($request->booking_schedule->appointment_date))) !!}  && y == {!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!} &&  m == {!!  json_encode(date("m", strtotime($request->booking_schedule->appointment_date))-1) !!}){--}}
+                    {{--        span.classList.add('choice_order_date');--}}
+                    {{--    }--}}
+                    {{--}--}}
                     //End resubmission
 
                     cell.appendChild(span).appendChild(cellText);
@@ -775,13 +775,15 @@
 
     }
         if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-            //resubmission
-            var m = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};
-            var y = parseInt({!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!});
-            $('.showEvent').removeClass('active');
-            $('#event').removeClass('d-none');
-            //End resubmission
-            renderCalendar(m, y)
+            //Resubmission
+            {{--var m = {!!  json_encode(date("n", strtotime($request->booking_schedule->appointment_date))-1) !!};--}}
+            {{--var y = parseInt({!!  json_encode(date("Y", strtotime($request->booking_schedule->appointment_date))) !!});--}}
+            {{--$('.showEvent').removeClass('active');--}}
+            {{--$('#event').removeClass('d-none');--}}
+            {{--//End resubmission--}}
+            {{--renderCalendar(m, y)--}}
+            // End Resubmission
+            renderCalendar(month, year)
         }else{
             renderCalendar(month, year)
         }
@@ -847,11 +849,11 @@
         })
 
         //resubmission
-        if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){
-            let todaysDate = {!!  json_encode(date("j", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;
-            validate_limit_schedule(todaysDate);
-            $('#view_date').val(todaysDate);
-        }
+        {{--if ({!!  json_encode($request->booking_schedule->appointment_date) !!} != null && {!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){--}}
+        {{--    let todaysDate = {!!  json_encode(date("j", strtotime($request->booking_schedule->appointment_date))) !!} + ' ' + (months[month]) + ' ' + year;--}}
+        {{--    validate_limit_schedule(todaysDate);--}}
+        {{--    $('#view_date').val(todaysDate);--}}
+        {{--}--}}
         //End resubmission
         function validate_limit_schedule(eventDate) {
             $.ajax({
