@@ -798,9 +798,9 @@
         });
     });
     if ((screen.width>=1024) && (screen.height>=768)) {
-        $(".table").css({"display": "", "max-height": "50%","overflow":"auto"});
+        $(".table").css({"display": "", "max-height": "100%","overflow":"auto"});
     } else {
-        $(".table").css({"display": "inline-block", "max-height": "50%","overflow":"auto"});
+        $(".table").css({"display": "inline-block", "max-height": "100%","overflow":"auto"});
     }
     // $.ajax({
     //     type:'get',

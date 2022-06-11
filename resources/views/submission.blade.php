@@ -11,8 +11,13 @@
     }
     @media (min-width :768px) {
         .modal-dialog {
-            width: 968px !important;
+             width: 968px !important;
+         }
+        .not_photo_selfie {
+            width: 600px !important;
+            margin: 30px auto !important;
         }
+
         #view_terms {
             width: 900px;
         }
@@ -574,6 +579,34 @@
 </div>
 <!-- End Modal Photo guideline-->
 
+{{-- Reminder photo not selfie--}}
+<button data-toggle="modal" data-target="#Form_reminder_photo_not_selfie" style="display: none" id="reminder_photo_not_selfie"></button>
+<div class="modal fade" id="Form_reminder_photo_not_selfie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog not_photo_selfie" role="document">
+        <div class="modal-content">
+{{--            <div class="modal-header">--}}
+{{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+{{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                    <span aria-hidden="true">&times;</span>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+            <div class="modal-body">
+                <center style="color:red;">
+                    <img src="{{ asset("img/upload.png") }}" style="width: 15%">
+                <h3>Reminder !</h3>
+                Please comply to the photo guidelines.<br>
+                Selfie taken with mobile phone will be rejected.<br>
+                This will delay your ID card collection.
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="next_book_appointment">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End Reminder photo not selfie--}}
 @if(!empty($grade))
 {{--<div class="container declare">--}}
 {{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
@@ -661,11 +694,16 @@
             }
 
         });
+        $( "#next_book_appointment" ).click(function() {
+            $("#book_appointment").submit();
+        });
+
 
         $( "#submit_book_appointment" ).click(function() {
             var declare = document.getElementById("declare");
             if({{$request->card}} == @php echo so_app @endphp && !{!! json_encode($resubmission) !!} ) {
                 // if ($("input[name='declare']:checked").val() != undefined){
+
                     save_submission();
                 // }else{
                 //     swal("Error!", "tick declare", "error")
@@ -726,7 +764,8 @@
                                 }else if(val.length > 1 && val.find(checkGrade) === "false"){
                                     swal("Error!", "Invalid selection(s) - Training Records.", "error");
                                 }else{
-                                    $("#book_appointment").submit();
+                                    // $("#book_appointment").submit();
+                                    $( "#reminder_photo_not_selfie" ).trigger( "click" );
                                 }
                             // }
 
@@ -734,7 +773,8 @@
                             swal("Error!", " Please acknowledge declaration.", "error");
                         }
                     } else {
-                        $("#book_appointment").submit();
+                        // $("#book_appointment").submit();
+                        $( "#reminder_photo_not_selfie" ).trigger( "click" );
                     }
 
                 } else {
