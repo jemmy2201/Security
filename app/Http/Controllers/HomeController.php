@@ -1835,10 +1835,15 @@ class HomeController extends Controller
 //            );
 //        }
         if ($agent->isDesktop() == true) {
-            if ($request->view_mobileno[0] != "6" || $request->view_mobileno[1] != "5") {
-                $mobileno = "65".$request->view_mobileno;
+            if (isset($request->view_mobileno)) {
+                if ($request->view_mobileno[0] != "6" || $request->view_mobileno[1] != "5") {
+                    $mobileno = "65" . $request->view_mobileno;
+                } else {
+                    $mobileno = $request->view_mobileno;
+                }
             }else{
-                $mobileno = $request->view_mobileno;
+                $RealPhone = User::where(['id'=>Auth::id()])->first();
+                $mobileno = $RealPhone->mobileno;
             }
             $originData = array(
 //                "homeno" => $request->homeno,
