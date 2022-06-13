@@ -1016,7 +1016,7 @@ class HomeController extends Controller
                     'Status_app' => Resubmitted,
                     'resubmission_date' => date('d/m/Y H:i:s'),
                 ]);
-            return redirect('/home');
+            return redirect('/landing_page');
         }
         // Update Session
         $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
