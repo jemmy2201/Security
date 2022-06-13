@@ -975,7 +975,8 @@
 
     $( document ).ready(function() {
         $('#form_paynow_verification').on('click', function () {
-            $( "#popup_paynow_verfication" ).trigger( "click" );
+            $( "#confirm_payment_paynow" ).trigger( "click" );
+            // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
 
         $('#paynow').on('click', function () {
