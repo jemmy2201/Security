@@ -363,9 +363,10 @@
         $( "#click_personal_particular" ).click(function() {
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (check_size_layout() == {!!  json_encode(phone) !!}){
-                    if({!!  json_encode($personal->mobileno) !!} != ""){
+                if({!!  json_encode($personal->mobileno) !!} != ""){
+                    if($('#Phoneview_mobileno').val() != ""){
                         // if (check_number_singapore() == true){
-                          if({!!  json_encode($personal->web) !!} == true ){
+                        if({!!  json_encode($personal->web) !!} == true ){
                             if (new Date($('#Phonewpexpirydate').val()) != "Invalid Date" ){
                                 if ( new Date() >= new Date($('#Phonewpexpirydate').val())){
                                     swal("Attention!", "Pass Expiration Date is up", "error")
@@ -380,9 +381,12 @@
                             // create_activation();
                             $("#submit_personal_particular").submit();
                         }
-                    // }else{
-                    //         swal("Error!", "Only Singapore numbers are valid.", "error")
-                    // }
+                        // }else{
+                        //     swal("Error!", "Only Singapore numbers are valid.", "error")
+                        // }
+                    }else{
+                        swal("Error!", "Mobile number incomplete.", "error")
+                    }
                 }else{
                         swal("Error!", "Mobile number incomplete.", "error")
                 }
