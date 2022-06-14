@@ -20,6 +20,30 @@
         -webkit-animation: spin 2s linear infinite; /* Safari */
         animation: spin 2s linear infinite;
     }
+    .loading {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        position: absolute;
+        margin-top: 70px;
+        left: 5%;
+        height: 80px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+    .loadingPhone {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        position: absolute;
+        margin-top: 60px;
+        left: 5%;
+        height: 80px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
 
     /* Safari */
     @-webkit-keyframes spin {
@@ -723,16 +747,18 @@
             <div class="modal-content">
                 @php $url_cancel=url("/cancel/payment")."/".$booking_schedule->app_type."/".$booking_schedule->card_id; @endphp
                 <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">
-                <div class="modal-header">
+{{--                <div class="modal-header">--}}
 {{--                    <h4 class="modal-title">Barcode paynow</h4>--}}
-                        <button type="button" class="close" >&times;</button>
-                </div>
+{{--                        <button type="button" class="close" >&times;</button>--}}
+{{--                </div>--}}
                 </a>
                 <div class="modal-body">
                     <center>
                         {{-- Phone --}}
                         <div class="row Visible-xs hidden-md">
-                            <div class="col-12">
+                            <div class="col-6 loadingPhone">
+                            </div>
+                            <div class="col-12 viewqrcodePaynowPhone">
                                 <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" class="Visible-xs hidden-md" style=" position: absolute;
             top: 50%;
             left: 50%;
@@ -769,7 +795,8 @@
 
                         {{-- Dekstop --}}
                         <div class="row hidden-xs">
-                            <div class="col-4">
+                            <div class="col-4 loading"></div>
+                            <div class="col-4 viewqrcodePaynow">
                                 <img src="{{URL::asset('/img/payment_icon/paynow.jpeg')}}" style=" position: absolute;
             top: 40%;
             left: 63%;
@@ -961,13 +988,9 @@
         image.id = 'data_barcode';
         // $("#barcode_paynow").val($('#data_barcode').attr('src'))
         setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 100);
-
+        hideLoader();
     }
     $(window).ready(hideLoader);
-    $(window).on('popstate', function(event) {
-        alert("pop");
-    });
-    //
     // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
     setTimeout($("#app").css("display", "none"), 60 * 1000);
 
@@ -975,20 +998,7 @@
         $("#app").css("display", "block");
         // console.log( document.getElementById('qrcodePaynowPhone'))
     });
-    function check_payment(){
-        $.ajax({
-            url: "{{ url('/check_payment') }}",
-            type: 'POST',
-            /* send the csrf-token and the input to the controller */
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                data_barcode: $('#data_barcode').attr('src'),
-                card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-            success: function (data) {
-                return data['status_payment'];
-            }
-        });
-    }
+
     $( document ).ready(function() {
 
         $('#form_paynow_verification').on('click', function () {
@@ -997,6 +1007,7 @@
         });
 
         $('#paynow').on('click', function () {
+            $('.viewqrcodePaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
                 $.ajax({
                     url: "{{ url('/check_payment') }}",
@@ -1020,6 +1031,8 @@
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])
+                                    $('.loading').hide();
+                                    $('.viewqrcodePaynow').show();
                                     let text = data['receiptNo'];
                                     let result = text.bold();
                                     document.getElementById("receiptNo").innerHTML = result;
@@ -1036,6 +1049,7 @@
                 }
         });
         $('#paynow_phone').on('click', function () {
+            $('.viewqrcodePaynowPhone').hide();
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $.ajax({
                     url: "{{ url('/check_payment') }}",
@@ -1059,6 +1073,8 @@
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])
+                                    $('.loadingPhone').hide();
+                                    $('.viewqrcodePaynowPhone').show();
                                     let textPhone = data['receiptNo'];
                                     let resultPhone = textPhone.bold();
                                     document.getElementById("receiptNoPhone").innerHTML = resultPhone;
