@@ -806,7 +806,7 @@
                     </center>
                 </div>
                 <div class="modal-footer">
-                        <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Confirmed</button>
+                        <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Submitted</button>
 {{--                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">--}}
 {{--                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>--}}
 {{--                        <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>--}}
@@ -964,6 +964,9 @@
 
     }
     $(window).ready(hideLoader);
+    $(window).on('popstate', function(event) {
+        alert("pop");
+    });
     //
     // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
     setTimeout($("#app").css("display", "none"), 60 * 1000);
@@ -972,8 +975,22 @@
         $("#app").css("display", "block");
         // console.log( document.getElementById('qrcodePaynowPhone'))
     });
-
+    function check_payment(){
+        $.ajax({
+            url: "{{ url('/check_payment') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data_barcode: $('#data_barcode').attr('src'),
+                card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+            success: function (data) {
+                return data['status_payment'];
+            }
+        });
+    }
     $( document ).ready(function() {
+
         $('#form_paynow_verification').on('click', function () {
             $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
@@ -981,91 +998,136 @@
 
         $('#paynow').on('click', function () {
             if ($("input[name='understand_transaction']:checked").val()) {
-                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
-                    $( "#check_payment").trigger( "click" );
-                }else {
-                    $.ajax({
-                        url: "{{ url('/save_barcode_paynow') }}",
-                        type: 'POST',
-                        /* send the csrf-token and the input to the controller */
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            data_barcode: $('#data_barcode').attr('src'),
-                            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                        success: function (data) {
-                            generateBarcodePaynow(data['receiptNo'])
-                            let text = data['receiptNo'];
-                            let result = text.bold();
-                            document.getElementById("receiptNo").innerHTML = result;
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else {
+                            $.ajax({
+                                url: "{{ url('/save_barcode_paynow') }}",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    data_barcode: $('#data_barcode').attr('src'),
+                                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                                success: function (data) {
+                                    generateBarcodePaynow(data['receiptNo'])
+                                    let text = data['receiptNo'];
+                                    let result = text.bold();
+                                    document.getElementById("receiptNo").innerHTML = result;
 
+                                }
+                            });
+                            $("#popup_paynow").trigger("click");
+                            $("#payment_method").val({!!  json_encode(paynow) !!})
                         }
-                    });
-                    $("#popup_paynow").trigger("click");
-                    $("#payment_method").val({!!  json_encode(paynow) !!})
-                }
-
+                    }
+                });
                 } else {
                     swal("Error!", "Tick the check box to proceed.", "error")
                 }
         });
         $('#paynow_phone').on('click', function () {
             if ($("input[name='understand_transaction_phone']:checked").val()) {
-                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
-                    $( "#check_payment").trigger( "click" );
-                }else{
-                    $.ajax({
-                        url: "{{ url('/save_barcode_paynow') }}",
-                        type: 'POST',
-                        /* send the csrf-token and the input to the controller */
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            data_barcode: $('#data_barcode').attr('src'),
-                            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                        success: function (data) {
-                            generateBarcodePaynow(data['receiptNo'])
-                            let textPhone = data['receiptNo'];
-                            let resultPhone = textPhone.bold();
-                            document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else{
+                            $.ajax({
+                                url: "{{ url('/save_barcode_paynow') }}",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    data_barcode: $('#data_barcode').attr('src'),
+                                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                                success: function (data) {
+                                    generateBarcodePaynow(data['receiptNo'])
+                                    let textPhone = data['receiptNo'];
+                                    let resultPhone = textPhone.bold();
+                                    document.getElementById("receiptNoPhone").innerHTML = resultPhone;
 
+                                }
+                            });
+                            $("#popup_paynow").trigger("click");
+                            $("#payment_method").val({!!  json_encode(paynow) !!})
                         }
-                    });
-                    $("#popup_paynow").trigger("click");
-                    $("#payment_method").val({!!  json_encode(paynow) !!})
-                }
+                    }
+                });
+
             } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#enets").click(function() {
             if ($("input[name='understand_transaction']:checked").val()) {
-                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
-                    $( "#check_payment").trigger( "click" );
-                }else{
-                    $.ajax({
-                        url: "<?php echo e(url('/create_receiptno')); ?>",
-                        type: 'POST',
-                        /* send the csrf-token and the input to the controller */
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            card_id:<?php echo json_encode($booking_schedule->card_id); ?>},
-                        success: function (data) {
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else{
+                            $.ajax({
+                                url: "<?php echo e(url('/create_receiptno')); ?>",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    card_id:<?php echo json_encode($booking_schedule->card_id); ?>},
+                                success: function (data) {
+                                }
+                            });
+                            $("#payment_method").val({!!  json_encode(enets) !!})
+                            enets();
                         }
-                    });
-                    $("#payment_method").val({!!  json_encode(enets) !!})
-                    enets();
-                }
+                    }
+                });
             } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
         $("#phone_enets").click(function() {
             if ($("input[name='understand_transaction_phone']:checked").val()) {
-                if ({!!  json_encode( $booking_schedule->status_payment) !!} == true){
-                    $( "#check_payment").trigger( "click" );
-                }else{
-                    $("#payment_method").val({!!  json_encode(enets) !!})
-                    enets();
-                }
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else{
+                            $("#payment_method").val({!!  json_encode(enets) !!})
+                            enets();
+                        }
+                    }
+                });
+
             } else {
                 swal("Error!", "Tick the check box to proceed.", "error")
             }

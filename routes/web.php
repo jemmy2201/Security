@@ -107,6 +107,10 @@ Route::get('/soqUERY/idqUERY/{passid}', 'SoQueryController@soquery');
 // save data barcode paynow
 Route::post('/save_barcode_paynow', 'HomeController@save_barcode_paynow');
 // end save data barcode paynow
+// Check Payment
+Route::post('/check_payment', 'HomeController@check_payment');
+// End Check Payment
+
 // create number transaction
 Route::post('/create_receiptno', 'HomeController@create_receiptno');
 // end create number transaction

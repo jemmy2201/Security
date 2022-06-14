@@ -670,6 +670,12 @@ class HomeController extends Controller
         $receiptNo->save();
         return $receiptNo;
     }
+    public function check_payment(Request $request)
+    {
+        $check_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])->first();
+
+        return $check_data;
+    }
     public function create_receiptno(Request $request)
     {
         $data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
