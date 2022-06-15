@@ -1017,11 +1017,27 @@ class HomeController extends Controller
         $gst = gst::orderBy('id', 'desc')->first();
         $t_grade = t_grade::get();
         if ($request->valid_resubmission == true){
+            $date = Carbon::parse($request->view_date)->toDateString();
+            $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
             $booking_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
                 ->update([
+                    'appointment_date' => $date,
+                    'time_start_appointment' => $data->start_at,
+                    'time_end_appointment' => $data->end_at,
                     'Status_app' => Resubmitted,
                     'resubmission_date' => date('d/m/Y H:i:s'),
                 ]);
+            $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+                ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request['card']])->first();
+            $t_grade = t_grade::get();
+            PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+            $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request])->setPaper('a3','landscape');
+//        return $pdf->stream();
+            $content = $pdf->download()->getOriginalContent();
+            $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+//        Storage::put('public/img/img_users/invoice/'.$name_file,$content) ;
+            file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
+
             return redirect('/landing_page');
         }
         // Update Session

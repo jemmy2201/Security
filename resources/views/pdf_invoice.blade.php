@@ -398,7 +398,7 @@
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
-            @if($courses->paymentby =="paynow")
+            @if($request->valid_resubmission == false && $courses->paymentby =="paynow")
             <br><br><br>
             <div class="column-center"></div>
             <div class="column-left"></div>
