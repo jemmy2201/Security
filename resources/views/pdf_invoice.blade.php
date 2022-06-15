@@ -392,13 +392,13 @@
             <div class="column-left">Transaction Ref </div>
             <div class="column-right">{{$courses->receiptNo}}</div>
             <br>
+            @if($courses->Status_app == processing && $courses->paymentby =="paynow")
             <div class="column-center">:</div>
             <div class="column-left">Payment Amount </div>
             @php
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
-            @if($request->valid_resubmission == false && $courses->paymentby =="paynow")
             <br><br><br>
             <div class="column-center"></div>
             <div class="column-left"></div>
