@@ -45,6 +45,19 @@
         animation: spin 2s linear infinite;
     }
 
+    .loadingPaynow {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        position: absolute;
+        margin-top: 60px;
+        left: 40%;
+        height: 80px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
     /* Safari */
     @-webkit-keyframes spin {
         0% { -webkit-transform: rotate(0deg); }
@@ -833,7 +846,9 @@
                     </center>
                 </div>
                 <div class="modal-footer">
-                        <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Submitted</button>
+                    <div class="loadingPaynow"></div>
+                    <button type="button"   class="btn btn-secondary" id="form_paynow_verification"  style="margin-right: 25px;">Payment Submitted</button>
+{{--                    <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Submitted</button>--}}
 {{--                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">--}}
 {{--                        <button type="button"  class="btn btn-secondary  hidden-xs"  style="margin-right: 45px;">Cancel</button>--}}
 {{--                        <button type="button"  class="btn btn-secondary Visible-xs hidden-md"  >Cancel</button>--}}
@@ -1002,12 +1017,14 @@
     $( document ).ready(function() {
 
         $('#form_paynow_verification').on('click', function () {
+            $('.loadingPaynow').show();
             $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
 
         $('#paynow').on('click', function () {
             $('.viewqrcodePaynow').hide();
+            $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
                 $.ajax({
                     url: "{{ url('/check_payment') }}",
@@ -1050,6 +1067,7 @@
         });
         $('#paynow_phone').on('click', function () {
             $('.viewqrcodePaynowPhone').hide();
+            $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $.ajax({
                     url: "{{ url('/check_payment') }}",
@@ -1078,7 +1096,6 @@
                                     let textPhone = data['receiptNo'];
                                     let resultPhone = textPhone.bold();
                                     document.getElementById("receiptNoPhone").innerHTML = resultPhone;
-
                                 }
                             });
                             $("#popup_paynow").trigger("click");
