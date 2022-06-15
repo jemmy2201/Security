@@ -10,7 +10,7 @@
     <div class="col-8">
         <h1 style="color: white;"><b>SECURITY OFFICER'S INFO</b></h1>
         <div class="row">
-            <div class="col-6"style="color: white; text-align: left"><h2><b>NAME<span style="margin-left: 165px;">:</span></b></h2></div>
+            <div class="col-4"style="color: white; text-align: left"><h2><b>NAME<span style="margin-left: 165px;">:</span></b></h2></div>
             <div class="col-6" style="color: white;"><h2>{{$soquery->Name}}</h2></div>
             <div class="w-100"></div>
 {{--            @php--}}
@@ -21,20 +21,20 @@
 {{--            <div class="col-6" style="color: white;"><h2>{{$nric}}</h2></div>--}}
             <div class="w-100"></div>
             <div class="col-6"style="color: white; text-align: left"><h2><b>PASS ID<span style="margin-left: 137px;">:</span></b></h2></div>
-            <div class="col-6" style="color: white;"><h2>{{$soquery->PassID}}</h2></div>
+            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->PassID}}</h2></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white; text-align: left"><h2><b>NRIC / FIN<span style="margin-left: 109px;">:</span></b></h2></div>
             @php
                 $cutnric = substr(secret_decode($soquery->M_NRIC ), -4);
                 $nric = "XXXXX$cutnric";
             @endphp
-            <div class="col-6" style="color: white;"><h2>{{$soquery->M_NRIC }}</h2></div>
+            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->M_NRIC }}</h2></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white; text-align: left"><h2><b>PWM GRADE<span style="margin-left: 65px;">:</span></b></h2></div>
-            <div class="col-6" style="color: white;"><h2>{{$soquery->Grade}}</h2></div>
+            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->Grade}}</h2></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h2><b>LICENSE EXPIRY<span style="margin-left: 7px;">:</span></b></h2></div>
-            <div class="col-6" style="color: white;"><h2>{{date('m/d/Y ',strtotime($soquery->LicenseExpiryDate))}}</h2></div>
+            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{date('m/d/Y ',strtotime($soquery->LicenseExpiryDate))}}</h2></div>
             <div class="w-100"></div>
         </div>
     </div>
@@ -91,7 +91,7 @@
     </div>
     <br>
     <div class="col-8">
-        <div class="col-8">
+        <div class="col-12">
             <div class="row" style="background-color: white; display: flex;
   justify-content: center; /* horizontal */
   align-items: center; ">
@@ -120,7 +120,7 @@
             @endif
             <br>
             <div class="col-6"style="text-align: left;color: white;"><h4><b>Information Updated As Of<span style="margin-left: 20px;">:</span></b></h4></div>
-            <div class="col-4" style="color: white;"><h4>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h4></div>
+            <div class="col-4" style="color: white;margin-left: -17%;"><h4>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h4></div>
             <div class="w-100"></div>
         </div>
     </div>
