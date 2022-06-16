@@ -962,6 +962,14 @@
 
 
 </div>
+{{--Can't back page --}}
+<script type="text/javascript">
+    function disableBack() { window.history.forward(); }
+    setTimeout("disableBack()", 0);
+    window.onunload = function () { null };
+</script>
+{{--End Can't back page --}}
+
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
     //refresh page on browser resize
