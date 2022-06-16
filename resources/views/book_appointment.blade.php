@@ -57,6 +57,37 @@
     #s_m{
         font-weight: 1000;
     }
+
+    @media (max-width: 576px) {
+        .loadingResubmit {
+            /*border: 16px solid #f3f3f3;*/
+            /*border-radius: 50%;*/
+            /*border-top: 16px solid #3498db;*/
+            width: 50%;
+            position: absolute;
+            /*margin-top: 60px;*/
+            left: 20%;
+            height: 25%;
+            background: url("../img/loading.gif") 0 0;
+            /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+            /*animation: spin 2s linear infinite;*/
+        }
+    }
+    @media (min-width: 768px) {
+        .loadingResubmit {
+            /*border: 16px solid #f3f3f3;*/
+            /*border-radius: 50%;*/
+            /*border-top: 16px solid #3498db;*/
+            width: 15%;
+            position: absolute;
+            /*margin-top: 60px;*/
+            left: 40%;
+            height: 35%;
+            background: url("../img/loading.gif") 0 0;
+            /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+            /*animation: spin 2s linear infinite;*/
+        }
+    }
 </style>
 @section('content')
 <div class="container">
@@ -112,6 +143,7 @@
                     @endif
                 </ul>
             </div>
+            <div class="loadingResubmit"></div>
         </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
@@ -125,7 +157,7 @@
             </a>
             @else
             <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">
-            <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: white">
+            <button type="button" class=" btn btn-light btn-lg btn-block backpage" style="border-style: groove; background: black; color: white">
 {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                     Back
             </button>
@@ -143,7 +175,7 @@
                 </a>
             @else
                 <a href="{{url('/back/submission/'.$request->app_type.'/'.$request->card.'/'.$request->SentCgrades)}}" style="text-decoration:none;color: white;">
-                <button type="button" class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color:white" >
+                <button type="button" class=" btn btn-light btn-lg btn-block backpagephone" style="border-style: groove; background: black; color:white" >
                         {{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;"> --}}
                         Back
                 </button>
@@ -170,7 +202,7 @@
 {{--        </div>--}}
         <div class="col-2 next hidden-xs">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
+                <button type="button" id="save_book_appointment" class=" btn btn-danger btn-lg btn-block resubmit" style=" background: black; color: white;">
                     Resubmit
 {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
@@ -184,7 +216,7 @@
         </div>
         <div class="col-5 visible-xs hidden-md">
             @if(!empty($request->Status_app) && $request->Status_app == resubmission)
-                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block" style=" background: black; color: white;">
+                <button type="button" id="phone_save_book_appointment" class=" btn btn-danger btn-lg btn-block resubmitphone" style=" background: black; color: white;">
                     Resubmit
                     {{--                    <img src="{{URL::asset('/img/next.png')}}" style="width: 10%;">--}}
                 </button>
@@ -202,8 +234,14 @@
 
 <script type="application/javascript">
     $( document ).ready(function() {
+        $('.loadingResubmit').hide();
         $( "#save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
+                if ({!!  json_encode( $request->Status_app) !!} == {!!  json_encode(resubmission) !!} ){
+                    $(".backpage").attr("disabled", true);
+                    $(".resubmit").attr("disabled", true);
+                    $('.loadingResubmit').show();
+                }
                 $( "#save_appointment" ).submit();
             }else{
                 swal("Error!", "No date/time slot selection.", "error")
@@ -211,6 +249,11 @@
         });
         $( "#phone_save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
+                if ({!!  json_encode( $request->Status_app) !!} == {!!  json_encode(resubmission) !!} ){
+                    $(".backpagephone").attr("disabled", true);
+                    $(".resubmitphone").attr("disabled", true);
+                    $('.loadingResubmit').show();
+                }
                 $( "#save_appointment" ).submit();
             }else{
                 swal("Error!", "No date/time slot selection.", "error")

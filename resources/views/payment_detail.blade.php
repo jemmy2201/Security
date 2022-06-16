@@ -45,18 +45,7 @@
         animation: spin 2s linear infinite;
     }
 
-    .loadingPaynow {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
-        position: absolute;
-        margin-top: 60px;
-        left: 40%;
-        height: 80px;
-        -webkit-animation: spin 2s linear infinite; /* Safari */
-        animation: spin 2s linear infinite;
-    }
+
 
     /* Safari */
     @-webkit-keyframes spin {
@@ -76,7 +65,25 @@
         font-weight: bold;
         font-size: 20px;
     }
+
+    @media (max-width: 576px) {
+        .loadingPaynow {
+            /*border: 16px solid #f3f3f3;*/
+            /*border-radius: 50%;*/
+            /*border-top: 16px solid #3498db;*/
+            width: 50%;
+            position: absolute;
+            margin-top: 60px;
+            left: 40%;
+            height: 34%;
+            background: url("../img/loading.gif") 0 0;
+            /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+            /*animation: spin 2s linear infinite;*/
+        }
+
+    }
     @media (min-width: 576px) {
+
         .modal-dialog {
             max-width: 700px !important;
         }
@@ -86,6 +93,19 @@
         }
     }
     @media (min-width: 768px) {
+        .loadingPaynow {
+            /*border: 16px solid #f3f3f3;*/
+            /*border-radius: 50%;*/
+            /*border-top: 16px solid #3498db;*/
+            width: 32%;
+            position: absolute;
+            margin-top: 60px;
+            left: 40%;
+            height: 50%;
+            background: url("../img/loading.gif") 0 0;
+            /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+            /*animation: spin 2s linear infinite;*/
+        }
         .modal-dialog {
             width: 692px !important;
         }
@@ -1025,6 +1045,7 @@
     $( document ).ready(function() {
 
         $('#form_paynow_verification').on('click', function () {
+            $("#form_paynow_verification").attr("disabled", true);
             $('.loadingPaynow').show();
             $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
