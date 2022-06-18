@@ -214,7 +214,20 @@
     </div>
     </form>
 </div>
+{{--Can't back page --}}
+<script type="text/javascript">
+    if ({!!  json_encode( $request->Status_app) !!} == {!!  json_encode(resubmission) !!} ) {
+        function disableBack() {
+            window.history.forward();
+        }
 
+        setTimeout("disableBack()", 0);
+        window.onunload = function () {
+            null
+        };
+    }
+</script>
+{{--End Can't back page --}}
 <script type="application/javascript">
     $( document ).ready(function() {
         $('.loadingResubmit').hide();
