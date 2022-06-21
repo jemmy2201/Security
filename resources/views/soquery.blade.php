@@ -120,7 +120,7 @@
             @endif
             <br>
             <div class="col-6"style="text-align: left;color: white;"><h4><b>Information Updated As Of<span style="margin-left: 20px;">:</span></b></h4></div>
-            <div class="col-4" style="color: white;margin-left: -17%;"><h4>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h4></div>
+            <div class="col-4" style="color: white;margin-left: -17%;"><h4>{{date('d F Y ',strtotime($soquery->Date_Submitted))}}</h4></div>
             <div class="w-100"></div>
         </div>
     </div>
@@ -241,7 +241,7 @@
             <div class="w-100"></div>
             @endif
             <div class="col-6"style="color: white;text-align: left"><h6><b>Information updated as of<span style="margin-left: 10px;">:</span></b></h6></div>
-            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h6></div>
+            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->Date_Submitted))}}</h6></div>
             <div class="w-100"></div>
         </div>
     </div>

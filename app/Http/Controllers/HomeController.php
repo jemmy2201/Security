@@ -656,19 +656,15 @@ class HomeController extends Controller
         $t_grade = t_grade::get();
         return view('view_courses')->with(['t_grade' => $t_grade,'courses' => $course, "request" => $request]);
     }
+
     public function save_barcode_paynow(Request $request)
     {
         $data_barcode = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
             ->update([
-                'receiptNo' => $this->receiptNo(),
-//                'data_barcode_paynow' => $request->data_barcode,
+                'data_barcode_paynow' => $request->data_barcode,
             ]);
-        $receiptNo = new tbl_receiptNo;
 
-        $receiptNo->receiptNo = $this->receiptNo();
-
-        $receiptNo->save();
-        return $receiptNo;
+        return $data_barcode;
     }
     public function check_payment(Request $request)
     {

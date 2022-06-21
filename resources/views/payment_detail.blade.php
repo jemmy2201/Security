@@ -1016,9 +1016,26 @@
         var image = imageParent.querySelector('img')
         image.id = 'data_barcode';
         // $("#barcode_paynow").val($('#data_barcode').attr('src'))
-        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 100);
+        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 50);
+        setTimeout(function(){SaveBarcodePaynow() }, 50);
         hideLoader();
     }
+    function SaveBarcodePaynow() {
+        console.log('barcode',$('#data_barcode').attr('src'))
+        $.ajax({
+            url: "{{ url('/save_barcode_paynow') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data_barcode: $('#data_barcode').attr('src'),
+                card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+            success: function (data) {
+                console.log('data',data)
+            }
+        });
+    }
+
     $(window).ready(hideLoader);
     // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
     setTimeout($("#app").css("display", "none"), 60 * 1000);
@@ -1054,7 +1071,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else {
                             $.ajax({
-                                url: "{{ url('/save_barcode_paynow') }}",
+                                url: "{{ url('/create_receiptno') }}",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
@@ -1097,7 +1114,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else{
                             $.ajax({
-                                url: "{{ url('/save_barcode_paynow') }}",
+                                url: "{{ url('/create_receiptno') }}",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
