@@ -356,3 +356,8 @@ define('Maret', 2);
 define('April', 3);
 
 // End counting years time schedule
+
+// version chorem
+define('version_chrome', 102);
+
+// end version chorem
