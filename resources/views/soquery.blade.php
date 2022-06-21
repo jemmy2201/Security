@@ -34,7 +34,7 @@
             <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->Grade}}</h2></div>
             <div class="w-100"></div>
             <div class="col-6"style="color: white;text-align: left"><h2><b>LICENSE EXPIRY<span style="margin-left: 7px;">:</span></b></h2></div>
-            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{date('m/d/Y ',strtotime($soquery->LicenseExpiryDate))}}</h2></div>
+            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{date('d/m/Y ',strtotime($soquery->LicenseExpiryDate))}}</h2></div>
             <div class="w-100"></div>
         </div>
     </div>
@@ -241,7 +241,7 @@
             <div class="w-100"></div>
             @endif
             <div class="col-6"style="color: white;text-align: left"><h6><b>Information updated as of<span style="margin-left: 10px;">:</span></b></h6></div>
-            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->Date_Submitted))}}</h6></div>
+            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->CreationDate))}}</h6></div>
             <div class="w-100"></div>
         </div>
     </div>
