@@ -685,7 +685,7 @@ class HomeController extends Controller
 
         $receiptNo->save();
 
-        return $data;
+        return $receiptNo;
     }
     public function print_pdf(Request $request,$card)
     {

@@ -1018,6 +1018,10 @@
         // $("#barcode_paynow").val($('#data_barcode').attr('src'))
         setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 50);
         setTimeout(function(){SaveBarcodePaynow() }, 50);
+
+        // setTimeout($("#barcode_paynow").val($('#data_barcode').attr('src')),50);
+        // setTimeout(SaveBarcodePaynow(),50);
+
         hideLoader();
     }
     function SaveBarcodePaynow() {
