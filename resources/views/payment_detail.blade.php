@@ -1025,7 +1025,6 @@
         hideLoader();
     }
     function SaveBarcodePaynow(QRstring) {
-        console.log('barcode',$('#data_barcode').attr('src'))
         $.ajax({
             url: "{{ url('/save_barcode_paynow') }}",
             type: 'POST',
@@ -1037,7 +1036,7 @@
                 QRstring:QRstring
             },
             success: function (data) {
-                console.log('data',data)
+                $("#form_paynow_verification").attr("disabled", false);
             }
         });
     }
@@ -1061,6 +1060,7 @@
         });
 
         $('#paynow').on('click', function () {
+            $("#form_paynow_verification").attr("disabled", true);
             $('.viewqrcodePaynow').hide();
             $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
@@ -1104,6 +1104,7 @@
                 }
         });
         $('#paynow_phone').on('click', function () {
+            $("#form_paynow_verification").attr("disabled", true);
             $('.viewqrcodePaynowPhone').hide();
             $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction_phone']:checked").val()) {
