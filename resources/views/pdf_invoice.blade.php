@@ -403,13 +403,18 @@
             <div class="column-center"></div>
             <div class="column-left"></div>
             <div class="column-right-paynow" style=" margin-right: 140px;">
-                <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
+
+                @if(!empty($courses->data_barcode_paynow))
+                    <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 130px;
                 margin-top: 100px;
                transform: translate(-50%, -50%); width: 70px;">
-                @if(!empty($courses->data_barcode_paynow))
-                <img src="{{$courses->data_barcode_paynow}}">
+                    <img src="{{$courses->data_barcode_paynow}}">
                 @else
+                    <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
+                margin-left: 100px;
+                margin-top: 80px;
+               transform: translate(-50%, -50%); width: 70px;">
                 <img src="data:image/png;base64, {!! $qrcode !!}">
                 @endif
             </div>
