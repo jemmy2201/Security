@@ -1024,6 +1024,11 @@
 
         hideLoader();
     }
+
+    function handling_error_ajax() {
+        swal("Error!", "The system will refresh the page now.", "error")
+        setTimeout(location.reload(), 10000);
+    }
     function SaveBarcodePaynow(QRstring) {
         $.ajax({
             url: "{{ url('/save_barcode_paynow') }}",
@@ -1037,6 +1042,9 @@
             },
             success: function (data) {
                 $("#form_paynow_verification").attr("disabled", false);
+            },
+            error: function (request, status, error) {
+                handling_error_ajax();
             }
         });
     }
@@ -1092,11 +1100,17 @@
                                     let result = text.bold();
                                     document.getElementById("receiptNo").innerHTML = result;
 
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
                                 }
                             });
                             $("#popup_paynow").trigger("click");
                             $("#payment_method").val({!!  json_encode(paynow) !!})
                         }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
                     }
                 });
                 } else {
@@ -1135,11 +1149,17 @@
                                     let textPhone = data['receiptNo'];
                                     let resultPhone = textPhone.bold();
                                     document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
                                 }
                             });
                             $("#popup_paynow").trigger("click");
                             $("#payment_method").val({!!  json_encode(paynow) !!})
                         }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
                     }
                 });
 
@@ -1169,11 +1189,17 @@
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     card_id:<?php echo json_encode($booking_schedule->card_id); ?>},
                                 success: function (data) {
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
                                 }
                             });
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             enets();
                         }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
                     }
                 });
             } else {
@@ -1197,6 +1223,9 @@
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             enets();
                         }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
                     }
                 });
 
