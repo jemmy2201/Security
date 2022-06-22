@@ -407,7 +407,11 @@
                 margin-left: 130px;
                 margin-top: 100px;
                transform: translate(-50%, -50%); width: 70px;">
+                @if(!empty($courses->data_barcode_paynow))
                 <img src="{{$courses->data_barcode_paynow}}">
+                @else
+                <img src="data:image/png;base64, {!! $qrcode !!}">
+                @endif
             </div>
             <div class="column-right-paynow" style="margin-right: -140px;margin-top: -40px;" >
                 <h4 >How to Make a PayNow Transfer</h4>

@@ -1017,14 +1017,14 @@
         image.id = 'data_barcode';
         // $("#barcode_paynow").val($('#data_barcode').attr('src'))
         setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 50);
-        setTimeout(function(){SaveBarcodePaynow() }, 50);
+        setTimeout(function(){SaveBarcodePaynow(QRstring) }, 50);
 
         // setTimeout($("#barcode_paynow").val($('#data_barcode').attr('src')),50);
         // setTimeout(SaveBarcodePaynow(),50);
 
         hideLoader();
     }
-    function SaveBarcodePaynow() {
+    function SaveBarcodePaynow(QRstring) {
         console.log('barcode',$('#data_barcode').attr('src'))
         $.ajax({
             url: "{{ url('/save_barcode_paynow') }}",
@@ -1033,7 +1033,9 @@
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data_barcode: $('#data_barcode').attr('src'),
-                card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                card_id:{!!  json_encode( $booking_schedule->card_id) !!},
+                QRstring:QRstring
+            },
             success: function (data) {
                 console.log('data',data)
             }

@@ -24,6 +24,7 @@
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.46",
         "nets/enets2-php-sdk": "dev-master",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "starkbank/ecdsa": "^0.0.5",
         "web-token/jwt-encryption": "^2.2",
         "web-token/jwt-key-mgmt": "^2.2",

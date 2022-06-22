@@ -26,7 +26,7 @@ use App\tbl_receiptNo;
 use App\so_update_info;
 use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class HomeController extends Controller
 {
     /**
@@ -659,9 +659,11 @@ class HomeController extends Controller
 
     public function save_barcode_paynow(Request $request)
     {
+
         $data_barcode = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
             ->update([
                 'data_barcode_paynow' => $request->data_barcode,
+                'QRstring' => $request->QRstring,
             ]);
 
         return $data_barcode;
@@ -1156,8 +1158,11 @@ class HomeController extends Controller
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request['card']])->first();
         $t_grade = t_grade::get();
+
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
+
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests])->setPaper('a3','landscape');
+        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
 //        return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
         $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
