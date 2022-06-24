@@ -695,9 +695,10 @@ class HomeController extends Controller
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
-
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
-
+        $qrcode ="";
+        if (!empty($course->QRstring)) {
+            $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
+        }
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
 //        return $pdf->stream();
