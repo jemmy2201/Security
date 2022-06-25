@@ -1090,6 +1090,7 @@
                                 /* send the csrf-token and the input to the controller */
                                 data: {
                                     _token: $('meta[name="csrf-token"]').attr('content'),
+                                    paynow: true,
                                     data_barcode: $('#data_barcode').attr('src'),
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
@@ -1141,6 +1142,7 @@
                                 data: {
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     data_barcode: $('#data_barcode').attr('src'),
+                                    paynow: true,
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])

@@ -676,17 +676,24 @@ class HomeController extends Controller
     }
     public function create_receiptno(Request $request)
     {
-        $data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
-            ->update([
-                'receiptNo' => $this->receiptNo(),
-            ]);
+        if ($request->paynow == true){
+            $PassID = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])->first();
+            $receiptNo = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
+                ->update([
+                    'receiptNo' => $PassID->passid.'-'.last_receipt_paynow,
+                ]);
+        }else {
+            $data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
+                ->update([
+                    'receiptNo' => $this->receiptNo(),
+                ]);
 
-        $receiptNo = new tbl_receiptNo;
+            $receiptNo = new tbl_receiptNo;
 
-        $receiptNo->receiptNo = $this->receiptNo();
+            $receiptNo->receiptNo = $this->receiptNo();
 
-        $receiptNo->save();
-
+            $receiptNo->save();
+        }
         return $receiptNo;
     }
     public function print_pdf(Request $request,$card)
