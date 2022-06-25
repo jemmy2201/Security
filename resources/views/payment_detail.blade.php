@@ -1220,6 +1220,20 @@
                         if (data['status_payment'] == true){
                             $( "#check_payment").trigger( "click" );
                         }else{
+                            $.ajax({
+                                url: "<?php echo e(url('/create_receiptno')); ?>",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    card_id:<?php echo json_encode($booking_schedule->card_id); ?>},
+                                success: function (data) {
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
+                                }
+                            });
+                            $("#payment_method").val({!!  json_encode(enets) !!})
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             enets();
                         }
