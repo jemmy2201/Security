@@ -1003,7 +1003,7 @@
             editable: false,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
             expiry: {!!  json_encode( date('Ymd', strtotime( date("Ymd"). ' + 14 days')) ) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
             {{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
-            refNumber: receipt,
+            refNumber: {!!  json_encode( $booking_schedule->passid) !!} +'-'+receipt.slice(-5),
             // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
             company:{!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
         });
@@ -1090,7 +1090,6 @@
                                 /* send the csrf-token and the input to the controller */
                                 data: {
                                     _token: $('meta[name="csrf-token"]').attr('content'),
-                                    paynow: true,
                                     data_barcode: $('#data_barcode').attr('src'),
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
@@ -1142,7 +1141,6 @@
                                 data: {
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     data_barcode: $('#data_barcode').attr('src'),
-                                    paynow: true,
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])

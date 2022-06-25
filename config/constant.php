@@ -276,7 +276,6 @@ define('url_api_private_key_jwe', "http://localhost:8000/api/jwe/decrypted");
 
 // Paynow
 define('uen', "S78TU0494DIDC");
-define('last_receipt_paynow', "01082");
 // End Paynow
 
 define('less_than_days', "+7");
