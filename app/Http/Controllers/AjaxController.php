@@ -1304,8 +1304,8 @@ class AjaxController extends Controller
                     $mobileno = $request->phone;
                 }
 
-                User::where(['nric'=> Auth::user()->nric])
-                    ->update(['mobileno' => $mobileno]);
+//                User::where(['nric'=> Auth::user()->nric])
+//                    ->update(['mobileno' => $mobileno]);
             } else {
                 $respon = already_used;
             }
