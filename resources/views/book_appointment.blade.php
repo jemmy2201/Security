@@ -896,6 +896,7 @@
         //End resubmission
         function validate_limit_schedule(eventDate) {
             document.getElementById('veiw_time_schedule').style.visibility = 'hidden';
+            $("#limit_schedule_id").prop("checked", false);
             $.ajax({
                 url: "{{ url('/ajax/cek/data/limit/schedule') }}",
                 type: 'POST',
