@@ -156,10 +156,10 @@ define('half', 2);
 
 define('dummy', 1);
 
-define('half_1', "13:00");
-define('half_2', "14:00");
-define('half_3', "15:00");
-define('half_4', "16:00");
+define('half_1', "13:30");
+define('half_2', "14:30");
+define('half_3', "15:30");
+define('half_4', "16:30");
 
 define('cek_pathname', "/qrcode");
 define('cek_pathname_logout', "/submission");
