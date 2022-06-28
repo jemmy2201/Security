@@ -895,12 +895,14 @@
         {{--}--}}
         //End resubmission
         function validate_limit_schedule(eventDate) {
+            document.getElementById('veiw_time_schedule').style.visibility = 'hidden';
             $.ajax({
                 url: "{{ url('/ajax/cek/data/limit/schedule') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
                 success: function (data) {
+                    document.getElementById('veiw_time_schedule').style.visibility = 'visible';
                     $('#veiw_time_schedule').html(data);
                 }
             });
