@@ -304,16 +304,16 @@
 
 <script>
     $( document ).ready(function() {
-        {{--function getChromeVersion () {--}}
-        {{--    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);--}}
+        function getChromeVersion () {
+            var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
 
-        {{--    return raw ? parseInt(raw[2], 10) : false;--}}
-        {{--    // return 101;--}}
-        {{--}--}}
-        {{--if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){--}}
-        {{--    swal("Attention!", "Please update your chrome", "error")--}}
-        {{--    document.getElementById('click_personal_particular').style.visibility = 'hidden';--}}
-        {{--}--}}
+            return raw ? parseInt(raw[2], 10) : false;
+            // return 101;
+        }
+        if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
+            swal("Attention!", "Please update your chrome", "error")
+            document.getElementById('click_personal_particular').style.visibility = 'hidden';
+        }
         // 15 minutes not action
         setTimeout(RefreshPage, 900000);
         function RefreshPage() {
