@@ -978,6 +978,11 @@
 
 <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script>
+    if({!!  json_encode($booking_schedule->mobileno) !!} == "65" || {!!  json_encode($booking_schedule->mobileno) !!} == null ){
+        swal("Attention!", "Please update your phone number, the system will redirect you to the start page", "error")
+        setTimeout(function(){ window.location.href = "{{URL::to('landing_page')}}" }, 9000);
+
+    }
     //refresh page on browser resize
     // $(window).bind('resize', function(e)
     // {
