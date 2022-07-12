@@ -226,9 +226,7 @@
             null
         };
     }
-    function disableBack() { window.history.forward(); }
-    setTimeout("disableBack()", 0);
-    window.onunload = function () { null };
+
 </script>
 {{--End Can't back page --}}
 <script type="application/javascript">
