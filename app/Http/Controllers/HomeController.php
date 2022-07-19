@@ -994,7 +994,7 @@ class HomeController extends Controller
         return view('book_appointment')->with(["request"=>$request,"dayHoliday"=>$dayHoliday]);
     }
 
-    public function View_payment(Request $request)
+    public function View_payment(Request $request,$get_paynow = false)
     {
         $check_=booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])->first();
         if (empty($check_->receiptNo)) {
@@ -1054,8 +1054,27 @@ class HomeController extends Controller
             'transaction_amount' => $transaction_amount->id
         ]);
         // End Update Session
+        if ($get_paynow == true){
+            return (["t_grade" => $t_grade, "gst" => $gst, "booking_schedule" => $booking_schedule, 'transaction_amount' => $transaction_amount]);
+        }else {
+            return view('payment_detail')->with(["t_grade" => $t_grade, "gst" => $gst, "booking_schedule" => $booking_schedule, 'transaction_amount' => $transaction_amount, 'request' => $request]);
+        }
+    }
 
-        return view('payment_detail')->with(["t_grade"=>$t_grade,"gst"=>$gst,"booking_schedule"=>$booking_schedule,'transaction_amount'=>$transaction_amount,'request'=>$request]);
+    public function get_View_payment(Request $request,$card,$valid_resubmission,$view_date,$limit_schedule_id)
+    {
+        if (is_null($valid_resubmission)){
+            $valid_resubmission == "0";
+        }
+        $request->merge(['card' => $card]);
+        $request->merge(['valid_resubmission' => false]);
+        $request->merge(['view_date' => $view_date]);
+        $request->merge(['limit_schedule_id' => $limit_schedule_id]);
+
+        $data= $this->View_payment($request,true);
+//        die(print_r($data['booking_schedule']));
+        return view('payment_paynow')->with(["t_grade" => $data['t_grade'], "gst" => $data['gst'], "booking_schedule" => $data['booking_schedule'], 'transaction_amount' => $data['transaction_amount'], 'request' => $request]);
+
     }
 
     public function HistoryViewPayment(Request $request,$app_type,$card)

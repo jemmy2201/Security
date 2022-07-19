@@ -72,6 +72,7 @@ Route::get('/submission', 'HomeController@getsubmission');
 Route::post('/declare/submission', 'HomeController@declare_submission')->name('declare.submission');
 Route::post('/book/appointment', 'HomeController@book_appointment')->name('book.appointment');
 Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
+Route::get('/get_payment/{card}/{valid_resubmission}/{view_date}/{limit_schedule_id}', 'HomeController@get_View_payment');
 Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
 Route::get('/after/payment/{id}', 'HomeController@after_payment')->name('after.payment');
 

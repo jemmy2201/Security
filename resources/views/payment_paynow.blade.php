@@ -612,7 +612,7 @@
         {{--         </div>--}}
         <div class="col-10">
             <h4>
-                <input class="form-check-input" name="understand_transaction" type="checkbox" id="understand_transaction" width="120%">
+                <input class="form-check-input" name="understand_transaction" type="checkbox" id="understand_transaction"  width="120%" checked>
                 <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
             </h4>
         </div>
@@ -630,7 +630,7 @@
     <div class="visible-xs hidden-md">
         <h3>Select Your Payment Method</h3><br>
         <h4>
-            <input class="form-check-input" name="understand_transaction_phone" type="checkbox" id="understand_transaction_phone" width="120%">
+            <input class="form-check-input" name="understand_transaction_phone" type="checkbox" id="understand_transaction_phone"  width="120%" checked>
             <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
         </h4><br>
         <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
@@ -1064,7 +1064,6 @@
     });
 
     $( document ).ready(function() {
-
         $('#form_paynow_verification').on('click', function () {
             $("#form_paynow_verification").attr("disabled", true);
             $('.loadingPaynow').show();
@@ -1072,127 +1071,125 @@
             // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
 
-        $('#paynow').on('click', function () {
-            window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});
-            // $("#form_paynow_verification").attr("disabled", true);
-            // $('.viewqrcodePaynow').hide();
-            // $('.loadingPaynow').hide();
-            {{--if ($("input[name='understand_transaction']:checked").val()) {--}}
-            {{--    $.ajax({--}}
-            {{--        url: "{{ url('/check_payment') }}",--}}
-            {{--        type: 'POST',--}}
-            {{--        /* send the csrf-token and the input to the controller */--}}
-            {{--        data: {--}}
-            {{--            _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--            data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--        success: function (data) {--}}
-            {{--            if (data['status_payment'] == true){--}}
-            {{--                $( "#check_payment").trigger( "click" );--}}
-            {{--            }else {--}}
-            {{--                $.ajax({--}}
-            {{--                    url: "{{ url('/create_receiptno') }}",--}}
-            {{--                    type: 'POST',--}}
-            {{--                    /* send the csrf-token and the input to the controller */--}}
-            {{--                    data: {--}}
-            {{--                        _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--                        data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--                    success: function (data) {--}}
-            {{--                        generateBarcodePaynow(data['receiptNo'])--}}
-            {{--                        $('.loading').hide();--}}
-            {{--                        $('.viewqrcodePaynow').show();--}}
-            {{--                        let text = data['receiptNo'];--}}
-            {{--                        let result = text.bold();--}}
-            {{--                        document.getElementById("receiptNo").innerHTML = result;--}}
-            {{--                        --}}{{--setTimeout(function(){--}}
-            {{--                        --}}{{--    if (confirm('Has the payment been made??')) {--}}
-            {{--                        --}}{{--        // Save it!--}}
-            {{--                        --}}{{--        document.getElementById('form_paynow_verification').click();--}}
-            {{--                        --}}{{--        // console.log('Thing was saved to the database.');--}}
-            {{--                        --}}{{--    } else {--}}
-            {{--                        --}}{{--        // Do nothing!--}}
-            {{--                        --}}{{--        window.location.href = "{{URL::to('landing_page')}}"--}}
-            {{--                        --}}{{--    }--}}
-            {{--                        --}}{{--}, 10000);//wait 1 menit--}}
+        // $('#paynow').on('click', function () {
+            $("#form_paynow_verification").attr("disabled", true);
+            $('.viewqrcodePaynow').hide();
+            $('.loadingPaynow').hide();
+            if ($("input[name='understand_transaction']:checked").val()) {
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else {
+                            $.ajax({
+                                url: "{{ url('/create_receiptno') }}",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    data_barcode: $('#data_barcode').attr('src'),
+                                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                                success: function (data) {
+                                    generateBarcodePaynow(data['receiptNo'])
+                                    $('.loading').hide();
+                                    $('.viewqrcodePaynow').show();
+                                    let text = data['receiptNo'];
+                                    let result = text.bold();
+                                    document.getElementById("receiptNo").innerHTML = result;
+                                    {{--setTimeout(function(){--}}
+                                    {{--    if (confirm('Has the payment been made??')) {--}}
+                                    {{--        // Save it!--}}
+                                    {{--        document.getElementById('form_paynow_verification').click();--}}
+                                    {{--        // console.log('Thing was saved to the database.');--}}
+                                    {{--    } else {--}}
+                                    {{--        // Do nothing!--}}
+                                    {{--        window.location.href = "{{URL::to('landing_page')}}"--}}
+                                    {{--    }--}}
+                                    {{--}, 10000);//wait 1 menit--}}
 
-            {{--                    },--}}
-            {{--                    error: function (request, status, error) {--}}
-            {{--                        handling_error_ajax();--}}
-            {{--                    }--}}
-            {{--                });--}}
-            {{--                $("#popup_paynow").trigger("click");--}}
-            {{--                $("#payment_method").val({!!  json_encode(paynow) !!})--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        error: function (request, status, error) {--}}
-            {{--            handling_error_ajax();--}}
-            {{--        }--}}
-            {{--    });--}}
-            {{--    } else {--}}
-            {{--        swal("Error!", "Tick the check box to proceed.", "error")--}}
-            {{--    }--}}
-        });
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
+                                }
+                            });
+                            $("#popup_paynow").trigger("click");
+                            $("#payment_method").val({!!  json_encode(paynow) !!})
+                        }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
+                    }
+                });
+                } else {
+                    swal("Error!", "Tick the check box to proceed.", "error")
+                }
+        // });
         $('#paynow_phone').on('click', function () {
-            window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});
-        {{--$("#form_paynow_verification").attr("disabled", true);--}}
-            {{--$('.viewqrcodePaynowPhone').hide();--}}
-            {{--$('.loadingPaynow').hide();--}}
-            {{--if ($("input[name='understand_transaction_phone']:checked").val()) {--}}
-            {{--    $.ajax({--}}
-            {{--        url: "{{ url('/check_payment') }}",--}}
-            {{--        type: 'POST',--}}
-            {{--        /* send the csrf-token and the input to the controller */--}}
-            {{--        data: {--}}
-            {{--            _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--            data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--        success: function (data) {--}}
-            {{--            if (data['status_payment'] == true){--}}
-            {{--                $( "#check_payment").trigger( "click" );--}}
-            {{--            }else{--}}
-            {{--                $.ajax({--}}
-            {{--                    url: "{{ url('/create_receiptno') }}",--}}
-            {{--                    type: 'POST',--}}
-            {{--                    /* send the csrf-token and the input to the controller */--}}
-            {{--                    data: {--}}
-            {{--                        _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--                        data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--                    success: function (data) {--}}
-            {{--                        generateBarcodePaynow(data['receiptNo'])--}}
-            {{--                        $('.loadingPhone').hide();--}}
-            {{--                        $('.viewqrcodePaynowPhone').show();--}}
-            {{--                        let textPhone = data['receiptNo'];--}}
-            {{--                        let resultPhone = textPhone.bold();--}}
-            {{--                        document.getElementById("receiptNoPhone").innerHTML = resultPhone;--}}
-            {{--                        --}}{{--setTimeout(function(){--}}
-            {{--                        --}}{{--    if (confirm('Has the payment been made??')) {--}}
-            {{--                        --}}{{--        // Save it!--}}
-            {{--                        --}}{{--        document.getElementById('form_paynow_verification').click();--}}
-            {{--                        --}}{{--        // console.log('Thing was saved to the database.');--}}
-            {{--                        --}}{{--    } else {--}}
-            {{--                        --}}{{--        // Do nothing!--}}
-            {{--                        --}}{{--        window.location.href = "{{URL::to('landing_page')}}"--}}
-            {{--                        --}}{{--    }--}}
-            {{--                        --}}{{--}, 10000);//wait 1 menit--}}
-            {{--                    },--}}
-            {{--                    error: function (request, status, error) {--}}
-            {{--                        handling_error_ajax();--}}
-            {{--                    }--}}
-            {{--                });--}}
-            {{--                $("#popup_paynow").trigger("click");--}}
-            {{--                $("#payment_method").val({!!  json_encode(paynow) !!})--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        error: function (request, status, error) {--}}
-            {{--            handling_error_ajax();--}}
-            {{--        }--}}
-            {{--    });--}}
+            $("#form_paynow_verification").attr("disabled", true);
+            $('.viewqrcodePaynowPhone').hide();
+            $('.loadingPaynow').hide();
+            if ($("input[name='understand_transaction_phone']:checked").val()) {
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else{
+                            $.ajax({
+                                url: "{{ url('/create_receiptno') }}",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    data_barcode: $('#data_barcode').attr('src'),
+                                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                                success: function (data) {
+                                    generateBarcodePaynow(data['receiptNo'])
+                                    $('.loadingPhone').hide();
+                                    $('.viewqrcodePaynowPhone').show();
+                                    let textPhone = data['receiptNo'];
+                                    let resultPhone = textPhone.bold();
+                                    document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+                                    {{--setTimeout(function(){--}}
+                                    {{--    if (confirm('Has the payment been made??')) {--}}
+                                    {{--        // Save it!--}}
+                                    {{--        document.getElementById('form_paynow_verification').click();--}}
+                                    {{--        // console.log('Thing was saved to the database.');--}}
+                                    {{--    } else {--}}
+                                    {{--        // Do nothing!--}}
+                                    {{--        window.location.href = "{{URL::to('landing_page')}}"--}}
+                                    {{--    }--}}
+                                    {{--}, 10000);//wait 1 menit--}}
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
+                                }
+                            });
+                            $("#popup_paynow").trigger("click");
+                            $("#payment_method").val({!!  json_encode(paynow) !!})
+                        }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
+                    }
+                });
 
-            {{--} else {--}}
-            {{--    swal("Error!", "Tick the check box to proceed.", "error")--}}
-            {{--}--}}
+            } else {
+                swal("Error!", "Tick the check box to proceed.", "error")
+            }
         });
         $("#enets").click(function() {
             if ($("input[name='understand_transaction']:checked").val()) {
