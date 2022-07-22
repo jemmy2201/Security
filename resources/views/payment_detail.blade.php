@@ -1073,7 +1073,8 @@
         });
 
         $('#paynow').on('click', function () {
-            window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});
+            {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
+                window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
             // $("#form_paynow_verification").attr("disabled", true);
             // $('.viewqrcodePaynow').hide();
             // $('.loadingPaynow').hide();
@@ -1134,7 +1135,8 @@
             {{--    }--}}
         });
         $('#paynow_phone').on('click', function () {
-            window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});
+            {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
+            window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
         {{--$("#form_paynow_verification").attr("disabled", true);--}}
             {{--$('.viewqrcodePaynowPhone').hide();--}}
             {{--$('.loadingPaynow').hide();--}}

@@ -407,7 +407,7 @@
                 @if(!empty($courses->data_barcode_paynow))
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 130px;
-                margin-top: 100px;
+                margin-top: 125px;
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="{{$courses->data_barcode_paynow}}">
                 @else
