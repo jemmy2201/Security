@@ -1104,6 +1104,11 @@
                                     let text = data['receiptNo'];
                                     let result = text.bold();
                                     document.getElementById("receiptNo").innerHTML = result;
+
+                                    let textPhone = data['receiptNo'];
+                                    let resultPhone = textPhone.bold();
+                                    document.getElementById("receiptNoPhone").innerHTML = resultPhone;
+                                    
                                     {{--setTimeout(function(){--}}
                                     {{--    if (confirm('Has the payment been made??')) {--}}
                                     {{--        // Save it!--}}
