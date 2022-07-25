@@ -1099,6 +1099,7 @@
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])
                                     $('.loading').hide();
+                                    $('.loadingPhone').hide();
                                     $('.viewqrcodePaynow').show();
                                     let text = data['receiptNo'];
                                     let result = text.bold();
