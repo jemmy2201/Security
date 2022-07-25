@@ -676,6 +676,8 @@ class HomeController extends Controller
     }
     public function create_receiptno(Request $request)
     {
+        $receiptNo = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])->first();
+        if (empty($receiptNo->receiptNo)){
         $data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])
             ->update([
                 'receiptNo' => $this->receiptNo(),
@@ -686,6 +688,7 @@ class HomeController extends Controller
         $receiptNo->receiptNo = $this->receiptNo();
 
         $receiptNo->save();
+        }
         return $receiptNo;
     }
     public function print_pdf(Request $request,$card)

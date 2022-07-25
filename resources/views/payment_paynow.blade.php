@@ -75,7 +75,7 @@
         /*margin-top: 60px;*/
         left: 40%;
         height: 60%;
-        background: url("../img/loading.gif") no-repeat;
+        background: url({{asset('img/loading.gif')}}) no-repeat;
         /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
         /*animation: spin 2s linear infinite;*/
     }
