@@ -373,7 +373,7 @@
         $( "#click_personal_particular" ).click(function() {
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (check_size_layout() == {!!  json_encode(phone) !!}){
-                if({!!  json_encode($personal->mobileno) !!} != ""){
+                if({!!  json_encode($personal->mobileno) !!} != "" || {!!  json_encode($personal->mobileno) !!} != "65"){
                     if($('#Phoneview_mobileno').val() != ""){
                         // if (check_number_singapore() == true){
                         if({!!  json_encode($personal->web) !!} == true ){
