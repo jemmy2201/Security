@@ -1035,6 +1035,11 @@ class AjaxController extends Controller
 //                }else{
                     $status_app = $e['status_app'];
 //                }
+                if ($e['mobile'] == "65"){
+                    $mobile = "";
+                }else{
+                    $mobile = $e['mobile'];
+                }
                 if (empty($users)){
                     $nric = str_replace(' ', '', $e['nric']);
                     // insert table users
@@ -1044,7 +1049,7 @@ class AjaxController extends Controller
 
                     $New_users->name = $e['name'];
 
-                    $New_users->mobileno = $e['mobile'];
+                    $New_users->mobileno = $mobile;
 
                     $New_users->homeno = $e['home'];
 
@@ -1092,7 +1097,7 @@ class AjaxController extends Controller
 
                     $Update_users->name = $e['name'];
 
-                    $Update_users->mobileno = $e['mobile'];
+                    $Update_users->mobileno = $mobile;
 
                     $Update_users->homeno = $e['home'];
 
