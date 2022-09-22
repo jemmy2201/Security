@@ -401,28 +401,33 @@
                         swal("Error!", "Mobile number incomplete.", "error")
                 }
             }else{
-                if($('#view_mobileno').val() != ""){
-                    // if (check_number_singapore() == true){
-                        if({!!  json_encode($personal->web) !!} == true ){
-                            if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
-                                if ( new Date() >= new Date($('#wpexpirydate').val())){
-                                    swal("Attention!", "Pass Expiration Date is up", "error")
+                if({!!  json_encode($personal->mobileno) !!} != "" || {!!  json_encode($personal->mobileno) !!} != "65"){
+                        if($('#view_mobileno').val() != ""){
+                        // if (check_number_singapore() == true){
+                            if({!!  json_encode($personal->web) !!} == true ){
+                                if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
+                                    if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                        swal("Attention!", "Pass Expiration Date is up", "error")
+                                    }else{
+                                        // create_activation();
+                                        $("#submit_personal_particular").submit();
+                                    }
                                 }else{
-                                    // create_activation();
-                                    $("#submit_personal_particular").submit();
+                                    swal("Error!", "Input file Pass Expiry Date", "error")
                                 }
                             }else{
-                                swal("Error!", "Input file Pass Expiry Date", "error")
+                                // create_activation();
+                                $("#submit_personal_particular").submit();
                             }
+                        // }else{
+                        //     swal("Error!", "Only Singapore numbers are valid.", "error")
+                        // }
                         }else{
-                            // create_activation();
-                            $("#submit_personal_particular").submit();
+                            swal("Error!", "Mobile number incomplete.", "error")
                         }
-                    // }else{
-                    //     swal("Error!", "Only Singapore numbers are valid.", "error")
-                    // }
                 }else{
                     swal("Error!", "Mobile number incomplete.", "error")
+
                 }
             }
 
