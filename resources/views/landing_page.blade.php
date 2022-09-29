@@ -964,11 +964,11 @@
 
     }
     {{--  ENd Card Issue  --}}
-    $(window).bind('resize', function(e)
-    {
-        this.location.reload(false); /* false to get page from cache */
-        /* true to fetch page from server */
-    });
+    // $(window).bind('resize', function(e)
+    // {
+    //     this.location.reload(false); /* false to get page from cache */
+    //     /* true to fetch page from server */
+    // });
     {{--if ({!!  json_encode($cekStatusUser) !!} == null ){--}}
     {{--    $("#news").prop('disabled', true);--}}
     {{--    $("#replacement").prop('disabled', true);--}}
