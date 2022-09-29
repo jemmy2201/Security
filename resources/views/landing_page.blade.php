@@ -355,7 +355,8 @@
 
 <br>
 <p style="color: #808080;">My Applications</p>
-    <div class="row" >
+    {{-- Desktop --}}
+    <div class="row hidden-xs" >
         <div class="col-10" style="border-style: ridge;padding: 10px;">
         <table class="table" >
             <thead>
@@ -554,7 +555,212 @@
         </table>
         </div>
     </div>
-    <div class="modal" tabindex="-1" role="dialog" id="Modalreplacement">
+    {{-- End Desktop --}}
+
+        {{-- Phone --}}
+        <div class="row visible-xs hidden-md" >
+            <div class="col-10" style="border-style: ridge;padding: 10px;">
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Application</th>
+{{--                        <th scope="col" >Card Type</th>--}}
+{{--                        <th scope="col">Grade</th>--}}
+{{--                        <th scope="col">Date Of Transaction</th>--}}
+{{--                        <th scope="col" >Status</th>--}}
+{{--                        <th scope="col" >Action/Remarks</th>--}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(!empty($schedule))
+                        @foreach($schedule as $index => $f)
+                            @if($f->Status_app == processing)
+                                {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
+                                @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                            @elseif($f->Status_app == draft)
+                                {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
+                                @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                            @endif
+                            <tr style="cursor: pointer;">
+                                @if($f->app_type == news)
+                                    <td onclick="showHideRow({{$index}});">New</td>
+
+                                @elseif($f->app_type == replacement)
+                                    <td onclick="showHideRow({{$index}});">Replacement</td>
+                                @elseif($f->app_type == renewal)
+                                    <td onclick="showHideRow({{$index}});">Renewal</td>
+                                @endif
+
+                            </tr>
+                            <td style="cursor: pointer;" id="{{$index}}" class="hidden_row default_hidden">
+                                <ul class="list-group">
+                                    <li class="list-group-item" aria-current="true"><b>Card Type:</b>
+                                    @if($f->card_id == so_app)
+                                        SO
+                                    @elseif($f->card_id == avso_app)
+                                        AVSO
+                                    @elseif($f->card_id == pi_app)
+                                        PI
+                                    @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Grade:</b>
+                                    @if($f->card_id == so_app)
+                                        @if(!empty($f->grade_id) && $f->grade_id== so)
+                                                SO
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                                SSO
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                                SS
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                                SSS
+                                        @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                                CSO
+                                        @else
+                                                SO
+                                        @endif
+                                    @else
+                                            NA
+                                     @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Date Of Transaction:</b>
+                                        @if(!empty($f->trans_date))
+                                            {{$f->trans_date}}
+                                        @else
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Status:</b>
+                                        @if($f->Status_app == draft)
+                                            {{txt_draft}}
+                                        @elseif($f->Status_app == processing)
+                                            {{txt_processing}}
+                                        @elseif($f->Status_app == ready_for_id_card_printing)
+                                            {{txt_ready_for_id_card_printing}}
+                                        @elseif($f->Status_app == id_card_ready_for_collection)
+                                            {{txt_id_card_ready_for_collection}}
+                                        @elseif($f->Status_app == resubmission)
+                                            {{txt_resubmission}}
+                                        @elseif($f->Status_app == Resubmitted)
+                                            {{txt_Resubmitted}}
+                                        @elseif($f->Status_app == completed)
+                                            {{txt_completed}}
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>
+                                        @if($f->Status_app == draft)
+
+                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
+                                            <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>
+                                        @elseif($f->Status_app == resubmission)
+                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
+                                            <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>
+                                        @elseif($f->Status_app >= processing)
+                                            {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
+                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
+                                           <a href="{{$url}}"><button class="btn btn-success">View</button></a>
+                                            @endif
+                                    </li>
+                                </ul>
+                            </td>
+                        @endforeach
+                    @endif
+                    @if(!empty($sertifikat))
+                        @foreach($sertifikat as $index => $f)
+                            @if($f->Status_app == processing)
+                                {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
+                                @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                            @elseif($f->Status_app == draft)
+                                {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
+                                @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                            @endif
+                            <tr style="cursor: pointer;">
+                                @if($f->app_type == news)
+                                    <td onclick="showHideRow('seftifikat_'+{{$index}});">New</td>
+
+                                @elseif($f->app_type == replacement)
+                                    <td onclick="showHideRow('seftifikat_'+{{$index}});">Replacement</td>
+                                @elseif($f->app_type == renewal)
+                                    <td onclick="showHideRow('seftifikat_'+{{$index}});">Renewal</td>
+                                @endif
+
+                            </tr>
+                            <td style="cursor: pointer;" id="seftifikat_{{$index}}" class="hidden_row default_hidden">
+                                <ul class="list-group">
+                                    <li class="list-group-item" aria-current="true"><b>Card Type:</b>
+                                        @if($f->card_id == so_app)
+                                            SO
+                                        @elseif($f->card_id == avso_app)
+                                            AVSO
+                                        @elseif($f->card_id == pi_app)
+                                            PI
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Grade:</b>
+                                        @if($f->card_id == so_app)
+                                            @if(!empty($f->grade_id) && $f->grade_id== so)
+                                                SO
+                                            @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                                SSO
+                                            @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                                SS
+                                            @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                                SSS
+                                            @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                                CSO
+                                            @else
+                                                SO
+                                            @endif
+                                        @else
+                                            NA
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Date Of Transaction:</b>
+                                        @if(!empty($f->trans_date))
+                                            {{$f->trans_date}}
+                                        @else
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>Status:</b>
+                                        @if($f->Status_app == draft)
+                                            {{txt_draft}}
+                                        @elseif($f->Status_app == processing)
+                                            {{txt_processing}}
+                                        @elseif($f->Status_app == ready_for_id_card_printing)
+                                            {{txt_ready_for_id_card_printing}}
+                                        @elseif($f->Status_app == id_card_ready_for_collection)
+                                            {{txt_id_card_ready_for_collection}}
+                                        @elseif($f->Status_app == resubmission)
+                                            {{txt_resubmission}}
+                                        @elseif($f->Status_app == Resubmitted)
+                                            {{txt_Resubmitted}}
+                                        @elseif($f->Status_app == completed)
+                                            {{txt_completed}}
+                                        @endif
+                                    </li>
+                                    <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>
+                                        @if($f->Status_app == draft)
+
+                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
+                                            <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>
+                                        @elseif($f->Status_app == resubmission)
+                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
+                                            <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>
+                                        @elseif($f->Status_app >= processing)
+                                            {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
+                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
+                                            <a href="{{$url}}"><button class="btn btn-success">View</button></a>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </td>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- End Phone --}}
+
+   <div class="modal" tabindex="-1" role="dialog" id="Modalreplacement">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -717,7 +923,9 @@
 </div>
 <script type="application/javascript">
     $("#BodyAll").css('background-image', 'none');
-
+    function showHideRow(row) {
+        $("#" + row).toggle();
+    }
     // 15 minutes not action
     setTimeout(RefreshPage, 900000);
     function RefreshPage() {
@@ -830,6 +1038,9 @@
     // });
 
     $(document).ready(function() {
+
+        $(".default_hidden").hide();
+
         // Application type
         Remove_course();
 
