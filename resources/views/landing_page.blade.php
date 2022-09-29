@@ -592,7 +592,8 @@
                                 @endif
 
                             </tr>
-                            <td style="cursor: pointer;" id="{{$index}}" class="hidden_row default_hidden">
+{{--                            <td style="cursor: pointer;" id="{{$index}}" class="hidden_row default_hidden">--}}
+                            <td >
                                 <ul class="list-group">
                                     <li class="list-group-item" aria-current="true"><b>Card Type:</b>
                                     @if($f->card_id == so_app)
@@ -964,11 +965,11 @@
 
     }
     {{--  ENd Card Issue  --}}
-    // $(window).bind('resize', function(e)
-    // {
-    //     this.location.reload(false); /* false to get page from cache */
-    //     /* true to fetch page from server */
-    // });
+    $(window).bind('resize', function(e)
+    {
+        this.location.reload(false); /* false to get page from cache */
+        /* true to fetch page from server */
+    });
     {{--if ({!!  json_encode($cekStatusUser) !!} == null ){--}}
     {{--    $("#news").prop('disabled', true);--}}
     {{--    $("#replacement").prop('disabled', true);--}}
