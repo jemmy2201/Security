@@ -684,7 +684,8 @@
                                 @endif
 
                             </tr>
-                            <td style="cursor: pointer;" id="seftifikat_{{$index}}" class="hidden_row default_hidden">
+{{--                            <td style="cursor: pointer;" id="seftifikat_{{$index}}" class="hidden_row default_hidden">--}}
+                            <td style="cursor: pointer;" >
                                 <ul class="list-group">
                                     <li class="list-group-item" aria-current="true"><b>Card Type:</b>
                                         @if($f->card_id == so_app)
