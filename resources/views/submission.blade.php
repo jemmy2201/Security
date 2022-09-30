@@ -464,14 +464,14 @@
 {{--            </ul>--}}
 
 {{--        </div>--}}
-        <div class="col-4 hidden-xs">
+        <div class="col-8 hidden-xs">
             <p>Guidelines for Digital Photo Image Submission <i class="fa fa-info-circle fa-lg" data-toggle="modal" data-target="#Photo_guideline" aria-hidden="true" style="color:#800000 !important;"></i></p>
             <p>- Photo must be taken within last 3 months</p>
             <p>- Photo must be taken within even brightness</p>
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-{{--            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>--}}
+            <p>- Photo must be original from without any alterations using computer software(Photoshop)or mobile app</p>
             <p>- Photo uploaded must be in JPG or PNG formats</p>
             <p>- Photo image's size must not more than 5 MB</p>
 
@@ -483,7 +483,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-{{--            <p>- Photo uploaded must be in JPG format (Max size: 1 MB only)</p>--}}
+            <p>- Photo must be original from without any alterations using computer software(Photoshop)or mobile app</p>
             <p>- Photo uploaded must be in JPG or PNG formats</p>
             <p>- Photo image's size must not more than 5 MB</p>
 {{--            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>--}}
@@ -598,8 +598,8 @@
                 <center style="color:red;">
                     <img src="{{ asset("img/Selfies_No.png") }}" style="width: 15%">
                 <h3>Reminder !</h3>
-                Please comply to the photo guidelines.<br>
-                Selfie taken with mobile phone will be rejected.<br>
+                <b>Non-compliance</b> with the photo guideline including<br>
+                "Selfie" will result in your application being rejected.<br>
                 This will delay your ID card collection.
                 </center>
             </div>
