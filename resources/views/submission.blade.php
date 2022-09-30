@@ -471,7 +471,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo must be original from without any alterations using computer software(Photoshop)or mobile app</p>
+            <p>- Photo must be original form without any alterations using computer software(Photoshop)or mobile app</p>
             <p>- Photo uploaded must be in JPG or PNG formats</p>
             <p>- Photo image's size must not more than 5 MB</p>
 
@@ -483,7 +483,7 @@
             <p>- Photo must be clear and in sharp focus</p>
             <p>- Photo must be taken without spectacles</p>
             <p>- Photo background must be white in color</p>
-            <p>- Photo must be original from without any alterations using computer software(Photoshop)or mobile app</p>
+            <p>- Photo must be original form without any alterations using computer software(Photoshop)or mobile app</p>
             <p>- Photo uploaded must be in JPG or PNG formats</p>
             <p>- Photo image's size must not more than 5 MB</p>
 {{--            <button type="button" class=" btn btn-danger file_upload_profiles" style="background: black;">Upload Photo</button><br>--}}
