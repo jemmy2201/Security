@@ -599,7 +599,7 @@
                 <center style="color:red;">
                     <img src="{{ asset("img/Selfies_No.png") }}" style="width: 15%">
                 <h3>Reminder !</h3>
-                <b>** Non-compliance</b> with the photo guideline including<br>
+                <b>Non-compliance</b> with the photo guideline including<br>
                 "selfies" will result in your application being rejected.<br>
                 This will delay your ID card collection.
                 </center>
