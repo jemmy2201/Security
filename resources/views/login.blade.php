@@ -78,10 +78,14 @@
                                         <strong>Singpass ID and Password do not match</strong>
                                     @endif
                                     <button type="submit" class=" btn btn-danger btn-lg btn-block ">Log in</button>
+
                                     <br>
+
                                     <div class="row">
+
                                         <div class="col">
                                             {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
+
                                         </div>
                                         <div class="col" style="margin-left: 74px;">
                                             {{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
@@ -94,6 +98,7 @@
                                     <br>
                                 </form>
                             </div>
+
                             <div id="scan" class="tab-pane fade in active">
                                 <center>
                                     {{--                                    <h3><b>Scan with Singpass app</b></h3>--}}
@@ -128,6 +133,18 @@
 
                 </div>
             </div>
+                <div class="row visible-xs hidden-md">
+
+                    <div class="col ">
+                        {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
+                        <img src="{{URL::asset('/img/UG.png')}}" data-toggle="modal" data-target="#exampleModalUG"  style="cursor: pointer;margin-left: 20px;position:absolute;width: 90%;margin-top: 400px;" >
+                        <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ"  style="cursor: pointer;margin-left: 20px;position:static;width: 90%;margin-top: 430px;" >
+
+                    </div>
+                    <div class="col" style="margin-left: 74px;">
+                        {{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
+                    </div>
+                </div>
         </div>
 
     </div>
