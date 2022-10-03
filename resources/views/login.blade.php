@@ -137,8 +137,8 @@
 
                     <div class="col ">
                         {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
-                        <img src="{{URL::asset('/img/UG.png')}}" data-toggle="modal" data-target="#exampleModalUG"  style="cursor: pointer;position:absolute;width: 90%;margin-top: 3px;" >
-                        <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ"  style="cursor: pointer;position:static;width: 90%;margin-top: 32px;" >
+                        <a href="{{URL::to('/')}}/User_Guide.pdf" target="_blank"><img src="{{URL::asset('/img/UG.png')}}"  style="cursor: pointer;position:absolute;width: 90%;margin-top: 3px;"  download="User_Guide.pdf"></a>
+                        <a href="{{URL::to('/')}}/USE_FAQs.pdf" target="_blank"><img src="{{URL::asset('/img/FAQ.png')}}"   style="cursor: pointer;position:static;width: 90%;margin-top: 32px;" download="FAQ.pdf" ></a>
 
                     </div>
                     <div class="col" style="margin-left: 74px;">
