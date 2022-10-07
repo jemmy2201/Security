@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('login');
 });
 Route::get('/login/dummy/{type}', 'SingpassController@dummy_login');
+Route::get('/login/dummy/{type}/passlogin', 'SingpassController@dummy_login');
 
 Route::get('/qrcode', function () {
     Artisan::call('cache:clear');

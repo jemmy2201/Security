@@ -1,4 +1,6 @@
 <?php
+define('passlogin', 'passlogin');
+
 //application type
 define('news', 1);
 define('replacement', 2);
