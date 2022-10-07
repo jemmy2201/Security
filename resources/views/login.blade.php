@@ -63,6 +63,7 @@
                             <div class="col-sm-4"  style=" margin-top: 40px;">
                         @endif
 
+
                         <div class="tab-content">
                             @if(detect_url() == URLUat || detect_url() == LocalHost)
                                 @if(request()->segment(count(request()->segments())) == passlogin)
@@ -222,7 +223,7 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-3"  style="">
+                    <div class="col-sm-3"   class="hidden-xs">
                         <img src="{{URL::asset('/img/USE_logo.png')}}" class="hidden-xs" style="position:absolute;width: 135%;margin-top: 70px;" ><br>
                         <img src="{{URL::asset('/img/UG.png')}}" data-toggle="modal" data-target="#exampleModalUG" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:absolute;width: 90%;margin-top: 400px;" >
                         <img src="{{URL::asset('/img/FAQ.png')}}" data-toggle="modal" data-target="#exampleModalFAQ" class="hidden-xs" style="cursor: pointer;margin-left: 58px;position:static;width: 90%;margin-top: 430px;" >
@@ -238,19 +239,20 @@
 
                 </div>
             </div>
+        </div>
                 <div class="row visible-xs hidden-md">
 
                     <div class="col ">
-                        {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
+                        <img src="{{URL::asset('/img/USE_logo.png')}}"  style="width: 100%;" ><br>
+
                         <a href="{{URL::to('/')}}/User_Guide.pdf" target="_blank"><img src="{{URL::asset('/img/UG.png')}}"  style="cursor: pointer;position:absolute;width: 90%;margin-top: 3px;"  download="User_Guide.pdf"></a>
                         <a href="{{URL::to('/')}}/USE_FAQs.pdf" target="_blank"><img src="{{URL::asset('/img/FAQ.png')}}"   style="cursor: pointer;position:static;width: 90%;margin-top: 32px;" download="FAQ.pdf" ></a>
 
                     </div>
-                    <div class="col" style="margin-left: 74px;">
+                    <div class="col">
                         {{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
                     </div>
                 </div>
-        </div>
 
     </div>
     </div>
