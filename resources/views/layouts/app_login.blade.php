@@ -111,7 +111,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     {{--End Fa fa--}}
 </head>
-<body onload="init()" style="height: 130% !important;">
+<body onload="init()" style="height: 140% !important;">
 {{--<nav class="navbar navbar-dark bg-dark">--}}
 {{--    <div>--}}
 {{--        <a class="navbar-brand hidden-xs" href="{{ url('/') }}">--}}
