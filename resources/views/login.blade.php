@@ -151,7 +151,14 @@
                                             {{--                                    <h4>to log in</h4>--}}
                                         </center>
                                         {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
-                                        <div id="ndi-qr"></div>
+
+                                        {{-- QR Code --}}
+{{--                                        <div id="ndi-qr"></div>--}}
+                                        {{-- End QR Code --}}
+
+                                        <a href="https://stg-id.singpass.gov.sg/auth?client_id=99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I&redirect_uri=https://www.idx-id2021.com/afterlogin&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                            <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
+                                        </a>
                                         <center>
                                             {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
                                             @if(isset($type_dummy) && $type_dummy == dummy)
