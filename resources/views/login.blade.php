@@ -398,9 +398,8 @@
                     onError,
                     {renderDownloadLink: true}
                 );
+                console.log('initAuthSession: ', initAuthSessionResponse);
             }
-
-            console.log('initAuthSession: ', initAuthSessionResponse);
         }
         // End Barcode
     </script>
