@@ -155,10 +155,15 @@
                                         {{-- QR Code --}}
 {{--                                        <div id="ndi-qr"></div>--}}
                                         {{-- End QR Code --}}
-
-                                        <a href="https://stg-id.singpass.gov.sg/auth?client_id=99gEBb5Bo6stbYJ9jVbmrCFyBZhbeU4I&redirect_uri=https://www.idx-id2021.com/afterlogin&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
-                                            <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
-                                        </a>
+                                        @if(detect_url() == URLUat || detect_url() == LocalHost)
+                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                                <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
+                                            </a>
+                                        @else
+                                            <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                                <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
+                                            </a>
+                                        @endif
                                         <center>
                                             {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
                                             @if(isset($type_dummy) && $type_dummy == dummy)
