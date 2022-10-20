@@ -124,41 +124,41 @@ class SingpassController extends Controller
     }
     public static function private_key_jwe($response)
     {
-        if (detect_url() == URLUat){
-            $jwks_uri_ec_local = static::private_get_jwks_ec_local();
-
-            $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
-
-            $recipient_index=[];
-
-            $loader = new Loader();
-            // This is the input we want to load verify.
-            // $response = 'eyJhbGciOiJSU0EtT0FFUCIsImtpZCI6InNhbXdpc2UuZ2FtZ2VlQGhvYmJpdG9uLmV4YW1wbGUiLCJlbmMiOiJBMjU2R0NNIn0.rT99rwrBTbTI7IJM8fU3Eli7226HEB7IchCxNuh7lCiud48LxeolRdtFF4nzQibeYOl5S_PJsAXZwSXtDePz9hk-BbtsTBqC2UsPOdwjC9NhNupNNu9uHIVftDyucvI6hvALeZ6OGnhNV4v1zx2k7O1D89mAzfw-_kT3tkuorpDU-CpBENfIHX1Q58-Aad3FzMuo3Fn9buEP2yXakLXYa15BUXQsupM4A1GD4_H4Bd7V3u9h8Gkg8BpxKdUV9ScfJQTcYm6eJEBz3aSwIaK4T3-dwWpuBOhROQXBosJzS1asnuHtVMt2pKIIfux5BC6huIvmY7kzV7W7aIUrpYm_3H4zYvyMeq5pGqFmW2k8zpO878TRlZx7pZfPYDSXZyS0CfKKkMozT_qiCwZTSz4duYnt8hS4Z9sGthXn9uDqd6wycMagnQfOTs_lycTWmY-aqWVDKhjYNRf03NiwRtb5BE-tOdFwCASQj3uuAgPGrO2AWBe38UjQb0lvXn1SpyvYZ3WFc7WOJYaTa7A8DRn6MC6T-xDmMuxC0G7S2rscw5lQQU06MvZTlFOt0UvfuKBa03cxA_nIBIhLMjY2kOTxQMmpDPTr6Cbo8aKaOnx6ASE5Jx9paBpnNmOOKH35j_QlrQhDWUN6A2Gg8iFayJ69xDEdHAVCGRzN3woEI2ozDRs.-nBoKLH0YkLZPSI9.o4k2cnGN8rSSw3IDo1YuySkqeS_t2m1GXklSgqBdpACm6UJuJowOHC5ytjqYgRL-I-soPlwqMUf4UgRWWeaOGNw6vGW-xyM01lTYxrXfVzIIaRdhYtEMRBvBWbEwP7ua1DRfvaOjgZv6Ifa3brcAM64d8p5lhhNcizPersuhw5f-pGYzseva-TUaL8iWnctc-sSwy7SQmRkfhDjwbz0fz6kFovEgj64X1I5s7E6GLp5fnbYGLa1QUiML7Cc2GxgvI7zqWo0YIEc7aCflLG1-8BboVWFdZKLK9vNoycrYHumwzKluLWEbSVmaPpOslY2n525DxDfWaVFUfKQxMF56vn4B9QMpWAbnypNimbM8zVOw.UCGiqJxhBI3IFVdPalHHvA';
-            // The payload is decrypted using our key.
-            $jwe = $loader->loadAndDecryptUsingKey(
-                $response,            // The input to load and decrypt
-                $jwk,                 // The symmetric or private key
-                ['ECDH-ES+A128KW'],      // A list of allowed key encryption algorithms
-                ['A256CBC-HS512'],       // A list of allowed content encryption algorithms
-                $recipient_index   // If decrypted, this variable will be set with the recipient index used to decrypt
-            );
-            $jwe = (array) $jwe;
-        }elseif (detect_url() == URLProd) {
+//        if (detect_url() == URLUat){
+//            $jwks_uri_ec_local = static::private_get_jwks_ec_local();
+//
+//            $jwk = JWKFactory::createFromValues($jwks_uri_ec_local);
+//
+//            $recipient_index=[];
+//
+//            $loader = new Loader();
+//            // This is the input we want to load verify.
+//            // $response = 'eyJhbGciOiJSU0EtT0FFUCIsImtpZCI6InNhbXdpc2UuZ2FtZ2VlQGhvYmJpdG9uLmV4YW1wbGUiLCJlbmMiOiJBMjU2R0NNIn0.rT99rwrBTbTI7IJM8fU3Eli7226HEB7IchCxNuh7lCiud48LxeolRdtFF4nzQibeYOl5S_PJsAXZwSXtDePz9hk-BbtsTBqC2UsPOdwjC9NhNupNNu9uHIVftDyucvI6hvALeZ6OGnhNV4v1zx2k7O1D89mAzfw-_kT3tkuorpDU-CpBENfIHX1Q58-Aad3FzMuo3Fn9buEP2yXakLXYa15BUXQsupM4A1GD4_H4Bd7V3u9h8Gkg8BpxKdUV9ScfJQTcYm6eJEBz3aSwIaK4T3-dwWpuBOhROQXBosJzS1asnuHtVMt2pKIIfux5BC6huIvmY7kzV7W7aIUrpYm_3H4zYvyMeq5pGqFmW2k8zpO878TRlZx7pZfPYDSXZyS0CfKKkMozT_qiCwZTSz4duYnt8hS4Z9sGthXn9uDqd6wycMagnQfOTs_lycTWmY-aqWVDKhjYNRf03NiwRtb5BE-tOdFwCASQj3uuAgPGrO2AWBe38UjQb0lvXn1SpyvYZ3WFc7WOJYaTa7A8DRn6MC6T-xDmMuxC0G7S2rscw5lQQU06MvZTlFOt0UvfuKBa03cxA_nIBIhLMjY2kOTxQMmpDPTr6Cbo8aKaOnx6ASE5Jx9paBpnNmOOKH35j_QlrQhDWUN6A2Gg8iFayJ69xDEdHAVCGRzN3woEI2ozDRs.-nBoKLH0YkLZPSI9.o4k2cnGN8rSSw3IDo1YuySkqeS_t2m1GXklSgqBdpACm6UJuJowOHC5ytjqYgRL-I-soPlwqMUf4UgRWWeaOGNw6vGW-xyM01lTYxrXfVzIIaRdhYtEMRBvBWbEwP7ua1DRfvaOjgZv6Ifa3brcAM64d8p5lhhNcizPersuhw5f-pGYzseva-TUaL8iWnctc-sSwy7SQmRkfhDjwbz0fz6kFovEgj64X1I5s7E6GLp5fnbYGLa1QUiML7Cc2GxgvI7zqWo0YIEc7aCflLG1-8BboVWFdZKLK9vNoycrYHumwzKluLWEbSVmaPpOslY2n525DxDfWaVFUfKQxMF56vn4B9QMpWAbnypNimbM8zVOw.UCGiqJxhBI3IFVdPalHHvA';
+//            // The payload is decrypted using our key.
+//            $jwe = $loader->loadAndDecryptUsingKey(
+//                $response,            // The input to load and decrypt
+//                $jwk,                 // The symmetric or private key
+//                ['ECDH-ES+A128KW'],      // A list of allowed key encryption algorithms
+//                ['A256CBC-HS512'],       // A list of allowed content encryption algorithms
+//                $recipient_index   // If decrypted, this variable will be set with the recipient index used to decrypt
+//            );
+//            $jwe = (array) $jwe;
+//        }elseif (detect_url() == URLProd) {
             $jwe = static::api_private_key_jwe($response);
-        }
+//        }
         return $jwe;
     }
     public static function public_key_jwt($response)
     {
 
-        if (detect_url() == URLUat){
-            // genereta online (https://keytool.online/) this key $jwks_uri
-            $publicKey= file_get_contents('PublicKey.pem');
-            // genereta online (https://keytool.online/)
-
-            $decoded = JWT::decode($response, $publicKey, array('ES256'));
-            $decoded_array = (array) $decoded;
-        }elseif (detect_url() == URLProd) {
+//        if (detect_url() == URLUat){
+//            // genereta online (https://keytool.online/) this key $jwks_uri
+//            $publicKey= file_get_contents('PublicKey.pem');
+//            // genereta online (https://keytool.online/)
+//
+//            $decoded = JWT::decode($response, $publicKey, array('ES256'));
+//            $decoded_array = (array) $decoded;
+//        }elseif (detect_url() == URLProd) {
 
             $jwk = new JWK([
                 "kty"=> "EC",
@@ -186,7 +186,7 @@ class SingpassController extends Controller
             // - The index of the signature to check. See
             $decoded_array = (array)$jws;
 
-        }
+//        }
 
         return $decoded_array;
 
@@ -418,20 +418,20 @@ class SingpassController extends Controller
 
         $jwe_decode = static::private_key_jwe($data);
 
-        if (detect_url() == URLUat){
-            $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
-        }elseif (detect_url() == URLProd){
-            $jwe_decode = $jwe_decode;
-        }
+//        if (detect_url() == URLUat){
+//            $jwe_decode = $jwe_decode["\x00Jose\Object\JWE\x00payload"];
+//        }elseif (detect_url() == URLProd){
+//            $jwe_decode = $jwe_decode;
+//        }
 
         $jwt_decode = static::public_key_jwt($jwe_decode);
-        if (detect_url() == URLUat){
-            $sub = $jwt_decode['sub'];
-        }elseif (detect_url() == URLProd){
+//        if (detect_url() == URLUat){
+//            $sub = $jwt_decode['sub'];
+//        }elseif (detect_url() == URLProd){
             $sub = $jwt_decode["\x00Jose\Component\Signature\JWS\x00payload"] ;
             $subs = json_decode($sub);
             $sub = $subs->sub;
-        }
+//        }
 
         $sub = static::convert_sub($sub);
 
