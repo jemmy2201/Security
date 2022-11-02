@@ -157,11 +157,11 @@
                                         {{-- End QR Code --}}
                                         @if(detect_url() == URLUat || detect_url() == LocalHost)
                                             <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
-                                                <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
+                                                <button type="button" class="btn btn-danger btn-lg">Login SingPass</button>
                                             </a>
                                         @else
                                             <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
-                                                <button type="button" class="btn btn-danger btn-lg">Login SinggPass</button>
+                                                <button type="button" class="btn btn-danger btn-lg">Login SingPass</button>
                                             </a>
                                         @endif
                                         <center>
