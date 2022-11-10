@@ -364,3 +364,4 @@ define('April', 3);
 define('version_chrome', 102);
 
 // end version chorem
+define('login', 1);
