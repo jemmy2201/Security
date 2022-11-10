@@ -108,19 +108,26 @@
                     <p style="font-weight: bold;">
                         Monday - Friday : 9.30am - 4.30pm (last walk-in at 4.30pm)
                     </p>
-                    <p style="font-weight: bold;">
-                        Last Tuesday of the month and selected eve of Public Holidays
-                    </p>
-                    <p style="font-weight: bold;">
-                        (New Year's Day,Chinese New Year & Christmas Day) : 9.30am-12.30pm
-                    </p>
-                    <p style="font-weight: bold;">
-                        Closed on Public Holidays,Saturdays and Sundays
-                    </p>
+{{--                    <p style="font-weight: bold;">--}}
+{{--                        Last Tuesday of the month and selected eve of Public Holidays--}}
+{{--                    </p>--}}
+{{--                    <p style="font-weight: bold;">--}}
+{{--                        (New Year's Day,Chinese New Year & Christmas Day) : 9.30am-12.30pm--}}
+{{--                    </p>--}}
+{{--                    <p style="font-weight: bold;">--}}
+{{--                        Closed on Public Holidays,Saturdays and Sundays--}}
+{{--                    </p>--}}
                     <li>
-                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style=";width: 2%;"><span style="font-weight: bold">: Half Day / Eve Of Public Holidays - Last Appointment @12.30pm</span>
+                        <img src="{{URL::asset('/img/brown_box.jpg')}}" style=";width: 2%;"><span style="font-weight: bold">:
+{{--                            Half Day / Eve Of Public Holidays - Last Appointment @12.30pm--}}
+                              Last Tuesday of the month and selected eve of Public Holidays
+                              <br>&ensp;&ensp;&ensp;&ensp;(New Year's Day,Chinese New Year & Christmas Day) : 9.30am-12.30pm
+                        </span>
                     </li>
-                    <li><img src="{{URL::asset('/img/purple.jpeg')}}" style="width: 2%;"><span style="font-weight: bold">: Public Holiday</span></li>
+                    <li><img src="{{URL::asset('/img/purple.jpeg')}}" style="width: 2%;"><span style="font-weight: bold">:
+{{--                            Public Holiday--}}
+                            Closed on Public Holidays,Saturdays and Sundays
+                        </span></li>
                     @if(!empty($request->Status_app) && $request->Status_app == resubmission)
 {{--                    <li><img src="{{URL::asset('/img/green_box.jpg')}}" style="width: 2%;"> : selected date</li>--}}
                     @endif
@@ -904,6 +911,7 @@
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
                 success: function (data) {
+                    swal("Information!", "please choose an appointment less than 2 months from the current date.", "info")
                     document.getElementById('veiw_time_schedule').style.visibility = 'visible';
                     $('#veiw_time_schedule').html(data);
                 }
