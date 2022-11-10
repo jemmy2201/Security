@@ -1437,6 +1437,8 @@ class AjaxController extends Controller
                 $limit_schedule[$key]->half = true;
             }elseif(!empty($dateHoliday) && $ls->start_at == half_4){
                 $limit_schedule[$key]->half = true;
+            }elseif(!empty($dateHoliday) && $ls->start_at == half_5){
+                $limit_schedule[$key]->half = true;
             }
         }
 //        die(print_r($limit_schedule));

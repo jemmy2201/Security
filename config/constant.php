@@ -158,6 +158,7 @@ define('half', 2);
 
 define('dummy', 1);
 
+define('half_5', "12:30");
 define('half_1', "13:30");
 define('half_2', "14:30");
 define('half_3', "15:30");
