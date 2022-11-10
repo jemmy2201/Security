@@ -103,16 +103,16 @@
         <div class="row">
             <div class="col">
                 <ul style=" list-style-type: none;margin-left: -25px;">
-                    <p style="font-weight: bold;">Operating Hours:
+                    <p style="font-weight: bold;">Collection Timings:
                     </p>
                     <p style="font-weight: bold;">
-                        Monday - Friday : 9am - 5pm (last walk-in at 4.30pm)
+                        Monday - Friday : 9.30am - 4.30pm (last walk-in at 4.30pm)
                     </p>
                     <p style="font-weight: bold;">
                         Last Tuesday of the month and selected eve of Public Holidays
                     </p>
                     <p style="font-weight: bold;">
-                        (New Year's Day,Chinese New Year & Christmas Day) : 9am-12.30pm
+                        (New Year's Day,Chinese New Year & Christmas Day) : 9.30am-12.30pm
                     </p>
                     <p style="font-weight: bold;">
                         Closed on Public Holidays,Saturdays and Sundays
