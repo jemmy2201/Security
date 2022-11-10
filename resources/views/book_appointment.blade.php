@@ -905,17 +905,24 @@
         function validate_limit_schedule(eventDate) {
             document.getElementById('veiw_time_schedule').style.visibility = 'hidden';
             $("#limit_schedule_id").prop("checked", false);
-            $.ajax({
-                url: "{{ url('/ajax/cek/data/limit/schedule') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate:eventDate},
-                success: function (data) {
-                    swal("Information!", "please choose an appointment less than 2 months from the current date.", "info")
-                    document.getElementById('veiw_time_schedule').style.visibility = 'visible';
-                    $('#veiw_time_schedule').html(data);
-                }
-            });
+            const date1 = new Date(eventDate);
+            const date2 = new Date();
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if(diffDays > 60){
+                swal("Information!", "Please select appointment date not more than 2 months from today.", "info")
+            }else {
+                $.ajax({
+                    url: "{{ url('/ajax/cek/data/limit/schedule') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'), eventDate: eventDate},
+                    success: function (data) {
+                        document.getElementById('veiw_time_schedule').style.visibility = 'visible';
+                        $('#veiw_time_schedule').html(data);
+                    }
+                });
+            }
         }
         $(document).on('click', '.hide', function(){
             $('#event').addClass('d-none');
