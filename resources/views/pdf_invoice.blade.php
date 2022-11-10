@@ -392,12 +392,19 @@
             <div class="column-left">Transaction Ref </div>
             <div class="column-right">{{$courses->receiptNo}}</div>
             <br>
-            @if($courses->Status_app == processing && $courses->paymentby =="paynow")
-            <div class="column-center">:</div>
-            <div class="column-left">Payment Amount </div>
             @php
                 $grand_total = formatcurrency($courses->grand_total);
             @endphp
+        @if($courses->Status_app == ready_for_id_card_printing || $courses->Status_app == id_card_ready_for_collection || $courses->Status_app == resubmission || $courses->Status_app == Resubmitted || $courses->Status_app == completed )
+            <div class="column-center">:</div>
+            <div class="column-left">Payment Amount </div>
+
+            <div class="column-right">This is a confirmation of payment of ${{$grand_total}} for the online application of the PLRD ID card</div>
+            <br>
+        @endif
+        @if($courses->Status_app == processing && $courses->paymentby =="paynow")
+            <div class="column-center">:</div>
+            <div class="column-left">Payment Amount </div>
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
             <br><br><br>
             <div class="column-center"></div>
