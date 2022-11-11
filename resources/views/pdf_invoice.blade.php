@@ -397,7 +397,7 @@
             @endphp
         @if($courses->Status_app == ready_for_id_card_printing || $courses->Status_app == id_card_ready_for_collection || $courses->Status_app == resubmission || $courses->Status_app == Resubmitted || $courses->Status_app == completed )
             <div class="column-center">:</div>
-            <div class="column-left">Payment Amount </div>
+            <div class="column-left">Remarks </div>
 
             <div class="column-right">This is a confirmation of payment of ${{$grand_total}} for the online application of the PLRD ID card</div>
             <br>
