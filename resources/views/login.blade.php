@@ -60,7 +60,14 @@
                                 <div class="col-sm-4"  style=" margin-top: 40px;">
                             @endif
                         @else
-                            <div class="col-sm-4"  style=" margin-top: 40px;">
+                           @if(request()->segment(count(request()->segments())) == passlogin)
+                                <div class="col-sm-4" style="border-style: groove; background: white; margin-top: 40px;">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#passlogin">Password login</a></li>
+                                    </ul>
+                            @else
+                                <div class="col-sm-4"  style=" margin-top: 40px;">
+                            @endif
                         @endif
 
 
@@ -175,6 +182,46 @@
                                     </div>
                                 @endif
                             @else
+                                @if(request()->segment(count(request()->segments())) == passlogin)
+                                    <div id="passlogin" class="active">
+                                        <h3>Log in</h3>
+                                        <form  method="POST" action="{{ route('login') }}">
+                                            @csrf
+                                            <input type="hidden" id="type_login" name="type_login" value="@php echo non_barcode @endphp">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="singpass_id" id="singpass_id" aria-describedby="emailHelp" placeholder="Login">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" id="paLog inssword" name="password" placeholder="Password">
+                                            </div>
+                                            @if(!empty($type_dummy))
+                                                <input type="hidden" class="form-control" name="dummy_login" id="dummy_login" value="@php echo dummy @endphp">
+                                            @endif
+                                            @if($errors->has('email'))
+                                                <strong>Singpass ID and Password do not match</strong>
+                                            @endif
+                                            <button type="submit" class=" btn btn-danger btn-lg btn-block ">Log in</button>
+
+                                            <br>
+
+                                            <div class="row">
+
+                                                <div class="col">
+                                                    {{--                                            <a href="https://www.singpass.gov.sg/singpass/retrieveaccount/retrievesingpassid" target="_blank">Forgot Singpass ID</a>--}}
+
+                                                </div>
+                                                <div class="col" style="margin-left: 74px;">
+                                                    {{--                                            <a href="https://www.singpass.gov.sg/singpass/onlineresetpassword/userdetail"target="_blank">Reset Password</a>--}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <center>
+                                                {{--                                    <h4 style="border-style: groove;padding: 10px"><a style="color: #808080;text-decoration: none;" href="https://www.singpass.gov.sg/singpass/register/instructions" target="_blank">Register for Singpass</a></h4>--}}
+                                            </center>
+                                            <br>
+                                        </form>
+                                    </div>
+                                @else
                                 <div id="passlogin" class="tab-pane fade ">
                                     <h3>Log in</h3>
                                     <form  method="POST" action="{{ route('login') }}">
@@ -239,6 +286,7 @@
                                         @endif
                                     </center>
                                 </div>
+                                @endif
                             @endif
 
 

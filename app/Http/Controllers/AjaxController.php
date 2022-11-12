@@ -1418,7 +1418,7 @@ class AjaxController extends Controller
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->count();
-            if ($data_schedule->count() > 0 && $data_schedule[0]->Status_app == resubmission){
+            if ($data_schedule->count() > 1 && $data_schedule[0]->Status_app == resubmission){
                 $limit_schedule[$key]->valid_resubmission = true;
                 $limit_schedule[$key]->valid_resubmission_date =  $data_schedule[0]->time_start_appointment  . '-' . $data_schedule[0]->time_end_appointment ;
             }
@@ -1442,26 +1442,25 @@ class AjaxController extends Controller
             }
         }
 //        die(print_r($limit_schedule));
-
         foreach ($limit_schedule as $key => $ls ) {
             $time = $ls->start_at . '-' . $ls->end_at;
             if ($ls->half != true) {
                 if (!empty($ls->number_schedule)) {
                     if ($ls->valid_resubmission == true && $time == $ls->valid_resubmission_date){
                         // resubmission
-//                        $data .= ' <tr style="background-color:#FF0000">';
-//                        if ($ls->amount == $ls->number_schedule) {
-//                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                        } else {
-//                            if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
-//                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
-//                            } else {
-//                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" checked="checked">&ensp;&ensp;&ensp;' . $time . '</td>';
-//                            }
-//                        }
-//                        $data .= '<td>' . $ls->number_schedule . '</td>';
-//                        $data .= '<td>' . $ls->amount . '</td>>';
-//                        $data .= '</tr>';
+                        $data .= ' <tr style="background-color:#FF0000">';
+                        if ($ls->amount == $ls->number_schedule) {
+                            $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                        } else {
+                            if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
+                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
+                            } else {
+                                $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" checked="checked">&ensp;&ensp;&ensp;' . $time . '</td>';
+                            }
+                        }
+                        $data .= '<td>' . $ls->number_schedule . '</td>';
+                        $data .= '<td>' . $ls->amount . '</td>>';
+                        $data .= '</tr>';
                         // End resubmission
                     }else {
                         $data .= ' <tr>';
