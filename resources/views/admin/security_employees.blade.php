@@ -13,6 +13,7 @@
                 <th scope="col">Application Type</th>
                 <th scope="col">Request Application</th>
                 <th scope="col">Grade</th>
+                <th scope="col">Pass ID</th>
                 <th scope="col">Expired Date</th>
             </tr>
             </thead>
@@ -91,6 +92,7 @@
                             // }
                         }
                     },
+                    {data: 'passid', name: 'passid'},
                     {data: 'expired_date', name: 'expired_date'},
                 ]
             });

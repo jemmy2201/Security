@@ -218,8 +218,10 @@ class AjaxController extends Controller
     }
     public function security_employees()
     {
-        $security_employees = sertifikat::select('sertifikats.id','users.nric','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','sertifikats.expired_date','users.photo')
-                             ->leftjoin('users', 'sertifikats.nric', '=', 'users.nric')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
+//        $security_employees = sertifikat::select('sertifikats.id','users.nric','sertifikats.passid','users.name','users.email','sertifikats.app_type','sertifikats.card_id','sertifikats.grade_id','sertifikats.expired_date','users.photo')
+//                             ->leftjoin('users', 'sertifikats.nric', '=', 'users.nric')->leftjoin('grades', 'sertifikats.grade_id', '=', 'grades.id')->get();
+        $security_employees = booking_schedule::select('booking_schedules.id','users.nric','booking_schedules.passid','users.name','users.email','booking_schedules.app_type','booking_schedules.card_id','booking_schedules.grade_id','booking_schedules.expired_date','users.photo')
+            ->leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->leftjoin('grades', 'booking_schedules.grade_id', '=', 'grades.id')->get();
         foreach($security_employees as $key => $f){
 //                foreach (json_decode($f->grade_id) as $g){
 //                      $grade = grade::where(['id'=>$g])->first();
@@ -240,7 +242,11 @@ class AjaxController extends Controller
             }
             $security_employees[$key]->name_grade = $grade_id;
             $security_employees[$key]->nric = secret_decode($f->nric);
-            $security_employees[$key]->expired_date = Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('d-m-Y');
+            if ($f->expired_date) {
+                $security_employees[$key]->expired_date = Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('d-m-Y');
+            }else{
+                $security_employees[$key]->expired_date = null;
+            }
 //            $security_employees[$key]->count_grade = count($grade_name);
         }
         return Datatables::of($security_employees)->addColumn('action', function($row){
