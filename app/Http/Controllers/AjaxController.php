@@ -1411,6 +1411,15 @@ class AjaxController extends Controller
             return response()->json(['massages' => file_wrong],401);
         }
     }
+    public function check_passID(Request $request)
+    {
+        $cek_passid = booking_schedule::where(['nric' => Auth::user()->nric,'passid'=>$request->passid])->get();
+        if (count($cek_passid) >0){
+            return Response::json(['massages' => true],200);
+        }else{
+            return response::json(['massages' => false],200);
+        }
+    }
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {

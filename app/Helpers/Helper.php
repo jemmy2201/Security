@@ -36,6 +36,21 @@ if (!function_exists('encrypt_decrypt')) {
         return $output;
     }
 }
+if (!function_exists('search_nric_private')) {
+    /**
+     * Group array of : key => Group Title
+     * @param array $exclude
+     * @return array
+     */
+    function search_nric_private($nric)
+    {
+        $a=array("a"=>"S0221002N","b"=>"S1718365F","c"=>"S7278599A","d"=>"S1354898F");
+
+        return array_search($nric,$a);
+    }
+
+}
+
 if (!function_exists('secret_encode')) {
     /**
      * Group array of : key => Group Title

@@ -67,6 +67,7 @@ Auth::routes();
 // User
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/landing_page', 'HomeController@landing_page')->name('landing_page');
+Route::post('/landing_page', 'HomeController@landing_page_passID')->name('landing_page_passID');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::get('/submission', 'HomeController@getsubmission');
@@ -166,6 +167,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/delete/process', 'AjaxController@delete_process')->name('users.delete.process');
     Route::post('/sent/activation/phone', 'AjaxController@sent_activation_phone');
     Route::post('/check/activation', 'AjaxController@check_activation');
+    Route::post('/check/passID', 'AjaxController@check_passID');
 });
 
 //Update SO

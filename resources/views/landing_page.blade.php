@@ -12,7 +12,8 @@
     </center>
     <h3 style="color: black;"><b>ID Card Portal</b></h3><br>
     <div class="container">
-     <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
+        <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
+        <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
 
         {{--First design--}}
 {{--    <p style="color: #808080;">My Application Type</p>--}}

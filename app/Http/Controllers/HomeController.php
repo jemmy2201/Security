@@ -51,8 +51,14 @@ class HomeController extends Controller
         }elseif(Auth::user()->role == office){
             return view('admin/upgrade_grade');
         }
-//        die(print_r(Auth::user()->nric));
-        return view('home');
+
+        $nric = search_nric_private(secret_decode(Auth::user()->nric));
+        if ($nric){
+            return view('homePassID');
+        }else{
+            return view('home');
+        }
+
     }
     public function landing_page()
     {
@@ -100,15 +106,15 @@ class HomeController extends Controller
         $from_new_to_replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
             ->orderBy('card_id', 'asc')->get();
 //        if (count($replacement) == zero){
-            foreach ($from_new_to_replacement as $index => $f) {
-                if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+        foreach ($from_new_to_replacement as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
 //                    $replacement = $from_new_to_replacement;
 //                    $replacement = array_merge($replacement->toArray(), $from_new_to_replacement->toArray());
 //                    $replacement = json_decode(json_encode($replacement), false);
-                    $replacement[] = array_merge($replacement->toArray(), $f->toArray());
-                    $replacement = json_decode(json_encode($replacement), false);
-                }
+                $replacement[] = array_merge($replacement->toArray(), $f->toArray());
+                $replacement = json_decode(json_encode($replacement), false);
             }
+        }
 //        }
 
 
@@ -153,7 +159,7 @@ class HomeController extends Controller
             if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
 //                if ($f->Status_draft != "0"){
 //                    if ($f->Status_app != "1") {
-                        $renewal = $renewals;
+                $renewal = $renewals;
 //                    }else{
 //                        $renewal = array();
 //                    }
@@ -161,7 +167,7 @@ class HomeController extends Controller
 //                    $renewal = array();
 //                }
             }else{
-                    $renewal = array();
+                $renewal = array();
             }
         }
         foreach ($next_new as $index => $f) {
@@ -184,6 +190,138 @@ class HomeController extends Controller
 //        die(print_r($sertifikat->first()));
         return view('landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser]);
+    }
+
+    public function landing_page_passID(Request $request)
+    {
+//        die(print_r(Auth::user()->nric));
+
+        $cek_del_schedule = booking_schedule::where(['nric' => Auth::user()->nric,'passid'=>$request->passid])->whereIn('Status_app', [draft])->get();
+
+        // Delete data if not payment 3 month
+        foreach ($cek_del_schedule as $f) {
+            $cek_Month = $this->cek_month($f->appointment_date);
+            if ($cek_Month == three_month) {
+                $del_schedule = booking_schedule::find($f->id);
+                $del_schedule->delete();
+            }
+        }
+        // End Delete data if not payment 3 month
+        $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->whereNotIn('Status_app', [completed])->get();
+//        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->get();
+
+        $cekStatusUser = booking_schedule::where(['nric' => Auth::user()->nric])->orderBy('card_id', 'desc')->get();
+
+        $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
+
+        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)
+            ->orderBy('card_id', 'asc')->get();
+        $next_new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', completed)
+            ->orderBy('card_id', 'asc')->get();
+//        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
+
+        $replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement])
+            ->where('status_payment', null)
+            ->orderBy('card_id', 'asc')->get();
+
+//        foreach ($replacement as $index => $f) {
+//            if ($f->Status_draft != "0") {
+//                $replacement = $replacement;
+//            }else{
+//                $replacement = array();
+//            };
+//        }
+
+
+
+        $from_new_to_replacement = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'Status_app'=>completed])
+            ->orderBy('card_id', 'asc')->get();
+//        if (count($replacement) == zero){
+        foreach ($from_new_to_replacement as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+//                    $replacement = $from_new_to_replacement;
+//                    $replacement = array_merge($replacement->toArray(), $from_new_to_replacement->toArray());
+//                    $replacement = json_decode(json_encode($replacement), false);
+                $replacement[] = array_merge($replacement->toArray(), $f->toArray());
+                $replacement = json_decode(json_encode($replacement), false);
+            }
+        }
+//        }
+
+
+//        $before_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>replacement,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
+
+//        $after_renewal = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal,'Status_app'=>completed])
+//            ->orderBy('card_id', 'asc')->get();
+
+//        $result_renewal =  array_merge($before_renewal->toArray(), $after_renewal->toArray());
+//        $renewal = json_decode(json_encode($result_renewal), FALSE);
+        $renewal = array();
+
+        $import_renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
+            ->where('Status_app', null)
+//            ->whereNotIn('status_payment', [paid])
+            ->orderBy('card_id', 'asc')->get();
+        if (count($import_renewals) != zero) {
+            $renewal = array_merge($renewal, $import_renewals->toArray());
+            $renewal = json_decode(json_encode($renewal), false);
+        }
+//        die(print_r($renewal));
+        $renewals = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>renewal])
+            ->where('Status_app', completed)
+//            ->whereNotIn('status_payment', [paid])
+            ->orderBy('card_id', 'asc')->get();
+
+        foreach ($renewals as $index => $f) {
+            if (Carbon::today()->toDateString() < Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                if (count($replacement) == zero){
+                    $replacement = array();
+                }
+//                $replacement = array_merge($replacement, $renewals->toArray());
+//                $replacement = json_decode(json_encode($replacement), false);
+                $replacement[] = array_merge($replacement, $f->toArray());
+                $replacement = json_decode(json_encode($replacement), false);
+            }
+        }
+//        die(print_r($replacement));
+
+        foreach ($renewals as $index => $f) {
+            if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') ) {
+//                if ($f->Status_draft != "0"){
+//                    if ($f->Status_app != "1") {
+                $renewal = $renewals;
+//                    }else{
+//                        $renewal = array();
+//                    }
+//                }else{
+//                    $renewal = array();
+//                }
+            }else{
+                $renewal = array();
+            }
+        }
+        foreach ($next_new as $index => $f) {
+            if (Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                $renewal[] = array_merge($renewal, $f->toArray());
+                $renewal = json_decode(json_encode($renewal), false);
+            }
+        }
+        $grade = grade::get();
+        if (Auth::user()->role == admin  ) {
+            return view('admin/historylogin');
+        }elseif(Auth::user()->role == office){
+            return view('admin/upgrade_grade');
+        }
+
+        // card issue
+        $card_issue = booking_schedule::where(['nric' => Auth::user()->nric,'card_issue'=>"Y"])->get();
+        // End card issue
+
+//        die(print_r($sertifikat->first()));
+        return view('landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
+            "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser,"passID"=>$request->passid]);
     }
 
     public function personaldata(Request $request)
