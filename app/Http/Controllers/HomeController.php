@@ -214,7 +214,7 @@ class HomeController extends Controller
 
         $sertifikat = sertifikat::where(['nric' => Auth::user()->nric])->orderBy('id', 'desc')->get();
 
-        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', null)
+        $new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news,'passid'=>$request->passid])->where('Status_app', '=', null)
             ->orderBy('card_id', 'asc')->get();
         $next_new = booking_schedule::where(['nric' => Auth::user()->nric,'app_type'=>news])->where('Status_app', '=', completed)
             ->orderBy('card_id', 'asc')->get();
@@ -319,7 +319,7 @@ class HomeController extends Controller
         $card_issue = booking_schedule::where(['nric' => Auth::user()->nric,'card_issue'=>"Y"])->get();
         // End card issue
 
-//        die(print_r($sertifikat->first()));
+
         return view('landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser,"passID"=>$request->passid]);
     }

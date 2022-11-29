@@ -281,7 +281,6 @@
 
         $('#next').on('click', function () {
             if ($("input[name='agree_pdf']:checked").val()) {
-                console.log('ss')
                     window.location.href = "/landing_page";
             }else{
                 swal("Error!", "Tick the check box to proceed.", "error")

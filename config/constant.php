@@ -171,6 +171,7 @@ define('login_dummy', "/login/dummy/1");
 define('default_alter_login', "home");
 define('page_update_so', "update.so");
 define('default_alter_term_use', "landing_page");
+define('landing_page_passID', "landing_page_passID");
 define('after_payment', "after.payment");
 define('view_course', "view.course");
 define('default_submission', "submission");

@@ -67,7 +67,7 @@ Auth::routes();
 // User
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/landing_page', 'HomeController@landing_page')->name('landing_page');
-Route::post('/landing_page', 'HomeController@landing_page_passID')->name('landing_page_passID');
+Route::post('/landing_page_passID', 'HomeController@landing_page_passID')->name('landing_page_passID');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::get('/submission', 'HomeController@getsubmission');

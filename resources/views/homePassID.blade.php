@@ -60,7 +60,6 @@
                         /* send the csrf-token and the input to the controller */
                         data: {_token: $('meta[name="csrf-token"]').attr('content'), passid:$('#passid').val()},
                         success: function (data) {
-                            console.log('sss',data['massages'])
                             if (data['massages'] == {!! json_encode(succes) !!}){
                                 $("#formPassID").submit();
                             }else{

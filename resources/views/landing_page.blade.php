@@ -12,9 +12,11 @@
     </center>
     <h3 style="color: black;"><b>ID Card Portal</b></h3><br>
     <div class="container">
-        <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
-        <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
-
+        @isset($passID)
+            <p><b>Welcome {{ $passID}}</b></p><br>
+        @else
+            <p><b>Welcome {{ Auth::user()->name}}</b></p><br>
+        @endisset
         {{--First design--}}
 {{--    <p style="color: #808080;">My Application Type</p>--}}
 {{--    <div class="container">--}}
@@ -1193,6 +1195,13 @@
                     'background-color': 'green'});
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
                     $("#avso_app").prop("disabled", false).css({'-webkit-appearance': 'none',
+                        '-moz-appearance': 'none',
+                        'appearance': 'none',
+                        /* Styling checkbox */
+                        'width': '16px',
+                        'height': '16px',
+                        'background-color': 'green'});
+                    $("#so_app").prop("disabled", false).css({'-webkit-appearance': 'none',
                         '-moz-appearance': 'none',
                         'appearance': 'none',
                         /* Styling checkbox */
