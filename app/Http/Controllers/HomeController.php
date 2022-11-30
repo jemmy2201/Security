@@ -319,8 +319,7 @@ class HomeController extends Controller
         $card_issue = booking_schedule::where(['nric' => Auth::user()->nric,'card_issue'=>"Y"])->get();
         // End card issue
 
-
-        return view('landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
+        return view('landing_page_PassID')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
             "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser,"passID"=>$request->passid]);
     }
 

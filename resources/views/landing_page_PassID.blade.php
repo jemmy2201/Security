@@ -12,7 +12,12 @@
     </center>
     <h3 style="color: black;"><b>ID Card Portal</b></h3><br>
     <div class="container">
-        <p><b>Welcome {{ Auth::user()->name}}</b></p>
+        @if($passID != 'null')
+            @php
+                Session::put('passID', $passID);
+            @endphp
+        @endif
+            <p><b>Welcome {{ ($passID != 'null')? $passID:Session::get('passID')}}</b></p><br>
         {{--First design--}}
 {{--    <p style="color: #808080;">My Application Type</p>--}}
 {{--    <div class="container">--}}
@@ -934,6 +939,7 @@
         window.location.href = "{{URL::to('relogin')}}"
     }
     // End 15 minutes not action
+
     {{--  Card Issue  --}}
     if ({!!  json_encode($card_issue) !!} != false)
     {
@@ -1039,14 +1045,7 @@
     // });
 
     $(document).ready(function() {
-        if({!!  json_encode(Session::get('passID')) !!}){
-            console.log('ss',{!!  json_encode(Session::get('passID')) !!})
-            var form = $('<form action="' + {!!  json_encode(route('landing_page_passID')) !!} + '" method="POST"> @csrf' +
-                '<input type="text" name="passid" value="' + {!!  json_encode(Session::get('passID')) !!} + '" />' +
-                '</form>');
-            $('body').append(form);
-            form.submit();
-        }
+
         $(".default_hidden").hide();
 
         // Application type
@@ -1196,6 +1195,8 @@
                     'width': '16px',
                     'height': '16px',
                     'background-color': 'green'});
+                        $(".view_checkbox_so").css("display","block");
+                        $(".view_checkbox_avso").css("display","none");
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
                     $("#avso_app").prop("disabled", false).css({'-webkit-appearance': 'none',
                         '-moz-appearance': 'none',
@@ -1204,6 +1205,8 @@
                         'width': '16px',
                         'height': '16px',
                         'background-color': 'green'});
+                        $(".view_checkbox_so").css("display","none");
+                        $(".view_checkbox_avso").css("display","block");
                 } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
                     $("#pi_app").prop("disabled", false).css({'-webkit-appearance': 'none',
                         '-moz-appearance': 'none',
