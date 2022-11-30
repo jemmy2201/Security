@@ -304,7 +304,7 @@
 <br>
     <p><b>My Request</b></p>
     <div class="container">
-        <div class="row">
+        <div class="row view_checkbox_so">
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" id="so_app" class="btn btn-secondary btn-lg btn-block" value="@php echo so_app @endphp" disabled>SO Application</button>--}}
 {{--            </div>--}}
@@ -314,11 +314,12 @@
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" id="pi_app" class="btn btn-secondary btn-lg btn-block" value="@php echo pi_app @endphp" disabled>PI Application</button>--}}
 {{--            </div>--}}
-                <input class="form-check-input" type="checkbox" name="request" id="so_app" value="" data-card={{so_app}}><b>&ensp;&ensp;&ensp;Security Officer (SO) / Aviation Security Officer (AVSO)</b>
+                <input class="form-check-input" type="checkbox" name="request" id="so_app" value="" data-card="{{so_app}}"><b>&ensp;&ensp;&ensp;Security Officer (SO) / Aviation Security Officer (AVSO)</b>
         </div>
-{{--        <div class="row">--}}
-{{--                <input class="form-check-input" type="checkbox" name="request" id="avso_app" value="" data-card={{avso_app}}><b>&ensp;&ensp;&ensp;Aviation Security Officer (AVSO)</b>--}}
-{{--        </div>--}}
+        <div class="row view_checkbox_avso"  style="display: none">
+                <input class="form-check-input" type="checkbox" name="request" id="avso_app" value="" data-card={{avso_app}}><b>&ensp;&ensp;&ensp;Security Officer (SO) / Aviation Security Officer (AVSO)</b>
+{{--            <b>&ensp;&ensp;&ensp;Aviation Security Officer (AVSO)</b>--}}
+        </div>
         <div class="row">
                 <input class="form-check-input" type="checkbox" name="request" id="pi_app" value="" data-card={{pi_app}}><b>&ensp;&ensp;&ensp;Private Investigator (PI)</b>
         </div>
@@ -1193,6 +1194,10 @@
                     'width': '16px',
                     'height': '16px',
                     'background-color': 'green'});
+                    if({!!  json_encode(isset($passID)) !!}){
+                        $(".view_checkbox_so").css("display","block");
+                        $(".view_checkbox_avso").css("display","none");
+                    }
                 } else if (entry['card_id'] == {!!  json_encode(avso_app) !!}) {
                     $("#avso_app").prop("disabled", false).css({'-webkit-appearance': 'none',
                         '-moz-appearance': 'none',
@@ -1201,13 +1206,10 @@
                         'width': '16px',
                         'height': '16px',
                         'background-color': 'green'});
-                    $("#so_app").prop("disabled", false).css({'-webkit-appearance': 'none',
-                        '-moz-appearance': 'none',
-                        'appearance': 'none',
-                        /* Styling checkbox */
-                        'width': '16px',
-                        'height': '16px',
-                        'background-color': 'green'});
+                    if({!!  json_encode(isset($passID)) !!}){
+                        $(".view_checkbox_so").css("display","none");
+                        $(".view_checkbox_avso").css("display","block");
+                    }
                 } else if (entry['card_id'] == {!!  json_encode(pi_app) !!}) {
                     $("#pi_app").prop("disabled", false).css({'-webkit-appearance': 'none',
                         '-moz-appearance': 'none',
@@ -1234,7 +1236,6 @@
         });
     }
     function check_card_renewal() {
-        console.log('ss',{!!  json_encode($renewal) !!});
         {!!  json_encode($renewal) !!}.forEach((entry) => {
             {{--if(  entry['Status_app'] == {!!  json_encode(completed) !!} && {!!  json_encode($expried_renewal) !!} == true) {--}}
                 if (entry['card_id'] == {!!  json_encode(so_app) !!}) {
