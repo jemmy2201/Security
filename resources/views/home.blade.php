@@ -32,6 +32,9 @@
 
 </style>
 @section('content')
+    @php
+        Session::forget('passID')
+    @endphp
 {{--    <div class="container" id="form_header_welcome" >--}}
 {{--        <div class="row">--}}
 {{--            <div class="col-4">--}}
