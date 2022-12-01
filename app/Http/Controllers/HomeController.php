@@ -1143,7 +1143,7 @@ class HomeController extends Controller
         $booking_schedule = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
         $request->merge(['app_type' => $booking_schedule->app_type]);
         if ($booking_schedule->grade_id == null){
-                  $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_type'=>$booking_schedule->grade_id])->first();
+                  $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
 //                foreach (json_decode($booking_schedule->grade_id) as $f){
 //                    $transaction_amount= transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id,'grade_id'=>$f])->first();
 //                    $Array_transaction_amount[] = $transaction_amount->transaction_amount;
