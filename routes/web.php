@@ -67,7 +67,6 @@ Auth::routes();
 // User
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/landing_page', 'HomeController@landing_page')->name('landing_page');
-Route::post('/landing_page_passID', 'HomeController@landing_page_passID')->name('landing_page_passID');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');
 Route::get('/submission', 'HomeController@getsubmission');
@@ -98,9 +97,63 @@ Route::get('/invoice/print/pdf/{id}', 'HomeController@print_pdf');
 // end get history continous
 
 Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment');
-
 // End User
 
+// Super User
+Route::get('/super/user/landing_page', 'Super_user\SuperUserController@landing_page')->name('super_user.landing_page');
+Route::post('/super/user/landing_page', 'Super_user\SuperUserController@landing_page')->name('super_user.landing_page');
+Route::post('/super/user/personal/particular','Super_user\SuperUserController@personaldata')->name('super_user.personal.particular');
+Route::post('/super/super/user/submission', 'Super_user\SuperUserController@submission')->name('super_user.submission');
+Route::get('/super/user/submission', 'Super_user\SuperUserController@getsubmission');
+Route::post('/super/user/declare/submission', 'Super_user\SuperUserController@declare_submission')->name('super_user.declare.submission');
+Route::post('/super/user/book/appointment', 'Super_user\SuperUserController@book_appointment')->name('super_user.book.appointment');
+Route::post('/super/user/payment', 'Super_user\SuperUserController@View_payment')->name('super_user.save.book.appointment');
+Route::get('/super/user/get_payment/{card}/{valid_resubmission}/{view_date}/{limit_schedule_id}', 'Super_user\SuperUserController@get_View_payment');
+Route::post('/super/user/save/payment', 'Super_user\SuperUserController@Createpayment')->name('super_user.save.payment');
+Route::get('/super/user/after/payment/{id}', 'Super_user\SuperUserController@after_payment')->name('super_user.after.payment');
+
+Route::get('/super/user/personal/particular','Super_user\SuperUserController@personaldata')->name('super_user.personal.particular');
+Route::get('/super/user/back/personal/particular/{app_type}/{card}/{status}','Super_user\SuperUserController@backpersonaldata');
+Route::get('/super/user/back/personal/particular/{app_type}/{card}','Super_user\SuperUserController@backpersonaldata');
+Route::get('/super/user/back/submission/{app_type}/{card}/{Cgrades}','Super_user\SuperUserController@backsubmission');
+Route::post('/super/user/replacement/personal/particular', 'Super_user\SuperUserController@replacement_personaldata')->name('super_user.replacement.personal.particular');
+Route::post('/super/user/renewal/personal/particular', 'Super_user\SuperUserController@renewal_personaldata');
+
+// get history continous
+Route::get('/super/user/history/book/appointment/{app_type}/{card}', 'Super_user\SuperUserController@HistoryBookAppointment');
+Route::get('/super/user/history/book/payment/{app_type}/{card}', 'Super_user\SuperUserController@HistoryViewPayment');
+Route::get('/super/user/personal/particular/{app_type}/{card}/{status}', 'Super_user\SuperUserController@resubmission');
+Route::get('/super/user/draft/{app_type}/{card}', 'Super_user\SuperUserController@backDraft');
+Route::get('/super/user/save_draft/{app_type}/{card}/{array_grade}/{logout_save_draft}', 'Super_user\SuperUserController@savedraft');
+Route::get('/super/user/view/course/{id}', 'Super_user\SuperUserController@view_course')->name('view.course');
+Route::get('/super/user/invoice/print/pdf/{id}', 'Super_user\SuperUserController@print_pdf');
+// end get history continous
+
+//Update SO
+Route::get('/super/user/update_so', 'HomeController@ui_update_so')->name('super_user.update.so');
+Route::post('/super/user/action/update_so', 'HomeController@action_update_so')->name('super_user.action.update_so');
+//End Update SO
+
+Route::get('/user/cancel/payment/{app_type}/{card}', 'Super_user\SuperUserController@cancel_payment');
+
+Route::prefix('ajax')->group(function () {
+    // check file page home
+    Route::post('/check/file/home', 'AjaxSuperUserController@check_file_home')->name('check_file_home');
+    // End check file page home
+    Route::get('super/user/cek/data/from', 'AjaxController@cek_data_from');
+    Route::get('super/user/cek/card/type', 'AjaxController@cek_card_type');
+    Route::post('super/user/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
+    Route::post('super/user/cek/data/schedule', 'AjaxController@cek_data_schedule');
+    Route::get('super/user/download/excel/schedule', 'AjaxController@schedule');
+    Route::get('super/user/download/excel/template/grade', 'AjaxController@download_template_grade');
+    Route::post('super/user/delete/process', 'AjaxController@delete_process')->name('super.users.delete.process');
+    Route::post('super/user/sent/activation/phone', 'AjaxController@sent_activation_phone');
+    Route::post('super/user/check/activation', 'AjaxController@check_activation');
+    Route::post('super/user/check/passID', 'AjaxController@check_passID');
+});
+
+
+// End Super User
 
 
 // SO Query

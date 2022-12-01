@@ -330,7 +330,7 @@
     <div class="container">
         <div class="row">
             @php
-                $passID = App\booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => so_app])->first();
+                $passID = App\booking_schedule::where(['nric' => Session::get('nric_origin'), 'card_id' => so_app])->first();
                 if (!empty($passID)){
                     $check_PWM = App\so_update_info::where(['PassID' => $passID->passid])->first();
                 }
@@ -347,7 +347,7 @@
     </div>
 {{--End revisi 2 design--}}
 
-    <form method="post" id="personal_particular" action="{{ route('personal.particular') }}" style="display: none">
+    <form method="post" id="personal_particular" action="{{ route('super_user.personal.particular') }}" style="display: none">
         @csrf
         <input type="text" id="app_type" name="app_type">
         <input type="text" id="card" name="card">
@@ -379,10 +379,10 @@
                 @foreach($schedule as $index => $f)
                     @if($f->Status_app == processing)
 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
-                        @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                        @php $url=url("/super/user/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @elseif($f->Status_app == draft)
 {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
-                        @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                        @php $url=url("/super/user/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                     @endif
                     <tr style="cursor: pointer;">
                         @if($f->app_type == news)
@@ -482,14 +482,14 @@
 {{--                                @elseif($f->Status_draft == draft_payment)--}}
 {{--                                    @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp--}}
 {{--                                @endif--}}
-                                @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/draft")."/".$f->app_type."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-primary">Continue</button></a></td>
                         @elseif($f->Status_app == resubmission)
-                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
+                            @php $url=url("/super/user/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
+                                @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
                                 <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif
                     </tr>
@@ -581,10 +581,10 @@
                         @foreach($schedule as $index => $f)
                             @if($f->Status_app == processing)
                                 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
-                                @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                             @elseif($f->Status_app == draft)
                                 {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
-                                @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                             @endif
                             <tr style="cursor: pointer;">
                                 @if($f->app_type == news)
@@ -654,14 +654,14 @@
                                     <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>
                                         @if($f->Status_app == draft)
 
-                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
+                                            @php $url=url("/super/user/draft")."/".$f->app_type."/".$f->card_id; @endphp
                                             <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>
                                         @elseif($f->Status_app == resubmission)
-                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
+                                            @php $url=url("/super/user/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                             <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
+                                            @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
                                            <a href="{{$url}}"><button class="btn btn-success">View</button></a>
                                             @endif
                                     </li>
@@ -673,10 +673,10 @@
                         @foreach($sertifikat as $index => $f)
                             @if($f->Status_app == processing)
                                 {{--                    @php $url="/history/book/appointment/".$f->app_type."/".$f->card_id; @endphp--}}
-                                @php $url=url("/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/history/book/appointment/")."/".$f->app_type."/".$f->card_id; @endphp
                             @elseif($f->Status_app == draft)
                                 {{--                        @php $url="/history/book/payment/".$f->app_type."/".$f->card_id; @endphp--}}
-                                @php $url=url("/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/history/book/payment/")."/".$f->app_type."/".$f->card_id; @endphp
                             @endif
                             <tr style="cursor: pointer;">
                                 @if($f->app_type == news)
@@ -746,14 +746,14 @@
                                     <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>
                                         @if($f->Status_app == draft)
 
-                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
+                                            @php $url=url("/super/user/draft")."/".$f->app_type."/".$f->card_id; @endphp
                                             <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>
                                         @elseif($f->Status_app == resubmission)
-                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
+                                            @php $url=url("/super/user/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
                                             <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
+                                            @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
                                             <a href="{{$url}}"><button class="btn btn-success">View</button></a>
                                         @endif
                                     </li>
@@ -790,7 +790,7 @@
                         @if(!empty($replacement))
                             @foreach($replacement as $index => $f)
 {{--                                @php $url="/replacement/personal/particular/".$f->card_id; @endphp--}}
-                                    @php $url=url("/replacement/personal/particular/")."/".$f->card_id; @endphp
+                                    @php $url=url("/super/user/replacement/personal/particular/")."/".$f->card_id; @endphp
                                     @php
                                       //$expried = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::parse($f->expired_date)->toDateString();
                                        if ($f->expired_date){
@@ -880,7 +880,7 @@
                                 @endphp
                                 @if($f->Status_app == completed && $expried_renewal == true )
 {{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
-                                @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
+                                @php $url=url("/super/user/renewal/personal/particular/")."/".$f->card_id; @endphp
                                 <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
                                     @if($f->app_type == news)
                                         <td>New</td>
@@ -995,7 +995,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: "POST",
-                    url: "{{route('users.delete.process')}}",
+                    url: "{{route('super.users.delete.process')}}",
                     data: {id: id,app_type:app_type,card_id:card_id},
                     success: function(data,textStatus, xhr)
                     {
@@ -1168,7 +1168,7 @@
             // }
         });
         $("#PWM").click(function() {
-            window.location.href = "{{URL::to('update_so')}}"
+            window.location.href = "{{URL::to('super/user/update_so')}}"
         });
             // End card
     });
@@ -1250,7 +1250,7 @@
         $.ajax({
             type:'get',
             // url:'/ajax/cek/card/type',
-            url:"{{ url('/ajax/cek/card/type') }}",
+            url:"{{ url('/ajax/super/user/cek/card/type') }}",
             success:function(data) {
               if(data['so_app'] == true){
                   if(data['so_app'] == true && data['avso_app'] == true && data['pi_app'] == true){

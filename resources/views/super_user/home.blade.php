@@ -33,7 +33,7 @@
 </style>
 @section('content')
     <div class="container">
-        <form  method="POST" action="{{ route('landing_page_passID') }}" id="formPassID">
+        <form  method="POST" action="{{ route('super_user.landing_page') }}" id="formPassID">
             @csrf
         <div class="row align-items-start">
             <div class="col-0" style="margin-top: 6px">

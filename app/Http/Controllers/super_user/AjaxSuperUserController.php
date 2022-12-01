@@ -1,34 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\super_user;
 
+use App\activation_phones;
+use App\booking_schedule;
+use App\Dateholiday;
 use App\Exports\BookingScheduleExport;
 use App\Exports\UpgradeGradeExport;
 use App\grade;
 use App\gst;
-use App\sertifikat;
-use App\User;
-use Illuminate\Http\Request;
-use App\booking_schedule;
+use App\Http\Controllers\Controller;
 use App\schedule_limit;
+use App\sertifikat;
 use App\transaction_amount;
-use App\Backup_booking_schedule;
-use App\Backup_users;
-use App\Dateholiday;
-use App\activation_phones;
-use Illuminate\Support\Facades\Auth;
+use App\User;
 use Carbon\Carbon;
-use DataTables;
-use DB;
-use Artisan;
-Use Storage;
-use DateTime;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Input;
-use Log;
-use Response;
-class AjaxController extends Controller
+
+class AjaxSuperUserController extends Controller
 {
     public function __construct()
     {
@@ -44,10 +36,10 @@ class AjaxController extends Controller
         $new = true;
         $replacement = false;
         $renewal = false;
-        $data = booking_schedule::where(['nric' => Auth::user()->nric])->first();
+        $data = booking_schedule::where(['nric' => Session::get('nric_origin')])->first();
         if (!empty($data)){
             $new = false;
-            $Datareplacement = booking_schedule::where(['nric' => Auth::user()->nric,'status_app'=>payment])->first();
+            $Datareplacement = booking_schedule::where(['nric' => Session::get('nric_origin'),'status_app'=>payment])->first();
             if (!empty($Datareplacement)){
                 $replacement = true;
             }
@@ -65,7 +57,7 @@ class AjaxController extends Controller
         $avso_app   = false;
         $pi_app     = false;
 
-        $data = booking_schedule::where(['nric' => Auth::user()->nric,'app_type' => news])->get();
+        $data = booking_schedule::where(['nric' => Session::get('nric_origin'),'app_type' => news])->get();
         foreach ($data as $index => $f){
             if($f->card_id == so_app){
                 if ($f->Status_app == null){
@@ -169,22 +161,22 @@ class AjaxController extends Controller
                         } else {
                             foreach ($request->amount as $index_amount => $amount) {
 //                                $data = array('start_at' => $start, 'end_at' => $end, 'amount' => $amount,'status' => aktif);
-                                    if ($index_start == $index_end && $index_start == $index_amount && $index_end == $index_amount){
+                                if ($index_start == $index_end && $index_start == $index_amount && $index_end == $index_amount){
 
-                                        $data = new schedule_limit();
+                                    $data = new schedule_limit();
 
-                                        $data->date_schedule_limit = Carbon::today()->toDateString();
+                                    $data->date_schedule_limit = Carbon::today()->toDateString();
 
-                                        $data->start_at = $start;
+                                    $data->start_at = $start;
 
-                                        $data->end_at = $end;
+                                    $data->end_at = $end;
 
-                                        $data->amount = $amount;
+                                    $data->amount = $amount;
 
-                                        $data->status = aktif;
+                                    $data->status = aktif;
 
-                                        $data->save();
-                                    }
+                                    $data->save();
+                                }
 
                             }
                         }
@@ -451,41 +443,41 @@ class AjaxController extends Controller
 
         $val_transaction_amount = transaction_amount::where(['app_type'=>$request->app_type])->first();
         if (empty($val_transaction_amount)) {
-                $grades = grade::get();
-                foreach ($grades as $index => $f) {
-                        $transaction_amount = new transaction_amount;
-
-                        $transaction_amount->app_type = $request->app_type;
-
-                        $transaction_amount->card_type = so;
-
-                        $transaction_amount->grade_id = $f->id;
-
-                        $transaction_amount->transaction_amount = $request->transaction_amount;
-
-                        $transaction_amount->grade_type = $f->type;
-
-                        $transaction_amount->save();
-                }
+            $grades = grade::get();
+            foreach ($grades as $index => $f) {
                 $transaction_amount = new transaction_amount;
 
                 $transaction_amount->app_type = $request->app_type;
 
-                $transaction_amount->card_type = avso_app;
+                $transaction_amount->card_type = so;
+
+                $transaction_amount->grade_id = $f->id;
 
                 $transaction_amount->transaction_amount = $request->transaction_amount;
 
-                $transaction_amount->save();
-
-                $transaction_amount = new transaction_amount;
-
-                $transaction_amount->app_type = $request->app_type;
-
-                $transaction_amount->card_type = pi_app;
-
-                $transaction_amount->transaction_amount = $request->transaction_amount;
+                $transaction_amount->grade_type = $f->type;
 
                 $transaction_amount->save();
+            }
+            $transaction_amount = new transaction_amount;
+
+            $transaction_amount->app_type = $request->app_type;
+
+            $transaction_amount->card_type = avso_app;
+
+            $transaction_amount->transaction_amount = $request->transaction_amount;
+
+            $transaction_amount->save();
+
+            $transaction_amount = new transaction_amount;
+
+            $transaction_amount->app_type = $request->app_type;
+
+            $transaction_amount->card_type = pi_app;
+
+            $transaction_amount->transaction_amount = $request->transaction_amount;
+
+            $transaction_amount->save();
         }
 
         return $transaction_amount;
@@ -511,8 +503,8 @@ class AjaxController extends Controller
 //            $transaction_amount->save();
 //        }
         $transaction_amount = DB::table('transaction_amounts')
-        ->where(['app_type'=>$request->app_type])
-        ->update(['transaction_amount' => $request->transaction_amount]);
+            ->where(['app_type'=>$request->app_type])
+            ->update(['transaction_amount' => $request->transaction_amount]);
 
         return $transaction_amount;
 
@@ -548,7 +540,7 @@ class AjaxController extends Controller
             $data .= '</td>';
             $data .= '</tr>';
         }
-            return $data;
+        return $data;
     }
     public function schedule(){
 
@@ -667,9 +659,9 @@ class AjaxController extends Controller
     public function delete_process(Request $request)
     {
         $data = null;
-        $data_old = sertifikat::where(['card_id'=>$request->card_id,'nric' => Auth::user()->nric])->latest('created_at')->first();
+        $data_old = sertifikat::where(['card_id'=>$request->card_id,'nric' => Session::get('nric_origin')])->latest('created_at')->first();
         if ($request->app_type == news) {
-            $delete_process = booking_schedule::where(['id'=>$request->id,'nric' => Auth::user()->nric])->first();
+            $delete_process = booking_schedule::where(['id'=>$request->id,'nric' => Session::get('nric_origin')])->first();
             if ($delete_process != null) {
                 $delete_process->delete();
                 $data = array(
@@ -697,7 +689,7 @@ class AjaxController extends Controller
                         'bsoc' => $data_old->bsoc,
                         'ssoc' => $data_old->ssoc,
                         'sssc' => $data_old->sssc,
-                        'nric' => Auth::user()->nric,
+                        'nric' => Session::get('nric_origin'),
                     ]);
             }
 
@@ -722,7 +714,7 @@ class AjaxController extends Controller
                         'bsoc' => $data_old->bsoc,
                         'ssoc' => $data_old->ssoc,
                         'sssc' => $data_old->sssc,
-                        'nric' => Auth::user()->nric,
+                        'nric' => Session::get('nric_origin'),
                     ]);
             }
         }
@@ -843,7 +835,7 @@ class AjaxController extends Controller
                             array_push($Data_Already_nric, $Already_nric);
                         }
                         // End insert table boooking
-                     }elseif (count($ID_booking) != zero){
+                    }elseif (count($ID_booking) != zero){
                         array_push($data, (object)[
                             "data_error" => data_already_exists,
                         ]);
@@ -1039,7 +1031,7 @@ class AjaxController extends Controller
 //                if (strtoupper($e['status_app']) == completed ){
 //                    $status_app = strtoupper($e['status_app']);
 //                }else{
-                    $status_app = $e['status_app'];
+                $status_app = $e['status_app'];
 //                }
                 if ($e['mobile'] == "65"){
                     $mobile = "";
@@ -1297,8 +1289,8 @@ class AjaxController extends Controller
     }
     public function check_activation(Request $request)
     {
-        $activation = activation_phones::where(['activation'=>$request->activation,'nric'=> Auth::user()->nric])
-                      ->first();
+        $activation = activation_phones::where(['activation'=>$request->activation,'nric'=> Session::get('nric_origin')])
+            ->first();
         if (!empty($activation)) {
             if ($activation->status == false) {
                 $respon = succes;
@@ -1315,7 +1307,7 @@ class AjaxController extends Controller
                     $mobileno = $request->phone;
                 }
 
-//                User::where(['nric'=> Auth::user()->nric])
+//                User::where(['nric'=> Session::get('nric_origin')])
 //                    ->update(['mobileno' => $mobileno]);
             } else {
                 $respon = already_used;
@@ -1355,7 +1347,7 @@ class AjaxController extends Controller
 
                     $new_activation->status = false;
 
-                    $new_activation->nric = Auth::user()->nric;
+                    $new_activation->nric = Session::get('nric_origin');
 
                     $new_activation->save();
 
@@ -1530,6 +1522,5 @@ class AjaxController extends Controller
             ->get();
         return $data;
     }
-
 
 }

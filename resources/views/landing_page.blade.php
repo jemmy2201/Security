@@ -1039,14 +1039,14 @@
     // });
 
     $(document).ready(function() {
-        if({!!  json_encode(Session::get('passID')) !!}){
-            console.log('ss',{!!  json_encode(Session::get('passID')) !!})
-            var form = $('<form action="' + {!!  json_encode(route('landing_page_passID')) !!} + '" method="POST"> @csrf' +
-                '<input type="text" name="passid" value="' + {!!  json_encode(Session::get('passID')) !!} + '" />' +
-                '</form>');
-            $('body').append(form);
-            form.submit();
-        }
+        {{--if({!!  json_encode(Session::get('passID')) !!}){--}}
+        {{--    console.log('ss',{!!  json_encode(Session::get('passID')) !!})--}}
+        {{--    var form = $('<form action="' + {!!  json_encode(route('landing_page_passID')) !!} + '" method="POST"> @csrf' +--}}
+        {{--        '<input type="text" name="passid" value="' + {!!  json_encode(Session::get('passID')) !!} + '" />' +--}}
+        {{--        '</form>');--}}
+        {{--    $('body').append(form);--}}
+        {{--    form.submit();--}}
+        {{--}--}}
         $(".default_hidden").hide();
 
         // Application type

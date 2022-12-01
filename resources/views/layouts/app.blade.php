@@ -107,7 +107,7 @@
     <div id="app" >
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
-                @if(Request::route()->getName() == page_update_so ||Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use || Request::route()->getName() == landing_page_passID )
+                @if(Request::route()->getName() == page_update_so || Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use || Request::route()->getName() == landing_page_passID )
 {{--                @if(isset($request->Status_App) && $request->Status_App == resubmission || Request::route()->getName() == default_alter_term_use )--}}
                     <a  href="{{ url('/landing_page') }}">
                         <img src="{{URL::asset('/img/logo.png')}}" style="width: 75%;">
