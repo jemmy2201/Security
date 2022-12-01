@@ -44,7 +44,7 @@ if (!function_exists('search_nric_private')) {
      */
     function search_nric_private($nric)
     {
-        $a=array("a"=>"S0221002N","b"=>"S1718365F","c"=>"S7278599A","d"=>"S1354898F","d"=>"S3002114B");
+        $a=array("a"=>"S0221002N","b"=>"S1718365F","c"=>"S7278599A","d"=>"S1354898F","d"=>"S3002114B","e"=>"A4444444Z");
 
         return array_search($nric,$a);
     }
