@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use Jenssegers\Agent\Agent;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
+use PDF;
 
 class SuperUserController extends Controller
 {
@@ -939,7 +940,7 @@ class SuperUserController extends Controller
     public function cancel_payment(Request $request,$app_type,$card){
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $this->ClearDataDraft($request);
-        return redirect()->route('landing_page');
+        return redirect()->route('home');
     }
     public function book_appointment(Request $request)
     {
@@ -996,6 +997,7 @@ class SuperUserController extends Controller
         }
         $booking_schedule = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->where(['booking_schedules.nric' => Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
         $request->merge(['app_type' => $booking_schedule->app_type]);
+
         if ($booking_schedule->grade_id == null){
             $transaction_amount = transaction_amount::where(['app_type'=>$booking_schedule->app_type,'card_type'=>$booking_schedule->card_id])->first();
 //                foreach (json_decode($booking_schedule->grade_id) as $f){
@@ -1032,7 +1034,7 @@ class SuperUserController extends Controller
 //        Storage::put('public/img/img_users/invoice/'.$name_file,$content) ;
             file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
 
-            return redirect('/landing_page');
+            return redirect('/home');
         }
         // Update Session
         $value_gst = ($gst->amount_gst/100)*$transaction_amount->transaction_amount;
@@ -1102,7 +1104,7 @@ class SuperUserController extends Controller
         }
 
         $schedule = booking_schedule::where(['nric' => Session::get('nric_origin')])->first();
-        return redirect()->route('landing_page');
+        return redirect()->route('home');
 //        return Redirect::route('after.payment', $request->card);
     }
     protected  function ClearDataDraft($request){
@@ -1999,6 +2001,6 @@ class SuperUserController extends Controller
 //                'updated_at' => now(),
             ]);
 
-        return redirect()->route('landing_page');
+        return redirect()->route('home');
     }
 }

@@ -119,6 +119,15 @@ Route::get('/super/user/back/submission/{app_type}/{card}/{Cgrades}','Super_user
 Route::post('/super/user/replacement/personal/particular', 'Super_user\SuperUserController@replacement_personaldata')->name('super_user.replacement.personal.particular');
 Route::post('/super/user/renewal/personal/particular', 'Super_user\SuperUserController@renewal_personaldata');
 
+// Check Payment
+Route::post('/super/user/check_payment', 'Super_user\SuperUserController@check_payment');
+// End Check Payment
+// create number transaction
+Route::post('/super/user/create_receiptno', 'Super_user\SuperUserController@create_receiptno');
+// end create number transaction
+// save data barcode paynow
+Route::post('/super/user/save_barcode_paynow', 'Super_user\SuperUserController@save_barcode_paynow');
+// end save data barcode paynow
 // get history continous
 Route::get('/super/user/history/book/appointment/{app_type}/{card}', 'Super_user\SuperUserController@HistoryBookAppointment');
 Route::get('/super/user/history/book/payment/{app_type}/{card}', 'Super_user\SuperUserController@HistoryViewPayment');

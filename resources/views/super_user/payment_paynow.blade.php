@@ -980,7 +980,7 @@
 <script>
     if({!!  json_encode($booking_schedule->mobileno) !!} == "65" || {!!  json_encode($booking_schedule->mobileno) !!} == null ){
         swal("Attention!", "Please update your phone number, the system will redirect you to the start page", "error")
-        setTimeout(function(){ window.location.href = "{{URL::to('landing_page')}}" }, 9000);
+        setTimeout(function(){ window.location.href = "{{URL::to('home')}}" }, 9000);
 
     }
     //refresh page on browser resize
@@ -1032,11 +1032,11 @@
 
     function handling_error_ajax() {
         swal("Error!", "The system will refresh the page now.", "error")
-        setTimeout(location.reload(), 10000);
+        // setTimeout(location.reload(), 10000);
     }
     function SaveBarcodePaynow(QRstring) {
         $.ajax({
-            url: "{{ url('/save_barcode_paynow') }}",
+            url: "{{ url('/super/user/save_barcode_paynow') }}",
             type: 'POST',
             /* send the csrf-token and the input to the controller */
             data: {
@@ -1077,7 +1077,7 @@
             $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
                 $.ajax({
-                    url: "{{ url('/check_payment') }}",
+                    url: "{{ url('/super/user/check_payment') }}",
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {
@@ -1089,7 +1089,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else {
                             $.ajax({
-                                url: "{{ url('/create_receiptno') }}",
+                                url: "{{ url('/super/user/create_receiptno') }}",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
@@ -1143,7 +1143,7 @@
             $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $.ajax({
-                    url: "{{ url('/check_payment') }}",
+                    url: "{{ url('/super/user/check_payment') }}",
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {
@@ -1155,7 +1155,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else{
                             $.ajax({
-                                url: "{{ url('/create_receiptno') }}",
+                                url: "{{ url('/super/user/create_receiptno') }}",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
@@ -1200,7 +1200,7 @@
         $("#enets").click(function() {
             if ($("input[name='understand_transaction']:checked").val()) {
                 $.ajax({
-                    url: "{{ url('/check_payment') }}",
+                    url: "{{ url('/super/user/check_payment') }}",
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {
@@ -1212,7 +1212,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else{
                             $.ajax({
-                                url: "<?php echo e(url('/create_receiptno')); ?>",
+                                url: "<?php echo e(url('/super/user/create_receiptno')); ?>",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
@@ -1239,7 +1239,7 @@
         $("#phone_enets").click(function() {
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $.ajax({
-                    url: "{{ url('/check_payment') }}",
+                    url: "{{ url('/super/user/check_payment') }}",
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {
@@ -1251,7 +1251,7 @@
                             $( "#check_payment").trigger( "click" );
                         }else{
                             $.ajax({
-                                url: "<?php echo e(url('/create_receiptno')); ?>",
+                                url: "<?php echo e(url('/super/user/create_receiptno')); ?>",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {

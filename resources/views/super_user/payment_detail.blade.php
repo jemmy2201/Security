@@ -980,7 +980,7 @@
 <script>
     if({!!  json_encode($booking_schedule->mobileno) !!} == "65" || {!!  json_encode($booking_schedule->mobileno) !!} == null ){
         swal("Attention!", "Please update your phone number, the system will redirect you to the start page", "error")
-        setTimeout(function(){ window.location.href = "{{URL::to('super_user.landing_page')}}" }, 9000);
+        setTimeout(function(){ window.location.href = "{{URL::to('home')}}" }, 9000);
 
     }
     //refresh page on browser resize
