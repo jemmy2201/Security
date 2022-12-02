@@ -147,18 +147,18 @@ Route::get('/user/cancel/payment/{app_type}/{card}', 'Super_user\SuperUserContro
 
 Route::prefix('ajax')->group(function () {
     // check file page home
-    Route::post('/check/file/home', 'AjaxSuperUserController@check_file_home')->name('check_file_home');
+    Route::post('/check/file/home', 'Super_user\AjaxSuperUserController@check_file_home')->name('check_file_home');
     // End check file page home
-    Route::get('super/user/cek/data/from', 'AjaxController@cek_data_from');
-    Route::get('super/user/cek/card/type', 'AjaxController@cek_card_type');
-    Route::post('super/user/cek/data/limit/schedule', 'AjaxController@cek_limit_schedule');
-    Route::post('super/user/cek/data/schedule', 'AjaxController@cek_data_schedule');
-    Route::get('super/user/download/excel/schedule', 'AjaxController@schedule');
-    Route::get('super/user/download/excel/template/grade', 'AjaxController@download_template_grade');
-    Route::post('super/user/delete/process', 'AjaxController@delete_process')->name('super.users.delete.process');
-    Route::post('super/user/sent/activation/phone', 'AjaxController@sent_activation_phone');
-    Route::post('super/user/check/activation', 'AjaxController@check_activation');
-    Route::post('super/user/check/passID', 'AjaxController@check_passID');
+    Route::get('super/user/cek/data/from', 'Super_user\AjaxSuperUserController@cek_data_from');
+    Route::get('super/user/cek/card/type', 'Super_user\AjaxSuperUserController@cek_card_type');
+    Route::post('super/user/cek/data/limit/schedule', 'Super_user\AjaxSuperUserController@cek_limit_schedule');
+    Route::post('super/user/cek/data/schedule', 'Super_user\AjaxSuperUserController@cek_data_schedule');
+    Route::get('super/user/download/excel/schedule', 'Super_user\AjaxSuperUserController@schedule');
+    Route::get('super/user/download/excel/template/grade', 'Super_user\AjaxSuperUserController@download_template_grade');
+    Route::post('super/user/delete/process', 'Super_user\AjaxSuperUserController@delete_process')->name('super.users.delete.process');
+    Route::post('super/user/sent/activation/phone', 'Super_user\AjaxSuperUserController@sent_activation_phone');
+    Route::post('super/user/check/activation', 'Super_user\AjaxSuperUserController@check_activation');
+    Route::post('super/user/check/passID', 'Super_user\AjaxSuperUserController@check_passID');
 });
 
 

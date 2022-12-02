@@ -50,8 +50,10 @@ class SuperUserController extends Controller
             $passid = Session::get('passID');
         }
         $cek_del_schedule = booking_schedule::where(['passid'=>$passid])->get();
-
         Session::put('nric_origin', $cek_del_schedule[0]->nric);
+        $user = User::where(['nric' => Session::get('nric_origin')])->first();
+        Session::put('mobile', $user->mobile);
+        Session::put('id_origin', $user->id);
 
         // Delete data if not payment 3 month
         foreach ($cek_del_schedule as $f) {
@@ -1722,11 +1724,11 @@ class SuperUserController extends Controller
 
             $booking_schedule = booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])->first();
 
-            $imageName =$booking_schedule->passid . '' . substr(Session::get('nric_origin'), -4) . '.' . $request->upload_profile->getClientOriginalExtension();
+            $imageName =$booking_schedule->passid . '' . substr(secret_decode($booking_schedule->nric), -4) . '.' . $request->upload_profile->getClientOriginalExtension();
 
             $request->upload_profile->move(public_path('img/img_users'), $imageName);
 
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
             $UpdateUser->photo = $imageName;
 
@@ -1793,7 +1795,7 @@ class SuperUserController extends Controller
     protected function UpdateUsers($request){
         if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
 //            if(isset($request['email']) && isset($request['mobileno']) && isset($request['wpexpirydate']) && !empty($request['email']) && !empty($request['mobileno'] && !empty($request['wpexpirydate']))){
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
 //        $UpdateUser->homeno = $request['homeno'];
 
@@ -1808,7 +1810,7 @@ class SuperUserController extends Controller
             $UpdateUser->save();
         }elseif(isset($request['email']) && isset($request['mobileno'])  && !empty($request['email']) && !empty($request['mobileno'] )){
 //        }elseif(isset($request['email']) && isset($request['mobileno'])  && !empty($request['email']) && !empty($request['mobileno'] )){
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
 //        $UpdateUser->homeno = $request['homeno'];
 
@@ -1821,7 +1823,7 @@ class SuperUserController extends Controller
             $UpdateUser->save();
         }elseif(!empty($request['email'])) {
 //    }elseif(!empty($request['homeno'])) {
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
 //        $UpdateUser->homeno = $request['homeno'];
 
@@ -1830,14 +1832,14 @@ class SuperUserController extends Controller
             $UpdateUser->save();
         }elseif (!empty($request['mobileno'])){
 
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
 //         $UpdateUser->mobileno = $request['mobileno'];
             $UpdateUser->mobileno = $request['mobileno'];
 
             $UpdateUser->save();
         }elseif (!empty($request['wpexpirydate'])){
-            $UpdateUser = User::find(Auth::id());
+            $UpdateUser = User::find(Session::get('id_origin'));
 
             $UpdateUser->wpexpirydate = $request['wpexpirydate'];
 
@@ -1882,7 +1884,7 @@ class SuperUserController extends Controller
                     $mobileno = $request->view_mobileno;
                 }
             }else{
-                $RealPhone = User::where(['id'=>Auth::id()])->first();
+                $RealPhone = User::where(['id'=>Session::get('nric_origin')])->first();
                 $mobileno = $RealPhone->mobileno;
             }
             $originData = array(
@@ -1904,8 +1906,7 @@ class SuperUserController extends Controller
                 "mobileno" => $Phonemobileno
             );
         }
-        $personal = User::where(['id'=>Auth::id()])->first();
-
+        $personal = User::where(['id'=>Session::get('id_origin')])->first();
         $result=array_diff($originData,$personal->toArray());
 
         return $result;

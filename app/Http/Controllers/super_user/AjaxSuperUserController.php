@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Session;
 
 class AjaxSuperUserController extends Controller
 {
@@ -1336,7 +1337,7 @@ class AjaxSuperUserController extends Controller
             $phone = wrong_format_number;
         }
         if ($phone[0] == "6" || $phone[1] == "5") {
-            if (Auth::user()->mobileno == $phone){
+            if (Session::get('nric_origin') == $phone){
                 $response = same_number_phone;
             }else {
                 $response = $this->gw_send_sms($activation, $phone);

@@ -294,7 +294,7 @@
                 Confirm your mobile entered is correct,select "Get OTP" else select Cancel to re-input your mobile number
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="get_otp" data-dismiss="modal">Get OTP</button>
+                <button class="btn btn-primary" id="get_otp" data-dismiss="modal">Get OTP</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
