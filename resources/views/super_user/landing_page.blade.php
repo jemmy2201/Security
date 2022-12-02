@@ -14,10 +14,10 @@
     <div class="container">
         @if($passID != 'null')
             @php
-                Session::put('passID', $passID);
+                Session::put('passID', $passID->passid);
             @endphp
         @endif
-            <p><b>Welcome {{ ($passID != 'null')? $passID:Session::get('passID')}}</b></p><br>
+            <p><b>Welcome {{ ($passID->passid != 'null')? substr($passID->passid, 0, -2):substr(Session::get('passID'), 0, -2)}}</b></p><br>
         {{--First design--}}
 {{--    <p style="color: #808080;">My Application Type</p>--}}
 {{--    <div class="container">--}}

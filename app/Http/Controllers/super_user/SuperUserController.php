@@ -49,20 +49,20 @@ class SuperUserController extends Controller
         }else{
             $passid = Session::get('passID');
         }
-        $cek_del_schedule = booking_schedule::where(['passid'=>$passid])->get();
-        Session::put('nric_origin', $cek_del_schedule[0]->nric);
+        $cek_del_schedule = booking_schedule::Where('passid', 'like', '%' . $passid . '%')->first();
+        Session::put('nric_origin', $cek_del_schedule->nric);
         $user = User::where(['nric' => Session::get('nric_origin')])->first();
         Session::put('mobile', $user->mobile);
         Session::put('id_origin', $user->id);
 
         // Delete data if not payment 3 month
-        foreach ($cek_del_schedule as $f) {
-            $cek_Month = $this->cek_month($f->appointment_date);
+//        foreach ($cek_del_schedule as $f) {
+            $cek_Month = $this->cek_month($cek_del_schedule->appointment_date);
             if ($cek_Month == three_month) {
-                $del_schedule = booking_schedule::find($f->id);
+                $del_schedule = booking_schedule::find($cek_del_schedule->id);
                 $del_schedule->delete();
             }
-        }
+//        }
         // End Delete data if not payment 3 month
         $schedule = booking_schedule::where(['nric' => Session::get('nric_origin')])->whereNotIn('Status_app', [completed])->get();
 //        $cekStatusUser = booking_schedule::where(['nric' => Session::get('nric_origin')])->get();
@@ -71,7 +71,7 @@ class SuperUserController extends Controller
 
         $sertifikat = sertifikat::where(['nric' => Session::get('nric_origin')])->orderBy('id', 'desc')->get();
 
-        $new = booking_schedule::where(['nric' => Session::get('nric_origin'),'app_type'=>news,'passid'=>$request->passid])->where('Status_app', '=', null)
+        $new = booking_schedule::where(['nric' => Session::get('nric_origin'),'app_type'=>news,'passid'=>$cek_del_schedule->passid])->where('Status_app', '=', null)
             ->orderBy('card_id', 'asc')->get();
         $next_new = booking_schedule::where(['nric' => Session::get('nric_origin'),'app_type'=>news])->where('Status_app', '=', completed)
             ->orderBy('card_id', 'asc')->get();
@@ -177,7 +177,7 @@ class SuperUserController extends Controller
         // End card issue
 
         return view('super_user/landing_page')->with(["card_issue" => $card_issue,"schedule" => $schedule, "sertifikat" => $sertifikat, "grade" => $grade,"new" => $new,
-            "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser,"passID"=>$request->passid]);
+            "replacement" => $replacement, "renewal" => $renewal,"cekStatusUser" => $cekStatusUser,"passID"=>$cek_del_schedule]);
     }
 
     public function personaldata(Request $request)

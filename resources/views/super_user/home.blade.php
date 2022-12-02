@@ -55,7 +55,7 @@
             $('#next').on('click', function () {
                 if ($('#passid').val()) {
                     $.ajax({
-                        url: "{{ url('/ajax/check/passID') }}",
+                        url: "{{ url('/ajax/super/user/check/passID') }}",
                         type: 'POST',
                         /* send the csrf-token and the input to the controller */
                         data: {_token: $('meta[name="csrf-token"]').attr('content'), passid:$('#passid').val()},

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Session;
-
+use Response;
 class AjaxSuperUserController extends Controller
 {
     public function __construct()
@@ -1406,8 +1406,8 @@ class AjaxSuperUserController extends Controller
     }
     public function check_passID(Request $request)
     {
-        $cek_passid = booking_schedule::where(['passid'=>$request->passid])->get();
-        if (count($cek_passid) >0){
+        $cek_passid = booking_schedule::Where('passid', 'like', '%' . $request->passid . '%')->first();
+        if ($cek_passid){
             return Response::json(['massages' => true],200);
         }else{
             return response::json(['massages' => false],200);
