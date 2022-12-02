@@ -143,7 +143,7 @@ Route::get('/super/user/update_so', 'HomeController@ui_update_so')->name('super_
 Route::post('/super/user/action/update_so', 'HomeController@action_update_so')->name('super_user.action.update_so');
 //End Update SO
 
-Route::get('/user/cancel/payment/{app_type}/{card}', 'Super_user\SuperUserController@cancel_payment');
+Route::get('/super/user/cancel/payment/{app_type}/{card}', 'Super_user\SuperUserController@cancel_payment');
 
 Route::prefix('ajax')->group(function () {
     // check file page home
