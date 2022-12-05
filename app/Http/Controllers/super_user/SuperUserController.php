@@ -994,7 +994,7 @@ class SuperUserController extends Controller
     public function View_payment(Request $request,$get_paynow = false)
     {
         $check_=booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])->first();
-        if (empty($check_->receiptNo)) {
+        if (!empty($check_->receiptNo)) {
             $this->UpdateBookingScheduleAppointment($request);
         }
         $booking_schedule = booking_schedule::leftjoin('users', 'booking_schedules.nric', '=', 'users.nric')->where(['booking_schedules.nric' => Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
@@ -1120,7 +1120,7 @@ class SuperUserController extends Controller
                     'trans_date' => null,
                     'paymentby' => null,
                     'status_payment' => null,
-                    'receiptNo' => null,
+//                    'receiptNo' => null,
                     'appointment_date' => null,
                     'time_start_appointment' => null,
                     'time_end_appointment' => null,
@@ -1493,7 +1493,7 @@ class SuperUserController extends Controller
 //                    'transaction_amount_id' => null,
 //                    'grand_total' => null,
                     'paymentby' => null,
-                    'receiptNo' => null,
+//                    'receiptNo' => null,
                     'status_payment' => null,
                     'nric' => Session::get('nric_origin'),
                     'TR_RTT' => $TR_RTT,
@@ -1524,7 +1524,7 @@ class SuperUserController extends Controller
 //                    'grand_total' => null,
                     'paymentby' => null,
                     'status_payment' => null,
-                    'receiptNo' => null,
+//                    'receiptNo' => null,
                     'nric' => Session::get('nric_origin'),
                     'TR_RTT' => $TR_RTT,
                     'TR_CSSPB' => $TR_CSSPB,
@@ -1554,7 +1554,7 @@ class SuperUserController extends Controller
                     'grand_total' => null,
                     'paymentby' => null,
                     'status_payment' => null,
-                    'receiptNo' => null,
+//                    'receiptNo' => null,
                     'nric' => Session::get('nric_origin'),
                     'TR_RTT' => $TR_RTT,
                     'TR_CSSPB' => $TR_CSSPB,
