@@ -240,6 +240,7 @@ define('LocalHost', "http://localhost:8000");
 //Uat
 
 define('authApiUrlUat', "https://stg-id.singpass.gov.sg/token");
+define('auth_req_idUrlUat', "https://stg-id.singpass.gov.sg/bc-auth");
 define('urlsigUat', "http://www.idx-id2021.com/private/sig/jwks");
 define('urlecUat', "http://www.idx-id2021.com/private/ec/jwks");
 define('urlpublicsigUat', "http//www.idx-id2021.com/public/sig/jwks");
@@ -259,6 +260,7 @@ define('audUat', "https://stg-id.singpass.gov.sg");
 
 // Prod
 define('authApiUrlProd', "https://id.singpass.gov.sg/token");
+define('auth_req_idUrlProd', "https://id.singpass.gov.sg/bc-auth");
 define('urlsigProd', "https://www.iduse.org.sg/private/sig/jwks");
 define('urlpublicsigProd', "https://www.iduse.org.sg/public/sig/jwks");
 define('urlprivatecsigProd', "https://www.iduse.org.sg/private/sig/jwks");

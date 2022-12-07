@@ -192,7 +192,38 @@ class SingpassController extends Controller
 
     }
 
-    public static function id_token($jwt,$code)
+    public static function auth_req_id($jwt,$code)
+    {
+        if (detect_url() == URLUat){
+            $authApiUrl = auth_req_idUrlUat;
+        }elseif (detect_url() == URLProd){
+            $authApiUrl = auth_req_idUrlProd;
+        }else{
+            $authApiUrl = auth_req_idUrlUat;
+        }
+
+        $data = 'client_assertion='.$jwt.'&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&scope=openid&login_hint=S1234567A';
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,$authApiUrl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
+            $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1'));
+
+
+        // receive server response ...
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec ($ch);
+
+        curl_close ($ch);
+
+        return $response;
+    }
+
+    public static function id_token($jwt,$code,$auth_req_id)
     {
         if (detect_url() == URLUat){
             $authApiUrl = authApiUrlUat;
@@ -211,7 +242,8 @@ class SingpassController extends Controller
             $host = hostUat;
         }
 
-        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
+//        $data = 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'&client_id='.$clientIdSinpass.'&grant_type=authorization_code&redirect_uri='.$redirectUrlSingpassCurl.'&code='.$code.'';
+        $data = 'auth_req_id='.$auth_req_id.'&grant_type=urn:openid:params:grant-type:ciba&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion='.$jwt.'';
 
         $ch = curl_init();
 
@@ -219,7 +251,8 @@ class SingpassController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
+//        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1','Host :'.$host.''));
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array('Content-Type: application/x-www-form-urlencoded','Accept-Charset : ISO-8859-1'));
 
 
         // receive server response ...
@@ -407,7 +440,9 @@ class SingpassController extends Controller
     {
         $jwt = static::private_key_jwt();
 
-        $response = static::id_token($jwt,$request->code);
+        $auth_req_id = static::auth_req_id($jwt);
+
+        $response = static::id_token($jwt,$request->code,$auth_req_id);
 
 //        if (detect_url() == URLUat){
             $data = json_decode($response)->id_token;
