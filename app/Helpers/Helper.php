@@ -51,6 +51,50 @@ if (!function_exists('search_nric_private')) {
 
 }
 
+if (!function_exists('GetNonce')) {
+    /**
+     * Group array of : key => Group Title
+     * @param array $exclude
+     * @return array
+     */
+    function GetNonce()
+    {
+        $data = $data ?? random_bytes(16);
+        assert(strlen($data) == 16);
+
+        // Set version to 0100
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        // Set bits 6-7 to 10
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+        // Output the 36 character UUID.
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+}
+
+if (!function_exists('GetState')) {
+    /**
+     * Group array of : key => Group Title
+     * @param array $exclude
+     * @return array
+     */
+    function GetState()
+    {
+        $data = $data ?? random_bytes(16);
+        assert(strlen($data) == 16);
+
+        // Set version to 0100
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        // Set bits 6-7 to 10
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+        // Output the 36 character UUID.
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+}
+
 if (!function_exists('secret_encode')) {
     /**
      * Group array of : key => Group Title

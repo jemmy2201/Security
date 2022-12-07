@@ -165,10 +165,10 @@
 {{--                                        <div id="ndi-qr"></div>--}}
                                         {{-- End QR Code --}}
                                         @if(detect_url() == URLUat || detect_url() == LocalHost)
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state={{GetState()}}&nonce={{GetNonce()}}">
                                                 <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
                                             </a>
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state={{GetState()}}&nonce={{GetNonce()}}">
                                                 <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
                                             </a>
 
