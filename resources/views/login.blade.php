@@ -164,29 +164,21 @@
                                         {{-- QR Code --}}
 {{--                                        <div id="ndi-qr"></div>--}}
                                         {{-- End QR Code --}}
-                                        @if(detect_url() == URLUat || detect_url() == LocalHost)
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">
-                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
-                                            </a>
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">
-                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
-                                            </a>
-
-{{--                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state={{GetState()}}&nonce={{GetNonce()}}">--}}
+{{--                                        @if(detect_url() == URLUat || detect_url() == LocalHost)--}}
+{{--                                            <a id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">--}}
 {{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
 {{--                                            </a>--}}
-{{--                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state={{GetState()}}&nonce={{GetNonce()}}">--}}
+{{--                                            <a  id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">--}}
 {{--                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>--}}
 {{--                                            </a>--}}
-
-                                        @else
-                                            <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+{{--                                        @else--}}
+                                            <a id="btnsingpassProd" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
                                                 <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
                                             </a>
-                                            <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                            <a id="btnsingpassphonePro" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
                                                 <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
                                             </a>
-                                        @endif
+{{--                                        @endif--}}
                                         <center>
                                             {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
                                             @if(isset($type_dummy) && $type_dummy == dummy)
@@ -285,21 +277,21 @@
                                         </center>
                                         {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
     {{--                                    <div id="ndi-qr"></div>--}}
-                                        @if(detect_url() == URLUat || detect_url() == LocalHost)
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+{{--                                        @if(detect_url() == URLUat || detect_url() == LocalHost)--}}
+{{--                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
+{{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
+{{--                                            </a>--}}
+{{--                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
+{{--                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>--}}
+{{--                                            </a>--}}
+{{--                                        @else--}}
+                                            <a id="btnsingpassUat" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
                                                 <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
                                             </a>
-                                            <a href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                            <a id="btnsingpassphoneUat" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
                                                 <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
                                             </a>
-                                        @else
-                                            <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
-                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
-                                            </a>
-                                            <a href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
-                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
-                                            </a>
-                                        @endif
+{{--                                        @endif--}}
                                         <center>
                                             {{--                                    <p>Don't have Singapass app?<a href="https://app.singpass.gov.sg/" target="_blank">Download now</a></p>--}}
                                             @if(isset($type_dummy) && $type_dummy == dummy)
@@ -430,6 +422,35 @@
     @endphp
     <script>
         $( document ).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                url: "{{route('check.maintenance')}}",
+                success: function(data,textStatus, xhr)
+                {
+                    if (data[0]['status'] == true){
+                        swal("Attention!", data[0]['text_dialog'], "info");
+                        $('#btnsingpassUat').attr('hidden', true);
+                        $('#btnsingpassphoneUat').attr('hidden', true);
+                        $('#btnsingpassProd').attr('hidden', true);
+                        $('#btnsingpassphonePro').attr('hidden', true);
+                    }
+                }, error: function(data,textStatus, xhr){
+                    // Error...
+                    var errors = $.parseJSON(data.responseText);
+                    $.each(errors, function(index, value) {
+                            swal("Attention!", value, "error")
+                    });
+
+                }
+            });
+
             $( "#closes" ).click(function() {
                 $( "#relogin" ).trigger( "click" );
             });
