@@ -162,15 +162,15 @@
                                         {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
 
                                         {{-- QR Code --}}
-                                        <div id="ndi-qr"></div>
+{{--                                        <div id="ndi-qr"></div>--}}
                                         {{-- End QR Code --}}
 {{--                                        @if(detect_url() == URLUat || detect_url() == LocalHost)--}}
-{{--                                            <a id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">--}}
-{{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
-{{--                                            </a>--}}
-{{--                                            <a  id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">--}}
-{{--                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>--}}
-{{--                                            </a>--}}
+                                            <a id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">
+                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
+                                            </a>
+                                            <a  id="btnsingpasss" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionNonce">
+                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
+                                            </a>
 {{--                                        @else--}}
 {{--                                            <a id="btnsingpassProd" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
 {{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
@@ -276,14 +276,14 @@
                                             {{--                                    <h4>to log in</h4>--}}
                                         </center>
                                         {{--                                <img src="{{URL::asset('/img/barcode_singpass.png')}}" style="width: 99%;">--}}
-                                        <div id="ndi-qr"></div>
+{{--                                        <div id="ndi-qr"></div>--}}
 {{--                                        @if(detect_url() == URLUat || detect_url() == LocalHost)--}}
-{{--                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
-{{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
-{{--                                            </a>--}}
-{{--                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
-{{--                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>--}}
-{{--                                            </a>--}}
+                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>
+                                            </a>
+                                            <a id="btnsingpass" href="https://stg-id.singpass.gov.sg/auth?client_id={{clientIdSinpassUat}}&redirect_uri={{redirectUrlSingpassUat}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">
+                                                <button type="button" class="btn btn-danger btn-lg visible-xs hidden-md">Login SingPass</button>
+                                            </a>
 {{--                                        @else--}}
 {{--                                            <a id="btnsingpassUat" href="https://id.singpass.gov.sg/auth?client_id={{clientIdSinpassProd}}&redirect_uri={{redirectUrlSingpassProd}}&scope=openid&response_type=code&state=dummySessionState&nonce=dummySessionState">--}}
 {{--                                                <button type="button" class="btn btn-danger btn-lg hidden-xs" style="margin-top: 60px">Login SingPass</button>--}}
