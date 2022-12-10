@@ -511,12 +511,7 @@ class SingpassController extends Controller
                     }else{
                         $existingUser = User::where('nric',secret_encode($sub))->first();
                         auth()->login($existingUser, true);
-                        $nric = search_nric_private(secret_decode(secret_encode($sub)));
-                        if ($nric){
-                            return redirect()->to('/super_user/home');
-                        }else{
-                            return redirect()->to('/home');
-                        }
+                        return redirect()->to('/home');
                     }
                 }
             } else{
