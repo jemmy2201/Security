@@ -734,7 +734,7 @@ class AjaxController extends Controller
         $existingUser = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where('users.nric',$request->nric)->get();
         foreach ($existingUser as $f) {
-            $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 1 months'));
+            $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
             if (Carbon::today()->toDateString() >= $expired_date) {
                 return Response::json(['error' => success_check,'massages' => expired_less_1month],200);
             }
