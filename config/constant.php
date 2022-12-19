@@ -369,4 +369,4 @@ define('version_chrome', 102);
 // end version chorem
 define('login', 1);
 
-define('expired_less_1month', "Expires less than 1 month");
+define('expired_less_3month', "Expires less than 3 month");

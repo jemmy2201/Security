@@ -47,7 +47,7 @@ trait AuthenticatesUsers
             $this->incrementLoginAttempts($request);
             return $this->sendFailedLoginResponse($request);
         }
-        if ($request->type_login == non_barcode && empty($request->singpass_id) && empty($request->password)){
+        if ($request->type_login == login && empty($request->singpass_id) && empty($request->password)){
 
             $this->validateLogin($request);
         }
@@ -64,8 +64,8 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-                $encode = secret_encode("A4444444Z");
-//                $decode = secret_decode($encode);
+                $encode = secret_encode("S1354898F");
+                $decode = secret_decode("T0ZkRHhhL1gyeFpJZ1Iyb0FYUGVVQT09");
 //                die($encode);
                 // dummy api
                 $dummy_api = User::where('nric', secret_encode( $request->singpass_id ))->first();
@@ -74,6 +74,12 @@ trait AuthenticatesUsers
                     $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                         ->where('users.nric', secret_encode( $request->singpass_id ))->get();
                     foreach ($data as $f) {
+                        // Less 3 month
+                        $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
+                        if (Carbon::today()->toDateString() >= $expired_date) {
+                            return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+                        }
+                        // End Less 3 month
                         if ($f->card_id == so_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                             $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                                 ->where(function ($query) {

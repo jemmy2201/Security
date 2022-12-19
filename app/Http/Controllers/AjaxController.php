@@ -736,7 +736,7 @@ class AjaxController extends Controller
         foreach ($existingUser as $f) {
             $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
             if (Carbon::today()->toDateString() >= $expired_date) {
-                return Response::json(['error' => success_check,'massages' => expired_less_1month],200);
+                return Response::json(['error' => success_check,'massages' => expired_less_3month],200);
             }
         }
     }

@@ -485,6 +485,12 @@ class SingpassController extends Controller
 
             if(count($existingUser) > 0) {
                 foreach ($existingUser as $f) {
+                    // Less 3 month
+                    $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
+                    if (Carbon::today()->toDateString() >= $expired_date) {
+                        return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+                    }
+                    // End Less 3 month
                     if ($f->card_id == so_app && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                         $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
                             ->where(function ($query) {

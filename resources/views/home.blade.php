@@ -198,26 +198,26 @@
             $dateA = str_replace(',', '', $dateA);
             $dateB = str_replace(',', '', $dateB);
         @endphp
-        $.ajax({
-            type: "POST",
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), nric:{!!  json_encode(Auth::user()->nric) !!}},
-            url: "{{route('check.expired.card')}}",
-            success: function(data,textStatus, xhr)
-            {
-                if(data['error'] == {!!  json_encode(success_check) !!}){
-                    swal("Attention!", data['massages'], "info")
-                }
+        {{--$.ajax({--}}
+        {{--    type: "POST",--}}
+        {{--    data: {_token: $('meta[name="csrf-token"]').attr('content'), nric:{!!  json_encode(Auth::user()->nric) !!}},--}}
+        {{--    url: "{{route('check.expired.card')}}",--}}
+        {{--    success: function(data,textStatus, xhr)--}}
+        {{--    {--}}
+        {{--        if(data['error'] == {!!  json_encode(success_check) !!}){--}}
+        {{--            swal("Attention!", data['massages'], "info")--}}
+        {{--        }--}}
 
-            }, error: function(data,textStatus, xhr){
-                // Error...
-                var errors = $.parseJSON(data.responseText);
-                $.each(errors, function(index, value) {
-                    if (value == {!!  json_encode(file_wrong) !!} || value == {!!  json_encode(file_contents) !!} || value == {!!  json_encode(wrong_file_contents) !!})
-                        swal("Attention!", value, "error")
-                });
+        {{--    }, error: function(data,textStatus, xhr){--}}
+        {{--        // Error...--}}
+        {{--        var errors = $.parseJSON(data.responseText);--}}
+        {{--        $.each(errors, function(index, value) {--}}
+        {{--            if (value == {!!  json_encode(file_wrong) !!} || value == {!!  json_encode(file_contents) !!} || value == {!!  json_encode(wrong_file_contents) !!})--}}
+        {{--                swal("Attention!", value, "error")--}}
+        {{--        });--}}
 
-            }
-        });
+        {{--    }--}}
+        {{--});--}}
 
 
         window.addEventListener('load', (event) => {
