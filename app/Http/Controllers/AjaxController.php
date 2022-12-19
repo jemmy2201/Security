@@ -729,6 +729,17 @@ class AjaxController extends Controller
 
         return $data;
     }
+    public function check_expired_card(Request $request)
+    {
+        $existingUser = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where('users.nric',$request->nric)->get();
+        foreach ($existingUser as $f) {
+            $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 1 months'));
+            if (Carbon::today()->toDateString() >= $expired_date) {
+                return Response::json(['error' => success_check,'massages' => expired_less_1month],200);
+            }
+        }
+    }
     public function upload_import_excel_grade(Request $request)
     {
         ini_set('max_execution_time', '300000000000000');

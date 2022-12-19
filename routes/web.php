@@ -230,6 +230,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/sent/activation/phone', 'AjaxController@sent_activation_phone');
     Route::post('/check/activation', 'AjaxController@check_activation');
     Route::post('/check/passID', 'AjaxController@check_passID');
+    Route::post('/check/expired/card', 'AjaxController@check_expired_card')->name('check.expired.card');
 
     // Check Maintenance
     Route::post('/check/maintenance', 'MaintenanceController@index')->name('check.maintenance');
