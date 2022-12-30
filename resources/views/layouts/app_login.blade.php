@@ -199,6 +199,38 @@
                 <!-- Copyright -->
             </footer>
 <!-- Footer -->
+<script type="application/javascript">
+    $( document ).ready(function() {
+        if(window.location.origin == {!!  json_encode(URLProd) !!}) {
+            // Disable inspect
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            function ctrlShiftKey(e, keyCode) {
+                return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+            }
+
+            document.onkeydown = (e) => {
+                // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
+                if (
+                    event.keyCode === 123 ||
+                    ctrlShiftKey(e, 'I') ||
+                    ctrlShiftKey(e, 'J') ||
+                    ctrlShiftKey(e, 'C') ||
+                    (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+                )
+                    return false;
+            };
+            // End Disable inpect
+        }
+        // var TextAreaName = document.getElementById('TextAreaName');
+        // TextAreaName.value = TextAreaName.value.replace(/^\s*|\s*$/g,'');
+        //
+        // var TextAreaNamePhone = document.getElementById('TextAreaNamePhone');
+        // TextAreaNamePhone.value = TextAreaNamePhone.value.replace(/^\s*|\s*$/g,'');
+
+    });
+
+</script>
 
 </body>
 </html>

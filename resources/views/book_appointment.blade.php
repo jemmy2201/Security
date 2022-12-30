@@ -475,6 +475,14 @@
                             }
                             span.classList.add('dissable');
                         }
+                    }else if ( date < c_date.getDate() && y > c_date.getFullYear() && m < c_date.getMonth()){
+                        var sevenDayHidden = c_date.getDate() - date - 9;
+                        if (date <= sevenDayHidden){
+                            if (d_m => sevenDayHidden){
+                                window.remainder_value = sevenDayHidden - d_m;
+                            }
+                            span.classList.add('dissable');
+                        }
                     }
 
                     {{--if({!!  json_encode($request->Status_app) !!} == {!!  json_encode(resubmission) !!}){--}}
