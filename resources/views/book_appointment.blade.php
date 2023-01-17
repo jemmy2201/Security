@@ -72,15 +72,6 @@
         /*animation: spin 2s linear infinite;*/
     }
     .loadingPage {
-        /*display:    none;*/
-        /*position:   fixed;*/
-        /*z-index:    1000;*/
-        /*top:        0;*/
-        /*left:       40%;*/
-        /*height:     60%;*/
-        /*width:      100%;*/
-        /*background: url("../img/loading.gif") no-repeat;*/
-
         display:    none;
         position:   fixed;
         z-index:    1000;
@@ -93,38 +84,6 @@
         50% 50%
         no-repeat
     }
-    /* Loading View */
-    /* Start by setting display:none to make this hidden.
-   Then we position it in relation to the viewport window
-   with position:fixed. Width, height, top and left speak
-   for themselves. Background we set to 80% white with
-   our animation centered, and no-repeating */
-    .modal {
-        display:    none;
-        position:   fixed;
-        z-index:    1000;
-        top:        0;
-        left:       0;
-        height:     100%;
-        width:      100%;
-        background: rgba( 255, 255, 255, .8 )
-        url('http://i.stack.imgur.com/FhHRx.gif')
-        50% 50%
-        no-repeat;
-    }
-
-    /* When the body has the loading class, we turn
-       the scrollbar off with overflow:hidden */
-    body.loading .modal {
-        overflow: hidden;
-    }
-
-    /* Anytime the body has the loading class, our
-       modal element will be visible */
-    body.loading .modal {
-        display: block;
-    }
-    /* End Loading View */
 </style>
 @section('content')
 <div class="container">
@@ -292,14 +251,14 @@
 </script>
 {{--End Can't back page --}}
 <script type="application/javascript">
-    {{-- View Loading --}}
 
-    {{-- End View Loading --}}
     $( document ).ready(function() {
+        {{-- Check jquery ready --}}
         $('.loadingPage').show();
         if ( jQuery.isReady ) {
             $('.loadingPage').hide();
         }
+        {{-- Check jquery ready --}}
         $('.loadingResubmit').hide();
         $( "#save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){

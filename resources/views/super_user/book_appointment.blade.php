@@ -71,6 +71,19 @@
         /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
         /*animation: spin 2s linear infinite;*/
     }
+    .loadingPage {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 )
+        url("../img/loading.gif")
+        50% 50%
+        no-repeat
+    }
 </style>
 @section('content')
 <div class="container">
@@ -134,6 +147,7 @@
                 </ul>
             </div>
             <div class="loadingResubmit"></div>
+            <div class="loadingPage"></div>
         </div>
     <br><br class="hidden-xs"><br class="hidden-xs">
     <div class="row">
@@ -238,6 +252,12 @@
 {{--End Can't back page --}}
 <script type="application/javascript">
     $( document ).ready(function() {
+        {{-- Check jquery ready --}}
+        $('.loadingPage').show();
+        if ( jQuery.isReady ) {
+            $('.loadingPage').hide();
+        }
+        {{-- Check jquery ready --}}
         $('.loadingResubmit').hide();
         $( "#save_book_appointment" ).click(function() {
             if ($("input[name='limit_schedule_id']:checked").val()){
