@@ -23,6 +23,7 @@ use Jenssegers\Agent\Agent;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
 use PDF;
+use Artisan;
 
 class SuperUserController extends Controller
 {
