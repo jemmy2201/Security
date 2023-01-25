@@ -466,7 +466,7 @@
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        // console.log('1')
+                        console.log('1')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -475,8 +475,8 @@
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
-                        // console.log('2')
-                        var sevenDayHidden = c_date.getDate() + 7;
+                        console.log('2')
+                        var sevenDayHidden = c_date.getDate() ;
                         if(m > 2 && y === c_date.getFullYear()){
 
                         }else {
@@ -488,7 +488,7 @@
                             }
                         }
                     }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        // console.log('3')
+                        console.log('3')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -497,6 +497,7 @@
                             span.classList.add('dissable');
                         }
                     }else if ( date < c_date.getDate() && y > c_date.getFullYear() && m < c_date.getMonth()){
+                        console.log('4')
                         var sevenDayHidden = c_date.getDate() - date - 9;
                         if (date <= sevenDayHidden){
                             if (d_m => sevenDayHidden){
