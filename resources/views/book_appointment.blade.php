@@ -476,7 +476,7 @@
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
                         console.log('2')
-                        var sevenDayHidden = c_date.getDate() ;
+                        var sevenDayHidden = c_date.getDate() + 4 ;
                         if(m > 2 && y === c_date.getFullYear()){
 
                         }else {
