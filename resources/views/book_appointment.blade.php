@@ -84,9 +84,64 @@
         50% 50%
         no-repeat
     }
+    @media (min-width :768px) {
+        .modal-dialog {
+            width: 968px !important;
+        }
+        .css_full_booking {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
+
+        #view_terms {
+            width: 900px;
+        }
+        #ViewFormUploadFile{
+            margin-top: 225px;
+        }
+    }
+    @media (min-width :576px) {
+        .css_full_booking {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
+        .modal-dialog {
+            max-width: 930px !important;
+        }
+        #view_terms {
+            width: 900px;
+        }
+
+    }
 </style>
 @section('content')
 <div class="container">
+    <button data-toggle="modal" data-target="#form_error_full_booking" style="display: none" id="error_full_booking"></button>
+    <div class="modal fade" id="form_error_full_booking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog css_full_booking" role="document">
+            <div class="modal-content">
+                {{--            <div class="modal-header">--}}
+                {{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+                {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                {{--                    <span aria-hidden="true">&times;</span>--}}
+                {{--                </button>--}}
+                {{--            </div>--}}
+                <div class="modal-body">
+                    <center style="color:red;">
+                        {{--                        <img src="{{ asset("img/Selfies_No.png") }}" style="width: 15%">--}}
+                        <h3>{!!  json_encode( full_booking) !!}</h3>
+                    {{--                        <b>Non-compliance</b> with the photo guideline including<br>--}}
+                    {{--                        "selfies" will result in your application being rejected.<br>--}}
+                    {{--                        This will delay your ID card collection.--}}
+                    {{--                    </center>--}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/4.png')}}" style="width: 100%;margin-bottom: 20px;">
     <center class="visible-xs hidden-md">
         <img  src="{{URL::asset('/img/img_step_proses/design_phone/4.png')}}" style="width: 80%;">
@@ -267,7 +322,8 @@
                     $(".resubmit").attr("disabled", true);
                     $('.loadingResubmit').show();
                 }
-                $( "#save_appointment" ).submit();
+                ChechkCountBooking()
+                // $( "#save_appointment" ).submit();
             }else{
                 swal("Error!", "No date/time slot selection.", "error")
             }
@@ -279,12 +335,28 @@
                     $(".resubmitphone").attr("disabled", true);
                     $('.loadingResubmit').show();
                 }
-                $( "#save_appointment" ).submit();
+                ChechkCountBooking()
+                // $( "#save_appointment" ).submit();
             }else{
                 swal("Error!", "No date/time slot selection.", "error")
             }
         });
     });
+    function ChechkCountBooking() {
+        $.ajax({
+            url: "{{ url('ajax/user/check/count/booking') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), view_date: $('#view_date').val(), limit_schedule_id: $("input[name='limit_schedule_id']:checked").val()},
+            success: function (data) {
+                if (data['error'] == false) {
+                    $("#save_appointment").submit();
+                }else {
+                    $("#error_full_booking").trigger("click");
+                }
+            }
+        });
+    }
 
     $(".logout_save_draft").click(function() {
         $("#logout_save_draft").val(true)

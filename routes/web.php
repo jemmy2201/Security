@@ -159,6 +159,9 @@ Route::prefix('ajax')->group(function () {
     Route::post('super/user/sent/activation/phone', 'Super_user\AjaxSuperUserController@sent_activation_phone');
     Route::post('super/user/check/activation', 'Super_user\AjaxSuperUserController@check_activation');
     Route::post('super/user/check/passID', 'Super_user\AjaxSuperUserController@check_passID');
+    // Check Count booking
+    Route::post('/super/user/check/count/booking', 'Super_user\AjaxSuperUserController@check_count_booking');
+   // End Check Count booking
 });
 
 
@@ -235,6 +238,9 @@ Route::prefix('ajax')->group(function () {
     // Check Maintenance
     Route::post('/check/maintenance', 'MaintenanceController@index')->name('check.maintenance');
     // End Check Maintenance
+    // Check Count booking
+    Route::post('/user/check/count/booking', 'AjaxController@check_count_booking');
+    // End Check Count booking
 });
 
 //Update SO
