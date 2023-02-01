@@ -129,7 +129,7 @@
                 <div class="modal-body">
                     <center style="color:red;">
                         {{--                        <img src="{{ asset("img/Selfies_No.png") }}" style="width: 15%">--}}
-                        <h3>{!!  json_encode( full_booking) !!}</h3>
+                        <h3>{!!  full_booking !!}</h3>
                     {{--                        <b>Non-compliance</b> with the photo guideline including<br>--}}
                     {{--                        "selfies" will result in your application being rejected.<br>--}}
                     {{--                        This will delay your ID card collection.--}}
@@ -302,10 +302,6 @@
             null
         };
     }
-
-</script>
-{{--End Can't back page --}}
-<script type="application/javascript">
     $( document ).ready(function() {
         {{-- Check jquery ready --}}
         $('.loadingPage').show();
@@ -340,6 +336,10 @@
             }
         });
     });
+
+</script>
+{{--End Can't back page --}}
+<script type="application/javascript">
     function ChechkCountBooking() {
         $.ajax({
             url: "{{ url('ajax/super/user/check/count/booking') }}",

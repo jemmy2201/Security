@@ -371,5 +371,5 @@ define('login', 1);
 
 define('expired_less_3month', "Expires less than 3 month");
 
-define('full_booking', "The number of participants has exceeded 20");
+define('full_booking', 'The number of participants has exceeded 20');
 define('count_booking', 20);
