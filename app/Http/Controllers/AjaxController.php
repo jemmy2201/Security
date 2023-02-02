@@ -1497,7 +1497,7 @@ class AjaxController extends Controller
                         // resubmission
 //                        $data .= ' <tr style="background-color:#FF0000">';
                         $data .= ' <tr>';
-                        if ($ls->amount == $ls->number_schedule) {
+                        if ($ls->amount == $ls->number_schedule || $ls->amount <= $ls->number_schedule) {
                             $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
                         } else {
                             if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
@@ -1506,13 +1506,17 @@ class AjaxController extends Controller
                                 $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" checked="checked">&ensp;&ensp;&ensp;' . $time . '</td>';
                             }
                         }
-                        $data .= '<td>' . $ls->number_schedule . '</td>';
+                        if ($ls->amount == $ls->number_schedule || $ls->amount <= $ls->number_schedule) {
+                            $data .= '<td>Fully Booked</td>';
+                        }else {
+                            $data .= '<td>' . $ls->number_schedule . '</td>';
+                        }
                         $data .= '<td>' . $ls->amount . '</td>>';
                         $data .= '</tr>';
                         // End resubmission
                     }else {
                         $data .= ' <tr>';
-                        if ($ls->amount == $ls->number_schedule) {
+                        if ($ls->amount == $ls->number_schedule || $ls->amount <= $ls->number_schedule) {
                             $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '" disabled>&ensp;&ensp;&ensp;' . $time . '</td>';
                         } else {
                             if ($eventDate == Carbon::today()->toDateString() && $ls->start_at < Carbon::now()->toTimeString()) {
@@ -1521,7 +1525,11 @@ class AjaxController extends Controller
                                 $data .= '<td> <input class="form-check-input" type="radio" name="limit_schedule_id" id="limit_schedule_id" value="' . $ls->id . '">&ensp;&ensp;&ensp;' . $time . '</td>';
                             }
                         }
-                        $data .= '<td>' . $ls->number_schedule . '</td>';
+                        if ($ls->amount == $ls->number_schedule || $ls->amount <= $ls->number_schedule) {
+                            $data .= '<td>Fully Booked</td>';
+                        }else {
+                            $data .= '<td>' . $ls->number_schedule . '</td>';
+                        }
                         $data .= '<td>' . $ls->amount . '</td>>';
                         $data .= '</tr>';
                     }
