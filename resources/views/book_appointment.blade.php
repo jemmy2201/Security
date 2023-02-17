@@ -556,7 +556,10 @@
                                 if (d_m => sevenDayHidden) {
                                     window.remainder_value = sevenDayHidden - d_m;
                                 }
-                                span.classList.add('dissable');
+                                // span.classList.add('dissable');
+                                if(! date == 1){
+                                    span.classList.add('dissable');
+                                }
                             }
                         }
                     }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
