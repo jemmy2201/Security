@@ -557,7 +557,7 @@
                                     console.log('2 3')
                                     window.remainder_value = sevenDayHidden - d_m;
                                 }
-                                if(! date == 1){
+                                if(c_date.getDate() > 22){
                                     span.classList.add('dissable');
                                 }
                             }

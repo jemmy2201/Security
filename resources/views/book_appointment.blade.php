@@ -547,8 +547,10 @@
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
-                        console.log('2')
-                        var sevenDayHidden = c_date.getDate() + 4 ;
+                        console.log('2',date)
+                        console.log('2 1',c_date.getDate())
+                        // var sevenDayHidden = c_date.getDate() + 4 ;
+                        var sevenDayHidden = c_date.getDate() + 7 ;
                         if(m > 2 && y === c_date.getFullYear()){
 
                         }else {
@@ -557,7 +559,8 @@
                                     window.remainder_value = sevenDayHidden - d_m;
                                 }
                                 // span.classList.add('dissable');
-                                if(! date == 1){
+
+                                if(c_date.getDate() > 22){
                                     span.classList.add('dissable');
                                 }
                             }
