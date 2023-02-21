@@ -350,6 +350,7 @@
                 if (data['error'] == false) {
                     $("#save_appointment").submit();
                 }else {
+                    $('.loadingResubmit').hide();
                     $("#error_full_booking").trigger("click");
                 }
             }
