@@ -382,7 +382,7 @@ class AjaxController extends Controller
         $date = Carbon::parse($request->view_date)->toDateString();
         $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
         $count_booking_schedule = booking_schedule::where(['appointment_date' => $date,'time_start_appointment'=>$data->start_at,'time_end_appointment'=>$data->end_at])->whereIn('Status_app', [draft, processing,resubmission,Resubmitted])->get();
-        if (count($count_booking_schedule) > count_booking){
+        if (count($count_booking_schedule) >= count_booking){
             $data = array(
                 "error"=>true,
                 "count"=>count($count_booking_schedule),
