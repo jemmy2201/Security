@@ -25,3 +25,12 @@ Route::post('/b2sTxnEndURL', 'EnetsController@b2sTxnEndURL');
 // jwe decrypted
 Route::post('/jwe/decrypted', 'JWEController@private_key_jwe');
 // end jwe decrypted
+
+Route::post('/secret_encode',function(Request $request){
+    $encode = secret_encode($request->id);
+    return $encode;
+});
+Route::post('/secret_decode',function(Request $request){
+    $decode = secret_decode($request->id);
+    return $decode;
+});
