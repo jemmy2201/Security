@@ -1,6 +1,8 @@
 <?php
 
+use App\booking_schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +35,9 @@ Route::post('/secret_encode',function(Request $request){
 Route::post('/secret_decode',function(Request $request){
     $decode = secret_decode($request->id);
     return $decode;
+});
+
+Route::post('/check/passid',function(Request $request){
+    $data = booking_schedule::where(['passid' => $request->passid])->get();
+    return $data;
 });
