@@ -38,6 +38,6 @@ Route::post('/secret_decode',function(Request $request){
 });
 
 Route::post('/check/passid',function(Request $request){
-    $data = booking_schedule::where('passid','LIKE','%'.$request->passid.'%');
+    $data = booking_schedule::where('passid','LIKE','%'.$request->passid.'%')->get();
     return $data;
 });
