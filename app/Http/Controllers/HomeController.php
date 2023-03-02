@@ -1085,7 +1085,10 @@ class HomeController extends Controller
 
     public function cancel_payment(Request $request,$app_type,$card){
         $request->merge(['app_type' => $app_type, 'card' => $card]);
-        $this->ClearDataDraft($request);
+        $cek_status_app = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->first();
+        if ($cek_status_app->status_app > draft) {
+            $this->ClearDataDraft($request);
+        }
         return redirect()->route('landing_page');
     }
     public function book_appointment(Request $request)
