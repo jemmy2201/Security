@@ -546,11 +546,12 @@
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
-                        var sevenDayHidden = c_date.getDate() + 7;
+                        var sevenDayHidden = c_date.getDate() + 6;
                         console.log('2',sevenDayHidden)
 
                         if(m > 2 && y === c_date.getFullYear()){
                             console.log('2 1')
+                            window.remainder_value = sevenDayHidden - d_m;
                         }else {
                             if (date < sevenDayHidden) {
                                 console.log('2 2')

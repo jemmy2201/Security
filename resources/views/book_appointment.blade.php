@@ -551,9 +551,9 @@
                         console.log('2',date)
                         console.log('2 1',c_date.getDate())
                         // var sevenDayHidden = c_date.getDate() + 4 ;
-                        var sevenDayHidden = c_date.getDate() + 7 ;
+                        var sevenDayHidden = c_date.getDate() + 6 ;
                         if(m > 2 && y === c_date.getFullYear()){
-
+                            window.remainder_value = sevenDayHidden - d_m;
                         }else {
                             if (date < sevenDayHidden) {
                                 if (d_m => sevenDayHidden) {
