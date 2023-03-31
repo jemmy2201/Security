@@ -310,10 +310,10 @@
             return raw ? parseInt(raw[2], 10) : false;
             // return 101;
         }
-        if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-            swal("Attention!", "Please update your chrome", "error")
-            document.getElementById('click_personal_particular').style.visibility = 'hidden';
-        }
+        {{--if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){--}}
+        {{--    swal("Attention!", "Please update your chrome", "error")--}}
+        {{--    document.getElementById('click_personal_particular').style.visibility = 'hidden';--}}
+        {{--}--}}
         // 15 minutes not action
         setTimeout(RefreshPage, 900000);
         function RefreshPage() {
@@ -356,21 +356,7 @@
                 $('#Phonemobileno').removeAttr('readonly');
             }
         }
-
-        $('#code_activation_Modal').on('hidden.bs.modal', function () {
-            {{--$('#mobileno').val({{$personal->mobileno}})--}}
-            {{--$('#Phonemobileno').val({{$personal->mobileno}})--}}
-            $('#mobileno').val(null)
-            $('#Phonemobileno').val(null)
-            if ({!!  json_encode($personal->mobileno) !!} == "" || {!!  json_encode($personal->mobileno) !!} == '-' ){
-                $('#mobileno').removeAttr('readonly');
-                $('#Phonemobileno').removeAttr('readonly');
-            }else{
-                // $('#mobileno').attr('readonly',true);
-                // $('#Phonemobileno').attr('readonly',true);
-            }
-        })
-        $( "#click_personal_particular" ).click(function() {
+        function send_personal_particular(){
             // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (check_size_layout() == {!!  json_encode(phone) !!}){
                 if({!!  json_encode($personal->mobileno) !!} != "" || {!!  json_encode($personal->mobileno) !!} != "65"){
@@ -398,40 +384,65 @@
                         swal("Error!", "Mobile number incomplete.", "error")
                     }
                 }else{
-                        swal("Error!", "Mobile number incomplete.", "error")
+                    swal("Error!", "Mobile number incomplete.", "error")
                 }
             }else{
                 if({!!  json_encode($personal->mobileno) !!} != "" || {!!  json_encode($personal->mobileno) !!} != "65"){
-                        if($('#view_mobileno').val() != ""){
+                    if($('#view_mobileno').val() != ""){
                         // if (check_number_singapore() == true){
-                            if({!!  json_encode($personal->web) !!} == true ){
-                                if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
-                                    if ( new Date() >= new Date($('#wpexpirydate').val())){
-                                        swal("Attention!", "Pass Expiration Date is up", "error")
-                                    }else{
-                                        // create_activation();
-                                        $("#submit_personal_particular").submit();
-                                    }
+                        if({!!  json_encode($personal->web) !!} == true ){
+                            if (new Date($('#wpexpirydate').val()) != "Invalid Date" ){
+                                if ( new Date() >= new Date($('#wpexpirydate').val())){
+                                    swal("Attention!", "Pass Expiration Date is up", "error")
                                 }else{
-                                    swal("Error!", "Input file Pass Expiry Date", "error")
+                                    // create_activation();
+                                    $("#submit_personal_particular").submit();
                                 }
                             }else{
-                                // create_activation();
-                                $("#submit_personal_particular").submit();
+                                swal("Error!", "Input file Pass Expiry Date", "error")
                             }
+                        }else{
+                            // create_activation();
+                            $("#submit_personal_particular").submit();
+                        }
                         // }else{
                         //     swal("Error!", "Only Singapore numbers are valid.", "error")
                         // }
-                        }else{
-                            swal("Error!", "Mobile number incomplete.", "error")
-                        }
+                    }else{
+                        swal("Error!", "Mobile number incomplete.", "error")
+                    }
                 }else{
                     swal("Error!", "Mobile number incomplete.", "error")
 
                 }
             }
-
+        }
+        $( "#click_personal_particular" ).click(function() {
+            if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
+                swal("Please update your browser OS.")
+                    .then((value) => {
+                        if (value){
+                            $( ".logout_save_draft" ).trigger( "click");
+                        }
+                    });
+                // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+            }else{
+                send_personal_particular();
+            }
         });
+        $('#code_activation_Modal').on('hidden.bs.modal', function () {
+            {{--$('#mobileno').val({{$personal->mobileno}})--}}
+            {{--$('#Phonemobileno').val({{$personal->mobileno}})--}}
+            $('#mobileno').val(null)
+            $('#Phonemobileno').val(null)
+            if ({!!  json_encode($personal->mobileno) !!} == "" || {!!  json_encode($personal->mobileno) !!} == '-' ){
+                $('#mobileno').removeAttr('readonly');
+                $('#Phonemobileno').removeAttr('readonly');
+            }else{
+                // $('#mobileno').attr('readonly',true);
+                // $('#Phonemobileno').attr('readonly',true);
+            }
+        })
         function check_number_singapore(){
             var check_number_singapore = false;
             if (check_size_layout() == {!!  json_encode(desktop) !!}) {
