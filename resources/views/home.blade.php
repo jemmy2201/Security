@@ -220,9 +220,9 @@
         {{--});--}}
 
 
-        window.addEventListener('load', (event) => {
-            if ({!!  json_encode(strtotime($dateA)) !!} > {!!  json_encode(strtotime($dateB)) !!})
-            {
+        {{--window.addEventListener('load', (event) => {--}}
+        {{--    if ({!!  json_encode(strtotime($dateA)) !!} > {!!  json_encode(strtotime($dateB)) !!})--}}
+        {{--    {--}}
                 $("#BodyAll").css('background-image', 'none');
                 $("#line1").css("display", "block");
                 $("#line2").css("display", "block");
@@ -235,11 +235,11 @@
                 $("#line9").css("display", "block");
                 $("#form_check_file").css("display", "none");
                 $("#form_header_welcome").css("display", "none");
-            }
+            // }
             $("#tigger_check_file").css("display", "block");
             $("#save").css("display", "block");
             $("#text_name_file").css("display", "block");
-        });
+        // });
 
         $('input[type="file"]').change(function(e){
             var fileName = e.target.files[0].name;
