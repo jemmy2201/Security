@@ -224,7 +224,7 @@
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
         <br class="visible-xs hidden-md">
-        <div class="col-2 next">
+{{--        <div class="col-2 next">--}}
 {{--            <a href="{{url('/super/user/save_draft/'.$request->app_type.'/'.$request->card.'/'.draft.'/'.draft)}}" style="text-decoration:none; color: white;">--}}
 {{--            <button class=" btn btn-light btn-lg btn-block hidden-xs" style="border-style: groove; background: black; color: white">--}}
 {{--                    --}}{{--                    <img src="{{URL::asset('/img/back.png')}}" style="width: 10%;">--}}
@@ -237,7 +237,7 @@
 {{--                    Save Draft--}}
 {{--            </button>--}}
 {{--            </a>--}}
-        </div>
+{{--        </div>--}}
         <div class="col-2 next">
             <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white;">Next
             </button>
