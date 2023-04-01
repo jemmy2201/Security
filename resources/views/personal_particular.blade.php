@@ -443,7 +443,7 @@
                 swal("Attention!", "Please update your browser OS.", "error")
                 setTimeout(function(){
                     $( ".logout_save_draft" ).trigger( "click");
-                }, 9000); //Time before execution
+                }, 2000); //Time before execution
                 // document.getElementById('click_personal_particular').style.visibility = 'hidden';
             }else{
                 send_personal_particular();
