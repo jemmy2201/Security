@@ -149,7 +149,7 @@
                 </button>
             </div>
             <div class="col-4 visible-xs hidden-md">
-                <button class=" btn btn-light btn-lg btn-block" id="line6" style=" display: none;border-style: groove; background: black; color: #E31D1A" id="next_phone">
+                <button class=" btn btn-light btn-lg btn-block" id="line6" style=" display: none;border-style: groove; background: black; color: #E31D1A" id="nextphone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
                     </a>
@@ -311,9 +311,8 @@
                 swal("Error!", "Tick the check box to proceed.", "error")
             }
         });
-        $('#next_phone').on('click', function () {
+        $('#nextphone').on('click', function () {
             if ($("input[name='agree_pdf']:checked").val()) {
-                console.log('ss')
                 window.location.href = "/landing_page";
             }else{
                 swal("Error!", "Tick the check box to proceed.", "error")
