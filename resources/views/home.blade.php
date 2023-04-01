@@ -148,8 +148,8 @@
                     </a>
                 </button>
             </div>
-            <div class="col-4 visible-xs hidden-md" id="line6" style="display: none !important;">
-                <button class=" btn btn-light btn-lg btn-block" style="border-style: groove; background: black; color: #E31D1A" id="next_phone">
+            <div class="col-4 visible-xs hidden-md">
+                <button class=" btn btn-light btn-lg btn-block" id="line6" style=" display: none;border-style: groove; background: black; color: #E31D1A" id="next_phone">
                     <a href="#" style="text-decoration:none; color: white;">
                         Next
                     </a>
