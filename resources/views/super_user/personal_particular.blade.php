@@ -239,7 +239,7 @@
 {{--            </a>--}}
 {{--        </div>--}}
         <div class="col-2 next">
-            <button type="button" id="click_personal_particular" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white;">Next
+            <button type="button" class="click_personal_particular btn btn-primary btn-lg btn-block" style=" background: black; color: white;">Next
             </button>
             <button type="button" id="form_activation" data-toggle="modal" data-target="#code_activation_Modal" class=" btn btn-primary btn-lg btn-block" style=" background: black; color: white; display: none;">
             </button>
@@ -417,7 +417,7 @@
                 }
             }
         }
-        $( "#click_personal_particular" ).click(function() {
+        $( ".click_personal_particular" ).click(function() {
             if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
                 swal("Please update your browser OS.")
                     .then((value) => {
