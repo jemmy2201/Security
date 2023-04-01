@@ -434,12 +434,16 @@
 
         $( "#click_personal_particular" ).click(function() {
             if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-                swal("Please update your browser OS.")
-                    .then((value) => {
-                        if (value){
-                            $( ".logout_save_draft" ).trigger( "click");
-                        }
-                    });
+                // swal("Please update your browser OS.")
+                //     .then((value) => {
+                //         if (value){
+                //             $( ".logout_save_draft" ).trigger( "click");
+                //         }
+                //     });
+                swal("Attention!", "Please update your browser OS.", "error")
+                setTimeout(function(){
+                    $( ".logout_save_draft" ).trigger( "click");
+                }, 9000); //Time before execution
                 // document.getElementById('click_personal_particular').style.visibility = 'hidden';
             }else{
                 send_personal_particular();
