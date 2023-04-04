@@ -921,7 +921,14 @@
             </div>
         </div>
     </div>
+        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+            <?php if(config('adminlte.logout_method')): ?>
+                            <?php echo e(method_field(config('adminlte.logout_method'))); ?>
 
+                             <?php endif; ?>
+            <?php echo e(csrf_field()); ?>
+
+        </form>
 </div>
 <script type="application/javascript">
     $("#BodyAll").css('background-image', 'none');
@@ -1048,6 +1055,27 @@
         {{--    form.submit();--}}
         {{--}--}}
         $(".default_hidden").hide();
+        // Check Chorem
+        function getChromeVersion () {
+            var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+
+            return raw ? parseInt(raw[2], 10) : false;
+            // return 101;
+        }
+        if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
+            // swal("Attention!", "Please update your browser OS. Please logout", "error")
+            // setTimeout(function(){
+            //     document.getElementById('logout-form').submit()
+            // }, 2000); //Time before execution
+
+            swal("Attention!", "Please update your browser OS. Please logout", "error")
+                .then((value) => {
+                    if (value){
+                        document.getElementById('logout-form').submit()
+                    }
+                });
+        }
+        // End Check Chorem
 
         // Application type
         Remove_course();
