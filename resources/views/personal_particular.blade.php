@@ -313,7 +313,8 @@
         if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
             // swal("Attention!", "Please update your browser OS", "error")
             // document.getElementById('click_personal_particular').style.visibility = 'hidden';
-            $("#click_personal_particular").css("background-color","grey");
+
+            // $("#click_personal_particular").css("background-color","grey");
         }
         // 15 minutes not action
         setTimeout(RefreshPage, 900000);
