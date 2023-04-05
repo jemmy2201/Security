@@ -540,7 +540,7 @@
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
                         console.log('1')
-                        var sevenDayHidden = c_date.getDate() + 7;
+                        var sevenDayHidden = c_date.getDate() + 8;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
