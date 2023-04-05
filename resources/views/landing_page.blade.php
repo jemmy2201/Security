@@ -1063,17 +1063,17 @@
             // return 101;
         }
         if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-            // swal("Attention!", "Please update your browser OS. Please logout", "error")
-            // setTimeout(function(){
-            //     document.getElementById('logout-form').submit()
-            // }, 2000); //Time before execution
-
             swal("Attention!", "Please update your browser OS. Please logout", "error")
-                .then((value) => {
-                    if (value){
-                        document.getElementById('logout-form').submit()
-                    }
-                });
+            setTimeout(function(){
+                document.getElementById('logout-form').submit()
+            }, 2000); //Time before execution
+
+            // swal("Attention!", "Please update your browser OS. Please logout", "error")
+            //     .then((value) => {
+            //         if (value){
+            //             document.getElementById('logout-form').submit()
+            //         }
+            //     });
         }
         // End Check Chorem
 
