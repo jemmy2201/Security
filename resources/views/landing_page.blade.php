@@ -1065,8 +1065,9 @@
             // setTimeout(function(){
             //     document.getElementById('logout-form').submit()
             // }, 2000); //Time before execution
-
-            swal("Attention!", "Please update your browser OS.Click OK button to log out ", "error")
+            var str="Please update your browser OS\n" +
+                "Click OK button to log out\n";
+            swal("Attention!", str, "error")
                 .then((value) => {
                     if (value){
                         document.getElementById('logout-form').submit()
