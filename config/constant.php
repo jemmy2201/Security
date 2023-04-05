@@ -364,7 +364,9 @@ define('April', 3);
 // End counting years time schedule
 
 // version chorem
-define('version_chrome', 102);
+//define('version_chrome', 102);
+define('version_chrome', 300);
+
 
 // end version chorem
 define('login', 1);
