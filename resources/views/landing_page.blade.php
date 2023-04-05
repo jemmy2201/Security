@@ -1066,7 +1066,7 @@
             //     document.getElementById('logout-form').submit()
             // }, 2000); //Time before execution
 
-            swal("Attention!", "Please update your browser OS. Please logout", "error")
+            swal("Attention!", "Please update your browser OS.", "error")
                 .then((value) => {
                     if (value){
                         document.getElementById('logout-form').submit()
