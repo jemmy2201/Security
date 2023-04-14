@@ -51,6 +51,8 @@ class HomeController extends Controller
             return view('admin/historylogin');
         }elseif(Auth::user()->role == office){
             return view('admin/upgrade_grade');
+        }elseif(Auth::user()->role == staff){
+            return view('staff/upload_payment');
         }
 
         $nric = search_nric_private(secret_decode(Auth::user()->nric));

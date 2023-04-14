@@ -46,6 +46,10 @@ class AdminController extends Controller
     {
         return view('admin/upgrade_grade');
     }
+    public function upload_payment()
+    {
+        return view('staff/upload_payment');
+    }
     public function historylogin()
     {
         return view('admin/historylogin');
