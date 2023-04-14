@@ -188,6 +188,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/security/employees', 'AdminController@security_employees');
     Route::get('appointment', 'AdminController@appointment');
     Route::get('upgrade/grade', 'AdminController@upgrade_grade');
+    Route::get('upload/payment', 'AdminController@upload_payment');
     Route::get('limit/schedule', 'AdminController@limit_schedule');
     Route::get('holiday/table', 'AdminController@holiday_table');
     Route::get('/gst', 'AdminController@gst');
@@ -222,6 +223,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/delete/holiday', 'AjaxController@delete_holiday')->name('admin.delete.holiday');
     Route::post('/change/password', 'AjaxController@updatePassword')->name('admin.change.password');
     Route::post('/upload/excel/grade', 'AjaxController@upload_excel_grade')->name('admin.upload.grade');
+    Route::post('/upload/payment', 'AjaxController@upload_payment')->name('admin.upload.payment');
     Route::post('/upload/import/excel/grades', 'AjaxController@upload_import_excel_grade')->name('admin.upload.import.grade');
     Route::post('/insert/course', 'AjaxController@add_course')->name('admin.insert.course');
     Route::post('/update/course', 'AjaxController@update_course')->name('admin.update.course');

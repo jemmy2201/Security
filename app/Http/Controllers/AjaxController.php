@@ -999,6 +999,15 @@ class AjaxController extends Controller
         ]);
         return Response::json($data);
     }
+    public function upload_payment(Request $request)
+    {
+        $file = $request->file('upload_payment');
+        $tujuan_upload = 'img/photo';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        if (file_exists($tujuan_upload.'/'.$file->getClientOriginalName())) {
+            return true;
+        }
+    }
     public function upload_excel_grade(Request $request)
     {
         // Backup Data For restoring

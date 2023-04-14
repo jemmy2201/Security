@@ -235,6 +235,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Upload Payment',
+            'url'  => 'admin/upload/payment',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'Security Employees',
             'url'  => 'admin/security/employees',
             'icon' => 'fa fa-user',
