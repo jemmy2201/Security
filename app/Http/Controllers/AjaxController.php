@@ -1002,7 +1002,7 @@ class AjaxController extends Controller
     public function upload_payment(Request $request)
     {
         $file = $request->file('upload_payment');
-        $tujuan_upload = 'img/photo';
+        $tujuan_upload = 'img/payment';
         $file->move($tujuan_upload,$file->getClientOriginalName());
         if (file_exists($tujuan_upload.'/'.$file->getClientOriginalName())) {
             return true;
