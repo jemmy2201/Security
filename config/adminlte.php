@@ -240,6 +240,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Change Password',
+            'url'  => 'admin/change/password',
+            'icon' => 'fa fa-key',
+        ],
+        [
             'text' => 'Security Employees',
             'url'  => 'admin/security/employees',
             'icon' => 'fa fa-user',

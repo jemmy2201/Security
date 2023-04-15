@@ -115,8 +115,15 @@
                 if (this.readyState == 4 && this.status == 200) {
                     var json = JSON.parse(ajax.responseText);
                     if(json == true) {
-                        document.getElementById("import_completed").innerHTML = "Import Records Completed";
-                        document.getElementById("btn_action_upload").innerHTML = "Importing Completed";
+                        // document.getElementById("import_completed").innerHTML = "Import Records Completed";
+                        document.getElementById("btn_action_upload").innerHTML = "Upload Completed";
+                        var str="Data Uploaded successfully";
+                        swal("Attention!", str, "success")
+                            .then((value) => {
+                                if (value){
+
+                                }
+                            });
                     }
                 }else if(this.status == 500){
                     swal("Error!", "Please Import Again", "error")
