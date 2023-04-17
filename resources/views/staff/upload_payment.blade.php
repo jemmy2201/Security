@@ -14,7 +14,7 @@
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
                             <h5 class="modal-title"><b>Upload Payment</b></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+{{--                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--}}
                     </div>
                     <div class="modal-body">
                         <form style="font-weight:600;margin-left:31px;margin-right:31px;color:#595959" id="FormUploadExcelGrade" enctype="multipart/form-data">
