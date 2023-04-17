@@ -121,7 +121,9 @@
                         swal("Attention!", str, "success")
                             .then((value) => {
                                 if (value){
-
+                                    $("#upload_payment").val(null);
+                                    document.getElementById("save").disabled = false;
+                                    document.getElementById("btn_action_upload").innerHTML = "Proceed";
                                 }
                             });
                     }
