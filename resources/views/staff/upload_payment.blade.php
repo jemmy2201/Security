@@ -10,7 +10,7 @@
 @section('content')
 <div class="container">
 {{--        <div class="modal fade" id="FormUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >--}}
-            <div class="modal-dialog">
+            <div class="modal-dialog" id="FormUploadPayment">
                 <div class="modal-content" style="font-family: sans-serif">
                     <div class="modal-header" style="justify-content: center !important;border-bottom:0px">
                             <h5 class="modal-title"><b>Upload Payment</b></h5>
@@ -124,6 +124,7 @@
                                     $("#upload_payment").val(null);
                                     document.getElementById("save").disabled = false;
                                     document.getElementById("btn_action_upload").innerHTML = "Proceed";
+                                    $("#FormUploadPayment").css('visibility', 'hidden');
                                 }
                             });
                     }
