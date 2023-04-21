@@ -1061,6 +1061,14 @@
     $( document ).ready(function() {
         $("#app").css("display", "block");
         // console.log( document.getElementById('qrcodePaynowPhone'))
+        var GivenDate = '2023-04-30';
+        var CurrentDate = new Date();
+        GivenDateRemoveEnets = new Date(GivenDate);
+
+        if(CurrentDate > GivenDateRemoveEnets){
+            $("#enets").css("display", "none");
+            $("#phone_enets").css("display", "none");
+        }
     });
 
     $( document ).ready(function() {
