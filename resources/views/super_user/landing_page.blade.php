@@ -1047,28 +1047,50 @@
     $(document).ready(function() {
 
         $(".default_hidden").hide();
-        // Check Chorem
-        function getChromeVersion () {
-            var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+        function CekUseBrowser () {
+            let userAgent = navigator.userAgent;
+            let browserName;
 
-            return raw ? parseInt(raw[2], 10) : false;
-            // return 101;
+            if(userAgent.match(/chrome|chromium|crios/i)){
+                browserName = "chrome";
+            }else if(userAgent.match(/firefox|fxios/i)){
+                browserName = "firefox";
+            }  else if(userAgent.match(/safari/i)){
+                browserName = "safari";
+            }else if(userAgent.match(/opr\//i)){
+                browserName = "opera";
+            } else if(userAgent.match(/edg/i)){
+                browserName = "edge";
+            }else{
+                browserName="No browser detection";
+            }
+            return browserName;
         }
-        if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-            // swal("Attention!", "Please update your browser OS. Please logout", "error")
-            // setTimeout(function(){
-            //     document.getElementById('logout-form').submit()
-            // }, 2000); //Time before execution
-            var str="Please update your browser OS\n" +
-                "Click OK button to log out\n";
-            swal("Attention!", str, "error")
-                .then((value) => {
-                    if (value){
-                        document.getElementById('logout-form').submit()
-                    }
-                });
+        if (CekUseBrowser() =='chrome') {
+            // Check Chorem
+            function getChromeVersion() {
+                var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+
+                return raw ? parseInt(raw[2], 10) : false;
+                // return 101;
+            }
+
+            if (getChromeVersion() < {!!  json_encode(version_chrome) !!}) {
+                // swal("Attention!", "Please update your browser OS. Please logout", "error")
+                // setTimeout(function(){
+                //     document.getElementById('logout-form').submit()
+                // }, 2000); //Time before execution
+                var str = "Please update your browser OS\n" +
+                    "Click OK button to log out\n";
+                swal("Attention!", str, "error")
+                    .then((value) => {
+                        if (value) {
+                            document.getElementById('logout-form').submit()
+                        }
+                    });
+            }
+            // End Check Chorem
         }
-        // End Check Chorem
         // Application type
         Remove_course();
 

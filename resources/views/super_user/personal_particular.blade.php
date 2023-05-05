@@ -304,6 +304,26 @@
 
 <script>
     $( document ).ready(function() {
+        function CekUseBrowser () {
+            let userAgent = navigator.userAgent;
+            let browserName;
+
+            if(userAgent.match(/chrome|chromium|crios/i)){
+                browserName = "chrome";
+            }else if(userAgent.match(/firefox|fxios/i)){
+                browserName = "firefox";
+            }  else if(userAgent.match(/safari/i)){
+                browserName = "safari";
+            }else if(userAgent.match(/opr\//i)){
+                browserName = "opera";
+            } else if(userAgent.match(/edg/i)){
+                browserName = "edge";
+            }else{
+                browserName="No browser detection";
+            }
+            return browserName;
+        }
+
         function getChromeVersion () {
             var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
 
@@ -418,18 +438,22 @@
             }
         }
         $( ".click_personal_particular" ).click(function() {
-            if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-                // swal("Error!", "Please update your browser OS.", "error")
-                //     .then((value) => {
-                //         if (value){
-                //             $( ".logout_save_draft" ).trigger( "click");
-                //         }
-                //     });
+            if (CekUseBrowser() =='chrome') {
+                if (getChromeVersion() < {!!  json_encode(version_chrome) !!}) {
+                    // swal("Error!", "Please update your browser OS.", "error")
+                    //     .then((value) => {
+                    //         if (value){
+                    //             $( ".logout_save_draft" ).trigger( "click");
+                    //         }
+                    //     });
                     swal("Attention!", "Please update your browser OS.", "error")
-                setTimeout(function(){
-                    $( ".logout_save_draft" ).trigger( "click");
-                }, 9000); //Time before execution
-                // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+                    setTimeout(function () {
+                        $(".logout_save_draft").trigger("click");
+                    }, 9000); //Time before execution
+                    // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+                } else {
+                    send_personal_particular();
+                }
             }else{
                 send_personal_particular();
             }

@@ -304,17 +304,40 @@
 
 <script>
     $( document ).ready(function() {
-        function getChromeVersion () {
-            var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+        function CekUseBrowser () {
+            let userAgent = navigator.userAgent;
+            let browserName;
 
-            return raw ? parseInt(raw[2], 10) : false;
-            // return 101;
+            if(userAgent.match(/chrome|chromium|crios/i)){
+                browserName = "chrome";
+            }else if(userAgent.match(/firefox|fxios/i)){
+                browserName = "firefox";
+            }  else if(userAgent.match(/safari/i)){
+                browserName = "safari";
+            }else if(userAgent.match(/opr\//i)){
+                browserName = "opera";
+            } else if(userAgent.match(/edg/i)){
+                browserName = "edge";
+            }else{
+                browserName="No browser detection";
+            }
+            return browserName;
         }
-        if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-            // swal("Attention!", "Please update your browser OS", "error")
-            // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+        if (CekUseBrowser() =='chrome') {
 
-            // $("#click_personal_particular").css("background-color","grey");
+            function getChromeVersion() {
+                var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+
+                return raw ? parseInt(raw[2], 10) : false;
+                // return 101;
+            }
+
+            if (getChromeVersion() < {!!  json_encode(version_chrome) !!}) {
+                // swal("Attention!", "Please update your browser OS", "error")
+                // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+
+                // $("#click_personal_particular").css("background-color","grey");
+            }
         }
         // 15 minutes not action
         setTimeout(RefreshPage, 900000);
@@ -435,18 +458,22 @@
         }
 
         $( "#click_personal_particular" ).click(function() {
-            if(getChromeVersion() < {!!  json_encode(version_chrome) !!}){
-                // swal("Please update your browser OS.")
-                //     .then((value) => {
-                //         if (value){
-                //             $( ".logout_save_draft" ).trigger( "click");
-                //         }
-                //     });
-                swal("Attention!", "Please update your browser OS.", "error")
-                setTimeout(function(){
-                    // $( ".logout_save_draft" ).trigger( "click");
-                }, 2000); //Time before execution
-                // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+            if (CekUseBrowser() =='chrome') {
+                if (getChromeVersion() < {!!  json_encode(version_chrome) !!}) {
+                    // swal("Please update your browser OS.")
+                    //     .then((value) => {
+                    //         if (value){
+                    //             $( ".logout_save_draft" ).trigger( "click");
+                    //         }
+                    //     });
+                    swal("Attention!", "Please update your browser OS.", "error")
+                    setTimeout(function () {
+                        // $( ".logout_save_draft" ).trigger( "click");
+                    }, 2000); //Time before execution
+                    // document.getElementById('click_personal_particular').style.visibility = 'hidden';
+                } else {
+                    send_personal_particular();
+                }
             }else{
                 send_personal_particular();
             }
