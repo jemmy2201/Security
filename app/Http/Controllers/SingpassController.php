@@ -486,9 +486,19 @@ class SingpassController extends Controller
             if(count($existingUser) > 0) {
                 foreach ($existingUser as $f) {
                     // Less 3 month
-                    $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
-                    if (Carbon::today()->toDateString() >= $expired_date) {
-                        return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+//                    $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
+//                    if (Carbon::today()->toDateString() >= $expired_date) {
+//                        return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+//                    }
+                    if ($f->expired_date) {
+                        $expired_date = carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+                        $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') . ' - 3 months'));
+                        if (Carbon::today()->toDateString() >= $expired_date) {
+                            return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found2, 'image' => 'fa fa-info-circle']);
+                        }
+                        if (Carbon::today()->toDateString() >= $less_expired_date) {
+                            return view('page_error')->with(['data1' => expired_less_3month, 'data2' => value_not_found2, 'image' => 'fa fa-info-circle']);
+                        }
                     }
                     // End Less 3 month
                     if ($f->card_id == so_app && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {

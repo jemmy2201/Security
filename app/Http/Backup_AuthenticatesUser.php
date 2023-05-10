@@ -64,7 +64,7 @@ trait AuthenticatesUsers
 
         if ($request->dummy_login == dummy){
             if ($request->type_login == non_barcode) {
-                $encode = secret_encode("S1354898F");
+                $encode = secret_encode("S0221002N");
                 $decode = secret_decode("T0ZkRHhhL1gyeFpJZ1Iyb0FYUGVVQT09");
 //                die($encode);
                 // dummy api
@@ -75,10 +75,18 @@ trait AuthenticatesUsers
                         ->where('users.nric', secret_encode( $request->singpass_id ))->get();
                     foreach ($data as $f) {
                         // Less 3 month
-                        $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
-                        if (Carbon::today()->toDateString() >= $expired_date) {
-                            return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+//                        $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
+                        $expired_date = carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+                        $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
+                        if ($expired_date){
+                            if (Carbon::today()->toDateString() >= $expired_date) {
+                                return  view('page_error')->with(['data1'=>value_not_found1,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+                            }
+                            if (Carbon::today()->toDateString() >= $less_expired_date) {
+                                return  view('page_error')->with(['data1'=>expired_less_3month,'data2'=>value_not_found2,'image'=>'fa fa-info-circle']);
+                            }
                         }
+
                         // End Less 3 month
                         if ($f->card_id == so_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                             $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
