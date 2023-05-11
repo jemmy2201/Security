@@ -327,8 +327,11 @@ define('value_SO_IDQuery2', "if you just collected your ID card 3 days earlier,"
 define('value_SO_IDQuery3', "please re-visit the web-site via QR code again.");
 define('value_expired_card1', "Your ID card's expiry date has expired.");
 define('value_expired_card2', "Renew your PLRD SO/PI licence @ Go Business Singapore website - https://www.gobusiness.gov.sg");
-define('value_not_found1', "Record not found.");
+//define('value_not_found1', "Record not found.");
+define('value_not_found1', "Record not available yet.");
 define('value_not_found2', "Please contact Union Of Security Employees for  further assistance.");
+define('value_not_found3', "1) You have not completed the PLRD online new/renewal application at https//licence1.business.gov.sg");
+define('value_not_found4', "2) Your approved data from PLRD may take 48 - 72 hours to be updated into USE's ID card portal");
 define('type_error_so_query', 1);
 
 define('phone_general_office', "+65 6381 9150");

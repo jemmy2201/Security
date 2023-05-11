@@ -127,6 +127,9 @@
                 <h4>
                     <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
                     <B>{{$data1}}</B><br><br>
+                    @if(isset($data3))
+                        <B>This is due to:</B><br><br>
+                    @endif
                     <B>{{$data2}}</B><br><br>
                     @if(isset($data3))
                     <B>{{$data3}}</B><br><br>
