@@ -332,6 +332,8 @@ define('value_not_found1', "Record not available yet.");
 define('value_not_found2', "Please contact Union Of Security Employees for  further assistance.");
 define('value_not_found3', "1) You have not completed the PLRD online new/renewal application at https//licence1.business.gov.sg");
 define('value_not_found4', "2) Your approved data from PLRD may take 48 - 72 hours to be updated into USE's ID card portal");
+define('value_not_found5', "1) You have requested a replacement for your ID card when your ID card will be expiring soon.");
+define('value_not_found6', "2) You need to contact USE for confirmation.");
 define('type_error_so_query', 1);
 
 define('phone_general_office', "+65 6381 9150");
@@ -374,7 +376,8 @@ define('version_chrome', 102);
 // end version chorem
 define('login', 1);
 
-define('expired_less_3month', "Expires less than 3 month");
+//define('expired_less_3month', "Expires less than 3 month");
+define('expired_less_3month', "Your ID card will be expiring soon");
 
 define('full_booking', 'No more available bookings for the selected slot');
 define('count_booking', 20);

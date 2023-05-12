@@ -134,6 +134,9 @@
                     @if(isset($data3))
                     <B>{{$data3}}</B><br><br>
                     @endif
+                    @if(isset($data4))
+                        <B>{{$data4}}</B><br><br>
+                    @endif
                     <B>Contact details as follows:</B>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>

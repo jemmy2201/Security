@@ -850,9 +850,26 @@ class HomeController extends Controller
 
         return $pdf->download('App_Slip.pdf');
     }
-
     public function submission(Request $request)
     {
+        // Cek Expired Card
+        $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where('users.nric', Auth::user()->nric)->get();
+        foreach ($data as $f) {
+            if ($f->expired_date) {
+                $expired_date = carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+                $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') . ' - 3 months'));
+                if (Carbon::today()->toDateString() >= $expired_date) {
+//                                return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found2, 'image' => 'fa fa-info-circle']);
+                    return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
+                }
+                if (Carbon::today()->toDateString() >= $less_expired_date) {
+                    return view('page_error')->with(['data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle']);
+                }
+            }
+        }
+        // End Cek Expired Card
+
         $grade = null;
         $replacement = null;
         $view_declare = null;
