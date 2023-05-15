@@ -21,6 +21,10 @@
             width: 600px !important;
             margin: 30px auto !important;
         }
+        .ExpiredCardLessThreeMonth {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
         #view_terms {
             width: 900px;
         }
@@ -35,6 +39,10 @@
         }
         .ExpiredCard {
             width: 500px !important;
+            margin: 30px auto !important;
+        }
+        .ExpiredCardLessThreeMonth {
+            width: 400px !important;
             margin: 30px auto !important;
         }
         .modal-dialog {
@@ -665,6 +673,51 @@
 </div>
 {{-- End Expired Card --}}
 
+{{-- Less Three Month Expired Card --}}
+<button data-toggle="modal" data-target="#Form_expired_card_less_three_month" style="display: none" id="ExpiredCardLessThreeMonth"></button>
+<div class="modal fade" id="Form_expired_card_less_three_month" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ExpiredCardLessThreeMonth" role="document">
+        <div class="modal-content">
+            {{--            <div class="modal-header">--}}
+            {{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+            {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+            {{--                    <span aria-hidden="true">&times;</span>--}}
+            {{--                </button>--}}
+            {{--            </div>--}}
+            <div class="modal-body">
+                <center >
+                    <h4>
+                        <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
+                        <B id="data5"></B><br><br>
+                        {{--                                @if(isset($data3))--}}
+                        <B>This is due to:</B><br><br>
+                        {{--                                @endif--}}
+                        <B id="data6"></B><br><br>
+                        {{--                                @if(isset($data3))--}}
+                        <B id="data7"></B><br><br>
+                        {{--                                @endif--}}
+                        {{--                                @if(isset($data4))--}}
+                        <B id="data8"></B><br><br>
+                        {{--                                @endif--}}
+                        <B>Contact details as follows:</B>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
+                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
+                        </ul>
+
+                    </h4>
+                    <a href="/">
+                        <button type="button" class="btn btn-dark" style="color: white;" data-dismiss="modal">
+                            OK
+                        </button>
+                    </a>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End Less Three Month Expired Card --}}
+
 @if(!empty($grade))
 {{--<div class="container declare">--}}
 {{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
@@ -761,11 +814,20 @@
                 success: function (data) {
                     if (data.error == true){
                         $( "#closesPhotoNotSelfie" ).trigger( "click" );
-                        $( "#ExpiredCard" ).trigger( "click" );
+                        if(data.ExpiredDate == 1){
+                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
+                        }
+                        if(data.ExpiredDate == 2){
+                            $( "#ExpiredCard" ).trigger( "click" );
+                        }
                         document.getElementById('data1').innerHTML = data.data1;
                         document.getElementById('data2').innerHTML = data.data2;
                         document.getElementById('data3').innerHTML = data.data3;
-                        document.getElementById('data4').innerHTML = data.data4;
+
+                        document.getElementById('data5').innerHTML = data.data1;
+                        document.getElementById('data6').innerHTML = data.data2;
+                        document.getElementById('data7').innerHTML = data.data3;
+                        document.getElementById('data8').innerHTML = data.data4;
                     }else{
                         $("#book_appointment").submit();
                     }
