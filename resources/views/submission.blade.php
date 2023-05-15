@@ -757,7 +757,40 @@
             <input type="hidden" id="card" name="card" value="{{$request->card}}">
         </form>
 @endif
+<script>
+    $( document ).ready(function() {
+        $( "#next_book_appointment" ).click(function() {
+            $.ajax({
+                url: "{{ url('/ajax/check/expired/cards') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
+                success: function (data) {
+                    if (data.error == true){
+                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
+                        if(data.ExpiredDate == 1){
+                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
+                        }
+                        if(data.ExpiredDate == 2){
+                            $( "#ExpiredCard" ).trigger( "click" );
+                        }
+                        document.getElementById('data1').innerHTML = data.data1;
+                        document.getElementById('data2').innerHTML = data.data2;
+                        document.getElementById('data3').innerHTML = data.data3;
 
+                        document.getElementById('data5').innerHTML = data.data1;
+                        document.getElementById('data6').innerHTML = data.data2;
+                        document.getElementById('data7').innerHTML = data.data3;
+                        document.getElementById('data8').innerHTML = data.data4;
+                    }else{
+                        $("#book_appointment").submit();
+                    }
+                }
+            });
+
+        });
+    });
+</script>
 <script type="application/javascript">
     $( document ).ready(function() {
         $(".declare").hide();
@@ -939,37 +972,6 @@
                 }
             }
         });
-        $( "#next_book_appointment" ).click(function() {
-            $.ajax({
-                url: "{{ url('/ajax/check/expired/cards') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
-                success: function (data) {
-                    if (data.error == true){
-                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
-                        if(data.ExpiredDate == 1){
-                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
-                        }
-                        if(data.ExpiredDate == 2){
-                            $( "#ExpiredCard" ).trigger( "click" );
-                        }
-                        document.getElementById('data1').innerHTML = data.data1;
-                        document.getElementById('data2').innerHTML = data.data2;
-                        document.getElementById('data3').innerHTML = data.data3;
-
-                        document.getElementById('data5').innerHTML = data.data1;
-                        document.getElementById('data6').innerHTML = data.data2;
-                        document.getElementById('data7').innerHTML = data.data3;
-                        document.getElementById('data8').innerHTML = data.data4;
-                    }else{
-                        $("#book_appointment").submit();
-                    }
-                }
-            });
-
-        });
-
     });
 
     $(".logout_save_draft").click(function() {
