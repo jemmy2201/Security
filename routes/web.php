@@ -243,6 +243,8 @@ Route::prefix('ajax')->group(function () {
     // Check Count booking
     Route::post('/user/check/count/booking', 'AjaxController@check_count_booking');
     // End Check Count booking
+    Route::post('/check/expired/card', 'AjaxController@checkexpiredcard');
+
 });
 
 //Update SO

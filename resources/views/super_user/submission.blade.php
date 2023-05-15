@@ -17,7 +17,10 @@
             width: 600px !important;
             margin: 30px auto !important;
         }
-
+        .ExpiredCard {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
         #view_terms {
             width: 900px;
         }
@@ -28,6 +31,10 @@
     @media (min-width :576px) {
         .not_photo_selfie {
             width: 600px !important;
+            margin: 30px auto !important;
+        }
+        .ExpiredCard {
+            width: 400px !important;
             margin: 30px auto !important;
         }
         .modal-dialog {
@@ -605,13 +612,59 @@
                 </center>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closesPhotoNotSelfie">Cancel</button>
                 <button type="button" class="btn btn-primary" id="next_book_appointment">Continue</button>
             </div>
         </div>
     </div>
 </div>
 {{-- End Reminder photo not selfie--}}
+
+{{-- Expired Card --}}
+<button data-toggle="modal" data-target="#Form_expired_card" style="display: none" id="ExpiredCard"></button>
+<div class="modal fade" id="Form_expired_card" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ExpiredCard" role="document">
+        <div class="modal-content">
+            {{--            <div class="modal-header">--}}
+            {{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+            {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+            {{--                    <span aria-hidden="true">&times;</span>--}}
+            {{--                </button>--}}
+            {{--            </div>--}}
+            <div class="modal-body">
+                <center >
+                    <h4>
+                        <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
+                        <B id="data1"></B><br><br>
+                        {{--                                @if(isset($data3))--}}
+                        <B>This is due to:</B><br><br>
+                        {{--                                @endif--}}
+                        <B id="data2"></B><br><br>
+                        {{--                                @if(isset($data3))--}}
+                        <B id="data3"></B><br><br>
+                        {{--                                @endif--}}
+                        {{--                                @if(isset($data4))--}}
+                        <B id="data4"></B><br><br>
+                        {{--                                @endif--}}
+                        <B>Contact details as follows:</B>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
+                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
+                        </ul>
+
+                    </h4>
+                    <a href="/">
+                        <button type="button" class="btn btn-dark" style="color: white;" data-dismiss="modal">
+                            OK
+                        </button>
+                    </a>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End Expired Card --}}
+
 @if(!empty($grade))
 {{--<div class="container declare">--}}
 {{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
@@ -700,7 +753,26 @@
 
         });
         $( "#next_book_appointment" ).click(function() {
-            $("#book_appointment").submit();
+            $.ajax({
+                url: "{{ url('/ajax/check/expired/card') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
+                success: function (data) {
+                    if (data.error == true){
+                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
+                        $( "#ExpiredCard" ).trigger( "click" );
+                        document.getElementById('data1').innerHTML = data.data1;
+                        document.getElementById('data2').innerHTML = data.data2;
+                        document.getElementById('data3').innerHTML = data.data3;
+                        document.getElementById('data4').innerHTML = data.data4;
+                    }else{
+                        $("#book_appointment").submit();
+                    }
+                }
+            });
+
+            // $("#book_appointment").submit();
         });
 
 
