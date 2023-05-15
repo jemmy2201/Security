@@ -754,10 +754,10 @@
         });
         $( "#next_book_appointment" ).click(function() {
             $.ajax({
-                url: "{{ url('/ajax/check/expired/card') }}",
+                url: "{{ url('/ajax/super/user/check/expired/card') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}, passid:{!! json_encode($personal->passid) !!}},
                 success: function (data) {
                     if (data.error == true){
                         $( "#closesPhotoNotSelfie" ).trigger( "click" );
