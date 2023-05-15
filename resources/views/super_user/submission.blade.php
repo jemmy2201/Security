@@ -697,13 +697,13 @@
                         <B id="data7"></B><br><br>
                         {{--                                @endif--}}
                         {{--                                @if(isset($data4))--}}
-                        <B id="data8"></B><br><br>
+{{--                        <B id="data8"></B><br><br>--}}
                         {{--                                @endif--}}
-                        <B>Contact details as follows:</B>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
-                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
-                        </ul>
+{{--                        <B>Contact details as follows:</B>--}}
+{{--                        <ul class="list-group list-group-flush">--}}
+{{--                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>--}}
+{{--                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>--}}
+{{--                        </ul>--}}
 
                     </h4>
                     <a href="/">

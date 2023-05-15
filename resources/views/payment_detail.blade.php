@@ -604,7 +604,7 @@
 {{--         <div class="col-2">--}}
 {{--         </div>--}}
          <div class="col-4">
-             <h3>Select Your Payment Method</h3><br>
+{{--             <h3>Select Your Payment Method</h3>--}}<br>
          </div>
      </div>
     <div class="row hidden-xs" style="margin-top: -20px;">
@@ -622,6 +622,7 @@
         </div>
         <div class="col-10">
             <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+            <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" style="cursor: pointer;width: 40%; margin-top: -20px;">
             <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 18%; margin-left: 60px;">
             <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" id="infoenetsclose" style="cursor: pointer;width: 40%; margin-top: -20px;">
         </div>
@@ -629,12 +630,14 @@
     <button data-toggle="modal" data-target="#Form_payment_paynow" style="display: none" id="popup_paynow"></button>
     <button data-toggle="modal" data-target="#Form_payment_paynow_verification" style="display: none" id="popup_paynow_verfication"></button>
     <div class="visible-xs hidden-md">
-        <h3>Select Your Payment Method</h3><br>
+{{--        <h3>Select Your Payment Method</h3>--}}
+        <br>
         <h4>
             <input class="form-check-input" name="understand_transaction_phone" type="checkbox" id="understand_transaction_phone" width="120%">
             <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
         </h4><br>
-        <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
+        <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;">
+        <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}"  style="width: 60%;margin-top: -10px;">
         <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="cursor: pointer;width: 35%;">
         <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" id="phoneinfoenetsclose" style="cursor: pointer;width: 60%;margin-top: -20px;">
     </div>

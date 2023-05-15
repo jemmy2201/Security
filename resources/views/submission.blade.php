@@ -653,13 +653,13 @@
                         <B id="data7"></B><br><br>
                         {{--                                @endif--}}
                         {{--                                @if(isset($data4))--}}
-                        <B id="data8"></B><br><br>
+{{--                        <B id="data8"></B><br><br>--}}
                         {{--                                @endif--}}
-                        <B>Contact details as follows:</B>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
-                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
-                        </ul>
+{{--                        <B>Contact details as follows:</B>--}}
+{{--                        <ul class="list-group list-group-flush">--}}
+{{--                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>--}}
+{{--                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>--}}
+{{--                        </ul>--}}
 
                     </h4>
                     <a href="/">
@@ -806,36 +806,6 @@
             }
 
         });
-        $( "#next_book_appointment" ).click(function() {
-            $.ajax({
-                url: "{{ url('/ajax/check/expired/cards') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
-                success: function (data) {
-                    if (data.error == true){
-                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
-                        if(data.ExpiredDate == 1){
-                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
-                        }
-                        if(data.ExpiredDate == 2){
-                            $( "#ExpiredCard" ).trigger( "click" );
-                        }
-                        document.getElementById('data1').innerHTML = data.data1;
-                        document.getElementById('data2').innerHTML = data.data2;
-                        document.getElementById('data3').innerHTML = data.data3;
-
-                        document.getElementById('data5').innerHTML = data.data1;
-                        document.getElementById('data6').innerHTML = data.data2;
-                        document.getElementById('data7').innerHTML = data.data3;
-                        document.getElementById('data8').innerHTML = data.data4;
-                    }else{
-                        $("#book_appointment").submit();
-                    }
-                }
-            });
-
-        });
 
 
         $( "#submit_book_appointment" ).click(function() {
@@ -969,7 +939,39 @@
                 }
             }
         });
+        $( "#next_book_appointment" ).click(function() {
+            $.ajax({
+                url: "{{ url('/ajax/check/expired/cards') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
+                success: function (data) {
+                    if (data.error == true){
+                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
+                        if(data.ExpiredDate == 1){
+                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
+                        }
+                        if(data.ExpiredDate == 2){
+                            $( "#ExpiredCard" ).trigger( "click" );
+                        }
+                        document.getElementById('data1').innerHTML = data.data1;
+                        document.getElementById('data2').innerHTML = data.data2;
+                        document.getElementById('data3').innerHTML = data.data3;
+
+                        document.getElementById('data5').innerHTML = data.data1;
+                        document.getElementById('data6').innerHTML = data.data2;
+                        document.getElementById('data7').innerHTML = data.data3;
+                        document.getElementById('data8').innerHTML = data.data4;
+                    }else{
+                        $("#book_appointment").submit();
+                    }
+                }
+            });
+
+        });
+
     });
+
     $(".logout_save_draft").click(function() {
         $("#logout_save_draft").val(true)
         $( ".save_draft" ).trigger( "click" );
