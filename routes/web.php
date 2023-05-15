@@ -161,7 +161,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('super/user/check/passID', 'Super_user\AjaxSuperUserController@check_passID');
     // Check Count booking
     Route::post('/super/user/check/count/booking', 'Super_user\AjaxSuperUserController@check_count_booking');
-    Route::post('/super/user/check/expired/card', 'Super_user\AjaxSuperUserController@checkexpiredcard');
+    Route::post('/super/user/check/expired/cards', 'Super_user\AjaxSuperUserController@checkexpiredcard');
 
     // End Check Count booking
 });
@@ -245,7 +245,7 @@ Route::prefix('ajax')->group(function () {
     // Check Count booking
     Route::post('/user/check/count/booking', 'AjaxController@check_count_booking');
     // End Check Count booking
-    Route::post('/check/expired/card', 'AjaxController@checkexpiredcard');
+    Route::post('/check/expired/cards', 'AjaxController@checkexpiredcard');
 
 });
 

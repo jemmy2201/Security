@@ -34,7 +34,8 @@
             margin: 30px auto !important;
         }
         .ExpiredCard {
-            width: 400px !important;
+            width: 500px !important;
+            height: 100%;
             margin: 30px auto !important;
         }
         .modal-dialog {
@@ -644,7 +645,7 @@
                                 <B id="data3"></B><br><br>
 {{--                                @endif--}}
 {{--                                @if(isset($data4))--}}
-                                <B id="data4"></B><br><br>
+{{--                                <B id="data4"></B><br><br>--}}
 {{--                                @endif--}}
                             <B>Contact details as follows:</B>
                             <ul class="list-group list-group-flush">
@@ -754,7 +755,7 @@
         });
         $( "#next_book_appointment" ).click(function() {
             $.ajax({
-                url: "{{ url('/ajax/check/expired/card') }}",
+                url: "{{ url('/ajax/check/expired/cards') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
@@ -765,7 +766,7 @@
                         document.getElementById('data1').innerHTML = data.data1;
                         document.getElementById('data2').innerHTML = data.data2;
                         document.getElementById('data3').innerHTML = data.data3;
-                        document.getElementById('data4').innerHTML = data.data4;
+                        // document.getElementById('data4').innerHTML = data.data4;
                     }else{
                         $("#book_appointment").submit();
                     }

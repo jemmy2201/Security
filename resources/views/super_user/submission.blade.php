@@ -34,7 +34,7 @@
             margin: 30px auto !important;
         }
         .ExpiredCard {
-            width: 400px !important;
+            width: 500px !important;
             margin: 30px auto !important;
         }
         .modal-dialog {
@@ -754,7 +754,7 @@
         });
         $( "#next_book_appointment" ).click(function() {
             $.ajax({
-                url: "{{ url('/ajax/super/user/check/expired/card') }}",
+                url: "{{ url('/ajax/super/user/check/expired/cards') }}",
                 type: 'POST',
                 /* send the csrf-token and the input to the controller */
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}, passid:{!! json_encode($personal->passid) !!}},
