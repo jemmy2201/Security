@@ -622,7 +622,7 @@
         </div>
         <div class="col-10">
             <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-            <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" style="cursor: pointer;width: 40%; margin-top: -20px;">
+            <img  src="{{URL::asset('/img/payment_icon/InfoUsePaynow.png')}}" style="cursor: pointer;width: 40%; margin-top: -20px;">
             <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 18%; margin-left: 60px;">
             <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" id="infoenetsclose" style="cursor: pointer;width: 40%; margin-top: -20px;">
         </div>
@@ -636,7 +636,7 @@
             <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
         </h4><br>
         <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;">
-        <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}"  style="width: 60%;margin-top: -10px;">
+        <img  src="{{URL::asset('/img/payment_icon/InfoUsePaynow.png')}}"  style="width: 60%;margin-top: -10px;">
         <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="cursor: pointer;width: 35%;">
         <img  src="{{URL::asset('/img/payment_icon/info_enets_close.jpg')}}" id="phoneinfoenetsclose" style="cursor: pointer;width: 60%;margin-top: -20px;">
     </div>
