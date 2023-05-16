@@ -1088,11 +1088,11 @@
 
         $('#paynow').on('click', function () {
             {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
-                window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
             // $("#form_paynow_verification").attr("disabled", true);
             // $('.viewqrcodePaynow').hide();
             // $('.loadingPaynow').hide();
-            {{--if ($("input[name='understand_transaction']:checked").val()) {--}}
+            if ($("input[name='understand_transaction']:checked").val()) {
+                window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
             {{--    $.ajax({--}}
             {{--        url: "{{ url('/check_payment') }}",--}}
             {{--        type: 'POST',--}}
@@ -1144,9 +1144,9 @@
             {{--            handling_error_ajax();--}}
             {{--        }--}}
             {{--    });--}}
-            {{--    } else {--}}
-            {{--        swal("Error!", "Tick the check box to proceed.", "error")--}}
-            {{--    }--}}
+                } else {
+                    swal("Error!", "Tick the check box to proceed.", "error")
+                }
         });
         $('#paynow_phone').on('click', function () {
             {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
