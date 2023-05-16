@@ -622,7 +622,7 @@
         </div>
         <div class="col-10">
             <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow" style="cursor: pointer;width: 15%; margin-left: -30px;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-            <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 18%; margin-left: 60px;">
+{{--            <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="enets" style="cursor: pointer;width: 18%; margin-left: 60px;">--}}
         </div>
     </div>
     <button data-toggle="modal" data-target="#Form_payment_paynow" style="display: none" id="popup_paynow"></button>
@@ -634,7 +634,7 @@
             <span style="margin-left: 20px;font-weight: bold;">I also understand that upon completion of transaction, no refunds or cancellations shall be allowed.</span>
         </h4><br>
         <img src="{{URL::asset('/img/payment_icon/paynow.png')}}"  id="paynow_phone" style="cursor: pointer;width: 35%;"><br class="visible-xs hidden-md"><br class="visible-xs hidden-md">
-        <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="cursor: pointer;width: 35%;">
+{{--        <img  src="{{URL::asset('/img/payment_icon/nets.png')}}" id="phone_enets" style="cursor: pointer;width: 35%;">--}}
     </div>
     <input type="hidden" name="card" id="card" value="{{$request->card}}">
 
