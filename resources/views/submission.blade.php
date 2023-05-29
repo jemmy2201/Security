@@ -642,7 +642,7 @@
             {{--            </div>--}}
             <div class="modal-body">
                 <center >
-                    <h4>
+                    <h4 style="color:red;">
                         <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
                         <B id="data5"></B><br><br>
                         {{--                                @if(isset($data3))--}}
@@ -663,7 +663,7 @@
 
                     </h4>
                     <a href="/">
-                        <button type="button" class="btn btn-dark" style="color: white;" data-dismiss="modal">
+                        <button type="button" class="btn btn-primary" style="color: white;" data-dismiss="modal">
                             OK
                         </button>
                     </a>
