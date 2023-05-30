@@ -124,8 +124,8 @@
         <div class="container" style="margin-top: 100px;">
 {{--            <div class="row-12">--}}
             <center>
-                <h4>
-                    <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
+                <h4 style="color:red;">
+                    <i class="fa fa-info-circle fa-2x"  aria-hidden="true"></i>&nbsp;
                     <B>{{$data1}}</B><br><br>
                     @if(isset($data3))
                         <B>This is due to:</B><br><br>
@@ -148,7 +148,7 @@
 
                 @else
                     <a href="/">
-                        <button type="button" class="btn btn-dark" style="color: white;">
+                        <button type="button" class="btn btn-primary" style="color: white;">
                             OK
                         </button>
                     </a>
