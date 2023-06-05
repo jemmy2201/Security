@@ -17,6 +17,10 @@
             width: 600px !important;
             margin: 30px auto !important;
         }
+        .SOCardIssueN {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
         .ExpiredCard {
             width: 600px !important;
             margin: 30px auto !important;
@@ -35,6 +39,10 @@
     @media (min-width :576px) {
         .not_photo_selfie {
             width: 600px !important;
+            margin: 30px auto !important;
+        }
+        .SOCardIssueN {
+            width: 500px !important;
             margin: 30px auto !important;
         }
         .ExpiredCard {
@@ -718,6 +726,42 @@
 </div>
 {{-- End Less Three Month Expired Card --}}
 
+{{-- SO Card issue N Card --}}
+<button data-toggle="modal" data-target="#Form_so_card_issue_N" style="display: none" id="SOCardIssueN"></button>
+<div class="modal fade" id="Form_so_card_issue_N" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog SOCardIssueN" role="document">
+        <div class="modal-content">
+            {{--            <div class="modal-header">--}}
+            {{--                <h5 class="modal-title" id="exampleModalLabel">Reminder !</h5>--}}
+            {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+            {{--                    <span aria-hidden="true">&times;</span>--}}
+            {{--                </button>--}}
+            {{--            </div>--}}
+            <div class="modal-body">
+                <center >
+                    <h4 style="color:red;">
+                        <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>&nbsp;
+                        <B id="data9"></B><br><br>
+                        <B id="data10"></B><br><br>
+                        <B>Contact details as follows:</B>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
+                            <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
+                        </ul>
+
+                    </h4>
+                    <a href="/">
+                        <button type="button" class="btn btn-primary" style="color: white;" data-dismiss="modal">
+                            OK
+                        </button>
+                    </a>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- SO Card issue N Card --}}
+
 @if(!empty($grade))
 {{--<div class="container declare">--}}
 {{--    <h2 style="color: #E31E1A;">Declare of Training</h2>--}}
@@ -769,18 +813,22 @@
                         $( "#closesPhotoNotSelfie" ).trigger( "click" );
                         if(data.ExpiredDate == 1){
                             $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
+                            document.getElementById('data5').innerHTML = data.data1;
+                            document.getElementById('data6').innerHTML = data.data2;
+                            document.getElementById('data7').innerHTML = data.data3;
+                            document.getElementById('data8').innerHTML = data.data4;
                         }
                         if(data.ExpiredDate == 2){
                             $( "#ExpiredCard" ).trigger( "click" );
+                            document.getElementById('data1').innerHTML = data.data1;
+                            document.getElementById('data2').innerHTML = data.data2;
+                            document.getElementById('data3').innerHTML = data.data3;
                         }
-                        document.getElementById('data1').innerHTML = data.data1;
-                        document.getElementById('data2').innerHTML = data.data2;
-                        document.getElementById('data3').innerHTML = data.data3;
-
-                        document.getElementById('data5').innerHTML = data.data1;
-                        document.getElementById('data6').innerHTML = data.data2;
-                        document.getElementById('data7').innerHTML = data.data3;
-                        document.getElementById('data8').innerHTML = data.data4;
+                        if(data.ExpiredDate == 3){
+                            $( "#SOCardIssueN" ).trigger( "click" );
+                            document.getElementById('data9').innerHTML = data.data1;
+                            document.getElementById('data10').innerHTML = data.data2;
+                        }
                     }else{
                         $("#book_appointment").submit();
                     }
