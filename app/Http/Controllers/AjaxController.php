@@ -135,7 +135,7 @@ class AjaxController extends Controller
         $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['users.nric' => Auth::user()->nric, 'booking_schedules.card_id' => $request->card])->first();
 
-        if ($data->expired_date) {
+        if ($data->expired_date && $data->card_issue != 'R') {
             $expired_date = carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d');
             $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d') . ' - 3 months'));
             if (Carbon::today()->toDateString() >= $expired_date) {
