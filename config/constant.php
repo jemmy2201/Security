@@ -320,6 +320,7 @@ define('zero', 0);
 define('default_email', "email");
 
 define('n_card_issue', "N");
+define('R_card_issue', "R");
 define('value_card_issue1', "Kindly contact Union Of Security Employees for further assistance.");
 define('value_card_issue2', "Contact details as shown on the top of this page.");
 define('value_SO_IDQuery1', "Pass ID not found.");
