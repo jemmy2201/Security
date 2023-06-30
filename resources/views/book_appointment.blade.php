@@ -292,26 +292,29 @@
 </div>
 {{--Can't back page after payment--}}
 <script type="text/javascript">
-    $.ajax({
-        url: "{{ url('/ajax/check/status/payment') }}",
-        type: 'POST',
-        /* send the csrf-token and the input to the controller */
-        data: {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            passid: {!!  json_encode($request->booking_schedule->passid) !!}
-        },
-        success: function (data) {
-            if(data.data.status_payment == {!!  json_encode(paid) !!}){
-                // function disableBack() { window.history.forward(); }
-                // setTimeout("disableBack()", 0);
-                // window.onunload = function () { null };
-                window.location.href = "{{URL::to('landing_page')}}"
+    if ({!!  json_encode($request->booking_schedule->Status_app) !!} != {!!  json_encode(resubmission) !!})
+    {
+        $.ajax({
+            url: "{{ url('/ajax/check/status/payment') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                passid: {!!  json_encode($request->booking_schedule->passid) !!}
+            },
+            success: function (data) {
+                if (data.data.status_payment == {!!  json_encode(paid) !!}) {
+                    // function disableBack() { window.history.forward(); }
+                    // setTimeout("disableBack()", 0);
+                    // window.onunload = function () { null };
+                    window.location.href = "{{URL::to('landing_page')}}"
+                }
+            },
+            error: function (request, status, error) {
+                handling_error_ajax();
             }
-        },
-        error: function (request, status, error) {
-            handling_error_ajax();
-        }
-    });
+        });
+    }
 </script>
 {{--End Can't back page after payment--}}
 {{--Can't back page resubmission--}}
