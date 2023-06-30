@@ -980,12 +980,12 @@ class SuperUserController extends Controller
             $diff_date_resubmission = date_diff(date_create(date('Y-m-d')),date_create($booking_schedule->appointment_date));
             $data_date = $diff_date_resubmission->format("%R%a");
             if ($data_date <= less_than_days){
-                booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])
-                    ->update([
-                        'appointment_date' => null,
-                        'time_start_appointment' => null,
-                        'time_end_appointment' => null,
-                    ]);
+//                booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])
+//                    ->update([
+//                        'appointment_date' => null,
+//                        'time_start_appointment' => null,
+//                        'time_end_appointment' => null,
+//                    ]);
             }
 
             $this->Saveresubmission($request,$grade);
@@ -1141,9 +1141,9 @@ class SuperUserController extends Controller
                     'paymentby' => null,
                     'status_payment' => null,
 //                    'receiptNo' => null,
-                    'appointment_date' => null,
-                    'time_start_appointment' => null,
-                    'time_end_appointment' => null,
+//                    'appointment_date' => null,
+//                    'time_start_appointment' => null,
+//                    'time_end_appointment' => null,
                 ]);
         }elseif ($request->app_type == replacement || $request->app_type == renewal) {
             $setifikat = sertifikat::where(['nric' => Session::get('nric_origin'), 'card_id' => $request->card])->latest()->first();
@@ -1505,9 +1505,9 @@ class SuperUserController extends Controller
                     'Status_draft' => draft_book_appointment,
                     'trans_date' => null,
 //                    'expired_date' => null,
-                    'appointment_date' => null,
-                    'time_start_appointment' => null,
-                    'time_end_appointment' => null,
+//                    'appointment_date' => null,
+//                    'time_start_appointment' => null,
+//                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
@@ -1535,9 +1535,9 @@ class SuperUserController extends Controller
                     'array_grade' => $merge_grade,
                     'trans_date' => null,
 //                    'expired_date' => null,
-                    'appointment_date' => null,
-                    'time_start_appointment' => null,
-                    'time_end_appointment' => null,
+//                    'appointment_date' => null,
+//                    'time_start_appointment' => null,
+//                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
@@ -1565,9 +1565,9 @@ class SuperUserController extends Controller
 //                    'status_app' => submission,
                     'trans_date' => null,
 //                    'expired_date' => null,
-                    'appointment_date' => null,
-                    'time_start_appointment' => null,
-                    'time_end_appointment' => null,
+//                    'appointment_date' => null,
+//                    'time_start_appointment' => null,
+//                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
                     'gst_id' => null,
                     'transaction_amount_id' => null,
