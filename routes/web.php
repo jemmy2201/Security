@@ -239,6 +239,10 @@ Route::prefix('ajax')->group(function () {
     Route::post('/check/passID', 'AjaxController@check_passID');
     Route::post('/check/expired/card', 'AjaxController@check_expired_card')->name('check.expired.card');
 
+    //status payment
+    Route::post('/check/status/payment', 'AjaxController@StatusPayment');
+    //end status payment
+
     // Check Maintenance
     Route::post('/check/maintenance', 'MaintenanceController@index')->name('check.maintenance');
     // End Check Maintenance

@@ -1141,12 +1141,12 @@ class HomeController extends Controller
             $diff_date_resubmission = date_diff(date_create(date('Y-m-d')),date_create($booking_schedule->appointment_date));
             $data_date = $diff_date_resubmission->format("%R%a");
             if ($data_date <= less_than_days){
-//                 booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
-//                    ->update([
-//                        'appointment_date' => null,
-//                        'time_start_appointment' => null,
-//                        'time_end_appointment' => null,
-//                    ]);
+                 booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+                    ->update([
+                        'appointment_date' => null,
+                        'time_start_appointment' => null,
+                        'time_end_appointment' => null,
+                    ]);
             }
 
             $this->Saveresubmission($request,$grade);
@@ -1300,9 +1300,9 @@ class HomeController extends Controller
                     'paymentby' => null,
                     'status_payment' => null,
 //                    'receiptNo' => null,
-//                    'appointment_date' => null,
-//                    'time_start_appointment' => null,
-//                    'time_end_appointment' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
                 ]);
         }elseif ($request->app_type == replacement || $request->app_type == renewal) {
             $setifikat = sertifikat::where(['nric' => Auth::user()->nric, 'card_id' => $request->card])->latest()->first();
@@ -1664,9 +1664,9 @@ class HomeController extends Controller
                     'Status_draft' => draft_book_appointment,
                     'trans_date' => null,
 //                    'expired_date' => null,
-//                    'appointment_date' => null,
-//                    'time_start_appointment' => null,
-//                    'time_end_appointment' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
@@ -1694,9 +1694,9 @@ class HomeController extends Controller
                     'array_grade' => $merge_grade,
                     'trans_date' => null,
 //                    'expired_date' => null,
-//                    'appointment_date' => null,
-//                    'time_start_appointment' => null,
-//                    'time_end_appointment' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
 //                    'gst_id' => null,
 //                    'transaction_amount_id' => null,
@@ -1724,9 +1724,9 @@ class HomeController extends Controller
 //                    'status_app' => submission,
                     'trans_date' => null,
 //                    'expired_date' => null,
-//                    'appointment_date' => null,
-//                    'time_start_appointment' => null,
-//                    'time_end_appointment' => null,
+                    'appointment_date' => null,
+                    'time_start_appointment' => null,
+                    'time_end_appointment' => null,
 //                    'passexpirydate' => $passexpirydate,
                     'gst_id' => null,
                     'transaction_amount_id' => null,
