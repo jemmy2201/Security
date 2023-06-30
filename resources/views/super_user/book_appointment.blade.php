@@ -495,7 +495,9 @@
         //remaing dates of last month
         let r_pm = (d_pm-firstDay) +1;
         let r_pm_s = (d_pm-firstDay) +1;
-
+        function daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
         for (let i = 0; i < 6; i++) {
             let row = document.createElement('tr');
             for (let j = 0; j < 7; j++) {
@@ -555,7 +557,11 @@
                         //     var sevenDayHidden = c_date.getDate() + 6;
                         // }else {
                         //     console.log('jrg 2')
-                        var sevenDayHidden = c_date.getDate() + 8;
+                        if(daysInMonth(m,y) == 30) {
+                            var sevenDayHidden = c_date.getDate() + 8;
+                        }else{
+                            var sevenDayHidden = c_date.getDate() + 6;
+                        }
                         // }
                         if(m > 2 && y === c_date.getFullYear()){
                             window.remainder_value = sevenDayHidden - d_m;
