@@ -99,21 +99,23 @@ trait AuthenticatesUsers
 //                                return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card2,'image'=>'fa fa-info-circle']);
                                 return  view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3,'data3' => value_not_found4,'image'=>'fa fa-info-circle']);
                             }else{
-                                foreach ($cek_avso_PI as $f) {
-                                    if ($f->card_issue == n_card_issue){
-//                                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
-                                        return  view('page_error')->with(['data1'=>value_card_issue1,'data2'=>value_card_issue2,'image'=>'fa fa-info-circle']);
-
-                                    }else{
-                                        $data = User::where('nric', secret_encode($request->singpass_id))->first();
-                                    }
-                                }
+//                                foreach ($cek_avso_PI as $f) {
+//                                    if ($f->card_issue == n_card_issue){
+////                                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                                        return  view('page_error')->with(['data1'=>value_card_issue1,'data2'=>value_card_issue2,'image'=>'fa fa-info-circle']);
+//
+//                                    }else{
+                                $data = User::where('nric', secret_encode($request->singpass_id))->first();
+//                                    }
+//                                }
                             }
-                        }elseif ($f->card_issue == n_card_issue){
-//                            return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
-                            return  view('page_error')->with(['data1'=>value_card_issue1,'data2'=>value_card_issue2,'image'=>'fa fa-info-circle']);
-
-                        }else{
+                        }
+//                        elseif ($f->card_issue == n_card_issue){
+////                            return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                            return  view('page_error')->with(['data1'=>value_card_issue1,'data2'=>value_card_issue2,'image'=>'fa fa-info-circle']);
+//
+//                        }
+                        else{
                             $data = User::where('nric', secret_encode($request->singpass_id))->first();
                         }
                     }

@@ -290,7 +290,34 @@
     </div>
     </form>
 </div>
-{{--Can't back page --}}
+{{--Can't back page after payment--}}
+<script type="text/javascript">
+    if ({!!  json_encode($request->booking_schedule->Status_app) !!} != {!!  json_encode(resubmission) !!})
+    {
+        $.ajax({
+            url: "{{ url('/ajax/check/status/payment') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                passid: {!!  json_encode($request->booking_schedule->passid) !!}
+            },
+            success: function (data) {
+                if (data.data.status_payment == {!!  json_encode(paid) !!}) {
+                    // function disableBack() { window.history.forward(); }
+                    // setTimeout("disableBack()", 0);
+                    // window.onunload = function () { null };
+                    window.location.href = "{{URL::to('super/user/landing_page')}}"
+                }
+            },
+            error: function (request, status, error) {
+                handling_error_ajax();
+            }
+        });
+    }
+</script>
+{{--End Can't back page after payment--}}
+{{--Can't back page resubmission--}}
 <script type="text/javascript">
     if ({!!  json_encode( $request->Status_app) !!} == {!!  json_encode(resubmission) !!} ) {
         function disableBack() {
@@ -338,7 +365,7 @@
     });
 
 </script>
-{{--End Can't back page --}}
+{{--End Can't back page resubmission --}}
 <script type="application/javascript">
     function ChechkCountBooking() {
         $.ajax({

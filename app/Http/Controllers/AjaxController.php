@@ -1483,6 +1483,15 @@ class AjaxController extends Controller
             return response::json(['massages' => false],200);
         }
     }
+    public function StatusPayment(Request $request)
+    {
+        $statusPayment = booking_schedule::select('status_payment')->where(['passid'=>$request->passid])->first();
+        if ($statusPayment){
+            return Response::json(['massages' => true,'data'=>$statusPayment],200);
+        }else{
+            return response::json(['massages' => false,'data'=>null],200);
+        }
+    }
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {

@@ -803,6 +803,33 @@
             <input type="hidden" id="card" name="card" value="{{$request->card}}">
         </form>
 @endif
+{{--Can't back page --}}
+<script type="text/javascript">
+    if ({!!  json_encode($personal->Status_app) !!} != {!!  json_encode(resubmission) !!})
+    {
+        $.ajax({
+            url: "{{ url('/ajax/check/status/payment') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                passid: {!!  json_encode($personal->passid) !!}
+            },
+            success: function (data) {
+                if (data.data.status_payment == {!!  json_encode(paid) !!}) {
+                    // function disableBack() { window.history.forward(); }
+                    // setTimeout("disableBack()", 0);
+                    // window.onunload = function () { null };
+                    window.location.href = "{{URL::to('landing_page')}}"
+                }
+            },
+            error: function (request, status, error) {
+                handling_error_ajax();
+            }
+        });
+    }
+</script>
+{{--End Can't back page --}}
 <script>
     $( document ).ready(function() {
         $( "#next_book_appointment" ).click(function() {

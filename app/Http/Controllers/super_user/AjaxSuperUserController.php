@@ -125,10 +125,10 @@ class AjaxSuperUserController extends Controller
     {
         $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.passid' =>$request->passid, 'booking_schedules.card_id' => $request->card])->first();
-        if ($data->card_id == so_app && $data->card_issue == n_card_issue){
-            $data = array('error'=>true,'ExpiredDate'=>3,'data1' => value_expired_card1, 'data2' => value_expired_card1, 'image' => 'fa fa-info-circle');
-            return $data;
-        }
+//        if ($data->card_id == so_app && $data->card_issue == n_card_issue){
+//            $data = array('error'=>true,'ExpiredDate'=>3,'data1' => value_expired_card1, 'data2' => value_expired_card1, 'image' => 'fa fa-info-circle');
+//            return $data;
+//        }
         if ($data->expired_date && $data->card_issue != R_card_issue) {
             $expired_date = carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d');
             $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d') . ' - 3 months'));
