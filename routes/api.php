@@ -39,6 +39,12 @@ Route::post('/secret_decode',function(Request $request){
 
 Route::post('/check/passid',function(Request $request){
 //    $data = booking_schedule::where('receiptNo','LIKE','%'.$request->receiptNo.'%')->get();
+    $data = booking_schedule::where(['passid'=>$request->passid])->get();
+    return $data;
+});
+
+Route::post('/check/receiptNo',function(Request $request){
+//    $data = booking_schedule::where('receiptNo','LIKE','%'.$request->receiptNo.'%')->get();
     $data = booking_schedule::where(['receiptNo'=>$request->receiptNo])->get();
     return $data;
 });
