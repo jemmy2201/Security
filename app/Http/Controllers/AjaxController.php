@@ -819,9 +819,11 @@ class AjaxController extends Controller
                 $users = User::where(['nric'=>secret_encode($e['nric'])])->first();
                 $count_users = User::count()+1;
                 // cek email
-                $email = User::where(['email'=>'email'.$count_users.'@admin.com'])->first();
+//                $email = User::where(['email'=>'email'.$count_users.'@admin.com'])->first();
+                $email = User::latest()->count();
                 if (!empty($email)){
-                    $count_users = User::count()+2;
+//                    $count_users = User::count()+2;
+                    $count_users = $email+1;
                 }
                 // end cek email
                 $format = 'd/m/Y';
@@ -873,7 +875,7 @@ class AjaxController extends Controller
 
                                 'passid' => $e['passid'],
 
-                                'email' => 'email' . $count_users . '@admin.com',
+                                'email' => 'email' . $count_users . ''.date('dmY').'@admin.com',
 
                                 'password' => Hash::make('123123')
                             ];
@@ -930,7 +932,7 @@ class AjaxController extends Controller
 
                         'passid' => $e['passid'],
 
-                        'email' => 'email'.$count_users.'@admin.com',
+                        'email' => 'email'.$count_users.''.date('dmY').'@admin.com',
 
                         'password' => Hash::make('123123')
                     ];
@@ -942,7 +944,7 @@ class AjaxController extends Controller
 
                     $New_users->name = $e['name'];
 
-                    $New_users->email = 'email'.$count_users.'@admin.com';
+                    $New_users->email = 'email'.$count_users.''.date('dmY').'@admin.com';
 
                     $New_users->password = Hash::make('123123');
 
@@ -984,7 +986,7 @@ class AjaxController extends Controller
 
                             'passid' => $e['passid'],
 
-                            'email' => 'email' . $count_users . '@admin.com',
+                            'email' => 'email'.$count_users.''.date('dmY').'@admin.com',
 
                             'password' => Hash::make('123123')
                         ];
