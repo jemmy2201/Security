@@ -484,6 +484,7 @@ class SingpassController extends Controller
                             ->where('users.nric',secret_encode($sub))->get();
 
             if(count($existingUser) > 0) {
+                $val_expired = [];
                 foreach ($existingUser as $f) {
                     // Less 3 month
 //                    $expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d'). ' - 3 months'));
@@ -502,29 +503,55 @@ class SingpassController extends Controller
 //                        }
 //                    }
                     // End Less 3 month
-                    if ($f->card_id == so_app && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
-                        $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-                            ->where(function ($query) {
-                                $query->where(['booking_schedules.card_id'=>avso_app])
-                                    ->orWhere(['booking_schedules.card_id'=>pi_app]);
-                            })->where(['users.nric'=> secret_encode( $request->singpass_id )])->get();
-                        if (count($cek_avso_PI) == 0){
-//                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
-//                            return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
-                            return  view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3,'data3' => value_not_found4,'image'=>'fa fa-info-circle']);
-                        }else{
-                            foreach ($cek_avso_PI as $f) {
-                                if ($f->card_issue == n_card_issue){
-//                                    return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
-                                    return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card2,'image'=>'fa fa-info-circle']);
-                                }else{
-                                    $data = User::where('nric', secret_encode($request->singpass_id))->first();
-                                }
-                            }
-                        }
-                    }elseif ($f->card_issue == n_card_issue){
-//                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
-                        return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
+
+//                    if ($f->card_id == so_app && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+//                        $cek_avso_PI = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+//                            ->where(function ($query) {
+//                                $query->where(['booking_schedules.card_id'=>avso_app])
+//                                    ->orWhere(['booking_schedules.card_id'=>pi_app]);
+//                            })->where(['users.nric'=> secret_encode( $request->singpass_id )])->get();
+//                        if (count($cek_avso_PI) == 0){
+////                            return  view('page_error')->with(['data'=>value_expired_card,'image'=>'fa fa-info-circle']);
+////                            return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
+//                            return  view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3,'data3' => value_not_found4,'image'=>'fa fa-info-circle']);
+//                        }else{
+//                            foreach ($cek_avso_PI as $f) {
+//                                if ($f->card_issue == n_card_issue){
+////                                    return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                                    return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card2,'image'=>'fa fa-info-circle']);
+//                                }else{
+//                                    $data = User::where('nric', secret_encode($request->singpass_id))->first();
+//                                }
+//                            }
+//                        }
+//                    }elseif ($f->card_issue == n_card_issue){
+////                        return  view('page_error')->with(['data'=>value_card_issue,'image'=>'fa fa-info-circle']);
+//                        return  view('page_error')->with(['data1'=>value_expired_card1,'data2'=>value_expired_card1,'image'=>'fa fa-info-circle']);
+//                    }else{
+//                        $existingUser = User::where('nric',secret_encode($sub))->first();
+//                        auth()->login($existingUser, true);
+//                        return redirect()->to('/home');
+//                    }
+
+                    if ($f->card_id == so_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                        array_push($val_expired, true);
+                    }elseif ($f->card_id == pi_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
+                        array_push($val_expired, true);
+                    }else{
+                        array_push($val_expired, false);
+                    }
+                }
+                if (count($val_expired) == 2){
+                    if ($val_expired[0] == true && $val_expired[1] == true){
+                        return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3,'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
+                    }else{
+                        $existingUser = User::where('nric',secret_encode($sub))->first();
+                        auth()->login($existingUser, true);
+                        return redirect()->to('/home');
+                    }
+                }else {
+                    if ($val_expired[0] == true) {
+                        return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3,'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
                     }else{
                         $existingUser = User::where('nric',secret_encode($sub))->first();
                         auth()->login($existingUser, true);
