@@ -330,7 +330,11 @@ class HomeController extends Controller
     {
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
-        return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+        if($personal->card_issue == NotExpiredCard) {
+            return view('page_error_card_issue')->with(['data1' => value_not_found7, 'data2' => value_not_found10, 'data3' => value_not_found9, 'image' => 'fa fa-info-circle']);
+        }else {
+            return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
+        }
     }
     public function backpersonaldata(Request $request,$app_type,$card,$Status_App = false)
     {
@@ -1110,21 +1114,21 @@ class HomeController extends Controller
 //            }
 //        }
 //
-        $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where('users.nric', Auth::user()->nric)->get();
-        foreach ($data as $f) {
-            if ($f->expired_date) {
-                $expired_date = carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
-                $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') . ' - 3 months'));
-//                if (Carbon::today()->toDateString() >= $expired_date) {
-////                                return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found2, 'image' => 'fa fa-info-circle']);
-//                    return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
+//        $data = User::join('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+//            ->where('users.nric', Auth::user()->nric)->get();
+//        foreach ($data as $f) {
+//            if ($f->expired_date) {
+//                $expired_date = carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+//                $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d') . ' - 3 months'));
+////                if (Carbon::today()->toDateString() >= $expired_date) {
+//////                                return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found2, 'image' => 'fa fa-info-circle']);
+////                    return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
+////                }
+//                if (Carbon::today()->toDateString() >= $less_expired_date && $f->card_issue != RemoveExpiredCard || $f->card_issue == NotExpiredCard ) {
+//                    return view('page_error')->with(['data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle']);
 //                }
-                if (Carbon::today()->toDateString() >= $less_expired_date && $f->card_issue != RemoveExpiredCard || $f->card_issue == NotExpiredCard ) {
-                    return view('page_error')->with(['data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle']);
-                }
-            }
-        }
+//            }
+//        }
 //        // End Cek Expired Card
         $json_cgrades = json_encode($request->Cgrades);
         $Cgrades = urlencode($json_cgrades);
