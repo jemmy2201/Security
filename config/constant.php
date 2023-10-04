@@ -182,6 +182,7 @@ define('date_last', "31");
 
 define('work_permit_pass', "G");
 define('employment_pass', "F");
+define('NotExpiredCard', "R");
 
 define('one_mb', "1000000");
 define('five_mb', "5000000");
