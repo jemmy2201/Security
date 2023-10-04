@@ -140,12 +140,14 @@ class AjaxController extends Controller
             $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d') . ' - 3 months'));
             if (Carbon::today()->toDateString() >= $expired_date) {
 //                return view('page_error')->with(['data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle']);
-                $data = array('error'=>true,'ExpiredDate'=>1,'data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle');
+//                $data = array('error'=>true,'ExpiredDate'=>1,'data1' => value_not_found1, 'data2' => value_not_found3, 'data3' => value_not_found4, 'image' => 'fa fa-info-circle');
+                $data = array('error'=>true,'ExpiredDate'=>1,'data1' => unable_to_apply_id_card, 'data4' => value_not_found8, 'data3' => value_not_found9, 'data2' => value_not_found10, 'image' => 'fa fa-info-circle');
                 return $data;
             }
             if (Carbon::today()->toDateString() >= $less_expired_date) {
 //                return view('page_error')->with(['data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle']);
-                $data = array('error'=>true,'ExpiredDate'=>2,'data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle');
+//                $data = array('error'=>true,'ExpiredDate'=>2,'data1' => expired_less_3month, 'data4' => value_not_found2, 'data3' => value_not_found6, 'data2' => value_not_found5, 'image' => 'fa fa-info-circle');
+                $data = array('error'=>true,'ExpiredDate'=>2,'data1' => unable_to_apply_id_card, 'data4' => value_not_found8, 'data3' => value_not_found9, 'data2' => value_not_found10, 'image' => 'fa fa-info-circle');
                 return $data;
             }
         }

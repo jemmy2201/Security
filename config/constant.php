@@ -184,6 +184,7 @@ define('work_permit_pass', "G");
 define('employment_pass', "F");
 define('RemoveExpiredCard', "R");
 define('NotExpiredCard', "N");
+define('ExpiredCard', "Y");
 
 define('one_mb', "1000000");
 define('five_mb', "5000000");
@@ -339,6 +340,11 @@ define('value_not_found3', "1) You have not completed the PLRD online new/renewa
 define('value_not_found4', "2) Your approved data from PLRD may take 48 - 72 hours to be updated into USE's ID card portal");
 define('value_not_found5', "1) You have requested a replacement for your ID card when your ID card will be expiring soon.");
 define('value_not_found6', "2) You need to contact USE for confirmation.");
+define('value_not_found7', "Unable To Apply ID Card");
+define('value_not_found8', "PLRD contact detail Email : spf_licensing_feedback@gov.sg or telephone: +65 6853 0000");
+define('value_not_found9', "2) You need to contact PLRD directly.");
+define('value_not_found10', "1) Your PLRD Licence is not Active.");
+
 define('type_error_so_query', 1);
 
 define('phone_general_office', "+65 6381 9150");
@@ -383,6 +389,8 @@ define('login', 1);
 
 //define('expired_less_3month', "Expires less than 3 month");
 define('expired_less_3month', "Your ID card will be expiring soon");
+
+define('unable_to_apply_id_card', "Your ID card will be expiring soon");
 
 define('full_booking', 'No more available bookings for the selected slot');
 define('count_booking', 20);

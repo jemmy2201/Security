@@ -709,11 +709,13 @@
 {{--                                @if(isset($data4))--}}
 {{--                                <B id="data4"></B><br><br>--}}
 {{--                                @endif--}}
-                            <B>Contact details as follows:</B>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
-                                <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
-                            </ul>
+{{--                            <B>Contact details as follows:</B>--}}
+                            <B>PLRD contact detail Email : spf_licensing_feedback@gov.sg</B>
+                            <B>or telephone: +65 6853 0000</B>
+{{--                            <ul class="list-group list-group-flush">--}}
+{{--                                <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>--}}
+{{--                                <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>--}}
+{{--                            </ul>--}}
 
                         </h4>
                         <a href="/">
