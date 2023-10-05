@@ -860,7 +860,7 @@
                             document.getElementById('data10').innerHTML = data.data2;
                         }
                     }else{
-                        // $("#book_appointment").submit();
+                        $("#book_appointment").submit();
                     }
                 }
             });
