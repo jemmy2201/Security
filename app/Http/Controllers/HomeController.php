@@ -330,7 +330,9 @@ class HomeController extends Controller
     {
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
-        if($personal->card_issue == NotExpiredCard) {
+        $card_issue = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id' => $request->card])->first();
+        if($card_issue->card_issue == NotExpiredCard) {
             return view('page_error_card_issue')->with(['data1' => value_not_found7, 'data2' => value_not_found10, 'data3' => value_not_found9, 'image' => 'fa fa-info-circle']);
         }else {
             return view('personal_particular')->with(['personal' => $personal, "request" => $request]);

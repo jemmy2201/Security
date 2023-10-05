@@ -129,7 +129,7 @@ class AjaxSuperUserController extends Controller
 //            $data = array('error'=>true,'ExpiredDate'=>3,'data1' => value_expired_card1, 'data2' => value_expired_card1, 'image' => 'fa fa-info-circle');
 //            return $data;
 //        }
-        if ($data->expired_date && $data->card_issue != R_card_issue) {
+        if ($data->expired_date) {
             $expired_date = carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d');
             $less_expired_date = date('Y-m-d', strtotime(Carbon::createFromFormat('d/m/Y', $data->expired_date)->format('Y-m-d') . ' - 3 months'));
             if (Carbon::today()->toDateString() >= $expired_date) {

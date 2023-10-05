@@ -709,13 +709,11 @@
 {{--                                @if(isset($data4))--}}
 {{--                                <B id="data4"></B><br><br>--}}
 {{--                                @endif--}}
-{{--                            <B>Contact details as follows:</B>--}}
-                            <B>PLRD contact detail Email : spf_licensing_feedback@gov.sg</B>
-                            <B>or telephone: +65 6853 0000</B>
-{{--                            <ul class="list-group list-group-flush">--}}
-{{--                                <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>--}}
-{{--                                <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>--}}
-{{--                            </ul>--}}
+                            <B>Contact details as follows:</B>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">- <i class="fa fa-phone" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{phone_general_office}} &nbsp;&nbsp; {{phone_CSC}} </i></B></li>
+                                <li class="list-group-item" style="margin-top: -8px;">- <i class="fa fa-envelope" style="font-size: 14px;" aria-hidden="true"><B>&nbsp;&nbsp;{{email}}</B></i></li>
+                            </ul>
 
                         </h4>
                         <a href="/">
@@ -835,38 +833,37 @@
 <script>
     $( document ).ready(function() {
         $( "#next_book_appointment" ).click(function() {
-            $("#book_appointment").submit();
-        {{--$.ajax({--}}
-        {{--        url: "{{ url('/ajax/check/expired/cards') }}",--}}
-        {{--        type: 'POST',--}}
-        {{--        /* send the csrf-token and the input to the controller */--}}
-        {{--        data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},--}}
-        {{--        success: function (data) {--}}
-        {{--            if (data.error == true){--}}
-        {{--                $( "#closesPhotoNotSelfie" ).trigger( "click" );--}}
-        {{--                if(data.ExpiredDate == 1){--}}
-        {{--                    $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );--}}
-        {{--                    document.getElementById('data5').innerHTML = data.data1;--}}
-        {{--                    document.getElementById('data6').innerHTML = data.data2;--}}
-        {{--                    document.getElementById('data7').innerHTML = data.data3;--}}
-        {{--                    document.getElementById('data8').innerHTML = data.data4;--}}
-        {{--                }--}}
-        {{--                if(data.ExpiredDate == 2){--}}
-        {{--                    $( "#ExpiredCard" ).trigger( "click" );--}}
-        {{--                    document.getElementById('data1').innerHTML = data.data1;--}}
-        {{--                    document.getElementById('data2').innerHTML = data.data2;--}}
-        {{--                    document.getElementById('data3').innerHTML = data.data3;--}}
-        {{--                }--}}
-        {{--                if(data.ExpiredDate == 3){--}}
-        {{--                    $( "#SOCardIssueN" ).trigger( "click" );--}}
-        {{--                    document.getElementById('data9').innerHTML = data.data1;--}}
-        {{--                    document.getElementById('data10').innerHTML = data.data2;--}}
-        {{--                }--}}
-        {{--            }else{--}}
-        {{--                $("#book_appointment").submit();--}}
-        {{--            }--}}
-        {{--        }--}}
-        {{--    });--}}
+        $.ajax({
+                url: "{{ url('/ajax/check/expired/cards') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), card:{!! json_encode($request->card) !!}},
+                success: function (data) {
+                    if (data.error == true){
+                        $( "#closesPhotoNotSelfie" ).trigger( "click" );
+                        if(data.ExpiredDate == 1){
+                            $( "#ExpiredCardLessThreeMonth" ).trigger( "click" );
+                            document.getElementById('data5').innerHTML = data.data1;
+                            document.getElementById('data6').innerHTML = data.data2;
+                            document.getElementById('data7').innerHTML = data.data3;
+                            document.getElementById('data8').innerHTML = data.data4;
+                        }
+                        if(data.ExpiredDate == 2){
+                            $( "#ExpiredCard" ).trigger( "click" );
+                            document.getElementById('data1').innerHTML = data.data1;
+                            document.getElementById('data2').innerHTML = data.data2;
+                            document.getElementById('data3').innerHTML = data.data3;
+                        }
+                        if(data.ExpiredDate == 3){
+                            $( "#SOCardIssueN" ).trigger( "click" );
+                            document.getElementById('data9').innerHTML = data.data1;
+                            document.getElementById('data10').innerHTML = data.data2;
+                        }
+                    }else{
+                        // $("#book_appointment").submit();
+                    }
+                }
+            });
         });
     });
 </script>
