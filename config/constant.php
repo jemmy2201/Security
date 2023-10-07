@@ -334,7 +334,7 @@ define('value_expired_card2', "Renew your PLRD SO/PI licence @ Go Business Singa
 //define('value_not_found1', "Record not found.");
 //define('value_not_found1', "Record not available yet.");
 //define('value_not_found1', "Record Not Available Yet.");
-define('value_not_found1', "Your Card Licence Expired.");
+define('value_not_found1', "Your Card Licence Not Found / Expired.");
 define('value_not_found2', "Please contact Union Of Security Employees for  further assistance.");
 define('value_not_found3', "1) You have not completed the PLRD online new/renewal application at https//licence1.business.gov.sg");
 define('value_not_found4', "2) Your approved data from PLRD may take 48 - 72 hours to be updated into USE's ID card portal");
