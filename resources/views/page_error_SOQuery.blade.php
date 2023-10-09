@@ -132,9 +132,9 @@
 {{--                        <i class="fa fa-exclamation-triangle fa-2x "  aria-hidden="true"></i>&nbsp;--}}
                         <img src="{{URL::asset('/img/USE_simple-safety-sign.jpg')}}" style="width: 18%;">
                         <br><br>
-                        <p>Your QR code is currently being updated.</p><br>
-                        <p>If after <b>two working days,</b>it does not reflect the updated details.</p><br>
-                        <p>please contact us at <u><a href= "mailto:use-idcard@ntuc.org.sg">use-idcard@ntuc.org.sg</a></u>with the following details:</p>
+                        <p>Your QR code is currently being updated.</p>
+                        <p>If after <b>two working days,</b> it does not reflect the updated details.</p>
+                        <p>please contact us at <u><a href= "mailto:use-idcard@ntuc.org.sg">use-idcard@ntuc.org.sg</a></u> with the following details:</p>
 
                     </h4>
                  </div>
