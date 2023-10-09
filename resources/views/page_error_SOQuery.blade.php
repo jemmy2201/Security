@@ -129,7 +129,8 @@
             <div class="row-12">
                 <div class="col-sm">
                     <h4>
-                        <i class="fa fa-exclamation-triangle fa-2x "  aria-hidden="true"></i>&nbsp;
+{{--                        <i class="fa fa-exclamation-triangle fa-2x "  aria-hidden="true"></i>&nbsp;--}}
+                        <img src="{{URL::asset('/img/USE_simple-safety-sign.jpg')}}" style="width: 18%;">
                         <br><br>
                         <p>Your QR code is currently being updated.</p>
                         <p>If after <b>two working days,</b>it does not reflect the updated details.</p>
