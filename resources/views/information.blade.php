@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_login')
 <style>
     .disabled{
         font-weight: normal;
