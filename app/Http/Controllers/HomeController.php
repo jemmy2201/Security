@@ -45,7 +45,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+    public function information()
     {
         if (Auth::user()->role == admin  ) {
             return view('admin/historylogin');
@@ -55,6 +56,16 @@ class HomeController extends Controller
             return view('staff/upload_payment');
         }
 
+        $nric = search_nric_private(secret_decode(Auth::user()->nric));
+        if ($nric){
+            return view('super_user/home');
+        }else{
+            return view('information');
+        }
+
+    }
+    public function index()
+    {
         $nric = search_nric_private(secret_decode(Auth::user()->nric));
         if ($nric){
             return view('super_user/home');

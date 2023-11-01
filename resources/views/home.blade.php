@@ -126,7 +126,8 @@
     <div class="container">
         <div class="row">
             <div class="col-2 hidden-xs">
-                <button class=" btn btn-light btn-lg btn-block" id="line3" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+{{--                <button class=" btn btn-light btn-lg btn-block" id="line3" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >--}}
+                <button class=" btn btn-light btn-lg btn-block back" id="line3" style="display: none;border-style: groove; background: black; color: #E31D1A">
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
@@ -142,7 +143,8 @@
 
             {{--   Phone   --}}
             <div class="col-4 visible-xs hidden-md">
-                <button class=" btn btn-light btn-lg btn-block" id="line5" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >
+{{--                <button class=" btn btn-light btn-lg btn-block" id="line5" style="display: none;border-style: groove; background: black; color: #E31D1A" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  >--}}
+                <button class=" btn btn-light btn-lg btn-block back" id="line5" style="display: none;border-style: groove; background: black; color: #E31D1A">
                     <a href="" style="text-decoration:none; color: white;">
                         Back
                     </a>
@@ -302,6 +304,10 @@
         $('#open_terms').on('click', function () {
             // $("#view_terms").css("display", "block");
             // $('#view_terms').modal('show');
+        });
+
+        $('.back').on('click', function () {
+            window.location.href = "/home";
         });
 
         $('#next').on('click', function () {
