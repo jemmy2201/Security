@@ -25,14 +25,21 @@ Route::get('/qrcode', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Auth::logout();
-    return view('login');
+    return view('information');
 })->name('qrcode');
+
+Route::get('/login/qrcode', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Auth::logout();
+    return view('login');
+});
 
 Route::get('/relogin', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Auth::logout();
-    return view('login');
+    return view('information');
 })->name('relogin');
 
 // singpass
@@ -65,8 +72,7 @@ Route::get('/admin/payment', function () {
 
 Auth::routes();
 // User
-Route::get('/home', 'HomeController@information')->name('home');
-Route::get('/landing', 'HomeController@index')->name('landing');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/landing_page', 'HomeController@landing_page')->name('landing_page');
 Route::post('/personal/particular','HomeController@personaldata')->name('personal.particular');
 Route::post('/submission', 'HomeController@submission')->name('submission');

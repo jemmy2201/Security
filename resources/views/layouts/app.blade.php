@@ -107,9 +107,9 @@
     <div id="app" >
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background: #333333;">
             <div class="container">
-                @if(Request::route()->getName() == page_update_so || Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use || Request::route()->getName() == default_landing  )
+                @if(Request::route()->getName() == page_update_so || Request::route()->getName()== view_course || Request::route()->getName()== after_payment || Request::route()->getName() == default_alter_term_use || Request::route()->getName() == default_home  )
 {{--                @if(isset($request->Status_App) && $request->Status_App == resubmission || Request::route()->getName() == default_alter_term_use )--}}
-                    <a  href="{{ url('/home') }}">
+                    <a  href="{{ url('/landing_page') }}">
                         <img src="{{URL::asset('/img/logo.png')}}" style="width: 75%;">
                     </a>
                 @elseif(Request::route()->getName() == default_alter_login)
@@ -157,7 +157,7 @@
                             <li class="nav-item" style="margin-left: 240px;">
 {{--                                <a class="nav-link" href="{{ url('/home') }}"><h5 style="color: #E31E1A;">home</h5></a>--}}
                                     <input type="hidden" name="logout_save_draft" id="logout_save_draft" >
-                                    @if(Request::route()->getName() == page_update_so || Request::route()->getName() == default_alter_login || Request::route()->getName() == default_alter_term_use || Request::route()->getName() == default_landing)
+                                    @if(Request::route()->getName() == page_update_so || Request::route()->getName() == default_alter_login || Request::route()->getName() == default_alter_term_use)
                                         <a class="nav-link"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <h5 style="cursor:pointer; color: #E31E1A;">LOGOUT</h5>
 {{--                                            <i class="fa fa-sign-out" aria-hidden="true" style="font-size:24px;color: red;cursor: pointer;"></i>--}}

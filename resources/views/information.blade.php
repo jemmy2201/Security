@@ -66,7 +66,7 @@
         // End 15 minutes not action
 
         $('#next').on('click', function () {
-            window.location.href = "/landing";
+            window.location.href = "/login/qrcode";
         });
     });
 </script>

@@ -165,13 +165,15 @@ define('half_2', "14:30");
 define('half_3', "15:30");
 define('half_4', "16:30");
 
-define('cek_pathname', "/qrcode");
+//define('cek_pathname', "/qrcode");
+define('cek_pathname', "/login/qrcode");
 define('cek_pathname_logout', "/submission");
 define('url_relogin', "/relogin");
 define('login_dummy', "/login/dummy/1");
 define('default_alter_login', "home");
 define('page_update_so', "update.so");
 define('default_alter_term_use', "landing_page");
+define('default_home', "qrcode");
 define('default_landing', "landing");
 define('landing_page_passID', "super_user.landing_page");
 define('after_payment', "after.payment");
