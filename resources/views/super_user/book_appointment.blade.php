@@ -615,7 +615,8 @@
                         }
                     }else if ( date < c_date.getDate() && y > c_date.getFullYear() && m < c_date.getMonth()){
                         console.log('4')
-                        var sevenDayHidden = c_date.getDate() - date - 9;
+                        // var sevenDayHidden = c_date.getDate() - date - 9;
+                        var sevenDayHidden = c_date.getDate() -  c_date.getDate();
                         if (date <= sevenDayHidden){
                             if (d_m => sevenDayHidden){
                                 window.remainder_value = sevenDayHidden - d_m;
@@ -683,38 +684,27 @@
                         }else if(y >= c_date.getFullYear()){
                             const counting_years = y - c_date.getFullYear();
                             if(counting_years == {!!  json_encode(Oneyears) !!}) {
-                                if (newDate.getDay() == 5) {
-                                    sat.push(s)
-                                }
-                                if (newDate.getDay() == 6) {
-                                    sun.push(s)
-                                }
-                            }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
-                                if(m >= c_date.getMonth()) {
-                                    // console.log('1')
-                                    if (newDate.getDay() == 3) {
+                                if (m >= {!!  json_encode(Maret) !!} ) {
+                                    if (newDate.getDay() == 4) {
                                         sat.push(s)
                                     }
-                                    if (newDate.getDay() == 4) {
+                                    if (newDate.getDay() == 5) {
                                         sun.push(s)
                                     }
-                                }else if(m <= c_date.getMonth()){
-                                    // console.log('2')
-                                    if (m === {!!  json_encode(Maret) !!} || m === {!!  json_encode(April) !!} ){
-                                        if (newDate.getDay() == 3) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 4) {
-                                            sun.push(s)
-                                        }
-                                    }else {
-                                        if (newDate.getDay() == 4) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 5) {
-                                            sun.push(s)
-                                        }
+                                }else{
+                                    if (newDate.getDay() == 5) {
+                                        sat.push(s)
                                     }
+                                    if (newDate.getDay() == 6) {
+                                        sun.push(s)
+                                    }
+                                }
+                            }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
+                                if (newDate.getDay() == 3) {
+                                    sat.push(s)
+                                }
+                                if (newDate.getDay() == 4) {
+                                    sun.push(s)
                                 }
                             }else if(counting_years == {!!  json_encode(Threeyears) !!}) {
                                 if(m >= c_date.getMonth()) {
@@ -727,16 +717,17 @@
                                     }
                                 }else if(m <= c_date.getMonth()){
                                     // console.log('2')
-                                        if (newDate.getDay() == 2) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 3) {
-                                            sun.push(s)
-                                        }
+                                    if (newDate.getDay() == 2) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 3) {
+                                        sun.push(s)
+                                    }
                                 }
                             }
                         }
                     }
+
                     function daysInMonth(month,year) {
                         return new Date(year, month, 0).getDate();
                     }
