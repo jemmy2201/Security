@@ -25,21 +25,25 @@ Route::get('/qrcode', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Auth::logout();
-    return view('information');
+//    return view('information');
+    return view('login');
 })->name('qrcode');
 
-Route::get('/login/qrcode', function () {
-    Artisan::call('cache:clear');
-    Artisan::call('view:clear');
-    Auth::logout();
-    return view('login');
-});
+// untuk muncukan information
+//Route::get('/login/qrcode', function () {
+//    Artisan::call('cache:clear');
+//    Artisan::call('view:clear');
+//    Auth::logout();
+//    return view('login');
+//});
+// end untuk muncukan information
 
 Route::get('/relogin', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Auth::logout();
-    return view('information');
+//    return view('information');
+    return view('login');
 })->name('relogin');
 
 // singpass

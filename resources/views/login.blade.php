@@ -526,7 +526,7 @@
                 if (window.location.pathname == {!!  json_encode(url_relogin) !!}){
                     // window.location.href = '/qrcode';
                 }else{
-                    window.location.href = '/qrcode';
+                    // window.location.href = '/qrcode';
                 }
             }
         });
