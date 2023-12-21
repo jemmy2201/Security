@@ -684,38 +684,27 @@
                         }else if(y >= c_date.getFullYear()){
                             const counting_years = y - c_date.getFullYear();
                             if(counting_years == {!!  json_encode(Oneyears) !!}) {
-                                if (newDate.getDay() == 5) {
-                                    sat.push(s)
-                                }
-                                if (newDate.getDay() == 6) {
-                                    sun.push(s)
-                                }
-                            }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
-                                if(m >= c_date.getMonth()) {
-                                    // console.log('1')
-                                    if (newDate.getDay() == 3) {
+                                if (m >= {!!  json_encode(Maret) !!} ) {
+                                    if (newDate.getDay() == 4) {
                                         sat.push(s)
                                     }
-                                    if (newDate.getDay() == 4) {
+                                    if (newDate.getDay() == 5) {
                                         sun.push(s)
                                     }
-                                }else if(m <= c_date.getMonth()){
-                                    // console.log('2')
-                                    if (m === {!!  json_encode(Maret) !!} || m === {!!  json_encode(April) !!} ){
-                                        if (newDate.getDay() == 3) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 4) {
-                                            sun.push(s)
-                                        }
-                                    }else {
-                                        if (newDate.getDay() == 4) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 5) {
-                                            sun.push(s)
-                                        }
+                                }else{
+                                    if (newDate.getDay() == 5) {
+                                        sat.push(s)
                                     }
+                                    if (newDate.getDay() == 6) {
+                                        sun.push(s)
+                                    }
+                                }
+                            }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
+                                if (newDate.getDay() == 3) {
+                                    sat.push(s)
+                                }
+                                if (newDate.getDay() == 4) {
+                                    sun.push(s)
                                 }
                             }else if(counting_years == {!!  json_encode(Threeyears) !!}) {
                                 if(m >= c_date.getMonth()) {
