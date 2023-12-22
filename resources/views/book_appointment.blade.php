@@ -923,6 +923,9 @@
                     }else if (date == c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()) {
                         span.classList.add('dissable');
                         $('.prevMonth').css({"pointer-events": "none", "opacity": "0.6"});
+                    }else if(y - c_date.getFullYear() > 2 && m == 11){
+                        $('.prevMonth').css({"pointer-events": "", "opacity": ""});
+                        $('.nextMonth').css({"pointer-events": "none", "opacity": "0.6"});
                     }
                     // hidden next 3 month
                     {{--if(y === c_date.getFullYear()){--}}
