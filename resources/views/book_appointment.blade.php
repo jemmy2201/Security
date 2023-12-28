@@ -617,7 +617,8 @@
                     }else if ( date < c_date.getDate() && y > c_date.getFullYear() && m < c_date.getMonth()){
                         console.log('4')
                         if(c_date.getDate() >= 28) {
-                            var sevenDayHidden = c_date.getDate() - date - 9;
+                            var sevenDayHidden = 8;
+                            // var sevenDayHidden = c_date.getDate() - date - 9;
                         }else {
                             var sevenDayHidden = c_date.getDate() - c_date.getDate();
                         }
