@@ -688,7 +688,7 @@
                         }else if(y >= c_date.getFullYear()){
                             const counting_years = y - c_date.getFullYear();
                             if(counting_years == {!!  json_encode(Oneyears) !!}) {
-                                if (m >= {!!  json_encode(Maret) !!} ) {
+                                if (m < {!!  json_encode(Maret) !!} ) {
                                     if (newDate.getDay() == 4) {
                                         sat.push(s)
                                     }
@@ -704,30 +704,65 @@
                                     }
                                 }
                             }else if(counting_years == {!!  json_encode(Twoyears) !!}) {
-                                if (newDate.getDay() == 3) {
-                                    sat.push(s)
+                                // if (newDate.getDay() == 3) {
+                                //     sat.push(s)
+                                // }
+                                // if (newDate.getDay() == 4) {
+                                //     sun.push(s)
+                                // }
+
+                                // change date now januari
+                                if (m < {!!  json_encode(Maret) !!} ) {
+                                    if (newDate.getDay() == 3) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 4) {
+                                        sun.push(s)
+                                    }
+                                }else {
+                                    if (newDate.getDay() == 4) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 5) {
+                                        sun.push(s)
+                                    }
                                 }
-                                if (newDate.getDay() == 4) {
-                                    sun.push(s)
-                                }
+                                // end change date now januari
                             }else if(counting_years == {!!  json_encode(Threeyears) !!}) {
-                                if(m >= c_date.getMonth()) {
-                                    // console.log('1')
+                                // if(m >= c_date.getMonth()) {
+                                //     // console.log('1')
+                                //     if (newDate.getDay() == 2) {
+                                //         sat.push(s)
+                                //     }
+                                //     if (newDate.getDay() == 3) {
+                                //         sun.push(s)
+                                //     }
+                                // }else if(m <= c_date.getMonth()){
+                                //     // console.log('2')
+                                //         if (newDate.getDay() == 2) {
+                                //             sat.push(s)
+                                //         }
+                                //         if (newDate.getDay() == 3) {
+                                //             sun.push(s)
+                                //         }
+                                // }
+                                //  change date now januari
+                                if (m < {!!  json_encode(Maret) !!} ) {
                                     if (newDate.getDay() == 2) {
                                         sat.push(s)
                                     }
                                     if (newDate.getDay() == 3) {
                                         sun.push(s)
                                     }
-                                }else if(m <= c_date.getMonth()){
-                                    // console.log('2')
-                                        if (newDate.getDay() == 2) {
-                                            sat.push(s)
-                                        }
-                                        if (newDate.getDay() == 3) {
-                                            sun.push(s)
-                                        }
+                                }else {
+                                    if (newDate.getDay() == 3) {
+                                        sat.push(s)
+                                    }
+                                    if (newDate.getDay() == 4) {
+                                        sun.push(s)
+                                    }
                                 }
+                                // end change date now januari
                             }
                         }
                     }
