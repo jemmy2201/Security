@@ -587,7 +587,7 @@
                         if(daysInMonth(m,y) == 30) {
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
-                            var sevenDayHidden = c_date.getDate() + 6;
+                            // var sevenDayHidden = c_date.getDate() + 6;
                         }
                         // }
                         if(m > 2 && y === c_date.getFullYear()){
