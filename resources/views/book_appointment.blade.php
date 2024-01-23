@@ -568,7 +568,7 @@
                     span.classList.add('showEvent');
                     //  Hidden 7 next day
                     if (date > c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        console.log('1')
+                        // console.log('1')
                         var sevenDayHidden = c_date.getDate() + 8;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -577,8 +577,6 @@
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
-                        console.log('2',date)
-                        console.log('2 1',c_date.getDate())
                         // var sevenDayHidden = c_date.getDate() + 4 ;
                         // if (c_date.getDate() == 24){
                         //     console.log('jrg 1')
@@ -588,7 +586,7 @@
                         if(daysInMonth(m,y) == 30) {
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
-                            var sevenDayHidden = c_date.getDate() + 6;
+                            // var sevenDayHidden = c_date.getDate() + 6;
                         }
                         // }
                         if(m > 2 && y === c_date.getFullYear()){
@@ -606,7 +604,7 @@
                             }
                         }
                     }else if (date < c_date.getDate() && y === c_date.getFullYear() && m === c_date.getMonth()){
-                        console.log('3')
+                        // console.log('3')
                         var sevenDayHidden = c_date.getDate() + 7;
                         if (date < sevenDayHidden){
                             if (d_m => sevenDayHidden){
@@ -615,7 +613,7 @@
                             span.classList.add('dissable');
                         }
                     }else if ( date < c_date.getDate() && y > c_date.getFullYear() && m < c_date.getMonth()){
-                        console.log('4')
+                        // console.log('4')
                         if(c_date.getDate() >= 28) {
                             var sevenDayHidden = 4;
                             // var sevenDayHidden = c_date.getDate() - date - 9;
@@ -781,14 +779,14 @@
                             }else{
                                 sat.forEach(function (saturday) {
                                     if (window.remainder_value + 1 == saturday) {
-                                        console.log('2 1')
+                                        // console.log('2 1')
                                         if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrderNotCircle');
                                         }
                                     } else if (!window.remainder_value + 1 == saturday) {
-                                        console.log('2 2')
+                                        // console.log('2 2')
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         }
@@ -796,14 +794,14 @@
                                 });
                                 sun.forEach(function (sun) {
                                     if (window.remainder_value + 1 == sun) {
-                                        console.log('3 1')
+                                        // console.log('3 1')
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrderNotCircle');
                                         }
                                     } else if (!window.remainder_value + 1 == sun) {
-                                        console.log('3 2')
+                                        // console.log('3 2')
 
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
@@ -823,14 +821,14 @@
                             }else{
                                 sat.forEach(function (saturday) {
                                     if (window.remainder_value + 1 == saturday) {
-                                        console.log('2 1')
+                                        // console.log('2 1')
                                         if (date == window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         } else if (date >= window.remainder_value + 3 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrderNotCircle');
                                         }
                                     } else if (!window.remainder_value + 1 == saturday) {
-                                        console.log('2 2')
+                                        // console.log('2 2')
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         }
@@ -838,14 +836,14 @@
                                 });
                                 sun.forEach(function (sun) {
                                     if (window.remainder_value + 1 == sun) {
-                                        console.log('3 1')
+                                        // console.log('3 1')
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
                                         } else if (date >= window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrderNotCircle');
                                         }
                                     } else if (!window.remainder_value + 1 == sun) {
-                                        console.log('3 2')
+                                        // console.log('3 2')
 
                                         if (date == window.remainder_value + 1 && c_date.getMonth() + 1 == m) {
                                             span.classList.add('firstDayOrder');
