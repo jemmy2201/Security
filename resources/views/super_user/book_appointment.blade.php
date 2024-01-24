@@ -604,7 +604,7 @@
                                 }
                                 if(c_date.getDate() > 22){
                                     // console.log('2 2')
-                                    span.classList.add('dissable');
+                                    // span.classList.add('dissable');
                                 }
                             }
                         }

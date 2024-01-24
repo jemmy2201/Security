@@ -601,7 +601,8 @@
                                 // span.classList.add('dissable');
 
                                 if(c_date.getDate() > 22){
-                                    span.classList.add('dissable');
+                                    // console.log('jrg')
+                                    // span.classList.add('dissable');
                                 }
                             }
                         }
