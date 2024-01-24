@@ -588,18 +588,22 @@
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
                             // var sevenDayHidden = c_date.getDate() + 6;
+                            if(c_date.getDate() > 22){
+                                var sevenDayHidden = c_date.getDate() + 2;
+                            }
                         }
                         // }
                         if(m > 2 && y === c_date.getFullYear()){
                             window.remainder_value = sevenDayHidden - d_m;
                         }else {
                             if (date < sevenDayHidden) {
-                                console.log('2 2')
+                                // console.log('2 2')
                                 if (d_m => sevenDayHidden) {
-                                    console.log('2 3')
+                                    // console.log('2 3')
                                     window.remainder_value = sevenDayHidden - d_m;
                                 }
                                 if(c_date.getDate() > 22){
+                                    // console.log('2 2')
                                     span.classList.add('dissable');
                                 }
                             }
