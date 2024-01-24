@@ -586,7 +586,7 @@
                         if(daysInMonth(m,y) == 30) {
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
-                            if(c_date.getDate() > 22){
+                            if(c_date.getDate() > 23){
                                 var sevenDayHidden = c_date.getDate() + 2;
                             }
                         }
