@@ -588,8 +588,11 @@
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
                             // var sevenDayHidden = c_date.getDate() + 6;
-                            if(c_date.getDate() > 23){
+                            if(c_date.getDate() == 23){
                                 var sevenDayHidden = c_date.getDate() + 2;
+                            }
+                            if(c_date.getDate() >= 25){
+                                var sevenDayHidden = c_date.getDate() + 5;
                             }
                         }
                         // }
