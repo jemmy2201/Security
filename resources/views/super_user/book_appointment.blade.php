@@ -593,6 +593,8 @@
                             }
                             if(c_date.getDate() >= 25){
                                 var sevenDayHidden = c_date.getDate() + 5;
+                            }else {
+                                var sevenDayHidden = c_date.getDate() + 5;
                             }
                         }
                         // }
