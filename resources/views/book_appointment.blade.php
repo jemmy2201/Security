@@ -586,7 +586,7 @@
                         if(daysInMonth(m,y) == 30) {
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
-                            if(c_date.getDate() == 23){
+                            if(c_date.getDate() == 23 && m+1 == 2){
                                 var sevenDayHidden = c_date.getDate() + 2;
                             }
                             if(c_date.getDate() >= 25){
@@ -605,9 +605,9 @@
                                 }
                                 // span.classList.add('dissable');
 
-                                if(c_date.getDate() > 22){
+                                if(c_date.getDate() > 22 ){
                                     // console.log('jrg')
-                                    // span.classList.add('dissable');
+                                    span.classList.add('dissable');
                                 }
                             }
                         }

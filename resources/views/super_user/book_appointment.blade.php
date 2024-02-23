@@ -575,8 +575,8 @@
                             span.classList.add('dissable');
                         }
                     }else if(m > c_date.getMonth() && date == 1 && y === c_date.getFullYear()){
-                        console.log('2',date)
-                        console.log('2 1',c_date.getDate())
+                        // console.log('2',date)
+                        // console.log('2 1',c_date.getDate())
                         // var sevenDayHidden = c_date.getDate() + 4 ;
                         // var sevenDayHidden = c_date.getDate() + 4 ;
                         // if (c_date.getDate() == 24){
@@ -588,7 +588,7 @@
                             var sevenDayHidden = c_date.getDate() + 8;
                         }else{
                             // var sevenDayHidden = c_date.getDate() + 6;
-                            if(c_date.getDate() == 23){
+                            if(c_date.getDate() == 23 && m+1 == 2){
                                 var sevenDayHidden = c_date.getDate() + 2;
                             }
                             if(c_date.getDate() >= 25){
@@ -609,7 +609,7 @@
                                 }
                                 if(c_date.getDate() > 22){
                                     // console.log('2 2')
-                                    // span.classList.add('dissable');
+                                    span.classList.add('dissable');
                                 }
                             }
                         }
