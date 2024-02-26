@@ -589,8 +589,8 @@
                             if(c_date.getDate() == 23 && m+1 == 2){
                                 var sevenDayHidden = c_date.getDate() + 2;
                             }
-                            if(c_date.getDate() >= 25){
-                                var sevenDayHidden = c_date.getDate() + 5;
+                            if(c_date.getDate() >= 25 &&  m+1 == 3){
+                                var sevenDayHidden = c_date.getDate() + 9;
                             }else {
                                 var sevenDayHidden = c_date.getDate() + 5;
                             }
