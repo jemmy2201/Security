@@ -1330,6 +1330,17 @@ class SuperUserController extends Controller
         }
         return true;
     }
+    protected function check_booking_schedule(Request $request)
+    {
+        $check_data = booking_schedule::where(['nric' => Session::get('nric_origin'), 'card_id' => $request->card_id])->first();
+        if($check_data->appointment_date && $check_data->time_start_appointment && $check_data->time_end_appointment){
+            $check_data = false;
+        }else{
+            $check_data = true;
+        }
+        return $check_data;
+    }
+
     protected function UpdateBookingScheduleAppointment($request)
     {
         $date = Carbon::parse($request->view_date)->toDateString();

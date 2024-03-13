@@ -1092,7 +1092,26 @@
             // $('.viewqrcodePaynow').hide();
             // $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
-                window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
+                $.ajax({
+                    url: "{{ url('/super/user/check/booking/schedule') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data == true) {
+                            swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
+                        }else{
+                            window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
+                        }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
+                    }
+                });
+
             {{--    $.ajax({--}}
             {{--        url: "{{ url('/check_payment') }}",--}}
             {{--        type: 'POST',--}}
@@ -1150,7 +1169,25 @@
         });
         $('#paynow_phone').on('click', function () {
             {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
-            window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
+            $.ajax({
+                url: "{{ url('/super/user/check/booking/schedule') }}",
+                type: 'POST',
+                /* send the csrf-token and the input to the controller */
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data_barcode: $('#data_barcode').attr('src'),
+                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                success: function (data) {
+                    if (data == true) {
+                        swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
+                    }else{
+                        window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
+                    }
+                },
+                error: function (request, status, error) {
+                    handling_error_ajax();
+                }
+            });
         {{--$("#form_paynow_verification").attr("disabled", true);--}}
             {{--$('.viewqrcodePaynowPhone').hide();--}}
             {{--$('.loadingPaynow').hide();--}}

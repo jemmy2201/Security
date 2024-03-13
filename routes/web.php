@@ -155,7 +155,9 @@ Route::post('/super/user/action/update_so', 'HomeController@action_update_so')->
 //End Update SO
 
 Route::get('/super/user/cancel/payment/{app_type}/{card}', 'Super_user\SuperUserController@cancel_payment');
-
+// Check booking schedule
+Route::post('/super/user/check/booking/schedule', 'Super_user\SuperUserController@check_booking_schedule');
+// End booking schedule
 Route::prefix('ajax')->group(function () {
     // check file page home
     Route::post('/check/file/home', 'Super_user\AjaxSuperUserController@check_file_home')->name('check_file_home');
@@ -191,6 +193,10 @@ Route::post('/save_barcode_paynow', 'HomeController@save_barcode_paynow');
 // Check Payment
 Route::post('/check_payment', 'HomeController@check_payment');
 // End Check Payment
+
+// Check booking schedule
+Route::post('/check/booking/schedule', 'HomeController@check_booking_schedule');
+// End booking schedule
 
 // create number transaction
 Route::post('/create_receiptno', 'HomeController@create_receiptno');

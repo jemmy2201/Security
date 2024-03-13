@@ -820,6 +820,18 @@ class HomeController extends Controller
 
         return $check_data;
     }
+
+    public function check_booking_schedule(Request $request)
+    {
+        $check_data = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])->first();
+        if($check_data->appointment_date && $check_data->time_start_appointment && $check_data->time_end_appointment){
+            $check_data = false;
+        }else{
+            $check_data = true;
+        }
+        return $check_data;
+    }
+
     public function create_receiptno(Request $request)
     {
         $receiptNo = booking_schedule::where(['nric' => Auth::user()->nric, 'card_id' => $request->card_id])->first();
