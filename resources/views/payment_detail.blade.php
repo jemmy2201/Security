@@ -1093,25 +1093,28 @@
             // $('.viewqrcodePaynow').hide();
             // $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
-                $.ajax({
-                    url: "{{ url('/check/booking/schedule') }}",
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        data_barcode: $('#data_barcode').attr('src'),
-                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                    success: function (data) {
-                        if (data == true) {
-                            swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
-                        }else{
+                {{-- Check Booking Insert --}}
+                // $.ajax({
+                {{--    url: "{{ url('/check/booking/schedule') }}",--}}
+                //     type: 'POST',
+                //     /* send the csrf-token and the input to the controller */
+                //     data: {
+                //         _token: $('meta[name="csrf-token"]').attr('content'),
+                //         data_barcode: $('#data_barcode').attr('src'),
+                {{--        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
+                //     success: function (data) {
+                //         if (data == true) {
+                //             swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
+                        // }else{
                             window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
-                        }
-                    },
-                    error: function (request, status, error) {
-                        handling_error_ajax();
-                    }
-                });
+                        // }
+                    // },
+                    // error: function (request, status, error) {
+                    //     handling_error_ajax();
+                    // }
+                // });
+                {{-- End Check Booking Insert --}}
+
 
             {{--    $.ajax({--}}
             {{--        url: "{{ url('/check_payment') }}",--}}
@@ -1164,31 +1167,34 @@
             {{--            handling_error_ajax();--}}
             {{--        }--}}
             {{--    });--}}
+
                 } else {
                     swal("Error!", "Tick the check box to proceed.", "error")
              }
         });
         $('#paynow_phone').on('click', function () {
             {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
-            $.ajax({
-                url: "{{ url('/check/booking/schedule') }}",
-                type: 'POST',
-                /* send the csrf-token and the input to the controller */
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    data_barcode: $('#data_barcode').attr('src'),
-                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
-                success: function (data) {
-                    if (data == true) {
-                        swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
-                    }else{
+            {{-- Check Booking Insert --}}
+            // $.ajax({
+            {{--    url: "{{ url('/check/booking/schedule') }}",--}}
+            //     type: 'POST',
+            //     /* send the csrf-token and the input to the controller */
+            //     data: {
+            //         _token: $('meta[name="csrf-token"]').attr('content'),
+            //         data_barcode: $('#data_barcode').attr('src'),
+{{--                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
+                // success: function (data) {
+                //     if (data == true) {
+                //         swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
+                //     }else{
                         window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
-                    }
-                },
-                error: function (request, status, error) {
-                    handling_error_ajax();
-                }
-            });
+                    // }
+                // },
+                // error: function (request, status, error) {
+                //     handling_error_ajax();
+                // }
+            // });
+            {{-- End Check Booking Insert --}}
 
         {{--$("#form_paynow_verification").attr("disabled", true);--}}
             {{--$('.viewqrcodePaynowPhone').hide();--}}
