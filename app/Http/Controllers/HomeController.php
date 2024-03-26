@@ -1110,7 +1110,9 @@ class HomeController extends Controller
         }
         return redirect()->route('landing_page');
     }
-
+    public function use_ntuc(Request $request){
+        return view('use_ntuc')->with(["request"=>$request]);
+    }
     public function book_appointment(Request $request)
     {
 //        // Cek Expired Card
