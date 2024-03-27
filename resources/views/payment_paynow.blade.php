@@ -1304,10 +1304,10 @@
         });
         $("#confirm_payment_paynow").click(function() {
            $( "#save_payment").submit();
-            window.open(
-                '/use_ntuc',
-                '_blank' // <- This is what makes it open in a new window.
-            );
+            // window.open(
+            //     '/use_ntuc',
+            //     '_blank' // <- This is what makes it open in a new window.
+            // );
         });
         {{--$("#enets").click(function() {--}}
         {{--    --}}{{--$("#payment_method").val({!!  json_encode(enets) !!})--}}
