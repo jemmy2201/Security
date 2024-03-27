@@ -565,7 +565,7 @@ class AjaxController extends Controller
     public function cek_data_schedule(Request $request)
     {
         $data = '';
-        $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
+        $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->whereIn('Status_app', [draft, processing,resubmission,Resubmitted])
             ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
         foreach ($cek_booking_schedule as $index1 => $f){
             $booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->get();
