@@ -405,7 +405,10 @@ class AjaxController extends Controller
     {
         $date = Carbon::parse($request->view_date)->toDateString();
         $data = schedule_limit::where(['id'=>$request->limit_schedule_id])->first();
-        $count_booking_schedule = booking_schedule::where(['appointment_date' => $date,'time_start_appointment'=>$data->start_at,'time_end_appointment'=>$data->end_at])->whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])->get();
+        $count_booking_schedule = booking_schedule::where(['appointment_date' => $date,'time_start_appointment'=>$data->start_at,'time_end_appointment'=>$data->end_at])
+//            ->whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])
+            ->whereNotNull('receiptNo')
+            ->get();
         if (count($count_booking_schedule) >= count_booking){
             $data = array(
                 "error"=>true,
@@ -565,7 +568,9 @@ class AjaxController extends Controller
     public function cek_data_schedule(Request $request)
     {
         $data = '';
-        $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])
+        $cek_booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())
+//            ->whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])
+            ->whereNotNull('receiptNo')
             ->distinct()->get(['time_start_appointment','time_end_appointment'])->toArray();
         foreach ($cek_booking_schedule as $index1 => $f){
             $booking_schedule = booking_schedule::whereDate('appointment_date','=',Carbon::parse($request->eventDate)->toDateString())->get();
@@ -1499,7 +1504,9 @@ class AjaxController extends Controller
     protected  function view_time_schedule($time_schedule,$limit_schedule,$eventDate){
         $data ='';
         foreach ($limit_schedule as $key => $ls) {
-            $data_schedule = booking_schedule::whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])
+            $data_schedule = booking_schedule::
+//                whereIn('Status_app', [draft, processing,resubmission,Resubmitted,completed])
+                whereNotNull('receiptNo')
                 ->whereDate('appointment_date','=',$eventDate)
                 ->where(['time_start_appointment'=>$ls->start_at,'time_end_appointment'=>$ls->end_at])
                 ->get();
