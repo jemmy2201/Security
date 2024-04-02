@@ -859,9 +859,9 @@ class HomeController extends Controller
         if (!empty($course->QRstring)) {
             $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
         }
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
-//        return $pdf->stream();
+        // return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
         $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
         Storage::put('public/invoice/'.$name_file,$content) ;
@@ -1379,7 +1379,7 @@ class HomeController extends Controller
 
         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
 
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
 //        return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
