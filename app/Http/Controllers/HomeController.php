@@ -855,18 +855,36 @@ class HomeController extends Controller
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
         $t_grade = t_grade::get();
-        $qrcode ="";
-        if (!empty($course->QRstring)) {
-            $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
-        }
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
-        // return $pdf->stream();
-        $content = $pdf->download()->getOriginalContent();
-        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
-        Storage::put('public/invoice/'.$name_file,$content) ;
 
-        return $pdf->download('App_Slip.pdf');
+        // Path to the PDF file
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+
+        $path = public_path('img/img_users/invoice/'.$name_file);
+
+        // Determine the file name for download
+        $filename = 'App_Slip.pdf';
+
+        // Set the headers
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        // Download the file
+        return response()->download($path, $filename, $headers);
+
+//        $qrcode ="";
+//        if (!empty($course->QRstring)) {
+//            $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
+//        }
+//        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+//        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+//        // return $pdf->stream();
+//        $content = $pdf->download()->getOriginalContent();
+//        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+//        Storage::put('public/invoice/'.$name_file,$content) ;
+//
+//        return $pdf->download('App_Slip.pdf');
     }
     public function submission(Request $request)
     {
