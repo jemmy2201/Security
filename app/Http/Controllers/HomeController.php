@@ -329,7 +329,7 @@ class HomeController extends Controller
     public function personaldata(Request $request)
     {
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
+            ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id' => $request->card])->first();
         $card_issue = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id' => $request->card])->first();
         if($card_issue->card_issue == NotExpiredCard) {
@@ -618,7 +618,7 @@ class HomeController extends Controller
         $request->merge(['app_type' => $app_type, 'card' => $card]);
         $this->ClearDataDraft($request);
         $personal = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' => Auth::user()->nric])->first();
+            ->where(['booking_schedules.nric' => Auth::user()->nric, 'booking_schedules.card_id' => $request->card])->first();
         return view('personal_particular')->with(['personal' => $personal, "request" => $request]);
     }
 
