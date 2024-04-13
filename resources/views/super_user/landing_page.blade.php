@@ -490,7 +490,8 @@
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                 @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
+{{--                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>--}}
+                                <td><button class="view btn btn-success">View</button></td>
                         @endif
                     </tr>
                 @endforeach
@@ -847,8 +848,26 @@
             </div>
         </div>
     </div>
-
-    <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
+   <div class="modal" tabindex="-1" role="dialog" id="Modal_ntuc_co">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <a href="http://ntuc.co/use3" target="_blank">
+                                <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 100%;">
+                            </a>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+   <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1045,7 +1064,9 @@
     // });
 
     $(document).ready(function() {
-
+        $(".view").click(function() {
+            $('#Modal_ntuc_co').modal('show');
+        });
         $(".default_hidden").hide();
         function CekUseBrowser () {
             let userAgent = navigator.userAgent;

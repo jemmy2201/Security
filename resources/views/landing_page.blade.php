@@ -485,7 +485,8 @@
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                 @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
+{{--                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>--}}
+                                <td><button class="view btn btn-success">View</button></td>
                         @endif
                     </tr>
                 @endforeach
@@ -843,7 +844,7 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
+    <div class="modal" tabindex="-1" role="dialog" id="Modal_ntuc_co">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -853,82 +854,102 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Application Type</th>
-                            <th scope="col" >Request Application</th>
-                            <th scope="col">Grade</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @php $expried_renewal =true; @endphp
-                        @if(!empty($renewal))
-                            @foreach($renewal as $index => $f)
-                                @php
-                                if (!empty($f->expired_date)){
-                                        $expried_renewal = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
-                                }else{
-                                        $expried_renewal = false;
-                                }
-
-                                @endphp
-                                @if($f->Status_app == completed && $expried_renewal == true )
-{{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
-                                @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
-                                <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
-                                    @if($f->app_type == news)
-                                        <td>New</td>
-                                    @elseif($f->app_type == replacement)
-                                        <td>Replacement</td>
-                                    @elseif($f->app_type == renewal)
-                                        <td>Renewal</td>
-                                    @endif
-
-                                    @if($f->card_id == so_app)
-                                        <td>SO Application</td>
-                                    @elseif($f->card_id == avso_app)
-                                        <td>AVSO Application</td>
-                                    @elseif($f->card_id == pi_app)
-                                        <td>PI Application</td>
-                                    @endif
-                                    @if($f->card_id == so_app)
-                                        @if(!empty($f->grade_id) && $f->grade_id== so)
-                                            <td>SO</td>
-                                        @elseif(!empty($f->grade_id) && $f->grade_id== sso)
-                                            <td>SSO</td>
-                                        @elseif(!empty($f->grade_id) && $f->grade_id== ss)
-                                            <td>SS</td>
-                                        @elseif(!empty($f->grade_id) && $f->grade_id== sss)
-                                            <td>SSS</td>
-                                        @elseif(!empty($f->grade_id) && $f->grade_id== cso)
-                                            <td>CSO</td>
-                                        @else
-                                            <td >SO</td>
-                                        @endif
-                                    @else
-                                        <td>NA</td>
-                                    @endif
-                                </tr>
-                                @endif
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                    <a href="http://ntuc.co/use3" target="_blank">
+                        <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 100%;">
+                    </a>
                 </div>
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
-        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-            <?php if(config('adminlte.logout_method')): ?>
-                            <?php echo e(method_field(config('adminlte.logout_method'))); ?>
 
-                             <?php endif; ?>
-            <?php echo e(csrf_field()); ?>
+    <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Application Type</th>
+                        <th scope="col" >Request Application</th>
+                        <th scope="col">Grade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $expried_renewal =true; @endphp
+                    @if(!empty($renewal))
+                        @foreach($renewal as $index => $f)
+                            @php
+                            if (!empty($f->expired_date)){
+                                    $expried_renewal = Carbon\Carbon::today()->toDateString() >= Carbon\Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d');
+                            }else{
+                                    $expried_renewal = false;
+                            }
 
-        </form>
+                            @endphp
+                            @if($f->Status_app == completed && $expried_renewal == true )
+{{--                                @php $url="/renewal/personal/particular/".$f->card_id; @endphp--}}
+                            @php $url=url("/renewal/personal/particular/")."/".$f->card_id; @endphp
+                            <tr class='clickable-row' data-href='{{$url}}' style="cursor: pointer;">
+                                @if($f->app_type == news)
+                                    <td>New</td>
+                                @elseif($f->app_type == replacement)
+                                    <td>Replacement</td>
+                                @elseif($f->app_type == renewal)
+                                    <td>Renewal</td>
+                                @endif
+
+                                @if($f->card_id == so_app)
+                                    <td>SO Application</td>
+                                @elseif($f->card_id == avso_app)
+                                    <td>AVSO Application</td>
+                                @elseif($f->card_id == pi_app)
+                                    <td>PI Application</td>
+                                @endif
+                                @if($f->card_id == so_app)
+                                    @if(!empty($f->grade_id) && $f->grade_id== so)
+                                        <td>SO</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== sso)
+                                        <td>SSO</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== ss)
+                                        <td>SS</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== sss)
+                                        <td>SSS</td>
+                                    @elseif(!empty($f->grade_id) && $f->grade_id== cso)
+                                        <td>CSO</td>
+                                    @else
+                                        <td >SO</td>
+                                    @endif
+                                @else
+                                    <td>NA</td>
+                                @endif
+                            </tr>
+                            @endif
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+        <?php if(config('adminlte.logout_method')): ?>
+                        <?php echo e(method_field(config('adminlte.logout_method'))); ?>
+
+                         <?php endif; ?>
+        <?php echo e(csrf_field()); ?>
+
+    </form>
 </div>
 <script type="application/javascript">
     $("#BodyAll").css('background-image', 'none');
@@ -1044,6 +1065,9 @@
     // });
 
     $(document).ready(function() {
+        $(".view").click(function() {
+            $('#Modal_ntuc_co').modal('show');
+        });
         {{--if({!!  json_encode(Session::get('passID')) !!}){--}}
         {{--    console.log('ss',{!!  json_encode(Session::get('passID')) !!})--}}
         {{--    var form = $('<form action="' + {!!  json_encode(route('landing_page_passID')) !!} + '" method="POST"> @csrf' +--}}
