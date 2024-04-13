@@ -279,6 +279,8 @@
     <p><b>My Application Type</b></p>
     <div class="container">
         <div class="row">
+        <div class="col-sm">
+        <div class="row">
 {{--            <div class="col-sm">--}}
 {{--                <button type="button" class="btn btn-secondary btn-lg btn-block" id="news" value="@php echo news @endphp"  >New</button>--}}
 {{--            </div>--}}
@@ -295,6 +297,15 @@
         </div>
         <div class="row">
             <input class="form-check-input" type="checkbox" name="app_type" id="renewal" value="{{renewal}}" ><b>&ensp;&ensp;&ensp;Renewal</b>
+        </div>
+        </div>
+        <div class="col-sm ntuc_co" style="display: none;">
+            <div class="row">
+                <a href="http://ntuc.co/use3" target="_blank">
+                    <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 60%; position: absolute">
+                </a>
+            </div>
+        </div>
         </div>
     </div>
 <br>
@@ -485,7 +496,7 @@
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                 @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="view btn btn-success">View</button></a></td>
+                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
                         @endif
                     </tr>
                 @endforeach
@@ -842,27 +853,6 @@
             </div>
         </div>
     </div>
-
-    <div class="modal" tabindex="-1" role="dialog" id="Modal_ntuc_co">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <a href="http://ntuc.co/use3" target="_blank">
-                        <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 100%;">
-                    </a>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal" tabindex="-1" role="dialog" id="Modalrenewal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -961,6 +951,15 @@
         window.location.href = "{{URL::to('relogin')}}"
     }
     // End 15 minutes not action
+
+    {{--  Check Status Prosesing  --}}
+    {!!  json_encode($schedule) !!}.forEach((entry) => {
+        if (entry['Status_app'] == {!!  json_encode(processing) !!}){
+            $(".ntuc_co").css("display", "block")
+        }
+    });
+    {{--  Check Status Prosesing  --}}
+
     {{--  Card Issue  --}}
     {{--if ({!!  json_encode($card_issue) !!} != false){--}}
     {{--    {!!  json_encode($card_issue) !!}.forEach((entry) => {--}}
@@ -1064,9 +1063,6 @@
     // });
 
     $(document).ready(function() {
-        $(".view").click(function() {
-            $('#Modal_ntuc_co').modal('show');
-        });
         {{--if({!!  json_encode(Session::get('passID')) !!}){--}}
         {{--    console.log('ss',{!!  json_encode(Session::get('passID')) !!})--}}
         {{--    var form = $('<form action="' + {!!  json_encode(route('landing_page_passID')) !!} + '" method="POST"> @csrf' +--}}
