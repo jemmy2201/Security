@@ -299,10 +299,17 @@
             <input class="form-check-input" type="checkbox" name="app_type" id="renewal" value="{{renewal}}" ><b>&ensp;&ensp;&ensp;Renewal</b>
         </div>
         </div>
-        <div class="col-sm ntuc_co" style="display: none;">
+        <div class="col-sm ntuc_co hidden-xs" style="display: none;">
             <div class="row">
                 <a href="http://ntuc.co/use3" target="_blank">
-                    <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 60%; position: absolute">
+                    <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 90%; position: absolute">
+                </a>
+            </div>
+        </div>
+        <div class="col-sm ntuc_co visible-xs hidden-md" style="display: none;">
+            <div class="row">
+                <a href="http://ntuc.co/use3" target="_blank">
+                    <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
                 </a>
             </div>
         </div>
