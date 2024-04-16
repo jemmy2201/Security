@@ -87,8 +87,19 @@
     </style>
 </head>
 <body>
-<h4 style="color: black;">ID Card Application Details</h4>
-<h6><b>Details</b></h6>
+
+<div class="row">
+    <div class="col-sm-3">
+        <h4 style="color: black;">ID Card Application Details</h4>
+        <h6><b>Details</b></h6>
+    </div>
+    <div class="col-sm-7" style="margin-left: 26px">
+        <div class="float-right"><b>Date :<?php echo date('d/m/Y'); ?></b></div>
+
+    </div>
+    <div class="col-sm">
+    </div>
+</div>
 @php
     function formatcurrency($floatcurr, $curr = "USD"){
                        $currencies['ARS'] = array(2,',','.');          //  Argentine Peso
@@ -369,26 +380,26 @@
             <div class="column-right">{{$email}}</div>
             <br>
             <div class="column-center">:</div>
-            <div class="column-left">Status</div>
-            <div class="column-right">
-                @if($courses->Status_app == draft)
-                    {{txt_draft}}
-                @elseif($courses->Status_app == processing)
-                    {{txt_processing}}
-                @elseif($courses->Status_app == ready_for_id_card_printing)
-                    {{txt_ready_for_id_card_printing}}
-                @elseif($courses->Status_app == id_card_ready_for_collection)
-                    {{txt_id_card_ready_for_collection}}
-                @elseif($courses->Status_app == resubmission)
-                    {{txt_resubmission}}
-                @elseif($courses->Status_app == Resubmitted)
-                    {{txt_Resubmitted}}
-                @elseif($courses->Status_app == completed)
-                    {{txt_completed}}
-                @endif
-            </div>
-            <br>
-            <div class="column-center">:</div>
+{{--            <div class="column-left">Status</div>--}}
+{{--            <div class="column-right">--}}
+{{--                @if($courses->Status_app == draft)--}}
+{{--                    {{txt_draft}}--}}
+{{--                @elseif($courses->Status_app == processing)--}}
+{{--                    {{txt_processing}}--}}
+{{--                @elseif($courses->Status_app == ready_for_id_card_printing)--}}
+{{--                    {{txt_ready_for_id_card_printing}}--}}
+{{--                @elseif($courses->Status_app == id_card_ready_for_collection)--}}
+{{--                    {{txt_id_card_ready_for_collection}}--}}
+{{--                @elseif($courses->Status_app == resubmission)--}}
+{{--                    {{txt_resubmission}}--}}
+{{--                @elseif($courses->Status_app == Resubmitted)--}}
+{{--                    {{txt_Resubmitted}}--}}
+{{--                @elseif($courses->Status_app == completed)--}}
+{{--                    {{txt_completed}}--}}
+{{--                @endif--}}
+{{--            </div>--}}
+{{--            <br>--}}
+{{--            <div class="column-center">:</div>--}}
             <div class="column-left">Transaction Ref </div>
             <div class="column-right">{{$courses->receiptNo}}</div>
             <br>
@@ -424,6 +435,9 @@
                transform: translate(-50%, -50%); width: 70px;">
                 <img src="data:image/png;base64, {!! $qrcode !!}">
                 @endif
+                    <div style="margin-left: 80px;">Valid for 14</div>
+                    <div style="margin-left: 50px;">calender days only</div>
+
             </div>
             <div class="column-right-paynow" style="margin-right: -140px;margin-top: -40px;" >
                 <h4 >How to Make a PayNow Transfer</h4>
