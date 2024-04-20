@@ -106,6 +106,10 @@ define('paid', 1);
 define('C4', 9);
 // end payment
 
+// Union member
+define('display', 0);
+define('not_display', 1);
+// End Union member
 // response limit schedule
 define('start_empty', 101);
 define('end_empty', 102);

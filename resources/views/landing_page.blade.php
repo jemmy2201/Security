@@ -961,7 +961,7 @@
 
     {{--  Check Status Prosesing  --}}
     {!!  json_encode($schedule) !!}.forEach((entry) => {
-        if (entry['Status_app'] == {!!  json_encode(processing) !!}){
+        if (entry['Status_payment'] == {!!  json_encode(paid) !!} || entry['union_member'] == {!!  json_encode(display) !!}){
             $(".ntuc_co").css("display", "block")
         }
     });

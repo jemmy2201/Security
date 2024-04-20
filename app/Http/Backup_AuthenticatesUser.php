@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\booking_schedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,6 +118,11 @@ trait AuthenticatesUsers
                             //                            return  view('page_error')->with(['data1'=>value_card_issue1,'data2'=>value_card_issue2,'image'=>'fa fa-info-circle']);
                             //
                             //                        }
+                            if ($f->status_payment == paid && $f->union_member == display){
+                                $booking_schedule = booking_schedule::find($f->id);
+                                $booking_schedule->union_member = not_display;
+                                $booking_schedule->save();
+                            }
                             if ($f->card_id == so_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                                 array_push($val_expired, true);
                             }elseif ($f->card_id == pi_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {

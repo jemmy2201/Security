@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\booking_schedule;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -532,7 +533,11 @@ class SingpassController extends Controller
 //                        auth()->login($existingUser, true);
 //                        return redirect()->to('/home');
 //                    }
-
+                    if ($f->status_payment == paid && $f->union_member == display){
+                        $booking_schedule = booking_schedule::find($f->id);
+                        $booking_schedule->union_member = not_display;
+                        $booking_schedule->save();
+                    }
                     if ($f->card_id == so_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
                         array_push($val_expired, true);
                     }elseif ($f->card_id == pi_app && !empty($f->expired_date) && Carbon::today()->toDateString() >= Carbon::createFromFormat('d/m/Y', $f->expired_date)->format('Y-m-d')) {
