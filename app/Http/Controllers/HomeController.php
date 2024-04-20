@@ -854,6 +854,11 @@ class HomeController extends Controller
         $request->merge(['card' => $card]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' => Auth::user()->nric,'booking_schedules.card_id'=>$card])->first();
+        if ($course->status_payment == paid && $course->union_member == display){
+            $booking_schedule = booking_schedule::find($course->id);
+            $booking_schedule->union_member = not_display;
+            $booking_schedule->save();
+        }
         $t_grade = t_grade::get();
 
         // Path to the PDF file

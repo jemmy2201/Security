@@ -509,7 +509,7 @@
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                 @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a></td>
+                                <td><a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a></td>
                         @endif
                     </tr>
                 @endforeach
@@ -681,7 +681,7 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                           <a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a>
+                                           <a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a>
                                             @endif
                                     </li>
                                 </ul>
@@ -773,7 +773,7 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                            <a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a>
+                                            <a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a>
                                         @endif
                                     </li>
                                 </ul>
@@ -1037,6 +1037,9 @@
     jQuery(document).ready(function($) {
         $(".clickable-row").click(function() {
             window.location = $(this).data("href");
+        });
+        $(".ntuc_hidden").click(function() {
+            $(".ntuc_co").css("display", "none")
         });
     });
     if ((screen.width>=1024) && (screen.height>=768)) {
