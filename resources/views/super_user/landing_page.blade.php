@@ -509,7 +509,7 @@
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                 @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="btn btn-success">View</button></a></td>
+                                <td><a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a></td>
                         @endif
                     </tr>
                 @endforeach
@@ -681,7 +681,7 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                           <a href="{{$url}}"><button class="btn btn-success">View</button></a>
+                                           <a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a>
                                             @endif
                                     </li>
                                 </ul>
@@ -773,7 +773,7 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/super/user/invoice/print/pdf")."/".$f->card_id; @endphp
-                                            <a href="{{$url}}"><button class="btn btn-success">View</button></a>
+                                            <a href="{{$url}}"><button class="btn btn-success">View Receipt</button></a>
                                         @endif
                                     </li>
                                 </ul>
