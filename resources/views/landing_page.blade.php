@@ -299,17 +299,17 @@
             <input class="form-check-input" type="checkbox" name="app_type" id="renewal" value="{{renewal}}" ><b>&ensp;&ensp;&ensp;Renewal</b>
         </div>
         </div>
-        <div class="col-sm ntuc_co hidden-xs" style="display: none;">
+        <div class="col-sm img_ntuc_co hidden-xs" style="display: none;">
             <div class="row">
                 <a href="http://ntuc.co/use3" target="_blank">
                     <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 90%; position: absolute">
                 </a>
             </div>
         </div>
-        <div class="col-sm ntuc_co visible-xs hidden-md" style="display: none;">
-            <div class="row">
+        <div class="col-sm  visible-xs hidden-md" >
+            <div class="row ">
                 <a href="http://ntuc.co/use3" target="_blank">
-                    <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
+                    <img class="img_ntuc_co_phone"  src="{{URL::asset('/img/ntuc_co.jpg')}}" style="display: none; width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
                 </a>
             </div>
         </div>
@@ -675,7 +675,7 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                           <a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a>
+                                           <a href="{{$url}}"><button class="ntuc_hidden_phone btn btn-success">View Receipt</button></a>
                                             @endif
                                     </li>
                                 </ul>
@@ -962,7 +962,8 @@
     {{--  Check Status Prosesing  --}}
     {!!  json_encode($schedule) !!}.forEach((entry) => {
         if (entry['Status_payment'] == {!!  json_encode(paid) !!} || entry['union_member'] == {!!  json_encode(display) !!}){
-            $(".ntuc_co").css("display", "block")
+            $(".img_ntuc_co").css("display", "block")
+            $(".img_ntuc_co_phone").css("display", "block")
         }
     });
     {{--  Check Status Prosesing  --}}
@@ -1037,7 +1038,12 @@
             window.location = $(this).data("href");
         });
         $(".ntuc_hidden").click(function() {
-            $(".ntuc_co").css("display", "none")
+            $(".img_ntuc_co").css("display", "none")
+            $(".img_ntuc_co_phone").css("display", "none")
+        });
+        $(".ntuc_hidden_phone").click(function() {
+            $(".img_ntuc_co").css("display", "none")
+            $(".img_ntuc_co_phone").css("display", "none")
         });
 
     });
