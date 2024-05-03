@@ -400,4 +400,4 @@ define('expired_less_3month', "Your ID card will be expiring soon");
 define('unable_to_apply_id_card', "Your ID card will be expiring soon");
 
 define('full_booking', 'No more available bookings for the selected slot');
-define('count_booking', 20);
+define('count_booking', 40);
