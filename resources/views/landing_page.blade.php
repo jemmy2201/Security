@@ -382,7 +382,7 @@
                 <th scope="col">Application</th>
                 <th scope="col" >Card Type</th>
                 <th scope="col">Grade</th>
-                <th scope="col">Date Of Transaction</th>
+                <th scope="col">Card Colletion</th>
                 <th scope="col" >Status</th>
                 <th scope="col" >Action/Remarks</th>
             </tr>
@@ -584,7 +584,7 @@
                         <th scope="col">Application</th>
 {{--                        <th scope="col" >Card Type</th>--}}
 {{--                        <th scope="col">Grade</th>--}}
-{{--                        <th scope="col">Date Of Transaction</th>--}}
+{{--                        <th scope="col">Card Colletion</th>--}}
 {{--                        <th scope="col" >Status</th>--}}
 {{--                        <th scope="col" >Action/Remarks</th>--}}
                     </tr>
@@ -641,7 +641,7 @@
                                             NA
                                      @endif
                                     </li>
-                                    <li class="list-group-item" aria-current="true"><b>Date Of Transaction:</b>
+                                    <li class="list-group-item" aria-current="true"><b>Card Colletion:</b>
                                         @if(!empty($f->trans_date))
                                             {{$f->trans_date}}
                                         @else
@@ -733,7 +733,7 @@
                                             NA
                                         @endif
                                     </li>
-                                    <li class="list-group-item" aria-current="true"><b>Date Of Transaction:</b>
+                                    <li class="list-group-item" aria-current="true"><b>Card Colletion:</b>
                                         @if(!empty($f->trans_date))
                                             {{$f->trans_date}}
                                         @else

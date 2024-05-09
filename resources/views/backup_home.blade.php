@@ -57,7 +57,7 @@
                 <th scope="col">Application Type</th>
                 <th scope="col" >Request Application</th>
 {{--                <th scope="col" >Date Of Application</th>--}}
-                <th scope="col">Date Of Transaction</th>
+                <th scope="col">Card Colletion</th>
                 <th scope="col">Grade</th>
                 <th scope="col" >Status</th>
 {{--                <th scope="col" >Expired Date</th>--}}

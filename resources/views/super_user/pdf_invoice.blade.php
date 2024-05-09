@@ -84,15 +84,18 @@
             display: table;
             clear: both;
         }
+        .text_big {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="row">
     <div class="col-sm-3">
         <h4 style="color: black;">ID Card Application Details</h4>
-        <h6><b>Details</b></h6>
+{{--        <h6><b>Details</b></h6>--}}
     </div>
-    <div class="col-sm-7" style="margin-left: 26px">
+    <div class="col-sm-7 text_big" style="margin-left: 50px">
         <div class="float-right"><b>Date :<?php echo date('d/m/Y'); ?></b></div>
 
     </div>
@@ -235,7 +238,7 @@
                        }
                    }
 @endphp
-    <div class="row">
+    <div class="row text_big">
         <div class="column" >
             @php
                 $nric = secret_decode($courses->nric);
