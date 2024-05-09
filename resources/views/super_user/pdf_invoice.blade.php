@@ -92,7 +92,7 @@
 </head>
 <body>
 
-<div class="row">
+<div class="row" style="margin-top:30px; margin-left:30px;">
     <div class="col-sm-8">
         <h4 style="color: black;">ID Card Application Details
             <span style="margin-left:515px;">Date :<?php echo date('d/m/Y'); ?></span>
@@ -237,8 +237,8 @@
                        }
                    }
 @endphp
-<div class="row text_big">
-    <div class="column" >
+<div class="row text_big" style="margin-left:2px;">
+    <div class="column" style="margin-left:30px;">
         @php
             $nric = secret_decode($courses->nric);
             $cutnric = substr($nric, -4);
@@ -421,14 +421,14 @@
             <br><br><br>
             <div class="column-center"></div>
             <div class="column-left"></div>
-            <div class="column-right-paynow" style=" margin-right: 140px;">
+            <div class="column-right-paynow" style=" margin-right: 300px;">
 
                 @if(!empty($courses->data_barcode_paynow))
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 130px;
                 margin-top: 125px;
                transform: translate(-50%, -50%); width: 70px;">
-                    <img src="{{$courses->data_barcode_paynow}}">
+                    <img src="{{$courses->data_barcode_paynow}}" style="margin-left="-30px;"">
                 @else
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 100px;
@@ -437,10 +437,10 @@
                     <img src="data:image/png;base64, {!! $qrcode !!}">
                 @endif
                 <div style="margin-left: 80px;">Valid for 14</div>
-                <div style="margin-left: 50px;">calender days only</div>
+                <div style="margin-left: 50px;">calendar days only</div>
 
             </div>
-            <div class="column-right-paynow" style="margin-right: -140px;margin-top: -40px;" >
+            <div class="column-right-paynow"  >
                 <h4 >How to Make a PayNow Transfer</h4>
                 <img src="{{public_path('/img/barcode_paynow.jpg')}}" style="width: 25%;" >
                 <br>
