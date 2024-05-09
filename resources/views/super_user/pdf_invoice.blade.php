@@ -95,7 +95,7 @@
 <div class="row" style="margin-top:30px; margin-left:30px;">
     <div class="col-sm-8">
         <h4 style="color: black;">ID Card Application Details
-            <span style="margin-left:513px;">Date :<?php echo date('d/m/Y'); ?></span>
+            <span style="margin-left:508px;">Date :<?php echo date('d/m/Y'); ?></span>
         </h4>
         {{--        <h6><b>Details</b></h6>--}}
     </div>
@@ -436,8 +436,8 @@
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="data:image/png;base64, {!! $qrcode !!}">
                 @endif
-                <div style="margin-left: 80px;">Valid for 14</div>
-                <div style="margin-left: 50px;">calendar days only</div>
+                <div style="margin-left: 70px;">Valid for 14</div>
+                <div style="margin-left: 40px;">calendar days only</div>
 
             </div>
             <div class="column-right-paynow"  >
