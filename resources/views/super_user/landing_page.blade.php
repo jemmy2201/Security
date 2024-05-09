@@ -306,15 +306,15 @@
             </div>
             <div class="col-sm img_ntuc_co hidden-xs" style="display: none;">
                 <div class="row">
-                    <a href="http://ntuc.co/use3" target="_blank">
-                        <img src="{{URL::asset('/img/ntuc_co.jpg')}}" style="width: 90%; position: absolute">
+                    <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">
+                        <img src="{{URL::asset('/img/ntuc_co.png')}}" style="width: 90%; position: absolute">
                     </a>
                 </div>
             </div>
             <div class="col-sm visible-xs hidden-md" >
                 <div class="row">
-                    <a href="http://ntuc.co/use3" target="_blank">
-                        <img class="img_ntuc_co_phone" src="{{URL::asset('/img/ntuc_co.jpg')}}" style="display: none; width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
+                    <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">
+                        <img class="img_ntuc_co_phone" src="{{URL::asset('/img/ntuc_co.png')}}" style="display: none; width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
                     </a>
                 </div>
             </div>
@@ -388,7 +388,7 @@
                 <th scope="col">Application</th>
                 <th scope="col" >Card Type</th>
                 <th scope="col">Grade</th>
-                <th scope="col">Card Colletion</th>
+                <th scope="col">Card Collection</th>
                 <th scope="col" >Status</th>
                 <th scope="col" >Action/Remarks</th>
             </tr>
@@ -453,7 +453,12 @@
 {{--                            <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
                             @if(!empty($f->trans_date))
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
-                                <td>{{$f->trans_date}}</td>
+{{--                                <td>{{$f->trans_date}}</td>--}}
+                                @php
+                                    $date=date_create($f->appointment_date);
+                                    $appointment_date = date_format($date,"d F Y");
+                                @endphp
+                                <td>{{$appointment_date}} {{$f->time_start_appointment}}-{{$f->time_end_appointment}}</td>
                             @else
                                 <td></td>
                             @endif
@@ -564,7 +569,12 @@
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->declaration_date)->format('d-m-Y') @endphp</td>--}}
                                 @if(!empty($f->trans_date))
 {{--                                <td>@php echo Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $f->trans_date)->format('d-m-Y') @endphp</td>--}}
-                                    <td>{{$f->trans_date}}</td>
+{{--                                    <td>{{$f->trans_date}}</td>--}}
+                                    @php
+                                        $date=date_create($f->appointment_date);
+                                        $appointment_date = date_format($date,"d F Y");
+                                    @endphp
+                                    <td>{{$appointment_date}} {{$f->time_start_appointment}}-{{$f->time_end_appointment}}</td>
                                 @else
                                     <td></td>
                                 @endif
@@ -590,7 +600,7 @@
                         <th scope="col">Application</th>
 {{--                        <th scope="col" >Card Type</th>--}}
 {{--                        <th scope="col">Grade</th>--}}
-{{--                        <th scope="col">Card Colletion</th>--}}
+{{--                        <th scope="col">Card Collection</th>--}}
 {{--                        <th scope="col" >Status</th>--}}
 {{--                        <th scope="col" >Action/Remarks</th>--}}
                     </tr>
@@ -647,9 +657,14 @@
                                             NA
                                      @endif
                                     </li>
-                                    <li class="list-group-item" aria-current="true"><b>Card Colletion:</b>
+                                    <li class="list-group-item" aria-current="true"><b>Card Collection:</b>
                                         @if(!empty($f->trans_date))
-                                            {{$f->trans_date}}
+{{--                                            {{$f->trans_date}}--}}
+                                            @php
+                                                $date=date_create($f->appointment_date);
+                                                $appointment_date = date_format($date,"d F Y");
+                                            @endphp
+                                            {{$appointment_date}} {{$f->time_start_appointment}}-{{$f->time_end_appointment}}
                                         @else
                                         @endif
                                     </li>
@@ -739,9 +754,14 @@
                                             NA
                                         @endif
                                     </li>
-                                    <li class="list-group-item" aria-current="true"><b>Card Colletion:</b>
+                                    <li class="list-group-item" aria-current="true"><b>Card Collection:</b>
                                         @if(!empty($f->trans_date))
-                                            {{$f->trans_date}}
+{{--                                            {{$f->trans_date}}--}}
+                                            @php
+                                                $date=date_create($f->appointment_date);
+                                                $appointment_date = date_format($date,"d F Y");
+                                            @endphp
+                                            {{$appointment_date}} {{$f->time_start_appointment}}-{{$f->time_end_appointment}}
                                         @else
                                         @endif
                                     </li>
