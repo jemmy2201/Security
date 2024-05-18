@@ -38,7 +38,7 @@
         }
         .column-right-border {
             float: right;
-            width: 75%;
+            width: 71%;
             font-weight: bold;
         }
         .column-right-paynow {
@@ -54,8 +54,7 @@
         }
         .column-center-border {
             display: inline-block;
-            padding-left: 23%;
-            padding-top: 5px;
+            padding-left: 26%;
             width: 30%;
         }
         .column-right-left {
