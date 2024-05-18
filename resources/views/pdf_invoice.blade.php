@@ -248,7 +248,7 @@
                    }
 @endphp
     <div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:50%;">
-        <div class="column border-5 border-secondary"  style="margin-top: 5%;">
+        <div class="column border border-secondary"  style="margin-top: 5%;">
 
             <div class="column-center-border">:</div>
             <div class="column-left">Collection At</div>
