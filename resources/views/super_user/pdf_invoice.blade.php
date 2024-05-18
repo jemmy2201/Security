@@ -103,9 +103,9 @@
 <body>
 
 <div class="row" style="margin-top:30px; margin-left:30px;">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <h4 style="color: black;">ID Card Application Details
-            <span style="margin-left:508px;">Date :<?php echo date('d/m/Y'); ?></span>
+            <span style="margin-left:708px;">Date :<?php echo date('d/m/Y'); ?></span>
         </h4>
         {{--        <h6><b>Details</b></h6>--}}
     </div>
@@ -247,8 +247,8 @@
                        }
                    }
 @endphp
-<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:50%;">
-    <div class="column border border-secondary"  style="margin-top: 5%;">
+<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:20%;width:40%;">
+    <div class="column border border-secondary"  style="margin-top: 20%;">
 
         <div class="column-center-border">:</div>
         <div class="column-left">Collection At</div>
@@ -474,7 +474,7 @@
             <div class="column-left">Remarks </div>
 
             <div class="column-right">This is a confirmation of payment of ${{$grand_total}} for the online application of the PLRD ID card</div>
-            <br>
+            <br><br><br>
         @endif
         @if($courses->Status_app == processing && $courses->paymentby =="paynow")
             <div class="column-center">:</div>

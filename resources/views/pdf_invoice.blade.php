@@ -103,9 +103,9 @@
 <body>
 
 <div class="row" style="margin-top:30px; margin-left:30px;">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <h4 style="color: black;">ID Card Application Details
-            <span style="margin-left:508px;">Date :<?php echo date('d/m/Y'); ?></span>
+            <span style="margin-left:708px;">Date :<?php echo date('d/m/Y'); ?></span>
         </h4>
         {{--        <h6><b>Details</b></h6>--}}
     </div>
@@ -247,38 +247,38 @@
                        }
                    }
 @endphp
-    <div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:50%;">
-        <div class="column border border-secondary"  style="margin-top: 5%;">
+<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:20%;width:40%;">
+    <div class="column border border-secondary"  style="margin-top: 20%;">
 
-            <div class="column-center-border">:</div>
-            <div class="column-left">Collection At</div>
-            <div class="column-right-border">UNION OF SECURITY EMPLOYEESS</div>
-            <br>
-            <div class="column-center-border"></div>
-            <div class="column-left"></div>
-            <div class="column-right-border">200 Jalan Sultan</div>
-            <br>
-            <div class="column-center-border"></div>
-            <div class="column-left"></div>
-            <div class="column-right-border">#03-24 Textile Centre</div>
-            <br>
-            <div class="column-center-border"></div>
-            <div class="column-left"></div>
-            <div class="column-right-border">Singapore 199018</div>
-            <br>
-            <div class="column-center-border">:</div>
-            <div class="column-left">Collection Date</div>
-            @php
-                $date_appointment=date_create($courses->appointment_date);
-            @endphp
+        <div class="column-center-border">:</div>
+        <div class="column-left">Collection At</div>
+        <div class="column-right-border">UNION OF SECURITY EMPLOYEESS</div>
+        <br>
+        <div class="column-center-border"></div>
+        <div class="column-left"></div>
+        <div class="column-right-border">200 Jalan Sultan</div>
+        <br>
+        <div class="column-center-border"></div>
+        <div class="column-left"></div>
+        <div class="column-right-border">#03-24 Textile Centre</div>
+        <br>
+        <div class="column-center-border"></div>
+        <div class="column-left"></div>
+        <div class="column-right-border">Singapore 199018</div>
+        <br>
+        <div class="column-center-border">:</div>
+        <div class="column-left">Collection Date</div>
+        @php
+            $date_appointment=date_create($courses->appointment_date);
+        @endphp
 
-            <div class="column-right-border">{{ date_format($date_appointment,"d F Y")}}</div>
-            <br>
-            <div class="column-center-border">:</div>
-            <div class="column-left">Time Slot</div>
-            <div class="column-right-border">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
-        </div>
+        <div class="column-right-border">{{ date_format($date_appointment,"d F Y")}}</div>
+        <br>
+        <div class="column-center-border">:</div>
+        <div class="column-left">Time Slot</div>
+        <div class="column-right-border">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
     </div>
+</div>
 <div class="row text_big" style="margin-left:2px;">
     <div class="column" style="margin-left:30px;">
         @php
@@ -289,9 +289,9 @@
         <div class="column-center">:</div>
         <div class="column-left">NRIC / FIN</div>
         <div class="column-right">{{$nric}}</div>
-{{--        <div class="column-right-center">:</div>--}}
-{{--        <div class="column-right-left">Pass ID No</div>--}}
-{{--        <div class="column-right-right">{{substr($courses->passid, 0, -2)}}</div>--}}
+        {{--        <div class="column-right-center">:</div>--}}
+        {{--        <div class="column-right-left">Pass ID No</div>--}}
+        {{--        <div class="column-right-right">{{substr($courses->passid, 0, -2)}}</div>--}}
         <br>
         <div class="column-center">:</div>
         <div class="column-left">Name</div>
@@ -301,25 +301,25 @@
                     echo wordwrap($courses->name,30,"<br>\n");
                 @endphp
             </div>
-{{--            <div class="column-right-center">:</div>--}}
-{{--            <div class="column-right-left">Card Type</div>--}}
-{{--            <div class="column-right-right">--}}
-{{--                @if($courses->app_type == news)--}}
-{{--                    NEW--}}
-{{--                @elseif($courses->app_type == replacement)--}}
-{{--                    REPLACEMENT--}}
-{{--                @elseif($courses->app_type == renewal)--}}
-{{--                    RENEWAL--}}
-{{--                @endif--}}
-{{--                ---}}
-{{--                @if($courses->card_id == so_app)--}}
-{{--                    SO--}}
-{{--                @elseif($courses->card_id == avso_app)--}}
-{{--                    AVSO--}}
-{{--                @elseif($courses->card_id == pi_app)--}}
-{{--                    PI--}}
-{{--                @endif--}}
-{{--            </div>--}}
+            {{--            <div class="column-right-center">:</div>--}}
+            {{--            <div class="column-right-left">Card Type</div>--}}
+            {{--            <div class="column-right-right">--}}
+            {{--                @if($courses->app_type == news)--}}
+            {{--                    NEW--}}
+            {{--                @elseif($courses->app_type == replacement)--}}
+            {{--                    REPLACEMENT--}}
+            {{--                @elseif($courses->app_type == renewal)--}}
+            {{--                    RENEWAL--}}
+            {{--                @endif--}}
+            {{--                ---}}
+            {{--                @if($courses->card_id == so_app)--}}
+            {{--                    SO--}}
+            {{--                @elseif($courses->card_id == avso_app)--}}
+            {{--                    AVSO--}}
+            {{--                @elseif($courses->card_id == pi_app)--}}
+            {{--                    PI--}}
+            {{--                @endif--}}
+            {{--            </div>--}}
             <br>
             <div class="column-right-center2">&nbsp;:</div>
             <div class="column-right-left">Grade</div>
@@ -339,47 +339,47 @@
         @endif
         @if (strlen($courses->name) <= 40)
             <div class="column-right">{{$courses->name}}</div>
-{{--            <div class="column-right-center">:</div>--}}
-{{--            <div class="column-right-left">Card Type</div>--}}
-{{--            <div class="column-right-right">--}}
-{{--                @if($courses->app_type == news)--}}
-{{--                    NEW--}}
-{{--                @elseif($courses->app_type == replacement)--}}
-{{--                    REPLACEMENT--}}
-{{--                @elseif($courses->app_type == renewal)--}}
-{{--                    RENEWAL--}}
-{{--                @endif--}}
-{{--                ---}}
-{{--                @if($courses->card_id == so_app)--}}
-{{--                    SO--}}
-{{--                @elseif($courses->card_id == avso_app)--}}
-{{--                    AVSO--}}
-{{--                @elseif($courses->card_id == pi_app)--}}
-{{--                    PI--}}
-{{--                @endif--}}
-{{--            </div>--}}
+            {{--            <div class="column-right-center">:</div>--}}
+            {{--            <div class="column-right-left">Card Type</div>--}}
+            {{--            <div class="column-right-right">--}}
+            {{--                @if($courses->app_type == news)--}}
+            {{--                    NEW--}}
+            {{--                @elseif($courses->app_type == replacement)--}}
+            {{--                    REPLACEMENT--}}
+            {{--                @elseif($courses->app_type == renewal)--}}
+            {{--                    RENEWAL--}}
+            {{--                @endif--}}
+            {{--                ---}}
+            {{--                @if($courses->card_id == so_app)--}}
+            {{--                    SO--}}
+            {{--                @elseif($courses->card_id == avso_app)--}}
+            {{--                    AVSO--}}
+            {{--                @elseif($courses->card_id == pi_app)--}}
+            {{--                    PI--}}
+            {{--                @endif--}}
+            {{--            </div>--}}
         @endif
         <br>
         <div class="column-center">:</div>
         <div class="column-left">Pass ID No</div>
         <div class="column-right">{{substr($courses->passid, 0, -2)}}</div>
-{{--        @if (strlen($courses->name) <= 40)--}}
-{{--            <div class="column-right-center">:</div>--}}
-{{--            <div class="column-right-left">Grade</div>--}}
-{{--            <div class="column-right-right">--}}
-{{--                @if ($request->card == so_app)--}}
-{{--                    @foreach($t_grade as $index =>$f)--}}
-{{--                        @if(!empty($courses) && $courses->grade_id== $f->id)--}}
-{{--                            {{$f->name}}--}}
-{{--                        @endif--}}
-{{--                    @endforeach--}}
-{{--                @elseif($request->card == avso_app)--}}
-{{--                    NA--}}
-{{--                @else--}}
-{{--                    NA--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--        @endif--}}
+        {{--        @if (strlen($courses->name) <= 40)--}}
+        {{--            <div class="column-right-center">:</div>--}}
+        {{--            <div class="column-right-left">Grade</div>--}}
+        {{--            <div class="column-right-right">--}}
+        {{--                @if ($request->card == so_app)--}}
+        {{--                    @foreach($t_grade as $index =>$f)--}}
+        {{--                        @if(!empty($courses) && $courses->grade_id== $f->id)--}}
+        {{--                            {{$f->name}}--}}
+        {{--                        @endif--}}
+        {{--                    @endforeach--}}
+        {{--                @elseif($request->card == avso_app)--}}
+        {{--                    NA--}}
+        {{--                @else--}}
+        {{--                    NA--}}
+        {{--                @endif--}}
+        {{--            </div>--}}
+        {{--        @endif--}}
         <br>
         <div class="column-left">Card Type</div>
         <div class="column-center">:</div>
@@ -474,7 +474,7 @@
             <div class="column-left">Remarks </div>
 
             <div class="column-right">This is a confirmation of payment of ${{$grand_total}} for the online application of the PLRD ID card</div>
-            <br>
+            <br><br><br>
         @endif
         @if($courses->Status_app == processing && $courses->paymentby =="paynow")
             <div class="column-center">:</div>
