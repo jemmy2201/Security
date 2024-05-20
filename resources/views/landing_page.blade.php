@@ -302,7 +302,7 @@
         <div class="col-sm img_ntuc_co hidden-xs" style="display: none;">
             <div class="row">
                 <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">
-                    <img src="{{URL::asset('/img/ntuc_co.png')}}" style="width: 80%; position: absolute;margin-left: -20px;">
+                    <img src="{{URL::asset('/img/ntuc_co.png')}}" style="width: 90%; position: absolute;margin-left: -20px;">
                 </a>
             </div>
         </div>
