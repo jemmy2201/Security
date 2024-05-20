@@ -38,7 +38,7 @@
         }
         .column-right-border {
             float: right;
-            width: 71%;
+            width: 70%;
             font-weight: bold;
         }
         .column-right-paynow {
@@ -54,7 +54,7 @@
         }
         .column-center-border {
             display: inline-block;
-            padding-left: 26%;
+            padding-left: 28%;
             width: 30%;
         }
         .column-right-left {
@@ -99,7 +99,7 @@
 
     </style>
 </head>
-<body>
+<body style='border: 5px solid brown'>
 
 <div class="row" style="margin-top:30px; margin-left:30px;">
     <div class="col-sm-12">
@@ -246,8 +246,8 @@
                        }
                    }
 @endphp
-<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:20%;width:40%;">
-    <div class="column border border-secondary"  style="margin-top: 20%;">
+<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:21%;width:34%;">
+    <div class="column"  style="margin-top: 20%; border: 5px solid gray;">
 
         <div class="column-center-border">:</div>
         <div class="column-left">Collection At</div>
@@ -482,7 +482,7 @@
             <br><br><br>
             <div class="column-center"></div>
             <div class="column-left"></div>
-            <div class="column-right-paynow" style=" margin-right: 300px;">
+            <div class="column-right-paynow" style=" margin-right: 320px;">
 
                 @if(!empty($courses->data_barcode_paynow))
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
@@ -501,7 +501,7 @@
                 <div style="margin-left: 40px;">calendar days only</div>
 
             </div>
-            <div class="column-right-paynow"  >
+            <div class="column-right-paynow"  style=" margin-right: 30px;">
                 <h4 >How to Make a PayNow Transfer</h4>
                 <img src="{{public_path('/img/barcode_paynow.jpg')}}" style="width: 25%;" >
                 <br>
