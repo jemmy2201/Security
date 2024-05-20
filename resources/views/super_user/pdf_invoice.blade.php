@@ -99,7 +99,7 @@
 
     </style>
 </head>
-<body style='border: 5px solid brown'>
+<body>
 
 <div class="row" style="margin-top:30px; margin-left:30px;">
     <div class="col-sm-12">
