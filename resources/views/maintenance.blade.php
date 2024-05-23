@@ -110,7 +110,7 @@
 {{--    <div id="loading"></div>--}}
     <div class="d-flex justify-content-center">
         <img  class="visible-xs hidden-md" src="{{URL::asset('/img/maintenance.png')}}" style="width: 100%">
-        <img  class="hidden-xs" src="{{URL::asset('/img/maintenance.png')}}" >
+        <img  class="hidden-xs" src="{{URL::asset('/img/maintenance.png')}}" style="margin-top: 25px;" >
     </div>
 </div>
 {{--Can't back page --}}
