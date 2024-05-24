@@ -422,34 +422,34 @@
     @endphp
     <script>
         $( document ).ready(function() {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: "POST",
-                dataType: 'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                url: "{{route('check.maintenance')}}",
-                success: function(data,textStatus, xhr)
-                {
-                    if (data[0]['status'] == true){
-                        swal("Attention!", data[0]['text_dialog'], "info");
-                        $('#btnsingpassUat').attr('hidden', true);
-                        $('#btnsingpassphoneUat').attr('hidden', true);
-                        $('#btnsingpassProd').attr('hidden', true);
-                        $('#btnsingpassphonePro').attr('hidden', true);
-                    }
-                }, error: function(data,textStatus, xhr){
-                    // Error...
-                    var errors = $.parseJSON(data.responseText);
-                    $.each(errors, function(index, value) {
-                            swal("Attention!", value, "error")
-                    });
+            {{--$.ajax({--}}
+            {{--    headers: {--}}
+            {{--        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--    },--}}
+            {{--    type: "POST",--}}
+            {{--    dataType: 'JSON',--}}
+            {{--    contentType: false,--}}
+            {{--    cache: false,--}}
+            {{--    processData: false,--}}
+            {{--    url: "{{route('check.maintenance')}}",--}}
+            {{--    success: function(data,textStatus, xhr)--}}
+            {{--    {--}}
+            {{--        if (data[0]['status'] == true){--}}
+            {{--            swal("Attention!", data[0]['text_dialog'], "info");--}}
+            {{--            $('#btnsingpassUat').attr('hidden', true);--}}
+            {{--            $('#btnsingpassphoneUat').attr('hidden', true);--}}
+            {{--            $('#btnsingpassProd').attr('hidden', true);--}}
+            {{--            $('#btnsingpassphonePro').attr('hidden', true);--}}
+            {{--        }--}}
+            {{--    }, error: function(data,textStatus, xhr){--}}
+            {{--        // Error...--}}
+            {{--        var errors = $.parseJSON(data.responseText);--}}
+            {{--        $.each(errors, function(index, value) {--}}
+            {{--                swal("Attention!", value, "error")--}}
+            {{--        });--}}
 
-                }
-            });
+            {{--    }--}}
+            {{--});--}}
 
             $( "#closes" ).click(function() {
                 $( "#relogin" ).trigger( "click" );

@@ -261,9 +261,6 @@ Route::middleware(['maintenance'])->group(function () {
         Route::post('/check/status/payment', 'AjaxController@StatusPayment');
         //end status payment
 
-        // Check Maintenance
-        Route::post('/check/maintenance', 'MaintenanceController@index')->name('check.maintenance');
-        // End Check Maintenance
         // Check Count booking
         Route::post('/user/check/count/booking', 'AjaxController@check_count_booking');
         // End Check Count booking
