@@ -299,20 +299,20 @@
             <input class="form-check-input" type="checkbox" name="app_type" id="renewal" value="{{renewal}}" ><b>&ensp;&ensp;&ensp;Renewal</b>
         </div>
         </div>
-        <div class="col-sm img_ntuc_co hidden-xs" style="display: none;">
-            <div class="row">
-                <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">
-                    <img src="{{URL::asset('/img/ntuc_co.png')}}" style="width: 90%; position: absolute;margin-left: -20px;margin-top: -60px;">
-                </a>
-            </div>
-        </div>
-        <div class="col-sm  visible-xs hidden-md" >
-            <div class="row ">
-                <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">
-                    <img class="img_ntuc_co_phone"  src="{{URL::asset('/img/ntuc_co.png')}}" style="display: none; width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">
-                </a>
-            </div>
-        </div>
+{{--        <div class="col-sm img_ntuc_co hidden-xs" style="display: none;">--}}
+{{--            <div class="row">--}}
+{{--                <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">--}}
+{{--                    <img src="{{URL::asset('/img/ntuc_co.png')}}" style="width: 90%; position: absolute;margin-left: -20px;margin-top: -60px;">--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-sm  visible-xs hidden-md" >--}}
+{{--            <div class="row ">--}}
+{{--                <a href="https://www.ntuc.org.sg/uportal/memberships/become-a-member?CampaignCode=UNION-ONLINEUSE1" target="_blank">--}}
+{{--                    <img class="img_ntuc_co_phone"  src="{{URL::asset('/img/ntuc_co.png')}}" style="display: none; width: 65%; position: absolute;margin-top: -65px; margin-left: 122px">--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         </div>
     </div>
 <br>
