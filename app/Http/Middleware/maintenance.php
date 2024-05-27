@@ -17,7 +17,7 @@ class maintenance
     public function handle($request, Closure $next)
     {
         $data = Maintenan::first();
-        if ($data->maintenace_flag){
+        if (!empty($data) && $data->maintenace_flag){
             return response(view('maintenance'));
         }
         return $next($request);
