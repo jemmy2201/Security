@@ -102,12 +102,11 @@
 <body>
 
 <div style="margin-top:30px; margin-left:45px;">
-        <h4 style="color: black;">ID Card Application Details
-        </h4>
+        <h4 style="color: black;">ID Card Application Details</h4>
         {{--        <h6><b>Details</b></h6>--}}
 </div>
 <div style="margin-top:-40px; margin-left:86%;">
-        <h4>Date :<?php echo date('d/m/Y'); ?></span>
+    <h4>Date :<?php echo date('d/m/Y'); ?></h4>
 </div>
 @php
     function formatcurrency($floatcurr, $curr = "USD"){
