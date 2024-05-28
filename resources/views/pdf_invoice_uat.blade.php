@@ -38,7 +38,7 @@
         }
         .column-right-border {
             float: right;
-            width: 68%;
+            width: 70%;
             font-weight: bold;
         }
         .column-right-paynow {
@@ -56,7 +56,6 @@
             display: inline-block;
             padding-left: 28%;
             width: 30%;
-            margin-top: 3px;
         }
         .column-right-left {
             float: right;
@@ -102,9 +101,9 @@
 </head>
 <body>
 
-<div style="margin-top:30px; margin-left:45px;">
-        <h4 style="color: black;">ID Card Application Details</h4>
-        {{--        <h6><b>Details</b></h6>--}}
+<div style="margin-top:30px; margin-left:-13px;">
+    <h4 style="color: black;">ID Card Application Details</h4>
+    {{--        <h6><b>Details</b></h6>--}}
 </div>
 <div style="margin-top:-40px; margin-left:86%;">
     <h4>Date :<?php echo date('d/m/Y'); ?></h4>
@@ -246,7 +245,7 @@
                    }
 @endphp
 <div class="column text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:2%;width:40%;">
-    <div class="column"  style="margin-top:5%;border: 5px solid gray;">
+    <div class="column"  style="margin-top:7%;border: 5px solid gray;">
 
         <div class="column-center-border">:</div>
         <div class="column-left">Collection At</div>
@@ -486,7 +485,7 @@
                 @if(!empty($courses->data_barcode_paynow))
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
                 margin-left: 130px;
-                margin-top: 100px;
+                margin-top: 130px;
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="{{$courses->data_barcode_paynow}}" style="margin-left=-30px;">
                 @else
@@ -496,11 +495,11 @@
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="data:image/png;base64, {!! $qrcode !!}">
                 @endif
-                <div style="margin-left: 70px;margin-top: -20px;">Valid for 14</div>
+                <div style="margin-left: 70px;">Valid for 14</div>
                 <div style="margin-left: 40px;">calendar days only</div>
 
             </div>
-            <div class="column-right-paynow"  style=" margin-right: 30px;margin-top: -32px;">
+            <div class="column-right-paynow"  style=" margin-right: 30px;">
                 <h4 >How to Make a PayNow Transfer</h4>
                 <img src="{{public_path('/img/barcode_paynow.jpg')}}" style="width: 25%;" >
                 <br>

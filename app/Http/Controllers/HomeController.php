@@ -1403,7 +1403,12 @@ class HomeController extends Controller
         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
 
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        if(detect_url() == URLUat){
+            $pdf = PDF::loadView('pdf_invoice_uat', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }else{
+            $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }
+
 //        return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
         $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
