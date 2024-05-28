@@ -102,18 +102,12 @@
 <body>
 
 <div style="margin-top:30px; margin-left:45px;">
-    <div >
         <h4 style="color: black;">ID Card Application Details
         </h4>
         {{--        <h6><b>Details</b></h6>--}}
-    </div>
-
 </div>
 <div style="margin-top:-40px; margin-left:86%;">
-    <div >
         <h4>Date :<?php echo date('d/m/Y'); ?></span>
-    </div>
-
 </div>
 @php
     function formatcurrency($floatcurr, $curr = "USD"){
@@ -283,7 +277,7 @@
         <div class="column-right-border">{{ $courses->time_start_appointment}} - {{$courses->time_end_appointment}}</div>
     </div>
 </div>
-<div class="row text_big" style="margin-left:2px;">
+<div class="text_big" style="margin-left:2px;">
     <div class="column" style="margin-left:30px;">
         @php
             $nric = secret_decode($courses->nric);
