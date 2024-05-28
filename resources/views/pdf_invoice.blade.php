@@ -16,7 +16,7 @@
 
         /* Create four equal columns that floats next to each other */
         .column {
-            float: left;
+            float: right;
             width: 100%;
             padding: 15px;
             /*height: 300px; !* Should be removed. Only for demonstration *!*/
@@ -251,8 +251,8 @@
                        }
                    }
 @endphp
-<div class="row text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:3%;width:40%;">
-    <div class="column"  style="margin-top: 2%; border: 5px solid gray;">
+<div class="column text_big " style="z-index: 0; position: absolute;right: 0;top: 0;margin-right:2%;width:40%;">
+    <div class="column"  style="margin-top:6%;border: 5px solid gray;">
 
         <div class="column-center-border">:</div>
         <div class="column-left">Collection At</div>
