@@ -494,7 +494,7 @@
                 margin-top: 100px;
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="data:image/png;base64, {!! $qrcode !!}">
-                @endif
+                @endif 
                 <div style="margin-left: 70px;">Valid for 14</div>
                 <div style="margin-left: 40px;">calendar days only</div>
 
