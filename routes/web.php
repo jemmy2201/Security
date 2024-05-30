@@ -20,6 +20,9 @@ Route::middleware(['maintenance'])->group(function () {
     });
     Route::get('/login/dummy/{type}', 'SingpassController@dummy_login');
     Route::get('/login/dummy/{type}/passlogin', 'SingpassController@dummy_login');
+});
+
+
 
     Route::get('/qrcode', function () {
         Artisan::call('cache:clear');
@@ -272,4 +275,3 @@ Route::middleware(['maintenance'])->group(function () {
     Route::get('/update_so', 'HomeController@ui_update_so')->name('update.so');
     Route::post('/action/update_so', 'HomeController@action_update_so')->name('action.update_so');
     //End Update SO
-});
