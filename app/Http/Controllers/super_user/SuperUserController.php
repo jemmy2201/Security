@@ -707,14 +707,31 @@ class SuperUserController extends Controller
         if (!empty($course->QRstring)) {
             $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
         }
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
-//        return $pdf->stream();
-        $content = $pdf->download()->getOriginalContent();
-        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
-        Storage::put('public/invoice/'.$name_file,$content) ;
+//        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+//        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+////        return $pdf->stream();
+//        $content = $pdf->download()->getOriginalContent();
+//        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+//        Storage::put('public/invoice/'.$name_file,$content) ;
+//
+//        return $pdf->download('App_Slip.pdf');
 
-        return $pdf->download('App_Slip.pdf');
+        // Path to the PDF file
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+
+        $path = public_path('img/img_users/invoice/'.$name_file);
+
+        // Determine the file name for download
+        $filename = 'App_Slip.pdf';
+
+        // Set the headers
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        // Download the file
+        return response()->download($path, $filename, $headers);
     }
 
     public function submission(Request $request)
