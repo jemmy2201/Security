@@ -1147,7 +1147,7 @@ class SuperUserController extends Controller
 
     public function Createpayment(Request $request)
     {
-        $time_start = microtime(true);
+//        $time_start = microtime(true);
 
 //        $payment_method = $this->payment_method($request);
 
@@ -1156,9 +1156,9 @@ class SuperUserController extends Controller
 //        }
 
 //        $schedule = booking_schedule::where(['nric' => Session::get('nric_origin')])->first();
-        $seconds = number_format((microtime(true) - $time_start) * 1000, 2);
-        $data = ["Action"=>"Payment","nric"=>Session::get('nric_origin'), "card"=>$request->card, "grade_id"=>$request->grade_id, "time_exe"=>$seconds .' seconds'];
-        Log::info(json_encode($data));
+//        $seconds = number_format((microtime(true) - $time_start) * 1000, 2);
+//        $data = ["Action"=>"Payment","nric"=>Session::get('nric_origin'), "card"=>$request->card, "grade_id"=>$request->grade_id, "time_exe"=>$seconds .' seconds'];
+//        Log::info(json_encode($data));
         return redirect()->route('home');
 //        return Redirect::route('after.payment', $request->card);
     }
