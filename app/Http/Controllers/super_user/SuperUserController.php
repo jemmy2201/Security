@@ -24,7 +24,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
 use PDF;
 use Artisan;
-
+use Log;
 class SuperUserController extends Controller
 {
     /**
@@ -1147,13 +1147,18 @@ class SuperUserController extends Controller
 
     public function Createpayment(Request $request)
     {
-        $payment_method = $this->payment_method($request);
+        $time_start = microtime(true);
 
-        if ($payment_method){
-            $this->NewPayment($request->all(),$request);
-        }
+//        $payment_method = $this->payment_method($request);
 
-        $schedule = booking_schedule::where(['nric' => Session::get('nric_origin')])->first();
+//        if ($payment_method){
+            $this->NewPayment($request);
+//        }
+
+//        $schedule = booking_schedule::where(['nric' => Session::get('nric_origin')])->first();
+        $seconds = number_format((microtime(true) - $time_start) * 1000, 2);
+        $data = ["Action"=>"Payment","nric"=>Session::get('nric_origin'), "card"=>$request->card, "grade_id"=>$request->grade_id, "time_exe"=>$seconds .' seconds'];
+        Log::info(json_encode($data));
         return redirect()->route('home');
 //        return Redirect::route('after.payment', $request->card);
     }
@@ -1200,36 +1205,36 @@ class SuperUserController extends Controller
         return $clear_data;
     }
 
-    protected  function  NewPayment($request,$requests){
-        if ($request['payment_method'] == paynow){
+    protected  function  NewPayment($request){
+//        if ($request['payment_method'] == paynow){
             $payment_method = 'paynow';
-        }elseif ($request['payment_method'] == enets){
-            $payment_method = 'enets';
-        }elseif ($request['payment_method'] == visa){
-            $payment_method = 'visa';
-        }elseif ($request['payment_method'] == mastercard){
-            $payment_method = 'mastercard';
-        }
-        $BookingScheduleAppointment = booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request['card']])
+//        }elseif ($request['payment_method'] == enets){
+//            $payment_method = 'enets';
+//        }elseif ($request['payment_method'] == visa){
+//            $payment_method = 'visa';
+//        }elseif ($request['payment_method'] == mastercard){
+//            $payment_method = 'mastercard';
+//        }
+        $BookingScheduleAppointment = booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])
             ->update([
-                'gst_id' => $request['grade_id'],
+                'gst_id' => $request->grade_id,
                 'trans_date' => date('d/m/Y H:i:s'),
 //                'expired_date' => date('Y-m-d', strtotime('+1 years')),
                 'paymentby' => $payment_method,
                 'status_payment' => paid,
-                'grand_total' => $request['grand_total'],
-                'data_barcode_paynow' => $request['barcode_paynow'],
+                'grand_total' => $request->grand_total,
+                'data_barcode_paynow' => $request->barcode_paynow,
                 'status_app' => processing,
-                'transaction_amount_id' => $request['transaction_amount_id'],
+                'transaction_amount_id' => $request->transaction_amount_id,
             ]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' =>  Session::get('nric_origin'),'booking_schedules.card_id'=>$request['card']])->first();
+            ->where(['booking_schedules.nric' =>  Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
         $t_grade = t_grade::get();
 
         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
 
         PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $requests,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
 //        return $pdf->stream();
         $content = $pdf->download()->getOriginalContent();
         $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
