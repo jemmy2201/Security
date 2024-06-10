@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
+use Log;
 class HomeController extends Controller
 {
     /**
@@ -1321,6 +1322,8 @@ class HomeController extends Controller
 
     public function Createpayment(Request $request)
     {
+        $time_start = microtime(true);
+
         $payment_method = $this->payment_method($request);
 
         if ($payment_method){
@@ -1328,6 +1331,9 @@ class HomeController extends Controller
         }
 
         $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
+        $seconds = number_format((microtime(true) - $time_start) * 1000, 2);
+        $data = ["Action"=>"Payment","nric"=>Auth::user()->nric, "card"=>$request->card, "grade_id"=>$request->grade_id, "time_exe"=>$seconds .' seconds'];
+        Log::info(json_encode($data));
         return redirect()->route('landing_page');
 //        return Redirect::route('after.payment', $request->card);
     }
