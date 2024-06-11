@@ -75,7 +75,7 @@
         /*margin-top: 60px;*/
         left: 40%;
         height: 60%;
-        background: url("../img/loading.gif") no-repeat;
+        background: url({{asset('img/loading.gif')}}) no-repeat;
         /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
         /*animation: spin 2s linear infinite;*/
     }
@@ -294,6 +294,7 @@
     <h2 style="color: black;font-weight: bold;">My Application Details</h2>
     <br>
         @csrf
+    <div class="loadingPaynow"></div>
     {{-- Desktop --}}
    <div class="container">
         <div class="row hidden-xs">
@@ -857,7 +858,6 @@
                     </center>
                 </div>
                 <div class="modal-footer">
-                    <div class="loadingPaynow"></div>
                     <button type="button"   class="btn btn-secondary" id="form_paynow_verification"  style="margin-right: 25px;">Payment Submitted</button>
 {{--                    <button type="button"   class="btn btn-secondary" id="form_paynow_verification" data-dismiss="modal" style="margin-right: 25px;">Payment Submitted</button>--}}
 {{--                    <a href="{{ $url_cancel }}" style="color: inherit; text-decoration: none;">--}}
@@ -1106,15 +1106,16 @@
     });
 
     $( document ).ready(function() {
-
+        $('.loadingPaynow').hide();
         $('#form_paynow_verification').on('click', function () {
             $("#form_paynow_verification").attr("disabled", true);
-            $('.loadingPaynow').show();
+            // $('.loadingPaynow').show();
             $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
 
         $('#paynow').on('click', function () {
+            $('.loadingPaynow').show();
             {{--window.open(document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!});--}}
             // $("#form_paynow_verification").attr("disabled", true);
             // $('.viewqrcodePaynow').hide();
