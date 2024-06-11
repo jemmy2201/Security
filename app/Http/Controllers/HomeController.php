@@ -1327,7 +1327,7 @@ class HomeController extends Controller
 //        $payment_method = $this->payment_method($request);
 
 //        if ($payment_method){
-            $this->NewPayment($request);
+        $this->NewPayment($request);
 //        }
 
 //        $schedule = booking_schedule::where(['nric' => Auth::user()->nric])->first();
@@ -1337,6 +1337,32 @@ class HomeController extends Controller
         return redirect()->route('landing_page');
 //        return Redirect::route('after.payment', $request->card);
     }
+
+    public function GeneratePdf(Request $request)
+    {
+        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+            ->update([
+                'data_barcode_paynow' => $request->data_barcode,
+            ]);
+
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
+
+        $t_grade = t_grade::get();
+
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
+
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        if(detect_url() == URLUat){
+            $pdf = PDF::loadView('pdf_invoice_uat', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }else{
+            $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }
+        $content = $pdf->download()->getOriginalContent();
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+        file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
+    }
+
     protected  function ClearDataDraft($request){
         $clear_data="";
         if ($request->app_type == news){

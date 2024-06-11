@@ -473,7 +473,7 @@
             <div class="column-right">This is a confirmation of payment of ${{$grand_total}} for the online application of the PLRD ID card</div>
             <br><br><br>
         @endif
-        @if($courses->Status_app == processing && $courses->paymentby =="paynow")
+{{--        @if($courses->Status_app == processing && $courses->paymentby =="paynow")--}}
             <div class="column-center">:</div>
             <div class="column-left">Payment Amount </div>
             <div class="column-right">${{$grand_total}} inclusive of GST (Pending confirmation)</div>
@@ -516,7 +516,7 @@
                     4.Once your Paynow transaction has been successful, USE will process with your application.
                 </div>
             </div>
-        @endif
+{{--        @endif--}}
     </div>
     {{--        <div class="column2">--}}
     {{--            <div class="column-center">:</div>--}}

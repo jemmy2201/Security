@@ -89,6 +89,7 @@ Route::middleware(['maintenance'])->group(function () {
     Route::post('/payment', 'HomeController@View_payment')->name('save.book.appointment');
     Route::get('/get_payment/{card}/{valid_resubmission}/{view_date}/{limit_schedule_id}', 'HomeController@get_View_payment');
     Route::post('/save/payment', 'HomeController@Createpayment')->name('save.payment');
+    Route::post('/generate/Pdf', 'HomeController@GeneratePdf')->name('generate.pdf');
     Route::get('/after/payment/{id}', 'HomeController@after_payment')->name('after.payment');
 
     Route::get('/personal/particular','HomeController@personaldata')->name('personal.particular');

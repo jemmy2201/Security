@@ -1058,7 +1058,34 @@
             }
         });
     }
-
+    function GeneratePDF() {
+        {{-- Generate PDF --}}
+        $.ajax({
+            url: "{{ url('/generate/Pdf') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data_barcode: $('#data_barcode').attr('src'),
+                card:{!!  json_encode( $booking_schedule->card_id) !!},
+                grade_id:{!!  json_encode( $gst->id) !!},
+                transaction_amount_id:{!!  json_encode( $transaction_amount->id) !!},
+                grand_gst:{!!  json_encode( $gst) !!},
+                grand_total:{!!  json_encode( $grand_total) !!},
+            },
+            success: function (data) {
+                // if (data == true) {
+                    // swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
+                // }else{
+                    window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
+                // }
+            },
+            error: function (request, status, error) {
+                // handling_error_ajax();
+            }
+        });
+        {{-- End Generate PDF --}}
+    }
     $(window).ready(hideLoader);
     // // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
     setTimeout($("#app").css("display", "none"), 60 * 1000);
@@ -1093,80 +1120,58 @@
             // $('.viewqrcodePaynow').hide();
             // $('.loadingPaynow').hide();
             if ($("input[name='understand_transaction']:checked").val()) {
-                {{-- Check Booking Insert --}}
-                // $.ajax({
-                {{--    url: "{{ url('/check/booking/schedule') }}",--}}
-                //     type: 'POST',
-                //     /* send the csrf-token and the input to the controller */
-                //     data: {
-                //         _token: $('meta[name="csrf-token"]').attr('content'),
-                //         data_barcode: $('#data_barcode').attr('src'),
-                {{--        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-                //     success: function (data) {
-                //         if (data == true) {
-                //             swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
-                        // }else{
-                            window.location.href=document.location.origin + "/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};
-                        // }
-                    // },
-                    // error: function (request, status, error) {
-                    //     handling_error_ajax();
-                    // }
-                // });
-                {{-- End Check Booking Insert --}}
+                $.ajax({
+                    url: "{{ url('/check_payment') }}",
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        data_barcode: $('#data_barcode').attr('src'),
+                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                    success: function (data) {
+                        if (data['status_payment'] == true){
+                            $( "#check_payment").trigger( "click" );
+                        }else {
+                            $.ajax({
+                                url: "{{ url('/create_receiptno') }}",
+                                type: 'POST',
+                                /* send the csrf-token and the input to the controller */
+                                data: {
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    data_barcode: $('#data_barcode').attr('src'),
+                                    card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
+                                success: function (data) {
+                                    generateBarcodePaynow(data['receiptNo'])
+                                    $('.loading').hide();
+                                    $('.viewqrcodePaynow').show();
+                                    let text = data['receiptNo'];
+                                    let result = text.bold();
+                                    document.getElementById("receiptNo").innerHTML = result;
+                                    GeneratePDF()
+                                    {{--setTimeout(function(){--}}
+                                    {{--    if (confirm('Has the payment been made??')) {--}}
+                                    {{--        // Save it!--}}
+                                    {{--        document.getElementById('form_paynow_verification').click();--}}
+                                    {{--        // console.log('Thing was saved to the database.');--}}
+                                    {{--    } else {--}}
+                                    {{--        // Do nothing!--}}
+                                    {{--        window.location.href = "{{URL::to('landing_page')}}"--}}
+                                    {{--    }--}}
+                                    {{--}, 10000);//wait 1 menit--}}
 
-
-            {{--    $.ajax({--}}
-            {{--        url: "{{ url('/check_payment') }}",--}}
-            {{--        type: 'POST',--}}
-            {{--        /* send the csrf-token and the input to the controller */--}}
-            {{--        data: {--}}
-            {{--            _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--            data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--            card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--        success: function (data) {--}}
-            {{--            if (data['status_payment'] == true){--}}
-            {{--                $( "#check_payment").trigger( "click" );--}}
-            {{--            }else {--}}
-            {{--                $.ajax({--}}
-            {{--                    url: "{{ url('/create_receiptno') }}",--}}
-            {{--                    type: 'POST',--}}
-            {{--                    /* send the csrf-token and the input to the controller */--}}
-            {{--                    data: {--}}
-            {{--                        _token: $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--                        data_barcode: $('#data_barcode').attr('src'),--}}
-            {{--                        card_id:{!!  json_encode( $booking_schedule->card_id) !!}},--}}
-            {{--                    success: function (data) {--}}
-            {{--                        generateBarcodePaynow(data['receiptNo'])--}}
-            {{--                        $('.loading').hide();--}}
-            {{--                        $('.viewqrcodePaynow').show();--}}
-            {{--                        let text = data['receiptNo'];--}}
-            {{--                        let result = text.bold();--}}
-            {{--                        document.getElementById("receiptNo").innerHTML = result;--}}
-            {{--                        --}}{{--setTimeout(function(){--}}
-            {{--                        --}}{{--    if (confirm('Has the payment been made??')) {--}}
-            {{--                        --}}{{--        // Save it!--}}
-            {{--                        --}}{{--        document.getElementById('form_paynow_verification').click();--}}
-            {{--                        --}}{{--        // console.log('Thing was saved to the database.');--}}
-            {{--                        --}}{{--    } else {--}}
-            {{--                        --}}{{--        // Do nothing!--}}
-            {{--                        --}}{{--        window.location.href = "{{URL::to('landing_page')}}"--}}
-            {{--                        --}}{{--    }--}}
-            {{--                        --}}{{--}, 10000);//wait 1 menit--}}
-
-            {{--                    },--}}
-            {{--                    error: function (request, status, error) {--}}
-            {{--                        handling_error_ajax();--}}
-            {{--                    }--}}
-            {{--                });--}}
-            {{--                $("#popup_paynow").trigger("click");--}}
-            {{--                $("#payment_method").val({!!  json_encode(paynow) !!})--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        error: function (request, status, error) {--}}
-            {{--            handling_error_ajax();--}}
-            {{--        }--}}
-            {{--    });--}}
+                                },
+                                error: function (request, status, error) {
+                                    handling_error_ajax();
+                                }
+                            });
+                            {{--$("#popup_paynow").trigger("click");--}}
+                            {{--$("#payment_method").val({!!  json_encode(paynow) !!})--}}
+                        }
+                    },
+                    error: function (request, status, error) {
+                        handling_error_ajax();
+                    }
+                });
 
                 } else {
                     swal("Error!", "Tick the check box to proceed.", "error")
