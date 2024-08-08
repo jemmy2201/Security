@@ -1227,26 +1227,18 @@ class SuperUserController extends Controller
                 'status_app' => processing,
                 'transaction_amount_id' => $request->transaction_amount_id,
             ]);
-        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
-            ->where(['booking_schedules.nric' =>  Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
-        $t_grade = t_grade::get();
-
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
-
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
-        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
-//        return $pdf->stream();
-        $content = $pdf->download()->getOriginalContent();
-        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
-//        Storage::put('public/img/img_users/invoice/'.$name_file,$content) ;
-        file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
-
-//            $receiptNo = new tbl_receiptNo;
+//        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+//            ->where(['booking_schedules.nric' =>  Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
+//        $t_grade = t_grade::get();
 //
-//            $receiptNo->receiptNo = $this->receiptNo();
+//        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
 //
-//            $receiptNo->save();
-//        $this->create_setifikat($request);
+//        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif','enable_javascript' => true,'javascript-delay' => 5000]);
+//        $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+//        $content = $pdf->download()->getOriginalContent();
+//        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+//        file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
+
         return $BookingScheduleAppointment;
     }
     protected function cek_month($date){

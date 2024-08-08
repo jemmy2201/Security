@@ -33,16 +33,18 @@
         animation: spin 2s linear infinite;
     }
     .loadingPhone {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
+        /*border: 16px solid #f3f3f3;*/
+        /*border-radius: 50%;*/
+        /*border-top: 16px solid #3498db;*/
+        width: 60%;
         position: absolute;
-        margin-top: 60px;
-        left: 5%;
-        height: 80px;
-        -webkit-animation: spin 2s linear infinite; /* Safari */
-        animation: spin 2s linear infinite;
+
+        /*margin-top: 60px;*/
+        left: 40%;
+        height: 60%;
+        background: url({{asset('img/loading.gif')}}) no-repeat;
+        /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+        /*animation: spin 2s linear infinite;*/
     }
 
 
