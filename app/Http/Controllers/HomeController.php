@@ -1340,11 +1340,23 @@ class HomeController extends Controller
 
     public function GeneratePdf(Request $request)
     {
+//        $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
+//            ->update([
+//                'data_barcode_paynow' => $request->data_barcode,
+//            ]);
+
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
             ->update([
+                'gst_id' => $request->grade_id,
+                'trans_date' => date('d/m/Y H:i:s'),
+//                'expired_date' => date('Y-m-d', strtotime('+1 years')),
+                'paymentby' => "paynow",
+                'status_payment' => paid,
+                'grand_total' => $request->grand_total,
                 'data_barcode_paynow' => $request->data_barcode,
+                'status_app' => processing,
+                'transaction_amount_id' => $request->transaction_amount_id,
             ]);
-
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
 
@@ -1418,15 +1430,15 @@ class HomeController extends Controller
 //        }
         $BookingScheduleAppointment = booking_schedule::where(['nric' => Auth::user()->nric,'card_id'=>$request->card])
             ->update([
-                'gst_id' => $request->grade_id,
+//                'gst_id' => $request->grade_id,
                 'trans_date' => date('d/m/Y H:i:s'),
 //                'expired_date' => date('Y-m-d', strtotime('+1 years')),
-                'paymentby' => $payment_method,
-                'status_payment' => paid,
-                'grand_total' => $request->grand_total,
-                'data_barcode_paynow' => $request->barcode_paynow,
-                'status_app' => processing,
-                'transaction_amount_id' => $request->transaction_amount_id,
+//                'paymentby' => $payment_method,
+//                'status_payment' => paid,
+//                'grand_total' => $request->grand_total,
+//                'data_barcode_paynow' => $request->barcode_paynow,
+//                'status_app' => processing,
+//                'transaction_amount_id' => $request->transaction_amount_id,
             ]);
 
 //        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')

@@ -126,6 +126,8 @@ Route::middleware(['maintenance'])->group(function () {
     Route::post('/super/user/payment', 'Super_user\SuperUserController@View_payment')->name('super_user.save.book.appointment');
     Route::get('/super/user/get_payment/{card}/{valid_resubmission}/{view_date}/{limit_schedule_id}', 'Super_user\SuperUserController@get_View_payment');
     Route::post('/super/user/save/payment', 'Super_user\SuperUserController@Createpayment')->name('super_user.save.payment');
+    Route::post('/super/user/generate/Pdf', 'HomeController@GeneratePdf')->name('super_user.generate.pdf');
+
     Route::get('/super/user/after/payment/{id}', 'Super_user\SuperUserController@after_payment')->name('super_user.after.payment');
 
     Route::get('/super/user/personal/particular','Super_user\SuperUserController@personaldata')->name('super_user.personal.particular');
