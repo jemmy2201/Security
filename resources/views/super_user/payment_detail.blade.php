@@ -1061,7 +1061,7 @@
     function GeneratePDF() {
         {{-- Generate PDF --}}
         $.ajax({
-            url: "{{ url('/generate/Pdf') }}",
+            url: "{{ url('/super/user/generate/Pdf') }}",
             type: 'POST',
             /* send the csrf-token and the input to the controller */
             data: {
