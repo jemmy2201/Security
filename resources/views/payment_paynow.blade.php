@@ -1087,7 +1087,7 @@
                     success: function (data) {
                         // if (data['status_payment'] == true){
                         //     $( "#check_payment").trigger( "click" );
-                        // }else {
+                        // }else { 
                             $.ajax({
                                 url: "{{ url('/create_receiptno') }}",
                                 type: 'POST',
