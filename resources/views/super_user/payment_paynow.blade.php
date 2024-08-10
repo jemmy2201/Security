@@ -1085,9 +1085,9 @@
                         data_barcode: $('#data_barcode').attr('src'),
                         card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                     success: function (data) {
-                        if (data['status_payment'] == true){
-                            $( "#check_payment").trigger( "click" );
-                        }else {
+                        // if (data['status_payment'] == true){
+                        //     $( "#check_payment").trigger( "click" );
+                        // }else {
                             $.ajax({
                                 url: "{{ url('/super/user/create_receiptno') }}",
                                 type: 'POST',
@@ -1127,7 +1127,7 @@
                             });
                             $("#popup_paynow").trigger("click");
                             $("#payment_method").val({!!  json_encode(paynow) !!})
-                        }
+                        // }
                     },
                     error: function (request, status, error) {
                         handling_error_ajax();
