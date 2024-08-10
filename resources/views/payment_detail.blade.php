@@ -1133,9 +1133,9 @@
                         data_barcode: $('#data_barcode').attr('src'),
                         card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                     success: function (data) {
-                        if (data['status_payment'] == true){
-                            $( "#check_payment").trigger( "click" );
-                        }else {
+                        // if (data['status_payment'] == true){
+                        //     $( "#check_payment").trigger( "click" );
+                        // }else {
                             $.ajax({
                                 url: "{{ url('/create_receiptno') }}",
                                 type: 'POST',
@@ -1156,7 +1156,7 @@
                                     handling_error_ajax();
                                 }
                             });
-                        }
+                        // }
                     },
                     error: function (request, status, error) {
                         handling_error_ajax();
@@ -1183,9 +1183,9 @@
                         data_barcode: $('#data_barcode').attr('src'),
                         card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                     success: function (data) {
-                        if (data['status_payment'] == true){
-                            $( "#check_payment").trigger( "click" );
-                        }else{
+                        // if (data['status_payment'] == true){
+                        //     $( "#check_payment").trigger( "click" );
+                        // }else{
                             $.ajax({
                                 url: "{{ url('/create_receiptno') }}",
                                 type: 'POST',
@@ -1207,7 +1207,7 @@
                                     handling_error_ajax();
                                 }
                             });
-                        }
+                        // }
                     },
                     error: function (request, status, error) {
                         handling_error_ajax();
@@ -1229,9 +1229,9 @@
                         data_barcode: $('#data_barcode').attr('src'),
                         card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                     success: function (data) {
-                        if (data['status_payment'] == true){
-                            $( "#check_payment").trigger( "click" );
-                        }else{
+                        // if (data['status_payment'] == true){
+                        //     $( "#check_payment").trigger( "click" );
+                        // }else{
                             $.ajax({
                                 url: "<?php echo e(url('/create_receiptno')); ?>",
                                 type: 'POST',
@@ -1247,7 +1247,7 @@
                             });
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             enets();
-                        }
+                        // }
                     },
                     error: function (request, status, error) {
                         handling_error_ajax();
@@ -1268,9 +1268,9 @@
                         data_barcode: $('#data_barcode').attr('src'),
                         card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                     success: function (data) {
-                        if (data['status_payment'] == true){
-                            $( "#check_payment").trigger( "click" );
-                        }else{
+                        // if (data['status_payment'] == true){
+                        //     $( "#check_payment").trigger( "click" );
+                        // }else{
                             $.ajax({
                                 url: "<?php echo e(url('/create_receiptno')); ?>",
                                 type: 'POST',
@@ -1287,7 +1287,7 @@
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             $("#payment_method").val({!!  json_encode(enets) !!})
                             enets();
-                        }
+                        // }
                     },
                     error: function (request, status, error) {
                         handling_error_ajax();
