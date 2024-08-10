@@ -1122,7 +1122,7 @@
             if ($("input[name='understand_transaction']:checked").val()) {
                 {{--window.location.href=document.location.origin + "/super/user/get_payment" +'/'+{!!  json_encode($request->card) !!} +'/'+{!!  json_encode($request->valid_resubmission) !!} +'/'+{!!  json_encode($request->view_date) !!} +'/'+{!!  json_encode($request->limit_schedule_id) !!};--}}
                 $.ajax({
-                    url: "{{ url('/check_payment') }}",
+                    url: "{{ url('/super/user/check_payment') }}",
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {
@@ -1134,7 +1134,7 @@
                         //     $( "#check_payment").trigger( "click" );
                         // }else {
                             $.ajax({
-                                url: "{{ url('/create_receiptno') }}",
+                                url: "{{ url('/super/user/create_receiptno') }}",
                                 type: 'POST',
                                 /* send the csrf-token and the input to the controller */
                                 data: {
