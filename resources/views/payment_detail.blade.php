@@ -1077,6 +1077,7 @@
                 grand_total:{!!  json_encode( $grand_total) !!},
             },
             success: function (data) {
+                $('.loadingPaynow').hide();
                 // if (data == true) {
                     // swal("Error!", "Please return to the booking schedule menu to select a booking schedule.", "error")
                 // }else{
@@ -1172,7 +1173,7 @@
 
         // $("#form_paynow_verification").attr("disabled", true);
             $('.viewqrcodePaynowPhone').hide();
-            $('.loadingPhone').show();
+            $('.loadingPaynow').show();
             if ($("input[name='understand_transaction_phone']:checked").val()) {
                 $.ajax({
                     url: "{{ url('/check_payment') }}",
@@ -1196,7 +1197,6 @@
                                     card_id:{!!  json_encode( $booking_schedule->card_id) !!}},
                                 success: function (data) {
                                     generateBarcodePaynow(data['receiptNo'])
-                                    $('.loadingPhone').hide();
                                     $('.viewqrcodePaynowPhone').show();
                                     let textPhone = data['receiptNo'];
                                     let resultPhone = textPhone.bold();
