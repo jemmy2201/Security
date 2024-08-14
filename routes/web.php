@@ -109,6 +109,7 @@ Route::middleware(['maintenance'])->group(function () {
     Route::get('/save_draft/{app_type}/{card}/{array_grade}/{logout_save_draft}', 'HomeController@savedraft');
     Route::get('/view/course/{id}', 'HomeController@view_course')->name('view.course');
     Route::get('/invoice/print/pdf/{id}', 'HomeController@print_pdf');
+    Route::post('/download/invoice/pdf', 'HomeController@downloadPDF')->name('download.pdf');
     // end get history continous
 
     Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment');

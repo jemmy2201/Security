@@ -507,8 +507,9 @@
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                <td><a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a></td>
+{{--                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp--}}
+{{--                                <td><a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a></td>--}}
+                                <td><button class="ntuc_hidden btn btn-success" onclick="DownloadInvoicePDF(@php echo $f->card_id @endphp)" >View Receipt</button></td>
                         @endif
                     </tr>
                 @endforeach
@@ -1066,6 +1067,31 @@
         });
 
     });
+    function DownloadInvoicePDF(card_id){
+
+        $.ajax({
+            url: '/download/invoice/pdf',
+            type: 'POST',
+            data: {
+                card: card_id,
+                _token: '{{ csrf_token() }}'  // Pastikan untuk mengirimkan CSRF token
+            },
+            xhrFields: {
+                responseType: 'blob' // Important for downloading binary files
+            },
+            success: function(data) {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "App_Slip.pdf";
+                link.click();
+            },
+            error: function(error) {
+                console.log("Error downloading PDF: ", error);
+            }
+        });
+    }
+
     if ((screen.width>=1024) && (screen.height>=768)) {
         $(".table").css({"display": "", "max-height": "100%","overflow":"auto"});
     } else {

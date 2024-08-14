@@ -892,6 +892,40 @@ class HomeController extends Controller
 //
 //        return $pdf->download('App_Slip.pdf');
     }
+    public function downloadPDF(Request $request)
+    {
+        $card = $request->input('card');
+        $request->merge(['card' => $card]);
+
+        $course = User::leftJoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where([
+                'booking_schedules.nric' => Auth::user()->nric,
+                'booking_schedules.card_id' => $card
+            ])->first();
+
+        if ($course && $course->status_payment == paid && $course->union_member == display) {
+            $booking_schedule = BookingSchedule::find($course->id);
+            $booking_schedule->union_member = not_display;
+            $booking_schedule->save();
+        }
+
+
+        $name_file = 'T_' . $course->passid . '_' . $course->receiptNo . '.pdf';
+
+        $path = public_path('img/img_users/invoice/' . $name_file);
+
+        if (!file_exists($path)) {
+            return response()->json(['error' => 'File not found'], 404);
+        }
+
+        $filename = 'App_Slip.pdf';
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return response()->download($path, $filename, $headers);
+    }
     public function submission(Request $request)
     {
         $grade = null;
