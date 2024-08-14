@@ -6,6 +6,8 @@
 </style
 @section('content')
 <div class="container">
+    <input type="hidden" name="barcode_paynow" id="barcode_paynow">
+
     <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
     <center class="visible-xs hidden-md">
     <img  src="{{URL::asset('/img/img_step_proses/design_phone/1.png')}}" style="width: 80%;">
@@ -509,7 +511,7 @@
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
 {{--                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp--}}
 {{--                                <td><a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a></td>--}}
-                                <td><button class="ntuc_hidden btn btn-success" onclick="DownloadInvoicePDF(@php echo $f->card_id @endphp)" >View Receipt</button></td>
+                                <td><button class="ntuc_hidden btn btn-success" onclick="CheckFileInvoicePDF(@php echo $f->card_id @endphp)" >View Receipt</button></td>
                         @endif
                     </tr>
                 @endforeach
@@ -967,6 +969,7 @@
 
     </form>
 </div>
+<script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script type="application/javascript">
     $("#BodyAll").css('background-image', 'none');
     function showHideRow(row) {
@@ -1067,8 +1070,27 @@
         });
 
     });
+    function CheckFileInvoicePDF(card_id){
+        $.ajax({
+            url: '/cek/file/invoice/pdf',
+            type: 'POST',
+            data: {
+                card: card_id,
+                _token: '{{ csrf_token() }}'  // Pastikan untuk mengirimkan CSRF token
+            },
+            success: function(data) {
+                if (data.error == false){
+                    DownloadInvoicePDF(card_id)
+                }else{
+                    CreateInvoice(data.data)
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error downloading PDF: ", status);
+            }
+        });
+    }
     function DownloadInvoicePDF(card_id){
-
         $.ajax({
             url: '/download/invoice/pdf',
             type: 'POST',
@@ -1086,8 +1108,71 @@
                 link.download = "App_Slip.pdf";
                 link.click();
             },
-            error: function(error) {
-                console.log("Error downloading PDF: ", error);
+            error: function(xhr, status, error) {
+                console.log("Error downloading PDF: ", status);
+            }
+        });
+    }
+    function CreateInvoice(booking_schedule){
+        $.ajax({
+            url: "{{ url('/create_receiptno') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                card_id:booking_schedule['card_id']
+            },
+            success: function (data) {
+                generateBarcodePaynow(data['receiptNo'],booking_schedule)
+            },
+            error: function (request, status, error) {
+                // handling_error_ajax();
+            }
+        });
+
+    }
+    function generateBarcodePaynow(receipt,booking_schedule){
+        //Create a PaynowQR object
+        let qrcode = new PaynowQR({
+            uen: {!!  json_encode(uen) !!},           //Required: UEN of company
+            amount : booking_schedule['grand_total'],               //Specify amount of money to pay.
+            // amount :"1",               //Specify amount of money to pay.
+            editable: false,             //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
+            expiry: {!!  json_encode( date('Ymd', strtotime( date("Ymd"). ' + 14 days')) ) !!},         //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
+            {{--            refNumber: {!!  json_encode(refNumber) !!} + " " +{!!  json_encode( $booking_schedule->receiptNo) !!},   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.--}}
+            refNumber: booking_schedule['passid'] +'-'+receipt.slice(-5),
+            // refNumber: "Website Testing reference number",   //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
+            company:{!!  json_encode(refNumber) !!}   //Company name to embed in the QR code. Optional.
+        });
+
+        //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
+        let QRstring = qrcode.output();
+        // new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
+        // new QRCode(document.getElementById("qrcodePaynow"), QRstring)
+        // var imageParent = document.getElementById('qrcodePaynowPhone');
+        // var image = imageParent.querySelector('img')
+        // image.id = 'data_barcode';
+        setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 50);
+        setTimeout(function(){SaveBarcodePaynow(QRstring,booking_schedule) }, 50);
+
+        // hideLoader();
+    }
+    function SaveBarcodePaynow(QRstring,booking_schedule) {
+        $.ajax({
+            url: "{{ url('/save_barcode_paynow') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data_barcode: $('#data_barcode').attr('src'),
+                card_id:booking_schedule['card_id'],
+                QRstring:QRstring
+            },
+            success: function (data) {
+                // $("#form_paynow_verification").attr("disabled", false);
+            },
+            error: function (request, status, error) {
+                // handling_error_ajax();
             }
         });
     }
