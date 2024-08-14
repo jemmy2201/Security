@@ -733,6 +733,77 @@ class SuperUserController extends Controller
         // Download the file
         return response()->download($path, $filename, $headers);
     }
+    public function CheckFileInvoicePDF(Request $request)
+    {
+        $card = $request->input('card');
+        $request->merge(['card' => $card]);
+
+        $course = User::leftJoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where([
+                'booking_schedules.nric' => Session::get('nric_origin'),
+                'booking_schedules.card_id' => $card
+            ])->first();
+
+        $name_file = 'T_' . $course->passid . '_' . $course->receiptNo . '.pdf';
+
+        $path = public_path('img/img_users/invoice/' . $name_file);
+
+        if (!file_exists($path)) {
+            return response()->json(['error' => true,'data'=>$course], 200);
+        }else{
+            return response()->json(['error' => false,'data'=>$course], 200);
+        }
+
+    }
+    public function downloadPDF(Request $request)
+    {
+        $card = $request->input('card');
+        $request->merge(['card' => $card]);
+
+        $course = User::leftJoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where([
+                'booking_schedules.nric' => Session::get('nric_origin'),
+                'booking_schedules.card_id' => $card
+            ])->first();
+
+        if ($course && $course->status_payment == paid && $course->union_member == display) {
+            $booking_schedule = BookingSchedule::find($course->id);
+            $booking_schedule->union_member = not_display;
+            $booking_schedule->save();
+        }
+
+
+        $name_file = 'T_' . $course->passid . '_' . $course->receiptNo . '.pdf';
+
+        $path = public_path('img/img_users/invoice/' . $name_file);
+
+        $filename = 'App_Slip.pdf';
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return response()->download($path, $filename, $headers);
+    }
+    public function GeneratePdfViewReceipt(Request $request)
+    {
+        $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
+            ->where(['booking_schedules.nric' =>  Session::get('nric_origin'),'booking_schedules.card_id'=>$request->card])->first();
+
+        $t_grade = t_grade::get();
+
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($course->QRstring));
+
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        if(detect_url() == URLUat){
+            $pdf = PDF::loadView('pdf_invoice_uat', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }else{
+            $pdf = PDF::loadView('pdf_invoice', ['t_grade' => $t_grade,'courses' => $course, "request" => $request,"qrcode" => $qrcode])->setPaper('a3','landscape');
+        }
+        $content = $pdf->download()->getOriginalContent();
+        $name_file = 'T_'.$course->passid.'_'.$course->receiptNo.'.pdf';
+        file_put_contents(public_path('img/img_users/invoice/'.$name_file), $content);
+    }
 
     public function submission(Request $request)
     {

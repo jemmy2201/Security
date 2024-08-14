@@ -165,6 +165,14 @@ Route::middleware(['maintenance'])->group(function () {
     Route::get('/super/user/invoice/print/pdf/{id}', 'Super_user\SuperUserController@print_pdf');
     // end get history continous
 
+    // Generate PDF View Receipt
+    Route::prefix('super/user/ViewReceipt')->group(function () {
+        Route::post('/cek/file/invoice/pdf', 'Super_user\SuperUserController@CheckFileInvoicePDF')->name('check.file.download.pdf');
+        Route::post('/generate/Pdf', 'Super_user\SuperUserController@GeneratePdfViewReceipt')->name('generate.pdf');
+        Route::post('/download/invoice/pdf', 'Super_user\SuperUserController@downloadPDF')->name('download.pdf');
+    });
+    // End Generate PDF View Receipt
+
     //Update SO
     Route::get('/super/user/update_so', 'HomeController@ui_update_so')->name('super_user.update.so');
     Route::post('/super/user/action/update_so', 'HomeController@action_update_so')->name('super_user.action.update_so');
