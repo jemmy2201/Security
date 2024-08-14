@@ -109,12 +109,19 @@ Route::middleware(['maintenance'])->group(function () {
     Route::get('/save_draft/{app_type}/{card}/{array_grade}/{logout_save_draft}', 'HomeController@savedraft');
     Route::get('/view/course/{id}', 'HomeController@view_course')->name('view.course');
     Route::get('/invoice/print/pdf/{id}', 'HomeController@print_pdf');
-    Route::post('/cek/file/invoice/pdf', 'HomeController@CheckFileInvoicePDF')->name('check.file.download.pdf');
-    Route::post('/download/invoice/pdf', 'HomeController@downloadPDF')->name('download.pdf');
     // end get history continous
 
     Route::get('/cancel/payment/{app_type}/{card}', 'HomeController@cancel_payment');
     Route::get('/use_ntuc', 'HomeController@use_ntuc');
+
+    // Generate PDF View Receipt
+    Route::prefix('ViewReceipt')->group(function () {
+        Route::post('/cek/file/invoice/pdf', 'HomeController@CheckFileInvoicePDF')->name('check.file.download.pdf');
+        Route::post('/generate/Pdf', 'HomeController@GeneratePdfViewReceipt')->name('generate.pdf');
+        Route::post('/download/invoice/pdf', 'HomeController@downloadPDF')->name('download.pdf');
+    });
+    // End Generate PDF View Receipt
+
     // End User
 
     // Super User

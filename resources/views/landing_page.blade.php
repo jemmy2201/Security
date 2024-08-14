@@ -3,9 +3,24 @@
     .disabled{
         font-weight: normal;
     }
-</style
+    .loadingPaynow {
+        /*border: 16px solid #f3f3f3;*/
+        /*border-radius: 50%;*/
+        /*border-top: 16px solid #3498db;*/
+        width: 60%;
+        position: absolute;
+
+        /*margin-top: 60px;*/
+        left: 40%;
+        height: 60%;
+        background: url({{asset('img/loading.gif')}}) no-repeat;
+        /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+        /*animation: spin 2s linear infinite;*/
+    }
+</style>
 @section('content')
 <div class="container">
+
     <input type="hidden" name="barcode_paynow" id="barcode_paynow">
 
     <img class="hidden-xs" src="{{URL::asset('/img/img_step_proses/1.png')}}" style="width: 100%;">
@@ -280,6 +295,9 @@
 
     <p><b>My Application Type</b></p>
     <div class="container">
+        <div class="loadingPaynow"></div>
+        <div id="qrcodePaynow" style="display: none"></div>
+
         <div class="row">
         <div class="col-sm">
         <div class="row">
@@ -509,7 +527,7 @@
                                 <td><a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a></td>
                         @elseif($f->Status_app >= processing)
 {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-{{--                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp--}}
+                                @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
 {{--                                <td><a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a></td>--}}
                                 <td><button class="ntuc_hidden btn btn-success" onclick="CheckFileInvoicePDF(@php echo $f->card_id @endphp)" >View Receipt</button></td>
                         @endif
@@ -692,7 +710,8 @@
                                         @elseif($f->Status_app >= processing)
                                             {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
                                             @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                           <a href="{{$url}}"><button class="ntuc_hidden_phone btn btn-success">View Receipt</button></a>
+{{--                                           <a href="{{$url}}"><button class="ntuc_hidden_phone btn btn-success">View Receipt</button></a>--}}
+                                               <button class="ntuc_hidden_phone btn btn-success" onclick="CheckFileInvoicePDF(@php echo $f->card_id @endphp)">View Receipt</button>
                                             @endif
                                     </li>
                                 </ul>
@@ -762,36 +781,36 @@
                                         @endif
                                     </li>
                                     <li class="list-group-item" aria-current="true"><b>Status:</b>
-                                        @if($f->Status_app == draft)
-                                            {{txt_draft}}
-                                        @elseif($f->Status_app == processing)
-                                            {{txt_processing}}
-                                        @elseif($f->Status_app == ready_for_id_card_printing)
-                                            {{txt_ready_for_id_card_printing}}
-                                        @elseif($f->Status_app == id_card_ready_for_collection)
-                                            {{txt_id_card_ready_for_collection}}
-                                        @elseif($f->Status_app == resubmission)
-                                            {{txt_resubmission}}
-                                        @elseif($f->Status_app == Resubmitted)
-                                            {{txt_Resubmitted}}
-                                        @elseif($f->Status_app == completed)
+{{--                                        @if($f->Status_app == draft)--}}
+{{--                                            {{txt_draft}}--}}
+{{--                                        @elseif($f->Status_app == processing)--}}
+{{--                                            {{txt_processing}}--}}
+{{--                                        @elseif($f->Status_app == ready_for_id_card_printing)--}}
+{{--                                            {{txt_ready_for_id_card_printing}}--}}
+{{--                                        @elseif($f->Status_app == id_card_ready_for_collection)--}}
+{{--                                            {{txt_id_card_ready_for_collection}}--}}
+{{--                                        @elseif($f->Status_app == resubmission)--}}
+{{--                                            {{txt_resubmission}}--}}
+{{--                                        @elseif($f->Status_app == Resubmitted)--}}
+{{--                                            {{txt_Resubmitted}}--}}
+{{--                                        @elseif($f->Status_app == completed)--}}
                                             {{txt_completed}}
-                                        @endif
+{{--                                        @endif--}}
                                     </li>
-                                    <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>
-                                        @if($f->Status_app == draft)
+{{--                                    <li class="list-group-item" aria-current="true"><b>	Action/Remarks:</b>--}}
+{{--                                        @if($f->Status_app == draft)--}}
 
-                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp
-                                            <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>
-                                        @elseif($f->Status_app == resubmission)
-                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp
-                                            <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>
-                                        @elseif($f->Status_app >= processing)
-                                            {{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
-                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp
-                                            <a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a>
-                                        @endif
-                                    </li>
+{{--                                            @php $url=url("/draft")."/".$f->app_type."/".$f->card_id; @endphp--}}
+{{--                                            <a href="{{$url}}"><button class="btn btn-primary">Continue</button></a>--}}
+{{--                                        @elseif($f->Status_app == resubmission)--}}
+{{--                                            @php $url=url("/personal/particular")."/".$f->app_type."/".$f->card_id."/".resubmission; @endphp--}}
+{{--                                            <a href="{{$url}}"><button class="btn btn-success">Resubmit</button></a>--}}
+{{--                                        @elseif($f->Status_app >= processing)--}}
+{{--                                            --}}{{--                                @php $url=url("/view/course")."/".$f->card_id; @endphp--}}
+{{--                                            @php $url= url("/invoice/print/pdf")."/".$f->card_id; @endphp--}}
+{{--                                            <a href="{{$url}}"><button class="ntuc_hidden btn btn-success">View Receipt</button></a>--}}
+{{--                                        @endif--}}
+{{--                                    </li>--}}
                                 </ul>
                             </td>
                         @endforeach
@@ -1057,6 +1076,7 @@
     // end delete process
 
     jQuery(document).ready(function($) {
+        $('.loadingPaynow').hide();
         $(".clickable-row").click(function() {
             window.location = $(this).data("href");
         });
@@ -1071,8 +1091,9 @@
 
     });
     function CheckFileInvoicePDF(card_id){
+        $('.loadingPaynow').show();
         $.ajax({
-            url: '/cek/file/invoice/pdf',
+            url: '/ViewReceipt/cek/file/invoice/pdf',
             type: 'POST',
             data: {
                 card: card_id,
@@ -1092,7 +1113,7 @@
     }
     function DownloadInvoicePDF(card_id){
         $.ajax({
-            url: '/download/invoice/pdf',
+            url: '/ViewReceipt/download/invoice/pdf',
             type: 'POST',
             data: {
                 card: card_id,
@@ -1102,6 +1123,7 @@
                 responseType: 'blob' // Important for downloading binary files
             },
             success: function(data) {
+                $('.loadingPaynow').hide();
                 var blob = new Blob([data], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
@@ -1147,11 +1169,10 @@
 
         //Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
         let QRstring = qrcode.output();
-        // new QRCode(document.getElementById("qrcodePaynowPhone"), QRstring)
-        // new QRCode(document.getElementById("qrcodePaynow"), QRstring)
-        // var imageParent = document.getElementById('qrcodePaynowPhone');
-        // var image = imageParent.querySelector('img')
-        // image.id = 'data_barcode';
+        new QRCode(document.getElementById("qrcodePaynow"), QRstring)
+        var imageParent = document.getElementById('qrcodePaynow');
+        var image = imageParent.querySelector('img')
+        image.id = 'data_barcode';
         setTimeout(function(){ $("#barcode_paynow").val($('#data_barcode').attr('src')) }, 50);
         setTimeout(function(){SaveBarcodePaynow(QRstring,booking_schedule) }, 50);
 
@@ -1169,6 +1190,7 @@
                 QRstring:QRstring
             },
             success: function (data) {
+                GeneratePDF(booking_schedule['card_id'])
                 // $("#form_paynow_verification").attr("disabled", false);
             },
             error: function (request, status, error) {
@@ -1176,6 +1198,27 @@
             }
         });
     }
+
+    function GeneratePDF(card_id) {
+        {{-- Generate PDF --}}
+        $.ajax({
+            url: "{{ url('/ViewReceipt/generate/Pdf') }}",
+            type: 'POST',
+            /* send the csrf-token and the input to the controller */
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                card:card_id,
+            },
+            success: function (data) {
+                DownloadInvoicePDF(card_id)
+            },
+            error: function (request, status, error) {
+                // handling_error_ajax();
+            }
+        });
+        {{-- End Generate PDF --}}
+    }
+
 
     if ((screen.width>=1024) && (screen.height>=768)) {
         $(".table").css({"display": "", "max-height": "100%","overflow":"auto"});
