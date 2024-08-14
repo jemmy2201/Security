@@ -1428,6 +1428,10 @@ class HomeController extends Controller
     }
     public function GeneratePdfViewReceipt(Request $request)
     {
+        booking_schedule::where(['nric' => Session::get('nric_origin'),'card_id'=>$request->card])
+            ->update([
+                'trans_date' => date('d/m/Y H:i:s'),
+            ]);
         $course = User::leftjoin('booking_schedules', 'users.nric', '=', 'booking_schedules.nric')
             ->where(['booking_schedules.nric' =>  Auth::user()->nric,'booking_schedules.card_id'=>$request->card])->first();
 
