@@ -1066,8 +1066,9 @@
     $( document ).ready(function() {
         $('#form_paynow_verification').on('click', function () {
             $("#form_paynow_verification").attr("disabled", true);
+            window.location.href = "{{URL::to('home')}}"
             // $('.loadingPaynow').show();
-            $( "#confirm_payment_paynow" ).trigger( "click" );
+            // $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
 

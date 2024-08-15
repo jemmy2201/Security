@@ -72,7 +72,7 @@
         width: 60%;
         position: absolute;
 
-        /*margin-top: 60px;*/
+        margin-top: -20px;
         left: 40%;
         height: 60%;
         background: url({{asset('img/loading.gif')}}) no-repeat;
