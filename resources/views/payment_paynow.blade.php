@@ -1066,7 +1066,7 @@
     $( document ).ready(function() {
         $('#form_paynow_verification').on('click', function () {
             $("#form_paynow_verification").attr("disabled", true);
-            $('.loadingPaynow').show();
+            // $('.loadingPaynow').show();
             $( "#confirm_payment_paynow" ).trigger( "click" );
             // $( "#popup_paynow_verfication" ).trigger( "click" );
         });
