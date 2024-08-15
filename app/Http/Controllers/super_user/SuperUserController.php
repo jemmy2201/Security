@@ -767,7 +767,7 @@ class SuperUserController extends Controller
             ])->first();
 
         if ($course && $course->status_payment == paid && $course->union_member == display) {
-            $booking_schedule = BookingSchedule::find($course->id);
+            $booking_schedule = booking_schedule::find($course->id);
             $booking_schedule->union_member = not_display;
             $booking_schedule->save();
         }
