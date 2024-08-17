@@ -484,19 +484,19 @@
             <div class="column-left"></div>
             <div class="column-right-paynow" style=" margin-right: 320px;">
 
-                @if(!empty($courses->data_barcode_paynow))
+{{--                @if(!empty($courses->data_barcode_paynow))--}}
+{{--                    <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;--}}
+{{--                margin-left: 130px;--}}
+{{--                margin-top: 125px;--}}
+{{--               transform: translate(-50%, -50%); width: 70px;">--}}
+{{--                    <img src="{{$courses->data_barcode_paynow}}" style="margin-left="-30px;"">--}}
+{{--                @else--}}
                     <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
-                margin-left: 130px;
-                margin-top: 125px;
-               transform: translate(-50%, -50%); width: 70px;">
-                    <img src="{{$courses->data_barcode_paynow}}" style="margin-left="-30px;"">
-                @else
-                    <img src="{{ public_path('img/payment_icon/paynow.jpeg') }} " style=" position: absolute;
-                margin-left: 100px;
-                margin-top: 80px;
+                margin-left: 105px;
+                margin-top: 75px;
                transform: translate(-50%, -50%); width: 70px;">
                     <img src="data:image/png;base64, {!! $qrcode !!}">
-                @endif
+{{--                @endif--}}
                 <div style="margin-left: 70px;">Valid for 14</div>
                 <div style="margin-left: 40px;">calendar days only</div>
 
