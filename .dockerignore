@@ -1,0 +1,5 @@
+node_modules       # Menghindari meng-copy dependensi Node.js ke dalam container
+vendor             # Menghindari meng-copy dependensi Composer ke dalam container
+storage/logs       # Menghindari meng-copy log yang tidak diperlukan ke container
+storage/framework  # Menghindari meng-copy cache framework Laravel
+.env               # Menghindari meng-copy file .env agar tidak bocor ke image
