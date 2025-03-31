@@ -13,7 +13,8 @@ services:
       - use-network
     environment:
       - DB_CONNECTION=mysql
-      - DB_HOST=192.168.5.171
+      - DB_HOST=192.168.56.1
+      #- DB_HOST=host.docker.internal
       - DB_PORT=3306
       - DB_DATABASE=security_employees
       - DB_USERNAME=root
