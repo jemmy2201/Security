@@ -126,5 +126,5 @@
 </script>
 {{--End Can't back page --}}
 
-<script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/paynowqr@latest/dist/paynowqr.min.js"></script>
 @endsection

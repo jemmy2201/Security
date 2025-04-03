@@ -988,7 +988,7 @@
 
     </form>
 </div>
-<script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/paynowqr@latest/dist/paynowqr.min.js"></script>
 <script type="application/javascript">
     $("#BodyAll").css('background-image', 'none');
     function showHideRow(row) {

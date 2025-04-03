@@ -642,7 +642,7 @@
                 <a href="{{ url('super/user/invoice/print/pdf/'.$request->card) }}" target="_blank" style="text-decoration: none;"><button type="button"  class=" btn btn-danger btn-lg btn-block" style=" background: #1E90FF; color: white;">Print </button></a>
             </div>
         </div>
-    <script src="https://unpkg.com/paynowqr@latest/dist/paynowqr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/paynowqr@latest/dist/paynowqr.min.js"></script>
     <script>
         $( document ).ready(function() {
             //Create a PaynowQR object
