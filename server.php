@@ -6,6 +6,13 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+$env = $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? 'local';
+$envFile = __DIR__ . "/.env.{$env}";
+
+// Jika file .env sesuai APP_ENV ada, pakai itu
+if (file_exists($envFile)) {
+    copy($envFile, __DIR__.'/.env');
+}
 
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
