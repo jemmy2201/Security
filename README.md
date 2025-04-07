@@ -35,6 +35,6 @@ docker run -d --name use ^
 1. docker login
 2. docker images
 3. docker-compose up -d --build
-4. docker build -t use-laravel-app:v1.30 . -> use-laravel-app = di cek dari docker images
-5. docker tag use-laravel-app:v1.30 jemmy22/use:v1.30   -> jemmy22/use:v1 nama yang ada di docker hub
-6. docker push jemmy22/use:v1.30
+4. docker build -t use-laravel-app:v1.31 . -> use-laravel-app = di cek dari docker images
+5. docker tag use-laravel-app:v1.31 jemmy22/use:v1.31   -> jemmy22/use:v1 nama yang ada di docker hub
+6. docker push jemmy22/use:v1.31
