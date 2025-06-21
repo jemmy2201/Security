@@ -38,6 +38,6 @@ docker run -d --name use ^
 1. docker login
 2. docker-compose up -d --build
 3. docker ps -a
-4. docker commit <container_id> use-laravel-app:v1.31
-5. docker build -t use-laravel-app:v1.31 .
-6. docker push use-laravel-app:v1.31
+4. docker commit <container_id> jemmy22/use-laravel-app:v1.31
+5. docker build -t jemmy22/use-laravel-app:v1.31 .
+6. docker push jemmy22/use-laravel-app:v1.31
