@@ -19,8 +19,9 @@ RUN php /var/www/html/artisan storage:link
 RUN php /var/www/html/artisan cache:clear
 #RUN php /var/www/html/artisan config:cache
 #RUN sleep 10 && php /var/www/htm/artisan migrate --force
-RUN cp .env.qa .env && php artisan config:clear && php artisan cache:clear
+RUN  php artisan config:clear && php artisan cache:clear
 
+COPY .env.qa .env
 # Set permission folder
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
