@@ -31,10 +31,13 @@ docker run -d --name use ^
   -v storage:/var/www/html/storage/app/public/images ^
   -v mysql-data:/var/lib/mysql ^
   jemmy22/use:1.1
+  
+## cara down di docker
+  docker-compose down
 ## cara push image ke docker hub
 1. docker login
-2. docker images
-3. docker-compose up -d --build
-4. docker build -t use-laravel-app:v1.31 . -> use-laravel-app = di cek dari docker images
-5. docker tag use-laravel-app:v1.31 jemmy22/use:v1.31   -> jemmy22/use:v1 nama yang ada di docker hub
-6. docker push jemmy22/use:v1.31
+2. docker-compose up -d --build
+3. docker ps -a
+4. docker commit <container_id> juse-laravel-app:v1.31
+5. docker build -t use-laravel-app:v1.31 .
+6. docker push use-laravel-app:v1.31
