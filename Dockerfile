@@ -9,7 +9,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy seluruh file project ke dalam container
 COPY . /var/www/html
-
+COPY .env.qa .env
 # Salin file konfigurasi Apache yang sudah dimodifikasi
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 
@@ -21,7 +21,6 @@ RUN php /var/www/html/artisan cache:clear
 #RUN sleep 10 && php /var/www/htm/artisan migrate --force
 RUN  php artisan config:clear && php artisan cache:clear
 
-COPY .env.qa .env
 # Set permission folder
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
