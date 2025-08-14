@@ -23,12 +23,12 @@
             <div class="col-6"style="color: white; text-align: left"><h2><b>PASS ID<span style="margin-left: 137px;">:</span></b></h2></div>
             <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->PassID}}</h2></div>
             <div class="w-100"></div>
-            <div class="col-6"style="color: white; text-align: left"><h2><b>NRIC / FIN<span style="margin-left: 109px;">:</span></b></h2></div>
-            @php
-                $cutnric = substr(secret_decode($soquery->M_NRIC ), -4);
-                $nric = "XXXXX$cutnric";
-            @endphp
-            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->M_NRIC }}</h2></div>
+{{--            <div class="col-6"style="color: white; text-align: left"><h2><b>NRIC / FIN<span style="margin-left: 109px;">:</span></b></h2></div>--}}
+{{--            @php--}}
+{{--                $cutnric = substr(secret_decode($soquery->M_NRIC ), -4);--}}
+{{--                $nric = "XXXXX$cutnric";--}}
+{{--            @endphp--}}
+{{--            <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->M_NRIC }}</h2></div>--}}
             <div class="w-100"></div>
             <div class="col-6"style="color: white; text-align: left"><h2><b>PWM GRADE<span style="margin-left: 65px;">:</span></b></h2></div>
             <div class="col-6" style="color: white;margin-left: -17%;"><h2>{{$soquery->Grade}}</h2></div>
