@@ -137,9 +137,9 @@
 {{--            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->Name}}</h5></div>--}}
             <div class="col-8" style="color: white;"><h5>{{$soquery->Name}}</h5></div>
             <div class="w-100"></div>
-            <div class="col-6"style="color: white;text-align: left"><h5>NRIC / FIN<span style="margin-left: 54px;">:</span></h5></div>
-            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->M_NRIC }}</h5></div>
-            <div class="w-100"></div>
+{{--            <div class="col-6"style="color: white;text-align: left"><h5>NRIC / FIN<span style="margin-left: 54px;">:</span></h5></div>--}}
+{{--            <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{$soquery->M_NRIC }}</h5></div>--}}
+{{--            <div class="w-100"></div>--}}
             <div class="col-6"style="color: white;text-align: left"><h5>PASS ID<span style="margin-left: 68px;">:</span></h5></div>
             <div class="col-6" style="color: white;margin-left: -60px;"><h5>{{substr($soquery->PassID, 0, -2)}}</h5></div>
             <div class="w-100"></div>
