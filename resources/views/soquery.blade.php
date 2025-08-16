@@ -240,8 +240,9 @@
             <div class="col-12"style="text-align: left;color: white;"><h5><b>COSEM</b></h5></div>
             <div class="w-100"></div>
             @endif
-            <div class="col-6"style="color: white;text-align: left"><h6><b>Information updated as of<span style="margin-left: 10px;">:</span></b></h6></div>
-            <div class="col-6" style="color: white;margin-left: -22px;"><h6>{{date('d F Y ',strtotime($soquery->Date_Submitted))}}</h6></div>
+{{--            <div class="col-6"style="color: white;text-align: left"><h6><b>Information updated as of<span style="margin-left: 10px;">:</span></b></h6></div>--}}
+            <div class="col-6"style="color: white;text-align: left"><h6><b>Date Updated<span style="margin-left: 44px;">:</span></b></h6></div>
+            <div class="col-6" style="color: white;margin-left: -58px;"><h6>{{date('d F Y ',strtotime($soquery->Date_Submitted))}}</h6></div>
             <div class="w-100"></div>
         </div>
     </div>
