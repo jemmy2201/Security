@@ -211,6 +211,7 @@
                 <h1><b>TRAINING COMPETENCY</b></h1>
             </div>
             <div class="row">
+
                 @if($soquery->TR_CCTC == "YES")
                     <div class="col-12">
                         <div class="training-item">
@@ -219,6 +220,42 @@
                             </div>
                             <div class="training-text">
                                 <h2>CCTC<br>Conduct Crowd and Traffic Control</h2>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if($soquery->TR_CSSPB == "YES")
+                    <div class="col-12">
+                        <div class="training-item">
+                            <div class="training-logo-box">
+                                <img src="{{URL::asset('/img/logo/Logo_2.jpg')}}" alt="CCTC Logo">
+                            </div>
+                            <div class="training-text">
+                                <h2>CSS-P/B<br>Conduct Security Screening of Person and Bag</h2>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if($soquery->TR_X_RAY == "YES")
+                    <div class="col-12">
+                        <div class="training-item">
+                            <div class="training-logo-box">
+                                <img src="{{URL::asset('/img/logo/Logo_3.jpg')}}" alt="CCTC Logo">
+                            </div>
+                            <div class="training-text">
+                                <h2>CSS-X<br>Conduct Security Screening using X-ray Machine</h2>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if($soquery->TR_HCTA == "YES")
+                    <div class="col-12">
+                        <div class="training-item">
+                            <div class="training-logo-box">
+                                <img src="{{URL::asset('/img/logo/Logo_4.jpg')}}" alt="RTT Logo">
+                            </div>
+                            <div class="training-text">
+                                <h2>HCTA<br>Handle Counter Terrorism Activities</h2>
                             </div>
                         </div>
                     </div>
@@ -245,6 +282,15 @@
                 <div class="col-12">
                     @if($soquery->SKILL_BFM == "YES")
                         <div class="skills-item"><h2><b>Basic Facilities Management</b></h2></div>
+                    @endif
+                    @if($soquery->SKILL_BSS == "YES")
+                        <div class="skills-item"><h2><b>Fundamentals of Building Services & Safety</b></h2></div>
+                    @endif
+                    @if($soquery->SKILL_FSM == "YES")
+                        <div class="skills-item"><h2><b>Fire Safety Management</b></h2></div>
+                    @endif
+                    @if($soquery->SKILL_CERT == "YES")
+                        <div class="skills-item"><h2><b>CERT</b></h2></div>
                     @endif
                     @if($soquery->SKILL_COSEM == "YES")
                         <div class="skills-item"><h2><b>COSEM</b></h2></div>
