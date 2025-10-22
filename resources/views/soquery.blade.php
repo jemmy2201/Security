@@ -275,28 +275,36 @@
             </div>
 
             {{-- Header: SKILL SETS ACQUIRED --}}
-{{--            <div class="header-section skills-header">--}}
-{{--                <h1><b>SKILL SETS ACQUIRED</b></h1>--}}
-{{--            </div>--}}
-            <div class="row">
-                <div class="col-12">
-                    @if($soquery->SKILL_BFM == "YES")
-                        <div class="skills-item"><h2><b>Basic Facilities Management</b></h2></div>
-                    @endif
-                    @if($soquery->SKILL_BSS == "YES")
-                        <div class="skills-item"><h2><b>Fundamentals of Building Services & Safety</b></h2></div>
-                    @endif
-                    @if($soquery->SKILL_FSM == "YES")
-                        <div class="skills-item"><h2><b>Fire Safety Management</b></h2></div>
-                    @endif
-                    @if($soquery->SKILL_CERT == "YES")
-                        <div class="skills-item"><h2><b>CERT</b></h2></div>
-                    @endif
-                    @if($soquery->SKILL_COSEM == "YES")
-                        <div class="skills-item"><h2><b>COSEM</b></h2></div>
-                    @endif
+            @if(
+                 $soquery->SKILL_BFM == "YES" ||
+                 $soquery->SKILL_BSS == "YES" ||
+                 $soquery->SKILL_FSM == "YES" ||
+                 $soquery->SKILL_CERT == "YES" ||
+                 $soquery->SKILL_COSEM == "YES"
+             )
+                <div class="header-section skills-header">
+                    <h1><b>SKILL SETS ACQUIRED</b></h1>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-12">
+                        @if($soquery->SKILL_BFM == "YES")
+                            <div class="skills-item"><h2><b>Basic Facilities Management</b></h2></div>
+                        @endif
+                        @if($soquery->SKILL_BSS == "YES")
+                            <div class="skills-item"><h2><b>Fundamentals of Building Services & Safety</b></h2></div>
+                        @endif
+                        @if($soquery->SKILL_FSM == "YES")
+                            <div class="skills-item"><h2><b>Fire Safety Management</b></h2></div>
+                        @endif
+                        @if($soquery->SKILL_CERT == "YES")
+                            <div class="skills-item"><h2><b>CERT</b></h2></div>
+                        @endif
+                        @if($soquery->SKILL_COSEM == "YES")
+                            <div class="skills-item"><h2><b>COSEM</b></h2></div>
+                        @endif
+                    </div>
+                </div>
+            @endif
 
             {{-- Footer: Information Updated As Of --}}
             <div class="row footer-section">
