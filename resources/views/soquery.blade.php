@@ -275,9 +275,9 @@
             </div>
 
             {{-- Header: SKILL SETS ACQUIRED --}}
-            <div class="header-section skills-header">
-                <h1><b>SKILL SETS ACQUIRED</b></h1>
-            </div>
+{{--            <div class="header-section skills-header">--}}
+{{--                <h1><b>SKILL SETS ACQUIRED</b></h1>--}}
+{{--            </div>--}}
             <div class="row">
                 <div class="col-12">
                     @if($soquery->SKILL_BFM == "YES")
